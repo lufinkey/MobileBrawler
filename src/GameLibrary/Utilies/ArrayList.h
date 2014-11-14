@@ -10,7 +10,6 @@ namespace GameLibrary
 	{
 	private:
 		std::vector<T> objects;
-		unsigned int length
 		
 	public:
 		ArrayList()
