@@ -75,25 +75,25 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\GameLibrary\Utilies\ArrayList.h">
-      <Filter>Header Files\GameLibrary\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameLibrary\Utilies\String.h">
-      <Filter>Header Files\GameLibrary\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameLibrary\Utilies\Math.h">
-      <Filter>Header Files\GameLibrary\Utilities</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\GameLibrary\Utilies\String.cpp">
-      <Filter>Source Files\GameLibrary\Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameLibrary\Utilies\Math.cpp">
+    <ClCompile Include="src\GameLibrary\Utilities\Math.cpp">
       <Filter>Source Files\GameLibrary\Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Utilities\String.cpp">
+      <Filter>Source Files\GameLibrary\Utilities</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
+      <Filter>Header Files\GameLibrary\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\Math.h">
+      <Filter>Header Files\GameLibrary\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\String.h">
+      <Filter>Header Files\GameLibrary\Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
