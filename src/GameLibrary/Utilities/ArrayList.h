@@ -42,7 +42,7 @@ namespace GameLibrary
 			objects.resize(size);
 		}
 		
-		virtual ~ArrayList()
+		~ArrayList()
 		{
 			objects.resize(0);
 		}

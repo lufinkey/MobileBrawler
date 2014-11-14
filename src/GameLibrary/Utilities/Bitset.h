@@ -3,32 +3,32 @@
 
 #pragma once
 
-namespace GameEngine
+namespace GameLibrary
 {
+#define BITMASK_1 1
+#define BITMASK_2 2
+#define BITMASK_3 4
+#define BITMASK_4 8
+#define BITMASK_5 16
+#define BITMASK_6 32
+#define BITMASK_7 64
+#define BITMASK_8 128
+
 	class Bitset
 	{
 	private:
 		byte b;
 		
 	public:
-		static const byte BITMASK_ONE   = 1;
-		static const byte BITMASK_TWO   = 2;
-		static const byte BITMASK_THREE = 4;
-		static const byte BITMASK_FOUR  = 8;
-		static const byte BITMASK_FIVE  = 16;
-		static const byte BITMASK_SIX   = 32;
-		static const byte BITMASK_SEVEN = 64;
-		static const byte BITMASK_EIGHT = 128;
-		
 		Bitset();
 		Bitset(byte b);
 		Bitset(bool bits[8]);
 		~Bitset();
 		
-		bool get(unsigned int index);
+		bool get(unsigned int index) const;
 		void set(unsigned int index, bool toggle);
 		
-		byte&getByte();
+		const byte& getByte() const;
 		
 		Bitset& operator=(const Bitset&bitset);
 	};

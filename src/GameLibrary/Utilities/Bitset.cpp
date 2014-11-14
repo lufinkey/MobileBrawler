@@ -1,7 +1,7 @@
 
 #include "Bitset.h"
 
-namespace GameEngine
+namespace GameLibrary
 {
 	Bitset::Bitset()
 	{
@@ -15,7 +15,7 @@ namespace GameEngine
 	
 	Bitset::Bitset(bool bits[8])
 	{
-		byte = 0;
+		b = 0;
 		for(int i=0; i<8; i++)
 		{
 			if(bits[i]=='1')
@@ -30,7 +30,7 @@ namespace GameEngine
 		//
 	}
 	
-	bool Bitset::get(unsigned int index)
+	bool Bitset::get(unsigned int index) const
 	{
 		return ((b & (1 << index))!=0);
 	}
@@ -47,7 +47,7 @@ namespace GameEngine
 		}
 	}
 	
-	byte& Bitset::getByte()
+	const byte& Bitset::getByte() const
 	{
 		return b;
 	}
