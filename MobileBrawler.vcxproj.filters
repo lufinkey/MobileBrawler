@@ -78,5 +78,13 @@
     <ClInclude Include="src\GameLibrary\Utilies\ArrayList.h">
       <Filter>Header Files\GameLibrary\Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilies\String.h">
+      <Filter>Header Files\GameLibrary\Utilities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\GameLibrary\Utilies\String.cpp">
+      <Filter>Source Files\GameLibrary\Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

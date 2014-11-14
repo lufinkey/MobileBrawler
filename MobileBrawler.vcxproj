@@ -79,6 +79,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilies\ArrayList.h" />
+    <ClInclude Include="src\GameLibrary\Utilies\String.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\GameLibrary\Utilies\String.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
