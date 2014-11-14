@@ -73,6 +73,12 @@
     <Filter Include="Source Files\GameLibrary\Utilities\Geometry">
       <UniqueIdentifier>{bc480fec-0ac3-4a1b-ad51-56a6b90848e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameLibrary\Exception">
+      <UniqueIdentifier>{109c41b6-0dcb-4e45-ac72-951f0e244671}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLibrary\Exception">
+      <UniqueIdentifier>{f808ddc0-c040-4cb6-816b-def615cd3e46}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -86,6 +92,93 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Utilities\Bitset.cpp">
       <Filter>Source Files\GameLibrary\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Actor\Actor.cpp">
+      <Filter>Source Files\GameLibrary\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Actor\ActorType.cpp">
+      <Filter>Source Files\GameLibrary\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Actor\TextActor.cpp">
+      <Filter>Source Files\GameLibrary\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Actor\WireframeActor.cpp">
+      <Filter>Source Files\GameLibrary\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Audio\Music.cpp">
+      <Filter>Source Files\GameLibrary\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Audio\Sound.cpp">
+      <Filter>Source Files\GameLibrary\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\ArrayListOutOfBoundsException.cpp">
+      <Filter>Source Files\GameLibrary\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\BitsetOutOfBoundsException.cpp">
+      <Filter>Source Files\GameLibrary\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\GameLibraryException.cpp">
+      <Filter>Source Files\GameLibrary\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\OutOfBoundsException.cpp">
+      <Filter>Source Files\GameLibrary\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Graphics\BufferedImage.cpp">
+      <Filter>Source Files\GameLibrary\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Graphics\Color.cpp">
+      <Filter>Source Files\GameLibrary\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Graphics\Graphics.cpp">
+      <Filter>Source Files\GameLibrary\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Graphics\Image.cpp">
+      <Filter>Source Files\GameLibrary\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\IO\Console.cpp">
+      <Filter>Source Files\GameLibrary\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\IO\Keyboard.cpp">
+      <Filter>Source Files\GameLibrary\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\IO\Mouse.cpp">
+      <Filter>Source Files\GameLibrary\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\IO\Multitouch.cpp">
+      <Filter>Source Files\GameLibrary\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Network\NetworkProtocol.cpp">
+      <Filter>Source Files\GameLibrary\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Screen\MenuScreen.cpp">
+      <Filter>Source Files\GameLibrary\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Screen\Screen.cpp">
+      <Filter>Source Files\GameLibrary\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Screen\ScreenManager.cpp">
+      <Filter>Source Files\GameLibrary\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Utilities\Dictionary.cpp">
+      <Filter>Source Files\GameLibrary\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Utilities\Geometry\Circle.cpp">
+      <Filter>Source Files\GameLibrary\Utilities\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Utilities\Geometry\Rectangle.cpp">
+      <Filter>Source Files\GameLibrary\Utilities\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Window\View.cpp">
+      <Filter>Source Files\GameLibrary\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Window\Window.cpp">
+      <Filter>Source Files\GameLibrary\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Application.cpp">
+      <Filter>Source Files\GameLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\AssetManager.cpp">
+      <Filter>Source Files\GameLibrary</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +195,102 @@
       <Filter>Header Files\GameLibrary\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Types.h">
+      <Filter>Header Files\GameLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Actor\Actor.h">
+      <Filter>Header Files\GameLibrary\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Actor\ActorType.h">
+      <Filter>Header Files\GameLibrary\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Actor\TextActor.h">
+      <Filter>Header Files\GameLibrary\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Actor\WireframeActor.h">
+      <Filter>Header Files\GameLibrary\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Audio\Music.h">
+      <Filter>Header Files\GameLibrary\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Audio\Sound.h">
+      <Filter>Header Files\GameLibrary\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\ArrayListOutOfBoundsException.h">
+      <Filter>Header Files\GameLibrary\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\BitsetOutOfBoundsException.h">
+      <Filter>Header Files\GameLibrary\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\GameLibraryException.h">
+      <Filter>Header Files\GameLibrary\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\OutOfBoundsException.h">
+      <Filter>Header Files\GameLibrary\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Graphics\BufferedImage.h">
+      <Filter>Header Files\GameLibrary\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Graphics\Color.h">
+      <Filter>Header Files\GameLibrary\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Graphics\Graphics.h">
+      <Filter>Header Files\GameLibrary\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Graphics\Image.h">
+      <Filter>Header Files\GameLibrary\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\IO\Console.h">
+      <Filter>Header Files\GameLibrary\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\IO\Keyboard.h">
+      <Filter>Header Files\GameLibrary\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\IO\Mouse.h">
+      <Filter>Header Files\GameLibrary\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\IO\Multitouch.h">
+      <Filter>Header Files\GameLibrary\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Network\NetworkProtocol.h">
+      <Filter>Header Files\GameLibrary\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Screen\MenuScreen.h">
+      <Filter>Header Files\GameLibrary\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Screen\Screen.h">
+      <Filter>Header Files\GameLibrary\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Screen\ScreenManager.h">
+      <Filter>Header Files\GameLibrary\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\Dictionary.h">
+      <Filter>Header Files\GameLibrary\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\Geometry\Circle.h">
+      <Filter>Header Files\GameLibrary\Utilities\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\Geometry\Rectangle.h">
+      <Filter>Header Files\GameLibrary\Utilities\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\Geometry\Vector2.h">
+      <Filter>Header Files\GameLibrary\Utilities\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\Geometry\Vector3.h">
+      <Filter>Header Files\GameLibrary\Utilities\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Window\View.h">
+      <Filter>Header Files\GameLibrary\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Window\Window.h">
+      <Filter>Header Files\GameLibrary\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Application.h">
+      <Filter>Header Files\GameLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\AssetManager.h">
+      <Filter>Header Files\GameLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\GameLibrary.h">
       <Filter>Header Files\GameLibrary</Filter>
     </ClInclude>
   </ItemGroup>
