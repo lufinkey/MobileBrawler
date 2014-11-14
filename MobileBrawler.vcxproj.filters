@@ -74,4 +74,9 @@
       <UniqueIdentifier>{bc480fec-0ac3-4a1b-ad51-56a6b90848e2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\GameLibrary\Utilies\ArrayList.h">
+      <Filter>Header Files\GameLibrary\Utilities</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>
