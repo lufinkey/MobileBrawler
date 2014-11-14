@@ -1,3 +1,13 @@
+
+# User files
+MobileBrawler.xcodeproj/xcuserdata/
+MobileBrawler.xcodeproj/project.xcworkspace/xcuserdata/
+MobileBrawler.xcodeproj/luis.mode1v3
+MobileBrawler.xcodeproj/luis.pbxuser
+
+# iSSB generated files
+com.brokenphysics.iSSB.prefs
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
@@ -26,7 +36,8 @@ $RECYCLE.BIN/
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -41,3 +52,8 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Output directories
+Debug/
+Release/
+build/
