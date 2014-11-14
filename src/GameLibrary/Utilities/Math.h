@@ -8,14 +8,14 @@ namespace GameLibrary
 	public:
 		double sin(double radians);
 
-		/*double cos(double radians);
+		double cos(double radians);
 
 		///natural log
 		double log(double arg);
 
 		double log(double base, double arg);
 
-		double log10(double arg);*/
+		double log10(double arg);
 
 
 	};
