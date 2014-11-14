@@ -84,6 +84,9 @@
     <ClCompile Include="src\GameLibrary\Utilities\String.cpp">
       <Filter>Source Files\GameLibrary\Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Utilities\Bitset.cpp">
+      <Filter>Source Files\GameLibrary\Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -94,6 +97,12 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Utilities\String.h">
       <Filter>Header Files\GameLibrary\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\Bitset.h">
+      <Filter>Header Files\GameLibrary\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Types.h">
+      <Filter>Header Files\GameLibrary</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

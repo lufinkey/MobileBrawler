@@ -78,12 +78,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameLibrary\Utilities\Bitset.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Math.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\String.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameLibrary\Types.h" />
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h" />
+    <ClInclude Include="src\GameLibrary\Utilities\Bitset.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Math.h" />
     <ClInclude Include="src\GameLibrary\Utilities\String.h" />
   </ItemGroup>
