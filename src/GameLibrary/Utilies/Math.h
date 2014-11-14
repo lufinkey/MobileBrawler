@@ -11,11 +11,11 @@ namespace GameLibrary
 		double cos(double radians);
 
 		///natural log
-		double log(double radians);
+		double log(double arg);
 
-		double log(double radians, int base);
+		double log(double base, double arg);
 
-		double log10(double radians);
+		double log10(double arg);
 
 
 	};
