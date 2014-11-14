@@ -13,5 +13,65 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\GameLibrary">
+      <UniqueIdentifier>{21d84bed-533e-4c4a-85d6-f2ee2dc977e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLibrary\Audio">
+      <UniqueIdentifier>{75b57734-cf93-44a0-aa7f-577523587352}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLibrary\Actor">
+      <UniqueIdentifier>{684f916e-bddc-4869-b932-aea82e0c9b29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLibrary\Graphics">
+      <UniqueIdentifier>{7e577488-97fa-4cd3-b4db-72f537648ad2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLibrary\IO">
+      <UniqueIdentifier>{1f4e72f9-6024-4b82-b364-45befd6b25f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLibrary\Network">
+      <UniqueIdentifier>{378e4236-c70b-44d1-afb5-e60f5821532e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLibrary\Screen">
+      <UniqueIdentifier>{c2374761-8615-4d18-8ade-8cf811da5aeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLibrary\Utilities">
+      <UniqueIdentifier>{09f1c357-e01d-4b47-addc-276ca6478f2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLibrary\Window">
+      <UniqueIdentifier>{e0c72f78-bd99-4a66-b384-78a1438771be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLibrary\Utilities\Geometry">
+      <UniqueIdentifier>{da89abf8-1a38-47a1-8cc5-dc21d754007c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLibrary">
+      <UniqueIdentifier>{38747f75-1243-4ee1-823b-b282c84aac72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLibrary\Audio">
+      <UniqueIdentifier>{b590bb5a-c6a5-4349-b304-3e838ae4b67c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLibrary\Actor">
+      <UniqueIdentifier>{85d636f6-5ec4-401b-8c68-3df8d9cd6763}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLibrary\Graphics">
+      <UniqueIdentifier>{90c2d67a-ea0b-4ead-8f5e-eabc2e39907f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLibrary\IO">
+      <UniqueIdentifier>{ea9bf0b9-4a52-4c1c-8a07-b571a5e5bf31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLibrary\Network">
+      <UniqueIdentifier>{1f911086-78f8-4d9c-bf3b-34bfc5efb7bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLibrary\Window">
+      <UniqueIdentifier>{38a4e725-7196-4256-90b5-fb8a4fd5cf65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLibrary\Screen">
+      <UniqueIdentifier>{32fa0727-3d79-496c-9e9c-ca3889187df8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLibrary\Utilities">
+      <UniqueIdentifier>{30910948-e4ba-4ec5-8c64-374661914d55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLibrary\Utilities\Geometry">
+      <UniqueIdentifier>{bc480fec-0ac3-4a1b-ad51-56a6b90848e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
