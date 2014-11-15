@@ -3,11 +3,6 @@
 
 namespace GameLibrary
 {
-	OutOfBoundsException::OutOfBoundsException() : Exception("")
-	{
-		//
-	}
-
 	OutOfBoundsException::OutOfBoundsException(const OutOfBoundsException&exception) : Exception(exception)
 	{
 		//

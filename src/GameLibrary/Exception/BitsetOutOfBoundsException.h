@@ -1,5 +1,4 @@
 
-#include "../Types.h"
 #include "OutOfBoundsException.h"
 
 #pragma once
@@ -11,8 +10,8 @@ namespace GameLibrary
 	public:
 		unsigned int index;
 
-		BitsetOutOfBoundsException(unsigned int index);
 		BitsetOutOfBoundsException(const BitsetOutOfBoundsException&);
+		BitsetOutOfBoundsException(unsigned int index);
 		virtual ~BitsetOutOfBoundsException();
 	};
 }
