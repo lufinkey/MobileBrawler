@@ -5,17 +5,20 @@
 
 namespace GameLibrary
 {
+#define STRING_NOTFOUND std::numeric_limits<unsigned int>::max()
+
 	class String
 	{
+		friend std::ostream& operator<<(std::ostream& stream, const String& str);
 	private:
 		char*characters;
-		int total;
+		unsigned int total;
 		
-		std::string intToString(const int num) const;
-		std::string uintToString(const unsigned int num) const;
-		std::string floatToString(const float num) const;
-		std::string doubleToString(const double num) const;
-		std::string longToString(const long num) const;
+		static std::string intToString(int num);
+		static std::string uintToString(unsigned int num);
+		static std::string floatToString(float num);
+		static std::string doubleToString(double num);
+		static std::string longToString(long num);
 		
 	public:
 		static bool asBool(const String&str);
@@ -37,14 +40,14 @@ namespace GameLibrary
 		String(const char*str);
 		String(const wchar_t*str);
 		String(const std::wstring&str);
-		String(const char c);
-		String(const unsigned char num);
-		String(const bool b);
-		String(const int num);
-		String(const unsigned int num);
-		String(const float num);
-		String(const double num);
-		String(const long num);
+		String(bool b);
+		String(char c);
+		String(unsigned char num);
+		String(int num);
+		String(unsigned int num);
+		String(float num);
+		String(double num);
+		String(long num);
 		virtual ~String();
 
 		std::wstring wstring() const;
@@ -63,47 +66,45 @@ namespace GameLibrary
 		String operator+(const char*str) const;
 		String operator+(const wchar_t*str) const;
 		String operator+(const std::wstring& str) const;
-		String operator+(const bool b) const;
-		String operator+(const char c) const;
-		String operator+(const unsigned char num) const;
-		String operator+(const int num) const;
-		String operator+(const unsigned int num) const;
-		String operator+(const long num) const;
-		String operator+(const float num) const;
-		String operator+(const double num) const;
+		String operator+(bool b) const;
+		String operator+(char c) const;
+		String operator+(unsigned char num) const;
+		String operator+(int num) const;
+		String operator+(unsigned int num) const;
+		String operator+(long num) const;
+		String operator+(float num) const;
+		String operator+(double num) const;
 		
 		String& operator+=(const String& str);
 		String& operator+=(const std::string& str);
 		String& operator+=(const char*str);
 		String& operator+=(const wchar_t*str);
 		String& operator+=(const std::wstring& str);
-		String& operator+=(const bool b);
-		String& operator+=(const char c);
-		String& operator+=(const unsigned char num);
-		String& operator+=(const int num);
-		String& operator+=(const unsigned int num);
-		String& operator+=(const long num);
-		String& operator+=(const float num);
-		String& operator+=(const double num);
+		String& operator+=(bool b);
+		String& operator+=(char c);
+		String& operator+=(unsigned char num);
+		String& operator+=(int num);
+		String& operator+=(unsigned int num);
+		String& operator+=(long num);
+		String& operator+=(float num);
+		String& operator+=(double num);
 		
 		String& operator=(const String& str);
 		String& operator=(const std::string& str);
 		String& operator=(const char*str);
 		String& operator=(const wchar_t*str);
 		String& operator=(const std::wstring& str);
-		String& operator=(const bool b);
-		String& operator=(const char c);
-		String& operator=(const unsigned char num);
-		String& operator=(const int num);
-		String& operator=(const unsigned int num);
-		String& operator=(const long num);
-		String& operator=(const float num);
-		String& operator=(const double num);
+		String& operator=(bool b);
+		String& operator=(char c);
+		String& operator=(unsigned char num);
+		String& operator=(int num);
+		String& operator=(unsigned int num);
+		String& operator=(long num);
+		String& operator=(float num);
+		String& operator=(double num);
 		
-		bool operator==(String& cmp) const;
+		bool operator==(const String& cmp) const;
 		bool operator==(const char*cmp) const;
-		
-		friend std::ostream& operator<<(std::ostream& stream, const String& str);
 		
 		bool equals(const String& cmp) const;
 		bool equals(const char*cmp) const;
@@ -111,15 +112,15 @@ namespace GameLibrary
 		int compare(const String& cmp) const;
 		
 		void clear();
-		int length() const;
-		char charAt(int index) const;
-		void replace(char find, char replace);
-		void replace(const String&find, const String&rep);
-		String substring(int beginIndex) const;
-		String substring(int beginIndex, int endIndex) const;
+		unsigned int length() const;
+		char charAt(unsigned int index) const;
+		String replace(char find, char replace);
+		String replace(const String&find, const String&rep);
+		String substring(unsigned int beginIndex) const;
+		String substring(unsigned int beginIndex, unsigned int endIndex) const;
 		String trim() const;
-		int indexOf(const String&str) const;
-		int lastIndexOf(const String&str) const;
+		unsigned int indexOf(const String&str) const;
+		unsigned int lastIndexOf(const String&str) const;
 		String toLowerCase();
 		String toUpperCase();
 	};
