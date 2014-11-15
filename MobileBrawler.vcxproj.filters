@@ -58,9 +58,6 @@
     <Filter Include="Source Files\GameLibrary\IO">
       <UniqueIdentifier>{ea9bf0b9-4a52-4c1c-8a07-b571a5e5bf31}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\GameLibrary\Network">
-      <UniqueIdentifier>{1f911086-78f8-4d9c-bf3b-34bfc5efb7bc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\GameLibrary\Window">
       <UniqueIdentifier>{38a4e725-7196-4256-90b5-fb8a4fd5cf65}</UniqueIdentifier>
     </Filter>
@@ -78,6 +75,9 @@
     </Filter>
     <Filter Include="Source Files\GameLibrary\Exception">
       <UniqueIdentifier>{f808ddc0-c040-4cb6-816b-def615cd3e46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLibrary\Network">
+      <UniqueIdentifier>{1f911086-78f8-4d9c-bf3b-34bfc5efb7bc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

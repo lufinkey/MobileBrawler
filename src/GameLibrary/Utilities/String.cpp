@@ -1936,7 +1936,7 @@ namespace GameLibrary
 		return characters[index];
 	}
 	
-	String String::replace(char find, char replace)
+	String String::replace(char find, char replace) const
 	{
 		String replacedStr(*this);
 		for(unsigned int i=0; i<total; i++)
@@ -1949,7 +1949,7 @@ namespace GameLibrary
 		return replacedStr;
 	}
 	
-	String String::replace(const String&find, const String&rep)
+	String String::replace(const String&find, const String&rep) const
 	{
 		if(find.total==0)
 		{
@@ -1984,7 +1984,7 @@ namespace GameLibrary
 					indexes.resize(indexTotal+1);
 					indexes[indexTotal] = i;
 					indexTotal++;
-					i+= (find.total-1);
+					i += (find.total-1);
 				}
 			}
 		}
@@ -1993,127 +1993,138 @@ namespace GameLibrary
 		{
 			String newStr(*this);
 
-			unsigned int dif = 0;
-			bool posDif = true;
-			if(rep.total < find.total)
+			bool posDif = false;
+			unsigned int dif;
+			if(rep.total >= find.total)
 			{
-				dif = find.total - rep.total;
-				posDif = false;
+				posDif = true;
+				dif = rep.total - find.total;
 			}
 			else
 			{
-				dif = rep.total - find.total;
+				posDif = false;
+				dif = find.total - rep.total;
 			}
 
 			unsigned int totalSize = 0;
 			if(posDif)
 			{
-				totalSize = total + (indexes.size()*dif);
+				totalSize = newStr.total + (indexes.size()*dif);
 			}
 			else
 			{
-				totalSize = total - (indexes.size()*dif);
+				totalSize = newStr.total - (indexes.size()*dif);
 			}
 			
 			if(rep.total>find.total)
 			{
-				newStr.characters = (char*)realloc(newStr.characters, totalSize+1);
+				newStr.characters = (char*)std::realloc(newStr.characters, totalSize+1);
 				newStr.characters[totalSize] = '\0';
 				
 				unsigned int counterNew = totalSize;
-				unsigned int counterOld = total;
-				unsigned int lastIndex = total;
+				unsigned int counterOld = newStr.total;
+				unsigned int lastIndex = newStr.total;
 
-				if(indexes.size()>0)
+				bool firstLoop = true;
+				unsigned int i=(indexes.size()-1);
+				while(i > 0 || (firstLoop && i == 0))
 				{
-					unsigned int i = indexes.size()-1;
-					bool firstRun = true;
-
-					while(i>0)
+					if(!firstLoop)
 					{
-						if(!firstRun)
-						{
-							i--;
-						}
-
-						unsigned int indexEnd = (indexes[i]+find.total) + 1;
-						unsigned int offset = 0;
-
-						bool posOffset = false;
-						if(lastIndex >= indexEnd)
-						{
-							posOffset = true;
-							offset = lastIndex - indexEnd;
-						}
-
-						lastIndex = indexes[i];
-
-						if(posOffset)
-						{
-							for(unsigned int j=0; j<offset; j++)
-							{
-								characters[counterNew] = characters[counterOld];
-								counterNew--;
-								counterOld--;
-							}
-						}
-						counterNew-=(rep.total-1);
-						counterOld-=(find.total-1);
-						if(i==0 && counterOld!=0)
-						{
-							bool firstCounterRun = true;
-
-							while(counterOld>0)
-							{
-								if(!firstCounterRun)
-								{
-									counterOld--;
-									counterNew--;
-								}
-								characters[counterNew] = characters[counterOld];
-								firstCounterRun = false;
-							}
-						}
-
-						firstRun = false;
+						i--;
 					}
-				}
-				
-				newStr.total = totalSize;
-			}
-			else if(rep.total<find.total)
-			{
-				String newStr(*this);
 
-				unsigned int counterNew = 0;
-				unsigned int counterOld = 0;
-				unsigned int lastIndex = 0;
-				for(unsigned int i=0; i<indexes.size(); i++)
-				{
 					bool posOffset = false;
 					unsigned int offset = 0;
-					if(indexes[i] > lastIndex)
+					unsigned int lastIndexEnd = (indexes[i]+find.total);
+					if(lastIndex >= lastIndexEnd)
 					{
 						posOffset = true;
-						offset = indexes[i] - lastIndex;
+						offset = lastIndex - lastIndexEnd + 1;
 					}
-					lastIndex = indexes[i] + find.total;
+					else
+					{
+						posOffset = false;
+						offset = lastIndexEnd - lastIndex + 1;
+					}
+
+					lastIndex = indexes[i];
 					if(posOffset)
 					{
 						for(unsigned int j=0; j<offset; j++)
 						{
-							characters[counterNew] = characters[counterOld];
+							newStr.characters[counterNew] = newStr.characters[counterOld];
+							counterNew--;
+							counterOld--;
+						}
+					}
+
+					counterNew-=(rep.total-1);
+					counterOld-=(find.total-1);
+
+					if(i==0 && counterOld!=0)
+					{
+						bool firstCounterLoop = true;
+						while(counterOld>0 || (firstCounterLoop && counterOld==0))
+						{
+							if(!firstCounterLoop)
+							{
+								counterNew--;
+								counterOld--;
+							}
+
+							newStr.characters[counterNew] = newStr.characters[counterOld];
+							
+							firstCounterLoop = false;
+						}
+					}
+
+					firstLoop = false;
+				}
+
+				newStr.total = totalSize;
+			}
+			else if(rep.total<find.total)
+			{
+				unsigned int counterNew = 0;
+				unsigned int counterOld = 0;
+				unsigned int lastIndex = 0;
+
+				for(unsigned int i=0; i<indexes.size(); i++)
+				{
+					bool posOffset = false;
+					unsigned int offset = 0;
+					if(indexes[i]>=lastIndex)
+					{
+						posOffset = true;
+						offset = indexes[i] - lastIndex;
+					}
+					else
+					{
+						posOffset = false;
+						offset = lastIndex - indexes[i];
+					}
+
+					lastIndex = indexes[i] + find.total;
+
+					if(posOffset)
+					{
+						for(unsigned int j=0; j<offset; j++)
+						{
+							newStr.characters[counterNew] = newStr.characters[counterOld];
 							counterNew++;
 							counterOld++;
 						}
 					}
+
 					counterNew += rep.total;
 					counterOld += find.total;
-					if(i==(indexes.size()-1) && counterOld<total)
+
+					if(i==(indexes.size()-1) && counterOld<newStr.total)
 					{
 						while(counterOld<total)
 						{
-							characters[counterNew] = characters[counterOld];
+							newStr.characters[counterNew] = newStr.characters[counterOld];
 							counterNew++;
 							counterOld++;
 						}
@@ -2126,6 +2137,7 @@ namespace GameLibrary
 			}
 			
 			unsigned int difCounter = 0;
+
 			for(unsigned int i=0; i<indexes.size(); i++)
 			{
 				unsigned int offset = 0;
@@ -2140,18 +2152,12 @@ namespace GameLibrary
 
 				for(unsigned int j=0; j<rep.total; j++)
 				{
-					characters[offset+j] = rep.characters[j];
+					newStr.characters[offset+j] = rep.characters[j];
 				}
 
-				if(posDif)
-				{
-					difCounter+=dif;
-				}
-				else
-				{
-					difCounter-=dif;
-				}
+				difCounter+=dif;
 			}
+			return newStr;
 		}
 		return *this;
 	}
@@ -2210,7 +2216,7 @@ namespace GameLibrary
 		{
 			bool firstLoop = true;
 			unsigned int i = endIndex;
-			while(i > beginIndex)
+			while(i > beginIndex || (firstLoop && i==beginIndex))
 			{
 				if(!firstLoop)
 				{
@@ -2263,7 +2269,7 @@ namespace GameLibrary
 		unsigned int endIndex = 0;
 		
 		bool firstLoop = true;
-		while(!hitLetter && i>0)
+		while(!hitLetter && (i>0 || (firstLoop && i==0)))
 		{
 			if(firstLoop)
 			{

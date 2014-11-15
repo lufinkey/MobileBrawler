@@ -114,8 +114,8 @@ namespace GameLibrary
 		void clear();
 		unsigned int length() const;
 		char charAt(unsigned int index) const;
-		String replace(char find, char replace);
-		String replace(const String&find, const String&rep);
+		String replace(char find, char replace) const;
+		String replace(const String&find, const String&rep) const;
 		String substring(unsigned int beginIndex) const;
 		String substring(unsigned int beginIndex, unsigned int endIndex) const;
 		String trim() const;
