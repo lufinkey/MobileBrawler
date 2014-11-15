@@ -17,7 +17,7 @@ namespace GameLibrary
 	class Sound;
 	
 	//Exception
-	class GameLibraryException;
+	class Exception;
 		class OutOfBoundsException;
 			class ArrayListOutOfBoundsException;
 			class BitsetOutOfBoundsException;

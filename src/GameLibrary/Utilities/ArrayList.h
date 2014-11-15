@@ -1,5 +1,6 @@
 
 #include <vector>
+#include "../Exception/ArrayListOutOfBoundsException.h"
 
 #pragma once
 
@@ -98,17 +99,28 @@ namespace GameLibrary
 		void remove(unsigned int index)
 		{
 			unsigned int length = objects.size();
-			if(length==1 && index==0)
+			if(length==1)
 			{
-				objects.resize(0);
+				if(index==0)
+				{
+					objects.resize(0);
+				}
+				else
+				{
+					throw ArrayListOutOfBoundsException(index, length);
+				}
 			}
-			else if(index<length && index>=0)
+			else if(index<length)
 			{
 				for(int i=(index+1); i<length; i++)
 				{
 					objects[i-1] = objects[i];
 				}
 				objects.resize(length-1);
+			}
+			else
+			{
+				throw ArrayListOutOfBoundsException(index, length);
 			}
 		}
 		

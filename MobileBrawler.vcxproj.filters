@@ -117,9 +117,6 @@
     <ClCompile Include="src\GameLibrary\Exception\BitsetOutOfBoundsException.cpp">
       <Filter>Source Files\GameLibrary\Exception</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameLibrary\Exception\GameLibraryException.cpp">
-      <Filter>Source Files\GameLibrary\Exception</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameLibrary\Exception\OutOfBoundsException.cpp">
       <Filter>Source Files\GameLibrary\Exception</Filter>
     </ClCompile>
@@ -180,6 +177,12 @@
     <ClCompile Include="src\GameLibrary\AssetManager.cpp">
       <Filter>Source Files\GameLibrary</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\Exception.cpp">
+      <Filter>Source Files\GameLibrary\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\StringConvertException.cpp">
+      <Filter>Source Files\GameLibrary\Exception</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -219,9 +222,6 @@
       <Filter>Header Files\GameLibrary\Exception</Filter>
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Exception\BitsetOutOfBoundsException.h">
-      <Filter>Header Files\GameLibrary\Exception</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameLibrary\Exception\GameLibraryException.h">
       <Filter>Header Files\GameLibrary\Exception</Filter>
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Exception\OutOfBoundsException.h">
@@ -292,6 +292,12 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\GameLibrary.h">
       <Filter>Header Files\GameLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\Exception.h">
+      <Filter>Header Files\GameLibrary\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\StringConvertException.h">
+      <Filter>Header Files\GameLibrary\Exception</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
