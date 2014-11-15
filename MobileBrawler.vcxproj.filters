@@ -183,6 +183,9 @@
     <ClCompile Include="src\GameLibrary\Exception\StringConvertException.cpp">
       <Filter>Source Files\GameLibrary\Exception</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\StringOutOfBoundsException.cpp">
+      <Filter>Source Files\GameLibrary\Exception</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -297,6 +300,9 @@
       <Filter>Header Files\GameLibrary\Exception</Filter>
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Exception\StringConvertException.h">
+      <Filter>Header Files\GameLibrary\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\StringOutOfBoundsException.h">
       <Filter>Header Files\GameLibrary\Exception</Filter>
     </ClInclude>
   </ItemGroup>

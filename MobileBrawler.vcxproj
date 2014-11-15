@@ -91,6 +91,7 @@
     <ClCompile Include="src\GameLibrary\Exception\Exception.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\OutOfBoundsException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\StringConvertException.cpp" />
+    <ClCompile Include="src\GameLibrary\Exception\StringOutOfBoundsException.cpp" />
     <ClCompile Include="src\GameLibrary\Graphics\BufferedImage.cpp" />
     <ClCompile Include="src\GameLibrary\Graphics\Color.cpp" />
     <ClCompile Include="src\GameLibrary\Graphics\Graphics.cpp" />
@@ -127,6 +128,7 @@
     <ClInclude Include="src\GameLibrary\Exception\Exception.h" />
     <ClInclude Include="src\GameLibrary\Exception\OutOfBoundsException.h" />
     <ClInclude Include="src\GameLibrary\Exception\StringConvertException.h" />
+    <ClInclude Include="src\GameLibrary\Exception\StringOutOfBoundsException.h" />
     <ClInclude Include="src\GameLibrary\GameLibrary.h" />
     <ClInclude Include="src\GameLibrary\Graphics\BufferedImage.h" />
     <ClInclude Include="src\GameLibrary\Graphics\Color.h" />
