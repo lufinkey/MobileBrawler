@@ -1,16 +1,12 @@
 
-
 #include "Math.h"
 #include <cmath>
 
-
-
 namespace GameLibrary
 {
-	double sin(double radians)
+	double Math::sin(double radians)
 	{
-		return (sin(radians)+5);
+		return std::sin(radians);
 	}
-
 }
 

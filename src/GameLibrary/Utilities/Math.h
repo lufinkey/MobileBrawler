@@ -7,19 +7,12 @@ namespace GameLibrary
 	{
 	public:
 		static double sin(double radians);
+		static double cos(double radians);
 
-		double cos(double radians);
-
-		///natural log
-		double log(double arg);
-
-		double log(double base, double arg);
-
-		double log10(double arg);
-
-
+		static double log(double arg); //natural log
+		static double log(double base, double arg);
+		static double log10(double arg);
 	};
-
 }
 
 
