@@ -1,6 +1,6 @@
 
 #include "../Utilities/String.h"
-#include <iostream>
+#include <ostream>
 
 #pragma once
 

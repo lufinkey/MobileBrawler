@@ -143,6 +143,7 @@
     <ClInclude Include="src\GameLibrary\Screen\Screen.h" />
     <ClInclude Include="src\GameLibrary\Screen\ScreenManager.h" />
     <ClInclude Include="src\GameLibrary\Types.h" />
+    <ClInclude Include="src\GameLibrary\Utilities\Any.h" />
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Bitset.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Dictionary.h" />
