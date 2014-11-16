@@ -9,7 +9,7 @@ namespace GameLibrary
 	{
 	public:
 		StringConvertException(const StringConvertException&);
-		StringConvertException(const String& str, const String& type, const String& reason);
+		StringConvertException(const String& type, const String& reason);
 		virtual ~StringConvertException();
 	};
 }

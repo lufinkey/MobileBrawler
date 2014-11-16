@@ -1,10 +1,30 @@
 
+#include <limits.h>
 #include <string>
 
 #pragma once
 
+#define STRING_USES_GAMELIBRARY
+
+#ifdef STRING_USES_GAMELIBRARY
 namespace GameLibrary
 {
+#else
+	#include <exception>
+	
+	class StringException : public std::exception
+	{
+	private:
+		std::string message;
+
+	public:
+		StringException(const StringException&);
+		StringException(const std::string&reason);
+		virtual ~StringException();
+		virtual const char* what();
+	};
+#endif
+
 #define STRING_NOTFOUND std::numeric_limits<unsigned int>::max()
 
 	class String
@@ -124,4 +144,8 @@ namespace GameLibrary
 		String toLowerCase();
 		String toUpperCase();
 	};
+#ifdef STRING_USES_GAMELIBRARY
 }
+#endif
+
+

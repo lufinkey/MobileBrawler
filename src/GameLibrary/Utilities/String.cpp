@@ -11,8 +11,35 @@
 #include "stdio.h"
 #include <cmath>
 
+#ifdef STRING_USES_GAMELIBRARY
+	#include "../Exception/StringConvertException.h"
+	#include "../Exception/StringOutOfBoundsException.h"
+#else
+	StringException::StringException(const StringException&exception) : std::exception(exception)
+	{
+		message = exception.message;
+	}
+
+	StringException::StringException(const std::string&reason)
+	{
+		message = reason;
+	}
+
+	virtual ~StringException()
+	{
+		//
+	}
+
+	virtual const char* what()
+	{
+		return message.c_str();
+	}
+#endif
+
+#ifdef STRING_USES_GAMELIBRARY
 namespace GameLibrary
 {
+#endif
 	long long string_powll(const long long base, const int exp)
 	{
 		if(exp==0)
@@ -61,10 +88,13 @@ namespace GameLibrary
 
 	bool String::asBool(const String&str)
 	{
-		if(str.length() == 0)
+		if(str.total == 0)
 		{
-			//TODO add error
-			return false;
+#ifdef STRING_USES_GAMELIBRARY
+			throw StringConvertException("bool", "String is empty");
+#else
+			throw StringException("Unable to convert String to type bool: String is empty");
+#endif
 		}
 
 		bool onlyNums = true;
@@ -80,8 +110,11 @@ namespace GameLibrary
 				{
 					if(onlyNums && hasDecimal)
 					{
-						std::cerr << "Error: invalid String in function String::asBool(\"" << str << "\")" << std::endl;
-						return false;
+#ifdef STRING_USES_GAMELIBRARY
+						throw StringConvertException("bool", "Too many decimal points");
+#else
+						throw StringException("Unable to convert to type bool: Too many decimal points");
+#endif
 					}
 					else if(onlyNums)
 					{
@@ -90,8 +123,11 @@ namespace GameLibrary
 				}
 				else if(hasNum)
 				{
-					std::cerr << "Error: invalid String in function String::asBool(\"" << str << "\")" << std::endl;
-					return false;
+#ifdef STRING_USES_GAMELIBRARY
+					throw StringConvertException("bool", "Invalid string. Bool should either be true, false, or a number");
+#else
+					throw StringException("Unable to convert to type bool: Invalid string. Bool should either be true, false, or a number");
+#endif
 				}
 				else
 				{
@@ -133,8 +169,11 @@ namespace GameLibrary
 		}
 		else if(hasNum)
 		{
-			std::cerr << "Error: invalid String in function String::asBool(\"" << str << "\")" << std::endl;
-			return false;
+#ifdef STRING_USES_GAMELIBRARY
+			throw StringConvertException("bool", "Invalid string. Bool should either be true, false, or a number");
+#else
+			throw StringException("Unable to convert to type bool: Invalid string. Bool should either be true, false, or a number");
+#endif
 		}
 		else
 		{
@@ -148,8 +187,11 @@ namespace GameLibrary
 			}
 			else
 			{
-				std::cerr << "Error: invalid String in function String::asBool(\"" << str << "\")" << std::endl;
-				return false;
+#ifdef STRING_USES_GAMELIBRARY
+			throw StringConvertException("bool", "Invalid string. Bool should either be true, false, or a number");
+#else
+			throw StringException("Unable to convert to type bool: Invalid string. Bool should either be true, false, or a number");
+#endif
 			}
 		}
 	}
@@ -158,8 +200,11 @@ namespace GameLibrary
 	{
 		if(str.total == 0)
 		{
-			//TODO add error
-			return 0;
+#ifdef STRING_USES_GAMELIBRARY
+			throw StringConvertException("int", "String is empty");
+#else
+			throw StringException("Unable to convert to type int: String is empty");
+#endif
 		}
 
 		for(unsigned int i=0; i<str.total; i++)
@@ -167,8 +212,11 @@ namespace GameLibrary
 			char c = str.charAt(i);
 			if(!((c>='0' && c<='9') || (c=='-' && i==0) || (c=='+' && i==0)))
 			{
-				std::cerr << "Error: invalid String in function String::asInt(\"" << str << "\")" << std::endl;
-				return 0;
+#ifdef STRING_USES_GAMELIBRARY
+				throw StringConvertException("int", (String)"Unexpected character \'" + c + '\'');
+#else
+				throw StringException((std::string)"Unable to convert to type int: Unexpected character  + c + '\'');
+#endif
 			}
 		}
 
@@ -215,8 +263,11 @@ namespace GameLibrary
 	{
 		if(str.total == 0)
 		{
-			//TODO add error
-			return 0;
+#ifdef STRING_USES_GAMELIBRARY
+			throw StringConvertException("long", "String is empty");
+#else
+			throw StringException("Unable to convert to type long: String is empty");
+#endif
 		}
 
 		for(unsigned int i=0; i<str.total; i++)
@@ -224,8 +275,11 @@ namespace GameLibrary
 			char c = str.charAt(i);
 			if(!((c>='0' && c<='9') || (c=='-' && i==0) || (c=='+' && i==0)))
 			{
-				std::cerr << "Error: invalid String in function String::asLong(\"" << str << "\")" << std::endl;
-				return 0;
+#ifdef STRING_USES_GAMELIBRARY
+				throw StringConvertException("long", (String)"Unexpected character \'" + c + '\'');
+#else
+				throw StringException((std::string)"Unable to convert to type long: Unexpected character \'" + c + '\'');
+#endif
 			}
 		}
 
@@ -272,8 +326,11 @@ namespace GameLibrary
 	{
 		if(str.total == 0)
 		{
-			//TODO add error
-			return 0;
+#ifdef STRING_USES_GAMELIBRARY
+			throw StringConvertException("short", "String is empty");
+#else
+			throw StringException("Unable to convert to type short: String is empty");
+#endif
 		}
 
 		for(unsigned int i=0; i<str.total; i++)
@@ -281,8 +338,11 @@ namespace GameLibrary
 			char c = str.charAt(i);
 			if(!((c>='0' && c<='9') || (c=='-' && i==0) || (c=='+' && i==0)))
 			{
-				std::cerr << "Error: invalid String in function String::asShort(\"" << str << "\")" << std::endl;
-				return 0;
+#ifdef STRING_USES_GAMELIBRARY
+				throw StringConvertException("short", (String)"Unexpected character \'" + c + '\'');
+#else
+				throw StringException((std::string)"Unable to convert to type short: Unexpected character \'" + c + '\'');
+#endif
 			}
 		}
 		
@@ -329,8 +389,11 @@ namespace GameLibrary
 	{
 		if(str.total == 0)
 		{
-			//TODO add error
-			return 0;
+#ifdef STRING_USES_GAMELIBRARY
+			throw StringConvertException("float", "String is empty");
+#else
+			throw StringException("Unable to convert to type float: String is empty");
+#endif
 		}
 
 		bool hasDecimal = false;
@@ -345,8 +408,11 @@ namespace GameLibrary
 				{
 					if(hasDecimal)
 					{
-						std::cerr << "Error: invalid String in function String::asFloat(\"" << str << "\")" << std::endl;
-						return 0;
+#ifdef STRING_USES_GAMELIBRARY
+				throw StringConvertException("float", (String)"Too many decimal points");
+#else
+				throw StringException("Unable to convert to type float: Too many decimal points");
+#endif
 					}
 					else
 					{
@@ -354,8 +420,11 @@ namespace GameLibrary
 						decimalIndex = i;
 					}
 				}
-				std::cerr << "Error: invalid String in function String::asFloat(\"" << str << "\")" << std::endl;
-				return 0;
+#ifdef STRING_USES_GAMELIBRARY
+				throw StringConvertException("float", (String)"Unexpected character \'" + c + '\'');
+#else
+				throw StringException((std::string)"Unable to convert to type float: Unexpected character \'" + c + '\'');
+#endif
 			}
 		}
 
@@ -412,8 +481,11 @@ namespace GameLibrary
 	{
 		if(str.total == 0)
 		{
-			//TODO add error
-			return 0;
+#ifdef STRING_USES_GAMELIBRARY
+			throw StringConvertException("double", "String is empty");
+#else
+			throw StringException("Unable to convert to type double: String is empty");
+#endif
 		}
 
 		bool hasDecimal = false;
@@ -428,8 +500,11 @@ namespace GameLibrary
 				{
 					if(hasDecimal)
 					{
-						std::cerr << "Error: invalid String in function String::asDouble(\"" << str << "\")" << std::endl;
-						return 0;
+#ifdef STRING_USES_GAMELIBRARY
+				throw StringConvertException("double", "Too many decimal points");
+#else
+				throw StringException("Unable to convert to type double: Too many decimal points");
+#endif
 					}
 					else
 					{
@@ -439,8 +514,11 @@ namespace GameLibrary
 				}
 				else
 				{
-					std::cerr << "Error: invalid String in function String::asDouble(\"" << str << "\")" << std::endl;
-					return 0;
+#ifdef STRING_USES_GAMELIBRARY
+				throw StringConvertException("double", (String)"Unexpected character \'" + c + '\'');
+#else
+				throw StringException((std::string)"Unable to convert to type double: Unexpected character \'" + c + '\'');
+#endif
 				}
 			}
 		}
@@ -498,8 +576,11 @@ namespace GameLibrary
 	{
 		if(str.total == 0)
 		{
-			//TODO add error
-			return 0;
+#ifdef STRING_USES_GAMELIBRARY
+			throw StringConvertException("long long", "String is empty");
+#else
+			throw StringException("Unable to convert to type long long: String is empty");
+#endif
 		}
 
 		for(unsigned int i=0; i<str.total; i++)
@@ -507,8 +588,11 @@ namespace GameLibrary
 			char c = str.charAt(i);
 			if(!((c>='0' && c<='9') || (c=='-' && i==0) || (c=='+' && i==0)))
 			{
-				std::cerr << "Error: invalid String in function String::asLongLong(\"" << str << "\")" << std::endl;
-				return 0;
+#ifdef STRING_USES_GAMELIBRARY
+				throw StringConvertException("long long", (String)"Unexpected character \'" + c + '\'');
+#else
+				throw StringException((std::string)"Unable to convert to type long long: Unexpected character \'" + c + '\'');
+#endif
 			}
 		}
 		
@@ -555,8 +639,11 @@ namespace GameLibrary
 	{
 		if(str.total == 0)
 		{
-			//TODO add error
-			return 0;
+#ifdef STRING_USES_GAMELIBRARY
+			throw StringConvertException("unsigned int", "String is empty");
+#else
+			throw StringException("Unable to convert to type unsigned int: String is empty");
+#endif
 		}
 
 		for(unsigned int i=0; i<str.total; i++)
@@ -564,8 +651,11 @@ namespace GameLibrary
 			char c = str.charAt(i);
 			if(!(c>='0' && c<='9'))
 			{
-				std::cerr << "Error: invalid String in function String::asUInt(\"" << str << "\")" << std::endl;
-				return 0;
+#ifdef STRING_USES_GAMELIBRARY
+				throw StringConvertException("unsigned int", (String)"Unexpected character \'" + c + '\'');
+#else
+				throw StringException((std::string)"Unable to convert to type unsigned int: Unexpected character \'" + c + '\'');
+#endif
 			}
 		}
 		
@@ -601,8 +691,11 @@ namespace GameLibrary
 	{
 		if(str.total == 0)
 		{
-			//TODO add error
-			return 0;
+#ifdef STRING_USES_GAMELIBRARY
+			throw StringConvertException("unsigned char", "String is empty");
+#else
+			throw StringException("Unable to convert to type unsigned char: String is empty");
+#endif
 		}
 
 		for(unsigned int i=0; i<str.total; i++)
@@ -610,8 +703,11 @@ namespace GameLibrary
 			char c = str.charAt(i);
 			if(!(c>='0' && c<='9'))
 			{
-				std::cerr << "Error: invalid String in function String::asUChar(\"" << str << "\")" << std::endl;
-				return 0;
+#ifdef STRING_USES_GAMELIBRARY
+				throw StringConvertException("unsigned char", (String)"Unexpected character \'" + c + '\'');
+#else
+				throw StringException((std::string)"Unable to convert to type unsigned char: Unexpected character \'" + c + '\'');
+#endif
 			}
 		}
 		
@@ -647,8 +743,11 @@ namespace GameLibrary
 	{
 		if(str.total == 0)
 		{
-			//TODO add error
-			return 0;
+#ifdef STRING_USES_GAMELIBRARY
+			throw StringConvertException("unsigned long", "String is empty");
+#else
+			throw StringException("Unable to convert to type unsigned long: String is empty");
+#endif
 		}
 
 		for(unsigned int i=0; i<str.total; i++)
@@ -656,8 +755,11 @@ namespace GameLibrary
 			char c = str.charAt(i);
 			if(!(c>='0' && c<='9'))
 			{
-				std::cerr << "Error: invalid String in function String::asULong(\"" << str << "\")" << std::endl;
-				return 0;
+#ifdef STRING_USES_GAMELIBRARY
+				throw StringConvertException("unsigned long", (String)"Unexpected character \'" + c + '\'');
+#else
+				throw StringException((std::string)"Unable to convert to type unsigned long: Unexpected character \'" + c + '\'');
+#endif
 			}
 		}
 		
@@ -693,8 +795,11 @@ namespace GameLibrary
 	{
 		if(str.total == 0)
 		{
-			//TODO add error
-			return 0;
+#ifdef STRING_USES_GAMELIBRARY
+			throw StringConvertException("unsigned short", "String is empty");
+#else
+			throw StringException("Unable to convert to type unsigned short: String is empty");
+#endif
 		}
 
 		for(unsigned int i=0; i<str.total; i++)
@@ -702,8 +807,11 @@ namespace GameLibrary
 			char c = str.charAt(i);
 			if(!(c>='0' && c<='9'))
 			{
-				std::cerr << "Error: invalid String in function String::asUShort(\"" << str << "\")" << std::endl;
-				return 0;
+#ifdef STRING_USES_GAMELIBRARY
+				throw StringConvertException("unsigned short", (String)"Unexpected character \'" + c + '\'');
+#else
+				throw StringException((std::string)"Unable to convert to type unsigned short: Unexpected character \'" + c + '\'');
+#endif
 			}
 		}
 		
@@ -739,8 +847,11 @@ namespace GameLibrary
 	{
 		if(str.total == 0)
 		{
-			//TODO add error
-			return 0;
+#ifdef STRING_USES_GAMELIBRARY
+			throw StringConvertException("unsigned long long", "String is empty");
+#else
+			throw StringException("Unable to convert to type unsigned long long: String is empty");
+#endif
 		}
 
 		for(unsigned int i=0; i<str.total; i++)
@@ -748,8 +859,11 @@ namespace GameLibrary
 			char c = str.charAt(i);
 			if(!(c>='0' && c<='9'))
 			{
-				std::cerr << "Error: invalid String in function String::asULongLong(\"" << str << "\")" << std::endl;
-				return 0;
+#ifdef STRING_USES_GAMELIBRARY
+				throw StringConvertException("unsigned long long", (String)"Unexpected character \'" + c + '\'');
+#else
+				throw StringException((std::string)"Unable to convert to type unsigned long long: Unexpected character \'" + c + '\'');
+#endif
 			}
 		}
 		
@@ -799,11 +913,6 @@ namespace GameLibrary
 
 	std::string String::floatToString(float num)
 	{
-		/*std::stringstream ss;
-		ss.precision(20);
-		ss << num;
-		std::string s(ss.str());
-		return s;*/
 		char buffer[20];
 		sprintf(buffer, "%g", (double)num);
 		return std::string(buffer);
@@ -811,11 +920,6 @@ namespace GameLibrary
 
 	std::string String::doubleToString(double num)
 	{
-		/*std::stringstream ss;
-		ss.precision(20);
-		ss << num;
-		std::string s(ss.str());
-		return s;*/
 		char buffer[20];
 		sprintf(buffer, "%g", (double)num);
 		return std::string(buffer);
@@ -1933,6 +2037,14 @@ namespace GameLibrary
 	
 	char String::charAt(unsigned int index) const
 	{
+		if(index >= total)
+		{
+#ifdef STRING_USES_GAMELIBRARY
+			throw StringOutOfBoundsException(index, total);
+#else
+			throw StringException("index " + index + " is out of bounds in String with a length of " + total);
+#endif
+		}
 		return characters[index];
 	}
 	
@@ -2164,9 +2276,13 @@ namespace GameLibrary
 	
 	String String::substring(unsigned int beginIndex) const
 	{
-		if(beginIndex>=total)
+		if(beginIndex>total)
 		{
-			//TODO throw error
+#ifdef STRING_USES_GAMELIBRARY
+			throw StringOutOfBoundsException(beginIndex, total);
+#else
+			throw StringException("index " + beginIndex + " is out of bounds in String with a length of " + total);
+#endif
 		}
 
 		String newStr;
@@ -2184,9 +2300,21 @@ namespace GameLibrary
 
 	String String::substring(unsigned int beginIndex, unsigned int endIndex) const
 	{
-		if(beginIndex >= total || endIndex >= total)
+		if(beginIndex > total)
 		{
-			//TODO throw error
+#ifdef STRING_USES_GAMELIBRARY
+			throw StringOutOfBoundsException(beginIndex, total);
+#else
+			throw StringException("index " + beginIndex + " is out of bounds in String with a length of " + total);
+#endif
+		}
+		else if(endIndex > total)
+		{
+#ifdef STRING_USES_GAMELIBRARY
+			throw StringOutOfBoundsException(endIndex, total);
+#else
+			throw StringException("index " + endIndex + " is out of bounds in String with a length of " + total);
+#endif
 		}
 
 		unsigned int dif = 0;
@@ -2392,4 +2520,6 @@ namespace GameLibrary
 		
 		return newStr;
 	}
+#ifdef STRING_USES_GAMELIBRARY
 }
+#endif
