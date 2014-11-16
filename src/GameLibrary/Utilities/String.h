@@ -21,7 +21,7 @@ namespace GameLibrary
 		StringException(const StringException&);
 		StringException(const std::string&reason);
 		virtual ~StringException();
-		virtual const char* what();
+		virtual const char* what() const;
 	};
 #endif
 

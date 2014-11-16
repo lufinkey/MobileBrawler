@@ -30,7 +30,7 @@
 		//
 	}
 
-	virtual const char* what()
+	virtual const char* what() const
 	{
 		return message.c_str();
 	}

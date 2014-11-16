@@ -1,11 +1,38 @@
 
 #include <vector>
-#include "../Exception/ArrayListOutOfBoundsException.h"
 
 #pragma once
 
+#define ARRAYLIST_USES_GAMELIBRARY
+
+#ifdef ARRAYLIST_USES_GAMELIBRARY
+#include "../Exception/ArrayListOutOfBoundsException.h"
 namespace GameLibrary
 {
+#else
+	#include <exception>
+	
+	class ArrayListOutOfBoundsException : public std::exception
+	{
+	private:
+		std::string message;
+
+	public:
+		ArrayListOutOfBoundsException(const ArrayListOutOfBoundsException&exception) : std::exception(exception)
+		{
+			message = exception.message;
+		}
+
+		ArrayListOutOfBoundsException(unsigned int index, unsigned int size)
+		{
+			message = (std::string)"index " + index + " is out of bounds in ArrayList with a size of " + size);
+		}
+
+		virtual ~ArrayListOutOfBoundsException();
+		virtual const char* what() const;
+	};
+#endif
+	
 	template <class T>
 	class ArrayList
 	{
@@ -50,27 +77,47 @@ namespace GameLibrary
 		
 		T& get(unsigned int index)
 		{
-			return objects[index];
+			if(index < objects.size())
+			{
+				return objects[index];
+			}
+			throw ArrayListOutOfBoundsException(index, objects.size());
 		}
 		
 		const T& get(unsigned int index) const
 		{
-			return objects[index];
+			if(index<objects.size())
+			{
+				return objects[index];
+			}
+			throw ArrayListOutOfBoundsException(index, objects.size());
 		}
 		
 		T& operator[] (unsigned int index)
 		{
-			return objects[index];
+			if(index<objects.size())
+			{
+				return objects[index];
+			}
+			throw ArrayListOutOfBoundsException(index, objects.size());
 		}
 		
 		const T& operator[] (unsigned int index) const
 		{
-			return objects[index];
+			if(index<objects.size())
+			{
+				return objects[index];
+			}
+			throw ArrayListOutOfBoundsException(index, objects.size());
 		}
 		
 		void set(unsigned int index, const T&obj)
 		{
-			objects[index] = obj;
+			if(index<objects.size())
+			{
+				objects[index] = obj;
+			}
+			throw ArrayListOutOfBoundsException(index, objects.size());
 		}
 		
 		void add(const T&obj)
@@ -82,6 +129,10 @@ namespace GameLibrary
 		
 		void add(unsigned int index, const T&obj)
 		{
+			if(index>objects.size())
+			{
+				throw ArrayListOutOfBoundsException(index, objects.size());
+			}
 			unsigned int length = objects.size();
 			objects.resize(length+1);
 			for(unsigned int i=length; i>index; i--)
@@ -98,6 +149,10 @@ namespace GameLibrary
 		
 		void remove(unsigned int index)
 		{
+			if(index > objects.size())
+			{
+				throw ArrayListOutOfBoundsException(index, objects.size());
+			}
 			unsigned int length = objects.size();
 			if(length==1)
 			{
