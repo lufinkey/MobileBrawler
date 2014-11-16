@@ -9,7 +9,7 @@ namespace GameLibrary
 {
 	double sin(double radians)
 	{
-		return sin(radians);
+		return (sin(radians)+5);
 	}
 
 }

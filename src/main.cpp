@@ -1,12 +1,16 @@
 
 #include "GameLibrary/Utilities/String.h"
 #include "GameLibrary/Utilities/ArrayList.h"
+#include "GameLibrary/Utilities/Math.h"
 #include <iostream> //just for now since I haven't finished the Console class
 
 using namespace GameLibrary;
 
 int main(int argc, char *argv[])
 {
+	//Test math function
+	std::cout << Math::sin(5) << std::endl;
+
 	//int ArrayList test
 	ArrayList<int> arr;
 	arr.add(4);
@@ -26,9 +30,9 @@ int main(int argc, char *argv[])
 	//String ArrayList test
 	ArrayList<String> arr2;
 	arr2.add("hello");
-	arr2.add("poop");
-	arr2.add("weiners");
-	arr2.add("tick dickler");
+	arr2.add("pasdf");
+	arr2.add("wfads");
+	arr2.add("tasdf");
 	
 	//printing String ArrayList size
 	std::cout << "arr2.size() = " << arr2.size() << std::endl;

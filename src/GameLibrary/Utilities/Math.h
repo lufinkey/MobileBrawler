@@ -6,7 +6,7 @@ namespace GameLibrary
 	class Math
 	{
 	public:
-		double sin(double radians);
+		static double sin(double radians);
 
 		double cos(double radians);
 
