@@ -21,15 +21,18 @@ namespace GameLibrary
 		
 	public:
 		Bitset();
+		Bitset(const Bitset&);
 		Bitset(byte b);
+		Bitset(char bits[8]);
 		Bitset(bool bits[8]);
 		~Bitset();
+
+		Bitset& operator=(const Bitset&bitset);
+		bool operator==(const Bitset&) const;
 		
 		bool get(unsigned int index) const;
 		void set(unsigned int index, bool toggle);
 		
 		const byte& getByte() const;
-		
-		Bitset& operator=(const Bitset&bitset);
 	};
 }
