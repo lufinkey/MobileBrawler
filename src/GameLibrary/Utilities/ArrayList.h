@@ -28,8 +28,15 @@ namespace GameLibrary
 			message = (std::string)"index " + index + " is out of bounds in ArrayList with a size of " + size);
 		}
 
-		virtual ~ArrayListOutOfBoundsException();
-		virtual const char* what() const;
+		virtual ~ArrayListOutOfBoundsException()
+		{
+			//
+		}
+
+		virtual const char* what() const
+		{
+			return message.c_str();
+		}
 	};
 #endif
 	
