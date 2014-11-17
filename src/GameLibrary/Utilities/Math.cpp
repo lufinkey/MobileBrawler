@@ -4,7 +4,7 @@
 
 namespace GameLibrary
 {
-	const double Math::PI = 3.141592654;
+	const double Math::PI = 3.1415926535897931;
 
 	//Trig
 	double Math::sin(double radians){ return std::sin(radians); }
@@ -59,11 +59,18 @@ namespace GameLibrary
 	float Math::round(float arg){ return std::round(arg); }
 	long double Math::round(long double arg){ return std::round(arg); }
 
-	//Others
+	//Absolute Value
 	double Math::abs(double arg){ return std::abs(arg); }
 	float Math::abs(float arg){ return std::abs(arg); }
 	long double Math::abs(long double arg){ return std::abs(arg); }
 	int Math::abs(int arg){ return std::abs(arg); }
 
+	//Angle Conversions
+	double Math::degtorad(double deg){ return deg * PI / 180; }
+	float Math::degtorad(float deg){ return deg * ((float)PI) / 180; }
+	long double Math::degtorad(long double deg){ return deg * ((long double)PI) / 180; }
+	double Math::radtodeg(double rad){ return rad * 180 / PI; };
+	float Math::radtodeg(float rad){ return rad * 180 / ((float)PI); };
+	long double Math::radtodeg(long double rad){ return rad * 180 / ((long double)PI); };
 }
 

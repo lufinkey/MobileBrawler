@@ -61,11 +61,19 @@ namespace GameLibrary
 		static float round(float arg);
 		static long double round(long double arg);
 
-		//Others
+		//Absolute Value
 		static double abs(double arg);
 		static float abs(float arg);
 		static long double abs(long double arg);
 		static int abs(int arg);
+
+		//Angle Conversions
+		static double degtorad(double deg);
+		static float degtorad(float deg);
+		static long double degtorad(long double deg);
+		static double radtodeg(double rad);
+		static float radtodeg(float rad);
+		static long double radtodeg(long double rad);
 	};
 }
 
