@@ -11,52 +11,23 @@ namespace GameLibrary
 	class Dictionary
 	{
 	private:
-		ArrayList<Pair<String, Any>> contents;
+		ArrayList<Pair<String, Any> > contents;
 
 	public:
 		Dictionary();
 		Dictionary(const ArrayList<String>& keys, const ArrayList<Any>& values);
 		~Dictionary();
 
-		template<class T>
-		void set(const String& key, const T& value)
-		{
-			for(unsigned int i=0; i<contents.size(); i++)
-			{
-				Pair<String, Any>& pair = contents.get(i);
-				if(pair.first.equals(key))
-				{
-					contents.set(i, Pair(key, Any(value)));
-					return;
-				}
-			}
-			contents.add(Pair(key, Any(value)));
-		}
+		void set(const String& key, const Any& value);
+		Any& get(const String& key);
+		const Any& get(const String& key) const;
 
-		template<class T>
-		T& get(const String& key)
-		{
-			for(unsigned int i = 0; i < contents.size(); i++)
-			{
-				Pair<String, Any>& pair = contents.get(i);
-				if(pair.first.equals(key))
-				{
-					return pair.second.as<T>();
-				}
-			}
-		}
+		ArrayList<String> getKeys() const;
+		ArrayList<Any> getValues() const;
 
-		template<class T>
-		const T& get(const String& key) const
-		{
-			for(unsigned int i = 0; i < contents.size(); i++)
-			{
-				Pair<String, Any>& pair = contents.get(i);
-				if(pair.first.equals(key))
-				{
-					return pair.second.as<T>();
-				}
-			}
-		}
+		void clear();
+
+		bool loadFromFile(const String&path);
+		bool saveToFile(const String&path);
 	};
 }
