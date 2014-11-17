@@ -19,8 +19,7 @@ namespace GameLibrary
 		~Dictionary();
 
 		void set(const String& key, const Any& value);
-		Any& get(const String& key);
-		const Any& get(const String& key) const;
+		Any get(const String& key) const;
 
 		ArrayList<String> getKeys() const;
 		ArrayList<Any> getValues() const;

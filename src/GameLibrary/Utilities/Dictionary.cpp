@@ -35,20 +35,7 @@ namespace GameLibrary
 		contents.add(Pair<String, Any>(key, value));
 	}
 
-	Any& Dictionary::get(const String& key)
-	{
-		for(unsigned int i=0; i<contents.size(); i++)
-		{
-			Pair<String, Any>& pair = contents.get(i);
-			if(pair.first.equals(key))
-			{
-				return pair.second;
-			}
-		}
-		return Any(nullptr);
-	}
-
-	const Any& Dictionary::get(const String& key) const
+	Any Dictionary::get(const String& key) const
 	{
 		for(unsigned int i=0; i<contents.size(); i++)
 		{

@@ -31,7 +31,8 @@ namespace GameLibrary
 		{
 			T value;
 
-			template<typename U> Derived(U&& value) : value(forward<U>(value))
+			template<typename U>
+			Derived(U&& value) : value(std::forward<U>(value))
 			{
 				//
 			}
@@ -135,7 +136,8 @@ namespace GameLibrary
 			return ptr!=nullptr;
 		}
 
-		template<typename U> Any(U&& value) : ptr(new Derived<StorageType<U>>(forward<U>(value)))
+		template<typename U>
+		Any(U&& value) : ptr(new Derived<StorageType<U>>(std::forward<U>(value)))
 		{
 			//
 		}
