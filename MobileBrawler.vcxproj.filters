@@ -186,6 +186,9 @@
     <ClCompile Include="src\GameLibrary\Exception\StringOutOfBoundsException.cpp">
       <Filter>Source Files\GameLibrary\Exception</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\BadAnyCastException.cpp">
+      <Filter>Source Files\GameLibrary\Exception</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -307,6 +310,9 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Utilities\Any.h">
       <Filter>Header Files\GameLibrary\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\BadAnyCastException.h">
+      <Filter>Header Files\GameLibrary\Exception</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
