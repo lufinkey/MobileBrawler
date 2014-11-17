@@ -114,6 +114,7 @@
     <ClCompile Include="src\GameLibrary\Utilities\Bitset.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Dictionary.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Geometry\Circle.cpp" />
+    <ClCompile Include="src\GameLibrary\Utilities\Geometry\Polygon.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Geometry\Rectangle.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Geometry\Transform.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Math.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="src\GameLibrary\Utilities\Bitset.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Dictionary.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\Circle.h" />
+    <ClInclude Include="src\GameLibrary\Utilities\Geometry\Polygon.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\Rectangle.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\Transform.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\Vector2.h" />

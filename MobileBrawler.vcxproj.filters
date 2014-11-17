@@ -192,6 +192,9 @@
     <ClCompile Include="src\GameLibrary\Utilities\Geometry\Transform.cpp">
       <Filter>Source Files\GameLibrary\Utilities\Geometry</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Utilities\Geometry\Polygon.cpp">
+      <Filter>Source Files\GameLibrary\Utilities\Geometry</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -318,6 +321,9 @@
       <Filter>Header Files\GameLibrary\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\Transform.h">
+      <Filter>Header Files\GameLibrary\Utilities\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\Geometry\Polygon.h">
       <Filter>Header Files\GameLibrary\Utilities\Geometry</Filter>
     </ClInclude>
   </ItemGroup>

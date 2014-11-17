@@ -140,9 +140,9 @@ namespace GameLibrary
 		return translate(offset.x, offset.y);
 	}
 
-	Transform& Transform::rotate(float angle)
+	Transform& Transform::rotate(float degrees)
 	{
-		float rad = angle * Math::PI / 180.f;
+		float rad = Math::degtorad(degrees);
 		float cos = std::cos(rad);
 		float sin = std::sin(rad);
 
@@ -153,9 +153,9 @@ namespace GameLibrary
 		return combine(rotation);
 	}
 
-	Transform& Transform::rotate(float angle, float centerX, float centerY)
+	Transform& Transform::rotate(float degrees, float centerX, float centerY)
 	{
-		float rad = angle * 3.141592654f / 180.f;
+		float rad = Math::degtorad(degrees);
 		float cos = std::cos(rad);
 		float sin = std::sin(rad);
 
