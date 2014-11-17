@@ -189,6 +189,9 @@
     <ClCompile Include="src\GameLibrary\Exception\BadAnyCastException.cpp">
       <Filter>Source Files\GameLibrary\Exception</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Utilities\Geometry\Transform.cpp">
+      <Filter>Source Files\GameLibrary\Utilities\Geometry</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -281,9 +284,6 @@
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\Vector2.h">
       <Filter>Header Files\GameLibrary\Utilities\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameLibrary\Utilities\Geometry\Vector3.h">
-      <Filter>Header Files\GameLibrary\Utilities\Geometry</Filter>
-    </ClInclude>
     <ClInclude Include="src\GameLibrary\Window\View.h">
       <Filter>Header Files\GameLibrary\Window</Filter>
     </ClInclude>
@@ -316,6 +316,9 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Utilities\Pair.h">
       <Filter>Header Files\GameLibrary\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\Geometry\Transform.h">
+      <Filter>Header Files\GameLibrary\Utilities\Geometry</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
