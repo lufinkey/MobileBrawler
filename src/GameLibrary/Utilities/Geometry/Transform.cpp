@@ -153,8 +153,6 @@ namespace GameLibrary
 		return combine(rotation);
 	}
 
-
-	////////////////////////////////////////////////////////////
 	Transform& Transform::rotate(float angle, float centerX, float centerY)
 	{
 		float rad = angle * 3.141592654f / 180.f;
@@ -168,15 +166,11 @@ namespace GameLibrary
 		return combine(rotation);
 	}
 
-
-	////////////////////////////////////////////////////////////
 	Transform& Transform::rotate(float angle, const Vector2f& center)
 	{
 		return rotate(angle, center.x, center.y);
 	}
 
-
-	////////////////////////////////////////////////////////////
 	Transform& Transform::scale(float scaleX, float scaleY)
 	{
 		Transform scaling(scaleX, 0,	  0,
@@ -186,8 +180,6 @@ namespace GameLibrary
 		return combine(scaling);
 	}
 
-
-	////////////////////////////////////////////////////////////
 	Transform& Transform::scale(float scaleX, float scaleY, float centerX, float centerY)
 	{
 		Transform scaling(scaleX, 0,	  centerX * (1 - scaleX),
@@ -197,15 +189,11 @@ namespace GameLibrary
 		return combine(scaling);
 	}
 
-
-	////////////////////////////////////////////////////////////
 	Transform& Transform::scale(const Vector2f& factors)
 	{
 		return scale(factors.x, factors.y);
 	}
 
-
-	////////////////////////////////////////////////////////////
 	Transform& Transform::scale(const Vector2f& factors, const Vector2f& center)
 	{
 		return scale(factors.x, factors.y, center.x, center.y);
