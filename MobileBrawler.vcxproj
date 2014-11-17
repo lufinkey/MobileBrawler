@@ -154,6 +154,7 @@
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\Vector2.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\Vector3.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Math.h" />
+    <ClInclude Include="src\GameLibrary\Utilities\Pair.h" />
     <ClInclude Include="src\GameLibrary\Utilities\String.h" />
     <ClInclude Include="src\GameLibrary\Window\View.h" />
     <ClInclude Include="src\GameLibrary\Window\Window.h" />

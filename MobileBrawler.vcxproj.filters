@@ -314,5 +314,8 @@
     <ClInclude Include="src\GameLibrary\Exception\BadAnyCastException.h">
       <Filter>Header Files\GameLibrary\Exception</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\Pair.h">
+      <Filter>Header Files\GameLibrary\Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
