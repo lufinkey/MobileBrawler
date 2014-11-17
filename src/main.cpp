@@ -9,7 +9,7 @@ using namespace GameLibrary;
 int main(int argc, char *argv[])
 {
 	//Test math function
-	std::cout << Math::sin(5) << std::endl;
+	std::cout << Math::sin(5.0f) << std::endl;
 
 	//int ArrayList test
 	ArrayList<int> arr;
