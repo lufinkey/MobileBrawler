@@ -6,6 +6,8 @@ namespace GameLibrary
 	class Math
 	{
 	public:
+		static const double PI;
+
 		//Trig
 		static double sin(double radians);
 		static float sin(float radians);

@@ -4,6 +4,8 @@
 
 namespace GameLibrary
 {
+	const double Math::PI = 3.141592654;
+
 	//Trig
 	double Math::sin(double radians){ return std::sin(radians); }
 	float Math::sin(float radians){ return std::sin(radians); }
