@@ -25,6 +25,11 @@ namespace GameLibrary
 		m_matrix[2] = 0.f; m_matrix[6] = 0.f; m_matrix[10] = 1.f; m_matrix[14] = 0.f;
 		m_matrix[3] = a20; m_matrix[7] = a21; m_matrix[11] = 0.f; m_matrix[15] = a22;
 	}
+
+	Transform::~Transform()
+	{
+		//
+	}
 	
 	const float* Transform::getMatrix() const
 	{

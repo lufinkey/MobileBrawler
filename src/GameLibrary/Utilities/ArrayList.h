@@ -81,6 +81,36 @@ namespace GameLibrary
 		{
 			objects.resize(0);
 		}
+
+		ArrayList<T>& operator=(const ArrayList<T>& arr)
+		{
+			unsigned int length = arr.objects.size();
+			objects.resize(length);
+			for(int i=0; i<length; i++)
+			{
+				objects[i] = arr.objects[i];
+			}
+			
+			return *this;
+		}
+
+		T& operator[] (unsigned int index)
+		{
+			if(index<objects.size())
+			{
+				return objects[index];
+			}
+			throw ArrayListOutOfBoundsException(index, objects.size());
+		}
+		
+		const T& operator[] (unsigned int index) const
+		{
+			if(index<objects.size())
+			{
+				return objects[index];
+			}
+			throw ArrayListOutOfBoundsException(index, objects.size());
+		}
 		
 		T& get(unsigned int index)
 		{
@@ -92,24 +122,6 @@ namespace GameLibrary
 		}
 		
 		const T& get(unsigned int index) const
-		{
-			if(index<objects.size())
-			{
-				return objects[index];
-			}
-			throw ArrayListOutOfBoundsException(index, objects.size());
-		}
-		
-		T& operator[] (unsigned int index)
-		{
-			if(index<objects.size())
-			{
-				return objects[index];
-			}
-			throw ArrayListOutOfBoundsException(index, objects.size());
-		}
-		
-		const T& operator[] (unsigned int index) const
 		{
 			if(index<objects.size())
 			{
@@ -194,18 +206,6 @@ namespace GameLibrary
 		unsigned int size() const
 		{
 			return objects.size();
-		}
-		
-		ArrayList& operator=(const ArrayList<T>& arr)
-		{
-			unsigned int length = arr.objects.size();
-			objects.resize(length);
-			for(int i=0; i<length; i++)
-			{
-				objects[i] = arr.objects[i];
-			}
-			
-			return *this;
 		}
 		
 		bool contains(const T& obj) const
