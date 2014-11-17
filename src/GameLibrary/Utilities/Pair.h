@@ -14,7 +14,7 @@ namespace GameLibrary
 
 		typedef T1 first_type;
 		typedef T2 second_type;
-		typedef pair<T1, T2> pair_type;
+		typedef Pair<T1, T2> pair_type;
 
 		Pair() : first(), second()
 		{
@@ -43,14 +43,15 @@ namespace GameLibrary
 		{
 			first = p.first;
 			second = p.second;
+			return *this;
 		}
 
 		template<class Other1, class Other2>
-		pair_type& operator=(const pair<Other1, Other2>& p)
+		pair_type& operator=(const Pair<Other1, Other2>& p)
 		{
 			first = p.first;
 			second = p.second;
-			return (*this);
+			return *this;
 		}
 	};
 }

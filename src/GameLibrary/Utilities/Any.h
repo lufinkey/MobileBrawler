@@ -1,12 +1,18 @@
 
 #include "../Exception/BadAnyCastException.h"
+#include <type_traits>
+
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 4521)
+#endif
 
 #pragma once
 
 namespace GameLibrary
 {
 	template<class T>
-	using StorageType = typename decay<T>::type;
+	using StorageType = typename std::decay<T>::type;
 	class Any
 	{
 	private:
@@ -126,7 +132,7 @@ namespace GameLibrary
 
 		bool not_null() const
 		{
-			return ptr;
+			return ptr!=nullptr;
 		}
 
 		template<typename U> Any(U&& value) : ptr(new Derived<StorageType<U>>(forward<U>(value)))
@@ -152,5 +158,21 @@ namespace GameLibrary
 			}
 			return derived->value;
 		}
+
+		template<class U>
+		const StorageType<U>& as()
+		{
+			typedef StorageType<U> T;
+			auto derived = dynamic_cast<Derived<T>*>(ptr);
+			if (!derived)
+			{
+				throw BadAnyCastException(typeid(U).name());
+			}
+			return derived->value;
+		}
 	};
 }
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
