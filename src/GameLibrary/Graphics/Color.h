@@ -3,7 +3,7 @@
 
 #pragma once
 
-namespace GameEngine
+namespace GameLibrary
 {
 	class Color
 	{

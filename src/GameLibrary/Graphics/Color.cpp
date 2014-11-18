@@ -1,7 +1,7 @@
 
 #include "Color.h"
 
-namespace GameEngine
+namespace GameLibrary
 {
 	const Color Color::BLACK = Color(0,0,0);
 	const Color Color::BLUE = Color(0,0,255);
