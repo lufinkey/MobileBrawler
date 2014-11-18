@@ -16,14 +16,14 @@ namespace GameLibrary
 	double Math::tan(double radians){ return std::tan(radians); }
 	float Math::tan(float radians){ return std::tan(radians); }
 	long double Math::tan(long double radians){ return std::tan(radians); }
-	double Math::asin(double x){ return std::asin(x); }
-	float Math::asin(float x){ return std::asin(x); }
+	double Math::asin(double sin){ return std::asin(sin); }
+	float Math::asin(float sin){ return std::asin(sin); }
 	long double Math::asin(long double x){ return std::asin(x); }
-	double Math::acos(double x){ return std::acos(x); }
-	float Math::acos(float x){ return std::acos(x); }
-	long double Math::acos(long double x){ return std::acos(x); }
-	double Math::atan(double x){ return std::atan(x); }
-	float Math::atan(float x){ return std::atan(x); }
+	double Math::acos(double cos){ return std::acos(cos); }
+	float Math::acos(float cos){ return std::acos(cos); }
+	long double Math::acos(long double cos){ return std::acos(cos); }
+	double Math::atan(double tan){ return std::atan(tan); }
+	float Math::atan(float tan){ return std::atan(tan); }
 	long double Math::atan(long double x){ return std::atan(x); }
 	double Math::atan2(double x, double y){ return std::atan2(x, y); }
 	float Math::atan2(float x, float y){ return std::atan2(x, y); }
