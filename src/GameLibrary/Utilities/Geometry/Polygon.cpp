@@ -43,6 +43,7 @@ namespace GameLibrary
 	Polygon& Polygon::operator=(const Polygon&polygon)
 	{
 		points = polygon.points;
+		return *this;
 	}
 
 	void Polygon::addPoint(float x, float y)
