@@ -79,14 +79,14 @@ namespace GameLibrary
 		
 		~ArrayList()
 		{
-			objects.resize(0);
+			//
 		}
 
 		ArrayList<T>& operator=(const ArrayList<T>& arr)
 		{
 			unsigned int length = arr.objects.size();
 			objects.resize(length);
-			for(int i=0; i<length; i++)
+			for(unsigned int i=0; i<length; i++)
 			{
 				objects[i] = arr.objects[i];
 			}
@@ -201,6 +201,7 @@ namespace GameLibrary
 		void clear()
 		{
 			objects.resize(0);
+			objects.shrink_to_fit();
 		}
 		
 		unsigned int size() const
