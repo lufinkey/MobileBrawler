@@ -94,10 +94,14 @@
     <ClCompile Include="src\GameLibrary\Audio\Sound.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\ArrayListOutOfBoundsException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\BadAnyCastException.cpp" />
+    <ClCompile Include="src\GameLibrary\Exception\BadCastException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\BitsetOutOfBoundsException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\Exception.cpp" />
+    <ClCompile Include="src\GameLibrary\Exception\IllegalArgumentException.cpp" />
+    <ClCompile Include="src\GameLibrary\Exception\IllegalDateTimeFormatException.cpp" />
+    <ClCompile Include="src\GameLibrary\Exception\IllegalFormatException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\OutOfBoundsException.cpp" />
-    <ClCompile Include="src\GameLibrary\Exception\StringConvertException.cpp" />
+    <ClCompile Include="src\GameLibrary\Exception\NumberFormatException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\StringOutOfBoundsException.cpp" />
     <ClCompile Include="src\GameLibrary\Graphics\BufferedImage.cpp" />
     <ClCompile Include="src\GameLibrary\Graphics\Color.cpp" />
@@ -119,6 +123,9 @@
     <ClCompile Include="src\GameLibrary\Utilities\Geometry\Transform.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Math.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\String.cpp" />
+    <ClCompile Include="src\GameLibrary\Utilities\Time\DateTime.cpp" />
+    <ClCompile Include="src\GameLibrary\Utilities\Time\posixtime.cpp" />
+    <ClCompile Include="src\GameLibrary\Utilities\Time\time64\time64.c" />
     <ClCompile Include="src\GameLibrary\Window\View.cpp" />
     <ClCompile Include="src\GameLibrary\Window\Window.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -134,10 +141,14 @@
     <ClInclude Include="src\GameLibrary\Audio\Sound.h" />
     <ClInclude Include="src\GameLibrary\Exception\ArrayListOutOfBoundsException.h" />
     <ClInclude Include="src\GameLibrary\Exception\BadAnyCastException.h" />
+    <ClInclude Include="src\GameLibrary\Exception\BadCastException.h" />
     <ClInclude Include="src\GameLibrary\Exception\BitsetOutOfBoundsException.h" />
     <ClInclude Include="src\GameLibrary\Exception\Exception.h" />
+    <ClInclude Include="src\GameLibrary\Exception\IllegalArgumentException.h" />
+    <ClInclude Include="src\GameLibrary\Exception\IllegalDateTimeFormatException.h" />
+    <ClInclude Include="src\GameLibrary\Exception\IllegalFormatException.h" />
     <ClInclude Include="src\GameLibrary\Exception\OutOfBoundsException.h" />
-    <ClInclude Include="src\GameLibrary\Exception\StringConvertException.h" />
+    <ClInclude Include="src\GameLibrary\Exception\NumberFormatException.h" />
     <ClInclude Include="src\GameLibrary\Exception\StringOutOfBoundsException.h" />
     <ClInclude Include="src\GameLibrary\GameLibrary.h" />
     <ClInclude Include="src\GameLibrary\Graphics\BufferedImage.h" />
@@ -165,6 +176,11 @@
     <ClInclude Include="src\GameLibrary\Utilities\Math.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Pair.h" />
     <ClInclude Include="src\GameLibrary\Utilities\String.h" />
+    <ClInclude Include="src\GameLibrary\Utilities\Time\DateTime.h" />
+    <ClInclude Include="src\GameLibrary\Utilities\Time\posixtime.h" />
+    <ClInclude Include="src\GameLibrary\Utilities\Time\time64\time64.h" />
+    <ClInclude Include="src\GameLibrary\Utilities\Time\time64\time64_config.h" />
+    <ClInclude Include="src\GameLibrary\Utilities\Time\time64\time64_limits.h" />
     <ClInclude Include="src\GameLibrary\Window\View.h" />
     <ClInclude Include="src\GameLibrary\Window\Window.h" />
   </ItemGroup>

@@ -79,6 +79,18 @@
     <Filter Include="Source Files\GameLibrary\Network">
       <UniqueIdentifier>{1f911086-78f8-4d9c-bf3b-34bfc5efb7bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameLibrary\Utilities\Time">
+      <UniqueIdentifier>{2c7e63cb-e60c-43c7-9f46-94aab95d604a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLibrary\Utilities\Time">
+      <UniqueIdentifier>{b6cfe731-70bc-41ac-9af6-38b3f1a2e66c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLibrary\Utilities\Time\time64">
+      <UniqueIdentifier>{95d9316a-5510-4219-ae8e-f790ad11b032}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLibrary\Utilities\Time\time64">
+      <UniqueIdentifier>{341359f6-c4d7-486f-828d-f7176b98d9b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -180,9 +192,6 @@
     <ClCompile Include="src\GameLibrary\Exception\Exception.cpp">
       <Filter>Source Files\GameLibrary\Exception</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameLibrary\Exception\StringConvertException.cpp">
-      <Filter>Source Files\GameLibrary\Exception</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameLibrary\Exception\StringOutOfBoundsException.cpp">
       <Filter>Source Files\GameLibrary\Exception</Filter>
     </ClCompile>
@@ -194,6 +203,30 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Utilities\Geometry\Polygon.cpp">
       <Filter>Source Files\GameLibrary\Utilities\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Utilities\Time\DateTime.cpp">
+      <Filter>Source Files\GameLibrary\Utilities\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Utilities\Time\posixtime.cpp">
+      <Filter>Source Files\GameLibrary\Utilities\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Utilities\Time\time64\time64.c">
+      <Filter>Source Files\GameLibrary\Utilities\Time\time64</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\IllegalArgumentException.cpp">
+      <Filter>Source Files\GameLibrary\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\IllegalFormatException.cpp">
+      <Filter>Source Files\GameLibrary\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\NumberFormatException.cpp">
+      <Filter>Source Files\GameLibrary\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\IllegalDateTimeFormatException.cpp">
+      <Filter>Source Files\GameLibrary\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\BadCastException.cpp">
+      <Filter>Source Files\GameLibrary\Exception</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -305,9 +338,6 @@
     <ClInclude Include="src\GameLibrary\Exception\Exception.h">
       <Filter>Header Files\GameLibrary\Exception</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameLibrary\Exception\StringConvertException.h">
-      <Filter>Header Files\GameLibrary\Exception</Filter>
-    </ClInclude>
     <ClInclude Include="src\GameLibrary\Exception\StringOutOfBoundsException.h">
       <Filter>Header Files\GameLibrary\Exception</Filter>
     </ClInclude>
@@ -325,6 +355,36 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\Polygon.h">
       <Filter>Header Files\GameLibrary\Utilities\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\Time\DateTime.h">
+      <Filter>Header Files\GameLibrary\Utilities\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\Time\posixtime.h">
+      <Filter>Header Files\GameLibrary\Utilities\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\Time\time64\time64.h">
+      <Filter>Header Files\GameLibrary\Utilities\Time\time64</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\Time\time64\time64_config.h">
+      <Filter>Header Files\GameLibrary\Utilities\Time\time64</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\Time\time64\time64_limits.h">
+      <Filter>Header Files\GameLibrary\Utilities\Time\time64</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\IllegalArgumentException.h">
+      <Filter>Header Files\GameLibrary\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\IllegalFormatException.h">
+      <Filter>Header Files\GameLibrary\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\NumberFormatException.h">
+      <Filter>Header Files\GameLibrary\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\IllegalDateTimeFormatException.h">
+      <Filter>Header Files\GameLibrary\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\BadCastException.h">
+      <Filter>Header Files\GameLibrary\Exception</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
