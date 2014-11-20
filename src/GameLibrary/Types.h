@@ -21,6 +21,13 @@ namespace GameLibrary
 		class OutOfBoundsException;
 			class ArrayListOutOfBoundsException;
 			class BitsetOutOfBoundsException;
+			class StringOutOfBoundsException;
+		class BadCastException;
+			class BadAnyCastException;
+		class IllegalArgumentException;
+			class IllegalFormatException;
+				class IllegalDateTimeFormatException;
+			class NumberFormatException;
 	
 	//Graphics
 	class Graphics;
@@ -44,13 +51,20 @@ namespace GameLibrary
 	
 	//Utilities
 		//Geometry
-		class Rectangle;
 		class Circle;
+		class Polygon;
+		class Rectangle;
+		class Transform;
+	class Any;
 	class Bitset;
 	class Dictionary;
 	class Math;
 	class String;
-}
 
-typedef unsigned char byte;
-typedef bool boolean;
+	//View
+	class View;
+	class Window;
+
+	typedef unsigned char byte;
+	typedef bool boolean;
+}

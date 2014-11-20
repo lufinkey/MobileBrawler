@@ -5,6 +5,7 @@
 
 namespace GameLibrary
 {
+	///Thrown to indicate that an index to a String is out of range.
 	class StringOutOfBoundsException : public OutOfBoundsException
 	{
 	public:

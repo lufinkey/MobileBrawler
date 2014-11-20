@@ -1,17 +1,15 @@
 
-#include "Exception.h"
+#include "BadCastException.h"
 
 #pragma once
 
 namespace GameLibrary
 {
-	class BadAnyCastException : public Exception
+	class BadAnyCastException : public BadCastException
 	{
 	public:
-		String type;
-
 		BadAnyCastException(const BadAnyCastException&);
-		BadAnyCastException(const String&type);
+		BadAnyCastException(const String&casttype);
 		virtual ~BadAnyCastException();
 	};
 }

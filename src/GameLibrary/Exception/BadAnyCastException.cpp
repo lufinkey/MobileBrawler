@@ -3,14 +3,14 @@
 
 namespace GameLibrary
 {
-	BadAnyCastException::BadAnyCastException(const BadAnyCastException&exception) : Exception(exception)
+	BadAnyCastException::BadAnyCastException(const BadAnyCastException&exception) : BadCastException(exception)
 	{
-		type = exception.type;
+		//
 	}
 
-	BadAnyCastException::BadAnyCastException(const String&t) : Exception((String)"Bad cast from Any to \"" + t)
+	BadAnyCastException::BadAnyCastException(const String&casttype) : BadCastException("Any", casttype)
 	{
-		type = t;
+		//
 	}
 
 	BadAnyCastException::~BadAnyCastException()
