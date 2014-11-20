@@ -141,8 +141,8 @@ namespace GameLibrary
 		String trim() const;
 		unsigned int indexOf(const String&) const;
 		unsigned int lastIndexOf(const String&) const;
-		String toLowerCase();
-		String toUpperCase();
+		String toLowerCase() const;
+		String toUpperCase() const;
 	};
 #ifdef STRING_USES_GAMELIBRARY
 }

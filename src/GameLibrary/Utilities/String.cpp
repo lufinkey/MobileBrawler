@@ -2487,7 +2487,7 @@ namespace GameLibrary
 		return STRING_NOTFOUND;
 	}
 
-	String String::toLowerCase()
+	String String::toLowerCase() const
 	{
 		String newStr(*this);
 		
@@ -2504,7 +2504,7 @@ namespace GameLibrary
 		return newStr;
 	}
 
-	String String::toUpperCase()
+	String String::toUpperCase() const
 	{
 		String newStr(*this);
 		
