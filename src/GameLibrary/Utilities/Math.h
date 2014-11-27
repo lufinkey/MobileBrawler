@@ -66,6 +66,7 @@ namespace GameLibrary
 		static float abs(float arg);
 		static long double abs(long double arg);
 		static int abs(int arg);
+		static long abs(long arg);
 
 		//Angle Conversions
 		static double degtorad(double deg);

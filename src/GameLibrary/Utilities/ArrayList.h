@@ -186,7 +186,7 @@ namespace GameLibrary
 			}
 			else if(index<length)
 			{
-				for(int i=(index+1); i<length; i++)
+				for(unsigned int i=(index+1); i<length; i++)
 				{
 					objects[i-1] = objects[i];
 				}

@@ -1,6 +1,7 @@
 
 #include "Math.h"
 #include <cmath>
+#include <cstdlib>
 
 namespace GameLibrary
 {
@@ -64,6 +65,7 @@ namespace GameLibrary
 	float Math::abs(float arg){ return std::abs(arg); }
 	long double Math::abs(long double arg){ return std::abs(arg); }
 	int Math::abs(int arg){ return std::abs(arg); }
+	long Math::abs(long arg){ return std::abs(arg); }
 
 	//Angle Conversions
 	double Math::degtorad(double deg){ return deg * PI / 180; }

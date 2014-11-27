@@ -53,6 +53,9 @@ namespace GameLibrary
 		static unsigned long asULong(const String&);
 		static unsigned short asUShort(const String&);
 		static unsigned long long asULongLong(const String&);
+
+		static char asLowerCaseChar(char c);
+		static char asUpperCaseChar(char c);
 		
 		String();
 		String(const String&);
