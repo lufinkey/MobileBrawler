@@ -15,6 +15,22 @@ namespace GameLibrary
 		unsigned int bitTotal;
 
 	public:
+		class BitAlias
+		{
+			friend class BitList;
+		private:
+			BitSet* bitset;
+			byte bitIndex;
+
+			BitAlias(BitSet*bitset, unsigned int bitIndex);
+
+		public:
+			BitAlias(const BitAlias&);
+
+			BitAlias& operator=(bool);
+			operator bool() const;
+		};
+
 		BitList();
 		BitList(const BitList&);
 
@@ -25,6 +41,8 @@ namespace GameLibrary
 		~BitList();
 
 		BitList& operator=(const BitList&);
+		BitAlias operator[](unsigned int index);
+		const BitAlias operator[](unsigned int index) const;
 
 		bool get(unsigned int index) const;
 		bool get(unsigned int byteIndex, unsigned int bitIndex) const;

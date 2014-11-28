@@ -3,6 +3,29 @@
 
 namespace GameLibrary
 {
+	BitList::BitAlias::BitAlias(const BitAlias&bitalias)
+	{
+		bitset = bitalias.bitset;
+		bitIndex = bitalias.bitIndex;
+	}
+
+	BitList::BitAlias::BitAlias(BitSet*bs, unsigned int bi)
+	{
+		bitset = bs;
+		bitIndex = (byte)bi;
+	}
+
+	BitList::BitAlias& BitList::BitAlias::operator=(bool value)
+	{
+		bitset->set((unsigned int)bitIndex, value);
+		return *this;
+	}
+
+	BitList::BitAlias::operator bool() const
+	{
+		return bitset->get((unsigned int)bitIndex);
+	}
+
 	BitList::BitList()
 	{
 		total = 0;
@@ -46,6 +69,16 @@ namespace GameLibrary
 		total = bitlist.total;
 		bitTotal = bitlist.bitTotal;
 		return *this;
+	}
+
+	BitList::BitAlias BitList::operator[](unsigned int index)
+	{
+		return BitAlias(&bytes.get(index/8), index%8);
+	}
+
+	const BitList::BitAlias BitList::operator[](unsigned int index) const
+	{
+		return BitAlias((BitSet*)(&bytes.get(index/8)), index%8);
 	}
 
 	bool BitList::get(unsigned int index) const
