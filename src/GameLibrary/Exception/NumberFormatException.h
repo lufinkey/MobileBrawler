@@ -5,8 +5,7 @@
 
 namespace GameLibrary
 {
-	///Thrown to indicate that the application has attempted to convert a string to one of the numeric types,
-	///but that the string does not have the appropriate format.
+	/* Thrown to indicate that the application has attempted to convert a String to a numeric type, but that the String does not have the appropriate format. */
 	class NumberFormatException : public IllegalArgumentException
 	{
 	public:

@@ -5,6 +5,7 @@
 
 namespace GameLibrary
 {
+	/* Thrown to indicate that an index to a Bitset is out of range. */
 	class BitsetOutOfBoundsException : public OutOfBoundsException
 	{
 	public:

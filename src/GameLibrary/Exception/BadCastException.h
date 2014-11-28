@@ -5,6 +5,7 @@
 
 namespace GameLibrary
 {
+	/* Thrown to indicate an illegal cast of a value. */
 	class BadCastException : public Exception
 	{
 	public:

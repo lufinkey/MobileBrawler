@@ -45,10 +45,13 @@ namespace GameLibrary
 		DateTime();
 		/* DateTime copy constructor */
 		DateTime(const DateTime&);
+
 		//DateTime is immutable for now
 		//DateTime(const String&datestring, const String&format=String("%Y-%m-%d %H:%M:%S %z"));
 		//DateTime(int year, int mon, int day);
 		//DateTime(int year, int mon, int day, int hour, int min, int sec, int usec);
+
+		/* DateTime destructor */
 		~DateTime();
 		
 		int getMicrosecond() const;

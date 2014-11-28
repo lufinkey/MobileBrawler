@@ -5,6 +5,7 @@
 
 namespace GameLibrary
 {
+	/* Thrown to indicate failed Any::as cast of an Any value. */
 	class BadAnyCastException : public BadCastException
 	{
 	public:

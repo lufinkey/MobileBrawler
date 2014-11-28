@@ -5,6 +5,7 @@
 
 namespace GameLibrary
 {
+	/* An class to throw when a generic error arises */
 	class Exception
 	{
 	public:

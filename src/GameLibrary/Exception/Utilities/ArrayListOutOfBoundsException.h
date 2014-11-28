@@ -5,7 +5,7 @@
 
 namespace GameLibrary
 {
-	///Thrown to indicate that an index to an ArrayList is out of range.
+	/* Thrown to indicate that an index to an ArrayList is out of range. */
 	class ArrayListOutOfBoundsException : public OutOfBoundsException
 	{
 	public:
