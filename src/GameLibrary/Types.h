@@ -54,10 +54,12 @@ namespace GameLibrary
 		class Circle;
 		class Polygon;
 		class Rectangle;
+		class RectangleF;
 		class Transform;
 	class Any;
 	class BitSet;
 	class Dictionary;
+	class Font;
 	class Math;
 	class String;
 

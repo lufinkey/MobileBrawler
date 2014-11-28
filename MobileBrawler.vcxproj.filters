@@ -258,6 +258,12 @@
     <ClCompile Include="src\GameLibrary\Exception\Utilities\BitSetOutOfBoundsException.cpp">
       <Filter>Source Files\GameLibrary\Exception\Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Utilities\DataPacket.cpp">
+      <Filter>Source Files\GameLibrary\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\Utilities\DataPacketOutOfBoundsException.cpp">
+      <Filter>Source Files\GameLibrary\Exception\Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -426,6 +432,12 @@
       <Filter>Header Files\GameLibrary\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Exception\Utilities\BitSetOutOfBoundsException.h">
+      <Filter>Header Files\GameLibrary\Exception\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\DataPacket.h">
+      <Filter>Header Files\GameLibrary\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\Utilities\DataPacketOutOfBoundsException.h">
       <Filter>Header Files\GameLibrary\Exception\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
