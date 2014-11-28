@@ -91,15 +91,6 @@
     <Filter Include="Header Files\GameLibrary\Utilities\Time\time64">
       <UniqueIdentifier>{341359f6-c4d7-486f-828d-f7176b98d9b9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\external">
-      <UniqueIdentifier>{cf455344-89c0-403b-9b5a-5c8d112ff203}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\external\SDL">
-      <UniqueIdentifier>{bee718b3-3494-4c5a-a271-58444c0164e3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\external\SDL\src">
-      <UniqueIdentifier>{32999a37-3eb7-4d71-9e64-77676154c975}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\GameLibrary\Exception\Graphics">
       <UniqueIdentifier>{29a5580f-5f4c-4493-aba8-956c3b412151}</UniqueIdentifier>
     </Filter>
@@ -221,9 +212,6 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Utilities\Time\time64\time64.c">
       <Filter>Source Files\GameLibrary\Utilities\Time\time64</Filter>
-    </ClCompile>
-    <ClCompile Include="external\SDL\src\SDL_savepng.c">
-      <Filter>Source Files\external\SDL\src</Filter>
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Exception\BadCastException.cpp">
       <Filter>Source Files\GameLibrary\Exception</Filter>

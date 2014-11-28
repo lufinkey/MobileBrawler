@@ -130,6 +130,16 @@ namespace GameLibrary
 			}
 			throw ArrayListOutOfBoundsException(index, objects.size());
 		}
+
+		T* getData()
+		{
+			return objects.data();
+		}
+
+		const T* getData() const
+		{
+			return objects.data();
+		}
 		
 		void set(unsigned int index, const T&obj)
 		{

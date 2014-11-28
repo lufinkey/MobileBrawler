@@ -84,7 +84,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="external\SDL\src\SDL_savepng.c" />
     <ClCompile Include="src\GameLibrary\Actor\Actor.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\ActorType.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\TextActor.cpp" />
