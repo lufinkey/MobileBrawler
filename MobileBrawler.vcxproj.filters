@@ -252,6 +252,12 @@
     <ClCompile Include="src\GameLibrary\Exception\Graphics\UnsupportedImageFormatException.cpp">
       <Filter>Source Files\GameLibrary\Exception\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Utilities\BitList.cpp">
+      <Filter>Source Files\GameLibrary\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\Utilities\BitListOutOfBoundsException.cpp">
+      <Filter>Source Files\GameLibrary\Exception\Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -415,6 +421,12 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Exception\Graphics\UnsupportedImageFormatException.h">
       <Filter>Header Files\GameLibrary\Exception\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\BitList.h">
+      <Filter>Header Files\GameLibrary\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\Utilities\BitListOutOfBoundsException.h">
+      <Filter>Header Files\GameLibrary\Exception\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

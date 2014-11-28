@@ -102,6 +102,7 @@
     <ClCompile Include="src\GameLibrary\Exception\OutOfBoundsException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\Utilities\ArrayListOutOfBoundsException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\Utilities\BadAnyCastException.cpp" />
+    <ClCompile Include="src\GameLibrary\Exception\Utilities\BitListOutOfBoundsException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\Utilities\BitsetOutOfBoundsException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\Utilities\StringOutOfBoundsException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\Utilities\Time\IllegalDateTimeFormatException.cpp" />
@@ -117,6 +118,7 @@
     <ClCompile Include="src\GameLibrary\Screen\MenuScreen.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\Screen.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\ScreenManager.cpp" />
+    <ClCompile Include="src\GameLibrary\Utilities\BitList.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Bitset.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Dictionary.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Geometry\Circle.cpp" />
@@ -151,6 +153,7 @@
     <ClInclude Include="src\GameLibrary\Exception\OutOfBoundsException.h" />
     <ClInclude Include="src\GameLibrary\Exception\Utilities\ArrayListOutOfBoundsException.h" />
     <ClInclude Include="src\GameLibrary\Exception\Utilities\BadAnyCastException.h" />
+    <ClInclude Include="src\GameLibrary\Exception\Utilities\BitListOutOfBoundsException.h" />
     <ClInclude Include="src\GameLibrary\Exception\Utilities\BitsetOutOfBoundsException.h" />
     <ClInclude Include="src\GameLibrary\Exception\Utilities\StringOutOfBoundsException.h" />
     <ClInclude Include="src\GameLibrary\Exception\Utilities\Time\IllegalDateTimeFormatException.h" />
@@ -170,6 +173,7 @@
     <ClInclude Include="src\GameLibrary\Types.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Any.h" />
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h" />
+    <ClInclude Include="src\GameLibrary\Utilities\BitList.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Bitset.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Dictionary.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\Circle.h" />
