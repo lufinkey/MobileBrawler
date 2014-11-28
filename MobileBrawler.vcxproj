@@ -103,7 +103,7 @@
     <ClCompile Include="src\GameLibrary\Exception\Utilities\ArrayListOutOfBoundsException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\Utilities\BadAnyCastException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\Utilities\BitListOutOfBoundsException.cpp" />
-    <ClCompile Include="src\GameLibrary\Exception\Utilities\BitsetOutOfBoundsException.cpp" />
+    <ClCompile Include="src\GameLibrary\Exception\Utilities\BitSetOutOfBoundsException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\Utilities\StringOutOfBoundsException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\Utilities\Time\IllegalDateTimeFormatException.cpp" />
     <ClCompile Include="src\GameLibrary\Graphics\BufferedImage.cpp" />
@@ -154,7 +154,7 @@
     <ClInclude Include="src\GameLibrary\Exception\Utilities\ArrayListOutOfBoundsException.h" />
     <ClInclude Include="src\GameLibrary\Exception\Utilities\BadAnyCastException.h" />
     <ClInclude Include="src\GameLibrary\Exception\Utilities\BitListOutOfBoundsException.h" />
-    <ClInclude Include="src\GameLibrary\Exception\Utilities\BitsetOutOfBoundsException.h" />
+    <ClInclude Include="src\GameLibrary\Exception\Utilities\BitSetOutOfBoundsException.h" />
     <ClInclude Include="src\GameLibrary\Exception\Utilities\StringOutOfBoundsException.h" />
     <ClInclude Include="src\GameLibrary\Exception\Utilities\Time\IllegalDateTimeFormatException.h" />
     <ClInclude Include="src\GameLibrary\GameLibrary.h" />

@@ -240,9 +240,6 @@
     <ClCompile Include="src\GameLibrary\Exception\Utilities\BadAnyCastException.cpp">
       <Filter>Source Files\GameLibrary\Exception\Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameLibrary\Exception\Utilities\BitsetOutOfBoundsException.cpp">
-      <Filter>Source Files\GameLibrary\Exception\Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameLibrary\Exception\Utilities\StringOutOfBoundsException.cpp">
       <Filter>Source Files\GameLibrary\Exception\Utilities</Filter>
     </ClCompile>
@@ -257,6 +254,9 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Utilities\BitSet.cpp">
       <Filter>Source Files\GameLibrary\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\Utilities\BitSetOutOfBoundsException.cpp">
+      <Filter>Source Files\GameLibrary\Exception\Utilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -410,9 +410,6 @@
     <ClInclude Include="src\GameLibrary\Exception\Utilities\BadAnyCastException.h">
       <Filter>Header Files\GameLibrary\Exception\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameLibrary\Exception\Utilities\BitsetOutOfBoundsException.h">
-      <Filter>Header Files\GameLibrary\Exception\Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="src\GameLibrary\Exception\Utilities\StringOutOfBoundsException.h">
       <Filter>Header Files\GameLibrary\Exception\Utilities</Filter>
     </ClInclude>
@@ -427,6 +424,9 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Utilities\BitSet.h">
       <Filter>Header Files\GameLibrary\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\Utilities\BitSetOutOfBoundsException.h">
+      <Filter>Header Files\GameLibrary\Exception\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
