@@ -13,7 +13,7 @@
 
 #ifdef STRING_USES_GAMELIBRARY
 	#include "../Exception/NumberFormatException.h"
-	#include "../Exception/StringOutOfBoundsException.h"
+	#include "../Exception/Utilities/StringOutOfBoundsException.h"
 #else
 	StringException::StringException(const StringException&exception) : std::exception(exception)
 	{

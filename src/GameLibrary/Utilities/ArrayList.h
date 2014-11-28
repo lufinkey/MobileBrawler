@@ -6,7 +6,7 @@
 #define ARRAYLIST_USES_GAMELIBRARY
 
 #ifdef ARRAYLIST_USES_GAMELIBRARY
-#include "../Exception/ArrayListOutOfBoundsException.h"
+#include "../Exception/Utilities/ArrayListOutOfBoundsException.h"
 namespace GameLibrary
 {
 #else

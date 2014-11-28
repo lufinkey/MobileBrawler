@@ -100,6 +100,24 @@
     <Filter Include="Source Files\external\SDL\src">
       <UniqueIdentifier>{32999a37-3eb7-4d71-9e64-77676154c975}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameLibrary\Exception\Graphics">
+      <UniqueIdentifier>{29a5580f-5f4c-4493-aba8-956c3b412151}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLibrary\Exception\Utilities">
+      <UniqueIdentifier>{535df61d-43e0-4710-9f0d-7430f84e7fe6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLibrary\Exception\Graphics">
+      <UniqueIdentifier>{23fdf7de-8aaa-4f15-9193-0d93a0b1cbd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLibrary\Exception\Utilities">
+      <UniqueIdentifier>{ad6e02f1-b95b-4ff7-880a-c69686da2d2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLibrary\Exception\Utilities\Time">
+      <UniqueIdentifier>{7c80413d-5116-4c7f-a9b9-5a0f1a1ffea6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameLibrary\Exception\Utilities\Time">
+      <UniqueIdentifier>{75155c3c-15dd-4a16-ad9a-56ea7b2a3a1f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -131,15 +149,6 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Audio\Sound.cpp">
       <Filter>Source Files\GameLibrary\Audio</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameLibrary\Exception\ArrayListOutOfBoundsException.cpp">
-      <Filter>Source Files\GameLibrary\Exception</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameLibrary\Exception\BitsetOutOfBoundsException.cpp">
-      <Filter>Source Files\GameLibrary\Exception</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameLibrary\Exception\OutOfBoundsException.cpp">
-      <Filter>Source Files\GameLibrary\Exception</Filter>
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Graphics\BufferedImage.cpp">
       <Filter>Source Files\GameLibrary\Graphics</Filter>
@@ -198,15 +207,6 @@
     <ClCompile Include="src\GameLibrary\AssetManager.cpp">
       <Filter>Source Files\GameLibrary</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameLibrary\Exception\Exception.cpp">
-      <Filter>Source Files\GameLibrary\Exception</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameLibrary\Exception\StringOutOfBoundsException.cpp">
-      <Filter>Source Files\GameLibrary\Exception</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameLibrary\Exception\BadAnyCastException.cpp">
-      <Filter>Source Files\GameLibrary\Exception</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameLibrary\Utilities\Geometry\Transform.cpp">
       <Filter>Source Files\GameLibrary\Utilities\Geometry</Filter>
     </ClCompile>
@@ -222,6 +222,15 @@
     <ClCompile Include="src\GameLibrary\Utilities\Time\time64\time64.c">
       <Filter>Source Files\GameLibrary\Utilities\Time\time64</Filter>
     </ClCompile>
+    <ClCompile Include="external\SDL\src\SDL_savepng.c">
+      <Filter>Source Files\external\SDL\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\BadCastException.cpp">
+      <Filter>Source Files\GameLibrary\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\Exception.cpp">
+      <Filter>Source Files\GameLibrary\Exception</Filter>
+    </ClCompile>
     <ClCompile Include="src\GameLibrary\Exception\IllegalArgumentException.cpp">
       <Filter>Source Files\GameLibrary\Exception</Filter>
     </ClCompile>
@@ -231,17 +240,29 @@
     <ClCompile Include="src\GameLibrary\Exception\NumberFormatException.cpp">
       <Filter>Source Files\GameLibrary\Exception</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameLibrary\Exception\IllegalDateTimeFormatException.cpp">
+    <ClCompile Include="src\GameLibrary\Exception\OutOfBoundsException.cpp">
       <Filter>Source Files\GameLibrary\Exception</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameLibrary\Exception\BadCastException.cpp">
-      <Filter>Source Files\GameLibrary\Exception</Filter>
+    <ClCompile Include="src\GameLibrary\Exception\Graphics\ImageOutOfBoundsException.cpp">
+      <Filter>Source Files\GameLibrary\Exception\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameLibrary\Exception\ImageOutOfBoundsException.cpp">
-      <Filter>Source Files\GameLibrary\Exception</Filter>
+    <ClCompile Include="src\GameLibrary\Exception\Utilities\Time\IllegalDateTimeFormatException.cpp">
+      <Filter>Source Files\GameLibrary\Exception\Utilities\Time</Filter>
     </ClCompile>
-    <ClCompile Include="external\SDL\src\SDL_savepng.c">
-      <Filter>Source Files\external\SDL\src</Filter>
+    <ClCompile Include="src\GameLibrary\Exception\Utilities\ArrayListOutOfBoundsException.cpp">
+      <Filter>Source Files\GameLibrary\Exception\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\Utilities\BadAnyCastException.cpp">
+      <Filter>Source Files\GameLibrary\Exception\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\Utilities\BitsetOutOfBoundsException.cpp">
+      <Filter>Source Files\GameLibrary\Exception\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\Utilities\StringOutOfBoundsException.cpp">
+      <Filter>Source Files\GameLibrary\Exception\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\Graphics\UnsupportedImageFormatException.cpp">
+      <Filter>Source Files\GameLibrary\Exception\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -277,15 +298,6 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Audio\Sound.h">
       <Filter>Header Files\GameLibrary\Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameLibrary\Exception\ArrayListOutOfBoundsException.h">
-      <Filter>Header Files\GameLibrary\Exception</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameLibrary\Exception\BitsetOutOfBoundsException.h">
-      <Filter>Header Files\GameLibrary\Exception</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameLibrary\Exception\OutOfBoundsException.h">
-      <Filter>Header Files\GameLibrary\Exception</Filter>
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Graphics\BufferedImage.h">
       <Filter>Header Files\GameLibrary\Graphics</Filter>
@@ -350,17 +362,8 @@
     <ClInclude Include="src\GameLibrary\GameLibrary.h">
       <Filter>Header Files\GameLibrary</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameLibrary\Exception\Exception.h">
-      <Filter>Header Files\GameLibrary\Exception</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameLibrary\Exception\StringOutOfBoundsException.h">
-      <Filter>Header Files\GameLibrary\Exception</Filter>
-    </ClInclude>
     <ClInclude Include="src\GameLibrary\Utilities\Any.h">
       <Filter>Header Files\GameLibrary\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameLibrary\Exception\BadAnyCastException.h">
-      <Filter>Header Files\GameLibrary\Exception</Filter>
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Utilities\Pair.h">
       <Filter>Header Files\GameLibrary\Utilities</Filter>
@@ -386,6 +389,12 @@
     <ClInclude Include="src\GameLibrary\Utilities\Time\time64\time64_limits.h">
       <Filter>Header Files\GameLibrary\Utilities\Time\time64</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\BadCastException.h">
+      <Filter>Header Files\GameLibrary\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\Exception.h">
+      <Filter>Header Files\GameLibrary\Exception</Filter>
+    </ClInclude>
     <ClInclude Include="src\GameLibrary\Exception\IllegalArgumentException.h">
       <Filter>Header Files\GameLibrary\Exception</Filter>
     </ClInclude>
@@ -395,14 +404,29 @@
     <ClInclude Include="src\GameLibrary\Exception\NumberFormatException.h">
       <Filter>Header Files\GameLibrary\Exception</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameLibrary\Exception\IllegalDateTimeFormatException.h">
+    <ClInclude Include="src\GameLibrary\Exception\OutOfBoundsException.h">
       <Filter>Header Files\GameLibrary\Exception</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameLibrary\Exception\BadCastException.h">
-      <Filter>Header Files\GameLibrary\Exception</Filter>
+    <ClInclude Include="src\GameLibrary\Exception\Graphics\ImageOutOfBoundsException.h">
+      <Filter>Header Files\GameLibrary\Exception\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameLibrary\Exception\ImageOutOfBoundsException.h">
-      <Filter>Header Files\GameLibrary\Exception</Filter>
+    <ClInclude Include="src\GameLibrary\Exception\Utilities\Time\IllegalDateTimeFormatException.h">
+      <Filter>Header Files\GameLibrary\Exception\Utilities\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\Utilities\ArrayListOutOfBoundsException.h">
+      <Filter>Header Files\GameLibrary\Exception\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\Utilities\BadAnyCastException.h">
+      <Filter>Header Files\GameLibrary\Exception\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\Utilities\BitsetOutOfBoundsException.h">
+      <Filter>Header Files\GameLibrary\Exception\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\Utilities\StringOutOfBoundsException.h">
+      <Filter>Header Files\GameLibrary\Exception\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\Graphics\UnsupportedImageFormatException.h">
+      <Filter>Header Files\GameLibrary\Exception\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

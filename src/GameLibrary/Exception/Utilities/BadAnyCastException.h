@@ -1,5 +1,5 @@
 
-#include "BadCastException.h"
+#include "../BadCastException.h"
 
 #pragma once
 
