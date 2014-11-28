@@ -99,7 +99,7 @@ namespace GameLibrary
 		if(bitTotal==8 || bitTotal==0)
 		{
 			bitTotal = 1;
-			bytes.add(Bitset());
+			bytes.add(BitSet());
 			bytes.get(bytes.size()-1).set(0, value);
 		}
 		else
@@ -131,7 +131,7 @@ namespace GameLibrary
 				}
 
 				bitTotal = 1;
-				bytes.add(Bitset());
+				bytes.add(BitSet());
 			}
 			else
 			{
@@ -158,7 +158,7 @@ namespace GameLibrary
 				for(unsigned int i=(bytes.size()-1); i>=0; i--)
 				{
 					bitIndexCounter = 7;
-					Bitset& bitset = bytes.get(i);
+					BitSet& bitset = bytes.get(i);
 					if(byteIndexCounter==byteIndex)
 					{
 						for(unsigned int j=8; j>=1; j--)
@@ -171,8 +171,8 @@ namespace GameLibrary
 
 							if(j==1)
 							{
-								Bitset& nextBitset = bytes.get(i-1);
-								bitset.set(0, nextBitset.get(7));
+								BitSet& nextBitSet = bytes.get(i-1);
+								bitset.set(0, nextBitSet.get(7));
 							}
 							else
 							{
@@ -187,8 +187,8 @@ namespace GameLibrary
 						{
 							if(j==1)
 							{
-								Bitset& nextBitset = bytes.get(i-1);
-								bitset.set(0, nextBitset.get(7));
+								BitSet& nextBitSet = bytes.get(i-1);
+								bitset.set(0, nextBitSet.get(7));
 							}
 							else
 							{
@@ -245,7 +245,7 @@ namespace GameLibrary
 
 			for(unsigned int i=byteIndex; i<bytes.size(); i++)
 			{
-				Bitset& bitset = bytes.get(i);
+				BitSet& bitset = bytes.get(i);
 
 				unsigned int j = 0;
 				if(i==byteIndex)
@@ -269,8 +269,8 @@ namespace GameLibrary
 					{
 						if(j == 7)
 						{
-							Bitset& nextBitset = bytes.get(i+1);
-							bitset.set(j, nextBitset.get(0));
+							BitSet& nextBitSet = bytes.get(i+1);
+							bitset.set(j, nextBitSet.get(0));
 						}
 						else
 						{

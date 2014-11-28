@@ -5,14 +5,14 @@
 
 namespace GameLibrary
 {
-	/* Thrown to indicate that an index to a Bitset is out of range. */
-	class BitsetOutOfBoundsException : public OutOfBoundsException
+	/* Thrown to indicate that an index to a BitSet is out of range. */
+	class BitSetOutOfBoundsException : public OutOfBoundsException
 	{
 	public:
 		unsigned int index;
 
-		BitsetOutOfBoundsException(const BitsetOutOfBoundsException&);
-		BitsetOutOfBoundsException(unsigned int index);
-		virtual ~BitsetOutOfBoundsException();
+		BitSetOutOfBoundsException(const BitSetOutOfBoundsException&);
+		BitSetOutOfBoundsException(unsigned int index);
+		virtual ~BitSetOutOfBoundsException();
 	};
 }

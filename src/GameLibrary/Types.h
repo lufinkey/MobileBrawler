@@ -20,7 +20,7 @@ namespace GameLibrary
 	class Exception;
 		class OutOfBoundsException;
 			class ArrayListOutOfBoundsException;
-			class BitsetOutOfBoundsException;
+			class BitSetOutOfBoundsException;
 			class StringOutOfBoundsException;
 		class BadCastException;
 			class BadAnyCastException;
@@ -56,7 +56,7 @@ namespace GameLibrary
 		class Rectangle;
 		class Transform;
 	class Any;
-	class Bitset;
+	class BitSet;
 	class Dictionary;
 	class Math;
 	class String;

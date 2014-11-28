@@ -1,5 +1,5 @@
 
-#include "Bitset.h"
+#include "BitSet.h"
 #include "ArrayList.h"
 #include "../Exception/Utilities/BitListOutOfBoundsException.h"
 
@@ -10,7 +10,7 @@ namespace GameLibrary
 	class BitList
 	{
 	private:
-		ArrayList<Bitset> bytes;
+		ArrayList<BitSet> bytes;
 		unsigned int total;
 		unsigned int bitTotal;
 

@@ -1,24 +1,24 @@
 
-#include "Bitset.h"
+#include "BitSet.h"
 
 namespace GameLibrary
 {
-	Bitset::Bitset()
+	BitSet::BitSet()
 	{
 		b = 0;
 	}
 
-	Bitset::Bitset(const Bitset&bitset)
+	BitSet::BitSet(const BitSet&bitset)
 	{
 		b = bitset.b;
 	}
 	
-	Bitset::Bitset(byte b)
+	BitSet::BitSet(byte b)
 	{
 		this->b = b;
 	}
 	
-	Bitset::Bitset(char bits[8])
+	BitSet::BitSet(char bits[8])
 	{
 		b = 0;
 		for(int i=0; i<8; i++)
@@ -30,7 +30,7 @@ namespace GameLibrary
 		}
 	}
 
-	Bitset::Bitset(bool bits[8])
+	BitSet::BitSet(bool bits[8])
 	{
 		b = 0;
 		for(int i=0; i<8; i++)
@@ -42,18 +42,18 @@ namespace GameLibrary
 		}
 	}
 	
-	Bitset::~Bitset()
+	BitSet::~BitSet()
 	{
 		//
 	}
 
-	Bitset& Bitset::operator=(const Bitset&bitset)
+	BitSet& BitSet::operator=(const BitSet&bitset)
 	{
 		b = bitset.b;
 		return *this;
 	}
 
-	bool Bitset::operator==(const Bitset&bitset) const
+	bool BitSet::operator==(const BitSet&bitset) const
 	{
 		if(b == bitset.b)
 		{
@@ -62,12 +62,12 @@ namespace GameLibrary
 		return false;
 	}
 	
-	bool Bitset::get(unsigned int index) const
+	bool BitSet::get(unsigned int index) const
 	{
 		return ((b & (1 << index))!=0);
 	}
 	
-	void Bitset::set(unsigned int index, bool toggle)
+	void BitSet::set(unsigned int index, bool toggle)
 	{
 		if(toggle)
 		{
@@ -79,7 +79,7 @@ namespace GameLibrary
 		}
 	}
 	
-	const byte& Bitset::getByte() const
+	const byte& BitSet::getByte() const
 	{
 		return b;
 	}

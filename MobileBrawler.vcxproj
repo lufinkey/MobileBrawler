@@ -119,7 +119,7 @@
     <ClCompile Include="src\GameLibrary\Screen\Screen.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\ScreenManager.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\BitList.cpp" />
-    <ClCompile Include="src\GameLibrary\Utilities\Bitset.cpp" />
+    <ClCompile Include="src\GameLibrary\Utilities\BitSet.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Dictionary.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Geometry\Circle.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Geometry\Polygon.cpp" />
@@ -174,7 +174,7 @@
     <ClInclude Include="src\GameLibrary\Utilities\Any.h" />
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h" />
     <ClInclude Include="src\GameLibrary\Utilities\BitList.h" />
-    <ClInclude Include="src\GameLibrary\Utilities\Bitset.h" />
+    <ClInclude Include="src\GameLibrary\Utilities\BitSet.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Dictionary.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\Circle.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\Polygon.h" />

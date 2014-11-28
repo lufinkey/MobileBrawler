@@ -5,7 +5,7 @@
 
 namespace GameLibrary
 {
-	class Bitset
+	class BitSet
 	{
 	private:
 		byte b;
@@ -23,15 +23,15 @@ namespace GameLibrary
 			BITMASK_8 = 0x00000080
 		};
 
-		Bitset();
-		Bitset(const Bitset&);
-		Bitset(byte b);
-		Bitset(char bits[8]);
-		Bitset(bool bits[8]);
-		~Bitset();
+		BitSet();
+		BitSet(const BitSet&);
+		BitSet(byte b);
+		BitSet(char bits[8]);
+		BitSet(bool bits[8]);
+		~BitSet();
 
-		Bitset& operator=(const Bitset&bitset);
-		bool operator==(const Bitset&) const;
+		BitSet& operator=(const BitSet&bitset);
+		bool operator==(const BitSet&) const;
 		
 		bool get(unsigned int index) const;
 		void set(unsigned int index, bool toggle);

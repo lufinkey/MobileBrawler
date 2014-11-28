@@ -120,9 +120,6 @@
     <ClCompile Include="src\GameLibrary\Utilities\String.cpp">
       <Filter>Source Files\GameLibrary\Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameLibrary\Utilities\Bitset.cpp">
-      <Filter>Source Files\GameLibrary\Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameLibrary\Actor\Actor.cpp">
       <Filter>Source Files\GameLibrary\Actor</Filter>
     </ClCompile>
@@ -258,6 +255,9 @@
     <ClCompile Include="src\GameLibrary\Exception\Utilities\BitListOutOfBoundsException.cpp">
       <Filter>Source Files\GameLibrary\Exception\Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Utilities\BitSet.cpp">
+      <Filter>Source Files\GameLibrary\Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -267,9 +267,6 @@
       <Filter>Header Files\GameLibrary\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Utilities\String.h">
-      <Filter>Header Files\GameLibrary\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameLibrary\Utilities\Bitset.h">
       <Filter>Header Files\GameLibrary\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Types.h">
@@ -427,6 +424,9 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Exception\Utilities\BitListOutOfBoundsException.h">
       <Filter>Header Files\GameLibrary\Exception\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\BitSet.h">
+      <Filter>Header Files\GameLibrary\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
