@@ -10,42 +10,45 @@ namespace GameLibrary
 	class DateTime
 	{
 	private:
-		/// UTC offset in seconds (00000-43200)
+		/* UTC offset in seconds (00000-43200) */
 		long utc_offset;
 
-		/// microsecond (000000-999999)
+		/* microsecond (000000-999999) */
 		int usec;
 
-		/// second (00-61) (generally 00-59. the extra 2 seconds are for leap seconds)
+		/* second (00-61) (generally 00-59. the extra 2 seconds are for leap seconds) */
 		int sec;
 
-		/// minute (00-59)
+		/* minute (00-59) */
 		int min;
 
-		/// hour (00-23)
+		/* hour (00-23) */
 		int hour;
 
-		/// day of the month (01-31)
+		/* day of the month (01-31) */
 		int mday;
 
-		/// month (01-12)
+		/* month (01-12) */
 		int mon;
 
-		/// year (0000-9999)
+		/* year (0000-9999) */
 		int year;
 
-		/// day of the week (sunday=1) (1-7)
+		/* day of the week (sunday=1) (1-7) */
 		int wday;
 
-		/// day of the year (001-366)
+		/* day of the year (001-366) */
 		int yday;
 
 	public:
-		DateTime(); //new datetime object with current date/time
+		/* Constructs a DateTime object with the current date and time */
+		DateTime();
+		/* DateTime copy constructor */
 		DateTime(const DateTime&);
-		/*DateTime(const String&datestring, const String&format=String("%Y-%m-%d %H:%M:%S %z"));
-		DateTime(int year, int mon, int day);
-		DateTime(int year, int mon, int day, int hour, int min, int sec, int usec);*/ //DateTime is immutable for now
+		//DateTime is immutable for now
+		//DateTime(const String&datestring, const String&format=String("%Y-%m-%d %H:%M:%S %z"));
+		//DateTime(int year, int mon, int day);
+		//DateTime(int year, int mon, int day, int hour, int min, int sec, int usec);
 		~DateTime();
 		
 		int getMicrosecond() const;
@@ -57,6 +60,7 @@ namespace GameLibrary
 		int getDayOfYear() const;
 		int getMonth() const;
 		int getYear() const;
+		/* returns UTC offset in seconds (00000-43200) */
 		long getOffsetUTC() const;
 
 		String toString(const String&format=String("%Y-%m-%d %H:%M:%S %z")) const;
