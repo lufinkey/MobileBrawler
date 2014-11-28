@@ -142,7 +142,9 @@ namespace GameLibrary
 		String substring(unsigned int beginIndex) const;
 		String substring(unsigned int beginIndex, unsigned int endIndex) const;
 		String trim() const;
+		unsigned int indexOf(char) const;
 		unsigned int indexOf(const String&) const;
+		unsigned int lastIndexOf(char) const;
 		unsigned int lastIndexOf(const String&) const;
 		String toLowerCase() const;
 		String toUpperCase() const;

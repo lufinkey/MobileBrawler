@@ -2436,6 +2436,24 @@ namespace GameLibrary
 		return substring(startIndex, endIndex);
 	}
 
+	unsigned int String::indexOf(char c) const
+	{
+		if(total == 0)
+		{
+			return STRING_NOTFOUND;
+		}
+
+		for(unsigned int i=0; i<total; i++)
+		{
+			if(characters[i] == c)
+			{
+				return i;
+			}
+		}
+
+		return STRING_NOTFOUND;
+	}
+
 	unsigned int String::indexOf(const String&str) const
 	{
 		if(str.total==0 || str.total>total)
@@ -2468,6 +2486,29 @@ namespace GameLibrary
 		return STRING_NOTFOUND;
 	}
 
+	unsigned int String::lastIndexOf(char c) const
+	{
+		if(total == 0)
+		{
+			return STRING_NOTFOUND;
+		}
+
+		for(unsigned int i=(total-1); i>=0; i--)
+		{
+			if(characters[i] == c)
+			{
+				return i;
+			}
+
+			if(i == 0)
+			{
+				return STRING_NOTFOUND;
+			}
+		}
+
+		return STRING_NOTFOUND;
+	}
+
 	unsigned int String::lastIndexOf(const String&str) const
 	{
 		if(str.total==0 || str.total>total)
@@ -2477,29 +2518,32 @@ namespace GameLibrary
 		
 		unsigned int finish = (str.total-1);
 		
-		for(unsigned int i=(total-1); i>=finish; i--)
+		if(total>0)
 		{
-			if(characters[i]==str.characters[str.total-1])
+			for(unsigned int i=(total-1); i>=finish; i--)
 			{
-				bool match = true;
-				for(unsigned int j=1; j<str.total; j++)
+				if(characters[i]==str.characters[str.total-1])
 				{
-					if(characters[i-j] != str.characters[(str.total-1)-j])
+					bool match = true;
+					for(unsigned int j=1; j<str.total; j++)
 					{
-						match = false;
-						j = str.total;
+						if(characters[i-j] != str.characters[(str.total-1)-j])
+						{
+							match = false;
+							j = str.total;
+						}
+					}
+				
+					if(match)
+					{
+						return (i-(str.total-1));
 					}
 				}
-				
-				if(match)
-				{
-					return (i-(str.total-1));
-				}
-			}
 			
-			if(i == 0)
-			{
-				return STRING_NOTFOUND;
+				if(i == 0)
+				{
+					return STRING_NOTFOUND;
+				}
 			}
 		}
 		return STRING_NOTFOUND;
