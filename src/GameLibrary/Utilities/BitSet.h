@@ -1,5 +1,6 @@
 
 #include "../Types.h"
+#include "../Exception/Utilities/BitSetOutOfBoundsException.h"
 
 #pragma once
 

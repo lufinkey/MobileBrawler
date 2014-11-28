@@ -44,6 +44,6 @@ namespace GameLibrary
 		void clear();
 		unsigned int size() const;
 		unsigned int sizeBytes() const;
-		//void resize(unsigned int size);
+		void resize(unsigned int size);
 	};
 }

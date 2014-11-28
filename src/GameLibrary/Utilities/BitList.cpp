@@ -20,7 +20,14 @@ namespace GameLibrary
 	{
 		unsigned int byteTotal = size/8;
 		bitTotal = size % 8;
-		if(bitTotal != 0)
+		if(bitTotal == 0)
+		{
+			if(byteTotal > 0)
+			{
+				bitTotal = 8;
+			}
+		}
+		else
 		{
 			byteTotal++;
 		}
@@ -48,6 +55,10 @@ namespace GameLibrary
 
 	bool BitList::get(unsigned int byteIndex, unsigned int bitIndex) const
 	{
+		if(bitIndex > 7)
+		{
+			throw BitSetOutOfBoundsException(bitIndex);
+		}
 		try
 		{
 			if(byteIndex==(bytes.size()-1) && bitIndex>=bitTotal)
@@ -69,6 +80,10 @@ namespace GameLibrary
 
 	void BitList::set(unsigned int byteIndex, unsigned int bitIndex, bool value)
 	{
+		if(bitIndex > 7)
+		{
+			throw BitSetOutOfBoundsException(bitIndex);
+		}
 		try
 		{
 			if(byteIndex==(bytes.size()-1) && bitIndex>=bitTotal)
@@ -116,13 +131,12 @@ namespace GameLibrary
 
 	void BitList::add(unsigned int byteIndex, unsigned int bitIndex, bool value)
 	{
+		if(bitIndex > 7)
+		{
+			throw BitSetOutOfBoundsException(bitIndex);
+		}
 		try
 		{
-			if(bitIndex >= 8)
-			{
-				throw BitListOutOfBoundsException(byteIndex, bitIndex, total);
-			}
-
 			if(bitTotal == 8)
 			{
 				if(!(byteIndex < bytes.size() || (byteIndex == bytes.size() && bitIndex == 0)))
@@ -218,6 +232,10 @@ namespace GameLibrary
 
 	void BitList::remove(unsigned int byteIndex, unsigned int bitIndex)
 	{
+		if(bitIndex > 7)
+		{
+			throw BitSetOutOfBoundsException(bitIndex);
+		}
 		try
 		{
 			unsigned int lastByteIndex = bytes.size()-1;
@@ -232,13 +250,6 @@ namespace GameLibrary
 					throw BitListOutOfBoundsException(byteIndex, bitIndex, total);
 				}
 			}
-			else
-			{
-				if(bitIndex >= 8)
-				{
-					throw BitListOutOfBoundsException(byteIndex, bitIndex, total);
-				}
-			}
 
 			total--;
 			bitTotal--;
@@ -247,15 +258,15 @@ namespace GameLibrary
 			{
 				BitSet& bitset = bytes.get(i);
 
-				unsigned int j = 0;
+				unsigned int startBitIndex = 0;
 				if(i==byteIndex)
 				{
-					j = bitIndex;
+					startBitIndex = bitIndex;
 				}
 
 				if(i==lastByteIndex)
 				{
-					for(j=bitIndex; j<8; j++)
+					for(unsigned int j=startBitIndex; j<8; j++)
 					{
 						if(j != 7)
 						{
@@ -265,7 +276,7 @@ namespace GameLibrary
 				}
 				else
 				{
-					for(j=bitIndex; j<8; j++)
+					for(unsigned int j=startBitIndex; j<8; j++)
 					{
 						if(j == 7)
 						{
@@ -309,8 +320,52 @@ namespace GameLibrary
 		return bytes.size();
 	}
 
-	/*void resize(unsigned int size)
+	void BitList::resize(unsigned int size)
 	{
-		
-	}*/
+		unsigned int oldByteTotal = bytes.size();
+		unsigned int oldBitTotal = bitTotal;
+
+		unsigned int byteTotal = size/8;
+		bitTotal = size % 8;
+		if(bitTotal == 0)
+		{
+			if(byteTotal > 0)
+			{
+				bitTotal = 7;
+			}
+		}
+		else
+		{
+			byteTotal++;
+		}
+		bytes.resize(byteTotal);
+		total = size;
+
+		if(oldByteTotal!=0)
+		{
+			if((byteTotal==oldByteTotal && bitTotal>oldBitTotal) || byteTotal>oldByteTotal)
+			{
+				unsigned int byteStartIndex = oldByteTotal-1;
+				unsigned int bitStartIndex = oldBitTotal;
+				if(bitStartIndex == 8)
+				{
+					bitStartIndex = 0;
+					byteStartIndex++;
+				}
+				for(unsigned int i=byteStartIndex; i<byteTotal; i++)
+				{
+					BitSet& bitset = bytes.get(i);
+					unsigned int startIndex = 0;
+					if(i==byteStartIndex)
+					{
+						startIndex = bitStartIndex;
+					}
+					for(unsigned int j=startIndex; j<8; j++)
+					{
+						bitset.set(j, false);
+					}
+				}
+			}
+		}
+	}
 }
