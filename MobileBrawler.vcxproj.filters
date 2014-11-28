@@ -91,6 +91,9 @@
     <Filter Include="Header Files\GameLibrary\Utilities\Time\time64">
       <UniqueIdentifier>{341359f6-c4d7-486f-828d-f7176b98d9b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\external">
+      <UniqueIdentifier>{cf455344-89c0-403b-9b5a-5c8d112ff203}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -227,6 +230,12 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Exception\BadCastException.cpp">
       <Filter>Source Files\GameLibrary\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\ImageOutOfBoundsException.cpp">
+      <Filter>Source Files\GameLibrary\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="external\SDL\src\SDL_savepng.c">
+      <Filter>Source Files\external</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -384,6 +393,9 @@
       <Filter>Header Files\GameLibrary\Exception</Filter>
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Exception\BadCastException.h">
+      <Filter>Header Files\GameLibrary\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\ImageOutOfBoundsException.h">
       <Filter>Header Files\GameLibrary\Exception</Filter>
     </ClInclude>
   </ItemGroup>

@@ -53,7 +53,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>external\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>external\SDL\include;external\libpng\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -72,7 +72,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>external\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>external\SDL\include;external\libpng\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="external\SDL\src\SDL_savepng.c" />
     <ClCompile Include="src\GameLibrary\Actor\Actor.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\ActorType.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\TextActor.cpp" />
@@ -100,6 +101,7 @@
     <ClCompile Include="src\GameLibrary\Exception\IllegalArgumentException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\IllegalDateTimeFormatException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\IllegalFormatException.cpp" />
+    <ClCompile Include="src\GameLibrary\Exception\ImageOutOfBoundsException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\OutOfBoundsException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\NumberFormatException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\StringOutOfBoundsException.cpp" />
@@ -147,6 +149,7 @@
     <ClInclude Include="src\GameLibrary\Exception\IllegalArgumentException.h" />
     <ClInclude Include="src\GameLibrary\Exception\IllegalDateTimeFormatException.h" />
     <ClInclude Include="src\GameLibrary\Exception\IllegalFormatException.h" />
+    <ClInclude Include="src\GameLibrary\Exception\ImageOutOfBoundsException.h" />
     <ClInclude Include="src\GameLibrary\Exception\OutOfBoundsException.h" />
     <ClInclude Include="src\GameLibrary\Exception\NumberFormatException.h" />
     <ClInclude Include="src\GameLibrary\Exception\StringOutOfBoundsException.h" />

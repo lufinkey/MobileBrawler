@@ -141,7 +141,7 @@ namespace GameLibrary
 	#define DATEFORMAT_PERCENT '%'
 	
 //DateTime static functions
-
+	
 	String DateTime_createNumberString(int num, unsigned int size, char padding)
 	{
 		String numStr = (String)"" + num;

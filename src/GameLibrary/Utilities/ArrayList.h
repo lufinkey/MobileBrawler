@@ -86,6 +86,7 @@ namespace GameLibrary
 		{
 			unsigned int length = arr.objects.size();
 			objects.resize(length);
+			objects.shrink_to_fit();
 			for(unsigned int i=0; i<length; i++)
 			{
 				objects[i] = arr.objects[i];
@@ -207,6 +208,12 @@ namespace GameLibrary
 		unsigned int size() const
 		{
 			return objects.size();
+		}
+
+		void resize(unsigned int size)
+		{
+			objects.resize(size);
+			objects.shrink_to_fit();
 		}
 		
 		bool contains(const T& obj) const
