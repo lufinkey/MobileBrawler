@@ -5,35 +5,6 @@
 
 namespace GameLibrary
 {
-	int Font_styleToTTFStyle(byte style)
-	{
-		if(style == Font::STYLE_PLAIN)
-		{
-			return TTF_STYLE_NORMAL;
-		}
-		else
-		{
-			int stylemask = 0;
-			if((style & Font::STYLE_BOLD) == Font::STYLE_BOLD)
-			{
-				stylemask = stylemask | TTF_STYLE_BOLD;
-			}
-			if((style & Font::STYLE_ITALIC) == Font::STYLE_ITALIC)
-			{
-				stylemask = stylemask | TTF_STYLE_ITALIC;
-			}
-			if((style & Font::STYLE_UNDERLINE) == Font::STYLE_UNDERLINE)
-			{
-				stylemask = stylemask | TTF_STYLE_UNDERLINE;
-			}
-			if((style & Font::STYLE_STRIKETHROUGH) == Font::STYLE_STRIKETHROUGH)
-			{
-				stylemask = stylemask | TTF_STYLE_STRIKETHROUGH;
-			}
-			return stylemask;
-		}
-	}
-
 	RenderedGlyphContainer::RenderedGlyphContainer()
 	{
 		for(unsigned int i=0; i<256; i++)
@@ -62,7 +33,7 @@ namespace GameLibrary
 	{
 		mlock.lock();
 		ArrayList<RenderedGlyph> glyphTextures;
-		int ttf_style = Font_styleToTTFStyle(style);
+		int ttf_style = Font::styleToTTFStyle(style);
 		TTF_SetFontStyle((TTF_Font*)fontptr, ttf_style);
 		unsigned int length = txt.length();
 		for(unsigned int i=0; i<length; i++)

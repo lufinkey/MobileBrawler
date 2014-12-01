@@ -6,6 +6,35 @@
 
 namespace GameLibrary
 {
+	int Font::styleToTTFStyle(byte style)
+	{
+		if(style == Font::STYLE_PLAIN)
+		{
+			return TTF_STYLE_NORMAL;
+		}
+		else
+		{
+			int stylemask = 0;
+			if((style & Font::STYLE_BOLD) == Font::STYLE_BOLD)
+			{
+				stylemask = stylemask | TTF_STYLE_BOLD;
+			}
+			if((style & Font::STYLE_ITALIC) == Font::STYLE_ITALIC)
+			{
+				stylemask = stylemask | TTF_STYLE_ITALIC;
+			}
+			if((style & Font::STYLE_UNDERLINE) == Font::STYLE_UNDERLINE)
+			{
+				stylemask = stylemask | TTF_STYLE_UNDERLINE;
+			}
+			if((style & Font::STYLE_STRIKETHROUGH) == Font::STYLE_STRIKETHROUGH)
+			{
+				stylemask = stylemask | TTF_STYLE_STRIKETHROUGH;
+			}
+			return stylemask;
+		}
+	}
+
 	typedef ArrayList<Pair<unsigned int, void*>> FontSizeList;
 
 	FontSizeList& Font_getSizeList(void* fontsizes)
@@ -166,7 +195,6 @@ namespace GameLibrary
 		FontSizeList* sizeList = new FontSizeList();
 		fontsizes = (void*)(new std::shared_ptr<FontSizeList>(sizeList));
 		sizeList->add(Pair<unsigned int, void*>(defaultsize, (void*)loadedfont));
-
 		mlock.unlock();
 		return true;
 	}
@@ -194,5 +222,63 @@ namespace GameLibrary
 		}
 		mlock.unlock();
 		return renderedGlyphs;
+	}
+
+	Vector2u Font::measureString(const String&text)
+	{
+		mlock.lock();
+		if(fontdata == NULL || fontsizes == NULL)
+		{
+			mlock.unlock();
+			return Vector2u(0,0);
+		}
+		TTF_Font* font = (TTF_Font*)getFontPtr(size);
+		TTF_SetFontStyle(font, styleToTTFStyle(style));
+		int w = 0;
+		int h = 0;
+		if(TTF_SizeText(font, text, &w, &h) < 0)
+		{
+			mlock.unlock();
+			//TODO replace with more specific exception type
+			throw Exception(TTF_GetError());
+		}
+		mlock.unlock();
+		return Vector2u((unsigned int)w, (unsigned int)h);
+	}
+
+	void Font::setStyle(byte s)
+	{
+		mlock.lock();
+		style = s;
+		mlock.unlock();
+	}
+
+	void Font::setSize(unsigned int s)
+	{
+		mlock.lock();
+		size = s;
+		mlock.unlock();
+	}
+
+	void Font::setAntialiasing(bool toggle)
+	{
+		mlock.lock();
+		antialiasing = toggle;
+		mlock.unlock();
+	}
+
+	byte Font::getStyle()
+	{
+		return style;
+	}
+
+	unsigned int Font::getSize()
+	{
+		return size;
+	}
+
+	bool Font::getAntialiasing()
+	{
+		return antialiasing;
 	}
 }

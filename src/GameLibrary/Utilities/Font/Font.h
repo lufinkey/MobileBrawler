@@ -3,6 +3,7 @@
 #include "../ArrayList.h"
 #include "../Pair.h"
 #include "../String.h"
+#include "../Geometry/Vector2.h"
 #include <mutex>
 
 #pragma once
@@ -12,6 +13,7 @@ namespace GameLibrary
 	class Font
 	{
 		friend class Graphics;
+		friend class RenderedGlyphContainer;
 	private:
 		void* fontsizes;
 		void* fontdata;
@@ -28,6 +30,8 @@ namespace GameLibrary
 		void clearFontSizes();
 		ArrayList<RenderedGlyphContainer::RenderedGlyph> getRenderedGlyphs(const String&text, void*renderer);
 
+		static int styleToTTFStyle(byte style);
+
 	public:
 		enum : byte
 		{
@@ -43,5 +47,15 @@ namespace GameLibrary
 		~Font();
 
 		bool loadFromFile(const String&path, unsigned int size=24, String&error=String());
+
+		Vector2u measureString(const String&text);
+
+		void setStyle(byte style);
+		void setSize(unsigned int size);
+		void setAntialiasing(bool toggle);
+
+		byte getStyle();
+		unsigned int getSize();
+		bool getAntialiasing();
 	};
 }
