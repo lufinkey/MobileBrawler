@@ -27,14 +27,14 @@ namespace GameLibrary
 		
 		Color();
 		Color(const Color&color);
-		Color(int rgb, bool alpha = false);
+		Color(Uint32 rgb, bool alpha = false);
 		Color(byte r, byte g, byte b, byte a=255);
 		~Color();
 		
 		Color&operator=(const Color&color);
 		bool operator==(const Color&color) const;
 		
-		int getRGBA();
+		Uint32 getRGBA();
 		
 		bool equals(const Color&color) const;
 	};

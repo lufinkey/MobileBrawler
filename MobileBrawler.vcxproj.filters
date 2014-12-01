@@ -109,6 +109,12 @@
     <Filter Include="Header Files\GameLibrary\Exception\Utilities\Time">
       <UniqueIdentifier>{75155c3c-15dd-4a16-ad9a-56ea7b2a3a1f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameLibrary\Utilities\Font">
+      <UniqueIdentifier>{b9fff175-301c-4ff1-9921-15196e713005}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLibrary\Utilities\Font">
+      <UniqueIdentifier>{dfee16ba-2756-490f-becf-a2d9c8db01bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -263,6 +269,12 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Exception\Utilities\DataPacketOutOfBoundsException.cpp">
       <Filter>Source Files\GameLibrary\Exception\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Utilities\Font\Font.cpp">
+      <Filter>Source Files\GameLibrary\Utilities\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Utilities\Font\RenderedGlyphContainer.cpp">
+      <Filter>Source Files\GameLibrary\Utilities\Font</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -439,6 +451,12 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Exception\Utilities\DataPacketOutOfBoundsException.h">
       <Filter>Header Files\GameLibrary\Exception\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\Font\Font.h">
+      <Filter>Header Files\GameLibrary\Utilities\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\Font\RenderedGlyphContainer.h">
+      <Filter>Header Files\GameLibrary\Utilities\Font</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

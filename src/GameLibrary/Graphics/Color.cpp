@@ -34,7 +34,7 @@ namespace GameLibrary
 		a = A;
 	}
 	
-	Color::Color(int rgb, bool alpha)
+	Color::Color(Uint32 rgb, bool alpha)
 	{
 		byte*rgbArray = (byte*)(&rgb);
 		r = rgbArray[0];
@@ -73,9 +73,9 @@ namespace GameLibrary
 		return equals(color);
 	}
 	
-	int Color::getRGBA()
+	Uint32 Color::getRGBA()
 	{
-		int rgba = 0;
+		Uint32 rgba = 0;
 		byte*arr = (byte*)(&rgba);
 		arr[0] = r;
 		arr[1] = g;

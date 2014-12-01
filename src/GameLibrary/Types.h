@@ -20,7 +20,10 @@ namespace GameLibrary
 	class Exception;
 		class OutOfBoundsException;
 			class ArrayListOutOfBoundsException;
+			class BitListOutOfBoundsException;
 			class BitSetOutOfBoundsException;
+			class DataPacketOutOfBoundsException;
+			class ImageOutOfBoundsException;
 			class StringOutOfBoundsException;
 		class BadCastException;
 			class BadAnyCastException;
@@ -28,6 +31,7 @@ namespace GameLibrary
 			class IllegalFormatException;
 				class IllegalDateTimeFormatException;
 			class NumberFormatException;
+		class UnsupportedImageFormatException;
 	
 	//Graphics
 	class Graphics;
@@ -66,7 +70,26 @@ namespace GameLibrary
 	//View
 	class View;
 	class Window;
+	
+	typedef signed char Int8;
+	typedef unsigned char Uint8;
 
-	typedef unsigned char byte;
+	typedef signed short Int16;
+	typedef unsigned short Uint16;
+
+	typedef signed int Int32;
+	typedef unsigned int Uint32;
+	
+	#if defined(_MSC_VER)
+		typedef signed __int64 Int64;
+		typedef unsigned __int64 Uint64;
+	#else
+		typedef signed long long Int64;
+		typedef unsigned long long Uint64;
+	#endif
+
+	typedef Uint8 byte;
 	typedef bool boolean;
+	
+//#define nullptr null
 }

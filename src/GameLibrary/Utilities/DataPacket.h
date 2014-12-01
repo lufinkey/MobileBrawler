@@ -26,9 +26,14 @@ namespace GameLibrary
 		DataPacket(const void*data, unsigned int size);
 		~DataPacket();
 
+		DataPacket& operator=(const DataPacket&);
+
+		bool loadFromFile(const String&path, String&error);
+
 		void*getData();
 		const void*getData() const;
 		void setData(const void*data, unsigned int size);
+		void setData(const DataPacket&data);
 		unsigned int size() const;
 
 		void resize(unsigned int size);

@@ -1,5 +1,8 @@
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "DataPacket.h"
+#include <cstdio>
 #include <cstdlib>
 
 namespace GameLibrary
@@ -101,6 +104,44 @@ namespace GameLibrary
 			total = 0;
 		}
 	}
+
+	DataPacket& DataPacket::operator=(const DataPacket&dataPacket)
+	{
+		setData(dataPacket);
+		return *this;
+	}
+
+	bool DataPacket::loadFromFile(const String&path, String&error)
+	{
+		FILE*file = std::fopen(path, "r");
+		if (file == NULL)
+		{
+			//TODO add switch for errno
+			error = "Unable to load DataPacket from file";
+			return false;
+		}
+		
+		std::fseek(file, 0, SEEK_END);
+		long fileSize = (long)std::ftell(file);
+		std::fseek(file, 0, SEEK_SET);
+		
+		if(data == NULL)
+		{
+			data = (byte*)std::malloc(fileSize);
+		}
+		else
+		{
+			data = (byte*)std::realloc(data,fileSize);
+		}
+		
+		std::fread((void*)data, 1, fileSize, file);
+		
+		std::fclose(file);
+
+		total = (unsigned int)fileSize;
+
+		return true;
+	}
 	
 	void*DataPacket::getData()
 	{
@@ -136,6 +177,36 @@ namespace GameLibrary
 				data[i] = copyBytes[i];
 			}
 			total = size;
+		}
+		else
+		{
+			if(data != NULL)
+			{
+				std::free(data);
+				data = NULL;
+				total = 0;
+			}
+		}
+	}
+
+	void DataPacket::setData(const DataPacket&dataPacket)
+	{
+		if(dataPacket.total > 0)
+		{
+			if(data==NULL)
+			{
+				data = (byte*)std::malloc(dataPacket.total);
+			}
+			else
+			{
+				data = (byte*)std::realloc(data, dataPacket.total);
+			}
+
+			for(unsigned int i=0; i<dataPacket.total; i++)
+			{
+				data[i] = dataPacket.data[i];
+			}
+			total = dataPacket.total;
 		}
 		else
 		{

@@ -123,6 +123,8 @@
     <ClCompile Include="src\GameLibrary\Utilities\BitSet.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\DataPacket.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Dictionary.cpp" />
+    <ClCompile Include="src\GameLibrary\Utilities\Font\Font.cpp" />
+    <ClCompile Include="src\GameLibrary\Utilities\Font\RenderedGlyphContainer.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Geometry\Circle.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Geometry\Polygon.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Geometry\Rectangle.cpp" />
@@ -180,6 +182,8 @@
     <ClInclude Include="src\GameLibrary\Utilities\BitSet.h" />
     <ClInclude Include="src\GameLibrary\Utilities\DataPacket.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Dictionary.h" />
+    <ClInclude Include="src\GameLibrary\Utilities\Font\Font.h" />
+    <ClInclude Include="src\GameLibrary\Utilities\Font\RenderedGlyphContainer.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\Circle.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\Polygon.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\Rectangle.h" />
