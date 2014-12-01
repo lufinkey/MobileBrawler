@@ -458,5 +458,8 @@
     <ClInclude Include="src\GameLibrary\Utilities\Font\RenderedGlyphContainer.h">
       <Filter>Header Files\GameLibrary\Utilities\Font</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameLibrary\PlatformChecks.h">
+      <Filter>Header Files\GameLibrary</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

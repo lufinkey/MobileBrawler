@@ -22,7 +22,7 @@ namespace GameLibrary
 		
 		Image& operator=(const Image&);
 		
-		void create(unsigned int width, unsigned int height, const Color&color);
+		void create(unsigned int width, unsigned int height, const Color&color = Color::TRANSPARENT);
 		void clear();
 		
 		bool loadFromFile(const String&path, String&error = String());

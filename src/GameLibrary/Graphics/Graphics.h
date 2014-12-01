@@ -12,6 +12,7 @@ namespace GameLibrary
 	{
 		friend class BufferedImage;
 		friend class Font;
+		friend class Window;
 	private:
 		void*renderer;
 
@@ -26,6 +27,8 @@ namespace GameLibrary
 		
 		Transform transform;
 		
+		void reset();
+
 		Graphics(Window&window);
 		
 	public:
