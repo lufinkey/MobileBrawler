@@ -236,7 +236,7 @@ namespace GameLibrary
 	{
 		try
 		{
-			return pixels[0];
+			return pixels[(width*y)+x];
 		}
 		catch(const ArrayListOutOfBoundsException&)
 		{
