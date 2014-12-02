@@ -15,16 +15,15 @@ namespace GameLibrary
 		
 	public:
 		View();
-		View(const Vector2i& size);
+		View(const Vector2f& size);
 		View(float width, float height);
 		~View();
 		
 		void translate(float x, float y);
 		void translate(const Vector2f&delta);
-		
-		void setPosition(float x, float y);
-		void setPosition(const Vector2f&position);
-		const Vector2f& getPosition();
+		void setTranslation(float x, float y);
+		void setTranslation(const Vector2f&translation);
+		const Vector2f& getTranslation();
 		
 		void setSize(float width, float height);
 		void setSize(const Vector2f& size);

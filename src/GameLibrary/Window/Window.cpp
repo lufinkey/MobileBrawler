@@ -111,6 +111,7 @@ namespace GameLibrary
 	Window::Window()
 	{
 		windowed_size = settings.size;
+		view = NULL;
 		windowdata = NULL;
 		graphics = NULL;
 	}
@@ -120,6 +121,10 @@ namespace GameLibrary
 		if(windowdata != NULL)
 		{
 			destroy();
+		}
+		if(view != NULL)
+		{
+			delete view;
 		}
 	}
 	
@@ -212,7 +217,7 @@ namespace GameLibrary
 
 	void Window::update()
 	{
-		//TODO add event polling
+		
 	}
 
 	void Window::destroy()
@@ -224,7 +229,11 @@ namespace GameLibrary
 			delete graphics;
 			graphics = NULL;
 			settings = WindowSettings();
-			view = View();
+			if(view != NULL)
+			{
+				delete view;
+				view = NULL;
+			}
 		}
 	}
 	

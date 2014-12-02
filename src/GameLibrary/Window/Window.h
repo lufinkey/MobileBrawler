@@ -46,7 +46,7 @@ namespace GameLibrary
 		friend class Graphics;
 	private:
 		void*windowdata;
-		View view;
+		View*view;
 		Graphics*graphics;
 		WindowSettings settings;
 		Vector2u windowed_size;
