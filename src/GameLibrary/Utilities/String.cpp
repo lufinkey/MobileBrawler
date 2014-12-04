@@ -1135,7 +1135,7 @@ namespace GameLibrary
 	String::~String()
 	{
 		std::free(characters);
-		characters = NULL;
+		characters = nullptr;
 	}
 
 	std::wstring String::wstring() const
@@ -1881,7 +1881,7 @@ namespace GameLibrary
 
 	bool String::equals(const char*cmp) const
 	{
-		if(cmp!=NULL)
+		if(cmp!=nullptr)
 		{
 			int cmpLength = std::strlen(cmp);
 			if(cmpLength==total)

@@ -51,14 +51,14 @@ namespace GameLibrary
 	{
 		DataPacket& fontDataPacket = *(((std::shared_ptr<DataPacket>*)fontdata)->get());
 		SDL_RWops* ops = SDL_RWFromConstMem(fontDataPacket.getData(), fontDataPacket.size());
-		if(ops == NULL)
+		if(ops == nullptr)
 		{
-			return NULL;
+			return nullptr;
 		}
 		TTF_Font* loadedfont = TTF_OpenFontRW(ops,0,size);
-		if(loadedfont == NULL)
+		if(loadedfont == nullptr)
 		{
-			return NULL;
+			return nullptr;
 		}
 		return (void*)loadedfont;
 	}
@@ -77,7 +77,7 @@ namespace GameLibrary
 		}
 
 		void* fontsizeptr = loadFontSize(size);
-		if(fontsizeptr != NULL)
+		if(fontsizeptr != nullptr)
 		{
 			sizeList.add(Pair<unsigned int, void*>(size, fontsizeptr));
 		}
@@ -92,7 +92,7 @@ namespace GameLibrary
 			Pair<unsigned int, void*>& fontSize = sizeList.get(i);
 			TTF_Font* fontSizeData = (TTF_Font*)fontSize.second;
 			TTF_CloseFont(fontSizeData);
-			fontSize.second = NULL;
+			fontSize.second = nullptr;
 		}
 		sizeList.clear();
 	}
@@ -101,8 +101,8 @@ namespace GameLibrary
 	{
 		size = 0;
 		style = STYLE_PLAIN;
-		fontdata = NULL;
-		fontsizes = NULL;
+		fontdata = nullptr;
+		fontsizes = nullptr;
 		antialiasing = false;
 	}
 
@@ -112,12 +112,12 @@ namespace GameLibrary
 		size = font.size;
 		style = font.style;
 		antialiasing = font.antialiasing;
-		if(font.fontdata!=NULL)
+		if(font.fontdata!=nullptr)
 		{
 			std::shared_ptr<DataPacket>*font_fontdata = (std::shared_ptr<DataPacket>*)font.fontdata;
 			fontdata = (void*)(new std::shared_ptr<DataPacket>(*font_fontdata));
 		}
-		if(font.fontsizes != NULL)
+		if(font.fontsizes != nullptr)
 		{
 			std::shared_ptr<FontSizeList>*font_fontsizes = (std::shared_ptr<FontSizeList>*)font.fontsizes;
 			fontsizes = (void*)(new std::shared_ptr<FontSizeList>(*font_fontsizes));
@@ -127,17 +127,17 @@ namespace GameLibrary
 
 	Font::~Font()
 	{
-		if(fontdata!=NULL)
+		if(fontdata!=nullptr)
 		{
 			std::shared_ptr<DataPacket>* fontData_ptr = (std::shared_ptr<DataPacket>*)fontdata;
 			delete fontData_ptr;
 		}
-		if(fontsizes != NULL)
+		if(fontsizes != nullptr)
 		{
 			clearFontSizes();
 			std::shared_ptr<FontSizeList>* sizeList = (std::shared_ptr<FontSizeList>*)fontsizes;
 			delete sizeList;
-			fontsizes = NULL;
+			fontsizes = nullptr;
 		}
 	}
 
@@ -153,7 +153,7 @@ namespace GameLibrary
 		}
 
 		SDL_RWops* ops = SDL_RWFromConstMem(fontDataPacket->getData(), fontDataPacket->size());
-		if(ops == NULL)
+		if(ops == nullptr)
 		{
 			error = SDL_GetError();
 			delete fontDataPacket;
@@ -162,7 +162,7 @@ namespace GameLibrary
 		}
 
 		TTF_Font* loadedfont = TTF_OpenFontRW(ops,0,defaultsize);
-		if(loadedfont == NULL)
+		if(loadedfont == nullptr)
 		{
 			error = TTF_GetError();
 			if(SDL_RWclose(ops) != 0)
@@ -178,19 +178,19 @@ namespace GameLibrary
 		style = Font::STYLE_PLAIN;
 		antialiasing = false;
 		glyphs.clear();
-		if(fontdata != NULL)
+		if(fontdata != nullptr)
 		{
 			std::shared_ptr<DataPacket>*old_fontdata = (std::shared_ptr<DataPacket>*)fontdata;
 			delete old_fontdata;
-			fontdata = NULL;
+			fontdata = nullptr;
 		}
 		fontdata = (void*)(new std::shared_ptr<DataPacket>(fontDataPacket));
-		if(fontsizes != NULL)
+		if(fontsizes != nullptr)
 		{
 			clearFontSizes();
 			std::shared_ptr<FontSizeList>*old_fontsizes = (std::shared_ptr<FontSizeList>*)fontsizes;
 			delete old_fontsizes;
-			fontsizes = NULL;
+			fontsizes = nullptr;
 		}
 		FontSizeList* sizeList = new FontSizeList();
 		fontsizes = (void*)(new std::shared_ptr<FontSizeList>(sizeList));
@@ -227,7 +227,7 @@ namespace GameLibrary
 	Vector2u Font::measureString(const String&text)
 	{
 		mlock.lock();
-		if(fontdata == NULL || fontsizes == NULL)
+		if(fontdata == nullptr || fontsizes == nullptr)
 		{
 			mlock.unlock();
 			return Vector2u(0,0);

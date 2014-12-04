@@ -15,7 +15,7 @@ int gettimeofday(struct timeval*tv, struct timezone*tz)
 	unsigned __int64 tmpres = 0;
 	static int tzflag;
 
-	if (tv != NULL)
+	if (tv != nullptr)
 	{
 		GetSystemTimeAsFileTime(&ft);
 		
@@ -30,7 +30,7 @@ int gettimeofday(struct timeval*tv, struct timezone*tz)
 		tv->tv_usec = (long)(tmpres % 1000000UL);
 	}
 
-	if (tz != NULL)
+	if (tz != nullptr)
 	{
 		if (!tzflag)
 		{
@@ -52,7 +52,7 @@ int gettimeofday64(struct timeval64*tv, struct timezone*tz)
 {
 	static int tzflag;
 
-	if (tv != NULL)
+	if (tv != nullptr)
 	{
 		// Note: some broken versions only have 8 trailing zero's, the correct epoch has 9 trailing zero's
 		static const uint64_t EPOCH = ((uint64_t) 116444736000000000ULL);
@@ -70,7 +70,7 @@ int gettimeofday64(struct timeval64*tv, struct timezone*tz)
 		tv->tv_usec = (long) (system_time.wMilliseconds * 1000);
 	}
 
-	if (tz != NULL)
+	if (tz != nullptr)
 	{
 		if (!tzflag)
 		{

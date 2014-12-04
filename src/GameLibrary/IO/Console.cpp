@@ -1,20 +1,16 @@
 
 #include "Console.h"
+#include <iostream>
 
 namespace GameLibrary
 {
-	Console::Console(std::ostream&out)
-	{
-		outstream = &out;
-	}
-
 	void Console::write(const String& output)
 	{
-		*outstream << output;
+		std::cout << output;
 	}
 
 	void Console::writeLine(const String& output)
 	{
-		*outstream << output << std::endl;
+		std::cout << output << std::endl;
 	}
 }

@@ -9,7 +9,7 @@ namespace GameLibrary
 	{
 		for(unsigned int i=0; i<256; i++)
 		{
-			glyphs[i] = NULL;
+			glyphs[i] = nullptr;
 		}
 	}
 
@@ -24,7 +24,7 @@ namespace GameLibrary
 		for(unsigned int i=0; i<256; i++)
 		{
 			destroyGlyphStyles(glyphs[i]);
-			glyphs[i] = NULL;
+			glyphs[i] = nullptr;
 		}
 		mlock.unlock();
 	}
@@ -57,7 +57,7 @@ namespace GameLibrary
 	{
 		int index = ((int)glyph) + std::numeric_limits<signed char>::min();
 		RenderedGlyphStyles* glyphStyles = glyphs[index];
-		if(glyphStyles == NULL)
+		if(glyphStyles == nullptr)
 		{
 			glyphStyles = new RenderedGlyphStyles();
 			glyphs[index] = glyphStyles;
@@ -70,7 +70,7 @@ namespace GameLibrary
 		{
 			ArrayList<RenderedGlyph>& renderedGlyphs = glyphStyles->styles;
 			RenderedGlyph renderedGlyph = findGlyph(renderedGlyphs, size, style, antialiasing);
-			if(renderedGlyph.texture == NULL)
+			if(renderedGlyph.texture == nullptr)
 			{
 				renderedGlyph = renderGlyph(glyph, fontptr, renderer, size, style, antialiasing);
 				glyphStyles->styles.add(renderedGlyph);
@@ -91,7 +91,7 @@ namespace GameLibrary
 			}
 		}
 		RenderedGlyph renderedGlyph;
-		renderedGlyph.texture = NULL;
+		renderedGlyph.texture = nullptr;
 		renderedGlyph.size = 0;
 		renderedGlyph.style = Font::STYLE_PLAIN;
 		renderedGlyph.antialias = false;
@@ -102,7 +102,7 @@ namespace GameLibrary
 	{
 		TTF_Font* font = (TTF_Font*)fontptr;
 		SDL_Color color = {255,255,255,255}; //white
-		SDL_Surface* surface = NULL;
+		SDL_Surface* surface = nullptr;
 		if(antialiasing)
 		{
 			surface = TTF_RenderGlyph_Blended(font, glyph, color);
@@ -111,14 +111,14 @@ namespace GameLibrary
 		{
 			surface = TTF_RenderGlyph_Solid(font, glyph, color);
 		}
-		if(surface == NULL)
+		if(surface == nullptr)
 		{
 			//TODO replace with more specific exception type
 			throw Exception(TTF_GetError());
 		}
 		SDL_Texture*texture = SDL_CreateTextureFromSurface((SDL_Renderer*)renderer, surface);
 		SDL_FreeSurface(surface);
-		if(texture == NULL)
+		if(texture == nullptr)
 		{
 			//TODO replace with more specific exception type;
 			throw Exception(TTF_GetError());
@@ -140,7 +140,7 @@ namespace GameLibrary
 
 	void RenderedGlyphContainer::destroyGlyphStyles(RenderedGlyphContainer::RenderedGlyphStyles* glyphStyles)
 	{
-		if(glyphStyles!=NULL)
+		if(glyphStyles!=nullptr)
 		{
 			ArrayList<RenderedGlyph>& styles = glyphStyles->styles;
 			unsigned int total = styles.size();

@@ -181,7 +181,7 @@ namespace GameLibrary
 	DateTime::DateTime()
 	{
 		struct timeval64 tv;
-		gettimeofday64(&tv, NULL);
+		gettimeofday64(&tv, nullptr);
 		Time64_T now = (Time64_T)tv.tv_sec;
 		struct tm lcl = *localtime64(&now);
 		struct tm gmt = *gmtime64(&now);

@@ -1,6 +1,7 @@
 
+#include <climits>
+#include <initializer_list>
 #include <vector>
-//#include <initializer_list>
 
 #pragma once
 
@@ -40,6 +41,8 @@ namespace GameLibrary
 		}
 	};
 #endif
+
+#define ARRAYLIST_NOTFOUND UINT_MAX
 	
 	template <class T>
 	class ArrayList
@@ -63,15 +66,14 @@ namespace GameLibrary
 			}
 		}
 		
-		//TODO implement if std::initializer_list is available
-		/*ArrayList(const std::initializer_list<T>&list)
+		ArrayList(const std::initializer_list<T>&list)
 		{
 			objects.resize(list.size())
 			for(int i=0; i<list.size(); i++)
 			{
 				objects[i] = list[i];
 			}
-		}*/
+		}
 		
 		ArrayList(unsigned int size)
 		{
@@ -230,7 +232,7 @@ namespace GameLibrary
 		bool contains(const T& obj) const
 		{
 			unsigned int length = objects.size();
-			for(int i=0; i<length; i++)
+			for(unsigned int i=0; i<length; i++)
 			{
 				const T& cmp = (const T&)objects[i];
 				if((const T&)obj==(const T&)cmp)
@@ -239,6 +241,20 @@ namespace GameLibrary
 				}
 			}
 			return false;
+		}
+
+		unsigned int indexOf(const T& obj) const
+		{
+			unsigned int length = objects.size();
+			for(unsigned int i=0; i<length; i++)
+			{
+				const T& cmp = (const T&)objects[i];
+				if((const T&)obj==(const T&)cmp)
+				{
+					return i;
+				}
+			}
+			return ARRAYLIST_NOTFOUND;
 		}
 	};
 }

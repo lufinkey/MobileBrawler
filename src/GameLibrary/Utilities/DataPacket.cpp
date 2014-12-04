@@ -39,15 +39,15 @@ namespace GameLibrary
 
 	DataPacket::DataPacket()
 	{
-		data = NULL;
+		data = nullptr;
 		total = 0;
 	}
 
 	DataPacket::DataPacket(const DataPacket&dataPacket)
 	{
-		if(dataPacket.data == NULL)
+		if(dataPacket.data == nullptr)
 		{
-			data = NULL;
+			data = nullptr;
 			total = 0;
 		}
 		else
@@ -75,9 +75,9 @@ namespace GameLibrary
 	{
 		if(size>0)
 		{
-			if(data1 == NULL)
+			if(data1 == nullptr)
 			{
-				throw IllegalArgumentException("data argument in DataPacket(const void*data,unsigned int size) cannot be NULL if size>0");
+				throw IllegalArgumentException("data argument in DataPacket(const void*data,unsigned int size) cannot be nullptr if size>0");
 			}
 
 			data = (byte*)std::malloc(size);
@@ -90,17 +90,17 @@ namespace GameLibrary
 		}
 		else
 		{
-			data = NULL;
+			data = nullptr;
 			total = 0;
 		}
 	}
 	
 	DataPacket::~DataPacket()
 	{
-		if(data!=NULL)
+		if(data!=nullptr)
 		{
 			std::free(data);
-			data = NULL;
+			data = nullptr;
 			total = 0;
 		}
 	}
@@ -114,7 +114,7 @@ namespace GameLibrary
 	bool DataPacket::loadFromFile(const String&path, String&error)
 	{
 		FILE*file = std::fopen(path, "r");
-		if (file == NULL)
+		if (file == nullptr)
 		{
 			//TODO add switch for errno
 			error = "Unable to load DataPacket from file";
@@ -125,7 +125,7 @@ namespace GameLibrary
 		long fileSize = (long)std::ftell(file);
 		std::fseek(file, 0, SEEK_SET);
 		
-		if(data == NULL)
+		if(data == nullptr)
 		{
 			data = (byte*)std::malloc(fileSize);
 		}
@@ -157,12 +157,12 @@ namespace GameLibrary
 	{
 		if(size > 0)
 		{
-			if(data1==NULL)
+			if(data1==nullptr)
 			{
-				throw IllegalArgumentException("data argument in DataPacket::setData(const void*data,unsigned int size) cannot be NULL if size>0");
+				throw IllegalArgumentException("data argument in DataPacket::setData(const void*data,unsigned int size) cannot be nullptr if size>0");
 			}
 
-			if(data==NULL)
+			if(data==nullptr)
 			{
 				data = (byte*)std::malloc(size);
 			}
@@ -180,10 +180,10 @@ namespace GameLibrary
 		}
 		else
 		{
-			if(data != NULL)
+			if(data != nullptr)
 			{
 				std::free(data);
-				data = NULL;
+				data = nullptr;
 				total = 0;
 			}
 		}
@@ -193,7 +193,7 @@ namespace GameLibrary
 	{
 		if(dataPacket.total > 0)
 		{
-			if(data==NULL)
+			if(data==nullptr)
 			{
 				data = (byte*)std::malloc(dataPacket.total);
 			}
@@ -210,10 +210,10 @@ namespace GameLibrary
 		}
 		else
 		{
-			if(data != NULL)
+			if(data != nullptr)
 			{
 				std::free(data);
-				data = NULL;
+				data = nullptr;
 				total = 0;
 			}
 		}
@@ -228,7 +228,7 @@ namespace GameLibrary
 	{
 		if(size > 0)
 		{
-			if(data==NULL)
+			if(data==nullptr)
 			{
 				data = (byte*)std::malloc(size);
 				for(unsigned int i=0; i<size; i++)
@@ -252,10 +252,10 @@ namespace GameLibrary
 		}
 		else
 		{
-			if(data!=NULL)
+			if(data!=nullptr)
 			{
 				std::free(data);
-				data = NULL;
+				data = nullptr;
 				total = 0;
 			}
 		}
@@ -263,10 +263,10 @@ namespace GameLibrary
 	
 	void DataPacket::clear()
 	{
-		if(data!=NULL)
+		if(data!=nullptr)
 		{
 			std::free(data);
-			data = NULL;
+			data = nullptr;
 			total = 0;
 		}
 	}
@@ -275,12 +275,12 @@ namespace GameLibrary
 	{
 		if(size>0)
 		{
-			if(data1 == NULL)
+			if(data1 == nullptr)
 			{
-				throw IllegalArgumentException("data argument in DataPacket::add(const void*data,unsigned int size) cannot be NULL if size>0");
+				throw IllegalArgumentException("data argument in DataPacket::add(const void*data,unsigned int size) cannot be nullptr if size>0");
 			}
 
-			if(data == NULL)
+			if(data == nullptr)
 			{
 				data = (byte*)std::malloc(size);
 				const byte*copyBytes = (const byte*)data1;
@@ -314,12 +314,12 @@ namespace GameLibrary
 		}
 		else if(size>0)
 		{
-			if(data1 == NULL)
+			if(data1 == nullptr)
 			{
-				throw IllegalArgumentException("data argument in DataPacket::add(unsigned int byteIndex,const void*data,unsigned int size) cannot be NULL if size>0");
+				throw IllegalArgumentException("data argument in DataPacket::add(unsigned int byteIndex,const void*data,unsigned int size) cannot be nullptr if size>0");
 			}
 
-			if(data == NULL)
+			if(data == nullptr)
 			{
 				data = (byte*)std::malloc(size);
 				const byte*copyBytes = (const byte*)data1;
@@ -356,7 +356,7 @@ namespace GameLibrary
 	{
 		if(dataPacket.total>0)
 		{
-			if(data == NULL)
+			if(data == nullptr)
 			{
 				data = (byte*)std::malloc(dataPacket.total);
 				for(unsigned int i=0; i<dataPacket.total; i++)
@@ -388,7 +388,7 @@ namespace GameLibrary
 		}
 		else if(dataPacket.total>0)
 		{
-			if(data == NULL)
+			if(data == nullptr)
 			{
 				data = (byte*)std::malloc(dataPacket.total);
 				for(unsigned int i=0; i<dataPacket.total; i++)
@@ -421,7 +421,7 @@ namespace GameLibrary
 	
 	void DataPacket::add(byte dataByte)
 	{
-		if(data == NULL)
+		if(data == nullptr)
 		{
 			data = (byte*)std::malloc(1);
 			data[0] = dataByte;
@@ -443,7 +443,7 @@ namespace GameLibrary
 		}
 		else
 		{
-			if(data == NULL)
+			if(data == nullptr)
 			{
 				data = (byte*)std::malloc(1);
 				data[0] = dataByte;
@@ -482,7 +482,7 @@ namespace GameLibrary
 			if(newTotal == 0)
 			{
 				std::free(data);
-				data = NULL;
+				data = nullptr;
 				total = 0;
 			}
 			else
@@ -523,9 +523,9 @@ namespace GameLibrary
 		}
 		else if(size>0)
 		{
-			if(data1 == NULL)
+			if(data1 == nullptr)
 			{
-				throw IllegalArgumentException("data argument in DataPacket::set(unsigned int byteIndex,const void*data,unsigned int size) cannot be NULL if size>0");
+				throw IllegalArgumentException("data argument in DataPacket::set(unsigned int byteIndex,const void*data,unsigned int size) cannot be nullptr if size>0");
 			}
 
 			const byte*copyBytes = (const byte*)data1;

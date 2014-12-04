@@ -1,5 +1,5 @@
 
-#include <limits.h>
+#include <climits>
 #include <string>
 
 #pragma once
@@ -25,8 +25,8 @@ namespace GameLibrary
 	};
 #endif
 
-#define STRING_NOTFOUND std::numeric_limits<unsigned int>::max()
-
+#define STRING_NOTFOUND UINT_MAX
+	
 	class String
 	{
 		friend std::ostream& operator<<(std::ostream& stream, const String& str);

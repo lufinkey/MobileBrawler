@@ -22,7 +22,7 @@ namespace GameLibrary
 		
 	public:
 		WindowSettings();
-		WindowSettings(const Vector2i& position, const Vector2u& size, const String&title="", Image*icon=NULL, byte style=0);
+		WindowSettings(const Vector2i& position, const Vector2u& size, const String&title="", Image*icon=nullptr, byte style=0);
 		~WindowSettings();
 		
 		void setPosition(const Vector2i&);

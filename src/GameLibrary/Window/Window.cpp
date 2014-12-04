@@ -1,6 +1,6 @@
 
 #include "Window.h"
-#include "../PlatformChecks.h"
+#include "../Utilities/PlatformChecks.h"
 #include <SDL.h>
 
 namespace GameLibrary
@@ -12,8 +12,8 @@ namespace GameLibrary
 		position = Vector2i(Window::POSITION_UNDEFINED, Window::POSITION_UNDEFINED);
 		size = Vector2u(640,480);
 		title = "Program";
-		icon = NULL;
-		icondata = NULL;
+		icon = nullptr;
+		icondata = nullptr;
 		style = Window::STYLE_DEFAULT;
 	}
 
@@ -23,7 +23,7 @@ namespace GameLibrary
 		size = sz;
 		title = ttl;
 		icon = ico;
-		if(icon != NULL)
+		if(icon != nullptr)
 		{
 			const ArrayList<Color>& pixels = icon->getPixels();
 			if(pixels.size()>0)
@@ -36,10 +36,10 @@ namespace GameLibrary
 
 	WindowSettings::~WindowSettings()
 	{
-		if(icondata != NULL)
+		if(icondata != nullptr)
 		{
 			SDL_FreeSurface((SDL_Surface*)icondata);
-			icondata = NULL;
+			icondata = nullptr;
 		}
 	}
 		
@@ -75,13 +75,13 @@ namespace GameLibrary
 		
 	void WindowSettings::setIcon(Image*ico)
 	{
-		if(icondata != NULL)
+		if(icondata != nullptr)
 		{
 			SDL_FreeSurface((SDL_Surface*)icondata);
-			icondata = NULL;
+			icondata = nullptr;
 		}
 		icon = ico;
-		if(icon != NULL)
+		if(icon != nullptr)
 		{
 			const ArrayList<Color>& pixels = icon->getPixels();
 			if(pixels.size()>0)
@@ -111,18 +111,18 @@ namespace GameLibrary
 	Window::Window()
 	{
 		windowed_size = settings.size;
-		view = NULL;
-		windowdata = NULL;
-		graphics = NULL;
+		view = nullptr;
+		windowdata = nullptr;
+		graphics = nullptr;
 	}
 
 	Window::~Window()
 	{
-		if(windowdata != NULL)
+		if(windowdata != nullptr)
 		{
 			destroy();
 		}
-		if(view != NULL)
+		if(view != nullptr)
 		{
 			delete view;
 		}
@@ -190,7 +190,7 @@ namespace GameLibrary
 		}
 
 		windowdata = (void*)SDL_CreateWindow(windowSettings.title,positionx,positiony,windowSettings.size.x,windowSettings.size.y, flags | SDL_WINDOW_OPENGL);
-		if(windowdata == NULL)
+		if(windowdata == nullptr)
 		{
 			//TODO replace with more specific exception type
 			throw Exception(SDL_GetError());
@@ -203,7 +203,7 @@ namespace GameLibrary
 		catch(const Exception&e)
 		{
 			SDL_DestroyWindow((SDL_Window*)windowdata);
-			windowdata = NULL;
+			windowdata = nullptr;
 			//TODO replace with more specific exception type
 			throw Exception(e);
 		}
@@ -215,38 +215,33 @@ namespace GameLibrary
 		}
 	}
 
-	void Window::update()
-	{
-		
-	}
-
 	void Window::destroy()
 	{
-		if(windowdata != NULL)
+		if(windowdata != nullptr)
 		{
 			SDL_DestroyWindow((SDL_Window*)windowdata);
-			windowdata = NULL;
+			windowdata = nullptr;
 			delete graphics;
-			graphics = NULL;
+			graphics = nullptr;
 			settings = WindowSettings();
-			if(view != NULL)
+			if(view != nullptr)
 			{
 				delete view;
-				view = NULL;
+				view = nullptr;
 			}
 		}
 	}
 	
 	Image*Window::capture()
 	{
-		if(windowdata == NULL)
+		if(windowdata == nullptr)
 		{
-			return NULL;
+			return nullptr;
 		}
 
 		Image*img = new Image();
 		img->create(settings.size.x, settings.size.y);
-		if(SDL_RenderReadPixels((SDL_Renderer*)graphics->renderer, NULL, SDL_PIXELFORMAT_RGBA8888, (void*)(img->getPixels().getData()), settings.size.x * 4) < 0)
+		if(SDL_RenderReadPixels((SDL_Renderer*)graphics->renderer, nullptr, SDL_PIXELFORMAT_RGBA8888, (void*)(img->getPixels().getData()), settings.size.x * 4) < 0)
 		{
 			//TODO replace with more specific exception type
 			throw Exception(SDL_GetError());
@@ -271,7 +266,7 @@ namespace GameLibrary
 	
 	const Vector2i& Window::getPosition()
 	{
-		if(windowdata != NULL)
+		if(windowdata != nullptr)
 		{
 			int x = 0;
 			int y = 0;
@@ -283,7 +278,7 @@ namespace GameLibrary
 
 	void Window::setPosition(const Vector2i&pos)
 	{
-		if(windowdata!=NULL)
+		if(windowdata!=nullptr)
 		{
 			settings.setPosition(pos);
 #ifndef TARGETPLATFORM_MOBILE
@@ -294,7 +289,7 @@ namespace GameLibrary
 		
 	const Vector2u& Window::getSize()
 	{
-		if(windowdata != NULL)
+		if(windowdata != nullptr)
 		{
 			int w = 0;
 			int h = 0;
@@ -310,7 +305,7 @@ namespace GameLibrary
 
 	void Window::setSize(const Vector2u&size)
 	{
-		if(windowdata != NULL)
+		if(windowdata != nullptr)
 		{
 			if((settings.style & Window::STYLE_FULLSCREEN) == Window::STYLE_FULLSCREEN)
 			{
@@ -328,7 +323,7 @@ namespace GameLibrary
 
 	const String& Window::getTitle()
 	{
-		if(windowdata != NULL)
+		if(windowdata != nullptr)
 		{
 			settings.setTitle(SDL_GetWindowTitle((SDL_Window*)windowdata));
 		}
@@ -337,7 +332,7 @@ namespace GameLibrary
 
 	void Window::setTitle(const String&title)
 	{
-		if(windowdata != NULL)
+		if(windowdata != nullptr)
 		{
 			settings.setTitle(title);
 			SDL_SetWindowTitle((SDL_Window*)windowdata, title);
@@ -351,7 +346,7 @@ namespace GameLibrary
 
 	void Window::setIcon(Image*icon)
 	{
-		if(windowdata != NULL)
+		if(windowdata != nullptr)
 		{
 			settings.setIcon(icon);
 			SDL_SetWindowIcon((SDL_Window*)windowdata, (SDL_Surface*)settings.icondata);
@@ -360,7 +355,7 @@ namespace GameLibrary
 		
 	bool Window::isOpen()
 	{
-		if(windowdata != NULL)
+		if(windowdata != nullptr)
 		{
 			return true;
 		}
@@ -369,7 +364,7 @@ namespace GameLibrary
 
 	bool Window::isFocused()
 	{
-		if(windowdata != NULL)
+		if(windowdata != nullptr)
 		{
 			unsigned int flags = SDL_GetWindowFlags((SDL_Window*)windowdata);
 			if((flags & SDL_WINDOW_INPUT_FOCUS) == SDL_WINDOW_INPUT_FOCUS)
@@ -382,7 +377,7 @@ namespace GameLibrary
 
 	bool Window::isVisible()
 	{
-		if(windowdata != NULL)
+		if(windowdata != nullptr)
 		{
 			unsigned int flags = SDL_GetWindowFlags((SDL_Window*)windowdata);
 			if((flags & SDL_WINDOW_SHOWN) == SDL_WINDOW_SHOWN)
@@ -400,7 +395,7 @@ namespace GameLibrary
 
 	void Window::setVisible(bool toggle)
 	{
-		if(windowdata != NULL)
+		if(windowdata != nullptr)
 		{
 			unsigned int flags = SDL_GetWindowFlags((SDL_Window*)windowdata);
 			if(toggle)
@@ -422,7 +417,7 @@ namespace GameLibrary
 
 	bool Window::isFullscreen()
 	{
-		if(windowdata != NULL)
+		if(windowdata != nullptr)
 		{
 			unsigned int flags = SDL_GetWindowFlags((SDL_Window*)windowdata);
 			if((flags & SDL_WINDOW_FULLSCREEN) == SDL_WINDOW_FULLSCREEN)
@@ -445,7 +440,7 @@ namespace GameLibrary
 
 	void Window::setFullscreen(bool toggle, unsigned int width, unsigned int height)
 	{
-		if(windowdata != NULL)
+		if(windowdata != nullptr)
 		{
 			unsigned int flags = SDL_GetWindowFlags((SDL_Window*)windowdata);
 			if(toggle)

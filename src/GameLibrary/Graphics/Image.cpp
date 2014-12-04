@@ -60,7 +60,7 @@ namespace GameLibrary
 	bool Image::loadFromFile(const String&path, String&error)
 	{
 		SDL_Surface* surface = IMG_Load(path);
-		if(surface != NULL)
+		if(surface != nullptr)
 		{
 			int mustlock = SDL_MUSTLOCK(surface);
 			if(mustlock!=0)
@@ -151,7 +151,7 @@ namespace GameLibrary
 				if(format.equals("png"))
 				{
 					SDL_Surface* surface = SDL_CreateRGBSurfaceFrom((void*)pixels.getData(), (int)width, (int)height, 32, width*4, 0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000);
-					if(surface == NULL)
+					if(surface == nullptr)
 					{
 						error = SDL_GetError();
 						return false;
@@ -170,7 +170,7 @@ namespace GameLibrary
 				else if(format.equals("bmp"))
 				{
 					SDL_Surface* surface = SDL_CreateRGBSurfaceFrom((void*)pixels.getData(), (int)width, (int)height, 32, width*4, 0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000);
-					if(surface == NULL)
+					if(surface == nullptr)
 					{
 						error = SDL_GetError();
 						return false;

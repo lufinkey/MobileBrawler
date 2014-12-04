@@ -17,14 +17,14 @@ namespace GameLibrary
 
 	BufferedImage::BufferedImage()
 	{
-		texture = NULL;
+		texture = nullptr;
 		width = 0;
 		height = 0;
 	}
 
 	BufferedImage::~BufferedImage()
 	{
-		if(texture != NULL)
+		if(texture != nullptr)
 		{
 			SDL_DestroyTexture((SDL_Texture*)texture);
 		}
@@ -35,15 +35,15 @@ namespace GameLibrary
 		if(w>0 && h>0)
 		{
 			SDL_Texture* newTexture = SDL_CreateTexture((SDL_Renderer*)graphics.renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, (int)w, (int)h);
-			if(newTexture == NULL)
+			if(newTexture == nullptr)
 			{
 				//TODO replace with a more specific exception type
 				throw Exception(SDL_GetError());
 			}
-			if(texture != NULL)
+			if(texture != nullptr)
 			{
 				SDL_DestroyTexture((SDL_Texture*)texture);
-				texture = NULL;
+				texture = nullptr;
 			}
 			texture = (void*)newTexture;
 			width = w;
@@ -57,10 +57,10 @@ namespace GameLibrary
 		}
 		else
 		{
-			if(texture != NULL)
+			if(texture != nullptr)
 			{
 				SDL_DestroyTexture((SDL_Texture*)texture);
-				texture = NULL;
+				texture = nullptr;
 			}
 			width = 0;
 			height = 0;
@@ -71,14 +71,14 @@ namespace GameLibrary
 
 	void BufferedImage::update(const Color*pxls)
 	{
-		if(texture == NULL)
+		if(texture == nullptr)
 		{
 			//TODO replace with more specific exception type
 			throw Exception("Cannot update an empty BufferedImage");
 		}
 		void* pixelptr;
 		int pitch;
-		if(SDL_LockTexture((SDL_Texture*)texture, NULL, &pixelptr, &pitch) < 0)
+		if(SDL_LockTexture((SDL_Texture*)texture, nullptr, &pixelptr, &pitch) < 0)
 		{
 			//TODO replace with more specific exception type
 			throw Exception(SDL_GetError());
@@ -107,7 +107,7 @@ namespace GameLibrary
 	//TODO add checking for out of bounds
 	/*void BufferedImage::update(const Color*pixels, unsigned int x, unsigned int y, unsigned int w, unsigned int h)
 	{
-		if(texture == NULL)
+		if(texture == nullptr)
 		{
 			//TODO replace with more specific exception type
 			throw Exception("Cannot update an empty BufferedImage");
@@ -153,16 +153,16 @@ namespace GameLibrary
 		if(pixels.size()>0)
 		{
 			SDL_Texture* newTexture = SDL_CreateTexture((SDL_Renderer*)graphics.renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, (int)image.getWidth(), (int)image.getHeight());
-			if(newTexture == NULL)
+			if(newTexture == nullptr)
 			{
 				//TODO replace with a more specific exception type
 				error = SDL_GetError();
 				return false;
 			}
-			if(texture != NULL)
+			if(texture != nullptr)
 			{
 				SDL_DestroyTexture((SDL_Texture*)texture);
-				texture = NULL;
+				texture = nullptr;
 			}
 			texture = (void*)newTexture;
 			unsigned int w = image.getWidth();
@@ -170,7 +170,7 @@ namespace GameLibrary
 			unsigned int totalsize = w*h;
 			void*pixelptr;
 			int pitch;
-			if(SDL_LockTexture((SDL_Texture*)texture, NULL, &pixelptr, &pitch) < 0)
+			if(SDL_LockTexture((SDL_Texture*)texture, nullptr, &pixelptr, &pitch) < 0)
 			{
 				//TODO replace with a more specific exception type
 				error = SDL_GetError();
@@ -204,10 +204,10 @@ namespace GameLibrary
 		}
 		else
 		{
-			if(texture != NULL)
+			if(texture != nullptr)
 			{
 				SDL_DestroyTexture((SDL_Texture*)texture);
-				texture = NULL;
+				texture = nullptr;
 			}
 			width = 0;
 			height = 0;
