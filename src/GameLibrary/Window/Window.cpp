@@ -1,5 +1,6 @@
 
 #include "Window.h"
+#include "../Application/EventManager.h"
 #include "../Utilities/PlatformChecks.h"
 #include <SDL.h>
 
@@ -114,10 +115,14 @@ namespace GameLibrary
 		view = nullptr;
 		windowdata = nullptr;
 		graphics = nullptr;
+		
+		EventManager::addWindow(this);
 	}
 
 	Window::~Window()
 	{
+		EventManager::removeWindow(this);
+
 		if(windowdata != nullptr)
 		{
 			destroy();
@@ -132,24 +137,24 @@ namespace GameLibrary
 	{
 		int positionx = 0;
 		int positiony = 0;
-#ifndef TARGETPLATFORM_MOBILE
-		if(windowSettings.position.x == Window::POSITION_CENTERED)
-		{
-			positionx = SDL_WINDOWPOS_CENTERED;
-		}
-		else if(windowSettings.position.x == Window::POSITION_UNDEFINED)
-		{
-			positionx = SDL_WINDOWPOS_UNDEFINED;
-		}
-		if(windowSettings.position.y == Window::POSITION_CENTERED)
-		{
-			positiony = SDL_WINDOWPOS_CENTERED;
-		}
-		else if(windowSettings.position.y == Window::POSITION_UNDEFINED)
-		{
-			positiony = SDL_WINDOWPOS_UNDEFINED;
-		}
-#endif
+		#ifndef TARGETPLATFORM_MOBILE
+			if(windowSettings.position.x == Window::POSITION_CENTERED)
+			{
+				positionx = SDL_WINDOWPOS_CENTERED;
+			}
+			else if(windowSettings.position.x == Window::POSITION_UNDEFINED)
+			{
+				positionx = SDL_WINDOWPOS_UNDEFINED;
+			}
+			if(windowSettings.position.y == Window::POSITION_CENTERED)
+			{
+				positiony = SDL_WINDOWPOS_CENTERED;
+			}
+			else if(windowSettings.position.y == Window::POSITION_UNDEFINED)
+			{
+				positiony = SDL_WINDOWPOS_UNDEFINED;
+			}
+		#endif
 
 		unsigned int flags = 0;
 		byte style = windowSettings.style;
@@ -209,10 +214,17 @@ namespace GameLibrary
 		}
 
 		settings = windowSettings;
+#ifdef TARGETPLATFORM_MOBILE
+		settings.position.x = 0;
+		settings.position.y = 0;
+#endif
 		if((style & Window::STYLE_FULLSCREEN) != Window::STYLE_FULLSCREEN)
 		{
 			windowed_size = windowSettings.size;
 		}
+
+		//TODO create View object
+		//TODO create Graphics object
 	}
 
 	void Window::destroy()
@@ -280,10 +292,10 @@ namespace GameLibrary
 	{
 		if(windowdata!=nullptr)
 		{
-			settings.setPosition(pos);
-#ifndef TARGETPLATFORM_MOBILE
-			SDL_SetWindowPosition((SDL_Window*)windowdata,pos.x,pos.y);
-#endif
+			#ifndef TARGETPLATFORM_MOBILE
+				settings.setPosition(pos);
+				SDL_SetWindowPosition((SDL_Window*)windowdata,pos.x,pos.y);
+			#endif
 		}
 	}
 		
@@ -473,5 +485,153 @@ namespace GameLibrary
 				}
 			}
 		}
+	}
+
+	void Window::addEventListener(WindowEventListener*listener)
+	{
+		eventListeners.add(listener);
+	}
+
+	void Window::removeEventListener(WindowEventListener*listener)
+	{
+		unsigned int index = eventListeners.indexOf(listener);
+		if(index != ARRAYLIST_NOTFOUND)
+		{
+			eventListeners.remove(index);
+		}
+	}
+
+	void Window::callListenerEvent(byte eventType, int x, int y, bool external)
+	{
+		ArrayList<WindowEventListener*> listeners = eventListeners;
+		for(unsigned int i = 0; i<listeners.size(); i++)
+		{
+			WindowEventListener* listener = listeners.get(i);
+			switch(eventType)
+			{
+				case SDL_WINDOWEVENT_SHOWN:
+				listener->onWindowShown(this);
+				break;
+
+				case SDL_WINDOWEVENT_HIDDEN:
+				listener->onWindowHidden(this);
+				break;
+
+				case SDL_WINDOWEVENT_EXPOSED:
+				listener->onWindowExposed(this);
+				break;
+
+				case SDL_WINDOWEVENT_MOVED:
+				listener->onWindowMoved(this, Vector2f((float)x, (float)y));
+				break;
+
+				case SDL_WINDOWEVENT_RESIZED:
+				case SDL_WINDOWEVENT_SIZE_CHANGED:
+				listener->onWindowResized(this, Vector2u((unsigned int)x,(unsigned int)y), external);
+				break;
+
+				case SDL_WINDOWEVENT_MINIMIZED:
+				listener->onWindowMinimize(this);
+				break;
+
+				case SDL_WINDOWEVENT_MAXIMIZED:
+				listener->onWindowMinimize(this);
+				break;
+
+				case SDL_WINDOWEVENT_RESTORED:
+				listener->onWindowRestore(this);
+				break;
+
+				case SDL_WINDOWEVENT_ENTER:
+				listener->onWindowMouseEnter(this);
+				break;
+
+				case SDL_WINDOWEVENT_LEAVE:
+				listener->onWindowMouseLeave(this);
+				break;
+
+				case SDL_WINDOWEVENT_FOCUS_GAINED:
+				listener->onWindowFocusGained(this);
+				break;
+
+				case SDL_WINDOWEVENT_FOCUS_LOST:
+				listener->onWindowFocusLost(this);
+				break;
+
+				case SDL_WINDOWEVENT_CLOSE:
+				listener->onWindowClose(this);
+				break;
+			}
+		}
+	}
+
+	WindowEventListener::~WindowEventListener()
+	{
+		//
+	}
+
+	void WindowEventListener::onWindowShown(Window*window)
+	{
+		//
+	}
+
+	void WindowEventListener::onWindowHidden(Window*window)
+	{
+		//
+	}
+
+	void WindowEventListener::onWindowExposed(Window*window)
+	{
+		//
+	}
+
+	void WindowEventListener::onWindowMoved(Window*window, const Vector2f&position)
+	{
+		//
+	}
+
+	void WindowEventListener::onWindowResized(Window*window, const Vector2u&size, bool external)
+	{
+		//
+	}
+
+	void WindowEventListener::onWindowMinimize(Window*window)
+	{
+		//
+	}
+
+	void WindowEventListener::onWindowMaximize(Window*window)
+	{
+		//
+	}
+
+	void WindowEventListener::onWindowRestore(Window*window)
+	{
+		//
+	}
+
+	void WindowEventListener::onWindowMouseEnter(Window*window)
+	{
+		//
+	}
+
+	void WindowEventListener::onWindowMouseLeave(Window*window)
+	{
+		//
+	}
+
+	void WindowEventListener::onWindowFocusGained(Window*window)
+	{
+		//
+	}
+
+	void WindowEventListener::onWindowFocusLost(Window*window)
+	{
+		//
+	}
+
+	void WindowEventListener::onWindowClose(Window*window)
+	{
+		//
 	}
 }

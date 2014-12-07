@@ -92,4 +92,20 @@ namespace GameLibrary
 		}
 		return false;
 	}
+
+	byte Color_compositeByte(byte orig, byte comp)
+	{
+		float x = (float)orig;
+		float n = (float)comp;
+		return (byte)((-n / 255) * (n - x - 255));
+	}
+
+	Color Color::composite(const Color&comp) const
+	{
+		byte cr = Color_compositeByte(r,comp.r);
+		byte cg = Color_compositeByte(g,comp.g);
+		byte cb = Color_compositeByte(b,comp.b);
+		byte ca = Color_compositeByte(a,comp.a);
+		return Color(cr,cg,cb,ca);
+	}
 }

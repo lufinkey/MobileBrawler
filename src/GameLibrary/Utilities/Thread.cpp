@@ -155,7 +155,7 @@ namespace GameLibrary
 
 	void Thread::sleep(unsigned long long milliseconds, unsigned long nanoseconds)
 	{
-		long nanoseconds_total = (milliseconds*1000000) + nanoseconds;
+		unsigned long long nanoseconds_total = (milliseconds*1000000) + nanoseconds;
 		if(nanoseconds_total>0)
 		{
 			std::chrono::nanoseconds dur(nanoseconds_total);

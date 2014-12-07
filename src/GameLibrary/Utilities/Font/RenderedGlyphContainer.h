@@ -11,6 +11,7 @@ namespace GameLibrary
 	class RenderedGlyphContainer
 	{
 		friend class Font;
+		friend class Graphics;
 	private:
 		typedef struct
 		{

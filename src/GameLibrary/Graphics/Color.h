@@ -34,8 +34,10 @@ namespace GameLibrary
 		Color&operator=(const Color&color);
 		bool operator==(const Color&color) const;
 		
-		Uint32 getRGBA();
+		GameLibrary::Uint32 getRGBA();
 		
 		bool equals(const Color&color) const;
+
+		Color composite(const Color&comp) const;
 	};
 }

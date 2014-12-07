@@ -21,6 +21,10 @@ namespace GameLibrary
 		Transform(float a00, float a01, float a02, float a10, float a11, float a12, float a20, float a21, float a22);
 		~Transform();
 
+		Transform& operator=(const Transform&);
+
+		void reset();
+
 		const float* getMatrix() const;
 		Transform getInverse() const;
 

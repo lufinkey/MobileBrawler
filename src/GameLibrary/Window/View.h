@@ -7,6 +7,7 @@ namespace GameLibrary
 {
 	class View
 	{
+		friend class Graphics;
 	private:
 		Vector2f size;
 		Vector2f position;

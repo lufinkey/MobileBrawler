@@ -1,6 +1,7 @@
 
 #include "EventManager.h"
 #include "../Input/Keyboard.h"
+#include "../Input/Mouse.h"
 #include "../Utilities/Thread.h"
 #include "../Window/Window.h"
 #include <SDL.h>
@@ -8,43 +9,176 @@
 
 namespace GameLibrary
 {
-	ArrayList<Window*> EventManager::windows;
-	static std::mutex EventManager_window_mutex;
+	ArrayList<Window*> EventManager_windows;
+	static std::mutex EventManager_windows_mutex;
 
 	Keyboard::Key Keyboard_SDLK_to_Key(int code);
+	Mouse::Button Mouse_SDL_to_MouseButton(byte button);
+
+	const ArrayList<Window*>& EventManager::getWindows()
+	{
+		return EventManager_windows;
+	}
+
+	void*EventManager::getWindowMutexPtr()
+	{
+		return (void*)(&EventManager_windows_mutex);
+	}
+
+	Window* EventManager::getWindowFromData(void*windata)
+	{
+		if(windata == nullptr)
+		{
+			return nullptr;
+		}
+		SDL_Window*sdlwindata = (SDL_Window*)windata;
+		EventManager_windows_mutex.lock();
+		for(unsigned int i=0; i<EventManager_windows.size(); i++)
+		{
+			Window* window = EventManager_windows.get(i);
+			SDL_Window*sdlwin = (SDL_Window*)window->windowdata;
+			if(sdlwin == sdlwindata)
+			{
+				EventManager_windows_mutex.unlock();
+				return window;
+			}
+		}
+		EventManager_windows_mutex.unlock();
+		return nullptr;
+	}
+
+	void* EventManager::getDataFromWindow(Window*window)
+	{
+		if(window == nullptr)
+		{
+			return nullptr;
+		}
+		return window->windowdata;
+	}
 
 	void EventManager::addWindow(Window*window)
 	{
-		EventManager_window_mutex.lock();
-		windows.add(window);
-		EventManager_window_mutex.unlock();
+		EventManager_windows_mutex.lock();
+		EventManager_windows.add(window);
+		EventManager_windows_mutex.unlock();
 	}
 
 	void EventManager::removeWindow(Window*window)
 	{
-		EventManager_window_mutex.lock();
-		for(unsigned int i = 0; i < windows.size(); i++)
+		EventManager_windows_mutex.lock();
+		for(unsigned int i=0; i<EventManager_windows.size(); i++)
 		{
-			if(windows.get(i) == window)
+			if(EventManager_windows.get(i) == window)
 			{
-				windows.remove(i);
-				EventManager_window_mutex.unlock();
+				EventManager_windows.remove(i);
+				EventManager_windows_mutex.unlock();
 				return;
 			}
 		}
-		EventManager_window_mutex.unlock();
+		EventManager_windows_mutex.unlock();
+		Mouse::removeWindow(window);
 	}
 
 	void EventManager::update()
 	{
+		Window* resizingWindow = nullptr;
+		int data1 = 0;
+		int data2 = 0;
+
 		//event polling
 		SDL_Event event;
 		while(SDL_PollEvent(&event))
 		{
-			switch(event.type)
+			bool skip = false;
+			if(resizingWindow != nullptr)
 			{
-				//TODO add event types here
+				if(event.type==SDL_WINDOWEVENT && event.window.event==SDL_WINDOWEVENT_RESIZED)
+				{
+					resizingWindow->callListenerEvent(SDL_WINDOWEVENT_RESIZED, event.window.data1, event.window.data2, true);
+					skip = true;
+				}
+				else
+				{
+					resizingWindow->callListenerEvent(SDL_WINDOWEVENT_RESIZED, data1, data2, false);
+				}
+				resizingWindow = nullptr;
 			}
+
+			if(skip)
+			{
+				switch(event.type)
+				{
+					case SDL_MOUSEMOTION:
+					{
+						SDL_Window*sdlwin = SDL_GetWindowFromID(event.motion.windowID);
+						Window*window = nullptr;
+						if(sdlwin!=nullptr)
+						{
+							window = EventManager::getWindowFromData(sdlwin);
+						}
+						//TODO add support for multiple mouse indexes
+						Mouse::handleMouseMovement(0, window, Vector2f((float)event.motion.x, (float)event.motion.y), Vector2f((float)event.motion.xrel, (float)event.motion.yrel));
+					}
+					break;
+
+					case SDL_MOUSEBUTTONDOWN:
+					case SDL_MOUSEBUTTONUP:
+					{
+						Mouse::Button button = Mouse_SDL_to_MouseButton(event.button.button);
+						if(event.button.state == SDL_PRESSED)
+						{
+							//TODO add support for multiple mouse indexes
+							Mouse::handleButtonPress(0, button);
+						}
+						else if(event.button.state == SDL_RELEASED)
+						{
+							//TODO add support for multiple mouse indexes
+							Mouse::handleButtonRelease(0, button);
+						}
+					}
+					break;
+
+					case SDL_KEYDOWN:
+					case SDL_KEYUP:
+					{
+						if(event.key.state==SDL_PRESSED)
+						{
+							Keyboard::handleKeyPress(Keyboard_SDLK_to_Key(event.key.keysym.sym));
+						}
+						else if(event.key.state == SDL_RELEASED)
+						{
+							Keyboard::handleKeyRelease(Keyboard_SDLK_to_Key(event.key.keysym.sym));
+						}
+					}
+					break;
+
+					case SDL_WINDOWEVENT:
+					{
+						Window* window = EventManager::getWindowFromData(SDL_GetWindowFromID(event.window.windowID));
+						if(window != nullptr)
+						{
+							if(event.window.event!=SDL_WINDOWEVENT_SIZE_CHANGED)
+							{
+								window->callListenerEvent(event.window.event, event.window.data1, event.window.data2, false);
+							}
+							else
+							{
+								resizingWindow = window;
+							}
+						}
+					}
+					break;
+
+					//TODO add event types here
+				}
+			}
+			skip = false;
+		}
+
+		if(resizingWindow != nullptr)
+		{
+			resizingWindow->callListenerEvent(SDL_WINDOWEVENT_RESIZED, data1, data2, false);
+			resizingWindow = nullptr;
 		}
 
 		Keyboard::update();
@@ -157,5 +291,21 @@ namespace GameLibrary
 			case SDLK_PAUSE: return Keyboard::PAUSE;
 		}
 		return Keyboard::UNKNOWN_KEY;
+	}
+
+	Mouse::Button Mouse_SDL_to_MouseButton(byte button)
+	{
+		switch(button)
+		{
+			case SDL_BUTTON_LEFT:
+			return Mouse::BUTTON_LEFT;
+
+			case SDL_BUTTON_RIGHT:
+			return Mouse::BUTTON_RIGHT;
+
+			case SDL_BUTTON_MIDDLE:
+			return Mouse::BUTTON_MIDDLE;
+		}
+		return Mouse::UNKNOWN_BUTTON;
 	}
 }

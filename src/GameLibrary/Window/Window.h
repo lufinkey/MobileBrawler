@@ -41,8 +41,11 @@ namespace GameLibrary
 		byte getStyle() const;
 	};
 
+	class WindowEventListener;
+
 	class Window
 	{
+		friend class EventManager;
 		friend class Graphics;
 	private:
 		void*windowdata;
@@ -50,7 +53,11 @@ namespace GameLibrary
 		Graphics*graphics;
 		WindowSettings settings;
 		Vector2u windowed_size;
-		
+
+		ArrayList<WindowEventListener*> eventListeners;
+
+		void callListenerEvent(byte eventType, int x, int y, bool external);
+
 	public:
 		enum WindowStyle : byte
 		{
@@ -100,5 +107,57 @@ namespace GameLibrary
 		bool isFullscreen();
 		void setFullscreen(bool);
 		void setFullscreen(bool toggle, unsigned int width, unsigned int height);
+
+		void addEventListener(WindowEventListener*);
+		void removeEventListener(WindowEventListener*);
+	};
+
+	class WindowEventListener
+	{
+	public:
+		/*Destructor*/
+		virtual ~WindowEventListener();
+		/*Event called when the window has been shown
+		window: the window that was shown*/
+		virtual void onWindowShown(Window*window);
+		/*Event called when the window has been hidden
+		window: the window that was hidden*/
+		virtual void onWindowHidden(Window*window);
+		/*Event called when the window is exposed and should be redrawn
+		window: the window that was exposed*/
+		virtual void onWindowExposed(Window*window);
+		/*Event called when the window has been moved
+		window: the window that was moved
+		position: the new position of the window, relative to the entire screen*/
+		virtual void onWindowMoved(Window*window, const Vector2f&position);
+		/*Event called when the window has been resized
+		window: the window that was resized
+		size: the new size of the window
+		external: stores true if the event was externally driven (resized by the user), and false if the window was resized programmatically*/
+		virtual void onWindowResized(Window*window, const Vector2u&size, bool external);
+		/*Event called when the window has been minimized
+		window: the window that was minimized*/
+		virtual void onWindowMinimize(Window*window);
+		/*Event called when the window has been maximized
+		window: the window that was maximized*/
+		virtual void onWindowMaximize(Window*window);
+		/*Event called when the window has been restored down to normal size and position
+		window: the window that was restored*/
+		virtual void onWindowRestore(Window*window);
+		/*Event called when the mouse pointer enters the window
+		window: the window that has mouse focus*/
+		virtual void onWindowMouseEnter(Window*window);
+		/*Event called when the mouse pointer leaves the window
+		window: the window that lost mouse focus*/
+		virtual void onWindowMouseLeave(Window*window);
+		/*Event called when the window gains input focus
+		window: the window that gained input focus*/
+		virtual void onWindowFocusGained(Window*window);
+		/*Event called when the window loses input focus
+		window: the window that lost input focus*/
+		virtual void onWindowFocusLost(Window*window);
+		/*Event called when the window requests to close
+		window: the window that is closing*/
+		virtual void onWindowClose(Window*window);
 	};
 }

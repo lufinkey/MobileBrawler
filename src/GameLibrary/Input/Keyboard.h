@@ -1,5 +1,4 @@
 
-#include "../Utilities/ArrayList.h"
 #include "../Utilities/String.h"
 
 #pragma once
@@ -124,30 +123,30 @@ namespace GameLibrary
 		static String getKeyText(Key key);
 
 		/*Returns true if Key is currently in a pressed state*/
-		bool isKeyPressed(Key key);
+		static bool isKeyPressed(Key key);
 		/*Returns true if Key is currently in a released state*/
-		bool isKeyReleased(Key key);
+		static bool isKeyReleased(Key key);
 
 		/*Returns true if Key was in a pressed state in the previous frame*/
-		bool wasKeyPressed(Key key);
+		static bool wasKeyPressed(Key key);
 		/*Returns true if Key was in a released state in the previous frame*/
-		bool wasKeyReleased(Key key);
+		static bool wasKeyReleased(Key key);
 
 		/*Returns true if Key was just pressed (released state in the previous frame, pressed state in the current frame)*/
-		bool didKeyPress(Key key);
+		static bool didKeyPress(Key key);
 		/*Returns true if Key was just released (pressed state in the previous frame, released state in the current frame)*/
-		bool didKeyRelease(Key key);
+		static bool didKeyRelease(Key key);
 
 		/*Adds a KeyboardEventListener to handle Keyboard events*/
-		void addEventListener(KeyboardEventListener*);
+		static void addEventListener(KeyboardEventListener*);
 		/*Removes a previously added KeyboardEventListener*/
-		void removeEventListener(KeyboardEventListener*);
+		static void removeEventListener(KeyboardEventListener*);
 
 	private:
 		/*Handles key press events sent from EventManager*/
-		static void handleKeyPress(Key key);
+		static void handleKeyPress(Keyboard::Key key);
 		/*Handles key release events sent from EventManager*/
-		static void handleKeyRelease(Key key);
+		static void handleKeyRelease(Keyboard::Key key);
 
 		/*Updates all key states. Called once per frame from the main thread.*/
 		static void update();
@@ -157,9 +156,14 @@ namespace GameLibrary
 	class KeyboardEventListener
 	{
 	public:
-		/*Event called when a Key state changes to pressed*/
-		virtual void onKeyPress(Keyboard::Key key){}
-		/*Event called when a Key state changes to released*/
-		virtual void onKeyRelease(Keyboard::Key key){}
+		/*Event called when a Key state changes to pressed
+		key: the constant that represents the pressed key*/
+		virtual void onKeyPress(Keyboard::Key key);
+		/*Event called when a Key state changes to released
+		key: the constant that represents the released key*/
+		virtual void onKeyRelease(Keyboard::Key key);
+
+		/*destructor*/
+		virtual ~KeyboardEventListener();
 	};
 }

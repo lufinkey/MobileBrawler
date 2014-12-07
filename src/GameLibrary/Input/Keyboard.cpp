@@ -1,5 +1,6 @@
 
 #include "Keyboard.h"
+#include "../Utilities/ArrayList.h"
 #include "../Utilities/Pair.h"
 #include <mutex>
 #include <vector>
@@ -7,7 +8,7 @@
 namespace GameLibrary
 {
 	//stores all the KeyboardEventListener objects for the Keyboard class
-	ArrayList<KeyboardEventListener*> Keyboard_eventListeners;
+	static ArrayList<KeyboardEventListener*> Keyboard_eventListeners;
 	static std::mutex Keyboard_eventListeners_mutex;
 
 	//tells whether the KeyboardEventListener objects are being looped through and having their events called
@@ -22,7 +23,7 @@ namespace GameLibrary
 	static std::vector<bool> Keyboard_activeKeys = std::vector<bool>(255, false);
 	//stores the state of all keys since the most recent frame
 	static std::vector<bool> Keyboard_currentActiveKeys = std::vector<bool>(255, false);
-	//stores the state of all keys in the last frame
+	//stores the state of all keys in the previous frame
 	static std::vector<bool> Keyboard_prevActiveKeys = std::vector<bool>(255, false);
 
 	//Called when a key state is changed. Forwards the event to all the KeyboardEventListeners
@@ -78,35 +79,41 @@ namespace GameLibrary
 
 	void Keyboard::handleKeyPress(Key key)
 	{
-		bool statechanged = false;
-		Keyboard_key_mutex.lock();
-		if(!Keyboard_activeKeys[key])
+		if(key!=Keyboard::UNKNOWN_KEY)
 		{
-			statechanged = true;
-		}
-		Keyboard_activeKeys[key] = true;
-		Keyboard_key_mutex.unlock();
+			bool statechanged = false;
+			Keyboard_key_mutex.lock();
+			if(!Keyboard_activeKeys[key])
+			{
+				statechanged = true;
+			}
+			Keyboard_activeKeys[key] = true;
+			Keyboard_key_mutex.unlock();
 
-		if(statechanged)
-		{
-			Keyboard_callListeners(key, true);
+			if(statechanged)
+			{
+				Keyboard_callListeners(key, true);
+			}
 		}
 	}
 
 	void Keyboard::handleKeyRelease(Key key)
 	{
-		bool statechanged = false;
-		Keyboard_key_mutex.lock();
-		if(Keyboard_activeKeys[key])
+		if(key!=Keyboard::UNKNOWN_KEY)
 		{
-			statechanged = true;
-		}
-		Keyboard_activeKeys[key] = false;
-		Keyboard_key_mutex.unlock();
+			bool statechanged = false;
+			Keyboard_key_mutex.lock();
+			if(Keyboard_activeKeys[key])
+			{
+				statechanged = true;
+			}
+			Keyboard_activeKeys[key] = false;
+			Keyboard_key_mutex.unlock();
 
-		if(statechanged)
-		{
-			Keyboard_callListeners(key, false);
+			if(statechanged)
+			{
+				Keyboard_callListeners(key, false);
+			}
 		}
 	}
 
@@ -329,5 +336,20 @@ namespace GameLibrary
 			case PAUSE: return "pause";
 		}
 		return "";
+	}
+
+	void KeyboardEventListener::onKeyPress(Keyboard::Key key)
+	{
+		//
+	}
+
+	void KeyboardEventListener::onKeyRelease(Keyboard::Key key)
+	{
+		//
+	}
+
+	KeyboardEventListener::~KeyboardEventListener()
+	{
+		//Keyboard::removeEventListener(this);
 	}
 }

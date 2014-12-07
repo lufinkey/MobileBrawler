@@ -201,27 +201,31 @@ namespace GameLibrary
 
 	ArrayList<RenderedGlyphContainer::RenderedGlyph> Font::getRenderedGlyphs(const String&text, void*renderer)
 	{
-		mlock.lock();
-		ArrayList<RenderedGlyphContainer::RenderedGlyph> renderedGlyphs;
-		try
+		if(fontdata!=nullptr)
 		{
-			if(size>36)
+			mlock.lock();
+			ArrayList<RenderedGlyphContainer::RenderedGlyph> renderedGlyphs;
+			try
 			{
-				renderedGlyphs = glyphs.getRenderedGlyphs(getFontPtr(size),renderer,size,style,text,antialiasing);
+				if(size>36)
+				{
+					renderedGlyphs = glyphs.getRenderedGlyphs(getFontPtr(size),renderer,size,style,text,antialiasing);
+				}
+				else
+				{
+					renderedGlyphs = glyphs.getRenderedGlyphs(getFontPtr(36),renderer,36,style,text,antialiasing);
+				}
 			}
-			else
+			catch(const Exception&e)
 			{
-				renderedGlyphs = glyphs.getRenderedGlyphs(getFontPtr(36),renderer,36,style,text,antialiasing);
+				//TODO replace with more specific exception type
+				mlock.unlock();
+				throw Exception(e);
 			}
-		}
-		catch(const Exception&e)
-		{
-			//TODO replace with more specific exception type
 			mlock.unlock();
-			throw Exception(e);
+			return renderedGlyphs;
 		}
-		mlock.unlock();
-		return renderedGlyphs;
+		return ArrayList<RenderedGlyphContainer::RenderedGlyph>();
 	}
 
 	Vector2u Font::measureString(const String&text)

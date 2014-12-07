@@ -1,7 +1,6 @@
 
 #include "Transform.h"
 #include "../Math.h"
-#include <cmath>
 
 namespace GameLibrary
 {
@@ -9,11 +8,7 @@ namespace GameLibrary
 
 	Transform::Transform()
 	{
-		// Identity m_matrix
-		m_matrix[0] = 1.f; m_matrix[4] = 0.f; m_matrix[8]  = 0.f; m_matrix[12] = 0.f;
-		m_matrix[1] = 0.f; m_matrix[5] = 1.f; m_matrix[9]  = 0.f; m_matrix[13] = 0.f;
-		m_matrix[2] = 0.f; m_matrix[6] = 0.f; m_matrix[10] = 1.f; m_matrix[14] = 0.f;
-		m_matrix[3] = 0.f; m_matrix[7] = 0.f; m_matrix[11] = 0.f; m_matrix[15] = 1.f;
+		reset();
 	}
 
 	Transform::Transform(float a00, float a01, float a02,
@@ -29,6 +24,24 @@ namespace GameLibrary
 	Transform::~Transform()
 	{
 		//
+	}
+
+	Transform& Transform::operator=(const Transform&transform)
+	{
+		for(unsigned int i = 0; i < 16; i++)
+		{
+			m_matrix[i] = transform.m_matrix[i];
+		}
+		return *this;
+	}
+
+	void Transform::reset()
+	{
+		// Identity m_matrix
+		m_matrix[0] = 1.f; m_matrix[4] = 0.f; m_matrix[8]  = 0.f; m_matrix[12] = 0.f;
+		m_matrix[1] = 0.f; m_matrix[5] = 1.f; m_matrix[9]  = 0.f; m_matrix[13] = 0.f;
+		m_matrix[2] = 0.f; m_matrix[6] = 0.f; m_matrix[10] = 1.f; m_matrix[14] = 0.f;
+		m_matrix[3] = 0.f; m_matrix[7] = 0.f; m_matrix[11] = 0.f; m_matrix[15] = 1.f;
 	}
 	
 	const float* Transform::getMatrix() const
@@ -148,8 +161,8 @@ namespace GameLibrary
 	Transform& Transform::rotate(float degrees)
 	{
 		float rad = Math::degtorad(degrees);
-		float cos = std::cos(rad);
-		float sin = std::sin(rad);
+		float cos = Math::cos(rad);
+		float sin = Math::sin(rad);
 
 		Transform rotation(cos, -sin, 0,
 						   sin,  cos, 0,
@@ -161,8 +174,8 @@ namespace GameLibrary
 	Transform& Transform::rotate(float degrees, float centerX, float centerY)
 	{
 		float rad = Math::degtorad(degrees);
-		float cos = std::cos(rad);
-		float sin = std::sin(rad);
+		float cos = Math::cos(rad);
+		float sin = Math::sin(rad);
 
 		Transform rotation(cos, -sin, centerX * (1 - cos) + centerY * sin,
 						   sin,  cos, centerY * (1 - cos) - centerX * sin,
