@@ -1,28 +1,28 @@
 
-#include "BufferedImage.h"
+#include "TextureImage.h"
 #include "Image.h"
 #include <SDL.h>
 
 namespace GameLibrary
 {
-	BufferedImage::BufferedImage(const BufferedImage&image) : BufferedImage()
+	TextureImage::TextureImage(const TextureImage&image) : TextureImage()
 	{
 		//
 	}
 
-	BufferedImage& BufferedImage::operator=(const BufferedImage&image)
+	TextureImage& TextureImage::operator=(const TextureImage&image)
 	{
 		return *this;
 	}
 
-	BufferedImage::BufferedImage()
+	TextureImage::TextureImage()
 	{
 		texture = nullptr;
 		width = 0;
 		height = 0;
 	}
 
-	BufferedImage::~BufferedImage()
+	TextureImage::~TextureImage()
 	{
 		if(texture != nullptr)
 		{
@@ -30,7 +30,7 @@ namespace GameLibrary
 		}
 	}
 	
-	void BufferedImage::create(unsigned int w, unsigned int h, Graphics&graphics)
+	void TextureImage::create(unsigned int w, unsigned int h, Graphics&graphics)
 	{
 		if(w>0 && h>0)
 		{
@@ -69,12 +69,12 @@ namespace GameLibrary
 		}
 	}
 
-	void BufferedImage::update(const Color*pxls)
+	void TextureImage::update(const Color*pxls)
 	{
 		if(texture == nullptr)
 		{
 			//TODO replace with more specific exception type
-			throw Exception("Cannot update an empty BufferedImage");
+			throw Exception("Cannot update an empty TextureImage");
 		}
 		void* pixelptr;
 		int pitch;
@@ -105,12 +105,12 @@ namespace GameLibrary
 
 	//TODO figure out where the Rect updates first, so I can figure out how to update the bool vector
 	//TODO add checking for out of bounds
-	/*void BufferedImage::update(const Color*pixels, unsigned int x, unsigned int y, unsigned int w, unsigned int h)
+	/*void TextureImage::update(const Color*pixels, unsigned int x, unsigned int y, unsigned int w, unsigned int h)
 	{
 		if(texture == nullptr)
 		{
 			//TODO replace with more specific exception type
-			throw Exception("Cannot update an empty BufferedImage");
+			throw Exception("Cannot update an empty TextureImage");
 		}
 
 		SDL_Rect rect;
@@ -137,7 +137,7 @@ namespace GameLibrary
 		SDL_UnlockTexture((SDL_Texture*)texture);
 	}*/
 	
-	bool BufferedImage::loadFromFile(const String&path, Graphics&graphics, String&error)
+	bool TextureImage::loadFromFile(const String&path, Graphics&graphics, String&error)
 	{
 		Image img;
 		if(img.loadFromFile(path, error))
@@ -147,7 +147,7 @@ namespace GameLibrary
 		return false;
 	}
 
-	bool BufferedImage::loadFromImage(const Image&image, Graphics&graphics, String&error)
+	bool TextureImage::loadFromImage(const Image&image, Graphics&graphics, String&error)
 	{
 		const ArrayList<Color>& image_pixels = image.getPixels();
 		if(image_pixels.size()>0)
@@ -218,7 +218,7 @@ namespace GameLibrary
 		return false;
 	}
 
-	bool BufferedImage::checkPixel(unsigned int index) const
+	bool TextureImage::checkPixel(unsigned int index) const
 	{
 		/*if(index > pixels.size())
 		{
@@ -228,7 +228,7 @@ namespace GameLibrary
 		return pixels[index];
 	}
 
-	bool BufferedImage::checkPixel(unsigned int x, unsigned int y) const
+	bool TextureImage::checkPixel(unsigned int x, unsigned int y) const
 	{
 		/*if(x > width || y > height)
 		{

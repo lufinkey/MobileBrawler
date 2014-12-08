@@ -132,9 +132,6 @@
     <ClCompile Include="src\GameLibrary\Exception\OutOfBoundsException.cpp">
       <Filter>src\GameLibrary\Exception</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameLibrary\Graphics\BufferedImage.cpp">
-      <Filter>src\GameLibrary\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameLibrary\Graphics\Color.cpp">
       <Filter>src\GameLibrary\Graphics</Filter>
     </ClCompile>
@@ -228,6 +225,9 @@
     <ClCompile Include="src\GameLibrary\Utilities\Thread.cpp">
       <Filter>src\GameLibrary\Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Graphics\TextureImage.cpp">
+      <Filter>src\GameLibrary\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -256,9 +256,6 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Audio\Sound.h">
       <Filter>src\GameLibrary\Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameLibrary\Graphics\BufferedImage.h">
-      <Filter>src\GameLibrary\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Graphics\Color.h">
       <Filter>src\GameLibrary\Graphics</Filter>
@@ -418,6 +415,9 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Utilities\PlatformChecks.h">
       <Filter>src\GameLibrary\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Graphics\TextureImage.h">
+      <Filter>src\GameLibrary\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

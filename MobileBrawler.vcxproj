@@ -108,7 +108,7 @@
     <ClCompile Include="src\GameLibrary\Exception\Utilities\DataPacketOutOfBoundsException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\Utilities\StringOutOfBoundsException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\Utilities\Time\IllegalDateTimeFormatException.cpp" />
-    <ClCompile Include="src\GameLibrary\Graphics\BufferedImage.cpp" />
+    <ClCompile Include="src\GameLibrary\Graphics\TextureImage.cpp" />
     <ClCompile Include="src\GameLibrary\Graphics\Color.cpp" />
     <ClCompile Include="src\GameLibrary\Graphics\Graphics.cpp" />
     <ClCompile Include="src\GameLibrary\Graphics\Image.cpp" />
@@ -166,7 +166,7 @@
     <ClInclude Include="src\GameLibrary\Exception\Utilities\StringOutOfBoundsException.h" />
     <ClInclude Include="src\GameLibrary\Exception\Utilities\Time\IllegalDateTimeFormatException.h" />
     <ClInclude Include="src\GameLibrary\GameLibrary.h" />
-    <ClInclude Include="src\GameLibrary\Graphics\BufferedImage.h" />
+    <ClInclude Include="src\GameLibrary\Graphics\TextureImage.h" />
     <ClInclude Include="src\GameLibrary\Graphics\Color.h" />
     <ClInclude Include="src\GameLibrary\Graphics\Graphics.h" />
     <ClInclude Include="src\GameLibrary\Graphics\Image.h" />

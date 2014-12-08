@@ -10,7 +10,7 @@ namespace GameLibrary
 {
 	class Graphics
 	{
-		friend class BufferedImage;
+		friend class TextureImage;
 		friend class Font;
 		friend class Window;
 	private:
@@ -91,11 +91,11 @@ namespace GameLibrary
 		//void fillOval(float x1,float y1,float w,float h);
 		//void fillOval(const RectangleF& rect);
 
-		void drawImage(BufferedImage*img, float x, float y);
-		void drawImage(BufferedImage*img, const Vector2f& point);
-		void drawImage(BufferedImage*img, float x, float y, float width, float height);
-		void drawImage(BufferedImage*img, const RectangleF& rect);
-		void drawImage(BufferedImage*img, float dx1, float dy1, float dx2, float dy2, int sx1, int sy1, int sx2, int sy2);
-		void drawImage(BufferedImage*img, const RectangleF& dst, const Rectangle& src);
+		void drawImage(TextureImage*img, float x, float y);
+		void drawImage(TextureImage*img, const Vector2f& point);
+		void drawImage(TextureImage*img, float x, float y, float width, float height);
+		void drawImage(TextureImage*img, const RectangleF& rect);
+		void drawImage(TextureImage*img, float dx1, float dy1, float dx2, float dy2, int sx1, int sy1, int sx2, int sy2);
+		void drawImage(TextureImage*img, const RectangleF& dst, const Rectangle& src);
 	};
 }

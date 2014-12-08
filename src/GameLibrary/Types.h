@@ -37,7 +37,7 @@ namespace GameLibrary
 	class Graphics;
 	class Color;
 	class Image;
-	class BufferedImage;
+	class TextureImage;
 	
 	//IO
 	class Console;

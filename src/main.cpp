@@ -1,6 +1,6 @@
 
 #include "GameLibrary/Application/EventManager.h"
-#include "GameLibrary/Graphics/BufferedImage.h"
+#include "GameLibrary/Graphics/TextureImage.h"
 #include "GameLibrary/Utilities/String.h"
 #include "GameLibrary/Utilities/ArrayList.h"
 #include "GameLibrary/Utilities/Math.h"
@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 	Image img;
 	img.loadFromFile("test.png");
 	img.saveToFile("testsave.png");
-	BufferedImage bufImg;
+	TextureImage bufImg;
 	bufImg.loadFromImage(img, window.getGraphics());
 
 	EventManager::update();

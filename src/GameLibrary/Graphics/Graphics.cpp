@@ -1,6 +1,6 @@
 
 #include "Graphics.h"
-#include "BufferedImage.h"
+#include "TextureImage.h"
 #include "../IO/Console.h"
 #include "../Utilities/Font/Font.h"
 #include "../Utilities/Math.h"
@@ -100,11 +100,6 @@ namespace GameLibrary
 			scale(zoom*multScale,zoom*multScale);
 			translate(difX, difY);
 		}
-
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
 	}
 
 	Graphics::Graphics(Window&win)
@@ -437,7 +432,7 @@ namespace GameLibrary
 		fillOval(rect.x, rect.y, rect.width, rect.height);
 	}*/
 
-	void Graphics::drawImage(BufferedImage*img, float x, float y)
+	void Graphics::drawImage(TextureImage*img, float x, float y)
 	{
 		SDL_Texture*texture = (SDL_Texture*)img->texture;
 		unsigned int texWidth = img->width;
@@ -460,7 +455,6 @@ namespace GameLibrary
 			center.x = 0;
 			center.y = 0;
 
-			glMatrixMode(GL_TEXTURE);
 			beginDraw();
 
 			float alphaMult = (float)alpha/255;
@@ -476,20 +470,18 @@ namespace GameLibrary
 		}
 	}
 
-	void Graphics::drawImage(BufferedImage*img, const Vector2f& point)
+	void Graphics::drawImage(TextureImage*img, const Vector2f& point)
 	{
 		drawImage(img, point.x, point.y);
 	}
 
-	void Graphics::drawImage(BufferedImage*img, float x, float y, float width, float height)
+	void Graphics::drawImage(TextureImage*img, float x, float y, float width, float height)
 	{
 		SDL_Texture*texture = (SDL_Texture*)img->texture;
 		unsigned int texWidth = img->width;
 		unsigned int texHeight = img->height;
 		if(texWidth != 0 && texHeight != 0)
 		{
-			beginDraw();
-
 			SDL_Rect srcrect;
 			srcrect.x = 0;
 			srcrect.y = 0;
@@ -506,6 +498,8 @@ namespace GameLibrary
 			center.x = 0;
 			center.y = 0;
 
+			beginDraw();
+
 			float alphaMult = (float)alpha/255;
 			SDL_SetTextureColorMod(texture, tintColor.r, tintColor.g, tintColor.b);
 			SDL_SetTextureAlphaMod(texture, (byte)(tintColor.a * alphaMult));
@@ -519,20 +513,18 @@ namespace GameLibrary
 		}
 	}
 
-	void Graphics::drawImage(BufferedImage*img, const RectangleF& rect)
+	void Graphics::drawImage(TextureImage*img, const RectangleF& rect)
 	{
 		drawImage(img, rect.x, rect.y, rect.width, rect.height);
 	}
 
-	void Graphics::drawImage(BufferedImage*img, float dx1, float dy1, float dx2, float dy2, int sx1, int sy1, int sx2, int sy2)
+	void Graphics::drawImage(TextureImage*img, float dx1, float dy1, float dx2, float dy2, int sx1, int sy1, int sx2, int sy2)
 	{
 		SDL_Texture*texture = (SDL_Texture*)img->texture;
 		unsigned int texWidth = img->width;
 		unsigned int texHeight = img->height;
 		if(texWidth != 0 && texHeight != 0)
 		{
-			beginDraw();
-
 			SDL_Rect srcrect;
 			srcrect.x = sx1;
 			srcrect.y = sy1;
@@ -552,6 +544,8 @@ namespace GameLibrary
 			center.x = 0;
 			center.y = 0;
 
+			beginDraw();
+
 			float alphaMult = (float)alpha/255;
 			SDL_SetTextureColorMod(texture, tintColor.r, tintColor.g, tintColor.b);
 			SDL_SetTextureAlphaMod(texture, (byte)(tintColor.a * alphaMult));
@@ -565,7 +559,7 @@ namespace GameLibrary
 		}
 	}
 
-	void Graphics::drawImage(BufferedImage*img, const RectangleF& dst, const Rectangle& src)
+	void Graphics::drawImage(TextureImage*img, const RectangleF& dst, const Rectangle& src)
 	{
 		drawImage(img, dst.x, dst.y, dst.x+dst.width, dst.y+dst.height, src.x, src.y, src.x+src.width, src.y+src.height);
 	}

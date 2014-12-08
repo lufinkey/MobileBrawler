@@ -7,7 +7,7 @@
 
 namespace GameLibrary
 {
-	class BufferedImage
+	class TextureImage
 	{
 		friend class Graphics;
 	private:
@@ -16,12 +16,12 @@ namespace GameLibrary
 		unsigned int width;
 		unsigned int height;
 
-		BufferedImage(const BufferedImage&);
-		BufferedImage& operator=(const BufferedImage&);
+		TextureImage(const TextureImage&);
+		TextureImage& operator=(const TextureImage&);
 
 	public:
-		BufferedImage();
-		~BufferedImage();
+		TextureImage();
+		~TextureImage();
 		
 		void create(unsigned int width, unsigned int height, Graphics&graphics);
 		void update(const Color*pixels);
