@@ -10,12 +10,12 @@
 namespace GameLibrary
 {
 	std::thread::id main_thread_id = std::this_thread::get_id();
-
+	
 	ArrayList<Thread::MainThreadCallback> Thread::mainThreadCallbacks;
 	static std::mutex Thread_mainthread_callback_mutex;
-
+	
 	static bool Thread_mainthread_updating = false;
-
+	
 	typedef struct
 	{
 		std::thread*thread;
@@ -23,7 +23,7 @@ namespace GameLibrary
 		bool alive;
 		bool selfdestruct;
 	} ThreadData;
-
+	
 	void Thread_ThreadHandler(Thread*thread, ThreadData*threaddata)
 	{
 		threaddata->tlock.lock();
@@ -39,7 +39,7 @@ namespace GameLibrary
 			delete threaddata;
 		}
 	}
-
+	
 	Thread::Thread()
 	{
 		ThreadData* tdata = new ThreadData();
@@ -48,7 +48,7 @@ namespace GameLibrary
 		tdata->thread = nullptr;
 		threaddata = (void*)tdata;
 	}
-
+	
 	Thread::~Thread()
 	{
 		((ThreadData*)threaddata)->tlock.lock();
@@ -90,12 +90,12 @@ namespace GameLibrary
 			delete ((ThreadData*)threaddata);
 		}
 	}
-
+	
 	void Thread::run()
 	{
 		//open for implementation
 	}
-
+	
 	void Thread::start()
 	{
 		((ThreadData*)threaddata)->tlock.lock();
@@ -107,7 +107,7 @@ namespace GameLibrary
 		}
 		tdata.tlock.unlock();
 	}
-
+	
 	bool Thread::join()
 	{
 		((ThreadData*)threaddata)->tlock.lock();
@@ -134,7 +134,7 @@ namespace GameLibrary
 			return false;
 		}
 	}
-
+	
 	bool Thread::isAlive()
 	{
 		((ThreadData*)threaddata)->tlock.lock();
@@ -143,7 +143,7 @@ namespace GameLibrary
 		tdata.tlock.unlock();
 		return alive;
 	}
-
+	
 	void Thread::sleep(unsigned long long milliseconds)
 	{
 		if(milliseconds>0)
@@ -152,7 +152,7 @@ namespace GameLibrary
 			std::this_thread::sleep_for(dur);
 		}
 	}
-
+	
 	void Thread::sleep(unsigned long long milliseconds, unsigned long nanoseconds)
 	{
 		unsigned long long nanoseconds_total = (milliseconds*1000000) + nanoseconds;
@@ -162,7 +162,7 @@ namespace GameLibrary
 			std::this_thread::sleep_for(dur);
 		}
 	}
-
+	
 	void Thread::runCallbackInMainThread(ThreadCallback callback, void*data, bool wait)
 	{
 		if(wait)
@@ -176,16 +176,16 @@ namespace GameLibrary
 				std::mutex mtx;
 				std::unique_lock<std::mutex> lck(mtx);
 				std::condition_variable cv;
-
+				
 				MainThreadCallback callbackdata;
 				callbackdata.first = callback;
 				callbackdata.second.first = data;
 				callbackdata.second.second = (void*)(&cv);
-
+				
 				Thread_mainthread_callback_mutex.lock();
 				Thread::mainThreadCallbacks.add(callbackdata);
 				Thread_mainthread_callback_mutex.unlock();
-
+				
 				cv.wait(lck);
 			}
 		}
@@ -195,19 +195,19 @@ namespace GameLibrary
 			callbackdata.first = callback;
 			callbackdata.second.first = data;
 			callbackdata.second.second = nullptr;
-
+			
 			Thread_mainthread_callback_mutex.lock();
 			Thread::mainThreadCallbacks.add(callbackdata);
 			Thread_mainthread_callback_mutex.unlock();
 		}
 	}
-
+	
 	void Thread::runCallbackInThread(ThreadCallback callback, void*data)
 	{
 		std::thread th(callback, data);
 		th.detach();
 	}
-
+	
 	bool Thread::isMainThread()
 	{
 		if(std::this_thread::get_id() == main_thread_id)
@@ -216,18 +216,18 @@ namespace GameLibrary
 		}
 		return false;
 	}
-
+	
 	void Thread::update()
 	{
 		if(isMainThread() && !Thread_mainthread_updating)
 		{
 			Thread_mainthread_updating = true;
-
+			
 			Thread_mainthread_callback_mutex.lock();
 			ArrayList<MainThreadCallback> mainthread_callback_calls = mainThreadCallbacks;
 			mainThreadCallbacks.clear();
 			Thread_mainthread_callback_mutex.unlock();
-
+			
 			for(unsigned int i = 0; i < mainthread_callback_calls.size(); i++)
 			{
 				MainThreadCallback& callbackdata = mainthread_callback_calls.get(i);
@@ -237,7 +237,7 @@ namespace GameLibrary
 					((std::condition_variable*)callbackdata.second.second)->notify_all();
 				}
 			}
-
+			
 			Thread_mainthread_updating = false;
 		}
 	}

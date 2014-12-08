@@ -33,7 +33,7 @@ namespace GameLibrary
 		static int styleToTTFStyle(byte style);
 
 	public:
-		enum : byte
+		enum FontStyle : byte
 		{
 			STYLE_PLAIN         = 0x00000000,
 			STYLE_BOLD          = 0x00000001,

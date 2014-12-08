@@ -14,14 +14,14 @@ namespace GameLibrary
 	public:
 		enum Bitmask : byte
 		{
-			BITMASK_1 = 0x00000001,
-			BITMASK_2 = 0x00000002,
-			BITMASK_3 = 0x00000004,
-			BITMASK_4 = 0x00000008,
-			BITMASK_5 = 0x00000010,
-			BITMASK_6 = 0x00000020,
-			BITMASK_7 = 0x00000040,
-			BITMASK_8 = 0x00000080
+			BITMASK_1 = 0x01,
+			BITMASK_2 = 0x02,
+			BITMASK_3 = 0x04,
+			BITMASK_4 = 0x08,
+			BITMASK_5 = 0x10,
+			BITMASK_6 = 0x20,
+			BITMASK_7 = 0x40,
+			BITMASK_8 = 0x80
 		};
 
 		BitSet();

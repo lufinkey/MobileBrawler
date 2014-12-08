@@ -29,6 +29,8 @@ namespace GameLibrary
 		WindowSettings(const WindowSettings&);
 		WindowSettings(const Vector2i& position, const Vector2u& size, const String&title="", Image*icon=nullptr, byte style=0);
 		~WindowSettings();
+
+		WindowSettings& operator=(const WindowSettings&);
 		
 		void setPosition(const Vector2i&);
 		const Vector2i& getPosition() const;
@@ -90,7 +92,7 @@ namespace GameLibrary
 		Window();
 		virtual ~Window();
 		
-		void create(const WindowSettings&settings);
+		void create(const WindowSettings&settings = WindowSettings());
 		void update();
 		void destroy();
 		

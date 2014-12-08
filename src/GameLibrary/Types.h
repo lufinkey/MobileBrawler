@@ -3,14 +3,17 @@
 
 namespace GameLibrary
 {
-	class Application;
-	class AssetManager;
-	
 	//Actor
 	class ActorType;
 		class Actor;
 		class TextActor;
 		class WireframeActor;
+
+	//Application
+	class Application;
+	class ApplicationData;
+	class AssetManager;
+	class EventManager;
 	
 	//Audio
 	class Music;
@@ -18,6 +21,12 @@ namespace GameLibrary
 	
 	//Exception
 	class Exception;
+		class BadCastException;
+			class BadAnyCastException;
+		class IllegalArgumentException;
+			class IllegalFormatException;
+				class IllegalDateTimeFormatException;
+			class NumberFormatException;
 		class OutOfBoundsException;
 			class ArrayListOutOfBoundsException;
 			class BitListOutOfBoundsException;
@@ -25,12 +34,6 @@ namespace GameLibrary
 			class DataPacketOutOfBoundsException;
 			class ImageOutOfBoundsException;
 			class StringOutOfBoundsException;
-		class BadCastException;
-			class BadAnyCastException;
-		class IllegalArgumentException;
-			class IllegalFormatException;
-				class IllegalDateTimeFormatException;
-			class NumberFormatException;
 		class UnsupportedImageFormatException;
 	
 	//Graphics
@@ -38,12 +41,14 @@ namespace GameLibrary
 	class Color;
 	class Image;
 	class TextureImage;
-	
-	//IO
-	class Console;
+
+	//Input
 	class Keyboard;
 	class Mouse;
 	class Multitouch;
+
+	//IO
+	class Console;
 	
 	//Network
 	class NetworkProtocol;
@@ -54,18 +59,25 @@ namespace GameLibrary
 		class MenuScreen;
 	
 	//Utilities
+		//Font
+		class Font;
 		//Geometry
 		class Circle;
 		class Polygon;
 		class Rectangle;
 		class RectangleF;
 		class Transform;
+		//Time
+		class DateTime;
+		class TimeInterval;
 	class Any;
 	class BitSet;
+	class BitList;
+	class DataPacket;
 	class Dictionary;
-	class Font;
 	class Math;
 	class String;
+	class Thread;
 
 	//View
 	class View;

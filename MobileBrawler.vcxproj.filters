@@ -228,6 +228,18 @@
     <ClCompile Include="src\GameLibrary\Graphics\TextureImage.cpp">
       <Filter>src\GameLibrary\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Application\ApplicationData.cpp">
+      <Filter>src\GameLibrary\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\GameLibrary.cpp">
+      <Filter>src\GameLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Utilities\Time\TimeInterval.cpp">
+      <Filter>src\GameLibrary\Utilities\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Application\BatchLoader.cpp">
+      <Filter>src\GameLibrary\Application</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -418,6 +430,15 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Graphics\TextureImage.h">
       <Filter>src\GameLibrary\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Application\ApplicationData.h">
+      <Filter>src\GameLibrary\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\Time\TimeInterval.h">
+      <Filter>src\GameLibrary\Utilities\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Application\BatchLoader.h">
+      <Filter>src\GameLibrary\Application</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

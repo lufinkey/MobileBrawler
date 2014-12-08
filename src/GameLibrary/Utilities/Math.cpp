@@ -74,5 +74,8 @@ namespace GameLibrary
 	double Math::radtodeg(double rad){ return rad * 180 / PI; };
 	float Math::radtodeg(float rad){ return rad * 180 / ((float)PI); };
 	long double Math::radtodeg(long double rad){ return rad * 180 / ((long double)PI); };
+
+	//Random
+	double Math::random() { return ((double)std::rand())/((double)(RAND_MAX)); }
 }
 

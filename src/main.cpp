@@ -1,11 +1,5 @@
 
-#include "GameLibrary/Application/EventManager.h"
-#include "GameLibrary/Graphics/TextureImage.h"
-#include "GameLibrary/Utilities/String.h"
-#include "GameLibrary/Utilities/ArrayList.h"
-#include "GameLibrary/Utilities/Math.h"
-#include "GameLibrary/Utilities/Thread.h"
-#include "GameLibrary/Window/Window.h"
+#include "GameLibrary/GameLibrary.h"
 #include <iostream> //just for now since I haven't finished the Console class
 
 using namespace GameLibrary;
@@ -68,4 +62,6 @@ int main(int argc, char *argv[])
 	system("PAUSE"); //"press any key to continue..." prompt, just so we can see the output
 
 	window.destroy();
+
+	return 0;
 }

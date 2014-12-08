@@ -75,6 +75,9 @@ namespace GameLibrary
 		static double radtodeg(double rad);
 		static float radtodeg(float rad);
 		static long double radtodeg(long double rad);
+
+		//Random
+		static double random();
 	};
 }
 

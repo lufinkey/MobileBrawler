@@ -18,6 +18,15 @@ namespace GameLibrary
 		style = Window::STYLE_DEFAULT;
 	}
 
+	WindowSettings::WindowSettings(const WindowSettings&windowSettings)
+	{
+		position = windowSettings.position;
+		size = windowSettings.size;
+		title = windowSettings.title;
+		icon = windowSettings.icon;
+		style = windowSettings.style;
+	}
+
 	WindowSettings::WindowSettings(const Vector2i& pos, const Vector2u& sz, const String&ttl, Image*ico, byte sty)
 	{
 		position = pos;
@@ -30,6 +39,17 @@ namespace GameLibrary
 	WindowSettings::~WindowSettings()
 	{
 		//
+	}
+
+	WindowSettings& WindowSettings::operator=(const WindowSettings&windowSettings)
+	{
+		position = windowSettings.position;
+		size = windowSettings.size;
+		title = windowSettings.title;
+		icon = windowSettings.icon;
+		style = windowSettings.style;
+
+		return *this;
 	}
 		
 	void WindowSettings::setPosition(const Vector2i&pos)
