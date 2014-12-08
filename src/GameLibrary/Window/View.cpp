@@ -8,6 +8,14 @@ namespace GameLibrary
 		//
 	}
 
+	View::View(const View&view)
+	{
+		size = view.size;
+		position = view.position;
+		matchWindow = view.matchWindow;
+		letterboxed = view.letterboxed;
+	}
+
 	View::View(const Vector2f& size) : View(size.x,size.y)
 	{
 		//

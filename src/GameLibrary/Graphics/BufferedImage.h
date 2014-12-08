@@ -9,6 +9,7 @@ namespace GameLibrary
 {
 	class BufferedImage
 	{
+		friend class Graphics;
 	private:
 		void*texture;
 		std::vector<bool> pixels;

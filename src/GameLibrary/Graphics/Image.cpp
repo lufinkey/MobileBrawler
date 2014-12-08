@@ -74,49 +74,63 @@ namespace GameLibrary
 			unsigned int total = width*height;
 			pixels.resize(total);
 
+			unsigned int pitchDif = ((unsigned int)surface->pitch - (width*bpp));
+			
 			unsigned int counter = 0;
 			byte*surfacePixels = (byte*)surface->pixels;
 
-			for(unsigned int i=0; i<total; i++)
+			unsigned int i=0;
+			for(unsigned int ycnt=0; ycnt<height; ycnt++)
 			{
-				switch(bpp)
+				for(unsigned int xcnt = 0; xcnt < width; xcnt++)
 				{
-					case 1:
-					pixels[i].r = surfacePixels[counter];
-					pixels[i].g = surfacePixels[counter];
-					pixels[i].b = surfacePixels[counter];
-					pixels[i].a = 255;
-					break;
+					switch(bpp)
+					{
+						case 1:
+						pixels[i].r = surfacePixels[counter];
+						pixels[i].g = surfacePixels[counter];
+						pixels[i].b = surfacePixels[counter];
+						pixels[i].a = 255;
+						break;
 
-					case 2:
-					pixels[i].r = surfacePixels[counter];
-					pixels[i].g = surfacePixels[counter+1];
-					pixels[i].b = surfacePixels[counter+1];
-					pixels[i].a = 255;
-					break;
+						case 2:
+						pixels[i].r = surfacePixels[counter];
+						pixels[i].g = surfacePixels[counter+1];
+						pixels[i].b = surfacePixels[counter+1];
+						pixels[i].a = 255;
+						break;
 
-					case 3:
-					pixels[i].r = surfacePixels[counter];
-					pixels[i].g = surfacePixels[counter+1];
-					pixels[i].b = surfacePixels[counter+2];
-					pixels[i].a = 255;
-					break;
+						case 3:
+	#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+						pixels[i].r = surfacePixels[counter+2];
+						pixels[i].g = surfacePixels[counter+1];
+						pixels[i].b = surfacePixels[counter];
+	#else
+						pixels[i].r = surfacePixels[counter];
+						pixels[i].g = surfacePixels[counter+1];
+						pixels[i].b = surfacePixels[counter+2];
+	#endif
+						pixels[i].a = 255;
+						break;
 
-					case 4:
-#if SDL_BYTEORDER == SDL_BIG_ENDIAN
-					pixels[i].r = surfacePixels[counter+3];
-					pixels[i].g = surfacePixels[counter+2];
-					pixels[i].b = surfacePixels[counter+1];
-					pixels[i].a = surfacePixels[counter];
-#else
-					pixels[i].r = surfacePixels[counter];
-					pixels[i].g = surfacePixels[counter+1];
-					pixels[i].b = surfacePixels[counter+2];
-					pixels[i].a = surfacePixels[counter+3];
-#endif
-					break;
+						case 4:
+	#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+						pixels[i].r = surfacePixels[counter+3];
+						pixels[i].g = surfacePixels[counter+2];
+						pixels[i].b = surfacePixels[counter+1];
+						pixels[i].a = surfacePixels[counter];
+	#else
+						pixels[i].r = surfacePixels[counter];
+						pixels[i].g = surfacePixels[counter+1];
+						pixels[i].b = surfacePixels[counter+2];
+						pixels[i].a = surfacePixels[counter+3];
+	#endif
+						break;
+					}
+					i++;
+					counter += bpp;
 				}
-				counter += bpp;
+				counter += pitchDif;
 			}
 
 			if(mustlock != 0)

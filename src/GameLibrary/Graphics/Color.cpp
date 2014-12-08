@@ -73,7 +73,7 @@ namespace GameLibrary
 		return equals(color);
 	}
 	
-	Uint32 Color::getRGBA()
+	Uint32 Color::getRGBA() const
 	{
 		Uint32 rgba = 0;
 		byte*arr = (byte*)(&rgba);

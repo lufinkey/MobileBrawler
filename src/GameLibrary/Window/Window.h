@@ -9,6 +9,8 @@
 
 namespace GameLibrary
 {
+//WindowSettings
+
 	class WindowSettings
 	{
 		friend class Window;
@@ -17,11 +19,13 @@ namespace GameLibrary
 		Vector2u size;
 		String title;
 		Image*icon;
-		void*icondata;
 		byte style;
+
+		void* createIconData();
 		
 	public:
 		WindowSettings();
+		WindowSettings(const WindowSettings&);
 		WindowSettings(const Vector2i& position, const Vector2u& size, const String&title="", Image*icon=nullptr, byte style=0);
 		~WindowSettings();
 		
@@ -41,6 +45,8 @@ namespace GameLibrary
 		byte getStyle() const;
 	};
 
+//Window
+
 	class WindowEventListener;
 
 	class Window
@@ -49,12 +55,15 @@ namespace GameLibrary
 		friend class Graphics;
 	private:
 		void*windowdata;
+		unsigned int windowID;
+		void*icondata;
 		View*view;
 		Graphics*graphics;
 		WindowSettings settings;
 		Vector2u windowed_size;
 
 		ArrayList<WindowEventListener*> eventListeners;
+		void*listenermutex;
 
 		void callListenerEvent(byte eventType, int x, int y, bool external);
 
@@ -84,7 +93,7 @@ namespace GameLibrary
 		void destroy();
 		
 		Image*capture();
-		Graphics& getGraphics();
+		virtual Graphics& getGraphics();
 
 		static Rectangle getDisplayBounds(unsigned int displayIndex);
 		
@@ -111,6 +120,8 @@ namespace GameLibrary
 		void addEventListener(WindowEventListener*);
 		void removeEventListener(WindowEventListener*);
 	};
+
+//WindowEventListener
 
 	class WindowEventListener
 	{

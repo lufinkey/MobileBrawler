@@ -16,6 +16,7 @@ namespace GameLibrary
 	private:
 		Window*window;
 		void*renderer;
+		void*contextdata;
 
 		Color color;
 		Color tintColor;
@@ -25,14 +26,19 @@ namespace GameLibrary
 		static Font*defaultFont;
 		
 		RectangleF clipRect;
+		Vector2f clipOffset;
 		
 		Transform transform;
 
 		bool derived;
-		
+
+	protected:
 		void reset();
 
 		Graphics(Window&window);
+
+		void beginDraw();
+		void endDraw();
 		
 	public:
 		Graphics(const Graphics&);
@@ -59,7 +65,11 @@ namespace GameLibrary
 		virtual void setTintColor(const Color&);
 		virtual void compositeTintColor(const Color&);
 		virtual const Color& getTintColor();
+
+		virtual void setFont(Font*);
+		virtual Font*getFont();
 		
+		virtual void setClipRect(float x, float y, float width, float height);
 		virtual void setClipRect(const RectangleF&);
 		virtual const RectangleF& getClipRect();
 
@@ -69,10 +79,10 @@ namespace GameLibrary
 		void drawLine(float x1,float y1,float x2,float y2);
 		void drawLine(const Vector2f& point1, const Vector2f& point2);
 
-		void drawRect(float x1,float y1,float w,float h);
+		void drawRect(float x,float y,float width,float height);
 		void drawRect(const RectangleF& rect);
 
-		void fillRect(float x1,float y1,float w,float h);
+		void fillRect(float x,float y,float width,float height);
 		void fillRect(const RectangleF& rect);
 
 		//void drawOval(float x1,float y1,float w,float h);
@@ -81,9 +91,9 @@ namespace GameLibrary
 		//void fillOval(float x1,float y1,float w,float h);
 		//void fillOval(const RectangleF& rect);
 
-		void drawImage(BufferedImage*img, float x1, float y1);
+		void drawImage(BufferedImage*img, float x, float y);
 		void drawImage(BufferedImage*img, const Vector2f& point);
-		void drawImage(BufferedImage*img, float x1, float y1, float width, float height);
+		void drawImage(BufferedImage*img, float x, float y, float width, float height);
 		void drawImage(BufferedImage*img, const RectangleF& rect);
 		void drawImage(BufferedImage*img, float dx1, float dy1, float dx2, float dy2, int sx1, int sy1, int sx2, int sy2);
 		void drawImage(BufferedImage*img, const RectangleF& dst, const Rectangle& src);

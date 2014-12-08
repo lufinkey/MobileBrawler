@@ -87,7 +87,46 @@ namespace GameLibrary
 		return transformPoint(point.x, point.y);
 	}
 
-	/*RectangleF Transform::transformRectangle(const RectangleF& rectangle) const
+	Rectangle Transform::transformRectangle(const Rectangle& rectangle) const
+	{
+		// Transform the 4 corners of the rectangle
+		const Vector2f points[] =
+		{
+			transformPoint((float)rectangle.x, (float)rectangle.y),
+			transformPoint((float)rectangle.x, (float)(rectangle.y+rectangle.height)),
+			transformPoint((float)(rectangle.x+rectangle.width), (float)rectangle.y),
+			transformPoint((float)(rectangle.x+rectangle.width), (float)(rectangle.y+rectangle.height))
+		};
+
+		// Compute the bounding rectangle of the transformed points
+		float left = points[0].x;
+		float top = points[0].y;
+		float right = points[0].x;
+		float bottom = points[0].y;
+		for (int i = 1; i < 4; ++i)
+		{
+			if (points[i].x < left)
+			{
+				left = points[i].x;
+			}
+			else if (points[i].x > right)
+			{
+				right = points[i].x;
+			}
+			if (points[i].y < top)
+			{
+				top = points[i].y;
+			}
+			else if (points[i].y > bottom)
+			{
+				bottom = points[i].y;
+			}
+		}
+
+		return Rectangle((int)left, (int)top, (int)(right-left), (int)(bottom-top));
+	}
+
+	RectangleF Transform::transformRectangleF(const RectangleF& rectangle) const
 	{
 		// Transform the 4 corners of the rectangle
 		const Vector2f points[] =
@@ -124,8 +163,8 @@ namespace GameLibrary
 		}
 
 		return RectangleF(left, top, right - left, bottom - top);
-	}*/
-
+	}
+	
 	Transform& Transform::combine(const Transform& transform)
 	{
 		const float* a = m_matrix;

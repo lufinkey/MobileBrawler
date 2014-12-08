@@ -34,7 +34,7 @@ namespace GameLibrary
 	{
 		if(w>0 && h>0)
 		{
-			SDL_Texture* newTexture = SDL_CreateTexture((SDL_Renderer*)graphics.renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, (int)w, (int)h);
+			SDL_Texture* newTexture = SDL_CreateTexture((SDL_Renderer*)graphics.renderer, SDL_PIXELFORMAT_ABGR8888, SDL_TEXTUREACCESS_STREAMING, (int)w, (int)h);
 			if(newTexture == nullptr)
 			{
 				//TODO replace with a more specific exception type
@@ -150,9 +150,9 @@ namespace GameLibrary
 	bool BufferedImage::loadFromImage(const Image&image, Graphics&graphics, String&error)
 	{
 		const ArrayList<Color>& image_pixels = image.getPixels();
-		if(pixels.size()>0)
+		if(image_pixels.size()>0)
 		{
-			SDL_Texture* newTexture = SDL_CreateTexture((SDL_Renderer*)graphics.renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, (int)image.getWidth(), (int)image.getHeight());
+			SDL_Texture* newTexture = SDL_CreateTexture((SDL_Renderer*)graphics.renderer, SDL_PIXELFORMAT_ABGR8888, SDL_TEXTUREACCESS_STREAMING, (int)image.getWidth(), (int)image.getHeight());
 			if(newTexture == nullptr)
 			{
 				//TODO replace with a more specific exception type
@@ -180,7 +180,7 @@ namespace GameLibrary
 			pixels.resize(totalsize);
 			pixels.shrink_to_fit();
 
-			Color*texture_pixels = (Color*)pixelptr;
+			int*texture_pixels = (int*)pixelptr;
 			for(unsigned int i=0; i<totalsize; i++)
 			{
 				const Color&px = image_pixels[i];
@@ -192,7 +192,7 @@ namespace GameLibrary
 				{
 					pixels[i] = false;
 				}
-				texture_pixels[i] = px;
+				texture_pixels[i] = px.getRGBA();
 			}
 
 			SDL_UnlockTexture((SDL_Texture*)texture);

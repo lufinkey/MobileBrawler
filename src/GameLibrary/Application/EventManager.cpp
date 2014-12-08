@@ -25,19 +25,13 @@ namespace GameLibrary
 		return (void*)(&EventManager_windows_mutex);
 	}
 
-	Window* EventManager::getWindowFromData(void*windata)
+	Window* EventManager::getWindowFromID(unsigned int windowID)
 	{
-		if(windata == nullptr)
-		{
-			return nullptr;
-		}
-		SDL_Window*sdlwindata = (SDL_Window*)windata;
 		EventManager_windows_mutex.lock();
 		for(unsigned int i=0; i<EventManager_windows.size(); i++)
 		{
 			Window* window = EventManager_windows.get(i);
-			SDL_Window*sdlwin = (SDL_Window*)window->windowdata;
-			if(sdlwin == sdlwindata)
+			if(window->windowID == windowID)
 			{
 				EventManager_windows_mutex.unlock();
 				return window;
@@ -81,6 +75,11 @@ namespace GameLibrary
 
 	void EventManager::update()
 	{
+		if(!Thread::isMainThread())
+		{
+			return;
+		}
+
 		Window* resizingWindow = nullptr;
 		int data1 = 0;
 		int data2 = 0;
@@ -94,6 +93,10 @@ namespace GameLibrary
 			{
 				if(event.type==SDL_WINDOWEVENT && event.window.event==SDL_WINDOWEVENT_RESIZED)
 				{
+					if(resizingWindow->view != nullptr && resizingWindow->view->matchesWindow())
+					{
+						resizingWindow->view->setSize((float)event.window.data1, (float)event.window.data2);
+					}
 					resizingWindow->callListenerEvent(SDL_WINDOWEVENT_RESIZED, event.window.data1, event.window.data2, true);
 					skip = true;
 				}
@@ -110,12 +113,7 @@ namespace GameLibrary
 				{
 					case SDL_MOUSEMOTION:
 					{
-						SDL_Window*sdlwin = SDL_GetWindowFromID(event.motion.windowID);
-						Window*window = nullptr;
-						if(sdlwin!=nullptr)
-						{
-							window = EventManager::getWindowFromData(sdlwin);
-						}
+						Window*window = EventManager::getWindowFromID(event.motion.windowID);
 						//TODO add support for multiple mouse indexes
 						Mouse::handleMouseMovement(0, window, Vector2f((float)event.motion.x, (float)event.motion.y), Vector2f((float)event.motion.xrel, (float)event.motion.yrel));
 					}
@@ -154,9 +152,14 @@ namespace GameLibrary
 
 					case SDL_WINDOWEVENT:
 					{
-						Window* window = EventManager::getWindowFromData(SDL_GetWindowFromID(event.window.windowID));
+						Window* window = EventManager::getWindowFromID(event.window.windowID);
 						if(window != nullptr)
 						{
+							if(event.window.event == SDL_WINDOWEVENT_CLOSE)
+							{
+								window->destroy();
+							}
+							
 							if(event.window.event!=SDL_WINDOWEVENT_SIZE_CHANGED)
 							{
 								window->callListenerEvent(event.window.event, event.window.data1, event.window.data2, false);

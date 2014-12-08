@@ -3,6 +3,7 @@
 #include "../Application/EventManager.h"
 #include "../Utilities/PlatformChecks.h"
 #include <SDL.h>
+#include <mutex>
 
 namespace GameLibrary
 {
@@ -14,7 +15,6 @@ namespace GameLibrary
 		size = Vector2u(640,480);
 		title = "Program";
 		icon = nullptr;
-		icondata = nullptr;
 		style = Window::STYLE_DEFAULT;
 	}
 
@@ -24,24 +24,12 @@ namespace GameLibrary
 		size = sz;
 		title = ttl;
 		icon = ico;
-		if(icon != nullptr)
-		{
-			const ArrayList<Color>& pixels = icon->getPixels();
-			if(pixels.size()>0)
-			{
-				icondata = (void*)SDL_CreateRGBSurfaceFrom((void*)pixels.getData(), (int)icon->getWidth(), (int)icon->getHeight(), 32, (int)(icon->getWidth()*4), 0xff000000, 0x00ff0000, 0x0000ff00, 0x000000ff);
-			}
-		}
 		style = sty;
 	}
 
 	WindowSettings::~WindowSettings()
 	{
-		if(icondata != nullptr)
-		{
-			SDL_FreeSurface((SDL_Surface*)icondata);
-			icondata = nullptr;
-		}
+		//
 	}
 		
 	void WindowSettings::setPosition(const Vector2i&pos)
@@ -73,15 +61,10 @@ namespace GameLibrary
 	{
 		return title;
 	}
-		
-	void WindowSettings::setIcon(Image*ico)
+
+	void* WindowSettings::createIconData()
 	{
-		if(icondata != nullptr)
-		{
-			SDL_FreeSurface((SDL_Surface*)icondata);
-			icondata = nullptr;
-		}
-		icon = ico;
+		void*icondata = nullptr;
 		if(icon != nullptr)
 		{
 			const ArrayList<Color>& pixels = icon->getPixels();
@@ -90,6 +73,12 @@ namespace GameLibrary
 				icondata = (void*)SDL_CreateRGBSurfaceFrom((void*)pixels.getData(), (int)icon->getWidth(), (int)icon->getHeight(), 32, (int)(icon->getWidth()*4), 0xff000000, 0x00ff0000, 0x0000ff00, 0x000000ff);
 			}
 		}
+		return icondata;
+	}
+	
+	void WindowSettings::setIcon(Image*ico)
+	{
+		icon = ico;
 	}
 
 	const Image* WindowSettings::getIcon() const
@@ -114,15 +103,14 @@ namespace GameLibrary
 		windowed_size = settings.size;
 		view = nullptr;
 		windowdata = nullptr;
+		windowID = 0;
+		icondata = nullptr;
 		graphics = nullptr;
-		
-		EventManager::addWindow(this);
+		listenermutex = (void*)(new std::mutex());
 	}
 
 	Window::~Window()
 	{
-		EventManager::removeWindow(this);
-
 		if(windowdata != nullptr)
 		{
 			destroy();
@@ -130,7 +118,14 @@ namespace GameLibrary
 		if(view != nullptr)
 		{
 			delete view;
+			view = nullptr;
 		}
+		if(icondata != nullptr)
+		{
+			SDL_FreeSurface((SDL_Surface*)icondata);
+			icondata = nullptr;
+		}
+		delete ((std::mutex*)listenermutex);
 	}
 	
 	void Window::create(const WindowSettings&windowSettings)
@@ -200,6 +195,14 @@ namespace GameLibrary
 			//TODO replace with more specific exception type
 			throw Exception(SDL_GetError());
 		}
+		windowID = SDL_GetWindowID((SDL_Window*)windowdata);
+
+		bool createdView = false;
+		if(view == nullptr)
+		{
+			view = new View((float)windowed_size.x, (float)windowed_size.y);
+			createdView = true;
+		}
 
 		try
 		{
@@ -208,7 +211,12 @@ namespace GameLibrary
 		catch(const Exception&e)
 		{
 			SDL_DestroyWindow((SDL_Window*)windowdata);
+			if(createdView)
+			{
+				delete view;
+			}
 			windowdata = nullptr;
+			windowID = 0;
 			//TODO replace with more specific exception type
 			throw Exception(e);
 		}
@@ -222,9 +230,30 @@ namespace GameLibrary
 		{
 			windowed_size = windowSettings.size;
 		}
+		else
+		{
+			if(view!=nullptr)
+			{
+				Vector2f viewSize = view->getSize();
+				windowed_size = Vector2u((unsigned int)viewSize.x, (unsigned int)viewSize.y);
+			}
+			else
+			{
+				windowed_size = windowSettings.size;
+			}
+		}
 
-		//TODO create View object
-		//TODO create Graphics object
+		EventManager::addWindow(this);
+	}
+
+	void Window::update()
+	{
+		if(windowdata!=nullptr)
+		{
+			//SDL_GL_SwapWindow((SDL_Window*)windowdata);
+			SDL_RenderPresent((SDL_Renderer*)graphics->renderer);
+			graphics->reset();
+		}
 	}
 
 	void Window::destroy()
@@ -241,6 +270,8 @@ namespace GameLibrary
 				delete view;
 				view = nullptr;
 			}
+			EventManager::removeWindow(this);
+			windowID = 0;
 		}
 	}
 	
@@ -330,6 +361,10 @@ namespace GameLibrary
 			settings.setSize(size);
 			windowed_size = size;
 			SDL_SetWindowSize((SDL_Window*)windowdata,(int)size.x,(int)size.y);
+			if(view != nullptr && view->matchesWindow())
+			{
+				view->setSize((float)size.x, (float)size.y);
+			}
 		}
 	}
 
@@ -361,7 +396,20 @@ namespace GameLibrary
 		if(windowdata != nullptr)
 		{
 			settings.setIcon(icon);
-			SDL_SetWindowIcon((SDL_Window*)windowdata, (SDL_Surface*)settings.icondata);
+			if(icondata != nullptr)
+			{
+				SDL_FreeSurface((SDL_Surface*)icondata);
+				icondata = nullptr;
+			}
+			if(icon == nullptr)
+			{
+				SDL_SetWindowIcon((SDL_Window*)windowdata, nullptr);
+			}
+			else
+			{
+				icondata = settings.createIconData();
+				SDL_SetWindowIcon((SDL_Window*)windowdata, (SDL_Surface*)icondata);
+			}
 		}
 	}
 		
@@ -466,6 +514,10 @@ namespace GameLibrary
 						settings.setStyle(settings.style | Window::STYLE_FULLSCREEN);
 						settings.setSize(Vector2u(width,height));
 						windowed_size = oldsize;
+						if(view != nullptr && view->matchesWindow())
+						{
+							view->setSize((float)width, (float)height);
+						}
 					}
 					else
 					{
@@ -481,6 +533,10 @@ namespace GameLibrary
 					{
 						settings.setStyle(settings.style & ~Window::STYLE_FULLSCREEN);
 						SDL_SetWindowSize((SDL_Window*)windowdata, (int)width, (int)height);
+						if(view != nullptr && view->matchesWindow())
+						{
+							view->setSize((float)width, (float)height);
+						}
 					}
 				}
 			}
@@ -489,21 +545,28 @@ namespace GameLibrary
 
 	void Window::addEventListener(WindowEventListener*listener)
 	{
+		((std::mutex*)listenermutex)->lock();
 		eventListeners.add(listener);
+		((std::mutex*)listenermutex)->unlock();
 	}
 
 	void Window::removeEventListener(WindowEventListener*listener)
 	{
+		((std::mutex*)listenermutex)->lock();
 		unsigned int index = eventListeners.indexOf(listener);
 		if(index != ARRAYLIST_NOTFOUND)
 		{
 			eventListeners.remove(index);
 		}
+		((std::mutex*)listenermutex)->unlock();
 	}
 
 	void Window::callListenerEvent(byte eventType, int x, int y, bool external)
 	{
+		((std::mutex*)listenermutex)->lock();
 		ArrayList<WindowEventListener*> listeners = eventListeners;
+		((std::mutex*)listenermutex)->unlock();
+
 		for(unsigned int i = 0; i<listeners.size(); i++)
 		{
 			WindowEventListener* listener = listeners.get(i);

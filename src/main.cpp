@@ -1,7 +1,10 @@
 
+#include "GameLibrary/Application/EventManager.h"
+#include "GameLibrary/Graphics/BufferedImage.h"
 #include "GameLibrary/Utilities/String.h"
 #include "GameLibrary/Utilities/ArrayList.h"
 #include "GameLibrary/Utilities/Math.h"
+#include "GameLibrary/Window/Window.h"
 #include <iostream> //just for now since I haven't finished the Console class
 
 using namespace GameLibrary;
@@ -45,5 +48,24 @@ int main(int argc, char *argv[])
 	}
 	std::cout << std::endl; //new line
 
+	Window window;
+	window.create(WindowSettings());
+
+	Image img;
+	img.loadFromFile("test.png");
+	img.saveToFile("testsave.png");
+	BufferedImage bufImg;
+	bufImg.loadFromImage(img, window.getGraphics());
+
+	EventManager::update();
+
+	window.getGraphics().rotate(180);
+	window.getGraphics().drawImage(&bufImg, 100, 100);
+	window.update();
+
+	EventManager::update();
+
 	system("PAUSE"); //"press any key to continue..." prompt, just so we can see the output
+
+	window.destroy();
 }

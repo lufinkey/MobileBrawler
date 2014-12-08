@@ -15,12 +15,13 @@ namespace GameLibrary
 	private:
 		static const ArrayList<Window*>& getWindows();
 		static void*getWindowMutexPtr();
-		static Window*getWindowFromData(void*windata);
+		static Window*getWindowFromID(unsigned int windowID);
 		static void*getDataFromWindow(Window*window);
 
 		static void addWindow(Window*window);
 		static void removeWindow(Window*window);
 
+	public:
 		static void update();
 	};
 }
