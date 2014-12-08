@@ -10,8 +10,9 @@ namespace GameLibrary
 {
 	class Graphics
 	{
-		friend class TextureImage;
+		friend class Application;
 		friend class Font;
+		friend class TextureImage;
 		friend class Window;
 	private:
 		Window*window;
@@ -37,7 +38,7 @@ namespace GameLibrary
 		bool derived;
 
 	protected:
-		void reset();
+		void reset(const Color&clearColor = Color::WHITE);
 
 		Graphics(Window&window);
 

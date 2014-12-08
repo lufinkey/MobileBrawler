@@ -12,6 +12,7 @@ namespace GameLibrary
 	{
 		size = view.size;
 		position = view.position;
+		zoom = view.zoom;
 		matchWindow = view.matchWindow;
 		letterboxed = view.letterboxed;
 	}
@@ -27,6 +28,7 @@ namespace GameLibrary
 		size.y = height;
 		position.x = 0;
 		position.y = 0;
+		zoom = 1;
 		matchWindow = false;
 		letterboxed = true;
 	}
@@ -58,7 +60,7 @@ namespace GameLibrary
 		setTranslation(translation.x, translation.y);
 	}
 
-	const Vector2f& View::getTranslation()
+	const Vector2f& View::getTranslation() const
 	{
 		return position;
 	}
@@ -74,9 +76,19 @@ namespace GameLibrary
 		setSize(size.x, size.y);
 	}
 
-	const Vector2f& View::getSize()
+	const Vector2f& View::getSize() const
 	{
 		return size;
+	}
+
+	void View::setZoom(float z)
+	{
+		zoom = z;
+	}
+
+	float View::getZoom() const
+	{
+		return zoom;
 	}
 
 	void View::setMatchesWindow(bool toggle)
@@ -84,7 +96,7 @@ namespace GameLibrary
 		matchWindow = toggle;
 	}
 
-	bool View::matchesWindow()
+	bool View::matchesWindow() const
 	{
 		return matchWindow;
 	}
@@ -94,7 +106,7 @@ namespace GameLibrary
 		letterboxed = toggle;
 	}
 
-	bool View::isLetterboxed()
+	bool View::isLetterboxed() const
 	{
 		return letterboxed;
 	}

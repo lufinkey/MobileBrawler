@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\Actor.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\ActorType.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\TextActor.cpp" />
@@ -145,6 +146,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameLibrary\Actor\Actor.h" />
     <ClInclude Include="src\GameLibrary\Actor\ActorType.h" />
     <ClInclude Include="src\GameLibrary\Actor\TextActor.h" />

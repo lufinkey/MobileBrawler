@@ -6,9 +6,10 @@
 
 namespace GameLibrary
 {
+	class Application;
+
 	class EventManager
 	{
-		friend class Application;
 		friend class Keyboard;
 		friend class Mouse;
 		friend class Window;
@@ -22,6 +23,6 @@ namespace GameLibrary
 		static void removeWindow(Window*window);
 
 	public:
-		static void update();
+		static void update(Application*application);
 	};
 }

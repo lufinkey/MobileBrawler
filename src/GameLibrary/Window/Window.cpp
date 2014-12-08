@@ -15,6 +15,7 @@ namespace GameLibrary
 		size = Vector2u(640,480);
 		title = "Program";
 		icon = nullptr;
+		backgroundColor = Color::WHITE;
 		style = Window::STYLE_DEFAULT;
 	}
 
@@ -24,15 +25,17 @@ namespace GameLibrary
 		size = windowSettings.size;
 		title = windowSettings.title;
 		icon = windowSettings.icon;
+		backgroundColor = windowSettings.backgroundColor;
 		style = windowSettings.style;
 	}
 
-	WindowSettings::WindowSettings(const Vector2i& pos, const Vector2u& sz, const String&ttl, Image*ico, byte sty)
+	WindowSettings::WindowSettings(const Vector2i& pos, const Vector2u& sz, const String&ttl, Image*ico, const Color&bgcolor, byte sty)
 	{
 		position = pos;
 		size = sz;
 		title = ttl;
 		icon = ico;
+		backgroundColor = bgcolor;
 		style = sty;
 	}
 
@@ -47,6 +50,7 @@ namespace GameLibrary
 		size = windowSettings.size;
 		title = windowSettings.title;
 		icon = windowSettings.icon;
+		backgroundColor = windowSettings.backgroundColor;
 		style = windowSettings.style;
 
 		return *this;
@@ -105,6 +109,16 @@ namespace GameLibrary
 	{
 		return icon;
 	}
+
+	void WindowSettings::setBackgroundColor(const Color&bgcolor)
+	{
+		backgroundColor = bgcolor;
+	}
+
+	const Color& WindowSettings::getBackgroundColor() const
+	{
+		return backgroundColor;
+	}
 		
 	void WindowSettings::setStyle(byte sty)
 	{
@@ -117,6 +131,9 @@ namespace GameLibrary
 	}
 
 //Window implementation
+
+	const WindowSettings Window::defaultDesktopSettings = WindowSettings(Vector2i(Window::POSITION_UNDEFINED, Window::POSITION_UNDEFINED), Vector2u(640, 480), "", nullptr, Color::WHITE, Window::STYLE_DEFAULT);
+	const WindowSettings Window::defaultMobileSettings = WindowSettings(Vector2i(Window::POSITION_UNDEFINED, Window::POSITION_UNDEFINED), Vector2u(480, 320), "", nullptr, Color::WHITE, Window::STYLE_BORDERLESS);
 
 	Window::Window()
 	{
@@ -279,7 +296,7 @@ namespace GameLibrary
 		{
 			//SDL_GL_SwapWindow((SDL_Window*)windowdata);
 			SDL_RenderPresent((SDL_Renderer*)graphics->renderer);
-			graphics->reset();
+			graphics->reset(settings.getBackgroundColor());
 		}
 	}
 
@@ -420,6 +437,16 @@ namespace GameLibrary
 		}
 	}
 
+	const Color& Window::getBackgroundColor()
+	{
+		return settings.getBackgroundColor();
+	}
+
+	void Window::setBackgroundColor(const Color&bgcolor)
+	{
+		settings.setBackgroundColor(bgcolor);
+	}
+
 	const Image* Window::getIcon()
 	{
 		return settings.icon;
@@ -446,7 +473,12 @@ namespace GameLibrary
 			}
 		}
 	}
-		
+
+	View* Window::getView()
+	{
+		return view;
+	}
+	
 	bool Window::isOpen()
 	{
 		if(windowdata != nullptr)

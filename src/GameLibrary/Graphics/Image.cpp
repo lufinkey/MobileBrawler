@@ -6,6 +6,13 @@ namespace GameLibrary
 {
 	Image::Image()
 	{
+		int flags = IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF;
+		if(IMG_Init(flags) != flags)
+		{
+			//TODO replace with more specific exception type
+			throw Exception(IMG_GetError());
+		}
+
 		width = 0;
 		height = 0;
 	}

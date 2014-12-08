@@ -11,16 +11,8 @@ namespace GameLibrary
 
 	AssetManager::~AssetManager()
 	{
-		for(unsigned int i=0; i<textures.size(); i++)
-		{
-			delete textures.get(i).second;
-		}
-		textures.clear();
-		for(unsigned int i=0; i<fonts.size(); i++)
-		{
-			delete fonts.get(i).second;
-		}
-		fonts.clear();
+		unloadTextures();
+		unloadFonts();
 	}
 
 	bool AssetManager::loadTexture(const String&path, String&error)
@@ -60,6 +52,15 @@ namespace GameLibrary
 				return;
 			}
 		}
+	}
+
+	void AssetManager::unloadTextures()
+	{
+		for(unsigned int i=0; i<textures.size(); i++)
+		{
+			delete textures.get(i).second;
+		}
+		textures.clear();
 	}
 
 	TextureImage* AssetManager::getTexture(const String&path)
@@ -112,6 +113,15 @@ namespace GameLibrary
 				return;
 			}
 		}
+	}
+
+	void AssetManager::unloadFonts()
+	{
+		for(unsigned int i=0; i<fonts.size(); i++)
+		{
+			delete fonts.get(i).second;
+		}
+		fonts.clear();
 	}
 
 	Font* AssetManager::getFont(const String&path)

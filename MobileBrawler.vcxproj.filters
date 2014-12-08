@@ -240,6 +240,9 @@
     <ClCompile Include="src\GameLibrary\Application\BatchLoader.cpp">
       <Filter>src\GameLibrary\Application</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -439,6 +442,9 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Application\BatchLoader.h">
       <Filter>src\GameLibrary\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

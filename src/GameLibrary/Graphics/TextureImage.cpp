@@ -2,14 +2,11 @@
 #include "TextureImage.h"
 #include "Image.h"
 #include <SDL.h>
+#include <SDL_image.h>
+#include "../IO/Console.h"
 
 namespace GameLibrary
 {
-	TextureImage::TextureImage(const TextureImage&image) : TextureImage()
-	{
-		//
-	}
-
 	TextureImage& TextureImage::operator=(const TextureImage&image)
 	{
 		return *this;
@@ -17,6 +14,13 @@ namespace GameLibrary
 
 	TextureImage::TextureImage()
 	{
+		int flags = IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF;
+		if(IMG_Init(flags) != flags)
+		{
+			//TODO replace with more specific exception type
+			throw Exception(IMG_GetError());
+		}
+
 		texture = nullptr;
 		width = 0;
 		height = 0;

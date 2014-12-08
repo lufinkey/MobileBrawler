@@ -1,5 +1,6 @@
 
 #include "EventManager.h"
+#include "Application.h"
 #include "../Input/Keyboard.h"
 #include "../Input/Mouse.h"
 #include "../Utilities/Thread.h"
@@ -73,7 +74,7 @@ namespace GameLibrary
 		Mouse::removeWindow(window);
 	}
 
-	void EventManager::update()
+	void EventManager::update(Application*application)
 	{
 		if(!Thread::isMainThread())
 		{
@@ -83,6 +84,8 @@ namespace GameLibrary
 		Window* resizingWindow = nullptr;
 		int data1 = 0;
 		int data2 = 0;
+
+		bool closing = false;
 
 		//event polling
 		SDL_Event event;
@@ -107,7 +110,7 @@ namespace GameLibrary
 				resizingWindow = nullptr;
 			}
 
-			if(!skip)
+			if(!skip && !closing)
 			{
 				switch(event.type)
 				{
@@ -170,6 +173,11 @@ namespace GameLibrary
 							}
 						}
 					}
+					break;
+
+					case SDL_QUIT:
+					application->close(0);
+					closing = true;
 					break;
 
 					//TODO add event types here

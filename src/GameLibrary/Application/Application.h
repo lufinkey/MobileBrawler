@@ -2,6 +2,8 @@
 #include "ApplicationData.h"
 #include "../Graphics/Graphics.h"
 #include "../Utilities/ArrayList.h"
+#include "../Utilities/PlatformChecks.h"
+#include "../Utilities/Time/TimeInterval.h"
 #include "../Window/Window.h"
 
 #pragma once
@@ -18,9 +20,20 @@ namespace GameLibrary
 		ArrayList<ApplicationEventListener*> eventListeners;
 		void* listenermutex;
 
+		TimeInterval apptime;
+
+		unsigned int fps;
+		unsigned long long sleeptime;
+
+		int exitcode;
+
 		bool app_running;
+		bool app_closing;
 		
 		void callListenerEvent(unsigned int eventType);
+
+		int loadMainWindow(const WindowSettings&windowSettings, byte orientations);
+		int runMainLoop();
 
 	public:
 		enum Orientation : byte
@@ -33,6 +46,15 @@ namespace GameLibrary
 			ORIENTATION_LANDSCAPE = 0x01 | 0x02,
 		};
 
+		enum ExitCode : int
+		{
+			EXITCODE_ALREADYRUNNING = 1,
+			EXITCODE_SUCCESS = 0,
+			EXITCODE_ERROR = -1,
+			EXITCODE_FATALERROR = -2,
+			EXITCODE_NOTMAINTHREAD = -3,
+		};
+
 		Application();
 		virtual ~Application();
 
@@ -42,8 +64,17 @@ namespace GameLibrary
 		virtual void update(const ApplicationData&appData);
 		virtual void draw(const ApplicationData&appData, Graphics&g);
 
-		void run(const WindowSettings&windowSettings, byte orientations = ORIENTATION_ALL, bool borderless = false);
+#if TARGETPLATFORM_MOBILE
+		int run(const WindowSettings&windowSettings = Window::defaultMobileSettings, byte orientations = ORIENTATION_ALL);
+#else
+		int run(const WindowSettings&windowSettings = Window::defaultDesktopSettings, byte orientations = ORIENTATION_ALL);
+#endif
 
+		void close(int exitcode);
+
+		void setFPS(unsigned int fps);
+		unsigned int getFPS();
+		Window* getWindow();
 	};
 
 	class ApplicationEventListener

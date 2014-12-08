@@ -23,12 +23,14 @@ namespace GameLibrary
 		AssetManager(Window&window);
 		~AssetManager();
 
-		bool loadTexture(const String&path, String&error);
+		bool loadTexture(const String&path, String&error=String());
 		void unloadTexture(const String&path);
+		void unloadTextures();
 		TextureImage* getTexture(const String&path);
 
-		bool loadFont(const String&path, String&error);
+		bool loadFont(const String&path, String&error=String());
 		void unloadFont(const String&path);
+		void unloadFonts();
 		Font* getFont(const String&path);
 	};
 }

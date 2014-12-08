@@ -20,6 +20,7 @@ namespace GameLibrary
 		Vector2u size;
 		String title;
 		Image*icon;
+		Color backgroundColor;
 		byte style;
 
 		void* createIconData();
@@ -27,7 +28,7 @@ namespace GameLibrary
 	public:
 		WindowSettings();
 		WindowSettings(const WindowSettings&);
-		WindowSettings(const Vector2i& position, const Vector2u& size, const String&title="", Image*icon=nullptr, byte style=0);
+		WindowSettings(const Vector2i& position, const Vector2u& size, const String&title="", Image*icon=nullptr, const Color&backgroundColor=Color::WHITE, byte style=0);
 		~WindowSettings();
 
 		WindowSettings& operator=(const WindowSettings&);
@@ -43,6 +44,9 @@ namespace GameLibrary
 		
 		void setIcon(Image*);
 		const Image* getIcon() const;
+
+		void setBackgroundColor(const Color&);
+		const Color& getBackgroundColor() const;
 		
 		void setStyle(byte);
 		byte getStyle() const;
@@ -89,10 +93,17 @@ namespace GameLibrary
 			POSITION_CENTERED = 0x0ffffffe
 		};
 
+		static const WindowSettings defaultDesktopSettings;
+		static const WindowSettings defaultMobileSettings;
+
 		Window();
 		virtual ~Window();
 		
-		void create(const WindowSettings&settings = WindowSettings());
+#if TARGETPLATFORM_MOBILE
+		void create(const WindowSettings&settings = defaultMobileSettings);
+#else
+		void create(const WindowSettings&settings = defaultDesktopSettings);
+#endif
 		void update();
 		void destroy();
 		
@@ -111,8 +122,13 @@ namespace GameLibrary
 		const String& getTitle();
 		void setTitle(const String&);
 
+		const Color& getBackgroundColor();
+		void setBackgroundColor(const Color&color);
+
 		const Image* getIcon();
 		void setIcon(Image*);
+
+		View* getView();
 		
 		bool isOpen();
 		bool isFocused();

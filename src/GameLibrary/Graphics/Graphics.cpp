@@ -17,7 +17,7 @@ namespace GameLibrary
 
 	Font* Graphics::defaultFont = nullptr;
 
-	void Graphics::reset()
+	void Graphics::reset(const Color&clearColor)
 	{
 		setColor(Color::BLACK);
 		setTintColor(Color::WHITE);
@@ -33,23 +33,31 @@ namespace GameLibrary
 		clipOffset.x = 0;
 		clipOffset.y = 0;
 
-		SDL_SetRenderDrawColor((SDL_Renderer*)renderer, 255,255,255,255);
+		SDL_SetRenderDrawColor((SDL_Renderer*)renderer, clearColor.r,clearColor.g,clearColor.b,clearColor.a);
 		SDL_RenderClear((SDL_Renderer*)renderer);
 		SDL_SetRenderDrawColor((SDL_Renderer*)renderer, 0,0,0,255);
+
+		float zoom = window->view->zoom;
 
 		if(window->view == nullptr || window->view->matchWindow)
 		{
 			const Vector2u& winSz = window->getSize();
+			Vector2f winSize = Vector2f((float)winSz.x, (float)winSz.y);
 			if(window->view != nullptr)
 			{
 				window->view->setSize((float)winSz.x, (float)winSz.y);
 			}
 
 			setClipRect(0, 0, (float)winSz.x, (float)winSz.y);
+
+			float difX = (winSize.x - (winSize.x*zoom))/(2*zoom);
+			float difY = (winSize.y - (winSize.y*zoom))/(2*zoom);
+
+			scale(zoom,zoom);
+			translate(difY, difX);
 		}
 		else if(window->view->letterboxed)
 		{
-			float zoom = 1;
 			float multScale = 1;
 			Vector2u winSz = window->getSize();
 			Vector2f winSize = Vector2f((float)winSz.x, (float)winSz.y);
@@ -73,8 +81,8 @@ namespace GameLibrary
 			float difX = ((winSize.x - (winSize.x*zoom))+(winSize.x - fixedWidth))/(2*zoom*multScale);
 			float difY = ((winSize.y - (winSize.y*zoom))+(winSize.y - fixedHeight))/(2*zoom*multScale);
 
-			float letterBoxW = Math::abs((winSize.x - fixedWidth)/2);
-			float letterBoxH = Math::abs((winSize.y - fixedHeight)/2);
+			float letterBoxW = (winSize.x - fixedWidth)/2;
+			float letterBoxH = (winSize.y - fixedHeight)/2;
 
 			setColor(Color::BLACK);
 			if(letterBoxW>0)
@@ -91,6 +99,22 @@ namespace GameLibrary
 			clipOffset.y = letterBoxH;
 			scale(zoom*multScale,zoom*multScale);
 			translate(difX, difY);
+		}
+		else
+		{
+			Vector2u winSz = window->getSize();
+			Vector2f winSize = Vector2f((float)winSz.x, (float)winSz.y);
+			Vector2f viewSize = window->view->getSize();
+			setClipRect(0, 0, (float)winSz.x, (float)winSz.y);
+
+			float ratX = winSize.x /viewSize.x;
+			float ratY = winSize.y /viewSize.y;
+
+			float difX = (winSize.x - (winSize.x*zoom))/(2*zoom*ratX);
+			float difY = (winSize.y - (winSize.y*zoom))/(2*zoom*ratY);
+
+			scale(zoom*ratX, zoom*ratY);
+			translate(difX,difY);
 		}
 	}
 
@@ -177,11 +201,16 @@ namespace GameLibrary
 
 	void Graphics::beginDraw()
 	{
+		float clipLeft = (clipOffset.x + clipRect.x);
+		float clipTop = (clipOffset.y + clipRect.y);
+		float clipRight = clipLeft + clipRect.width;
+		float clipBottom = clipTop + clipRect.height;
+
 		SDL_Rect clip;
-		clip.x = (int)(clipOffset.x + clipRect.x);
-		clip.y = (int)(clipOffset.y + clipRect.y);
-		clip.w = (int)clipRect.width;
-		clip.h = (int)clipRect.height;
+		clip.x = (int)clipLeft;
+		clip.y = (int)clipTop;
+		clip.w = (int)(clipRight - (float)clip.x);
+		clip.h = (int)(clipBottom - (float)clip.y);
 
 		Color colorComp = color.composite(tintColor);
 		byte newAlpha = (byte)((float)colorComp.a * ((float)alpha/255));
@@ -412,21 +441,28 @@ namespace GameLibrary
 	{
 		Vector2f pnt = transform.transformPoint(Vector2f(x, y));
 
+		float rectLeft = pnt.x;
+		float rectTop = pnt.y;
+		float rectRight = rectLeft + (width*scaling.x);
+		float rectBottom = rectTop + (height*scaling.y);
+
 		SDL_Rect rect;
-		rect.x = (int)pnt.x;
-		rect.y = (int)pnt.y;
-		rect.w = (int)(width*scaling.x);
-		rect.h = (int)(height*scaling.x);
+		rect.x = (int)rectLeft;
+		rect.y = (int)rectTop;
+		rect.w = (int)(rectRight - (float)rect.x);
+		rect.h = (int)(rectBottom - (float)rect.y);
 
 		SDL_Point center;
 		center.x = 0;
 		center.y = 0;
 
+		Color compColor = color.composite(tintColor);
+
 		beginDraw();
 
 		float alphaMult = (float)alpha/255;
-		SDL_SetTextureColorMod((SDL_Texture*)pixel->texture, tintColor.r, tintColor.g, tintColor.b);
-		SDL_SetTextureAlphaMod((SDL_Texture*)pixel->texture, (byte)(tintColor.a * alphaMult));
+		SDL_SetTextureColorMod((SDL_Texture*)pixel->texture, compColor.r, compColor.g, compColor.b);
+		SDL_SetTextureAlphaMod((SDL_Texture*)pixel->texture, (byte)(compColor.a * alphaMult));
 
 		SDL_RenderCopyEx((SDL_Renderer*)renderer, (SDL_Texture*)pixel->texture, nullptr, &rect, rotation, &center, SDL_FLIP_NONE);
 
@@ -470,11 +506,16 @@ namespace GameLibrary
 		{
 			Vector2f pnt = transform.transformPoint(Vector2f(x, y));
 
+			float dstrectLeft = pnt.x;
+			float dstrectTop = pnt.y;
+			float dstrectRight = dstrectLeft + ((float)texWidth*scaling.x);
+			float dstrectBottom = dstrectTop + ((float)texHeight*scaling.y);
+
 			SDL_Rect dstrect;
-			dstrect.x = (int)pnt.x;
-			dstrect.y = (int)pnt.y;
-			dstrect.w = (int)(texWidth*scaling.x);
-			dstrect.h = (int)(texHeight*scaling.y);
+			dstrect.x = (int)dstrectLeft;
+			dstrect.y = (int)dstrectTop;
+			dstrect.w = (int)(dstrectRight - (float)dstrect.x);
+			dstrect.h = (int)(dstrectBottom - (float)dstrect.y);
 
 			SDL_Point center;
 			center.x = 0;
@@ -509,11 +550,16 @@ namespace GameLibrary
 		{
 			Vector2f pnt = transform.transformPoint(Vector2f(x, y));
 
+			float dstrectLeft = pnt.x;
+			float dstrectTop = pnt.y;
+			float dstrectRight = dstrectLeft + (width*scaling.x);
+			float dstrectBottom = dstrectTop + (height*scaling.y);
+
 			SDL_Rect dstrect;
-			dstrect.x = (int)pnt.x;
-			dstrect.y = (int)pnt.y;
-			dstrect.w = (int)(width*scaling.x);
-			dstrect.h = (int)(height*scaling.y);
+			dstrect.x = (int)dstrectLeft;
+			dstrect.y = (int)dstrectTop;
+			dstrect.w = (int)(dstrectRight - (float)dstrect.x);
+			dstrect.h = (int)(dstrectBottom - (float)dstrect.y);
 
 			SDL_Point center;
 			center.x = 0;
@@ -555,14 +601,11 @@ namespace GameLibrary
 			Vector2f pnt1 = transform.transformPoint(Vector2f(dx1, dy1));
 			Vector2f pnt2 = transform.transformPoint(Vector2f(dx2, dy2));
 
-			float w = pnt2.x - pnt1.x;
-			float h = pnt2.y - pnt1.y;
-
 			SDL_Rect dstrect;
 			dstrect.x = (int)pnt1.x;
 			dstrect.y = (int)pnt1.y;
-			dstrect.w = (int)w;
-			dstrect.h = (int)h;
+			dstrect.w = (int)(pnt2.x - (float)dstrect.x);
+			dstrect.h = (int)(pnt2.y - (float)dstrect.y);
 
 			SDL_Point center;
 			center.x = 0;

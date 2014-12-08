@@ -9,7 +9,6 @@
 #include "Application/Application.h"
 #include "Application/ApplicationData.h"
 #include "Application/AssetManager.h"
-#include "Application/EventManager.h"
 
 #include "Audio/Music.h"
 #include "Audio/Sound.h"
@@ -70,4 +69,6 @@
 #include "Window/Window.h"
 #include "Window/View.h"
 
-#define main GameLibrary_main
+#ifndef main
+	#define main GameLibrary_main
+#endif
