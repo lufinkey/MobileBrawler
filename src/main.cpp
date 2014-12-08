@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
 
 	window.getGraphics().rotate(20);
 	window.getGraphics().drawImage(&bufImg, 100, 100);
-	window.getGraphics().drawString("mah nigga", 50, 50);
+	window.getGraphics().drawString("Joe will get mad if I curse in here", 50, 50);
 	window.update();
 
 	system("PAUSE"); //"press any key to continue..." prompt, just so we can see the output
