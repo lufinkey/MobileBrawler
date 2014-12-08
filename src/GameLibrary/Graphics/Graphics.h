@@ -16,7 +16,6 @@ namespace GameLibrary
 	private:
 		Window*window;
 		void*renderer;
-		void*contextdata;
 
 		Color color;
 		Color tintColor;
@@ -24,9 +23,14 @@ namespace GameLibrary
 		
 		Font*font;
 		static Font*defaultFont;
+
+		TextureImage*pixel;
 		
 		RectangleF clipRect;
 		Vector2f clipOffset;
+
+		float rotation;
+		Vector2f scaling;
 		
 		Transform transform;
 

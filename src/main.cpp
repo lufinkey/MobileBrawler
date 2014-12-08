@@ -4,6 +4,7 @@
 #include "GameLibrary/Utilities/String.h"
 #include "GameLibrary/Utilities/ArrayList.h"
 #include "GameLibrary/Utilities/Math.h"
+#include "GameLibrary/Utilities/Thread.h"
 #include "GameLibrary/Window/Window.h"
 #include <iostream> //just for now since I haven't finished the Console class
 
@@ -59,11 +60,10 @@ int main(int argc, char *argv[])
 
 	EventManager::update();
 
-	window.getGraphics().rotate(180);
+	window.getGraphics().rotate(20);
 	window.getGraphics().drawImage(&bufImg, 100, 100);
+	window.getGraphics().drawString("mah nigga", 50, 50);
 	window.update();
-
-	EventManager::update();
 
 	system("PAUSE"); //"press any key to continue..." prompt, just so we can see the output
 

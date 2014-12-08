@@ -107,7 +107,7 @@ namespace GameLibrary
 				resizingWindow = nullptr;
 			}
 
-			if(skip)
+			if(!skip)
 			{
 				switch(event.type)
 				{

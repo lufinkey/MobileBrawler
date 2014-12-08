@@ -99,6 +99,15 @@ namespace GameLibrary
 
 	Font::Font()
 	{
+		if(!TTF_WasInit())
+		{
+			if(TTF_Init() < 0)
+			{
+				//TODO replace with more specific exception type
+				throw Exception(TTF_GetError());
+			}
+		}
+
 		size = 0;
 		style = STYLE_PLAIN;
 		fontdata = nullptr;

@@ -8,13 +8,6 @@
 #include "../Window/Window.h"
 #include <SDL.h>
 
-#if defined(TARGETPLATFORM_MOBILE)
-	#include <SDL_opengles.h>
-	#include <SDL_opengles2.h>
-#else
-	#include <SDL_opengl.h>
-#endif
-
 namespace GameLibrary
 {
 	typedef struct
@@ -33,6 +26,9 @@ namespace GameLibrary
 		setFont(defaultFont);
 
 		transform.reset();
+		rotation = 0;
+		scaling.x = 1;
+		scaling.y = 1;
 
 		clipOffset.x = 0;
 		clipOffset.y = 0;
@@ -50,10 +46,6 @@ namespace GameLibrary
 			}
 
 			setClipRect(0, 0, (float)winSz.x, (float)winSz.y);
-
-			setColor(Color::WHITE);
-			fillRect(0, 0, (float)winSz.x, (float)winSz.y);
-			setColor(Color::BLACK);
 		}
 		else if(window->view->letterboxed)
 		{
@@ -90,7 +82,7 @@ namespace GameLibrary
 				fillRect(0,0,letterBoxW,winSize.y);
 				fillRect(letterBoxW+fixedWidth,0,letterBoxW,winSize.y);
 			}
-			if(letterBoxH > 0)
+			if(letterBoxH>0)
 			{
 				fillRect(0,0,winSize.x,letterBoxH);
 				fillRect(0,letterBoxH+fixedHeight,winSize.x,letterBoxH);
@@ -130,6 +122,7 @@ namespace GameLibrary
 			{
 				Console::writeLine(error);
 			}
+			defaultFont->setAntialiasing(true);
 		}
 		font = defaultFont;
 
@@ -141,11 +134,16 @@ namespace GameLibrary
 		clipOffset = Vector2f(0,0);
 
 		transform = Transform();
+		rotation = 0;
+		scaling.x = 1;
+		scaling.y = 1;
 
 		derived = false;
 
-		//contextdata = (void*)(new GameLibrary_ContextData());
-		//((GameLibrary_ContextData*)contextdata)->context = SDL_GL_CreateContext((SDL_Window*)win.windowdata);
+		pixel = new TextureImage();
+		pixel->create(1,1,*this);
+		Color pixelColor = Color::WHITE;
+		pixel->update(&pixelColor);
 
 		reset();
 	}
@@ -159,9 +157,12 @@ namespace GameLibrary
 		tintColor = g.tintColor;
 		alpha = g.alpha;
 		font = g.font;
+		pixel = g.pixel;
 		clipRect = g.clipRect;
 		clipOffset = g.clipOffset;
 		transform = g.transform;
+		rotation = g.rotation;
+		scaling = g.scaling;
 	}
 
 	Graphics::~Graphics()
@@ -169,8 +170,7 @@ namespace GameLibrary
 		if(!derived)
 		{
 			delete font;
-			//SDL_GL_DeleteContext(((GameLibrary_ContextData*)contextdata)->context);
-			//delete ((GameLibrary_ContextData*)contextdata);
+			delete pixel;
 			SDL_DestroyRenderer((SDL_Renderer*)renderer);
 		}
 	}
@@ -189,14 +189,13 @@ namespace GameLibrary
 		SDL_RenderSetClipRect((SDL_Renderer*)renderer, &clip);
 		SDL_SetRenderDrawColor((SDL_Renderer*)renderer, colorComp.r, colorComp.g, colorComp.b, newAlpha);
 
-		//SDL_GL_MakeCurrent((SDL_Window*)window->windowdata, ((GameLibrary_ContextData*)contextdata)->context);
-		glPushMatrix();
-		glLoadMatrixf(transform.getMatrix());
+		//glPushMatrix();
+		//glLoadMatrixf(transform.getMatrix());
 	}
 
 	void Graphics::endDraw()
 	{
-		glPopMatrix();
+		//glPopMatrix();
 		
 		SDL_SetRenderDrawColor((SDL_Renderer*)renderer, 0,0,0,255);
 		SDL_RenderSetClipRect((SDL_Renderer*)renderer, nullptr);
@@ -205,11 +204,13 @@ namespace GameLibrary
 	void Graphics::rotate(float degrees)
 	{
 		transform.rotate(degrees);
+		rotation += degrees;
 	}
 
 	void Graphics::rotate(float degrees, float x, float y)
 	{
 		transform.rotate(degrees,x,y);
+		rotation += degrees;
 	}
 
 	void Graphics::rotate(float degrees, const Vector2f&center)
@@ -220,6 +221,8 @@ namespace GameLibrary
 	void Graphics::scale(float scaleX, float scaleY)
 	{
 		transform.scale(scaleX,scaleY);
+		scaling.x *= scaleX;
+		scaling.y *= scaleY;
 	}
 
 	void Graphics::scale(const Vector2f& factors)
@@ -236,7 +239,7 @@ namespace GameLibrary
 	{
 		translate(delta.x, delta.y);
 	}
-		
+	
 	void Graphics::setAlpha(byte a)
 	{
 		alpha = a;
@@ -316,8 +319,6 @@ namespace GameLibrary
 		Color compColor = color.composite(tintColor);
 		float alphaMult = (float)alpha / 255;
 
-		beginDraw();
-
 		float y1_top = y1 - (float)fontSize;
 		float x_offset = 0;
 		for(unsigned int i = 0; i < glyphs.size(); i++)
@@ -332,25 +333,33 @@ namespace GameLibrary
 			SDL_QueryTexture(texture, &format, &access, &w, &h);
 			float realWidth = (float)w*mult;
 			float realHeight = (float)h*mult;
+			
+			Vector2f pnt = transform.transformPoint(Vector2f(x1 + x_offset, y1_top));
 
 			SDL_Rect rect;
-			rect.x = (int)(x1 + x_offset);
-			rect.y = (int)(y1_top);
-			rect.w = (int)realWidth;
-			rect.h = (int)realHeight;
+			rect.x = (int)pnt.x;
+			rect.y = (int)pnt.y;
+			rect.w = (int)(realWidth*scaling.x);
+			rect.h = (int)(realHeight*scaling.y);
+
+			SDL_Point center;
+			center.x = 0;
+			center.y = 0;
+
+			beginDraw();
 
 			SDL_SetTextureColorMod(texture, compColor.r, compColor.g, compColor.b);
 			SDL_SetTextureAlphaMod(texture, (byte)(compColor.a * alphaMult));
 
-			SDL_RenderCopy((SDL_Renderer*)renderer, (SDL_Texture*)glyph.texture, NULL, &rect);
+			SDL_RenderCopyEx((SDL_Renderer*)renderer, (SDL_Texture*)glyph.texture, nullptr, &rect, rotation, &center, SDL_FLIP_NONE);
 
 			SDL_SetTextureColorMod(texture, 255,255,255);
 			SDL_SetTextureAlphaMod(texture, 255);
 
+			endDraw();
+
 			x_offset += realWidth;
 		}
-
-		endDraw();
 	}
 
 	void Graphics::drawString(const String&text, const Vector2f& point)
@@ -360,9 +369,12 @@ namespace GameLibrary
 
 	void Graphics::drawLine(float x1, float y1, float x2, float y2)
 	{
+		Vector2f pnt1 = transform.transformPoint(Vector2f(x1, y1));
+		Vector2f pnt2 = transform.transformPoint(Vector2f(x2, y2));
+
 		beginDraw();
 
-		SDL_RenderDrawLine((SDL_Renderer*)renderer, (int)x1, (int)y1, (int)x2, (int)y2);
+		SDL_RenderDrawLine((SDL_Renderer*)renderer, (int)pnt1.x, (int)pnt1.y, (int)pnt2.x, (int)pnt2.y);
 
 		endDraw();
 	}
@@ -374,15 +386,19 @@ namespace GameLibrary
 
 	void Graphics::drawRect(float x, float y, float width, float height)
 	{
+		float right = x+width;
+		float bottom = y+height;
+		Vector2f topleft = transform.transformPoint(Vector2f(x, y));
+		Vector2f topright = transform.transformPoint(Vector2f(right, y));
+		Vector2f bottomright = transform.transformPoint(Vector2f(right, bottom));
+		Vector2f bottomleft = transform.transformPoint(Vector2f(x, bottom));
+
 		beginDraw();
 
-		SDL_Rect rect;
-		rect.x = (int)x;
-		rect.y = (int)y;
-		rect.w = (int)width;
-		rect.h = (int)height;
-
-		SDL_RenderDrawRect((SDL_Renderer*)renderer, &rect);
+		SDL_RenderDrawLine((SDL_Renderer*)renderer, (int)topleft.x, (int)topleft.y, (int)topright.x, (int)topright.y);
+		SDL_RenderDrawLine((SDL_Renderer*)renderer, (int)topright.x, (int)topright.y, (int)bottomright.x, (int)bottomright.y);
+		SDL_RenderDrawLine((SDL_Renderer*)renderer, (int)bottomleft.x, (int)bottomleft.y, (int)bottomright.x, (int)bottomright.y);
+		SDL_RenderDrawLine((SDL_Renderer*)renderer, (int)topleft.x, (int)topleft.y, (int)bottomleft.x, (int)bottomleft.y);
 
 		endDraw();
 	}
@@ -394,15 +410,28 @@ namespace GameLibrary
 
 	void Graphics::fillRect(float x, float y, float width, float height)
 	{
-		beginDraw();
+		Vector2f pnt = transform.transformPoint(Vector2f(x, y));
 
 		SDL_Rect rect;
-		rect.x = (int)x;
-		rect.y = (int)y;
-		rect.w = (int)width;
-		rect.h = (int)height;
+		rect.x = (int)pnt.x;
+		rect.y = (int)pnt.y;
+		rect.w = (int)(width*scaling.x);
+		rect.h = (int)(height*scaling.x);
 
-		SDL_RenderFillRect((SDL_Renderer*)renderer, &rect);
+		SDL_Point center;
+		center.x = 0;
+		center.y = 0;
+
+		beginDraw();
+
+		float alphaMult = (float)alpha/255;
+		SDL_SetTextureColorMod((SDL_Texture*)pixel->texture, tintColor.r, tintColor.g, tintColor.b);
+		SDL_SetTextureAlphaMod((SDL_Texture*)pixel->texture, (byte)(tintColor.a * alphaMult));
+
+		SDL_RenderCopyEx((SDL_Renderer*)renderer, (SDL_Texture*)pixel->texture, nullptr, &rect, rotation, &center, SDL_FLIP_NONE);
+
+		SDL_SetTextureColorMod((SDL_Texture*)pixel->texture, 255,255,255);
+		SDL_SetTextureAlphaMod((SDL_Texture*)pixel->texture, 255);
 
 		endDraw();
 	}
@@ -439,17 +468,13 @@ namespace GameLibrary
 		unsigned int texHeight = img->height;
 		if(texWidth != 0 && texHeight != 0)
 		{
-			SDL_Rect srcrect;
-			srcrect.x = 0;
-			srcrect.y = 0;
-			srcrect.w = texWidth;
-			srcrect.h = texHeight;
+			Vector2f pnt = transform.transformPoint(Vector2f(x, y));
 
 			SDL_Rect dstrect;
-			dstrect.x = (int)x;
-			dstrect.y = (int)y;
-			dstrect.w = (int)texWidth;
-			dstrect.h = (int)texHeight;
+			dstrect.x = (int)pnt.x;
+			dstrect.y = (int)pnt.y;
+			dstrect.w = (int)(texWidth*scaling.x);
+			dstrect.h = (int)(texHeight*scaling.y);
 
 			SDL_Point center;
 			center.x = 0;
@@ -461,7 +486,7 @@ namespace GameLibrary
 			SDL_SetTextureColorMod(texture, tintColor.r, tintColor.g, tintColor.b);
 			SDL_SetTextureAlphaMod(texture, (byte)(tintColor.a * alphaMult));
 
-			SDL_RenderCopyEx((SDL_Renderer*)renderer, texture, &srcrect, &dstrect, 0, &center, SDL_FLIP_NONE);
+			SDL_RenderCopyEx((SDL_Renderer*)renderer, texture, nullptr, &dstrect, rotation, &center, SDL_FLIP_NONE);
 
 			SDL_SetTextureColorMod(texture, 255,255,255);
 			SDL_SetTextureAlphaMod(texture, 255);
@@ -482,17 +507,13 @@ namespace GameLibrary
 		unsigned int texHeight = img->height;
 		if(texWidth != 0 && texHeight != 0)
 		{
-			SDL_Rect srcrect;
-			srcrect.x = 0;
-			srcrect.y = 0;
-			srcrect.w = (int)texWidth;
-			srcrect.h = (int)texHeight;
+			Vector2f pnt = transform.transformPoint(Vector2f(x, y));
 
 			SDL_Rect dstrect;
-			dstrect.x = (int)x;
-			dstrect.y = (int)y;
-			dstrect.w = (int)width;
-			dstrect.h = (int)height;
+			dstrect.x = (int)pnt.x;
+			dstrect.y = (int)pnt.y;
+			dstrect.w = (int)(width*scaling.x);
+			dstrect.h = (int)(height*scaling.y);
 
 			SDL_Point center;
 			center.x = 0;
@@ -504,7 +525,7 @@ namespace GameLibrary
 			SDL_SetTextureColorMod(texture, tintColor.r, tintColor.g, tintColor.b);
 			SDL_SetTextureAlphaMod(texture, (byte)(tintColor.a * alphaMult));
 
-			SDL_RenderCopyEx((SDL_Renderer*)renderer, texture, &srcrect, &dstrect, 0, &center, SDL_FLIP_NONE);
+			SDL_RenderCopyEx((SDL_Renderer*)renderer, texture, nullptr, &dstrect, rotation, &center, SDL_FLIP_NONE);
 
 			SDL_SetTextureColorMod(texture, 255,255,255);
 			SDL_SetTextureAlphaMod(texture, 255);
@@ -531,12 +552,15 @@ namespace GameLibrary
 			srcrect.w = sx2 - sx1;
 			srcrect.h = sy2 - sy1;
 
-			float w = dx2 - dx1;
-			float h = dy2 - dy1;
+			Vector2f pnt1 = transform.transformPoint(Vector2f(dx1, dy1));
+			Vector2f pnt2 = transform.transformPoint(Vector2f(dx2, dy2));
+
+			float w = pnt2.x - pnt1.x;
+			float h = pnt2.y - pnt1.y;
 
 			SDL_Rect dstrect;
-			dstrect.x = (int)dx1;
-			dstrect.y = (int)dy1;
+			dstrect.x = (int)pnt1.x;
+			dstrect.y = (int)pnt1.y;
 			dstrect.w = (int)w;
 			dstrect.h = (int)h;
 
@@ -550,7 +574,7 @@ namespace GameLibrary
 			SDL_SetTextureColorMod(texture, tintColor.r, tintColor.g, tintColor.b);
 			SDL_SetTextureAlphaMod(texture, (byte)(tintColor.a * alphaMult));
 
-			SDL_RenderCopyEx((SDL_Renderer*)renderer, texture, &srcrect, &dstrect, 0, &center, SDL_FLIP_NONE);
+			SDL_RenderCopyEx((SDL_Renderer*)renderer, texture, &srcrect, &dstrect, rotation, &center, SDL_FLIP_NONE);
 
 			SDL_SetTextureColorMod(texture, 255,255,255);
 			SDL_SetTextureAlphaMod(texture, 255);
