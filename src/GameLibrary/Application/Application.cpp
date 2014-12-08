@@ -263,6 +263,11 @@ namespace GameLibrary
 		return window;
 	}
 
+	TimeInterval& Application::getTime()
+	{
+		return apptime;
+	}
+
 	void Application::callListenerEvent(unsigned int eventtype)
 	{
 		((std::mutex*)listenermutex)->lock();

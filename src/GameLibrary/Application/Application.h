@@ -75,6 +75,7 @@ namespace GameLibrary
 		void setFPS(unsigned int fps);
 		unsigned int getFPS();
 		Window* getWindow();
+		TimeInterval& getTime();
 	};
 
 	class ApplicationEventListener

@@ -10,15 +10,13 @@ namespace GameLibrary
 
 	class ApplicationData
 	{
-		friend class Application;
 	private:
 		Application* application;
 		Window* window;
 		TimeInterval timeInterval;
 
-		ApplicationData(Application*application,Window*window,const TimeInterval&timeInterval);
-
 	public:
+		ApplicationData(Application*application,Window*window,const TimeInterval&timeInterval);
 		ApplicationData(const ApplicationData&);
 
 		Application* getApplication() const;
