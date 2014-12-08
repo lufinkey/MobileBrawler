@@ -55,7 +55,7 @@ namespace GameLibrary
 
 	RenderedGlyphContainer::RenderedGlyph RenderedGlyphContainer::getGlyph(signed char glyph, void*fontptr, void*renderer, unsigned int size, byte style, bool antialiasing)
 	{
-		int index = ((int)glyph) + std::numeric_limits<signed char>::min();
+		unsigned int index = ((unsigned int)glyph) + SCHAR_MAX;
 		RenderedGlyphStyles* glyphStyles = glyphs[index];
 		if(glyphStyles == nullptr)
 		{
