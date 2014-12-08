@@ -56,13 +56,13 @@ int main(int argc, char *argv[])
 	img.loadFromFile("test.png");
 	img.saveToFile("testsave.png");
 	TextureImage bufImg;
-	bufImg.loadFromImage(img, window.getGraphics());
+	bufImg.loadFromImage(img, *window.getGraphics());
 
 	EventManager::update();
 
-	window.getGraphics().rotate(20);
-	window.getGraphics().drawImage(&bufImg, 100, 100);
-	window.getGraphics().drawString("Joe will get mad if I curse in here", 50, 50);
+	window.getGraphics()->rotate(20);
+	window.getGraphics()->drawImage(&bufImg, 100, 100);
+	window.getGraphics()->drawString("Joe will get mad if I curse in here", 50, 50);
 	window.update();
 
 	system("PAUSE"); //"press any key to continue..." prompt, just so we can see the output

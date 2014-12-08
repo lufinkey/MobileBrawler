@@ -1,5 +1,6 @@
 
 #include "View.h"
+#include "../Application/AssetManager.h"
 #include "../Graphics/Image.h"
 #include "../Graphics/Graphics.h"
 #include "../Utilities/String.h"
@@ -59,6 +60,7 @@ namespace GameLibrary
 		void*icondata;
 		View*view;
 		Graphics*graphics;
+		AssetManager*assetManager;
 		WindowSettings settings;
 		Vector2u windowed_size;
 
@@ -93,7 +95,8 @@ namespace GameLibrary
 		void destroy();
 		
 		Image*capture();
-		virtual Graphics& getGraphics();
+		virtual Graphics* getGraphics();
+		AssetManager* getAssetManager();
 
 		static Rectangle getDisplayBounds(unsigned int displayIndex);
 		

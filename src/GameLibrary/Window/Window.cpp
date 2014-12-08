@@ -130,6 +130,11 @@ namespace GameLibrary
 	
 	void Window::create(const WindowSettings&windowSettings)
 	{
+		if(windowdata != nullptr)
+		{
+			destroy();
+		}
+
 		int positionx = 0;
 		int positiony = 0;
 		#ifndef TARGETPLATFORM_MOBILE
@@ -243,6 +248,8 @@ namespace GameLibrary
 			}
 		}
 
+		assetManager = new AssetManager(*this);
+
 		EventManager::addWindow(this);
 	}
 
@@ -264,6 +271,8 @@ namespace GameLibrary
 			windowdata = nullptr;
 			delete graphics;
 			graphics = nullptr;
+			delete assetManager;
+			assetManager = nullptr;
 			settings = WindowSettings();
 			if(view != nullptr)
 			{
@@ -292,9 +301,14 @@ namespace GameLibrary
 		return img;
 	}
 
-	Graphics& Window::getGraphics()
+	Graphics* Window::getGraphics()
 	{
-		return *graphics;
+		return graphics;
+	}
+
+	AssetManager* Window::getAssetManager()
+	{
+		return assetManager;
 	}
 
 	Rectangle Window::getDisplayBounds(unsigned int displayIndex)
