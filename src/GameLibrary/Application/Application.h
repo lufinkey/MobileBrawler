@@ -5,6 +5,7 @@
 #include "../Utilities/PlatformChecks.h"
 #include "../Utilities/Time/TimeInterval.h"
 #include "../Window/Window.h"
+#include <mutex>
 
 #pragma once
 
@@ -18,7 +19,7 @@ namespace GameLibrary
 	private:
 		Window* window;
 		ArrayList<ApplicationEventListener*> eventListeners;
-		void* listenermutex;
+		std::mutex listenermutex;
 
 		TimeInterval apptime;
 

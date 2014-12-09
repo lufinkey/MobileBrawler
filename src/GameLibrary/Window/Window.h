@@ -5,6 +5,7 @@
 #include "../Graphics/Graphics.h"
 #include "../Utilities/String.h"
 #include "../Utilities/Geometry/Vector2.h"
+#include <mutex>
 
 #pragma once
 
@@ -71,7 +72,7 @@ namespace GameLibrary
 		Vector2u windowed_size;
 
 		ArrayList<WindowEventListener*> eventListeners;
-		void*listenermutex;
+		std::mutex listenermutex;
 
 		void callListenerEvent(byte eventType, int x, int y, bool external);
 

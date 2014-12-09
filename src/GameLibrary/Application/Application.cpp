@@ -5,7 +5,6 @@
 #include "../Utilities/Thread.h"
 #include <SDL.h>
 #include <ctime>
-#include <mutex>
 
 namespace GameLibrary
 {
@@ -31,15 +30,12 @@ namespace GameLibrary
 			}
 		}
 
-		listenermutex = (void*)(new std::mutex());
-
 		window = new Window();
 	}
 
 	Application::~Application()
 	{
 		delete window;
-		delete ((std::mutex*)listenermutex);
 	}
 
 	void Application::initialize()
@@ -270,9 +266,9 @@ namespace GameLibrary
 
 	void Application::callListenerEvent(unsigned int eventtype)
 	{
-		((std::mutex*)listenermutex)->lock();
+		listenermutex.lock();
 		ArrayList<ApplicationEventListener*> listeners = eventListeners;
-		((std::mutex*)listenermutex)->unlock();
+		listenermutex.unlock();
 
 		for(unsigned int i=0; i<listeners.size(); i++)
 		{

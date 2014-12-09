@@ -44,7 +44,7 @@ namespace GameLibrary
 
 #define ARRAYLIST_NOTFOUND UINT_MAX
 	
-	template <class T>
+	template <typename T>
 	class ArrayList
 	{
 	private:

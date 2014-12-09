@@ -1,8 +1,8 @@
 
 #include "Font.h"
 #include "../DataPacket.h"
-#include <memory>
 #include <SDL_ttf.h>
+#include <memory>
 
 namespace GameLibrary
 {
@@ -35,21 +35,9 @@ namespace GameLibrary
 		}
 	}
 
-	typedef ArrayList<Pair<unsigned int, void*>> FontSizeList;
-
-	FontSizeList& Font_getSizeList(void* fontsizes)
-	{
-		return *(((std::shared_ptr<FontSizeList>*)fontsizes)->get());
-	}
-
-	const FontSizeList& Font_getConstSizeList(void* fontsizes)
-	{
-		return *(((const std::shared_ptr<FontSizeList>*)fontsizes)->get());
-	}
-
 	void* Font::loadFontSize(unsigned int size)
 	{
-		DataPacket& fontDataPacket = *(((std::shared_ptr<DataPacket>*)fontdata)->get());
+		DataPacket& fontDataPacket = *fontdata.get();
 		SDL_RWops* ops = SDL_RWFromConstMem(fontDataPacket.getData(), fontDataPacket.size());
 		if(ops == nullptr)
 		{
@@ -65,7 +53,7 @@ namespace GameLibrary
 
 	void* Font::getFontPtr(unsigned int size)
 	{
-		FontSizeList& sizeList = Font_getSizeList(fontsizes);
+		FontSizeList& sizeList = *fontsizes.get();
 		unsigned int total = sizeList.size();
 		for(unsigned int i=0; i<total; i++)
 		{
@@ -86,7 +74,7 @@ namespace GameLibrary
 
 	void Font::clearFontSizes()
 	{
-		FontSizeList& sizeList = Font_getSizeList(fontsizes);
+		FontSizeList& sizeList = *fontsizes.get();
 		for(unsigned int i=0; i<sizeList.size(); i++)
 		{
 			Pair<unsigned int, void*>& fontSize = sizeList.get(i);
@@ -111,7 +99,6 @@ namespace GameLibrary
 		size = 0;
 		style = STYLE_PLAIN;
 		fontdata = nullptr;
-		fontsizes = nullptr;
 		antialiasing = false;
 	}
 
@@ -121,33 +108,14 @@ namespace GameLibrary
 		size = font.size;
 		style = font.style;
 		antialiasing = font.antialiasing;
-		if(font.fontdata!=nullptr)
-		{
-			std::shared_ptr<DataPacket>*font_fontdata = (std::shared_ptr<DataPacket>*)font.fontdata;
-			fontdata = (void*)(new std::shared_ptr<DataPacket>(*font_fontdata));
-		}
-		if(font.fontsizes != nullptr)
-		{
-			std::shared_ptr<FontSizeList>*font_fontsizes = (std::shared_ptr<FontSizeList>*)font.fontsizes;
-			fontsizes = (void*)(new std::shared_ptr<FontSizeList>(*font_fontsizes));
-		}
+		fontdata = font.fontdata;
+		fontsizes = font.fontsizes;
 		font.mlock.unlock();
 	}
 
 	Font::~Font()
 	{
-		if(fontdata!=nullptr)
-		{
-			std::shared_ptr<DataPacket>* fontData_ptr = (std::shared_ptr<DataPacket>*)fontdata;
-			delete fontData_ptr;
-		}
-		if(fontsizes != nullptr)
-		{
-			clearFontSizes();
-			std::shared_ptr<FontSizeList>* sizeList = (std::shared_ptr<FontSizeList>*)fontsizes;
-			delete sizeList;
-			fontsizes = nullptr;
-		}
+		clearFontSizes();
 	}
 
 	bool Font::loadFromFile(const String&path, unsigned int defaultsize, String&error)
@@ -187,22 +155,14 @@ namespace GameLibrary
 		style = Font::STYLE_PLAIN;
 		antialiasing = false;
 		glyphs.clear();
-		if(fontdata != nullptr)
-		{
-			std::shared_ptr<DataPacket>*old_fontdata = (std::shared_ptr<DataPacket>*)fontdata;
-			delete old_fontdata;
-			fontdata = nullptr;
-		}
-		fontdata = (void*)(new std::shared_ptr<DataPacket>(fontDataPacket));
+		fontdata = std::shared_ptr<DataPacket>(fontDataPacket);
 		if(fontsizes != nullptr)
 		{
 			clearFontSizes();
-			std::shared_ptr<FontSizeList>*old_fontsizes = (std::shared_ptr<FontSizeList>*)fontsizes;
-			delete old_fontsizes;
 			fontsizes = nullptr;
 		}
 		FontSizeList* sizeList = new FontSizeList();
-		fontsizes = (void*)(new std::shared_ptr<FontSizeList>(sizeList));
+		fontsizes = std::shared_ptr<FontSizeList>(sizeList);
 		sizeList->add(Pair<unsigned int, void*>(defaultsize, (void*)loadedfont));
 		mlock.unlock();
 		return true;

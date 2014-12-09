@@ -5,6 +5,7 @@
 #include "../String.h"
 #include "../Geometry/Vector2.h"
 #include <mutex>
+#include <memory>
 
 #pragma once
 
@@ -15,8 +16,10 @@ namespace GameLibrary
 		friend class Graphics;
 		friend class RenderedGlyphContainer;
 	private:
-		void* fontsizes;
-		void* fontdata;
+		typedef ArrayList<Pair<unsigned int, void*>> FontSizeList;
+
+		std::shared_ptr<FontSizeList> fontsizes;
+		std::shared_ptr<DataPacket> fontdata;
 		RenderedGlyphContainer glyphs;
 
 		unsigned int size;

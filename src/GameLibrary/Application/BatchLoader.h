@@ -34,25 +34,17 @@ namespace GameLibrary
 		unsigned int loadcurrent;
 		unsigned int loadtotal;
 		
-		unsigned long long sleeptime;
-
-		TimeInterval loadTime;
-
 		ArrayList<BatchLoaderEventListener*> eventListeners;
 
-		bool lagCompensation;
 		bool loading;
 
 	public:
 		BatchLoader(Window&window);
+		BatchLoader(const BatchLoader&);
 		~BatchLoader();
 
 		void addTexture(const String&path, unsigned int value=1);
 		void addFont(const String&path, unsigned int value=1);
-
-		void setSleepTime(unsigned long long sleeptime);
-		unsigned long long getSleepTime();
-		void setLagCompensation(bool toggle);
 
 		unsigned int getLoadCurrent();
 		unsigned int getLoadTotal();

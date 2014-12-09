@@ -1,6 +1,5 @@
 
 #include "BatchLoader.h"
-#include "../Utilities/Thread.h"
 #include "../Window/Window.h"
 
 namespace GameLibrary
@@ -11,9 +10,18 @@ namespace GameLibrary
 		loadindex = 0;
 		loadcurrent = 0;
 		loadtotal = 0;
-		sleeptime = 33;
-		lagCompensation = false;
 		loading = false;
+	}
+
+	BatchLoader::BatchLoader(const BatchLoader&batchLoader)
+	{
+		window = batchLoader.window;
+		loadlist = batchLoader.loadlist;
+		loadindex = batchLoader.loadindex;
+		loadcurrent = batchLoader.loadcurrent;
+		loadtotal = batchLoader.loadtotal;
+		eventListeners = batchLoader.eventListeners;
+		loading = batchLoader.loading;
 	}
 
 	BatchLoader::~BatchLoader()
@@ -41,16 +49,6 @@ namespace GameLibrary
 		loadtotal += value;
 	}
 
-	void BatchLoader::setSleepTime(unsigned long long sleep)
-	{
-		sleeptime = sleep;
-	}
-
-	unsigned long long BatchLoader::getSleepTime()
-	{
-		return sleeptime;
-	}
-
 	unsigned int BatchLoader::getLoadCurrent()
 	{
 		return loadcurrent;
@@ -70,10 +68,6 @@ namespace GameLibrary
 			{
 				loadNext();
 				loadindex++;
-				if(sleeptime != 0)
-				{
-					Thread::sleep(sleeptime);
-				}
 			}
 			loading = false;
 			if(loadindex == (loadlist.size()-1))

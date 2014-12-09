@@ -3,7 +3,6 @@
 #include "../Application/EventManager.h"
 #include "../Utilities/PlatformChecks.h"
 #include <SDL.h>
-#include <mutex>
 
 namespace GameLibrary
 {
@@ -143,7 +142,6 @@ namespace GameLibrary
 		windowID = 0;
 		icondata = nullptr;
 		graphics = nullptr;
-		listenermutex = (void*)(new std::mutex());
 	}
 
 	Window::~Window()
@@ -162,7 +160,6 @@ namespace GameLibrary
 			SDL_FreeSurface((SDL_Surface*)icondata);
 			icondata = nullptr;
 		}
-		delete ((std::mutex*)listenermutex);
 	}
 	
 	void Window::create(const WindowSettings&windowSettings)
@@ -611,27 +608,27 @@ namespace GameLibrary
 
 	void Window::addEventListener(WindowEventListener*listener)
 	{
-		((std::mutex*)listenermutex)->lock();
+		listenermutex.lock();
 		eventListeners.add(listener);
-		((std::mutex*)listenermutex)->unlock();
+		listenermutex.unlock();
 	}
 
 	void Window::removeEventListener(WindowEventListener*listener)
 	{
-		((std::mutex*)listenermutex)->lock();
+		listenermutex.lock();
 		unsigned int index = eventListeners.indexOf(listener);
 		if(index != ARRAYLIST_NOTFOUND)
 		{
 			eventListeners.remove(index);
 		}
-		((std::mutex*)listenermutex)->unlock();
+		listenermutex.unlock();
 	}
 
 	void Window::callListenerEvent(byte eventType, int x, int y, bool external)
 	{
-		((std::mutex*)listenermutex)->lock();
+		listenermutex.lock();
 		ArrayList<WindowEventListener*> listeners = eventListeners;
-		((std::mutex*)listenermutex)->unlock();
+		listenermutex.unlock();
 
 		for(unsigned int i = 0; i<listeners.size(); i++)
 		{
