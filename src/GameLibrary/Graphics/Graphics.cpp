@@ -97,6 +97,7 @@ namespace GameLibrary
 			}
 			clipOffset.x = letterBoxW;
 			clipOffset.y = letterBoxH;
+			setClipRect(0,0,fixedWidth, fixedHeight);
 			scale(zoom*multScale,zoom*multScale);
 			translate(difX, difY);
 		}

@@ -60,6 +60,16 @@ namespace GameLibrary
 		a = color.a;
 		return *this;
 	}
+
+	Color& Color::operator=(const GameLibrary::Uint32& rgba)
+	{
+		byte*rgbaArray = (byte*)(&rgba);
+		r = rgbaArray[3];
+		g = rgbaArray[2];
+		b = rgbaArray[1];
+		a = rgbaArray[0];
+		return *this;
+	}
 	
 	bool Color::operator==(const Color&color) const
 	{
