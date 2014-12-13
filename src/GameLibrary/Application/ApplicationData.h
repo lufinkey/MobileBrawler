@@ -21,6 +21,7 @@ namespace GameLibrary
 
 		Application* getApplication() const;
 		Window* getWindow() const;
+		TimeInterval& getTime();
 		const TimeInterval& getTime() const;
 	};
 

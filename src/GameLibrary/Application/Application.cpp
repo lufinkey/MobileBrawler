@@ -53,12 +53,12 @@ namespace GameLibrary
 		//
 	}
 
-	void Application::update(const ApplicationData&appData)
+	void Application::update(ApplicationData appData)
 	{
 		//
 	}
 
-	void Application::draw(const ApplicationData&appData, Graphics&g)
+	void Application::draw(ApplicationData appData, Graphics g)
 	{
 		//
 	}
@@ -200,7 +200,9 @@ namespace GameLibrary
 
 			EventManager::update(this);
 
-			ApplicationData appdata(this,window,apptime);
+			TimeInterval currentapptime = apptime;
+			currentapptime.stop();
+			ApplicationData appdata(this,window,currentapptime);
 			if(!app_closing)
 			{
 				update(appdata);

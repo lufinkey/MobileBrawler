@@ -38,7 +38,7 @@ namespace GameLibrary
 	{
 		if(w>0 && h>0)
 		{
-			SDL_Texture* newTexture = SDL_CreateTexture((SDL_Renderer*)graphics.renderer, SDL_PIXELFORMAT_ABGR8888, SDL_TEXTUREACCESS_STREAMING, (int)w, (int)h);
+			SDL_Texture* newTexture = SDL_CreateTexture((SDL_Renderer*)graphics.renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, (int)w, (int)h);
 			if(newTexture == nullptr)
 			{
 				//TODO replace with a more specific exception type
@@ -101,7 +101,7 @@ namespace GameLibrary
 			{
 				pixels[i] = false;
 			}
-			texture_pixels[i] = color;
+			texture_pixels[i] = color.getRGBA();
 		}
 
 		SDL_UnlockTexture((SDL_Texture*)texture);

@@ -37,6 +37,15 @@ namespace GameLibrary
 		//
 	}
 
+	TimeInterval& TimeInterval::operator=(const TimeInterval&time)
+	{
+		lastmillis = time.lastmillis;
+		milliseconds = time.milliseconds;
+		running = time.running;
+
+		return *this;
+	}
+
 	void TimeInterval::update()
 	{
 		long long currentmillis = TimeInterval_getCurrentMilliseconds();

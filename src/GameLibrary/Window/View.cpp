@@ -11,7 +11,6 @@ namespace GameLibrary
 	View::View(const View&view)
 	{
 		size = view.size;
-		position = view.position;
 		zoom = view.zoom;
 		matchWindow = view.matchWindow;
 		letterboxed = view.letterboxed;
@@ -26,8 +25,6 @@ namespace GameLibrary
 	{
 		size.x = width;
 		size.y = height;
-		position.x = 0;
-		position.y = 0;
 		zoom = 1;
 		matchWindow = false;
 		letterboxed = true;
@@ -37,34 +34,7 @@ namespace GameLibrary
 	{
 		//
 	}
-		
-	void View::translate(float x, float y)
-	{
-		position.x += x;
-		position.y += y;
-	}
-
-	void View::translate(const Vector2f&delta)
-	{
-		translate(delta.x, delta.y);
-	}
-		
-	void View::setTranslation(float x, float y)
-	{
-		position.x = x;
-		position.y = y;
-	}
-
-	void View::setTranslation(const Vector2f&translation)
-	{
-		setTranslation(translation.x, translation.y);
-	}
-
-	const Vector2f& View::getTranslation() const
-	{
-		return position;
-	}
-		
+	
 	void View::setSize(float width, float height)
 	{
 		size.x = width;

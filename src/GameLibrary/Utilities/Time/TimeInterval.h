@@ -18,6 +18,8 @@ namespace GameLibrary
 		TimeInterval(long long milliseconds);
 		~TimeInterval();
 
+		TimeInterval& operator=(const TimeInterval&);
+
 		void start();
 		void stop();
 		void reset();

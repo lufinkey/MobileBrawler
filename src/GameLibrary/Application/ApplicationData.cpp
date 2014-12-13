@@ -27,6 +27,11 @@ namespace GameLibrary
 		return window;
 	}
 
+	TimeInterval& ApplicationData::getTime()
+	{
+		return timeInterval;
+	}
+
 	const TimeInterval& ApplicationData::getTime() const
 	{
 		return timeInterval;

@@ -181,7 +181,7 @@ namespace GameLibrary
 	{
 		if(listener == nullptr)
 		{
-			return;
+			throw IllegalArgumentException("Cannot add a null KeyboardEventListener to Keyboard");
 		}
 
 		if(Keyboard_callingListeners)
@@ -199,7 +199,7 @@ namespace GameLibrary
 	{
 		if(listener == nullptr)
 		{
-			return;
+			throw IllegalArgumentException("Cannot remove a null KeyboardEventListener from Keyboard");
 		}
 
 		if(Keyboard_callingListeners)

@@ -12,6 +12,6 @@ public:
 	virtual void initialize();
 	virtual void loadContent();
 	virtual void unloadContent();
-	virtual void update(const GameLibrary::AppData&appData);
-	virtual void draw(const GameLibrary::AppData&appData, GameLibrary::Graphics&g);
+	virtual void update(GameLibrary::AppData appData);
+	virtual void draw(GameLibrary::AppData appData, GameLibrary::Graphics g);
 };

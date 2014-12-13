@@ -26,12 +26,12 @@ void Game::unloadContent()
 	//
 }
 
-void Game::update(const GameLibrary::AppData&appData)
+void Game::update(GameLibrary::AppData appData)
 {
 	//
 }
 
-void Game::draw(const GameLibrary::AppData&appData, GameLibrary::Graphics&g)
+void Game::draw(GameLibrary::AppData appData, GameLibrary::Graphics g)
 {
 	GameLibrary::TextureImage*img = getWindow()->getAssetManager()->getTexture("test.png");
 	g.drawImage(img, 200,200);
