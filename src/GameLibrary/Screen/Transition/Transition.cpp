@@ -3,6 +3,8 @@
 
 namespace GameLibrary
 {
+	const unsigned long long Transition::defaultDuration = 250;
+
 	Transition::Transition()
 	{
 		//
@@ -13,7 +15,7 @@ namespace GameLibrary
 		//
 	}
 
-	void Transition::draw(ApplicationData appData, Graphics graphics, double progress, ScreenElement*element1, ScreenElement*element2)
+	void Transition::draw(ApplicationData appData, Graphics graphics, float progress, ScreenElement*element1, ScreenElement*element2) const
 	{
 		//
 	}

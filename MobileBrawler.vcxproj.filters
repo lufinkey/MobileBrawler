@@ -252,6 +252,18 @@
     <ClCompile Include="src\GameLibrary\Screen\ScreenManager.cpp">
       <Filter>src\GameLibrary\Screen</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Screen\Transition\SlideTransition.cpp">
+      <Filter>src\GameLibrary\Screen\Transition</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Screen\Transition\FadeZoomTransition.cpp">
+      <Filter>src\GameLibrary\Screen\Transition</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Screen\Transition\FadeColorTransition.cpp">
+      <Filter>src\GameLibrary\Screen\Transition</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Screen\Transition\PopoverTransition.cpp">
+      <Filter>src\GameLibrary\Screen\Transition</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -460,6 +472,18 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Screen\ScreenManager.h">
       <Filter>src\GameLibrary\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Screen\Transition\SlideTransition.h">
+      <Filter>src\GameLibrary\Screen\Transition</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Screen\Transition\FadeZoomTransition.h">
+      <Filter>src\GameLibrary\Screen\Transition</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Screen\Transition\FadeColorTransition.h">
+      <Filter>src\GameLibrary\Screen\Transition</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Screen\Transition\PopoverTransition.h">
+      <Filter>src\GameLibrary\Screen\Transition</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

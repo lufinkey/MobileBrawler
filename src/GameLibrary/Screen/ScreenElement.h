@@ -21,7 +21,7 @@ namespace GameLibrary
 		ArrayList<ScreenElement*> childElements;
 		ArrayList<ScreenElement*> removedChildElements;
 
-		bool updatingElements;
+		mutable bool updatingElements;
 		bool relativePosition;
 
 	public:
@@ -32,7 +32,10 @@ namespace GameLibrary
 		virtual ~ScreenElement();
 
 		virtual void update(ApplicationData appData);
-		virtual void draw(ApplicationData appData, Graphics graphics);
+		virtual void draw(ApplicationData appData, Graphics graphics) const;
+
+		virtual Vector2f ScreenElement::getCenter() const;
+		virtual Vector2f ScreenElement::getSize() const;
 
 		void addChildElement(ScreenElement*element);
 		void removeFromParentElement();

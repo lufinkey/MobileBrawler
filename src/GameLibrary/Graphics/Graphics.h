@@ -48,6 +48,8 @@ namespace GameLibrary
 	public:
 		Graphics(const Graphics&);
 		virtual ~Graphics();
+
+		Graphics& operator=(const Graphics&);
 		
 		virtual void rotate(float degrees);
 		virtual void rotate(float degrees, float x, float y);

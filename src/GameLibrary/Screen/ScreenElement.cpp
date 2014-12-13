@@ -50,7 +50,7 @@ namespace GameLibrary
 		}
 	}
 
-	void ScreenElement::draw(ApplicationData appData, Graphics graphics)
+	void ScreenElement::draw(ApplicationData appData, Graphics graphics) const
 	{
 		ArrayList<ScreenElement*> children = childElements;
 		updatingElements = true;
@@ -85,6 +85,17 @@ namespace GameLibrary
 			}
 		}
 		updatingElements = false;
+	}
+
+	Vector2f ScreenElement::getCenter() const
+	{
+		Vector2f size = getSize();
+		return Vector2f(x+(size.x/2), y+(size.y/2));
+	}
+
+	Vector2f ScreenElement::getSize() const
+	{
+		return Vector2f(0,0);
 	}
 
 	void ScreenElement::addChildElement(ScreenElement*element)

@@ -54,9 +54,16 @@ namespace GameLibrary
 	class NetworkProtocol;
 	
 	//Screen
-	class ScreenManager;
-	class Screen;
-		class MenuScreen;
+		//Transition
+		class Transition;
+			class FadeColorTransition;
+			class FadeZoomTransition;
+			class PopoverTransition;
+			class SlideTransition;
+	class ScreenElement;
+		class Screen;
+			class MenuScreen;
+			class ScreenManager;
 	
 	//Utilities
 		//Font

@@ -1,9 +1,12 @@
 
 #include "Screen.h"
 #include "ScreenManager.h"
+#include "Transition/PopoverTransition.h"
 
 namespace GameLibrary
 {
+	const Transition* const Screen::defaultPresentTransition = new PopoverTransition(PopoverTransition::POPOVER_UP);
+
 	void Screen::TransitionData_clear(Screen::TransitionData&data)
 	{
 		data.screen = nullptr;
@@ -18,7 +21,7 @@ namespace GameLibrary
 		data.caller = nullptr;
 	}
 
-	void Screen::TransitionData_begin(TransitionData&data, Screen*screen, Screen*transitionScreen, byte action, Transition*transition, unsigned long long duration, CompletionCallback completion, void*caller)
+	void Screen::TransitionData_begin(TransitionData&data, Screen*screen, Screen*transitionScreen, byte action, const Transition*transition, unsigned long long duration, CompletionCallback completion, void*caller)
 	{
 		data.screen = screen;
 		data.transitionScreen = transitionScreen;
@@ -48,7 +51,7 @@ namespace GameLibrary
 		{
 			TransitionData_checkInitialization(appData, data);
 			long long currentTime = appData.getTime().getMilliseconds();
-			data.progress = (double)(((double)(currentTime - data.startTime)) / ((double)data.duration));
+			data.progress = (float)(((double)(currentTime - data.startTime)) / ((double)data.duration));
 			
 			if(data.progress >= 1)
 			{
@@ -79,7 +82,7 @@ namespace GameLibrary
 	{
 		if(didDisappearCaller!=nullptr || didAppearCaller!=nullptr)
 		{
-			Transition* transition = data.transition;
+			const Transition* transition = data.transition;
 			CompletionCallback completion = data.completion;
 			void* caller = data.caller;
 			TransitionData_clear(data);
@@ -98,15 +101,20 @@ namespace GameLibrary
 		}
 	}
 
-	Screen::Screen()
+	Screen::Screen(Window*wndw)
 	{
+		window = wndw;
 		screenManager = nullptr;
 		parentScreen = nullptr;
 		childScreen = nullptr;
 		drawingOverlayTransition = false;
-		isrootscreen = false;
 
 		TransitionData_clear(overlayData);
+	}
+
+	Screen::Screen() : Screen(nullptr)
+	{
+		//
 	}
 
 	Screen::~Screen()
@@ -114,22 +122,22 @@ namespace GameLibrary
 		//
 	}
 
-	void Screen::willAppear(Transition* transition)
+	void Screen::willAppear(const Transition*transition)
 	{
 		//
 	}
 
-	void Screen::didAppear(Transition* transition)
+	void Screen::didAppear(const Transition*transition)
 	{
 		//
 	}
 
-	void Screen::willDisappear(Transition* transition)
+	void Screen::willDisappear(const Transition*transition)
 	{
 		//
 	}
 
-	void Screen::didDisappear(Transition* transition)
+	void Screen::didDisappear(const Transition*transition)
 	{
 		//
 	}
@@ -161,12 +169,12 @@ namespace GameLibrary
 		TransitionData_checkInitialization(appData, overlayData);
 	}
 
-	void Screen::drawBackground(ApplicationData&appData, Graphics&graphics)
+	void Screen::drawBackground(ApplicationData&appData, Graphics&graphics) const
 	{
 		//TODO add background
 	}
 
-	void Screen::drawElements(ApplicationData&appData, Graphics&graphics)
+	void Screen::drawElements(ApplicationData&appData, Graphics&graphics) const
 	{
 		if(childScreen == nullptr || overlayData.action != TRANSITION_NONE)
 		{
@@ -174,17 +182,22 @@ namespace GameLibrary
 		}
 	}
 
-	void Screen::drawOverlay(ApplicationData&appData, Graphics&graphics)
+	void Screen::drawOverlay(ApplicationData&appData, Graphics&graphics) const
 	{
 		if(childScreen!=nullptr)
 		{
 			if(overlayData.action == TRANSITION_NONE)
 			{
+				Vector2f size = getSize();
+				Vector2f overlaySize = childScreen->getSize();
+				float xOff = (overlaySize.x - size.x)/2;
+				float yOff = (overlaySize.y - size.y)/2;
+				graphics.translate(xOff, yOff);
 				childScreen->draw(appData, graphics);
 			}
 			else
 			{
-				double progress = overlayData.progress;
+				float progress = overlayData.progress;
 
 				if(overlayData.action == TRANSITION_HIDE)
 				{
@@ -196,7 +209,7 @@ namespace GameLibrary
 		}
 	}
 
-	void Screen::draw(ApplicationData appData, Graphics graphics)
+	void Screen::draw(ApplicationData appData, Graphics graphics) const
 	{
 		if(overlayData.action==TRANSITION_NONE)
 		{
@@ -219,7 +232,20 @@ namespace GameLibrary
 		}
 	}
 
-	void Screen::present(Screen*screen, Transition*const transition, unsigned long long duration, CompletionCallback completion)
+	Vector2f Screen::getSize() const
+	{
+		if(window != nullptr)
+		{
+			View*view = window->getView();
+			if(view != nullptr)
+			{
+				return view->getSize();
+			}
+		}
+		return Vector2f(0,0);
+	}
+
+	void Screen::present(Screen*screen, const Transition*transition, unsigned long long duration, CompletionCallback completion)
 	{
 		if(screen == nullptr)
 		{
@@ -296,7 +322,7 @@ namespace GameLibrary
 		}
 	}
 
-	void Screen::dismiss(Transition*const transition, unsigned long long duration, CompletionCallback completion)
+	void Screen::dismiss(const Transition*transition, unsigned long long duration, CompletionCallback completion)
 	{
 		if(childScreen == nullptr)
 		{
@@ -471,7 +497,11 @@ namespace GameLibrary
 		}
 		else
 		{
-			return isrootscreen;
+			if(window != nullptr)
+			{
+				return true;
+			}
+			return false;
 		}
 	}
 

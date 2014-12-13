@@ -125,6 +125,10 @@
     <ClCompile Include="src\GameLibrary\Screen\Screen.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\ScreenElement.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\ScreenManager.cpp" />
+    <ClCompile Include="src\GameLibrary\Screen\Transition\FadeColorTransition.cpp" />
+    <ClCompile Include="src\GameLibrary\Screen\Transition\FadeZoomTransition.cpp" />
+    <ClCompile Include="src\GameLibrary\Screen\Transition\PopoverTransition.cpp" />
+    <ClCompile Include="src\GameLibrary\Screen\Transition\SlideTransition.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\Transition\Transition.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\BitList.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\BitSet.cpp" />
@@ -189,6 +193,10 @@
     <ClInclude Include="src\GameLibrary\Screen\Screen.h" />
     <ClInclude Include="src\GameLibrary\Screen\ScreenElement.h" />
     <ClInclude Include="src\GameLibrary\Screen\ScreenManager.h" />
+    <ClInclude Include="src\GameLibrary\Screen\Transition\FadeColorTransition.h" />
+    <ClInclude Include="src\GameLibrary\Screen\Transition\FadeZoomTransition.h" />
+    <ClInclude Include="src\GameLibrary\Screen\Transition\PopoverTransition.h" />
+    <ClInclude Include="src\GameLibrary\Screen\Transition\SlideTransition.h" />
     <ClInclude Include="src\GameLibrary\Screen\Transition\Transition.h" />
     <ClInclude Include="src\GameLibrary\Types.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Any.h" />

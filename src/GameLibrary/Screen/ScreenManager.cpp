@@ -1,9 +1,12 @@
 
 #include "ScreenManager.h"
+#include "Transition/SlideTransition.h"
 
 namespace GameLibrary
 {
-	ScreenManager::ScreenManager(Screen*rootScreen)
+	const Transition* const ScreenManager::defaultPushTransition = new SlideTransition(SlideTransition::SLIDE_LEFT);
+
+	ScreenManager::ScreenManager(Window*window, Screen*rootScreen) : Screen(window)
 	{
 		if(rootScreen == nullptr)
 		{
@@ -14,12 +17,17 @@ namespace GameLibrary
 		screens.add(rootScreen);
 	}
 
+	ScreenManager::ScreenManager(Screen*rootScreen) : ScreenManager(nullptr, rootScreen)
+	{
+		//
+	}
+
 	ScreenManager::~ScreenManager()
 	{
 		//
 	}
 
-	void ScreenManager::willAppear(Transition* transition)
+	void ScreenManager::willAppear(const Transition*transition)
 	{
 		Screen::willAppear(transition);
 		if(pushpopData.action!=TRANSITION_NONE)
@@ -28,7 +36,7 @@ namespace GameLibrary
 		}
 	}
 
-	void ScreenManager::didAppear(Transition* transition)
+	void ScreenManager::didAppear(const Transition*transition)
 	{
 		Screen::didAppear(transition);
 		if(pushpopData.action!=TRANSITION_NONE)
@@ -37,13 +45,13 @@ namespace GameLibrary
 		}
 	}
 
-	void ScreenManager::willDisappear(Transition* transition)
+	void ScreenManager::willDisappear(const Transition*transition)
 	{
 		Screen::willDisappear(transition);
 		screens.get(screens.size()-1)->willDisappear(transition);
 	}
 
-	void ScreenManager::didDisappear(Transition* transition)
+	void ScreenManager::didDisappear(const Transition*transition)
 	{
 		Screen::didDisappear(transition);
 		screens.get(screens.size()-1)->didDisappear(transition);
@@ -76,7 +84,7 @@ namespace GameLibrary
 		TransitionData_checkInitialization(appData, pushpopData);
 	}
 
-	void ScreenManager::drawScreens(ApplicationData&appData, Graphics&graphics)
+	void ScreenManager::drawScreens(ApplicationData&appData, Graphics&graphics) const
 	{
 		if(childScreen==nullptr || overlayData.action!=TRANSITION_NONE)
 		{
@@ -86,7 +94,7 @@ namespace GameLibrary
 			}
 			else
 			{
-				double progress = pushpopData.progress;
+				float progress = pushpopData.progress;
 
 				if(pushpopData.action == TRANSITION_HIDE)
 				{
@@ -98,7 +106,7 @@ namespace GameLibrary
 		}
 	}
 
-	void ScreenManager::draw(ApplicationData appData, Graphics graphics)
+	void ScreenManager::draw(ApplicationData appData, Graphics graphics) const
 	{
 		if(overlayData.action==TRANSITION_NONE)
 		{
@@ -123,7 +131,7 @@ namespace GameLibrary
 		}
 	}
 
-	void ScreenManager::set(const ArrayList<Screen*>& newScreens, Transition*const transition, unsigned long long duration, CompletionCallback completion)
+	void ScreenManager::set(const ArrayList<Screen*>& newScreens, const Transition*transition, unsigned long long duration, CompletionCallback completion)
 	{
 		if(pushpopData.action != TRANSITION_NONE)
 		{
@@ -261,14 +269,14 @@ namespace GameLibrary
 		}
 	}
 
-	void ScreenManager::push(Screen*screen, Transition*transition, unsigned long long duration, CompletionCallback completion)
+	void ScreenManager::push(Screen*screen, const Transition*transition, unsigned long long duration, CompletionCallback completion)
 	{
 		ArrayList<Screen*> screens(1);
 		screens.set(0, screen);
 		push(screens, transition, duration, completion);
 	}
 
-	void ScreenManager::push(const ArrayList<Screen*>& newScreens, Transition*transition, unsigned long long duration, CompletionCallback completion)
+	void ScreenManager::push(const ArrayList<Screen*>& newScreens, const Transition*transition, unsigned long long duration, CompletionCallback completion)
 	{
 		if(pushpopData.action != TRANSITION_NONE)
 		{
@@ -372,7 +380,7 @@ namespace GameLibrary
 		}
 	}
 
-	Screen* ScreenManager::pop(Transition*transition, unsigned long long duration, CompletionCallback completion)
+	Screen* ScreenManager::pop(const Transition*transition, unsigned long long duration, CompletionCallback completion)
 	{
 		if(pushpopData.action != TRANSITION_NONE)
 		{
@@ -390,7 +398,7 @@ namespace GameLibrary
 		}
 	}
 	
-	ArrayList<Screen*> ScreenManager::popTo(Screen*screen, Transition*transition, unsigned long long duration, CompletionCallback completion)
+	ArrayList<Screen*> ScreenManager::popTo(Screen*screen, const Transition*transition, unsigned long long duration, CompletionCallback completion)
 	{
 		if(pushpopData.action != TRANSITION_NONE)
 		{
@@ -472,7 +480,7 @@ namespace GameLibrary
 		}
 	}
 
-	ArrayList<Screen*> ScreenManager::popToRoot(Transition*transition, unsigned long long duration, CompletionCallback completion)
+	ArrayList<Screen*> ScreenManager::popToRoot(const Transition*transition, unsigned long long duration, CompletionCallback completion)
 	{
 		if(pushpopData.action != TRANSITION_NONE)
 		{

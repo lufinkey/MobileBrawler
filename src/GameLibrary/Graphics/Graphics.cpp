@@ -200,6 +200,24 @@ namespace GameLibrary
 		}
 	}
 
+	Graphics& Graphics::operator=(const Graphics&g)
+	{
+		window = g.window;
+		renderer = g.renderer;
+		color = g.color;
+		tintColor = g.tintColor;
+		alpha = g.alpha;
+		font = g.font;
+		pixel = g.pixel;
+		clipRect = g.clipRect;
+		clipOffset = g.clipOffset;
+		transform = g.transform;
+		rotation = g.rotation;
+		scaling = g.scaling;
+
+		return *this;
+	}
+
 	void Graphics::beginDraw()
 	{
 		float clipLeft = (clipOffset.x + clipRect.x);

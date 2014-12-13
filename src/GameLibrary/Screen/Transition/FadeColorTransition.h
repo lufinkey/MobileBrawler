@@ -1,18 +1,18 @@
 
-#include "../../Types.h"
-#include "../ScreenElement.h"
+#include "Transition.h"
 
 #pragma once
 
 namespace GameLibrary
 {
-	class Transition
+	class FadeColorTransition : public Transition
 	{
-	public:
-		static const unsigned long long defaultDuration;
+	protected:
+		Color color;
 
-		Transition();
-		virtual ~Transition();
+	public:
+		FadeColorTransition(const Color& color);
+		virtual ~FadeColorTransition();
 
 		virtual void draw(ApplicationData appData, Graphics graphics, float progress, ScreenElement*element1, ScreenElement*element2) const;
 	};

@@ -11,7 +11,6 @@ namespace GameLibrary
 
 	class Screen : private ScreenElement
 	{
-		friend class Application;
 		friend class ScreenManager;
 	private:
 		typedef struct
@@ -21,15 +20,15 @@ namespace GameLibrary
 			byte action;
 			bool requiresInitializing;
 			long long startTime;
-			Transition* transition;
-			double progress;
+			const Transition*transition;
+			float progress;
 			unsigned long long duration;
 			CompletionCallback completion;
 			void* caller;
 		} TransitionData;
 
 		static void TransitionData_clear(TransitionData&data);
-		static void TransitionData_begin(TransitionData&data, Screen*screen, Screen*transitionScreen, byte action, Transition*transition, unsigned long long duration, CompletionCallback completion, void*caller);
+		static void TransitionData_begin(TransitionData&data, Screen*screen, Screen*transitionScreen, byte action, const Transition*transition, unsigned long long duration, CompletionCallback completion, void*caller);
 		/*Makes sure the TransitionData is initialized, if it requires it.*/
 		static void TransitionData_checkInitialization(ApplicationData& appData, TransitionData&data);
 		/*Applies any new progress to the transition.
@@ -46,6 +45,8 @@ namespace GameLibrary
 			TRANSITION_HIDE
 		};
 
+		Window* window;
+
 		TransitionData overlayData;
 
 		Screen* parentScreen;
@@ -53,30 +54,33 @@ namespace GameLibrary
 
 		ScreenManager* screenManager;
 
-		bool isrootscreen;
-
 	protected:
-		bool drawingOverlayTransition;
+		mutable bool drawingOverlayTransition;
 
-		virtual void drawBackground(ApplicationData&appData, Graphics&graphics);
-		virtual void drawElements(ApplicationData&appData, Graphics&graphics);
-		virtual void drawOverlay(ApplicationData&appData, Graphics&graphics);
+		virtual void drawBackground(ApplicationData&appData, Graphics&graphics) const;
+		virtual void drawElements(ApplicationData&appData, Graphics&graphics) const;
+		virtual void drawOverlay(ApplicationData&appData, Graphics&graphics) const;
 
 	public:
+		static const Transition* const defaultPresentTransition;
+
+		Screen(Window*window);
 		Screen();
 		virtual ~Screen();
 
 		virtual void update(ApplicationData appData);
-		virtual void draw(ApplicationData appData, Graphics graphics);
+		virtual void draw(ApplicationData appData, Graphics graphics) const;
 
-		virtual void willAppear(Transition* transition);
-		virtual void didAppear(Transition* transition);
+		virtual Vector2f getSize() const;
 
-		virtual void willDisappear(Transition* transition);
-		virtual void didDisappear(Transition* transition);
+		virtual void willAppear(const Transition*transition);
+		virtual void didAppear(const Transition*transition);
 
-		void present(Screen*screen, Transition*const transition=nullptr, unsigned long long duration=250, CompletionCallback completion=nullptr);
-		void dismiss(Transition*const transition=nullptr, unsigned long long duration=250, CompletionCallback completion=nullptr);
+		virtual void willDisappear(const Transition*transition);
+		virtual void didDisappear(const Transition*transition);
+
+		void present(Screen*screen, const Transition*transition=defaultPresentTransition, unsigned long long duration=Transition::defaultDuration, CompletionCallback completion=nullptr);
+		void dismiss(const Transition*transition=defaultPresentTransition, unsigned long long duration=Transition::defaultDuration, CompletionCallback completion=nullptr);
 
 		Screen* getTopScreen();
 		Screen* getBottomScreen();

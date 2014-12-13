@@ -1,5 +1,6 @@
 
 #include "../Utilities/Time/TimeInterval.h"
+#include "../Window/Window.h"
 
 #pragma once
 
