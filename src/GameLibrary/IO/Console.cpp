@@ -13,4 +13,14 @@ namespace GameLibrary
 	{
 		std::cout << output << std::endl;
 	}
+
+	void Console::writeError(const String& output)
+	{
+		std::cerr << output;
+	}
+
+	void Console::writeErrorLine(const String& output)
+	{
+		std::cerr << output << std::endl;
+	}
 }
