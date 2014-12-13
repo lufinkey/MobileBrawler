@@ -123,7 +123,9 @@
     <ClCompile Include="src\GameLibrary\Network\NetworkProtocol.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\MenuScreen.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\Screen.cpp" />
+    <ClCompile Include="src\GameLibrary\Screen\ScreenElement.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\ScreenManager.cpp" />
+    <ClCompile Include="src\GameLibrary\Screen\Transition\Transition.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\BitList.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\BitSet.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\DataPacket.cpp" />
@@ -185,7 +187,9 @@
     <ClInclude Include="src\GameLibrary\Network\NetworkProtocol.h" />
     <ClInclude Include="src\GameLibrary\Screen\MenuScreen.h" />
     <ClInclude Include="src\GameLibrary\Screen\Screen.h" />
+    <ClInclude Include="src\GameLibrary\Screen\ScreenElement.h" />
     <ClInclude Include="src\GameLibrary\Screen\ScreenManager.h" />
+    <ClInclude Include="src\GameLibrary\Screen\Transition\Transition.h" />
     <ClInclude Include="src\GameLibrary\Types.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Any.h" />
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h" />

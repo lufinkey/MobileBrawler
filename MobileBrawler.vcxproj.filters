@@ -61,6 +61,9 @@
     <Filter Include="src\GameLibrary\Window">
       <UniqueIdentifier>{e0c72f78-bd99-4a66-b384-78a1438771be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GameLibrary\Screen\Transition">
+      <UniqueIdentifier>{fa1255dd-36b2-4362-b8d8-6b11e94f8053}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameLibrary\Actor\Actor.cpp">
@@ -162,9 +165,6 @@
     <ClCompile Include="src\GameLibrary\Screen\Screen.cpp">
       <Filter>src\GameLibrary\Screen</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameLibrary\Screen\ScreenManager.cpp">
-      <Filter>src\GameLibrary\Screen</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameLibrary\Utilities\BitList.cpp">
       <Filter>src\GameLibrary\Utilities</Filter>
     </ClCompile>
@@ -243,6 +243,15 @@
     <ClCompile Include="src\Game.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Screen\ScreenElement.cpp">
+      <Filter>src\GameLibrary\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Screen\Transition\Transition.cpp">
+      <Filter>src\GameLibrary\Screen\Transition</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Screen\ScreenManager.cpp">
+      <Filter>src\GameLibrary\Screen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -291,9 +300,6 @@
       <Filter>src\GameLibrary\Screen</Filter>
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Screen\Screen.h">
-      <Filter>src\GameLibrary\Screen</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameLibrary\Screen\ScreenManager.h">
       <Filter>src\GameLibrary\Screen</Filter>
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Utilities\Dictionary.h">
@@ -445,6 +451,15 @@
     </ClInclude>
     <ClInclude Include="src\Game.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Screen\ScreenElement.h">
+      <Filter>src\GameLibrary\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Screen\Transition\Transition.h">
+      <Filter>src\GameLibrary\Screen\Transition</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Screen\ScreenManager.h">
+      <Filter>src\GameLibrary\Screen</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
