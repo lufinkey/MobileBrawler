@@ -72,7 +72,12 @@ namespace GameLibrary
 			int mustlock = SDL_MUSTLOCK(surface);
 			if(mustlock!=0)
 			{
-				SDL_LockSurface(surface);
+				if(SDL_LockSurface(surface) < 0)
+				{
+					error = SDL_GetError();
+					SDL_FreeSurface(surface);
+					return false;
+				}
 			}
 
 			unsigned int bpp = (unsigned int)surface->format->BytesPerPixel;

@@ -143,11 +143,144 @@ namespace GameLibrary
 	
 	bool TextureImage::loadFromFile(const String&path, Graphics&graphics, String&error)
 	{
-		Image img;
-		if(img.loadFromFile(path, error))
+		SDL_Surface* surface = IMG_Load(path);
+		if(surface != nullptr)
 		{
-			return loadFromImage(img,graphics,error);
+			int mustlock = SDL_MUSTLOCK(surface);
+			if(mustlock!=0)
+			{
+				if(SDL_LockSurface(surface) < 0)
+				{
+					error = SDL_GetError();
+					SDL_FreeSurface(surface);
+					return false;
+				}
+			}
+
+			unsigned int bpp = (unsigned int)surface->format->BytesPerPixel;
+			unsigned int w = (unsigned int)surface->w;
+			unsigned int h = (unsigned int)surface->h;
+			unsigned int total = w*h;
+
+			SDL_Texture* newTexture = SDL_CreateTexture((SDL_Renderer*)graphics.renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, (int)w, (int)h);
+			if(newTexture == nullptr)
+			{
+				//TODO replace with a more specific exception type
+				error = SDL_GetError();
+				SDL_UnlockSurface(surface);
+				SDL_FreeSurface(surface);
+				return false;
+			}
+			if(texture != nullptr)
+			{
+				SDL_DestroyTexture((SDL_Texture*)texture);
+				texture = nullptr;
+			}
+
+			void*pixelptr;
+			int pitch;
+			if(SDL_LockTexture(newTexture, nullptr, &pixelptr, &pitch) < 0)
+			{
+				//TODO replace with a more specific exception type
+				error = SDL_GetError();
+				SDL_DestroyTexture(newTexture);
+				SDL_UnlockSurface(surface);
+				SDL_FreeSurface(surface);
+				return false;
+			}
+
+			texture = (void*)newTexture;
+
+			pixels.resize(total);
+			pixels.shrink_to_fit();
+
+			unsigned int pitchDif = ((unsigned int)surface->pitch - (w*bpp));
+
+			unsigned int counter = 0;
+			byte*surfacePixels = (byte*)surface->pixels;
+			int*texture_pixels = (int*)pixelptr;
+
+			unsigned int i=0;
+			for(unsigned int ycnt=0; ycnt<h; ycnt++)
+			{
+				for(unsigned int xcnt = 0; xcnt < w; xcnt++)
+				{
+					Color px;
+					switch(bpp)
+					{
+						case 1:
+						px.r = surfacePixels[counter];
+						px.g = surfacePixels[counter];
+						px.b = surfacePixels[counter];
+						px.a = 255;
+						break;
+
+						case 2:
+						px.r = surfacePixels[counter];
+						px.g = surfacePixels[counter+1];
+						px.b = surfacePixels[counter+1];
+						px.a = 255;
+						break;
+
+						case 3:
+	#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+						px.r = surfacePixels[counter+2];
+						px.g = surfacePixels[counter+1];
+						px.b = surfacePixels[counter];
+	#else
+						px.r = surfacePixels[counter];
+						px.g = surfacePixels[counter+1];
+						px.b = surfacePixels[counter+2];
+	#endif
+						px.a = 255;
+						break;
+
+						case 4:
+	#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+						px.r = surfacePixels[counter+3];
+						px.g = surfacePixels[counter+2];
+						px.b = surfacePixels[counter+1];
+						px.a = surfacePixels[counter];
+	#else
+						px.r = surfacePixels[counter];
+						px.g = surfacePixels[counter+1];
+						px.b = surfacePixels[counter+2];
+						px.a = surfacePixels[counter+3];
+	#endif
+						break;
+					}
+					
+					if(px.a>0)
+					{
+						pixels[i] = true;
+					}
+					else
+					{
+						pixels[i] = false;
+					}
+					texture_pixels[i] = px.getRGBA();
+
+					i++;
+					counter += bpp;
+				}
+				counter += pitchDif;
+			}
+
+			SDL_UnlockTexture((SDL_Texture*)texture);
+
+			width = w;
+			height = h;
+
+			if(mustlock != 0)
+			{
+				SDL_UnlockSurface(surface);
+			}
+
+			SDL_FreeSurface(surface);
+
+			return true;
 		}
+		error = IMG_GetError();
 		return false;
 	}
 
@@ -168,18 +301,20 @@ namespace GameLibrary
 				SDL_DestroyTexture((SDL_Texture*)texture);
 				texture = nullptr;
 			}
-			texture = (void*)newTexture;
 			unsigned int w = image.getWidth();
 			unsigned int h = image.getHeight();
 			unsigned int totalsize = w*h;
 			void*pixelptr;
 			int pitch;
-			if(SDL_LockTexture((SDL_Texture*)texture, nullptr, &pixelptr, &pitch) < 0)
+			if(SDL_LockTexture(newTexture, nullptr, &pixelptr, &pitch) < 0)
 			{
 				//TODO replace with a more specific exception type
 				error = SDL_GetError();
+				SDL_DestroyTexture(newTexture);
 				return false;
 			}
+
+			texture = (void*)newTexture;
 
 			pixels.resize(totalsize);
 			pixels.shrink_to_fit();
