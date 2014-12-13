@@ -11,7 +11,7 @@ namespace GameLibrary
 	class Color
 	{
 	public:
-		enum : GameLibrary::Uint32
+		enum ColorValue : GameLibrary::Uint32
 		{
 			BLACK = RGBX(0, 0, 0),
 			BLUE = RGBX(0, 0, 255),
