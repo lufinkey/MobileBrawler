@@ -3,21 +3,6 @@
 
 namespace GameLibrary
 {
-	const Color Color::BLACK = Color(0,0,0);
-	const Color Color::BLUE = Color(0,0,255);
-	const Color Color::CYAN = Color(0,255,255);
-	const Color Color::DARKGRAY = Color(64,64,64);
-	const Color Color::GRAY = Color(128,128,128);
-	const Color Color::GREEN = Color(0,255,0);
-	const Color Color::LIGHTGRAY = Color(192,192,192);
-	const Color Color::MAGENTA = Color(255,0,255);
-	const Color Color::ORANGE = Color(255,200,0);
-	const Color Color::PINK = Color(255,175,175);
-	const Color Color::RED = Color(255,0,0);
-	const Color Color::WHITE = Color(255,255,255);
-	const Color Color::YELLOW = Color(255,255,0);
-	const Color Color::TRANSPARENT = Color(0,0,0,0);
-	
 	Color::Color()
 	{
 		r = 255;
@@ -34,16 +19,13 @@ namespace GameLibrary
 		a = A;
 	}
 	
-	Color::Color(Uint32 rgb, bool alpha)
+	Color::Color(const GameLibrary::Uint32& rgba)
 	{
-		byte*rgbArray = (byte*)(&rgb);
-		r = rgbArray[0];
-		g = rgbArray[1];
-		b = rgbArray[2];
-		if(alpha)
-		{
-			a = rgbArray[3];
-		}
+		byte*rgbaArray = (byte*)(&rgba);
+		r = rgbaArray[3];
+		g = rgbaArray[2];
+		b = rgbaArray[1];
+		a = rgbaArray[0];
 	}
 	
 	Color::Color(const Color&color)
@@ -57,6 +39,17 @@ namespace GameLibrary
 	Color::~Color()
 	{
 		//
+	}
+
+	Color::operator GameLibrary::Uint32() const
+	{
+		Uint32 rgba = 0;
+		byte*arr = (byte*)(&rgba);
+		arr[3] = r;
+		arr[2] = g;
+		arr[1] = b;
+		arr[0] = a;
+		return rgba;
 	}
 	
 	Color& Color::operator=(const Color&color)
@@ -77,11 +70,33 @@ namespace GameLibrary
 	{
 		Uint32 rgba = 0;
 		byte*arr = (byte*)(&rgba);
-		arr[0] = r;
-		arr[1] = g;
-		arr[2] = b;
-		arr[3] = a;
+		arr[3] = r;
+		arr[2] = g;
+		arr[1] = b;
+		arr[0] = a;
 		return rgba;
+	}
+
+	Uint32 Color::getARGB() const
+	{
+		Uint32 argb = 0;
+		byte*arr = (byte*)(&argb);
+		arr[3] = a;
+		arr[2] = r;
+		arr[1] = g;
+		arr[0] = b;
+		return argb;
+	}
+
+	Uint32 Color::getABGR() const
+	{
+		Uint32 abgr = 0;
+		byte*arr = (byte*)(&abgr);
+		arr[3] = a;
+		arr[2] = b;
+		arr[1] = g;
+		arr[0] = r;
+		return abgr;
 	}
 	
 	bool Color::equals(const Color&color) const
