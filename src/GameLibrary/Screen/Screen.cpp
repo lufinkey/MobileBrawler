@@ -260,35 +260,29 @@ namespace GameLibrary
 	{
 		if(screen == nullptr)
 		{
-			//TODO replace with more specific exception type
 			throw IllegalArgumentException("Cannot present a null Screen");
 		}
 		else if(screen->parentScreen != nullptr)
 		{
-			//TODO replace with more specific exception type
-			throw Exception("Cannot present Screen that is already presenting on another Screen");
+			throw IllegalArgumentException("Cannot present Screen that is already presenting on another Screen");
 		}
 		else if(screen->parentElement != nullptr)
 		{
-			//TODO replace with more specific exception type
-			throw Exception("Cannot present Screen that is already displaying on another ScreenElement");
+			throw IllegalArgumentException("Cannot present Screen that is already displaying on another ScreenElement");
 		}
 		else if(screen->screenManager != nullptr)
 		{
-			//TODO replace with more specific exception type
-			throw Exception("Cannot present Screen that is already displaying in a ScreenManager");
+			throw IllegalArgumentException("Cannot present Screen that is already displaying in a ScreenManager");
 		}
 		else if(screen->window != nullptr)
 		{
-			//TODO replace with more specific exception type
-			throw Exception("Cannot present Screen that already belongs to a Window");
+			throw IllegalArgumentException("Cannot present Screen that already belongs to a Window");
 		}
 		else if(childScreen != nullptr)
 		{
 			//if(overlayData.action != TRANSITION_NONE)
 			//{
-				//TODO replace with more specific exception type
-				throw Exception("Cannot present Screen on top of a screen that is currently presenting or dismissing");
+				throw ScreenNavigationException("Cannot present Screen on top of a screen that is currently presenting or dismissing");
 			//}
 			//childScreen->present(screen, transition, duration);
 		}
@@ -345,8 +339,7 @@ namespace GameLibrary
 		{
 			if(parentScreen==nullptr)
 			{
-				//TODO replace with more specific exception type
-				throw Exception("Cannot dismiss a Screen that is not presenting another Screen, or being presented on another Screen");
+				throw ScreenNavigationException("Cannot dismiss a Screen that is not presenting another Screen, or being presented on another Screen");
 			}
 			else
 			{
@@ -398,13 +391,11 @@ namespace GameLibrary
 		}
 		else if(overlayData.action==TRANSITION_HIDE)
 		{
-			//TODO replace with more specific exception type
-			throw Exception("Cannot dismiss a Screen that is already dismissing");
+			throw ScreenNavigationException("Cannot dismiss a Screen that is already dismissing");
 		}
 		else if(overlayData.action==TRANSITION_SHOW)
 		{
-			//TODO replace with more specific exception type
-			throw Exception("Cannot dismiss a Screen that is in the transition of presenting");
+			throw ScreenNavigationException("Cannot dismiss a Screen that is in the transition of presenting");
 		}
 		else
 		{
@@ -493,8 +484,7 @@ namespace GameLibrary
 			unsigned int index = screenManager->screens.indexOf(this);
 			if(index == ARRAYLIST_NOTFOUND)
 			{
-				//TODO replace with more specific exception type
-				throw Exception("Fatal error: Screen is not contained in its ScreenManager");
+				throw IllegalStateException("Screen is not contained in its ScreenManager");
 			}
 			else
 			{

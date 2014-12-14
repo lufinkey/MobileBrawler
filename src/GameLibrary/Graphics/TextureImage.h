@@ -1,6 +1,9 @@
 
 #include "Image.h"
 #include "Graphics.h"
+#include "../Exception/InitializeLibraryException.h"
+#include "../Exception/Graphics/TextureImageCreateException.h"
+#include "../Exception/Graphics/TextureImageUpdateException.h"
 #include <vector>
 
 #pragma once
@@ -30,8 +33,9 @@ namespace GameLibrary
 		bool loadFromFile(const String&path, Graphics&graphics, String&error = String());
 		bool loadFromImage(const Image&image, Graphics&graphics, String&error = String());
 		//Image copyToImage() const;
-		
+
 		bool checkPixel(unsigned int index) const;
 		bool checkPixel(unsigned int x, unsigned int y) const;
+		const std::vector<bool>& getPixelBooleans() const;
 	};
 }

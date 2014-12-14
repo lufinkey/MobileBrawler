@@ -1,6 +1,7 @@
 
 #include "ScreenElement.h"
 #include "Transition/Transition.h"
+#include "../Exception/IllegalStateException.h"
 #include "../Utilities/ArrayList.h"
 
 #pragma once

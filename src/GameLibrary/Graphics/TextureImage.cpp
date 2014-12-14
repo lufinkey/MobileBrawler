@@ -12,8 +12,7 @@ namespace GameLibrary
 		int flags = IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF;
 		if(IMG_Init(flags) != flags)
 		{
-			//TODO replace with more specific exception type
-			throw Exception(IMG_GetError());
+			throw InitializeLibraryException("SDL_image", IMG_GetError());
 		}
 
 		texture = nullptr;
@@ -36,8 +35,7 @@ namespace GameLibrary
 			SDL_Texture* newTexture = SDL_CreateTexture((SDL_Renderer*)graphics.renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, (int)w, (int)h);
 			if(newTexture == nullptr)
 			{
-				//TODO replace with a more specific exception type
-				throw Exception(SDL_GetError());
+				throw TextureImageCreateException(SDL_GetError());
 			}
 			if(texture != nullptr)
 			{
@@ -72,15 +70,13 @@ namespace GameLibrary
 	{
 		if(texture == nullptr)
 		{
-			//TODO replace with more specific exception type
-			throw Exception("Cannot update an empty TextureImage");
+			throw TextureImageUpdateException("Cannot update an empty TextureImage");
 		}
 		void* pixelptr;
 		int pitch;
 		if(SDL_LockTexture((SDL_Texture*)texture, nullptr, &pixelptr, &pitch) < 0)
 		{
-			//TODO replace with more specific exception type
-			throw Exception(SDL_GetError());
+			throw TextureImageUpdateException(SDL_GetError());
 		}
 
 		Color*texture_pixels = (Color*)pixelptr;
@@ -108,8 +104,7 @@ namespace GameLibrary
 	{
 		if(texture == nullptr)
 		{
-			//TODO replace with more specific exception type
-			throw Exception("Cannot update an empty TextureImage");
+			throw TextureImageUpdateException("Cannot update an empty TextureImage");
 		}
 
 		SDL_Rect rect;
@@ -122,8 +117,7 @@ namespace GameLibrary
 		int pitch;
 		if(SDL_LockTexture((SDL_Texture*)texture, &rect, &pixelptr, &pitch) < 0)
 		{
-			//TODO replace with more specific exception type
-			throw Exception(SDL_GetError());
+			throw TextureImageUpdateException(SDL_GetError());
 		}
 
 		Color*texture_pixels = (Color*)pixelptr;
@@ -160,7 +154,6 @@ namespace GameLibrary
 			SDL_Texture* newTexture = SDL_CreateTexture((SDL_Renderer*)graphics.renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, (int)w, (int)h);
 			if(newTexture == nullptr)
 			{
-				//TODO replace with a more specific exception type
 				error = SDL_GetError();
 				SDL_UnlockSurface(surface);
 				SDL_FreeSurface(surface);
@@ -176,7 +169,6 @@ namespace GameLibrary
 			int pitch;
 			if(SDL_LockTexture(newTexture, nullptr, &pixelptr, &pitch) < 0)
 			{
-				//TODO replace with a more specific exception type
 				error = SDL_GetError();
 				SDL_DestroyTexture(newTexture);
 				SDL_UnlockSurface(surface);
@@ -287,7 +279,6 @@ namespace GameLibrary
 			SDL_Texture* newTexture = SDL_CreateTexture((SDL_Renderer*)graphics.renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, (int)image.getWidth(), (int)image.getHeight());
 			if(newTexture == nullptr)
 			{
-				//TODO replace with a more specific exception type
 				error = SDL_GetError();
 				return false;
 			}
@@ -303,7 +294,6 @@ namespace GameLibrary
 			int pitch;
 			if(SDL_LockTexture(newTexture, nullptr, &pixelptr, &pitch) < 0)
 			{
-				//TODO replace with a more specific exception type
 				error = SDL_GetError();
 				SDL_DestroyTexture(newTexture);
 				return false;
@@ -354,21 +344,24 @@ namespace GameLibrary
 
 	bool TextureImage::checkPixel(unsigned int index) const
 	{
-		/*if(index > pixels.size())
+		if(index > pixels.size())
 		{
 			throw ImageOutOfBoundsException(index,width,height);
-		}*/
-		//TODO uncomment checking of out of bounds (once I add a function returning the vector of bits)
+		}
 		return pixels[index];
 	}
 
 	bool TextureImage::checkPixel(unsigned int x, unsigned int y) const
 	{
-		/*if(x > width || y > height)
+		if(x > width || y > height)
 		{
 			throw ImageOutOfBoundsException(x, y, width, height);
-		}*/
-		//TODO uncomment checking of out of bounds (once I add a function returning the vector of bits)
+		}
 		return pixels[(width*y)+x];
+	}
+
+	const std::vector<bool>& TextureImage::getPixelBooleans() const
+	{
+		return pixels;
 	}
 }

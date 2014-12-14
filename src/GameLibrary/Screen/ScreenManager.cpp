@@ -19,7 +19,6 @@ namespace GameLibrary
 	{
 		if(rootScreen == nullptr)
 		{
-			//TODO replace with more specific exception type
 			throw IllegalArgumentException("Cannot construct a ScreenManager with a null root Screen");
 		}
 		TransitionData_clear(pushpopData);
@@ -151,12 +150,10 @@ namespace GameLibrary
 	{
 		if(pushpopData.action != TRANSITION_NONE)
 		{
-			//TODO replace with more specific exception type
-			throw Exception("Cannot set a ScreenManager's screens while the ScreenManager is performing a transition");
+			throw ScreenNavigationException("Cannot set a ScreenManager's screens while the ScreenManager is performing a transition");
 		}
 		else if(newScreens.size()==0)
 		{
-			//TODO replace with more specific exception type
 			throw IllegalArgumentException("Cannot set a ScreenManager with no Screens. A ScreenManager must have atleast 1 Screen");
 		}
 		else
@@ -166,28 +163,23 @@ namespace GameLibrary
 				Screen* screen = newScreens.get(i);
 				if(screen == nullptr)
 				{
-					//TODO replace with more specific exception type
-					throw Exception("Cannot set a ScreenManager with a null Screen");
+					throw IllegalArgumentException("Cannot set a ScreenManager with a null Screen");
 				}
 				else if(screen->screenManager != nullptr && screen->screenManager!=this)
 				{
-					//TODO replace with more specific exception type
-					throw Exception("Cannot set a ScreenManager with a Screen that is already a part of another ScreenManager");
+					throw IllegalArgumentException("Cannot set a ScreenManager with a Screen that is already a part of another ScreenManager");
 				}
 				else if(screen->parentScreen != nullptr)
 				{
-					//TODO replace with more specific exception type
-					throw Exception("Cannot set a ScreenManager with a Screen that is already presented on another Screen");
+					throw IllegalArgumentException("Cannot set a ScreenManager with a Screen that is already presented on another Screen");
 				}
 				else if(screen->parentElement != nullptr && (screen->parentElement!=this || screen->screenManager!=this))
 				{
-					//TODO replace with more specific exception type
-					throw Exception("Cannot set a ScreenManager with a Screen that is already added to a ScreenElement");
+					throw IllegalArgumentException("Cannot set a ScreenManager with a Screen that is already added to a ScreenElement");
 				}
 				else if(screen->window != nullptr && screen->screenManager!=this)
 				{
-					//TODO replace with more specific exception type
-					throw Exception("Cannot set a ScreenManager with a Screen that already belongs to another Window");
+					throw IllegalArgumentException("Cannot set a ScreenManager with a Screen that already belongs to another Window");
 				}
 				else
 				{
@@ -196,8 +188,7 @@ namespace GameLibrary
 						Screen* screen2 = newScreens.get(j);
 						if(screen == screen2)
 						{
-							//TODO replace with more specific exception type
-							throw Exception("Cannot set a ScreenManager with a list of Screens that contain duplicates");
+							throw IllegalArgumentException("Cannot set a ScreenManager with a list of Screens that contain duplicates");
 						}
 					}
 				}
@@ -309,12 +300,10 @@ namespace GameLibrary
 	{
 		if(pushpopData.action != TRANSITION_NONE)
 		{
-			//TODO replace with more specific exception type
-			throw Exception("Cannot push Screens on a ScreenManager while the ScreenManager is performing a transition");
+			throw ScreenNavigationException("Cannot push Screens on a ScreenManager while the ScreenManager is performing a transition");
 		}
 		else if(newScreens.size()==0)
 		{
-			//TODO replace with more specific exception type
 			throw IllegalArgumentException("Cannot push an empty Screen list onto a ScreenManager");
 		}
 		else
@@ -324,28 +313,23 @@ namespace GameLibrary
 				Screen* screen = newScreens.get(i);
 				if(screen == nullptr)
 				{
-					//TODO replace with more specific exception type
-					throw Exception("Cannot push a null Screen onto ScreenManager");
+					throw IllegalArgumentException("Cannot push a null Screen onto ScreenManager");
 				}
 				else if(screen->screenManager != nullptr)
 				{
-					//TODO replace with more specific exception type
-					throw Exception("Cannot push a Screen that is already a part of a ScreenManager");
+					throw IllegalArgumentException("Cannot push a Screen that is already a part of a ScreenManager");
 				}
 				else if(screen->parentScreen != nullptr)
 				{
-					//TODO replace with more specific exception type
-					throw Exception("Cannot push a Screen that is already presented on another Screen");
+					throw IllegalArgumentException("Cannot push a Screen that is already presented on another Screen");
 				}
 				else if(screen->parentElement != nullptr)
 				{
-					//TODO replace with more specific exception type
-					throw Exception("Cannot push a Screen that is already added to a ScreenElement");
+					throw IllegalArgumentException("Cannot push a Screen that is already added to a ScreenElement");
 				}
 				else if(screen->window != nullptr)
 				{
-					//TODO replace with more specific exception type
-					throw Exception("Cannot push a Screen that already belongs to another Window");
+					throw IllegalArgumentException("Cannot push a Screen that already belongs to another Window");
 				}
 				else
 				{
@@ -354,8 +338,7 @@ namespace GameLibrary
 						Screen* screen2 = newScreens.get(j);
 						if(screen == screen2)
 						{
-							//TODO replace with more specific exception type
-							throw Exception("Cannot push a list of Screens contining duplicates");
+							throw IllegalArgumentException("Cannot push a list of Screens contining duplicates");
 						}
 					}
 				}
@@ -419,13 +402,11 @@ namespace GameLibrary
 	{
 		if(pushpopData.action != TRANSITION_NONE)
 		{
-			//TODO replace with more specific exception type
-			throw Exception("Cannot pop a Screen on a ScreenManager while the ScreenManager is performing a transition");
+			throw ScreenNavigationException("Cannot pop a Screen on a ScreenManager while the ScreenManager is performing a transition");
 		}
 		else if(screens.size() == 1)
 		{
-			//TODO replace with more specific exception type
-			throw Exception("Cannot pop any more Screens from ScreenManager; A ScreenManager must have atleast 1 Screen");
+			throw ScreenNavigationException("Cannot pop any more Screens from ScreenManager; A ScreenManager must have atleast 1 Screen");
 		}
 		else
 		{
@@ -437,8 +418,7 @@ namespace GameLibrary
 	{
 		if(pushpopData.action != TRANSITION_NONE)
 		{
-			//TODO replace with more specific exception type
-			throw Exception("Cannot pop a Screen on a ScreenManager while the ScreenManager is performing a transition");
+			throw ScreenNavigationException("Cannot pop a Screen on a ScreenManager while the ScreenManager is performing a transition");
 		}
 		else if(screen == screens.get(screens.size() - 1))
 		{
@@ -449,7 +429,6 @@ namespace GameLibrary
 			unsigned int index = screens.indexOf(screen);
 			if(index == ARRAYLIST_NOTFOUND)
 			{
-				//TODO replace with more specific exception type
 				throw IllegalArgumentException("Screen to pop to is not contained within the ScreenManager");
 			}
 
@@ -520,8 +499,7 @@ namespace GameLibrary
 	{
 		if(pushpopData.action != TRANSITION_NONE)
 		{
-			//TODO replace with more specific exception type
-			throw Exception("Cannot pop a Screen on a ScreenManager while the ScreenManager is performing a transition");
+			throw ScreenNavigationException("Cannot pop a Screen on a ScreenManager while the ScreenManager is performing a transition");
 		}
 		else
 		{

@@ -4,6 +4,8 @@
 #include "../Pair.h"
 #include "../String.h"
 #include "../Geometry/Vector2.h"
+#include "../../Exception/InitializeLibraryException.h"
+#include "../../Exception/Utilities/Font/RenderGlyphException.h"
 #include <mutex>
 #include <memory>
 

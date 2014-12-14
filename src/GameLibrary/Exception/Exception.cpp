@@ -8,12 +8,15 @@ namespace GameLibrary
 		message = "";
 	}
 
-	Exception::Exception(const Exception&exception)
+	Exception::Exception(const Exception&exception) : std::exception(exception)
 	{
 		message = exception.message;
 	}
 
 	Exception::Exception(const String& msg)
+#ifdef _MSC_VER
+		: std::exception(msg)
+#endif
 	{
 		message = msg;
 	}
@@ -21,5 +24,10 @@ namespace GameLibrary
 	Exception::~Exception()
 	{
 		//
+	}
+
+	const char* Exception::what() const
+	{
+		return message;
 	}
 }

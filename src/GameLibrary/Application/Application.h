@@ -1,5 +1,6 @@
 
 #include "ApplicationData.h"
+#include "../Exception/InitializeLibraryException.h"
 #include "../Graphics/Graphics.h"
 #include "../Utilities/ArrayList.h"
 #include "../Utilities/PlatformChecks.h"

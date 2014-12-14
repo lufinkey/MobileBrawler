@@ -42,11 +42,10 @@ namespace GameLibrary
 			{
 				glyphTextures.add(getGlyph(txt.charAt(i), fontptr, renderer, size, style, antialiasing));
 			}
-			catch(const Exception&e)
+			catch(const RenderGlyphException&e)
 			{
-				//TODO replace with more specific exception type
 				mlock.unlock();
-				throw Exception(e);
+				throw RenderGlyphException(e);
 			}
 		}
 		mlock.unlock();
@@ -113,15 +112,13 @@ namespace GameLibrary
 		}
 		if(surface == nullptr)
 		{
-			//TODO replace with more specific exception type
-			throw Exception(TTF_GetError());
+			throw RenderGlyphException(TTF_GetError());
 		}
 		SDL_Texture*texture = SDL_CreateTextureFromSurface((SDL_Renderer*)renderer, surface);
 		SDL_FreeSurface(surface);
 		if(texture == nullptr)
 		{
-			//TODO replace with more specific exception type;
-			throw Exception(TTF_GetError());
+			throw RenderGlyphException(SDL_GetError());
 		}
 
 		RenderedGlyph renderedGlyph;

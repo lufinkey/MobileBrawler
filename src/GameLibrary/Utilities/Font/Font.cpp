@@ -91,8 +91,7 @@ namespace GameLibrary
 		{
 			if(TTF_Init() < 0)
 			{
-				//TODO replace with more specific exception type
-				throw Exception(TTF_GetError());
+				throw InitializeLibraryException("SDL_ttf", TTF_GetError());
 			}
 		}
 
@@ -208,11 +207,10 @@ namespace GameLibrary
 					renderedGlyphs = container->getRenderedGlyphs(getFontPtr(36),renderer,36,style,text,antialiasing);
 				}
 			}
-			catch(const Exception&e)
+			catch(const RenderGlyphException&e)
 			{
-				//TODO replace with more specific exception type
 				mlock.unlock();
-				throw Exception(e);
+				throw RenderGlyphException(e);
 			}
 			mlock.unlock();
 			return renderedGlyphs;

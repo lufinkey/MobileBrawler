@@ -64,6 +64,12 @@
     <Filter Include="src\GameLibrary\Screen\Transition">
       <UniqueIdentifier>{fa1255dd-36b2-4362-b8d8-6b11e94f8053}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GameLibrary\Exception\Screen">
+      <UniqueIdentifier>{663e93f2-e770-45d9-85fd-4c711bf83030}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\GameLibrary\Exception\Utilities\Font">
+      <UniqueIdentifier>{8bbc8f00-2755-43b2-86ed-0db2ca0166ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameLibrary\Actor\Actor.cpp">
@@ -260,6 +266,24 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Actor\BaseActor.cpp">
       <Filter>src\GameLibrary\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\Screen\ScreenNavigationException.cpp">
+      <Filter>src\GameLibrary\Exception\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\IllegalStateException.cpp">
+      <Filter>src\GameLibrary\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\InitializeLibraryException.cpp">
+      <Filter>src\GameLibrary\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\Graphics\TextureImageUpdateException.cpp">
+      <Filter>src\GameLibrary\Exception\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\Graphics\TextureImageCreateException.cpp">
+      <Filter>src\GameLibrary\Exception\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\Utilities\Font\RenderGlyphException.cpp">
+      <Filter>src\GameLibrary\Exception\Utilities\Font</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -481,6 +505,24 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Screen\Drawable.h">
       <Filter>src\GameLibrary\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\Screen\ScreenNavigationException.h">
+      <Filter>src\GameLibrary\Exception\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\IllegalStateException.h">
+      <Filter>src\GameLibrary\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\InitializeLibraryException.h">
+      <Filter>src\GameLibrary\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\Graphics\TextureImageUpdateException.h">
+      <Filter>src\GameLibrary\Exception\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\Graphics\TextureImageCreateException.h">
+      <Filter>src\GameLibrary\Exception\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\Utilities\Font\RenderGlyphException.h">
+      <Filter>src\GameLibrary\Exception\Utilities\Font</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

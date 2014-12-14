@@ -139,8 +139,7 @@ namespace GameLibrary
 			unsigned int index = parentElement->childElements.indexOf(this);
 			if(index == ARRAYLIST_NOTFOUND)
 			{
-				//TODO replace with more specific exception type
-				throw Exception("Fatal Error: child ScreenElement not found in parent ScreenElement");
+				throw IllegalStateException("Child ScreenElement not found in parent ScreenElement");
 			}
 			else
 			{
@@ -153,14 +152,13 @@ namespace GameLibrary
 	{
 		if(element->parentElement != this)
 		{
-			throw IllegalArgumentException("specified ScreenElement is not a child of this ScreenElement");
+			throw IllegalArgumentException("Specified ScreenElement is not a child of this ScreenElement");
 		}
 		
 		unsigned int index = childElements.indexOf(element);
 		if(index == ARRAYLIST_NOTFOUND)
 		{
-			//TODO replace with more specific exception type
-			throw Exception("Fatal Error: child ScreenElement not found in parent ScreenElement");
+			throw IllegalStateException("Child ScreenElement not found in parent ScreenElement");
 		}
 		else
 		{

@@ -25,8 +25,7 @@ namespace GameLibrary
 		{
 			if(SDL_Init(flags) != 0)
 			{
-				//TODO replace with more specific exception type
-				throw Exception(SDL_GetError());
+				throw InitializeLibraryException("SDL", SDL_GetError());
 			}
 		}
 

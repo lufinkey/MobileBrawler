@@ -27,6 +27,8 @@ namespace GameLibrary
 			class IllegalFormatException;
 				class IllegalDateTimeFormatException;
 			class NumberFormatException;
+		class IllegalStateException;
+		class InitializeLibraryException;
 		class OutOfBoundsException;
 			class ArrayListOutOfBoundsException;
 			class BitListOutOfBoundsException;
@@ -34,6 +36,10 @@ namespace GameLibrary
 			class DataPacketOutOfBoundsException;
 			class ImageOutOfBoundsException;
 			class StringOutOfBoundsException;
+		class RenderGlyphException;
+		class ScreenNavigationException;
+		class TextureImageCreateException;
+		class TextureImageUpdateException;
 		class UnsupportedImageFormatException;
 	
 	//Graphics
