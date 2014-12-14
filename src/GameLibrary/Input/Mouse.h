@@ -24,9 +24,9 @@ namespace GameLibrary
 		typedef enum Button Button;
 
 		/*Returns true if Button is currently in a pressed state*/
-		bool isButtonPressed(Button button);
+		static bool isButtonPressed(Button button);
 		/*Returns true if Button is currently in a released state*/
-		bool isButtonReleased(Button button);
+		static bool isButtonReleased(Button button);
 		/*returns the current frame's Mouse coordinates (relative to the specified Window)*/
 		static Vector2f getPosition(Window*window);
 		/*returns the current frame's Mouse x coordinate (relative to the specified Window)*/
@@ -42,9 +42,9 @@ namespace GameLibrary
 		static void setPosition(const Vector2f&pos);
 
 		/*Returns true if Button was in a pressed state in the previous frame*/
-		bool wasButtonPressed(Button button);
+		static bool wasButtonPressed(Button button);
 		/*Returns true if Button was in a released state in the previous frame*/
-		bool wasButtonReleased(Button button);
+		static bool wasButtonReleased(Button button);
 		/*returns the previous frame's Mouse coordinates (relative to the specified Window)*/
 		static Vector2f getPreviousPosition(Window*window);
 		/*returns the previous frame's Mouse x coordinate (relative to the specified Window)*/
@@ -53,9 +53,9 @@ namespace GameLibrary
 		static float getPreviousY(Window*window);
 
 		/*Returns true if Button was just pressed (released state in the previous frame, pressed state in the current frame)*/
-		bool didButtonPress(Button button);
+		static bool didButtonPress(Button button);
 		/*Returns true if Button was just released (pressed state in the previous frame, released state in the current frame)*/
-		bool didButtonRelease(Button button);
+		static bool didButtonRelease(Button button);
 
 		/*Adds a MouseEventListener to handle Mouse events*/
 		static void addEventListener(MouseEventListener*);
