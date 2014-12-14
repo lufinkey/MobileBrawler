@@ -248,6 +248,11 @@ namespace GameLibrary
 		SDL_SetRenderDrawColor((SDL_Renderer*)renderer, 0,0,0,255);
 		SDL_RenderSetClipRect((SDL_Renderer*)renderer, nullptr);
 	}
+
+	Font* Graphics::getDefaultFont()
+	{
+		return defaultFont;
+	}
 	
 	void Graphics::rotate(float degrees)
 	{

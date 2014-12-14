@@ -20,7 +20,7 @@ namespace GameLibrary
 
 		std::shared_ptr<FontSizeList> fontsizes;
 		std::shared_ptr<DataPacket> fontdata;
-		RenderedGlyphContainer glyphs;
+		ArrayList<Pair<RenderedGlyphContainer*, void*> > glyphs;
 
 		unsigned int size;
 		byte style;
@@ -31,6 +31,7 @@ namespace GameLibrary
 		void*loadFontSize(unsigned int size);
 		void*getFontPtr(unsigned int size);
 		void clearFontSizes();
+		RenderedGlyphContainer* getRenderedGlyphContainer(void*renderer);
 		ArrayList<RenderedGlyphContainer::RenderedGlyph> getRenderedGlyphs(const String&text, void*renderer);
 
 		static int styleToTTFStyle(byte style);

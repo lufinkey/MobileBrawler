@@ -35,8 +35,8 @@ namespace GameLibrary
 		If the transition finishes, a constant representing the finished transition is returned. Otherwise, 0 is returned.*/
 		static byte TransitionData_applyProgress(ApplicationData& appData, TransitionData&data);
 		/*Checks if the transition is finished by calling TransitionData_applyProgress, and stores the objects that need calling if so.*/
-		static void TransitionData_checkFinished(ApplicationData&appData, TransitionData&data, Screen**didDisappearCaller, Screen**didAppearCaller);
-		static void TransitionData_callVirtualFunctions(TransitionData&data, Screen*didDisappearCaller, Screen*didAppearCaller);
+		static void TransitionData_checkFinished(ApplicationData&appData, TransitionData&data, Screen**onDidDisappearCaller, Screen**onDidAppearCaller);
+		static void TransitionData_callVirtualFunctions(TransitionData&data, Screen*onDidDisappearCaller, Screen*onDidAppearCaller);
 
 		enum TransitionAction : byte
 		{
@@ -76,11 +76,11 @@ namespace GameLibrary
 
 		virtual Vector2f getSize() const;
 
-		virtual void willAppear(const Transition*transition);
-		virtual void didAppear(const Transition*transition);
+		virtual void onWillAppear(const Transition*transition);
+		virtual void onDidAppear(const Transition*transition);
 
-		virtual void willDisappear(const Transition*transition);
-		virtual void didDisappear(const Transition*transition);
+		virtual void onWillDisappear(const Transition*transition);
+		virtual void onDidDisappear(const Transition*transition);
 
 		void present(Screen*screen, const Transition*transition=defaultPresentTransition, unsigned long long duration=Transition::defaultDuration, CompletionCallback completion=nullptr);
 		void dismiss(const Transition*transition=defaultPresentTransition, unsigned long long duration=Transition::defaultDuration, CompletionCallback completion=nullptr);

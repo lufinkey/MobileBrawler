@@ -15,7 +15,7 @@ namespace GameLibrary
 		//
 	}
 
-	void Transition::draw(ApplicationData appData, Graphics graphics, float progress, ScreenElement*element1, ScreenElement*element2) const
+	void Transition::draw(ApplicationData appData, Graphics graphics, float progress, Drawable*element1, Drawable*element2) const
 	{
 		//
 	}

@@ -188,6 +188,7 @@
     <ClInclude Include="src\GameLibrary\Input\Multitouch.h" />
     <ClInclude Include="src\GameLibrary\IO\Console.h" />
     <ClInclude Include="src\GameLibrary\Network\NetworkProtocol.h" />
+    <ClInclude Include="src\GameLibrary\Screen\Drawable.h" />
     <ClInclude Include="src\GameLibrary\Screen\Screen.h" />
     <ClInclude Include="src\GameLibrary\Screen\ScreenElement.h" />
     <ClInclude Include="src\GameLibrary\Screen\ScreenManager.h" />

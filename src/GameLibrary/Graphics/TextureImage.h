@@ -16,12 +16,12 @@ namespace GameLibrary
 		unsigned int width;
 		unsigned int height;
 
-		TextureImage(const TextureImage&);
-		TextureImage& operator=(const TextureImage&);
-
 	public:
 		TextureImage();
+		TextureImage(const TextureImage&) = delete;
 		~TextureImage();
+
+		TextureImage& operator=(const TextureImage&) = delete;
 		
 		void create(unsigned int width, unsigned int height, Graphics&graphics);
 		void update(const Color*pixels);

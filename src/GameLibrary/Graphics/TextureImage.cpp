@@ -7,11 +7,6 @@
 
 namespace GameLibrary
 {
-	TextureImage& TextureImage::operator=(const TextureImage&image)
-	{
-		return *this;
-	}
-
 	TextureImage::TextureImage()
 	{
 		int flags = IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF;

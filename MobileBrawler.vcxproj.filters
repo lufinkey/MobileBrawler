@@ -479,5 +479,8 @@
     <ClInclude Include="src\GameLibrary\Actor\BaseActor.h">
       <Filter>src\GameLibrary\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameLibrary\Screen\Drawable.h">
+      <Filter>src\GameLibrary\Screen</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

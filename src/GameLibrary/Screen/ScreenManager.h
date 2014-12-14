@@ -29,11 +29,11 @@ namespace GameLibrary
 		virtual void update(ApplicationData appData);
 		virtual void draw(ApplicationData appData, Graphics graphics) const;
 
-		virtual void willAppear(const Transition*transition);
-		virtual void didAppear(const Transition*transition);
+		virtual void onWillAppear(const Transition*transition);
+		virtual void onDidAppear(const Transition*transition);
 
-		virtual void willDisappear(const Transition*transition);
-		virtual void didDisappear(const Transition*transition);
+		virtual void onWillDisappear(const Transition*transition);
+		virtual void onDidDisappear(const Transition*transition);
 
 		void set(const ArrayList<Screen*>& screens, const Transition*transition=defaultPushTransition, unsigned long long duration=Transition::defaultDuration, CompletionCallback completion=nullptr);
 		void push(Screen*screen, const Transition*transition=defaultPushTransition, unsigned long long duration=Transition::defaultDuration, CompletionCallback completion=nullptr);

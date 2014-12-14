@@ -43,43 +43,43 @@ namespace GameLibrary
 		screens.clear();
 	}
 
-	void ScreenManager::willAppear(const Transition*transition)
+	void ScreenManager::onWillAppear(const Transition*transition)
 	{
-		Screen::willAppear(transition);
+		Screen::onWillAppear(transition);
 		if(pushpopData.action!=TRANSITION_NONE)
 		{
-			screens.get(screens.size()-1)->willAppear(transition);
+			screens.get(screens.size()-1)->onWillAppear(transition);
 		}
 	}
 
-	void ScreenManager::didAppear(const Transition*transition)
+	void ScreenManager::onDidAppear(const Transition*transition)
 	{
-		Screen::didAppear(transition);
+		Screen::onDidAppear(transition);
 		if(pushpopData.action!=TRANSITION_NONE)
 		{
-			screens.get(screens.size()-1)->didAppear(transition);
+			screens.get(screens.size()-1)->onDidAppear(transition);
 		}
 	}
 
-	void ScreenManager::willDisappear(const Transition*transition)
+	void ScreenManager::onWillDisappear(const Transition*transition)
 	{
-		Screen::willDisappear(transition);
-		screens.get(screens.size()-1)->willDisappear(transition);
+		Screen::onWillDisappear(transition);
+		screens.get(screens.size()-1)->onWillDisappear(transition);
 	}
 
-	void ScreenManager::didDisappear(const Transition*transition)
+	void ScreenManager::onDidDisappear(const Transition*transition)
 	{
-		Screen::didDisappear(transition);
-		screens.get(screens.size()-1)->didDisappear(transition);
+		Screen::onDidDisappear(transition);
+		screens.get(screens.size()-1)->onDidDisappear(transition);
 	}
 
 	void ScreenManager::update(ApplicationData appData)
 	{
 		Screen* updateCaller = nullptr;
-		Screen* pushpop_didDisappearCaller = nullptr;
-		Screen* pushpop_didAppearCaller = nullptr;
+		Screen* pushpop_onDidDisappearCaller = nullptr;
+		Screen* pushpop_onDidAppearCaller = nullptr;
 
-		TransitionData_checkFinished(appData, pushpopData, &pushpop_didDisappearCaller, &pushpop_didAppearCaller);
+		TransitionData_checkFinished(appData, pushpopData, &pushpop_onDidDisappearCaller, &pushpop_onDidAppearCaller);
 
 		if(childScreen==nullptr)
 		{
@@ -87,7 +87,7 @@ namespace GameLibrary
 			{
 				updateCaller = screens.get(screens.size()-1);
 			}
-			TransitionData_callVirtualFunctions(pushpopData, pushpop_didDisappearCaller, pushpop_didAppearCaller);
+			TransitionData_callVirtualFunctions(pushpopData, pushpop_onDidDisappearCaller, pushpop_onDidAppearCaller);
 		}
 
 		if(updateCaller != nullptr)
@@ -263,13 +263,13 @@ namespace GameLibrary
 				{
 					if(visible)
 					{
-						topOldScreen->willDisappear(transition);
-						topNewScreen->willAppear(transition);
+						topOldScreen->onWillDisappear(transition);
+						topNewScreen->onWillAppear(transition);
 
 						TransitionData_clear(pushpopData);
 
-						topOldScreen->didDisappear(transition);
-						topNewScreen->didAppear(transition);
+						topOldScreen->onDidDisappear(transition);
+						topNewScreen->onDidAppear(transition);
 
 						if(completion != nullptr)
 						{
@@ -290,8 +290,8 @@ namespace GameLibrary
 				{
 					if(visible)
 					{
-						topOldScreen->willDisappear(transition);
-						topNewScreen->willAppear(transition);
+						topOldScreen->onWillDisappear(transition);
+						topNewScreen->onWillAppear(transition);
 					}
 				}
 			}
@@ -381,13 +381,13 @@ namespace GameLibrary
 			{
 				if(visible)
 				{
-					topOldScreen->willDisappear(transition);
-					topNewScreen->willAppear(transition);
+					topOldScreen->onWillDisappear(transition);
+					topNewScreen->onWillAppear(transition);
 
 					TransitionData_clear(pushpopData);
 
-					topOldScreen->didDisappear(transition);
-					topNewScreen->didAppear(transition);
+					topOldScreen->onDidDisappear(transition);
+					topNewScreen->onDidAppear(transition);
 
 					if(completion != nullptr)
 					{
@@ -408,8 +408,8 @@ namespace GameLibrary
 			{
 				if(visible)
 				{
-					topOldScreen->willDisappear(transition);
-					topNewScreen->willAppear(transition);
+					topOldScreen->onWillDisappear(transition);
+					topNewScreen->onWillAppear(transition);
 				}
 			}
 		}
@@ -480,13 +480,13 @@ namespace GameLibrary
 			{
 				if(visible)
 				{
-					topOldScreen->willDisappear(transition);
-					topNewScreen->willAppear(transition);
+					topOldScreen->onWillDisappear(transition);
+					topNewScreen->onWillAppear(transition);
 
 					TransitionData_clear(pushpopData);
 
-					topOldScreen->didDisappear(transition);
-					topNewScreen->didAppear(transition);
+					topOldScreen->onDidDisappear(transition);
+					topNewScreen->onDidAppear(transition);
 
 					if(completion != nullptr)
 					{
@@ -507,8 +507,8 @@ namespace GameLibrary
 			{
 				if(visible)
 				{
-					topOldScreen->willDisappear(transition);
-					topNewScreen->willAppear(transition);
+					topOldScreen->onWillDisappear(transition);
+					topNewScreen->onWillAppear(transition);
 				}
 			}
 

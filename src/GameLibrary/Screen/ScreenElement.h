@@ -1,7 +1,6 @@
 
-#include "../Application/ApplicationData.h"
+#include "Drawable.h"
 #include "../Exception/IllegalArgumentException.h"
-#include "../Graphics/Graphics.h"
 #include "../Utilities/ArrayList.h"
 #include "../Utilities/Pair.h"
 #include <mutex>
@@ -12,7 +11,7 @@ namespace GameLibrary
 {
 	typedef void(*CompletionCallback)(void*);
 
-	class ScreenElement
+	class ScreenElement : public Drawable
 	{
 		friend class Screen;
 		friend class ScreenManager;
@@ -32,7 +31,10 @@ namespace GameLibrary
 
 	public:
 		ScreenElement();
+		ScreenElement(const ScreenElement&) = delete;
 		virtual ~ScreenElement();
+
+		ScreenElement& operator=(const ScreenElement&) = delete;
 
 		virtual void update(ApplicationData appData);
 		virtual void draw(ApplicationData appData, Graphics graphics) const;

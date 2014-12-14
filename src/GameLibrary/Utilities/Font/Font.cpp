@@ -116,6 +116,11 @@ namespace GameLibrary
 	Font::~Font()
 	{
 		clearFontSizes();
+		for(unsigned int i=0; i<glyphs.size(); i++)
+		{
+			delete glyphs.get(i).first;
+		}
+		glyphs.clear();
 	}
 
 	bool Font::loadFromFile(const String&path, unsigned int defaultsize, String&error)
@@ -168,21 +173,39 @@ namespace GameLibrary
 		return true;
 	}
 
+	RenderedGlyphContainer* Font::getRenderedGlyphContainer(void*renderer)
+	{
+		for(unsigned int i=0; i<glyphs.size(); i++)
+		{
+			Pair<RenderedGlyphContainer*, void*>& container = glyphs.get(i);
+			if(container.second == renderer)
+			{
+				return container.first;
+			}
+		}
+		Pair<RenderedGlyphContainer*, void*> container;
+		container.first = new RenderedGlyphContainer();
+		container.second = renderer;
+		glyphs.add(container);
+		return container.first;
+	}
+
 	ArrayList<RenderedGlyphContainer::RenderedGlyph> Font::getRenderedGlyphs(const String&text, void*renderer)
 	{
 		if(fontdata!=nullptr)
 		{
 			mlock.lock();
+			RenderedGlyphContainer* container = getRenderedGlyphContainer(renderer);
 			ArrayList<RenderedGlyphContainer::RenderedGlyph> renderedGlyphs;
 			try
 			{
 				if(size>36)
 				{
-					renderedGlyphs = glyphs.getRenderedGlyphs(getFontPtr(size),renderer,size,style,text,antialiasing);
+					renderedGlyphs = container->getRenderedGlyphs(getFontPtr(size),renderer,size,style,text,antialiasing);
 				}
 				else
 				{
-					renderedGlyphs = glyphs.getRenderedGlyphs(getFontPtr(36),renderer,36,style,text,antialiasing);
+					renderedGlyphs = container->getRenderedGlyphs(getFontPtr(36),renderer,36,style,text,antialiasing);
 				}
 			}
 			catch(const Exception&e)

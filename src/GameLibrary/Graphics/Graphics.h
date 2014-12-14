@@ -50,6 +50,8 @@ namespace GameLibrary
 		virtual ~Graphics();
 
 		Graphics& operator=(const Graphics&);
+
+		static Font*getDefaultFont();
 		
 		virtual void rotate(float degrees);
 		virtual void rotate(float degrees, float x, float y);
