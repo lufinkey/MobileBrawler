@@ -453,6 +453,9 @@ namespace GameLibrary
 				throw IllegalArgumentException("Screen to pop to is not contained within the ScreenManager");
 			}
 
+			Screen* newScreen = screen;
+			Screen* currentScreen = screens.get(screens.size()-1);
+
 			ArrayList<Screen*> popped;
 			for(unsigned int i=(index+1); i<screens.size(); i++)
 			{
@@ -466,9 +469,6 @@ namespace GameLibrary
 			{
 				screens.remove(screens.size()-1);
 			}
-
-			Screen* newScreen = screen;
-			Screen* currentScreen = screens.get(screens.size()-1);
 
 			Screen* topOldScreen = currentScreen->getTopScreen();
 			Screen* topNewScreen = newScreen->getTopScreen();

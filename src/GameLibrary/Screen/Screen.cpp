@@ -51,7 +51,8 @@ namespace GameLibrary
 		{
 			TransitionData_checkInitialization(appData, data);
 			long long currentTime = appData.getTime().getMilliseconds();
-			data.progress = (float)(((double)(currentTime - data.startTime)) / ((double)data.duration));
+			long long timeDif = currentTime - data.startTime;
+			data.progress = (float)(((double)timeDif) / ((double)data.duration));
 			
 			if(data.progress >= 1)
 			{
@@ -193,7 +194,7 @@ namespace GameLibrary
 
 	void Screen::drawOverlay(ApplicationData appData, Graphics graphics) const
 	{
-		if(childScreen!=nullptr)
+		if(childScreen!=nullptr || overlayData.action!=TRANSITION_NONE)
 		{
 			if(overlayData.action == TRANSITION_NONE)
 			{

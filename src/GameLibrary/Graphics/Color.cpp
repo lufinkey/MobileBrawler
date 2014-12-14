@@ -1,5 +1,6 @@
 
 #include "Color.h"
+#include "../Utilities/Math.h"
 
 namespace GameLibrary
 {
@@ -133,5 +134,18 @@ namespace GameLibrary
 		byte cb = Color_compositeByte(b,comp.b);
 		byte ca = Color_compositeByte(a,comp.a);
 		return Color(cr,cg,cb,ca);
+	}
+
+	Color Color::random(bool alpha)
+	{
+		Color color;
+		color.r = (byte)(Math::random()*255);
+		color.g = (byte)(Math::random()*255);
+		color.b = (byte)(Math::random()*255);
+		if(alpha)
+		{
+			color.a = (byte)(Math::random()*255);
+		}
+		return color;
 	}
 }

@@ -203,5 +203,7 @@ namespace GameLibrary
 		bool equals(const Color&) const;
 
 		Color composite(const Color&) const;
+		
+		static Color random(bool alpha=false);
 	};
 }

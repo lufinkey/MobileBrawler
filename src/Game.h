@@ -5,6 +5,9 @@
 
 class Game : public GameLibrary::Application
 {
+private:
+	GameLibrary::Screen* rootScrn;
+	GameLibrary::ScreenManager* screenMgr;
 public:
 	Game();
 	virtual ~Game();
@@ -13,5 +16,5 @@ public:
 	virtual void loadContent();
 	virtual void unloadContent();
 	virtual void update(GameLibrary::AppData appData);
-	virtual void draw(GameLibrary::AppData appData, GameLibrary::Graphics g);
+	virtual void draw(GameLibrary::AppData appData, GameLibrary::Graphics graphics);
 };

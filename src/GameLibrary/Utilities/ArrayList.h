@@ -150,7 +150,10 @@ namespace GameLibrary
 			{
 				objects[index] = obj;
 			}
-			throw ArrayListOutOfBoundsException(index, objects.size());
+			else
+			{
+				throw ArrayListOutOfBoundsException(index, objects.size());
+			}
 		}
 		
 		void add(const T&obj)

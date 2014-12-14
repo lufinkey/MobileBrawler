@@ -8,7 +8,7 @@ namespace GameLibrary
 	{
 		timeval64 tv;
 		gettimeofday64(&tv, nullptr);
-		return (long long)(((long long)tv.tv_sec*1000) + ((long long)tv.tv_usec));
+		return (long long)(((long long)tv.tv_sec*1000) + ((long long)tv.tv_usec/1000));
 	}
 
 	TimeInterval::TimeInterval()
@@ -79,7 +79,10 @@ namespace GameLibrary
 
 	long long TimeInterval::getMilliseconds()
 	{
-		update();
+		if(running)
+		{
+			update();
+		}
 		return milliseconds;
 	}
 
