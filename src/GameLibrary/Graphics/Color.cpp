@@ -123,6 +123,7 @@ namespace GameLibrary
 		float x = (float)orig;
 		float n = (float)comp;
 		return (byte)((-n / 255) * (n - x - 255));
+		//return (byte)(orig*((float)comp/255));
 	}
 
 	Color Color::composite(const Color&comp) const

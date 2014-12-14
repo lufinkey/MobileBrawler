@@ -46,6 +46,7 @@ namespace GameLibrary
 		};
 
 		Window* window;
+		Vector2f size;
 
 		TransitionData overlayData;
 
@@ -54,12 +55,14 @@ namespace GameLibrary
 
 		ScreenManager* screenManager;
 
+		virtual void setWindow(Window*window);
+
 	protected:
 		mutable bool drawingOverlayTransition;
 
-		virtual void drawBackground(ApplicationData&appData, Graphics&graphics) const;
-		virtual void drawElements(ApplicationData&appData, Graphics&graphics) const;
-		virtual void drawOverlay(ApplicationData&appData, Graphics&graphics) const;
+		virtual void drawBackground(ApplicationData appData, Graphics graphics) const;
+		virtual void drawElements(ApplicationData appData, Graphics graphics) const;
+		virtual void drawOverlay(ApplicationData appData, Graphics graphics) const;
 
 	public:
 		static const Transition* const defaultPresentTransition;
@@ -86,5 +89,8 @@ namespace GameLibrary
 		Screen* getBottomScreen();
 		Screen* getRootScreen();
 		bool isVisible();
+
+		void setBackgroundColor(const Color&);
+		const Color& getBackgroundColor() const;
 	};
 }

@@ -14,8 +14,10 @@ namespace GameLibrary
 
 		ArrayList<Screen*> screens;
 
+		virtual void setWindow(Window*window);
+
 	protected:
-		void drawScreens(ApplicationData&appData, Graphics&graphics) const;
+		void drawScreens(ApplicationData appData, Graphics graphics) const;
 
 	public:
 		static const Transition* const defaultPushTransition;

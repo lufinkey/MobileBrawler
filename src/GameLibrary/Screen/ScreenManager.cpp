@@ -6,6 +6,15 @@ namespace GameLibrary
 {
 	const Transition* const ScreenManager::defaultPushTransition = new SlideTransition(SlideTransition::SLIDE_LEFT);
 
+	void ScreenManager::setWindow(Window*win)
+	{
+		Screen::setWindow(win);
+		for(unsigned int i=0; i<screens.size(); i++)
+		{
+			screens.get(i)->setWindow(window);
+		}
+	}
+
 	ScreenManager::ScreenManager(Window*window, Screen*rootScreen) : Screen(window)
 	{
 		if(rootScreen == nullptr)
@@ -14,6 +23,7 @@ namespace GameLibrary
 			throw IllegalArgumentException("Cannot construct a ScreenManager with a null root Screen");
 		}
 		TransitionData_clear(pushpopData);
+		rootScreen->setWindow(window);
 		screens.add(rootScreen);
 	}
 
@@ -24,7 +34,13 @@ namespace GameLibrary
 
 	ScreenManager::~ScreenManager()
 	{
-		//
+		for(unsigned int i=0; i<screens.size(); i++)
+		{
+			Screen* screen = screens.get(i);
+			screen->screenManager = nullptr;
+			screen->parentElement = nullptr;
+		}
+		screens.clear();
 	}
 
 	void ScreenManager::willAppear(const Transition*transition)
@@ -84,7 +100,7 @@ namespace GameLibrary
 		TransitionData_checkInitialization(appData, pushpopData);
 	}
 
-	void ScreenManager::drawScreens(ApplicationData&appData, Graphics&graphics) const
+	void ScreenManager::drawScreens(ApplicationData appData, Graphics graphics) const
 	{
 		if(childScreen==nullptr || overlayData.action!=TRANSITION_NONE)
 		{
@@ -163,10 +179,15 @@ namespace GameLibrary
 					//TODO replace with more specific exception type
 					throw Exception("Cannot set a ScreenManager with a Screen that is already presented on another Screen");
 				}
-				else if(screen->parentElement != nullptr)
+				else if(screen->parentElement != nullptr && (screen->parentElement!=this || screen->screenManager!=this))
 				{
 					//TODO replace with more specific exception type
 					throw Exception("Cannot set a ScreenManager with a Screen that is already added to a ScreenElement");
+				}
+				else if(screen->window != nullptr && screen->screenManager!=this)
+				{
+					//TODO replace with more specific exception type
+					throw Exception("Cannot set a ScreenManager with a Screen that already belongs to another Window");
 				}
 				else
 				{
@@ -188,14 +209,18 @@ namespace GameLibrary
 			{
 				for(unsigned int i=0; i<screens.size(); i++)
 				{
-					screens.get(i)->screenManager = nullptr;
-					screens.get(i)->parentElement = nullptr;
+					Screen* screen = screens.get(i);
+					screen->screenManager = nullptr;
+					screen->parentElement = nullptr;
+					screen->setWindow(nullptr);
 				}
 				screens = newScreens;
 				for(unsigned int i=0; i<screens.size(); i++)
 				{
-					screens.get(i)->screenManager = this;
-					screens.get(i)->parentElement = this;
+					Screen* screen = screens.get(i);
+					screen->screenManager = this;
+					screen->parentElement = this;
+					screen->setWindow(window);
 				}
 
 				if(completion != nullptr)
@@ -220,14 +245,18 @@ namespace GameLibrary
 				}
 				for(unsigned int i=0; i<screens.size(); i++)
 				{
-					screens.get(i)->screenManager = nullptr;
-					screens.get(i)->parentElement = nullptr;
+					Screen*screen = screens.get(i);
+					screen->screenManager = nullptr;
+					screen->parentElement = nullptr;
+					screen->setWindow(nullptr);
 				}
 				screens = newScreens;
 				for(unsigned int i=0; i<screens.size(); i++)
 				{
-					screens.get(i)->screenManager = this;
-					screens.get(i)->parentElement = this;
+					Screen*screen = screens.get(i);
+					screen->screenManager = this;
+					screen->parentElement = this;
+					screen->setWindow(window);
 				}
 
 				if(transition == nullptr || duration == 0)
@@ -313,6 +342,11 @@ namespace GameLibrary
 					//TODO replace with more specific exception type
 					throw Exception("Cannot push a Screen that is already added to a ScreenElement");
 				}
+				else if(screen->window != nullptr)
+				{
+					//TODO replace with more specific exception type
+					throw Exception("Cannot push a Screen that already belongs to another Window");
+				}
 				else
 				{
 					for(unsigned int j=(i+1); j<newScreens.size(); j++)
@@ -340,6 +374,7 @@ namespace GameLibrary
 				Screen* screen = newScreens.get(i);
 				screen->screenManager = this;
 				screen->parentElement = this;
+				screen->setWindow(window);
 				screens.add(screen);
 			}
 			if(transition == nullptr || duration == 0)
@@ -424,6 +459,7 @@ namespace GameLibrary
 				Screen* screen = screens.get(i);
 				screen->parentElement = nullptr;
 				screen->screenManager = nullptr;
+				screen->setWindow(nullptr);
 				popped.add(screen);
 			}
 			while(screens.size()>(index + 1))

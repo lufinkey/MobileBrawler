@@ -103,13 +103,14 @@ namespace GameLibrary
 
 	Screen::Screen(Window*wndw)
 	{
-		window = wndw;
 		screenManager = nullptr;
 		parentScreen = nullptr;
 		childScreen = nullptr;
 		drawingOverlayTransition = false;
 
 		TransitionData_clear(overlayData);
+
+		setWindow(wndw);
 	}
 
 	Screen::Screen() : Screen(nullptr)
@@ -119,7 +120,12 @@ namespace GameLibrary
 
 	Screen::~Screen()
 	{
-		//
+		if(childScreen!=nullptr)
+		{
+			childScreen->parentElement = nullptr;
+			childScreen->parentScreen = nullptr;
+			childScreen = nullptr;
+		}
 	}
 
 	void Screen::willAppear(const Transition*transition)
@@ -169,20 +175,23 @@ namespace GameLibrary
 		TransitionData_checkInitialization(appData, overlayData);
 	}
 
-	void Screen::drawBackground(ApplicationData&appData, Graphics&graphics) const
-	{
-		//TODO add background
-	}
-
-	void Screen::drawElements(ApplicationData&appData, Graphics&graphics) const
+	void Screen::drawBackground(ApplicationData appData, Graphics graphics) const
 	{
 		if(childScreen == nullptr || overlayData.action != TRANSITION_NONE)
 		{
-			ScreenElement::draw(appData, graphics);
+			ScreenElement::drawBackground(appData, graphics);
 		}
 	}
 
-	void Screen::drawOverlay(ApplicationData&appData, Graphics&graphics) const
+	void Screen::drawElements(ApplicationData appData, Graphics graphics) const
+	{
+		if(childScreen == nullptr || overlayData.action != TRANSITION_NONE)
+		{
+			ScreenElement::drawElements(appData, graphics);
+		}
+	}
+
+	void Screen::drawOverlay(ApplicationData appData, Graphics graphics) const
 	{
 		if(childScreen!=nullptr)
 		{
@@ -242,7 +251,7 @@ namespace GameLibrary
 				return view->getSize();
 			}
 		}
-		return Vector2f(0,0);
+		return size;
 	}
 
 	void Screen::present(Screen*screen, const Transition*transition, unsigned long long duration, CompletionCallback completion)
@@ -267,6 +276,11 @@ namespace GameLibrary
 			//TODO replace with more specific exception type
 			throw Exception("Cannot present Screen that is already displaying in a ScreenManager");
 		}
+		else if(screen->window != nullptr)
+		{
+			//TODO replace with more specific exception type
+			throw Exception("Cannot present Screen that already belongs to a Window");
+		}
 		else if(childScreen != nullptr)
 		{
 			//if(overlayData.action != TRANSITION_NONE)
@@ -282,6 +296,7 @@ namespace GameLibrary
 			bool visible = isVisible();
 			TransitionData_begin(overlayData, this, screen, TRANSITION_SHOW, transition, duration, completion, (void*)this);
 			childScreen = screen;
+			childScreen->setWindow(window);
 			childScreen->parentScreen = this;
 			childScreen->parentElement = this;
 			if(transition == nullptr || duration==0)
@@ -338,6 +353,7 @@ namespace GameLibrary
 				bool visible = topScreen->isVisible();
 				TransitionData_begin(ownerScreen->overlayData, ownerScreen, this, TRANSITION_HIDE, transition, duration, completion, (void*)this);
 				ownerScreen->childScreen = nullptr;
+				setWindow(nullptr);
 				parentScreen = nullptr;
 				parentElement = nullptr;
 
@@ -393,6 +409,7 @@ namespace GameLibrary
 			Screen* topScreen = childScreen->getTopScreen();
 			bool visible = topScreen->isVisible();
 			TransitionData_begin(overlayData, this, childScreen, TRANSITION_HIDE, transition, duration, completion, (void*)this);
+			childScreen->setWindow(nullptr);
 			childScreen->parentScreen = nullptr;
 			childScreen->parentElement = nullptr;
 			childScreen = nullptr;
@@ -505,27 +522,30 @@ namespace GameLibrary
 		}
 	}
 
-	/*bool Screen::canCallAppearanceFunctions()
+	void Screen::setWindow(Window*win)
 	{
-		Screen* bottom = getBottomScreen();
-		if(bottom->isrootscreen)
+		window = win;
+		if(window != nullptr)
 		{
-			return true;
+			View* view = win->getView();
+			if(view != nullptr)
+			{
+				size = view->getSize();
+			}
 		}
-		else if(bottom->screenManager != nullptr)
+		if(childScreen!=nullptr)
 		{
-			unsigned int index = bottom->screenManager->screens.indexOf(bottom);
-			if(index == ARRAYLIST_NOTFOUND)
-			{
-				//TODO replace with more specific exception type
-				throw Exception("Fatal error: Screen is not contained in its ScreenManager");
-			}
-			else if(index != (bottom->screenManager->screens.size()-1))
-			{
-				return false;
-			}
-			return bottom->screenManager->isVisible();
+			childScreen->setWindow(window);
 		}
-		return false;
-	}*/
+	}
+
+	void Screen::setBackgroundColor(const Color&color)
+	{
+		ScreenElement::setBackgroundColor(color);
+	}
+
+	const Color& Screen::getBackgroundColor() const
+	{
+		return ScreenElement::getBackgroundColor();
+	}
 }

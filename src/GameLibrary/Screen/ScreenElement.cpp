@@ -10,14 +10,11 @@ namespace GameLibrary
 		parentElement = nullptr;
 		updatingElements = false;
 		relativePosition = true;
+		backgroundColor = Color::TRANSPARENT;
 	}
 
 	ScreenElement::~ScreenElement()
 	{
-		if(parentElement != nullptr)
-		{
-			removeFromParentElement();
-		}
 		while(childElements.size()>0)
 		{
 			childElements.get(childElements.size()-1)->removeFromParentElement();
@@ -49,14 +46,26 @@ namespace GameLibrary
 			}
 		}
 	}
+	
+	void ScreenElement::drawBackground(ApplicationData appData, Graphics graphics) const
+	{
+		if(!backgroundColor.equals(Color::TRANSPARENT))
+		{
+			Vector2f center = getCenter();
+			Vector2f size = getSize();
 
-	void ScreenElement::draw(ApplicationData appData, Graphics graphics) const
+			graphics.setColor(backgroundColor);
+			graphics.fillRect(center.x-(size.x/2), center.y-(size.y/2), size.x, size.y);
+		}
+	}
+
+	void ScreenElement::drawElements(ApplicationData appData, Graphics graphics) const
 	{
 		ArrayList<ScreenElement*> children = childElements;
 		updatingElements = true;
 
 		Graphics relativeGraphics(graphics);
-		graphics.translate(x,y);
+		relativeGraphics.translate(x, y);
 
 		for(unsigned int i=0; i<children.size(); i++)
 		{
@@ -85,6 +94,12 @@ namespace GameLibrary
 			}
 		}
 		updatingElements = false;
+	}
+
+	void ScreenElement::draw(ApplicationData appData, Graphics graphics) const
+	{
+		drawBackground(appData, graphics);
+		drawElements(appData, graphics);
 	}
 
 	Vector2f ScreenElement::getCenter() const
@@ -164,8 +179,18 @@ namespace GameLibrary
 		relativePosition = toggle;
 	}
 
-	bool ScreenElement::relativePositioningEnabled()
+	bool ScreenElement::relativePositioningEnabled() const
 	{
 		return relativePosition;
+	}
+
+	void ScreenElement::setBackgroundColor(const Color&color)
+	{
+		backgroundColor = color;
+	}
+
+	const Color& ScreenElement::getBackgroundColor() const
+	{
+		return backgroundColor;
 	}
 }

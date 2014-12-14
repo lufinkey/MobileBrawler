@@ -24,7 +24,7 @@ namespace GameLibrary
 
 			element1->draw(appData, graphics);
 
-			graphics.compositeColor(color);
+			graphics.setColor(color);
 			graphics.compositeAlpha((byte)(alpha*255));
 			graphics.fillRect(center.x-(size.x/2), center.y-(size.y/2), size.x, size.y);
 		}
@@ -37,7 +37,7 @@ namespace GameLibrary
 
 			element2->draw(appData, graphics);
 
-			graphics.compositeColor(color);
+			graphics.setColor(color);
 			graphics.compositeAlpha((byte)(alpha*255));
 			graphics.fillRect(center.x-(size.x/2), center.y-(size.y/2), size.x, size.y);
 		}

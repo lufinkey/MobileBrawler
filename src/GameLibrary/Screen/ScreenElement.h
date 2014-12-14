@@ -24,6 +24,12 @@ namespace GameLibrary
 		mutable bool updatingElements;
 		bool relativePosition;
 
+		Color backgroundColor;
+
+	protected:
+		virtual void drawBackground(ApplicationData appData, Graphics graphics) const;
+		virtual void drawElements(ApplicationData appData, Graphics graphics) const;
+
 	public:
 		float x;
 		float y;
@@ -44,7 +50,10 @@ namespace GameLibrary
 		const ArrayList<ScreenElement*>& getChildElements() const;
 		ScreenElement* getParentElement() const;
 
-		void enableRelativePositioning(bool toggle);
-		bool relativePositioningEnabled();
+		void enableRelativePositioning(bool);
+		bool relativePositioningEnabled() const;
+		
+		void setBackgroundColor(const Color&);
+		const Color& getBackgroundColor() const;
 	};
 }
