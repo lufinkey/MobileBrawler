@@ -31,17 +31,15 @@ namespace GameLibrary
 		virtual void drawElements(ApplicationData appData, Graphics graphics) const;
 
 	public:
-		float x;
-		float y;
-
 		ScreenElement();
 		virtual ~ScreenElement();
 
 		virtual void update(ApplicationData appData);
 		virtual void draw(ApplicationData appData, Graphics graphics) const;
 
-		virtual Vector2f ScreenElement::getCenter() const;
-		virtual Vector2f ScreenElement::getSize() const;
+		virtual RectangleF getFrame() const;
+		virtual Vector2f getCenter() const;
+		virtual Vector2f getSize() const;
 
 		void addChildElement(ScreenElement*element);
 		void removeFromParentElement();

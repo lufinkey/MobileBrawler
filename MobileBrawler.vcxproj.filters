@@ -69,9 +69,6 @@
     <ClCompile Include="src\GameLibrary\Actor\Actor.cpp">
       <Filter>src\GameLibrary\Actor</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameLibrary\Actor\ActorType.cpp">
-      <Filter>src\GameLibrary\Actor</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameLibrary\Actor\TextActor.cpp">
       <Filter>src\GameLibrary\Actor</Filter>
     </ClCompile>
@@ -158,9 +155,6 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Network\NetworkProtocol.cpp">
       <Filter>src\GameLibrary\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameLibrary\Screen\MenuScreen.cpp">
-      <Filter>src\GameLibrary\Screen</Filter>
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Screen\Screen.cpp">
       <Filter>src\GameLibrary\Screen</Filter>
@@ -264,6 +258,9 @@
     <ClCompile Include="src\GameLibrary\Screen\Transition\PopoverTransition.cpp">
       <Filter>src\GameLibrary\Screen\Transition</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Actor\BaseActor.cpp">
+      <Filter>src\GameLibrary\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -276,9 +273,6 @@
       <Filter>src\GameLibrary\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Actor\Actor.h">
-      <Filter>src\GameLibrary\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameLibrary\Actor\ActorType.h">
       <Filter>src\GameLibrary\Actor</Filter>
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Actor\TextActor.h">
@@ -307,9 +301,6 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Network\NetworkProtocol.h">
       <Filter>src\GameLibrary\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameLibrary\Screen\MenuScreen.h">
-      <Filter>src\GameLibrary\Screen</Filter>
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Screen\Screen.h">
       <Filter>src\GameLibrary\Screen</Filter>
@@ -484,6 +475,9 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Screen\Transition\PopoverTransition.h">
       <Filter>src\GameLibrary\Screen\Transition</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Actor\BaseActor.h">
+      <Filter>src\GameLibrary\Actor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

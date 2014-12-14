@@ -38,26 +38,6 @@ void Game::unloadContent()
 
 void Game::update(GameLibrary::AppData appData)
 {
-	if(GameLibrary::Keyboard::didKeyPress(GameLibrary::Keyboard::RIGHTARROW))
-	{
-		GameLibrary::Screen* screen = new GameLibrary::Screen();
-		screen->setBackgroundColor(GameLibrary::Color::random());
-		screenMgr->push(screen);
-	}
-	else if(GameLibrary::Keyboard::didKeyPress(GameLibrary::Keyboard::LEFTARROW))
-	{
-		screenMgr->pop();
-	}
-	else if(GameLibrary::Keyboard::didKeyPress(GameLibrary::Keyboard::UPARROW))
-	{
-		GameLibrary::Screen* screen = new GameLibrary::Screen();
-		screen->setBackgroundColor(GameLibrary::Color::random());
-		screenMgr->getTopScreen()->present(screen);
-	}
-	else if(GameLibrary::Keyboard::didKeyPress(GameLibrary::Keyboard::DOWNARROW))
-	{
-		screenMgr->getTopScreen()->dismiss();
-	}
 	screenMgr->update(appData);
 }
 

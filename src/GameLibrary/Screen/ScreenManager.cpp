@@ -104,6 +104,9 @@ namespace GameLibrary
 	{
 		if(childScreen==nullptr || overlayData.action!=TRANSITION_NONE)
 		{
+			RectangleF frame = getFrame();
+			graphics.translate(frame.x, frame.y);
+
 			if(pushpopData.action == TRANSITION_NONE)
 			{
 				screens.get(screens.size()-1)->draw(appData, graphics);
@@ -126,8 +129,6 @@ namespace GameLibrary
 	{
 		if(overlayData.action==TRANSITION_NONE)
 		{
-			graphics.translate(x, y);
-			drawBackground(appData, graphics);
 			drawScreens(appData, graphics);
 			drawElements(appData, graphics);
 			drawOverlay(appData, graphics);
@@ -140,7 +141,6 @@ namespace GameLibrary
 		}
 		else
 		{
-			graphics.translate(x, y);
 			drawingOverlayTransition = true;
 			drawOverlay(appData, graphics);
 			drawingOverlayTransition = false;

@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "Actor/ActorType.h"
+#include "Actor/BaseActor.h"
 #include "Actor/Actor.h"
 #include "Actor/TextActor.h"
 #include "Actor/WireframeActor.h"
@@ -45,7 +45,6 @@
 
 #include "Screen/ScreenElement.h"
 #include "Screen/Screen.h"
-#include "Screen/MenuScreen.h"
 #include "Screen/ScreenManager.h"
 #include "Screen/Transition/Transition.h"
 #include "Screen/Transition/FadeColorTransition.h"

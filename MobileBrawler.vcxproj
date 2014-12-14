@@ -86,7 +86,7 @@
   <ItemGroup>
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\Actor.cpp" />
-    <ClCompile Include="src\GameLibrary\Actor\ActorType.cpp" />
+    <ClCompile Include="src\GameLibrary\Actor\BaseActor.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\TextActor.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\WireframeActor.cpp" />
     <ClCompile Include="src\GameLibrary\Application\Application.cpp" />
@@ -121,7 +121,6 @@
     <ClCompile Include="src\GameLibrary\Input\Multitouch.cpp" />
     <ClCompile Include="src\GameLibrary\IO\Console.cpp" />
     <ClCompile Include="src\GameLibrary\Network\NetworkProtocol.cpp" />
-    <ClCompile Include="src\GameLibrary\Screen\MenuScreen.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\Screen.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\ScreenElement.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\ScreenManager.cpp" />
@@ -154,7 +153,7 @@
   <ItemGroup>
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameLibrary\Actor\Actor.h" />
-    <ClInclude Include="src\GameLibrary\Actor\ActorType.h" />
+    <ClInclude Include="src\GameLibrary\Actor\BaseActor.h" />
     <ClInclude Include="src\GameLibrary\Actor\TextActor.h" />
     <ClInclude Include="src\GameLibrary\Actor\WireframeActor.h" />
     <ClInclude Include="src\GameLibrary\Application\Application.h" />
@@ -189,7 +188,6 @@
     <ClInclude Include="src\GameLibrary\Input\Multitouch.h" />
     <ClInclude Include="src\GameLibrary\IO\Console.h" />
     <ClInclude Include="src\GameLibrary\Network\NetworkProtocol.h" />
-    <ClInclude Include="src\GameLibrary\Screen\MenuScreen.h" />
     <ClInclude Include="src\GameLibrary\Screen\Screen.h" />
     <ClInclude Include="src\GameLibrary\Screen\ScreenElement.h" />
     <ClInclude Include="src\GameLibrary\Screen\ScreenManager.h" />

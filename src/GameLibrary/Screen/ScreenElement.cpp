@@ -5,8 +5,6 @@ namespace GameLibrary
 {
 	ScreenElement::ScreenElement()
 	{
-		x = 0;
-		y = 0;
 		parentElement = nullptr;
 		updatingElements = false;
 		relativePosition = true;
@@ -64,8 +62,10 @@ namespace GameLibrary
 		ArrayList<ScreenElement*> children = childElements;
 		updatingElements = true;
 
+		RectangleF frame = getFrame();
+
 		Graphics relativeGraphics(graphics);
-		relativeGraphics.translate(x, y);
+		relativeGraphics.translate(frame.x, frame.y);
 
 		for(unsigned int i=0; i<children.size(); i++)
 		{
@@ -102,10 +102,16 @@ namespace GameLibrary
 		drawElements(appData, graphics);
 	}
 
-	Vector2f ScreenElement::getCenter() const
+	RectangleF ScreenElement::getFrame() const
 	{
 		Vector2f size = getSize();
-		return Vector2f(x+(size.x/2), y+(size.y/2));
+		return RectangleF(0,0,size.x,size.y);
+	}
+
+	Vector2f ScreenElement::getCenter() const
+	{
+		RectangleF frame = getFrame();
+		return Vector2f(frame.x+(frame.width/2), frame.y+(frame.height/2));
 	}
 
 	Vector2f ScreenElement::getSize() const
