@@ -1,6 +1,8 @@
 
 #include "Game.h"
 
+using namespace GameLibrary;
+
 Game::Game()
 {
 	rootScrn = nullptr;
