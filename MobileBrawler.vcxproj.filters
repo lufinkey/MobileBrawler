@@ -70,6 +70,9 @@
     <Filter Include="src\GameLibrary\Exception\Utilities\Font">
       <UniqueIdentifier>{8bbc8f00-2755-43b2-86ed-0db2ca0166ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GameLibrary\Screen\UI">
+      <UniqueIdentifier>{056a697e-c673-46f3-9f00-1c819ff7f992}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameLibrary\Actor\Actor.cpp">
@@ -287,6 +290,9 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Actor\Animation.cpp">
       <Filter>src\GameLibrary\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Screen\UI\TextInputElement.cpp">
+      <Filter>src\GameLibrary\Screen\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -529,6 +535,9 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Actor\Animation.h">
       <Filter>src\GameLibrary\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Screen\UI\TextInputElement.h">
+      <Filter>src\GameLibrary\Screen\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
