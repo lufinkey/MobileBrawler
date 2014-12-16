@@ -37,5 +37,9 @@ namespace GameLibrary
 		bool checkPixel(unsigned int index) const;
 		bool checkPixel(unsigned int x, unsigned int y) const;
 		const std::vector<bool>& getPixelBooleans() const;
+
+		unsigned int getSize() const;
+		unsigned int getWidth() const;
+		unsigned int getHeight() const;
 	};
 }

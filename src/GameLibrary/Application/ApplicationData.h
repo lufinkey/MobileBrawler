@@ -1,4 +1,5 @@
 
+#include "AssetManager.h"
 #include "../Utilities/Time/TimeInterval.h"
 #include "../Window/Window.h"
 
@@ -14,14 +15,16 @@ namespace GameLibrary
 	private:
 		Application* application;
 		Window* window;
+		AssetManager* assetManager;
 		TimeInterval timeInterval;
 
 	public:
-		ApplicationData(Application*application,Window*window,const TimeInterval&timeInterval);
+		ApplicationData(Application*application, Window*window, AssetManager*assetManager, const TimeInterval&timeInterval);
 		ApplicationData(const ApplicationData&);
 
 		Application* getApplication() const;
 		Window* getWindow() const;
+		AssetManager* getAssetManager() const;
 		TimeInterval& getTime();
 		const TimeInterval& getTime() const;
 	};

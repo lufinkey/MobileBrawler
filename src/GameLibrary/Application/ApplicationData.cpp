@@ -3,10 +3,11 @@
 
 namespace GameLibrary
 {
-	ApplicationData::ApplicationData(Application*app, Window*win, const TimeInterval&time)
+	ApplicationData::ApplicationData(Application*app, Window*win, AssetManager*assetMgr, const TimeInterval&time)
 	{
 		application = app;
 		window = win;
+		assetManager = assetMgr;
 		timeInterval = time;
 	}
 
@@ -25,6 +26,11 @@ namespace GameLibrary
 	Window* ApplicationData::getWindow() const
 	{
 		return window;
+	}
+
+	AssetManager* ApplicationData::getAssetManager() const
+	{
+		return assetManager;
 	}
 
 	TimeInterval& ApplicationData::getTime()

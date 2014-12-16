@@ -28,12 +28,12 @@ void Game::initialize()
 	screenMgr = new GameLibrary::ScreenManager(getWindow(), rootScrn);
 }
 
-void Game::loadContent()
+void Game::loadContent(GameLibrary::AssetManager*assetManager)
 {
-	getWindow()->getAssetManager()->loadTexture("test.png");
+	assetManager->loadTexture("test.png");
 }
 
-void Game::unloadContent()
+void Game::unloadContent(GameLibrary::AssetManager*assetManager)
 {
 	//
 }
@@ -46,6 +46,6 @@ void Game::update(GameLibrary::AppData appData)
 void Game::draw(GameLibrary::AppData appData, GameLibrary::Graphics graphics)
 {
 	screenMgr->draw(appData, graphics);
-	GameLibrary::TextureImage*img = getWindow()->getAssetManager()->getTexture("test.png");
+	GameLibrary::TextureImage*img = appData.getAssetManager()->getTexture("test.png");
 	graphics.drawImage(img, 200,200);
 }

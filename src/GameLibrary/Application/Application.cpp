@@ -42,12 +42,12 @@ namespace GameLibrary
 		//
 	}
 
-	void Application::loadContent()
+	void Application::loadContent(AssetManager*assetManager)
 	{
 		//
 	}
 
-	void Application::unloadContent()
+	void Application::unloadContent(AssetManager*assetManager)
 	{
 		//
 	}
@@ -184,7 +184,7 @@ namespace GameLibrary
 
 	int Application::runMainLoop()
 	{
-		loadContent();
+		loadContent(window->getAssetManager());
 
 		if(!app_closing) //makes sure Application::close(int) hasn't been called
 		{
@@ -201,7 +201,7 @@ namespace GameLibrary
 
 			TimeInterval currentapptime = apptime;
 			currentapptime.stop();
-			ApplicationData appdata(this,window,currentapptime);
+			ApplicationData appdata(this,window,window->getAssetManager(),currentapptime);
 			if(!app_closing)
 			{
 				update(appdata);
@@ -230,7 +230,7 @@ namespace GameLibrary
 
 		apptime.stop();
 
-		unloadContent();
+		unloadContent(window->getAssetManager());
 
 		window->destroy();
 

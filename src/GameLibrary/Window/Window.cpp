@@ -84,8 +84,8 @@ namespace GameLibrary
 	{
 		return title;
 	}
-
-	void* WindowSettings::createIconData()
+	
+	void* WindowSettings::createIconData() const
 	{
 		void*icondata = nullptr;
 		if(icon != nullptr)
@@ -108,32 +108,32 @@ namespace GameLibrary
 	{
 		return icon;
 	}
-
+	
 	void WindowSettings::setBackgroundColor(const Color&bgcolor)
 	{
 		backgroundColor = bgcolor;
 	}
-
+	
 	const Color& WindowSettings::getBackgroundColor() const
 	{
 		return backgroundColor;
 	}
-		
+	
 	void WindowSettings::setStyle(byte sty)
 	{
 		style = sty;
 	}
-
+	
 	byte WindowSettings::getStyle() const
 	{
 		return style;
 	}
-
+	
 //Window implementation
-
+	
 	const WindowSettings Window::defaultDesktopSettings = WindowSettings(Vector2i(Window::POSITION_UNDEFINED, Window::POSITION_UNDEFINED), Vector2u(640, 480), "", nullptr, Color::WHITE, Window::STYLE_DEFAULT);
 	const WindowSettings Window::defaultMobileSettings = WindowSettings(Vector2i(Window::POSITION_UNDEFINED, Window::POSITION_UNDEFINED), Vector2u(480, 320), "", nullptr, Color::WHITE, Window::STYLE_BORDERLESS);
-
+	
 	Window::Window()
 	{
 		windowed_size = settings.size;
@@ -143,7 +143,7 @@ namespace GameLibrary
 		icondata = nullptr;
 		graphics = nullptr;
 	}
-
+	
 	Window::~Window()
 	{
 		if(windowdata != nullptr)
@@ -168,7 +168,7 @@ namespace GameLibrary
 		{
 			destroy();
 		}
-
+		
 		int positionx = 0;
 		int positiony = 0;
 		#ifndef TARGETPLATFORM_MOBILE
@@ -189,7 +189,7 @@ namespace GameLibrary
 				positiony = SDL_WINDOWPOS_UNDEFINED;
 			}
 		#endif
-
+		
 		unsigned int flags = 0;
 		byte style = windowSettings.style;
 		if(style != Window::STYLE_DEFAULT)
@@ -227,7 +227,7 @@ namespace GameLibrary
 		{
 			flags = flags | SDL_WINDOW_SHOWN;
 		}
-
+		
 		windowdata = (void*)SDL_CreateWindow(windowSettings.title,positionx,positiony,windowSettings.size.x,windowSettings.size.y, flags | SDL_WINDOW_OPENGL);
 		if(windowdata == nullptr)
 		{
@@ -235,14 +235,23 @@ namespace GameLibrary
 			throw Exception(SDL_GetError());
 		}
 		windowID = SDL_GetWindowID((SDL_Window*)windowdata);
-
+		
+		if(windowSettings.getIcon()!=nullptr)
+		{
+			icondata = windowSettings.createIconData();
+			if(icondata!=nullptr)
+			{
+				SDL_SetWindowIcon((SDL_Window*)windowdata, (SDL_Surface*)icondata);
+			}
+		}
+		
 		bool createdView = false;
 		if(view == nullptr)
 		{
 			view = new View((float)windowed_size.x, (float)windowed_size.y);
 			createdView = true;
 		}
-
+		
 		try
 		{
 			graphics = new Graphics(*this);
@@ -250,16 +259,22 @@ namespace GameLibrary
 		catch(const Exception&e)
 		{
 			SDL_DestroyWindow((SDL_Window*)windowdata);
+			windowdata = nullptr;
+			windowID = 0;
 			if(createdView)
 			{
 				delete view;
+				view = nullptr;
 			}
-			windowdata = nullptr;
-			windowID = 0;
+			if(icondata!=nullptr)
+			{
+				SDL_FreeSurface((SDL_Surface*)icondata);
+				icondata = nullptr;
+			}
 			//TODO replace with more specific exception type
 			throw Exception(e);
 		}
-
+		
 		settings = windowSettings;
 #ifdef TARGETPLATFORM_MOBILE
 		settings.position.x = 0;
@@ -286,7 +301,7 @@ namespace GameLibrary
 
 		EventManager::addWindow(this);
 	}
-
+	
 	void Window::update()
 	{
 		if(windowdata!=nullptr)
@@ -296,7 +311,7 @@ namespace GameLibrary
 			graphics->reset(settings.getBackgroundColor());
 		}
 	}
-
+	
 	void Window::destroy()
 	{
 		if(windowdata != nullptr)
@@ -334,17 +349,17 @@ namespace GameLibrary
 		}
 		return img;
 	}
-
+	
 	Graphics* Window::getGraphics()
 	{
 		return graphics;
 	}
-
+	
 	AssetManager* Window::getAssetManager()
 	{
 		return assetManager;
 	}
-
+	
 	Rectangle Window::getDisplayBounds(unsigned int displayIndex)
 	{
 		SDL_Rect rect;
@@ -366,7 +381,7 @@ namespace GameLibrary
 		}
 		return settings.position;
 	}
-
+	
 	void Window::setPosition(const Vector2i&pos)
 	{
 		if(windowdata!=nullptr)
@@ -377,7 +392,7 @@ namespace GameLibrary
 			#endif
 		}
 	}
-		
+	
 	const Vector2u& Window::getSize()
 	{
 		if(windowdata != nullptr)
@@ -605,14 +620,14 @@ namespace GameLibrary
 			}
 		}
 	}
-
+	
 	void Window::addEventListener(WindowEventListener*listener)
 	{
 		listenermutex.lock();
 		eventListeners.add(listener);
 		listenermutex.unlock();
 	}
-
+	
 	void Window::removeEventListener(WindowEventListener*listener)
 	{
 		listenermutex.lock();
@@ -623,7 +638,7 @@ namespace GameLibrary
 		}
 		listenermutex.unlock();
 	}
-
+	
 	void Window::callListenerEvent(byte eventType, int x, int y, bool external)
 	{
 		listenermutex.lock();

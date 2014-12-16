@@ -61,8 +61,8 @@ namespace GameLibrary
 		virtual ~Application();
 
 		virtual void initialize();
-		virtual void loadContent();
-		virtual void unloadContent();
+		virtual void loadContent(AssetManager*assetManager);
+		virtual void unloadContent(AssetManager*assetManager);
 		virtual void update(ApplicationData appData);
 		virtual void draw(ApplicationData appData, Graphics g);
 

@@ -285,6 +285,9 @@
     <ClCompile Include="src\GameLibrary\Exception\Utilities\Font\RenderGlyphException.cpp">
       <Filter>src\GameLibrary\Exception\Utilities\Font</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Actor\Animation.cpp">
+      <Filter>src\GameLibrary\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -523,6 +526,9 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Exception\Utilities\Font\RenderGlyphException.h">
       <Filter>src\GameLibrary\Exception\Utilities\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Actor\Animation.h">
+      <Filter>src\GameLibrary\Actor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

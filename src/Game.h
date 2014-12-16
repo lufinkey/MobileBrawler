@@ -13,8 +13,8 @@ public:
 	virtual ~Game();
 
 	virtual void initialize();
-	virtual void loadContent();
-	virtual void unloadContent();
+	virtual void loadContent(GameLibrary::AssetManager*assetManager);
+	virtual void unloadContent(GameLibrary::AssetManager*assetManager);
 	virtual void update(GameLibrary::AppData appData);
 	virtual void draw(GameLibrary::AppData appData, GameLibrary::Graphics graphics);
 };

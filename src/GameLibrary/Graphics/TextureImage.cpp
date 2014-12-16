@@ -364,4 +364,19 @@ namespace GameLibrary
 	{
 		return pixels;
 	}
+
+	unsigned int TextureImage::getSize() const
+	{
+		return pixels.size();
+	}
+
+	unsigned int TextureImage::getWidth() const
+	{
+		return width;
+	}
+
+	unsigned int TextureImage::getHeight() const
+	{
+		return height;
+	}
 }

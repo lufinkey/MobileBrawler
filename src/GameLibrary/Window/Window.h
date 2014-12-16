@@ -24,7 +24,7 @@ namespace GameLibrary
 		Color backgroundColor;
 		byte style;
 
-		void* createIconData();
+		void* createIconData() const;
 		
 	public:
 		WindowSettings();

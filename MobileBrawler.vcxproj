@@ -86,6 +86,7 @@
   <ItemGroup>
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\Actor.cpp" />
+    <ClCompile Include="src\GameLibrary\Actor\Animation.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\BaseActor.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\TextActor.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\WireframeActor.cpp" />
@@ -159,6 +160,7 @@
   <ItemGroup>
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameLibrary\Actor\Actor.h" />
+    <ClInclude Include="src\GameLibrary\Actor\Animation.h" />
     <ClInclude Include="src\GameLibrary\Actor\BaseActor.h" />
     <ClInclude Include="src\GameLibrary\Actor\TextActor.h" />
     <ClInclude Include="src\GameLibrary\Actor\WireframeActor.h" />
