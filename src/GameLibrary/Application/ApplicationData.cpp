@@ -25,6 +25,8 @@ namespace GameLibrary
 		window = appdata.window;
 		assetManager = appdata.assetManager;
 		timeInterval = appdata.timeInterval;
+
+		return *this;
 	}
 
 	Application* ApplicationData::getApplication() const
