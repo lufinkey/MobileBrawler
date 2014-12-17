@@ -22,6 +22,8 @@ namespace GameLibrary
 		ApplicationData(Application*application, Window*window, AssetManager*assetManager, const TimeInterval&timeInterval);
 		ApplicationData(const ApplicationData&);
 
+		ApplicationData& operator=(const ApplicationData&);
+
 		Application* getApplication() const;
 		Window* getWindow() const;
 		AssetManager* getAssetManager() const;

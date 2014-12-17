@@ -344,20 +344,20 @@ namespace GameLibrary
 
 	bool TextureImage::checkPixel(unsigned int index) const
 	{
-		if(index > pixels.size())
+		if(index < pixels.size())
 		{
-			throw ImageOutOfBoundsException(index,width,height);
+			return pixels[index];
 		}
-		return pixels[index];
+		throw ImageOutOfBoundsException(index,width,height);
 	}
 
 	bool TextureImage::checkPixel(unsigned int x, unsigned int y) const
 	{
-		if(x > width || y > height)
+		if(x < width && y < height)
 		{
-			throw ImageOutOfBoundsException(x, y, width, height);
+			return pixels[(width*y)+x];
 		}
-		return pixels[(width*y)+x];
+		throw ImageOutOfBoundsException(x, y, width, height);
 	}
 
 	const std::vector<bool>& TextureImage::getPixelBooleans() const

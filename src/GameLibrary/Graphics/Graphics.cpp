@@ -524,8 +524,8 @@ namespace GameLibrary
 	void Graphics::drawImage(TextureImage*img, float x, float y)
 	{
 		SDL_Texture*texture = (SDL_Texture*)img->texture;
-		unsigned int texWidth = img->width;
-		unsigned int texHeight = img->height;
+		unsigned int texWidth = img->getWidth();
+		unsigned int texHeight = img->getHeight();
 		if(texWidth != 0 && texHeight != 0)
 		{
 			Vector2f pnt = transform.transformPoint(Vector2f(x, y));

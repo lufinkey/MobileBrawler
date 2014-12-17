@@ -15,6 +15,15 @@ namespace GameLibrary
 	{
 		application = appdata.application;
 		window = appdata.window;
+		assetManager = appdata.assetManager;
+		timeInterval = appdata.timeInterval;
+	}
+
+	ApplicationData& ApplicationData::operator=(const ApplicationData&appdata)
+	{
+		application = appdata.application;
+		window = appdata.window;
+		assetManager = appdata.assetManager;
 		timeInterval = appdata.timeInterval;
 	}
 
