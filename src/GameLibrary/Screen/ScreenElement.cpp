@@ -3,8 +3,57 @@
 
 namespace GameLibrary
 {
-	ScreenElement::ScreenElement()
+	void ScreenElement::setWindow(Window*win)
 	{
+		Window*oldWindow = window;
+
+		if(oldWindow!=win)
+		{
+			window = nullptr;
+
+			if(oldWindow!=nullptr)
+			{
+				for(unsigned int i=0; i<childElements.size(); i++)
+				{
+					childElements.get(i)->setWindow(nullptr);
+				}
+
+				onRemoveFromWindow(oldWindow);
+			}
+
+			window = win;
+
+			if(win!=nullptr)
+			{
+				onAddToWindow(win);
+
+				for(unsigned int i=0; i<childElements.size(); i++)
+				{
+					childElements.get(i)->setWindow(win);
+				}
+			}
+		}
+	}
+
+	void ScreenElement::onRemoveFromWindow(Window*window)
+	{
+		//
+	}
+
+	void ScreenElement::onAddToWindow(Window*window)
+	{
+		//
+	}
+
+	ScreenElement::ScreenElement() : ScreenElement(RectangleF(0,0,0,0))
+	{
+		//
+	}
+
+	ScreenElement::ScreenElement(const RectangleF&frame_arg)
+	{
+		frame = frame_arg;
+		window = nullptr;
 		parentElement = nullptr;
 		updatingElements = false;
 		relativePosition = true;
@@ -49,11 +98,10 @@ namespace GameLibrary
 	{
 		if(!backgroundColor.equals(Color::TRANSPARENT))
 		{
-			Vector2f center = getCenter();
-			Vector2f size = getSize();
+			RectangleF rect = getFrame();
 
 			graphics.setColor(backgroundColor);
-			graphics.fillRect(center.x-(size.x/2), center.y-(size.y/2), size.x, size.y);
+			graphics.fillRect(frame.x, frame.y, frame.width, frame.height);
 		}
 	}
 
@@ -102,21 +150,20 @@ namespace GameLibrary
 		drawElements(appData, graphics);
 	}
 
+	void ScreenElement::setFrame(const RectangleF&frame_arg)
+	{
+		frame = frame_arg;
+	}
+
 	RectangleF ScreenElement::getFrame() const
 	{
-		Vector2f size = getSize();
-		return RectangleF(0,0,size.x,size.y);
+		return frame;
 	}
 
 	Vector2f ScreenElement::getCenter() const
 	{
 		RectangleF frame = getFrame();
 		return Vector2f(frame.x+(frame.width/2), frame.y+(frame.height/2));
-	}
-
-	Vector2f ScreenElement::getSize() const
-	{
-		return Vector2f(0,0);
 	}
 
 	void ScreenElement::addChildElement(ScreenElement*element)

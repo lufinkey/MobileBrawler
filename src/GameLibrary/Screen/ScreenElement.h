@@ -17,6 +17,10 @@ namespace GameLibrary
 		friend class Screen;
 		friend class ScreenManager;
 	private:
+		Window*window;
+
+		RectangleF frame;
+
 		ScreenElement* parentElement;
 		ArrayList<ScreenElement*> childElements;
 		ArrayList<ScreenElement*> removedChildElements;
@@ -26,12 +30,18 @@ namespace GameLibrary
 
 		Color backgroundColor;
 
+		virtual void setWindow(Window*window);
+
 	protected:
 		virtual void drawBackground(ApplicationData appData, Graphics graphics) const;
 		virtual void drawElements(ApplicationData appData, Graphics graphics) const;
 
+		virtual void onRemoveFromWindow(Window*window);
+		virtual void onAddToWindow(Window*window);
+
 	public:
 		ScreenElement();
+		ScreenElement(const RectangleF&frame);
 		ScreenElement(const ScreenElement&) = delete;
 		virtual ~ScreenElement();
 
@@ -40,9 +50,10 @@ namespace GameLibrary
 		virtual void update(ApplicationData appData);
 		virtual void draw(ApplicationData appData, Graphics graphics) const;
 
+		virtual void setFrame(const RectangleF&frame);
+
 		virtual RectangleF getFrame() const;
-		virtual Vector2f getCenter() const;
-		virtual Vector2f getSize() const;
+		Vector2f getCenter() const;
 
 		void addChildElement(ScreenElement*element);
 		void removeFromParentElement();

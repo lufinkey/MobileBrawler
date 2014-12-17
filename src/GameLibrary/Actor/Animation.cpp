@@ -5,11 +5,12 @@ namespace GameLibrary
 {
 	Animation::AnimationFrame::AnimationFrame()
 	{
-		file = "default.png";
+		file = "";
 		rows = 1;
 		cols = 1;
 		x = 0;
 		y = 0;
+		img = nullptr;
 	}
 
 	Animation::AnimationFrame::AnimationFrame(const Animation::AnimationFrame&animationFrame)
@@ -19,6 +20,7 @@ namespace GameLibrary
 		cols = animationFrame.cols;
 		x = animationFrame.x;
 		y = animationFrame.y;
+		img = animationFrame.img;
 	}
 
 	Animation::AnimationFrame::AnimationFrame(const String&filepath, TextureImage*tximg)

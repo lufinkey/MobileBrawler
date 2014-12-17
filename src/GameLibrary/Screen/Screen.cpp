@@ -7,6 +7,50 @@ namespace GameLibrary
 {
 	const Transition* const Screen::defaultPresentTransition = new PopoverTransition(PopoverTransition::POPOVER_UP);
 
+	void Screen::updateFrame(Window*window)
+	{
+		if(window != nullptr)
+		{
+			View*view = window->getView();
+			if(view != nullptr)
+			{
+				const Vector2f& size = view->getSize();
+				if(frame.width!=size.x || frame.height!=size.y)
+				{
+					setFrame(RectangleF(frame.x, frame.y, size.x, size.y));
+				}
+			}
+		}
+	}
+
+	void Screen::setWindow(Window*win)
+	{
+		if(window!=win)
+		{
+			if(window!=nullptr)
+			{
+				if(childScreen!=nullptr)
+				{
+					childScreen->setWindow(nullptr);
+				}
+				ScreenElement::setWindow(nullptr);
+			}
+			if(win != nullptr)
+			{
+				updateFrame(win);
+				ScreenElement::setWindow(win);
+				if(childScreen!=nullptr)
+				{
+					childScreen->setWindow(win);
+				}
+			}
+		}
+		else
+		{
+			updateFrame(win);
+		}
+	}
+
 	void Screen::TransitionData_clear(Screen::TransitionData&data)
 	{
 		data.screen = nullptr;
@@ -162,7 +206,11 @@ namespace GameLibrary
 			updateCaller = childScreen;
 		}
 
+		updateFrame(window);
+
 		TransitionData_callVirtualFunctions(overlayData, overlay_onDidDisappearCaller, overlay_onDidAppearCaller);
+
+		updateFrame(window);
 
 		if(updateCaller != nullptr)
 		{
@@ -174,6 +222,8 @@ namespace GameLibrary
 		}
 
 		TransitionData_checkInitialization(appData, overlayData);
+
+		updateFrame(window);
 	}
 
 	void Screen::drawBackground(ApplicationData appData, Graphics graphics) const
@@ -201,10 +251,9 @@ namespace GameLibrary
 
 			if(overlayData.action == TRANSITION_NONE)
 			{
-				Vector2f size = getSize();
-				Vector2f overlaySize = childScreen->getSize();
-				float xOff = (overlaySize.x - size.x)/2;
-				float yOff = (overlaySize.y - size.y)/2;
+				RectangleF overlayFrame = childScreen->getFrame();
+				float xOff = (overlayFrame.width - frame.width)/2;
+				float yOff = (overlayFrame.height - frame.height)/2;
 				graphics.translate(xOff, yOff);
 				childScreen->draw(appData, graphics);
 			}
@@ -241,19 +290,6 @@ namespace GameLibrary
 			drawOverlay(appData, graphics);
 			drawingOverlayTransition = false;
 		}
-	}
-
-	Vector2f Screen::getSize() const
-	{
-		if(window != nullptr)
-		{
-			View*view = window->getView();
-			if(view != nullptr)
-			{
-				return view->getSize();
-			}
-		}
-		return size;
 	}
 
 	void Screen::present(Screen*screen, const Transition*transition, unsigned long long duration, CompletionCallback completion)
@@ -511,23 +547,6 @@ namespace GameLibrary
 				return true;
 			}
 			return false;
-		}
-	}
-
-	void Screen::setWindow(Window*win)
-	{
-		window = win;
-		if(window != nullptr)
-		{
-			View* view = win->getView();
-			if(view != nullptr)
-			{
-				size = view->getSize();
-			}
-		}
-		if(childScreen!=nullptr)
-		{
-			childScreen->setWindow(window);
 		}
 	}
 

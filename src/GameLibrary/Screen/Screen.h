@@ -46,9 +46,6 @@ namespace GameLibrary
 			TRANSITION_HIDE
 		};
 
-		Window* window;
-		Vector2f size;
-
 		TransitionData overlayData;
 
 		Screen* parentScreen;
@@ -56,6 +53,7 @@ namespace GameLibrary
 
 		ScreenManager* screenManager;
 
+		void updateFrame(Window*window);
 		virtual void setWindow(Window*window);
 
 	protected:
@@ -74,8 +72,6 @@ namespace GameLibrary
 
 		virtual void update(ApplicationData appData);
 		virtual void draw(ApplicationData appData, Graphics graphics) const;
-
-		virtual Vector2f getSize() const;
 
 		virtual void onWillAppear(const Transition*transition);
 		virtual void onDidAppear(const Transition*transition);

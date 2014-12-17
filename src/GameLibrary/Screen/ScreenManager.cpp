@@ -8,10 +8,33 @@ namespace GameLibrary
 
 	void ScreenManager::setWindow(Window*win)
 	{
-		Screen::setWindow(win);
-		for(unsigned int i=0; i<screens.size(); i++)
+		if(window!=win)
 		{
-			screens.get(i)->setWindow(window);
+			if(window!=nullptr)
+			{
+				if(childScreen!=nullptr)
+				{
+					childScreen->setWindow(nullptr);
+				}
+				for(unsigned int i=0; i<screens.size(); i++)
+				{
+					screens.get(i)->setWindow(nullptr);
+				}
+				ScreenElement::setWindow(nullptr);
+			}
+			if(win != nullptr)
+			{
+				updateFrame(win);
+				for(unsigned int i=0; i<screens.size(); i++)
+				{
+					screens.get(i)->setWindow(win);
+				}
+				ScreenElement::setWindow(win);
+				if(childScreen!=nullptr)
+				{
+					childScreen->setWindow(nullptr);
+				}
+			}
 		}
 	}
 
