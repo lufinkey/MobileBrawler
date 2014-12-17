@@ -141,6 +141,8 @@ namespace GameLibrary
 
 		void addEventListener(WindowEventListener*);
 		void removeEventListener(WindowEventListener*);
+
+		void getHandlePtr(void*ptr) const;
 	};
 
 //WindowEventListener

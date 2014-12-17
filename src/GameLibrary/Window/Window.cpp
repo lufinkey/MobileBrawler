@@ -3,6 +3,11 @@
 #include "../Application/EventManager.h"
 #include "../Utilities/PlatformChecks.h"
 #include <SDL.h>
+#include <SDL_syswm.h>
+
+#if defined(TARGETPLATFORM_WINDOWS)
+	#include <Windows.h>
+#endif
 
 namespace GameLibrary
 {
@@ -703,6 +708,18 @@ namespace GameLibrary
 				listener->onWindowClose(this);
 				break;
 			}
+		}
+	}
+
+	void Window::getHandlePtr(void*ptr) const
+	{
+		if(windowdata!=nullptr)
+		{
+			SDL_SysWMinfo info;
+			SDL_GetWindowWMInfo((SDL_Window*)windowdata, &info);
+			#if defined(TARGETPLATFORM_WINDOWS)
+				*((HWND*)ptr) = info.info.win.window;
+			#endif
 		}
 	}
 
