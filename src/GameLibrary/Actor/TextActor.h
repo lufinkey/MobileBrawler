@@ -31,9 +31,13 @@ namespace GameLibrary
 		void setAlignment(const TextAlignment&alignment);
 		TextAlignment getAlignment() const;
 
+		void setScale(float scale);
+
 	private:
 		String text;
 		Font* font;
 		TextAlignment alignment;
+
+		void updateSize();
 	};
 }

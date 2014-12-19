@@ -1,6 +1,7 @@
 
 #include "Color.h"
 #include "../Utilities/ArrayList.h"
+#include "../Utilities/Pair.h"
 #include "../Exception/Graphics/ImageOutOfBoundsException.h"
 #include "../Exception/Graphics/UnsupportedImageFormatException.h"
 
@@ -33,6 +34,8 @@ namespace GameLibrary
 		const Color& getPixel(unsigned int index) const;
 		const Color& getPixel(unsigned int x, unsigned int y) const;
 		const ArrayList<Color>& getPixels() const;
+
+		void recolor(const ArrayList<Pair<Color,Color> >& colorSwaps);
 		
 		unsigned int getSize() const;
 		unsigned int getWidth() const;

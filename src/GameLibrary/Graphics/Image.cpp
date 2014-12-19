@@ -275,6 +275,25 @@ namespace GameLibrary
 		return pixels;
 	}
 
+	void Image::recolor(const ArrayList<Pair<Color, Color> >& colorSwaps)
+	{
+		unsigned int total = pixels.size();
+		unsigned int totalSwaps = colorSwaps.size();
+		for(unsigned int i=0; i<total; i++)
+		{
+			const Color& color = pixels.get(i);
+			for(unsigned int j=0; j<totalSwaps; j++)
+			{
+				const Pair<Color,Color>& colorSwap = colorSwaps.get(j);
+				if(color.equals(colorSwap.first))
+				{
+					pixels.set(i, colorSwap.second);
+					j = totalSwaps;
+				}
+			}
+		}
+	}
+
 	unsigned int Image::getSize() const
 	{
 		return pixels.size();

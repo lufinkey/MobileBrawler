@@ -43,69 +43,58 @@ namespace GameLibrary
 		img = tximg;
 	}
 
+	Rectangle Animation::AnimationFrame::getSourceRect() const
+	{
+		if(img == nullptr)
+		{
+			return Rectangle(0,0,0,0);
+		}
+		else
+		{
+			unsigned int width = (img->getWidth()/cols);
+			unsigned int height = (img->getHeight()/rows);
+			return Rectangle((int)(x*width), (int)(y*height), (int)width, (int)height);
+		}
+	}
+
 	Animation::Animation(const Animation&animation)
 	{
-		name = animation.name;
 		currentFrame = animation.currentFrame;
 		frames = animation.frames;
-
 		fps = animation.fps;
-		lastFrameTime = animation.lastFrameTime;
-		waitTime = animation.waitTime;
-
-		direction = animation.direction;
-
 		mirrored = animation.mirrored;
 		mirroredVertical = animation.mirroredVertical;
 	}
 
 	Animation& Animation::operator=(const Animation&animation)
 	{
-		name = animation.name;
 		currentFrame = animation.currentFrame;
 		frames = animation.frames;
-
 		fps = animation.fps;
-		lastFrameTime = animation.lastFrameTime;
-		waitTime = animation.waitTime;
-
-		direction = animation.direction;
-
 		mirrored = animation.mirrored;
 		mirroredVertical = animation.mirroredVertical;
 
 		return *this;
 	}
 
-	Animation::Animation(const String&name_arg, unsigned int fps_arg)
+	Animation::Animation(unsigned int fps_arg)
 	{
-		name = name_arg;
 		fps = fps_arg;
-		lastFrameTime = 0;
-		if(fps==0)
-		{
-			waitTime = 0;
-		}
-		else
-		{
-			waitTime = 1000/fps;
-		}
-		direction = FORWARD;
 		mirrored = false;
 		mirroredVertical = false;
 	}
 
-	Animation::Animation(AssetManager*assetManager, const String&name, unsigned int fps, const String&file) : Animation(name,fps)
+	Animation::Animation(AssetManager*assetManager, unsigned int fps, const String&file) : Animation(fps)
 	{
 		addFrame(assetManager, file);
 	}
 
-	Animation::Animation(AssetManager*assetManager, const String&name_arg, unsigned int fps_arg, unsigned int rows, unsigned int cols, const String&file) : Animation(name,fps)
+	Animation::Animation(AssetManager*assetManager, unsigned int fps_arg, unsigned int rows, unsigned int cols, const String&file) : Animation(fps)
 	{
 		addFrames(assetManager, file, rows, cols);
 	}
 
-	Animation::Animation(AssetManager*assetManager, const String&name_arg, unsigned int fps_arg, unsigned int rows, unsigned int cols, const String&file, const ArrayList<Vector2u>& sequence) : Animation(name,fps)
+	Animation::Animation(AssetManager*assetManager, unsigned int fps_arg, unsigned int rows, unsigned int cols, const String&file, const ArrayList<Vector2u>& sequence) : Animation(fps)
 	{
 		addFrames(assetManager, file, rows, cols, sequence);
 	}
@@ -113,11 +102,6 @@ namespace GameLibrary
 	Animation::~Animation()
 	{
 		//
-	}
-
-	unsigned int Animation::size() const
-	{
-		return frames.size();
 	}
 
 	void Animation::clear()
@@ -263,63 +247,29 @@ namespace GameLibrary
 		return currentFrame;
 	}
 
-	void Animation::incrementCurrentFrame()
+	unsigned int Animation::getTotalFrames() const
 	{
-		switch(direction)
-		{
-			case FORWARD:
-			{
-				currentFrame++;
-				if(currentFrame >= frames.size())
-				{
-					currentFrame = 0;
-				}
-			}
-			break;
-
-			case BACKWARD:
-			{
-				if(currentFrame==0)
-				{
-					if(frames.size()>0)
-					{
-						currentFrame = frames.size()-1;
-					}
-				}
-				else
-				{
-					currentFrame--;
-				}
-			}
-			break;
-		}
+		return frames.size();
 	}
 
-	void Animation::setDirection(const AnimationDirection&dir)
+	void Animation::setFPS(unsigned int framerate)
 	{
-		if(dir == FORWARD || dir == BACKWARD || dir == STOPPED)
-		{
-			direction = dir;
-		}
-		else if(direction!=NO_CHANGE)
-		{
-			throw IllegalArgumentException((String)"Animation::setDirection cannot take an argument with a value of " + dir);
-		}
+		fps = framerate;
 	}
 
-	void Animation::update(ApplicationData appData)
+	unsigned int Animation::getFPS() const
 	{
-		//TODO implement update
-	}
-
-	void Animation::draw(ApplicationData appData, Graphics graphics) const
-	{
-		//TODO implement draw
+		return fps;
 	}
 
 	RectangleF Animation::getFrame() const
 	{
-		const AnimationFrame& animFrame = frames.get(currentFrame);
+		return getFrame(currentFrame);
+	}
+
+	RectangleF Animation::getFrame(unsigned int frameNum) const
+	{
+		const AnimationFrame& animFrame = frames.get(frameNum);
 		TextureImage* img = animFrame.img;
 		if(img == nullptr)
 		{
@@ -331,7 +281,69 @@ namespace GameLibrary
 			unsigned int imgheight = img->getHeight();
 			float width = ((float)imgwidth/(float)animFrame.cols);
 			float height = ((float)imgheight/(float)animFrame.rows);
-			return RectangleF(-(width/2), -(height/2), width, height);
+			float left = -(width/2);
+			float top = -(height/2);
+			return RectangleF(top, left, width, height);
+		}
+	}
+
+	void Animation::update(ApplicationData appData)
+	{
+		unsigned int updateFrame = currentFrame;
+		unsigned int totalFrames = frames.size();
+		if(updateFrame > totalFrames)
+		{
+			updateFrame = (totalFrames-1);
+		}
+		AnimationFrame& animFrame = frames.get(updateFrame);
+		TextureImage* img = appData.getAssetManager()->getTexture(animFrame.file);
+		animFrame.img = img;
+	}
+
+	void Animation::draw(ApplicationData appData, Graphics graphics) const
+	{
+		unsigned int drawFrame = currentFrame;
+		unsigned int totalFrames = frames.size();
+		if(drawFrame > totalFrames)
+		{
+			drawFrame = (totalFrames-1);
+		}
+		const AnimationFrame& animFrame = frames.get(drawFrame);
+
+		RectangleF dstRect = getFrame(drawFrame);
+		Rectangle srcRect = animFrame.getSourceRect();
+
+		float dst_left = dstRect.x;
+		float dst_top = dstRect.y;
+		float dst_right = dst_left + dstRect.width;
+		float dst_bottom = dst_top + dstRect.height;
+
+		int src_left = srcRect.x;
+		int src_top = srcRect.y;
+		int src_right = src_left + srcRect.width;
+		int src_bottom = src_top + srcRect.height;
+
+		if(mirrored)
+		{
+			if(mirroredVertical)
+			{
+				graphics.drawImage(animFrame.img, dst_right, dst_bottom, dst_left, dst_top, src_left, src_top, src_right, src_bottom);
+			}
+			else
+			{
+				graphics.drawImage(animFrame.img, dst_right, dst_top, dst_left, dst_bottom, src_left, src_top, src_right, src_bottom);
+			}
+		}
+		else
+		{
+			if(mirroredVertical)
+			{
+				graphics.drawImage(animFrame.img, dst_left, dst_bottom, dst_right, dst_top, src_left, src_top, src_right, src_bottom);
+			}
+			else
+			{
+				graphics.drawImage(animFrame.img, dst_left, dst_top, dst_right, dst_bottom, src_left, src_top, src_right, src_bottom);
+			}
 		}
 	}
 }

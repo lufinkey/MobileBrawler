@@ -36,11 +36,11 @@ namespace GameLibrary
 		float getWidth() const;
 		float getHeight() const;
 		
-		void setVisible(bool);
-		void setColor(const Color&);
-		void setRotation(float degrees);
-		void setAlpha(float alpha);
-		void setScale(float scale);
+		virtual void setVisible(bool);
+		virtual void setColor(const Color&);
+		virtual void setRotation(float degrees);
+		virtual void setAlpha(float alpha);
+		virtual void setScale(float scale);
 
 		bool isVisible() const;
 		Color getColor() const;

@@ -52,9 +52,9 @@ namespace GameLibrary
 		return glyphTextures;
 	}
 
-	RenderedGlyphContainer::RenderedGlyph RenderedGlyphContainer::getGlyph(signed char glyph, void*fontptr, void*renderer, unsigned int size, byte style, bool antialiasing)
+	RenderedGlyphContainer::RenderedGlyph RenderedGlyphContainer::getGlyph(char glyph, void*fontptr, void*renderer, unsigned int size, byte style, bool antialiasing)
 	{
-		unsigned int index = ((unsigned int)glyph) + SCHAR_MAX;
+		unsigned int index = (unsigned int)(((int)glyph) - CHAR_MIN);
 		RenderedGlyphStyles* glyphStyles = glyphs[index];
 		if(glyphStyles == nullptr)
 		{

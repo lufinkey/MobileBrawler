@@ -33,7 +33,7 @@ namespace GameLibrary
 		void destroyGlyph(RenderedGlyph&renderedGlyph);
 		void destroyGlyphStyles(RenderedGlyphStyles*glyphStyles);
 
-		RenderedGlyph getGlyph(signed char glyph, void*fontptr, void*renderer, unsigned int size, byte style, bool antialiasing);
+		RenderedGlyph getGlyph(char glyph, void*fontptr, void*renderer, unsigned int size, byte style, bool antialiasing);
 		RenderedGlyph findGlyph(const ArrayList<RenderedGlyph>&glyphStyles, unsigned int size, byte style, bool antialiasing);
 
 	public:

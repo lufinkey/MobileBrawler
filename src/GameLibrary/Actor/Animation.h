@@ -24,14 +24,16 @@ namespace GameLibrary
 		typedef enum AnimationDirection AnimationDirection;
 
 		Animation(const Animation&);
-		Animation(AssetManager*assetManager, const String&name, unsigned int fps, const String&file=String());
-		Animation(AssetManager*assetManager, const String&name, unsigned int fps, unsigned int rows, unsigned int cols, const String&file);
-		Animation(AssetManager*assetManager, const String&name, unsigned int fps, unsigned int rows, unsigned int cols, const String&file, const ArrayList<Vector2u>& sequence);
+		Animation(AssetManager*assetManager, unsigned int fps, const String&file=String());
+		Animation(AssetManager*assetManager, unsigned int fps, unsigned int rows, unsigned int cols, const String&file);
+		Animation(AssetManager*assetManager, unsigned int fps, unsigned int rows, unsigned int cols, const String&file, const ArrayList<Vector2u>& sequence);
 		virtual ~Animation();
 
 		Animation& operator=(const Animation&);
 
-		unsigned int size() const;
+		virtual void update(ApplicationData appData);
+		virtual void draw(ApplicationData appData, Graphics graphics) const;
+
 		void clear();
 
 		void mirror(bool);
@@ -50,14 +52,13 @@ namespace GameLibrary
 
 		void setCurrentFrame(unsigned int frameNum);
 		unsigned int getCurrentFrame() const;
-		void incrementCurrentFrame();
+		unsigned int getTotalFrames() const;
 
-		void setDirection(const AnimationDirection&direction);
-
-		virtual void update(ApplicationData appData);
-		virtual void draw(ApplicationData appData, Graphics graphics) const;
+		void setFPS(unsigned int fps);
+		unsigned int getFPS() const;
 
 		virtual RectangleF getFrame() const;
+		RectangleF getFrame(unsigned int frameNum) const;
 
 	private:
 		class AnimationFrame
@@ -74,19 +75,16 @@ namespace GameLibrary
 			AnimationFrame(const AnimationFrame&);
 			AnimationFrame(const String&file, TextureImage*img=nullptr);
 			AnimationFrame(const String&file, unsigned int rows, unsigned int cols, unsigned int row, unsigned int col, TextureImage*img=nullptr);
+			
+			Rectangle getSourceRect() const;
 		};
 
-		Animation(const String&name, unsigned int fps);
+		Animation(unsigned int fps);
 
-		String name;
 		unsigned int currentFrame;
 		ArrayList<AnimationFrame> frames;
 
 		unsigned int fps;
-		long long lastFrameTime;
-		long long waitTime;
-
-		AnimationDirection direction;
 
 		bool mirrored;
 		bool mirroredVertical;

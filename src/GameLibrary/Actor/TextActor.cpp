@@ -38,6 +38,11 @@ namespace GameLibrary
 		BaseActor::draw(appData, graphics);
 	}
 
+	void TextActor::updateSize()
+	{
+		//TODO update size
+	}
+
 	RectangleF TextActor::getFrame() const
 	{
 		switch(alignment)
@@ -68,5 +73,11 @@ namespace GameLibrary
 	TextActor::TextAlignment TextActor::getAlignment() const
 	{
 		return alignment;
+	}
+
+	void TextActor::setScale(float scale)
+	{
+		BaseActor::setScale(scale);
+		updateSize();
 	}
 }
