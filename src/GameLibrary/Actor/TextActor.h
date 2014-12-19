@@ -33,11 +33,12 @@ namespace GameLibrary
 
 		void setScale(float scale);
 
+	protected:
+		virtual void updateSize();
+
 	private:
 		String text;
 		Font* font;
 		TextAlignment alignment;
-
-		void updateSize();
 	};
 }

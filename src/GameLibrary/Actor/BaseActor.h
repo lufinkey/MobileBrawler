@@ -36,17 +36,21 @@ namespace GameLibrary
 		float getWidth() const;
 		float getHeight() const;
 		
-		virtual void setVisible(bool);
-		virtual void setColor(const Color&);
-		virtual void setRotation(float degrees);
-		virtual void setAlpha(float alpha);
-		virtual void setScale(float scale);
+		void setVisible(bool);
+		void setColor(const Color&);
+		void setRotation(float degrees);
+		void setAlpha(float alpha);
+		void setScale(float scale);
+		void mirror(bool);
+		void mirrorVertical(bool);
 
 		bool isVisible() const;
 		Color getColor() const;
 		float getRotation() const;
 		float getAlpha() const;
 		float getScale() const;
+		bool isMirrored() const;
+		bool isMirroredVertical() const;
 
 		virtual bool isOnScreen(View*view) const;
 
@@ -56,6 +60,9 @@ namespace GameLibrary
 		virtual bool didMouseRelease() const;
 
 		virtual RectangleF getFrame() const;
+
+	protected:
+		virtual void updateSize();
 		
 	private:
 		float width;
@@ -65,6 +72,8 @@ namespace GameLibrary
 		bool clicked;
 		bool prevclicked;
 		bool visible;
+		bool mirrored;
+		bool mirroredVertical;
 		Color color;
 		float rotation;
 		float alpha;

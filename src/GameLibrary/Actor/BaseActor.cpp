@@ -14,6 +14,8 @@ namespace GameLibrary
 		clicked = false;
 		prevclicked = false;
 		visible = true;
+		mirrored = false;
+		mirroredVertical = false;
 		color = Color::WHITE;
 		rotation = 0;
 		alpha = 1;
@@ -63,6 +65,7 @@ namespace GameLibrary
 	void BaseActor::setRotation(float degrees)
 	{
 		rotation = degrees;
+		updateSize();
 	}
 	
 	void BaseActor::setAlpha(float a)
@@ -73,6 +76,19 @@ namespace GameLibrary
 	void BaseActor::setScale(float s)
 	{
 		scale = s;
+		updateSize();
+	}
+
+	void BaseActor::mirror(bool toggle)
+	{
+		mirrored = toggle;
+		updateSize();
+	}
+
+	void BaseActor::mirrorVertical(bool toggle)
+	{
+		mirroredVertical = toggle;
+		updateSize();
 	}
 	
 	bool BaseActor::isVisible() const
@@ -98,6 +114,16 @@ namespace GameLibrary
 	float BaseActor::getScale() const
 	{
 		return scale;
+	}
+
+	bool BaseActor::isMirrored() const
+	{
+		return mirrored;
+	}
+
+	bool BaseActor::isMirroredVertical() const
+	{
+		return mirroredVertical;
 	}
 	
 	bool BaseActor::isOnScreen(View*view) const
@@ -136,5 +162,11 @@ namespace GameLibrary
 	RectangleF BaseActor::getFrame() const
 	{
 		return RectangleF(x,y,width,height);
+	}
+
+	void BaseActor::updateSize()
+	{
+		width = 0;
+		height = 0;
 	}
 }
