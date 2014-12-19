@@ -10,35 +10,35 @@
 
 namespace GameLibrary
 {
-	typedef struct
+	/*typedef struct
 	{
 		SDL_GLContext context;
-	} GameLibrary_ContextData;
-
+	} GameLibrary_ContextData;*/
+	
 	Font* Graphics::defaultFont = nullptr;
-
+	
 	void Graphics::reset(const Color&clearColor)
 	{
 		setColor(Color::BLACK);
 		setTintColor(Color::WHITE);
 		setAlpha(255);
-
+		
 		setFont(defaultFont);
-
+		
 		transform.reset();
 		rotation = 0;
 		scaling.x = 1;
 		scaling.y = 1;
-
+		
 		clipOffset.x = 0;
 		clipOffset.y = 0;
-
+		
 		SDL_SetRenderDrawColor((SDL_Renderer*)renderer, clearColor.r,clearColor.g,clearColor.b,clearColor.a);
 		SDL_RenderClear((SDL_Renderer*)renderer);
 		SDL_SetRenderDrawColor((SDL_Renderer*)renderer, 0,0,0,255);
-
+		
 		float zoom = window->view->zoom;
-
+		
 		if(window->view == nullptr || window->view->matchWindow)
 		{
 			const Vector2u& winSz = window->getSize();
@@ -47,12 +47,12 @@ namespace GameLibrary
 			{
 				window->view->setSize((float)winSz.x, (float)winSz.y);
 			}
-
+			
 			setClipRect(0, 0, (float)winSz.x, (float)winSz.y);
-
+			
 			float difX = (winSize.x - (winSize.x*zoom))/(2*zoom);
 			float difY = (winSize.y - (winSize.y*zoom))/(2*zoom);
-
+			
 			scale(zoom,zoom);
 			translate(difY, difX);
 		}
@@ -63,7 +63,7 @@ namespace GameLibrary
 			Vector2f winSize = Vector2f((float)winSz.x, (float)winSz.y);
 			Vector2f viewSize = window->view->getSize();
 			setClipRect(0, 0, (float)winSz.x, (float)winSz.y);
-
+			
 			float ratX = winSize.x /viewSize.x;
 			float ratY = winSize.y /viewSize.y;
 			if(ratX<ratY)
@@ -74,16 +74,16 @@ namespace GameLibrary
 			{
 				multScale = ratY;
 			}
-
+			
 			float fixedWidth = viewSize.x*multScale;
 			float fixedHeight = viewSize.y*multScale;
-
+			
 			float difX = ((winSize.x - (winSize.x*zoom))+(winSize.x - fixedWidth))/(2*zoom*multScale);
 			float difY = ((winSize.y - (winSize.y*zoom))+(winSize.y - fixedHeight))/(2*zoom*multScale);
-
+			
 			float letterBoxW = (winSize.x - fixedWidth)/2;
 			float letterBoxH = (winSize.y - fixedHeight)/2;
-
+			
 			setColor(Color::BLACK);
 			if(letterBoxW>0)
 			{
@@ -98,7 +98,10 @@ namespace GameLibrary
 			clipOffset.x = letterBoxW;
 			clipOffset.y = letterBoxH;
 			setClipRect(0,0,fixedWidth, fixedHeight);
-			scale(zoom*multScale,zoom*multScale);
+
+			float scaleVal = zoom*multScale;
+
+			scale(scaleVal,scaleVal);
 			translate(difX, difY);
 		}
 		else

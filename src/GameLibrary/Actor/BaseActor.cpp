@@ -36,6 +36,11 @@ namespace GameLibrary
 	{
 		//
 	}
+
+	RectangleF BaseActor::getFrame() const
+	{
+		return RectangleF(x,y,width,height);
+	}
 	
 	BaseActor::ActorType BaseActor::getActorType() const
 	{
@@ -157,11 +162,6 @@ namespace GameLibrary
 			return true;
 		}
 		return false;
-	}
-	
-	RectangleF BaseActor::getFrame() const
-	{
-		return RectangleF(x,y,width,height);
 	}
 
 	void BaseActor::updateSize()

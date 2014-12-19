@@ -14,26 +14,27 @@ namespace GameLibrary
 	{
 	private:
 		float m_matrix[16];
-
+		
 	public:
 		static const Transform Identity;
-
+		
 		Transform();
+		Transform(const Transform&);
 		Transform(float a00, float a01, float a02, float a10, float a11, float a12, float a20, float a21, float a22);
 		~Transform();
-
+		
 		Transform& operator=(const Transform&);
-
+		
 		void reset();
-
+		
 		const float* getMatrix() const;
 		Transform getInverse() const;
-
+		
 		Vector2f transformPoint(float x, float y) const;
 		Vector2f transformPoint(const Vector2f& point) const;
 		Rectangle transformRectangle(const Rectangle& rectangle) const;
 		RectangleF transformRectangleF(const RectangleF& rectangle) const;
-
+		
 		Transform& combine(const Transform& transform);
 		Transform& translate(float x, float y);
 		Transform& translate(const Vector2f& offset);

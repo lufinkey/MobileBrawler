@@ -31,6 +31,8 @@ namespace GameLibrary
 
 		virtual void update(ApplicationData appData);
 		virtual void draw(ApplicationData appData, Graphics graphics) const;
+
+		virtual RectangleF getFrame() const;
 		
 		ActorType getActorType() const;
 		float getWidth() const;
@@ -54,12 +56,11 @@ namespace GameLibrary
 
 		virtual bool isOnScreen(View*view) const;
 
-		virtual bool isMouseClicked() const;
-		virtual bool wasMouseClicked() const;
-		virtual bool didMouseClick() const;
-		virtual bool didMouseRelease() const;
-
-		virtual RectangleF getFrame() const;
+		bool isMouseOver() const;
+		bool isMouseClicked() const;
+		bool wasMouseClicked() const;
+		bool didMouseClick() const;
+		bool didMouseRelease() const;
 
 	protected:
 		virtual void updateSize();

@@ -1,6 +1,7 @@
 
 #include "BaseActor.h"
 #include "Animation.h"
+#include "../Exception/IllegalArgumentException.h"
 
 #pragma once
 

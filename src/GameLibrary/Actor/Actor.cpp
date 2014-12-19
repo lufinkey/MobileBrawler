@@ -222,9 +222,8 @@ namespace GameLibrary
 				}
 			}
 		}
-
+		
 		animation->setCurrentFrame(animation_frame);
-
 		updateSize();
 	}
 }

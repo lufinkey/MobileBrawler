@@ -129,7 +129,7 @@ namespace GameLibrary
 		const Color& getBackgroundColor();
 		void setBackgroundColor(const Color&color);
 
-		const Image* getIcon();
+		Image* getIcon();
 		void setIcon(Image*);
 
 		View* getView();
@@ -144,6 +144,8 @@ namespace GameLibrary
 
 		void addEventListener(WindowEventListener*);
 		void removeEventListener(WindowEventListener*);
+
+		Transform getViewTransform();
 
 		void getHandlePtr(void*ptr) const;
 	};

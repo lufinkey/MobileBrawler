@@ -5,12 +5,20 @@
 namespace GameLibrary
 {
 	const Transform Transform::Identity;
-
+	
 	Transform::Transform()
 	{
 		reset();
 	}
-
+	
+	Transform::Transform(const Transform&transform)
+	{
+		for(unsigned int i = 0; i < 16; i++)
+		{
+			m_matrix[i] = transform.m_matrix[i];
+		}
+	}
+	
 	Transform::Transform(float a00, float a01, float a02,
 						 float a10, float a11, float a12,
 						 float a20, float a21, float a22)
@@ -20,12 +28,12 @@ namespace GameLibrary
 		m_matrix[2] = 0.f; m_matrix[6] = 0.f; m_matrix[10] = 1.f; m_matrix[14] = 0.f;
 		m_matrix[3] = a20; m_matrix[7] = a21; m_matrix[11] = 0.f; m_matrix[15] = a22;
 	}
-
+	
 	Transform::~Transform()
 	{
 		//
 	}
-
+	
 	Transform& Transform::operator=(const Transform&transform)
 	{
 		for(unsigned int i = 0; i < 16; i++)
@@ -34,7 +42,7 @@ namespace GameLibrary
 		}
 		return *this;
 	}
-
+	
 	void Transform::reset()
 	{
 		// Identity m_matrix
@@ -48,7 +56,7 @@ namespace GameLibrary
 	{
 		return m_matrix;
 	}
-
+	
 	Transform Transform::getInverse() const
 	{
 		// Compute the determinant
@@ -75,7 +83,7 @@ namespace GameLibrary
 			return Identity;
 		}
 	}
-
+	
 	Vector2f Transform::transformPoint(float x, float y) const
 	{
 		return Vector2f(m_matrix[0] * x + m_matrix[4] * y + m_matrix[12],
@@ -86,7 +94,7 @@ namespace GameLibrary
 	{
 		return transformPoint(point.x, point.y);
 	}
-
+	
 	Rectangle Transform::transformRectangle(const Rectangle& rectangle) const
 	{
 		// Transform the 4 corners of the rectangle
@@ -97,7 +105,7 @@ namespace GameLibrary
 			transformPoint((float)(rectangle.x+rectangle.width), (float)rectangle.y),
 			transformPoint((float)(rectangle.x+rectangle.width), (float)(rectangle.y+rectangle.height))
 		};
-
+		
 		// Compute the bounding rectangle of the transformed points
 		float left = points[0].x;
 		float top = points[0].y;
@@ -122,10 +130,10 @@ namespace GameLibrary
 				bottom = points[i].y;
 			}
 		}
-
+		
 		return Rectangle((int)left, (int)top, (int)(right-left), (int)(bottom-top));
 	}
-
+	
 	RectangleF Transform::transformRectangleF(const RectangleF& rectangle) const
 	{
 		// Transform the 4 corners of the rectangle
@@ -136,7 +144,7 @@ namespace GameLibrary
 			transformPoint(rectangle.x + rectangle.width, rectangle.y),
 			transformPoint(rectangle.x + rectangle.width, rectangle.y + rectangle.height)
 		};
-
+		
 		// Compute the bounding rectangle of the transformed points
 		float left = points[0].x;
 		float top = points[0].y;
@@ -161,7 +169,7 @@ namespace GameLibrary
 				bottom = points[i].y;
 			}
 		}
-
+		
 		return RectangleF(left, top, right - left, bottom - top);
 	}
 	
@@ -169,7 +177,7 @@ namespace GameLibrary
 	{
 		const float* a = m_matrix;
 		const float* b = transform.m_matrix;
-
+		
 		*this = Transform(a[0] * b[0]  + a[4] * b[1]  + a[12] * b[3],
 						  a[0] * b[4]  + a[4] * b[5]  + a[12] * b[7],
 						  a[0] * b[12] + a[4] * b[13] + a[12] * b[15],
@@ -182,75 +190,75 @@ namespace GameLibrary
 
 		return *this;
 	}
-
+	
 	Transform& Transform::translate(float x, float y)
 	{
 		Transform translation(1, 0, x,
 							  0, 1, y,
 							  0, 0, 1);
-
+		
 		return combine(translation);
 	}
-
+	
 	Transform& Transform::translate(const Vector2f& offset)
 	{
 		return translate(offset.x, offset.y);
 	}
-
+	
 	Transform& Transform::rotate(float degrees)
 	{
 		float rad = Math::degtorad(degrees);
 		float cos = Math::cos(rad);
 		float sin = Math::sin(rad);
-
+		
 		Transform rotation(cos, -sin, 0,
 						   sin,  cos, 0,
 						   0,	0,   1);
-
+		
 		return combine(rotation);
 	}
-
+	
 	Transform& Transform::rotate(float degrees, float centerX, float centerY)
 	{
 		float rad = Math::degtorad(degrees);
 		float cos = Math::cos(rad);
 		float sin = Math::sin(rad);
-
+		
 		Transform rotation(cos, -sin, centerX * (1 - cos) + centerY * sin,
 						   sin,  cos, centerY * (1 - cos) - centerX * sin,
 						   0,	0,   1);
-
+		
 		return combine(rotation);
 	}
-
+	
 	Transform& Transform::rotate(float angle, const Vector2f& center)
 	{
 		return rotate(angle, center.x, center.y);
 	}
-
+	
 	Transform& Transform::scale(float scaleX, float scaleY)
 	{
 		Transform scaling(scaleX, 0,	  0,
 						  0,	  scaleY, 0,
 						  0,	  0,	  1);
-
+		
 		return combine(scaling);
 	}
-
+	
 	Transform& Transform::scale(float scaleX, float scaleY, float centerX, float centerY)
 	{
 		Transform scaling(scaleX, 0,	  centerX * (1 - scaleX),
 						  0,	  scaleY, centerY * (1 - scaleY),
 						  0,	  0,	  1);
-
+		
 		return combine(scaling);
 	}
-
+	
 	Transform& Transform::scale(const Vector2f& factors)
 	{
 		return scale(factors.x, factors.y);
 	}
-
+	
 	Transform& Transform::scale(const Vector2f& factors, const Vector2f& center)
 	{
 		return scale(factors.x, factors.y, center.x, center.y);

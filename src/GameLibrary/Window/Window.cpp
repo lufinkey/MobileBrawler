@@ -464,7 +464,7 @@ namespace GameLibrary
 		settings.setBackgroundColor(bgcolor);
 	}
 
-	const Image* Window::getIcon()
+	Image* Window::getIcon()
 	{
 		return settings.icon;
 	}
@@ -711,6 +711,86 @@ namespace GameLibrary
 		}
 	}
 
+	Transform Window::getViewTransform()
+	{
+		Transform transform;
+
+		if(windowdata == nullptr)
+		{
+			return transform;
+		}
+		
+		float zoom = 1;
+		if(view!=nullptr)
+		{
+			zoom = view->getZoom();
+		}
+		
+		if(view == nullptr || view->matchesWindow())
+		{
+			const Vector2u& winSz = getSize();
+			Vector2f winSize = Vector2f((float)winSz.x, (float)winSz.y);
+			if(view != nullptr)
+			{
+				view->setSize((float)winSz.x, (float)winSz.y);
+			}
+			
+			float difX = (winSize.x - (winSize.x*zoom))/(2*zoom);
+			float difY = (winSize.y - (winSize.y*zoom))/(2*zoom);
+			
+			transform.scale(zoom, zoom);
+			transform.translate(difX, difY);
+		}
+		else if(view->isLetterboxed())
+		{
+			float multScale = 1;
+			Vector2u winSz = getSize();
+			Vector2f winSize = Vector2f((float)winSz.x, (float)winSz.y);
+			Vector2f viewSize = view->getSize();
+			
+			float ratX = winSize.x /viewSize.x;
+			float ratY = winSize.y /viewSize.y;
+			if(ratX<ratY)
+			{
+				multScale = ratX;
+			}
+			else
+			{
+				multScale = ratY;
+			}
+			
+			float fixedWidth = viewSize.x*multScale;
+			float fixedHeight = viewSize.y*multScale;
+			
+			float difX = ((winSize.x - (winSize.x*zoom))+(winSize.x - fixedWidth))/(2*zoom*multScale);
+			float difY = ((winSize.y - (winSize.y*zoom))+(winSize.y - fixedHeight))/(2*zoom*multScale);
+			
+			float scaleVal = zoom*multScale;
+			
+			transform.scale(scaleVal, scaleVal);
+			transform.translate(difX, difY);
+		}
+		else
+		{
+			Vector2u winSz = getSize();
+			Vector2f winSize = Vector2f((float)winSz.x, (float)winSz.y);
+			Vector2f viewSize = view->getSize();
+			
+			float ratX = winSize.x /viewSize.x;
+			float ratY = winSize.y /viewSize.y;
+			
+			float difX = (winSize.x - (winSize.x*zoom))/(2*zoom*ratX);
+			float difY = (winSize.y - (winSize.y*zoom))/(2*zoom*ratY);
+			
+			float scaleValX = (zoom*ratX);
+			float scaleValY = (zoom*ratY);
+
+			transform.scale(scaleValX, scaleValY);
+			transform.translate(difX, difY);
+		}
+		return transform;
+	}
+	
 	void Window::getHandlePtr(void*ptr) const
 	{
 		if(windowdata!=nullptr)

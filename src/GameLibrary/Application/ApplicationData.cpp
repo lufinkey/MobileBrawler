@@ -3,12 +3,13 @@
 
 namespace GameLibrary
 {
-	ApplicationData::ApplicationData(Application*app, Window*win, AssetManager*assetMgr, const TimeInterval&time)
+	ApplicationData::ApplicationData(Application*app, Window*win, AssetManager*assetMgr, const TimeInterval&time, const Transform&transfrm)
 	{
 		application = app;
 		window = win;
 		assetManager = assetMgr;
 		timeInterval = time;
+		transform = transfrm;
 	}
 
 	ApplicationData::ApplicationData(const ApplicationData&appdata)
@@ -17,6 +18,7 @@ namespace GameLibrary
 		window = appdata.window;
 		assetManager = appdata.assetManager;
 		timeInterval = appdata.timeInterval;
+		transform = appdata.transform;
 	}
 
 	ApplicationData& ApplicationData::operator=(const ApplicationData&appdata)
@@ -25,6 +27,7 @@ namespace GameLibrary
 		window = appdata.window;
 		assetManager = appdata.assetManager;
 		timeInterval = appdata.timeInterval;
+		transform = appdata.transform;
 
 		return *this;
 	}
@@ -52,5 +55,40 @@ namespace GameLibrary
 	const TimeInterval& ApplicationData::getTime() const
 	{
 		return timeInterval;
+	}
+
+	Transform& ApplicationData::getTransform()
+	{
+		return transform;
+	}
+
+	const Transform& ApplicationData::getTransform() const
+	{
+		return transform;
+	}
+
+	void ApplicationData::setApplication(Application*app)
+	{
+		application = app;
+	}
+
+	void ApplicationData::setWindow(Window*win)
+	{
+		window = win;
+	}
+
+	void ApplicationData::getAssetManager(AssetManager*assetMgr)
+	{
+		assetManager = assetMgr;
+	}
+
+	void ApplicationData::setTime(const TimeInterval&time)
+	{
+		timeInterval = time;
+	}
+
+	void ApplicationData::setTransform(const Transform&transfrm)
+	{
+		transform = transfrm;
 	}
 }
