@@ -16,5 +16,5 @@ public:
 	virtual void loadContent(GameLibrary::AssetManager*assetManager);
 	virtual void unloadContent(GameLibrary::AssetManager*assetManager);
 	virtual void update(GameLibrary::AppData appData);
-	virtual void draw(GameLibrary::AppData appData, GameLibrary::Graphics graphics);
+	virtual void draw(GameLibrary::AppData appData, GameLibrary::Graphics graphics) const;
 };

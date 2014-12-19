@@ -98,7 +98,10 @@ namespace GameLibrary
 		static const WindowSettings defaultMobileSettings;
 
 		Window();
+		Window(const Window&) = delete;
 		virtual ~Window();
+
+		Window& operator=(const Window&) = delete;
 		
 #if TARGETPLATFORM_MOBILE
 		void create(const WindowSettings&settings = defaultMobileSettings);

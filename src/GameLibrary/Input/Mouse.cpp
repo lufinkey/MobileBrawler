@@ -3,11 +3,25 @@
 #include "../Application/EventManager.h"
 #include "../Utilities/ArrayList.h"
 #include "../Utilities/Pair.h"
+#include <SDL.h>
 #include <mutex>
 #include <vector>
 
 namespace GameLibrary
 {
+	/*Stores info about a particular mouse instance*/
+	typedef struct
+	{
+		unsigned int mouseIndex;
+		Vector2f position;
+		Window*window;
+		bool state[4];
+	} MouseData;
+
+	MouseData Mouse_createMouseData(Window*window, unsigned int mouseIndex, const Vector2f&position);
+	unsigned int Mouse_indexOfData(const ArrayList<MouseData>&mouseData, Window*window, unsigned int mouseIndex);
+	unsigned int Mouse_indexOfData(const ArrayList<MouseData>&mouseData, Window*window);
+
 	//stores all the MouseEventListener objects for the Mouse class
 	static ArrayList<MouseEventListener*> Mouse_eventListeners;
 	static std::mutex Mouse_eventListeners_mutex;
@@ -20,26 +34,45 @@ namespace GameLibrary
 	static std::mutex Mouse_changedListeners_mutex;
 
 	static std::mutex Mouse_state_mutex;
-	//stores the current state of all buttons
-	static std::vector<bool> Mouse_activeButtons(255, false);
-	//stores the state of all buttons since the most recent frame
-	static std::vector<bool> Mouse_currentActiveButtons(255, false);
-	//stores the state of all buttons in the previous frame
-	static std::vector<bool> Mouse_prevActiveButtons(255, false);
+	//stores the current state of all mouse instances
+	static ArrayList<MouseData> Mouse_states;
+	//stores the state of all mouse instances since the most recent frame
+	static ArrayList<MouseData> Mouse_currentStates;
+	//stores the state of all mouse instances in the previous frame
+	static ArrayList<MouseData> Mouse_prevStates;
 
-	//stores the current position of the Mouse relative to Windows
-	static ArrayList<Pair<Window*,Vector2f> > Mouse_pos;
-	//stores the position of the Mouse since the most recent frame
-	static ArrayList<Pair<Window*,Vector2f> > Mouse_pos_current;
-	//stores the position of the Mouse in the previous
-	static ArrayList<Pair<Window*,Vector2f> > Mouse_pos_previous;
-
-	template<class T, class U>
-	static unsigned int ArrayList_indexOfPair(const ArrayList<Pair<T, U> >& list, const T& obj)
+	MouseData Mouse_createMouseData(Window*window, unsigned int mouseIndex, const Vector2f&position)
 	{
-		for(unsigned int i=0; i<list.size(); i++)
+		MouseData mouseData;
+		mouseData.window = window;
+		mouseData.mouseIndex = mouseIndex;
+		mouseData.position = position;
+		for(unsigned int i=0; i<4; i++)
 		{
-			if(list.get(i).first == obj)
+			mouseData.state[i] = false;
+		}
+		return mouseData;
+	}
+
+	unsigned int Mouse_indexOfData(const ArrayList<MouseData>&mouseDataList, Window*window, unsigned int mouseIndex)
+	{
+		for(unsigned int i=0; i<mouseDataList.size(); i++)
+		{
+			const MouseData&mouseData = mouseDataList.get(i);
+			if(mouseData.window == window && mouseData.mouseIndex == mouseIndex)
+			{
+				return i;
+			}
+		}
+		return ARRAYLIST_NOTFOUND;
+	}
+
+	unsigned int Mouse_indexOfData(const ArrayList<MouseData>&mouseDataList, Window*window)
+	{
+		for(unsigned int i=0; i<mouseDataList.size(); i++)
+		{
+			const MouseData&mouseData = mouseDataList.get(i);
+			if(mouseData.window == window)
 			{
 				return i;
 			}
@@ -48,7 +81,7 @@ namespace GameLibrary
 	}
 
 	//Called when a button state is changed. Forwards the event to all the MouseEventListeners
-	void Mouse_callListeners_press(unsigned int mouseIndex, Mouse::Button button, bool pressed)
+	void Mouse_callListeners_press(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2f&pos, bool pressed)
 	{
 		Mouse_changedListeners_mutex.lock();
 		Mouse_changedListeners.clear();
@@ -84,11 +117,11 @@ namespace GameLibrary
 			{
 				if(pressed)
 				{
-					listener->onMouseButtonPress(mouseIndex, button);
+					listener->onMouseButtonPress(window, mouseIndex, button, pos);
 				}
 				else
 				{
-					listener->onMouseButtonRelease(mouseIndex, button);
+					listener->onMouseButtonRelease(window, mouseIndex, button, pos);
 				}
 			}
 		}
@@ -99,7 +132,7 @@ namespace GameLibrary
 	}
 
 	//Called when the mouse position changes. Forwards the event to all the MouseEventListeners
-	void Mouse_callListeners_move(unsigned int mouseIndex, Window*window, const Vector2f&pos, const Vector2f&dif)
+	void Mouse_callListeners_move(Window*window, unsigned int mouseIndex, const Vector2f&pos, const Vector2f&dif)
 	{
 		Mouse_changedListeners_mutex.lock();
 		Mouse_changedListeners.clear();
@@ -133,7 +166,7 @@ namespace GameLibrary
 			//call MouseEventListener event
 			if(listener_notremoved)
 			{
-				listener->onMouseMove(mouseIndex, window, pos, dif);
+				listener->onMouseMove(window, mouseIndex, pos, dif);
 			}
 		}
 		Mouse_callingListeners = false;
@@ -142,212 +175,299 @@ namespace GameLibrary
 		Mouse_changedListeners_mutex.unlock();
 	}
 	
-	void Mouse::handleMouseMovement(unsigned int mouseIndex, Window*window, const Vector2f&pos, const Vector2f&dif)
+	void Mouse::handleMouseMovement(Window*window, unsigned int mouseIndex, const Vector2f&pos, const Vector2f&dif)
 	{
 		if(window!=nullptr)
 		{
 			Mouse_state_mutex.lock();
-			unsigned int index = ArrayList_indexOfPair<Window*, Vector2f>(Mouse_pos, window);
+			unsigned int index = Mouse_indexOfData(Mouse_states, window, mouseIndex);
 			if(index == ARRAYLIST_NOTFOUND)
 			{
-				Mouse_pos.add(Pair<Window*, Vector2f>(window,pos));
+				MouseData mouseData = Mouse_createMouseData(window, mouseIndex, pos);
+				Mouse_states.add(mouseData);
 			}
 			else
 			{
-				Mouse_pos[index].second = pos;
+				Mouse_states[index].position = pos;
 			}
 			Mouse_state_mutex.unlock();
 		}
-		Mouse_callListeners_move(mouseIndex, window, pos, dif);
+		Mouse_callListeners_move(window, mouseIndex, pos, dif);
 	}
-
+	
 	void Mouse::removeWindow(Window*window)
 	{
 		Mouse_state_mutex.lock();
-		unsigned int index = ArrayList_indexOfPair<Window*, Vector2f>(Mouse_pos, window);
-		if(index != ARRAYLIST_NOTFOUND)
+		
+		unsigned int index = Mouse_indexOfData(Mouse_states, window);
+		while(index != ARRAYLIST_NOTFOUND)
 		{
-			Mouse_pos.remove(index);
+			Mouse_states.remove(index);
+			index = Mouse_indexOfData(Mouse_states, window);
 		}
-		index = ArrayList_indexOfPair<Window*, Vector2f>(Mouse_pos_current, window);
-		if(index != ARRAYLIST_NOTFOUND)
-		{
-			Mouse_pos_current.remove(index);
-		}
-		index = ArrayList_indexOfPair<Window*, Vector2f>(Mouse_pos_previous, window);
-		if(index != ARRAYLIST_NOTFOUND)
-		{
-			Mouse_pos_previous.remove(index);
-		}
+		
 		Mouse_state_mutex.unlock();
 	}
-
-	void Mouse::handleButtonPress(unsigned int mouseIndex, Mouse::Button button)
+	
+	void Mouse::handleButtonPress(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2f&pos)
 	{
 		if(button!=Mouse::UNKNOWN_BUTTON)
 		{
 			bool statechanged = false;
 			Mouse_state_mutex.lock();
-			if(!Mouse_activeButtons[button])
+			unsigned int index = Mouse_indexOfData(Mouse_states, window, mouseIndex);
+			if(index == ARRAYLIST_NOTFOUND)
 			{
-				statechanged = true;
+				MouseData mouseData = Mouse_createMouseData(window, mouseIndex, pos);
+				mouseData.state[button] = true;
+				Mouse_states.add(mouseData);
 			}
-			Mouse_activeButtons[button] = true;
+			else
+			{
+				if(!Mouse_states[index].state[button])
+				{
+					statechanged = true;
+				}
+				Mouse_states[index].state[button] = true;
+			}
 			Mouse_state_mutex.unlock();
-
+			
 			if(statechanged)
 			{
-				Mouse_callListeners_press(mouseIndex, button, true);
+				Mouse_callListeners_press(window, mouseIndex, button, pos, true);
 			}
 		}
 	}
-
-	void Mouse::handleButtonRelease(unsigned int mouseIndex, Mouse::Button button)
+	
+	void Mouse::handleButtonRelease(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2f&pos)
 	{
-		bool statechanged = false;
-		Mouse_state_mutex.lock();
-		if(Mouse_activeButtons[button])
+		if(button!=Mouse::UNKNOWN_BUTTON)
 		{
-			statechanged = true;
-		}
-		Mouse_activeButtons[button] = false;
-		Mouse_state_mutex.unlock();
-
-		if(statechanged)
-		{
-			Mouse_callListeners_press(mouseIndex, button, false);
+			bool statechanged = false;
+			Mouse_state_mutex.lock();
+			unsigned int index = Mouse_indexOfData(Mouse_states, window, mouseIndex);
+			if(index == ARRAYLIST_NOTFOUND)
+			{
+				MouseData mouseData = Mouse_createMouseData(window, mouseIndex, pos);
+				mouseData.state[button] = false;
+				Mouse_states.add(mouseData);
+			}
+			else
+			{
+				if(Mouse_states[index].state[button])
+				{
+					statechanged = true;
+				}
+				Mouse_states[index].state[button] = false;
+			}
+			Mouse_state_mutex.unlock();
+			
+			if(statechanged)
+			{
+				Mouse_callListeners_press(window, mouseIndex, button, pos, false);
+			}
 		}
 	}
-
-	bool Mouse::isButtonPressed(Mouse::Button button)
+	
+	bool Mouse::isButtonPressed(Window*window, unsigned int mouseIndex, Mouse::Button button)
 	{
+		if(window == nullptr)
+		{
+			SDL_Window*sdlwin = SDL_GetMouseFocus();
+			if(sdlwin != nullptr)
+			{
+				window = EventManager::getWindowFromID(SDL_GetWindowID(sdlwin));
+				if(window == nullptr)
+				{
+					return false;
+				}
+			}
+		}
+		
+		bool pressed = false;
 		Mouse_state_mutex.lock();
-		bool pressed = Mouse_currentActiveButtons[button];
+		unsigned int index = Mouse_indexOfData(Mouse_currentStates, window, mouseIndex);
+		if(index != ARRAYLIST_NOTFOUND)
+		{
+			if(Mouse_currentStates[index].state[button])
+			{
+				pressed = true;
+			}
+		}
 		Mouse_state_mutex.unlock();
-
+		
 		return pressed;
 	}
-
-	bool Mouse::isButtonReleased(Mouse::Button button)
+	
+	Vector2f Mouse::getPosition(Window*window, unsigned int mouseIndex)
 	{
+		if(window == nullptr)
+		{
+			SDL_Window*sdlwin = SDL_GetMouseFocus();
+			if(sdlwin != nullptr)
+			{
+				window = EventManager::getWindowFromID(SDL_GetWindowID(sdlwin));
+				if(window == nullptr)
+				{
+					return Vector2f(0,0);
+				}
+			}
+		}
+		
 		Mouse_state_mutex.lock();
-		bool pressed = isButtonPressed(button);
-		Mouse_state_mutex.unlock();
-
-		return !pressed;
-	}
-
-	Vector2f Mouse::getPosition(Window*window)
-	{
-		Mouse_state_mutex.lock();
-		unsigned int index = ArrayList_indexOfPair<Window*, Vector2f>(Mouse_pos_current, window);
+		unsigned int index = Mouse_indexOfData(Mouse_currentStates, window, mouseIndex);
 		if(index == ARRAYLIST_NOTFOUND)
 		{
 			Mouse_state_mutex.unlock();
 			return Vector2f(0,0);
 		}
-		Vector2f vect = Mouse_pos_current.get(index).second;
+		Vector2f vect = Mouse_currentStates.get(index).position;
 		Mouse_state_mutex.unlock();
 		return vect;
 	}
-
-	float Mouse::getX(Window*window)
+	
+	float Mouse::getX(Window*window, unsigned int mouseIndex)
 	{
-		return Mouse::getPosition(window).x;
+		return Mouse::getPosition(window, mouseIndex).x;
 	}
-
-	float Mouse::getY(Window*window)
+	
+	float Mouse::getY(Window*window, unsigned int mouseIndex)
 	{
-		return Mouse::getPosition(window).y;
+		return Mouse::getPosition(window, mouseIndex).y;
 	}
-
-	void Mouse::setPosition(const Vector2f&pos, Window*window)
+	
+	void Mouse::setPosition(Window*window, unsigned int mouseIndex, const Vector2f&pos)
 	{
-		//TODO add support for mouse warping
-		//(uncomment this line when SDL 2.0.4 comes out)
-		//SDL_WarpMouseInWindow(EventManager::getDataFromWindow(window), (int)pos.x, (int)pos.y);
+		//TODO add support for multiple mouse indexes
+		if(mouseIndex==0)
+		{
+			SDL_WarpMouseInWindow((SDL_Window*)EventManager::getDataFromWindow(window), (int)pos.x, (int)pos.y);
+		}
 	}
-
-	void Mouse::setPosition(const Vector2f&pos)
+	
+	void Mouse::setPosition(unsigned int mouseIndex, const Vector2f&pos)
 	{
-		//TODO add support for mouse warping
+		//TODO add support for mouse warping globally
 		//(uncomment this line when SDL 2.0.4 comes out)
 		//SDL_WarpMouseGlobal((int)pos.x, (int)pos.y);
 	}
-
-	bool Mouse::wasButtonPressed(Mouse::Button button)
+	
+	bool Mouse::wasButtonPressed(Window*window, unsigned int mouseIndex, Mouse::Button button)
 	{
+		if(window == nullptr)
+		{
+			SDL_Window*sdlwin = SDL_GetMouseFocus();
+			if(sdlwin != nullptr)
+			{
+				window = EventManager::getWindowFromID(SDL_GetWindowID(sdlwin));
+				if(window == nullptr)
+				{
+					return false;
+				}
+			}
+		}
+		
+		bool pressed = false;
 		Mouse_state_mutex.lock();
-		bool pressed = Mouse_prevActiveButtons[button];
+		unsigned int index = Mouse_indexOfData(Mouse_prevStates, window, mouseIndex);
+		if(index != ARRAYLIST_NOTFOUND)
+		{
+			if(Mouse_prevStates[index].state[button])
+			{
+				pressed = true;
+			}
+		}
 		Mouse_state_mutex.unlock();
-
+		
 		return pressed;
 	}
 
-	bool Mouse::wasButtonReleased(Mouse::Button button)
+	Vector2f Mouse::getPreviousPosition(Window*window, unsigned int mouseIndex)
 	{
+		if(window == nullptr)
+		{
+			SDL_Window*sdlwin = SDL_GetMouseFocus();
+			if(sdlwin != nullptr)
+			{
+				window = EventManager::getWindowFromID(SDL_GetWindowID(sdlwin));
+				if(window == nullptr)
+				{
+					return Vector2f(0,0);
+				}
+			}
+		}
+		
 		Mouse_state_mutex.lock();
-		bool pressed = wasButtonPressed(button);
-		Mouse_state_mutex.unlock();
-
-		return !pressed;
-	}
-
-	Vector2f Mouse::getPreviousPosition(Window*window)
-	{
-		Mouse_state_mutex.lock();
-		unsigned int index = ArrayList_indexOfPair<Window*, Vector2f>(Mouse_pos_previous, window);
+		unsigned int index = Mouse_indexOfData(Mouse_prevStates, window, mouseIndex);
 		if(index == ARRAYLIST_NOTFOUND)
 		{
 			Mouse_state_mutex.unlock();
 			return Vector2f(0,0);
 		}
-		Vector2f vect = Mouse_pos_previous.get(index).second;
+		Vector2f vect = Mouse_prevStates.get(index).position;
 		Mouse_state_mutex.unlock();
 		return vect;
 	}
 
-	float Mouse::getPreviousX(Window*window)
+	float Mouse::getPreviousX(Window*window, unsigned int mouseIndex)
 	{
-		return Mouse::getPreviousPosition(window).x;
+		return Mouse::getPreviousPosition(window, mouseIndex).x;
 	}
 
-	float Mouse::getPreviousY(Window*window)
+	float Mouse::getPreviousY(Window*window, unsigned int mouseIndex)
 	{
-		return Mouse::getPreviousPosition(window).y;
+		return Mouse::getPreviousPosition(window, mouseIndex).y;
 	}
-
-	bool Mouse::didButtonPress(Mouse::Button button)
+	
+	bool Mouse::didButtonPress(Window*window, unsigned int mouseIndex, Mouse::Button button)
 	{
+		if(window == nullptr)
+		{
+			SDL_Window*sdlwin = SDL_GetMouseFocus();
+			if(sdlwin != nullptr)
+			{
+				window = EventManager::getWindowFromID(SDL_GetWindowID(sdlwin));
+			}
+		}
+		
 		Mouse_state_mutex.lock();
 		bool pressed = false;
-		if(Mouse_currentActiveButtons[button] && !Mouse_prevActiveButtons[button])
+		if(Mouse::isButtonPressed(window, mouseIndex, button) && !Mouse::wasButtonPressed(window, mouseIndex, button))
 		{
 			pressed = true;
 		}
 		Mouse_state_mutex.unlock();
 		return pressed;
 	}
-
-	bool Mouse::didButtonRelease(Mouse::Button button)
+	
+	bool Mouse::didButtonRelease(Window*window, unsigned int mouseIndex, Mouse::Button button)
 	{
+		if(window == nullptr)
+		{
+			SDL_Window*sdlwin = SDL_GetMouseFocus();
+			if(sdlwin != nullptr)
+			{
+				window = EventManager::getWindowFromID(SDL_GetWindowID(sdlwin));
+			}
+		}
+		
 		Mouse_state_mutex.lock();
 		bool released = false;
-		if(Mouse_prevActiveButtons[button] && !Mouse_currentActiveButtons[button])
+		if(Mouse::wasButtonPressed(window, mouseIndex, button) && !Mouse::isButtonPressed(window, mouseIndex, button))
 		{
 			released = true;
 		}
 		Mouse_state_mutex.unlock();
 		return released;
 	}
-
+	
 	void Mouse::addEventListener(MouseEventListener*listener)
 	{
 		if(listener == nullptr)
 		{
 			throw IllegalArgumentException("Cannot add a null MouseEventListener to Mouse");
 		}
-
+		
 		if(Mouse_callingListeners)
 		{
 			Mouse_changedListeners_mutex.lock();
@@ -358,14 +478,14 @@ namespace GameLibrary
 		Mouse_eventListeners.add(listener);
 		Mouse_eventListeners_mutex.unlock();
 	}
-
+	
 	void Mouse::removeEventListener(MouseEventListener*listener)
 	{
 		if(listener == nullptr)
 		{
 			throw IllegalArgumentException("Cannot remove a null MouseEventListener from Mouse");
 		}
-
+		
 		if(Mouse_callingListeners)
 		{
 			Mouse_changedListeners_mutex.lock();
@@ -381,39 +501,31 @@ namespace GameLibrary
 		}
 		Mouse_eventListeners_mutex.unlock();
 	}
-
+	
 	void Mouse::update()
 	{
 		//fill prevActiveButtons with values of currentActiveButtons and currentActiveButtons with values of activeButtons
 		Mouse_state_mutex.lock();
-		for(unsigned int i=0; i<Mouse_activeButtons.size(); i++)
-		{
-			Mouse_prevActiveButtons[i] = Mouse_currentActiveButtons[i];
-			Mouse_currentActiveButtons[i] = Mouse_activeButtons[i];
-		}
-
-		//fill Mouse_pos_previous with values of Mouse_pos_current and Mouse_pos_current with values of Mouse_pos
-		Mouse_pos_previous = Mouse_pos_current;
-		Mouse_pos_current = Mouse_pos;
-
+		Mouse_prevStates = Mouse_currentStates;
+		Mouse_currentStates = Mouse_states;
 		Mouse_state_mutex.unlock();
 	}
 
-	void MouseEventListener::onMouseButtonPress(unsigned int mouseIndex, Mouse::Button button)
+	void MouseEventListener::onMouseButtonPress(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2f&mousepos)
 	{
 		//
 	}
-
-	void MouseEventListener::onMouseButtonRelease(unsigned int mouseIndex, Mouse::Button button)
+	
+	void MouseEventListener::onMouseButtonRelease(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2f&mousepos)
 	{
 		//
 	}
-
-	void MouseEventListener::onMouseMove(unsigned int mouseIndex, Window*window, const Vector2f&mousepos, const Vector2f&mousedif)
+	
+	void MouseEventListener::onMouseMove(Window*window, unsigned int mouseIndex, const Vector2f&mousepos, const Vector2f&mousedif)
 	{
 		//
 	}
-
+	
 	MouseEventListener::~MouseEventListener()
 	{
 		//Mouse::removeEventListener(this);

@@ -57,7 +57,7 @@ namespace GameLibrary
 		//
 	}
 
-	void Application::draw(ApplicationData appData, Graphics g)
+	void Application::draw(ApplicationData appData, Graphics g) const
 	{
 		//
 	}

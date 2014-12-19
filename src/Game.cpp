@@ -43,7 +43,7 @@ void Game::update(GameLibrary::AppData appData)
 	screenMgr->update(appData);
 }
 
-void Game::draw(GameLibrary::AppData appData, GameLibrary::Graphics graphics)
+void Game::draw(GameLibrary::AppData appData, GameLibrary::Graphics graphics) const
 {
 	screenMgr->draw(appData, graphics);
 	GameLibrary::TextureImage*img = appData.getAssetManager()->getTexture("test.png");

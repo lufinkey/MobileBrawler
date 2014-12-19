@@ -64,7 +64,7 @@ namespace GameLibrary
 		virtual void loadContent(AssetManager*assetManager);
 		virtual void unloadContent(AssetManager*assetManager);
 		virtual void update(ApplicationData appData);
-		virtual void draw(ApplicationData appData, Graphics g);
+		virtual void draw(ApplicationData appData, Graphics g) const;
 
 #if TARGETPLATFORM_MOBILE
 		int run(const WindowSettings&windowSettings = Window::defaultMobileSettings, byte orientations = ORIENTATION_ALL);

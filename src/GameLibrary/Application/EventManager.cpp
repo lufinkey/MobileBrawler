@@ -12,20 +12,20 @@ namespace GameLibrary
 {
 	ArrayList<Window*> EventManager_windows;
 	static std::mutex EventManager_windows_mutex;
-
+	
 	Keyboard::Key Keyboard_SDLK_to_Key(int code);
 	Mouse::Button Mouse_SDL_to_MouseButton(byte button);
-
+	
 	const ArrayList<Window*>& EventManager::getWindows()
 	{
 		return EventManager_windows;
 	}
-
+	
 	void*EventManager::getWindowMutexPtr()
 	{
 		return (void*)(&EventManager_windows_mutex);
 	}
-
+	
 	Window* EventManager::getWindowFromID(unsigned int windowID)
 	{
 		EventManager_windows_mutex.lock();
@@ -41,7 +41,7 @@ namespace GameLibrary
 		EventManager_windows_mutex.unlock();
 		return nullptr;
 	}
-
+	
 	void* EventManager::getDataFromWindow(Window*window)
 	{
 		if(window == nullptr)
@@ -50,14 +50,14 @@ namespace GameLibrary
 		}
 		return window->windowdata;
 	}
-
+	
 	void EventManager::addWindow(Window*window)
 	{
 		EventManager_windows_mutex.lock();
 		EventManager_windows.add(window);
 		EventManager_windows_mutex.unlock();
 	}
-
+	
 	void EventManager::removeWindow(Window*window)
 	{
 		EventManager_windows_mutex.lock();
@@ -73,20 +73,20 @@ namespace GameLibrary
 		EventManager_windows_mutex.unlock();
 		Mouse::removeWindow(window);
 	}
-
+	
 	void EventManager::update(Application*application)
 	{
 		if(!Thread::isMainThread())
 		{
 			return;
 		}
-
+		
 		Window* resizingWindow = nullptr;
 		int data1 = 0;
 		int data2 = 0;
 
 		bool closing = false;
-
+		
 		//event polling
 		SDL_Event event;
 		while(SDL_PollEvent(&event))
@@ -109,7 +109,7 @@ namespace GameLibrary
 				}
 				resizingWindow = nullptr;
 			}
-
+			
 			if(!skip && !closing)
 			{
 				switch(event.type)
@@ -118,27 +118,28 @@ namespace GameLibrary
 					{
 						Window*window = EventManager::getWindowFromID(event.motion.windowID);
 						//TODO add support for multiple mouse indexes
-						Mouse::handleMouseMovement(0, window, Vector2f((float)event.motion.x, (float)event.motion.y), Vector2f((float)event.motion.xrel, (float)event.motion.yrel));
+						Mouse::handleMouseMovement(window, 0, Vector2f((float)event.motion.x, (float)event.motion.y), Vector2f((float)event.motion.xrel, (float)event.motion.yrel));
 					}
 					break;
-
+					
 					case SDL_MOUSEBUTTONDOWN:
 					case SDL_MOUSEBUTTONUP:
 					{
+						Window*window = EventManager::getWindowFromID(event.button.windowID);
 						Mouse::Button button = Mouse_SDL_to_MouseButton(event.button.button);
 						if(event.button.state == SDL_PRESSED)
 						{
 							//TODO add support for multiple mouse indexes
-							Mouse::handleButtonPress(0, button);
+							Mouse::handleButtonPress(window, 0, button, Vector2f((float)event.button.x, (float)event.button.y));
 						}
 						else if(event.button.state == SDL_RELEASED)
 						{
 							//TODO add support for multiple mouse indexes
-							Mouse::handleButtonRelease(0, button);
+							Mouse::handleButtonRelease(window, 0, button, Vector2f((float)event.button.x, (float)event.button.y));
 						}
 					}
 					break;
-
+					
 					case SDL_KEYDOWN:
 					case SDL_KEYUP:
 					{
@@ -152,7 +153,7 @@ namespace GameLibrary
 						}
 					}
 					break;
-
+					
 					case SDL_WINDOWEVENT:
 					{
 						Window* window = EventManager::getWindowFromID(event.window.windowID);
@@ -174,28 +175,28 @@ namespace GameLibrary
 						}
 					}
 					break;
-
+					
 					case SDL_QUIT:
 					application->close(0);
 					closing = true;
 					break;
-
+					
 					//TODO add event types here
 				}
 			}
 			skip = false;
 		}
-
+		
 		if(resizingWindow != nullptr)
 		{
 			resizingWindow->callListenerEvent(SDL_WINDOWEVENT_RESIZED, data1, data2, false);
 			resizingWindow = nullptr;
 		}
-
+		
 		Keyboard::update();
 		Thread::update();
 	}
-
+	
 	Keyboard::Key Keyboard_SDLK_to_Key(int code)
 	{
 		switch(code)
@@ -303,17 +304,17 @@ namespace GameLibrary
 		}
 		return Keyboard::UNKNOWN_KEY;
 	}
-
+	
 	Mouse::Button Mouse_SDL_to_MouseButton(byte button)
 	{
 		switch(button)
 		{
 			case SDL_BUTTON_LEFT:
 			return Mouse::BUTTON_LEFT;
-
+			
 			case SDL_BUTTON_RIGHT:
 			return Mouse::BUTTON_RIGHT;
-
+			
 			case SDL_BUTTON_MIDDLE:
 			return Mouse::BUTTON_MIDDLE;
 		}
