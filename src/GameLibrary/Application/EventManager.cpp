@@ -3,6 +3,7 @@
 #include "Application.h"
 #include "../Input/Keyboard.h"
 #include "../Input/Mouse.h"
+#include "../Input/Multitouch.h"
 #include "../Utilities/Thread.h"
 #include "../Window/Window.h"
 #include <SDL.h>
@@ -136,6 +137,26 @@ namespace GameLibrary
 						{
 							//TODO add support for multiple mouse indexes
 							Mouse::handleButtonRelease(window, 0, button, Vector2f((float)event.button.x, (float)event.button.y));
+						}
+					}
+					break;
+					
+					case SDL_FINGERMOTION:
+					case SDL_FINGERUP:
+					case SDL_FINGERDOWN:
+					{
+						Window*window = EventManager_windows.get(0);
+						if(event.tfinger.type==SDL_FINGERDOWN)
+						{
+							Multitouch::handleTouchDown(window, (long long)event.tfinger.fingerId, Vector2f((float)event.tfinger.x, (float)event.tfinger.y));
+						}
+						else if(event.tfinger.type == SDL_FINGERUP)
+						{
+							Multitouch::handleTouchUp(window, (long long)event.tfinger.fingerId, Vector2f((float)event.tfinger.x, (float)event.tfinger.y));
+						}
+						else if(event.tfinger.type == SDL_FINGERMOTION)
+						{
+							Multitouch::handleTouchMove(window, (long long)event.tfinger.fingerId, Vector2f((float)event.tfinger.x, (float)event.tfinger.y), Vector2f((float)event.tfinger.dx, (float)event.tfinger.dy));
 						}
 					}
 					break;

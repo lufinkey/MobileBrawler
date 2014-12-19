@@ -19,8 +19,8 @@ namespace GameLibrary
 	} MouseData;
 
 	MouseData Mouse_createMouseData(Window*window, unsigned int mouseIndex, const Vector2f&position);
-	unsigned int Mouse_indexOfData(const ArrayList<MouseData>&mouseData, Window*window, unsigned int mouseIndex);
-	unsigned int Mouse_indexOfData(const ArrayList<MouseData>&mouseData, Window*window);
+	unsigned int Mouse_indexOfData(const ArrayList<MouseData>&mouseDataList, Window*window, unsigned int mouseIndex);
+	unsigned int Mouse_indexOfData(const ArrayList<MouseData>&mouseDataList, Window*window);
 
 	//stores all the MouseEventListener objects for the Mouse class
 	static ArrayList<MouseEventListener*> Mouse_eventListeners;
@@ -195,20 +195,6 @@ namespace GameLibrary
 		Mouse_callListeners_move(window, mouseIndex, pos, dif);
 	}
 	
-	void Mouse::removeWindow(Window*window)
-	{
-		Mouse_state_mutex.lock();
-		
-		unsigned int index = Mouse_indexOfData(Mouse_states, window);
-		while(index != ARRAYLIST_NOTFOUND)
-		{
-			Mouse_states.remove(index);
-			index = Mouse_indexOfData(Mouse_states, window);
-		}
-		
-		Mouse_state_mutex.unlock();
-	}
-	
 	void Mouse::handleButtonPress(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2f&pos)
 	{
 		if(button!=Mouse::UNKNOWN_BUTTON)
@@ -267,6 +253,20 @@ namespace GameLibrary
 				Mouse_callListeners_press(window, mouseIndex, button, pos, false);
 			}
 		}
+	}
+	
+	void Mouse::removeWindow(Window*window)
+	{
+		Mouse_state_mutex.lock();
+		
+		unsigned int index = Mouse_indexOfData(Mouse_states, window);
+		while(index != ARRAYLIST_NOTFOUND)
+		{
+			Mouse_states.remove(index);
+			index = Mouse_indexOfData(Mouse_states, window);
+		}
+		
+		Mouse_state_mutex.unlock();
 	}
 	
 	bool Mouse::isButtonPressed(Window*window, unsigned int mouseIndex, Mouse::Button button)
@@ -504,7 +504,6 @@ namespace GameLibrary
 	
 	void Mouse::update()
 	{
-		//fill prevActiveButtons with values of currentActiveButtons and currentActiveButtons with values of activeButtons
 		Mouse_state_mutex.lock();
 		Mouse_prevStates = Mouse_currentStates;
 		Mouse_currentStates = Mouse_states;

@@ -1,6 +1,6 @@
 
-#include "../Window/Window.h"
 #include "../Exception/IllegalArgumentException.h"
+#include "../Window/Window.h"
 
 #pragma once
 
