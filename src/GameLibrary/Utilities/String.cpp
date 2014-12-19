@@ -913,42 +913,20 @@ namespace GameLibrary
 		return c;
 	}
 
-	std::string String::intToString(int num)
+	template<typename T>
+	std::string String_convert_fromdecimal(const T&decimal)
 	{
-		std::stringstream ss;
-		ss << num;
-		std::string s(ss.str());
-		return s;
-	}
-
-	std::string String::uintToString(unsigned int num)
-	{
-		std::stringstream ss;
-		ss << num;
-		std::string s(ss.str());
-		return s;
-	}
-
-	std::string String::floatToString(float num)
-	{
-		char buffer[20];
-		sprintf(buffer, "%g", (double)num);
+		char buffer[26];
+		std::sprintf(buffer, "%f", buffer);
 		return std::string(buffer);
 	}
 
-	std::string String::doubleToString(double num)
-	{
-		char buffer[20];
-		sprintf(buffer, "%g", (double)num);
-		return std::string(buffer);
-	}
-
-	std::string String::longToString(long num)
+	template<typename T>
+	std::string String_convert_fromintegral(const T&integral)
 	{
 		std::stringstream ss;
-		ss << num;
-		std::string s(ss.str());
-		return s;
+		ss << integral;
+		return std::string(ss.str());
 	}
 
 	String::String()
@@ -982,6 +960,17 @@ namespace GameLibrary
 		characters[total] = '\0';
 	}
 
+	String::String(const std::wstring&str)
+	{
+		total = (str.length()*4);
+		characters = (char*)std::calloc(total+1,1);
+
+		total = std::wcstombs(characters,str.c_str(),total+1);
+		characters = (char*)std::realloc(characters, total+1);
+		
+		characters[total] = '\0';
+	}
+
 	String::String(const char*str)
 	{
 		total = std::strlen(str);
@@ -996,25 +985,16 @@ namespace GameLibrary
 
 	String::String(const wchar_t*str)
 	{
-		total = std::wcslen(str);
+		total = (std::wcslen(str)*4);
 		characters = (char*)std::calloc(total+1,1);
 
-		std::wcstombs(characters,str,total+1);
+		total = std::wcstombs(characters,str,total+1);
+		characters = (char*)std::realloc(characters, total+1);
 
 		characters[total] = '\0';
 	}
 
-	String::String(const std::wstring&str)
-	{
-		total = str.length();
-		characters = (char*)std::calloc(total+1,1);
-
-		std::wcstombs(characters,str.c_str(),total+1);
-		
-		characters[total] = '\0';
-	}
-
-	String::String(bool b)
+	/*String::String(bool b)
 	{
 		if(b)
 		{
@@ -1130,8 +1110,8 @@ namespace GameLibrary
 		}
 
 		characters[total] = '\0';
-	}
-
+	}*/
+	
 	String::~String()
 	{
 		std::free(characters);
@@ -1195,260 +1175,816 @@ namespace GameLibrary
 		return newStr;
 	}
 
-	String String::operator+(const String& str) const
+	String operator+(const String& left, const String&right)
 	{
 		String newStr;
-		unsigned int total2 = total + str.length();
-		newStr.characters = (char*)std::realloc(newStr.characters, total2+1);
-		newStr.total = total2;
-		for(unsigned int i=0; i<total; i++)
+		unsigned int newTotal = left.total + right.total;
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left.total; i++)
 		{
-			newStr.characters[i] = characters[i];
+			newStr.characters[i] = left.characters[i];
 		}
 		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		for(unsigned int i=left.total; i<newTotal; i++)
 		{
-			newStr.characters[i] = str.characters[counter];
+			newStr.characters[i] = right.characters[counter];
 			counter++;
 		}
-		newStr.characters[total2] = '\0';
+		newStr.characters[newTotal] = '\0';
 		return newStr;
 	}
 
-	String String::operator+(const std::string& str) const
+	String operator+(const String&left, const std::string& right)
 	{
 		String newStr;
-		unsigned int total2 = total + str.length();
-		newStr.characters = (char*)std::realloc(newStr.characters, total2+1);
-		newStr.total = total2;
-		for(unsigned int i=0; i<total; i++)
+		unsigned int newTotal = left.total + right.length();
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left.total; i++)
 		{
-			newStr.characters[i] = characters[i];
+			newStr.characters[i] = left.characters[i];
 		}
 		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		for(unsigned int i=left.total; i<newTotal; i++)
 		{
-			newStr.characters[i] = str.at(counter);
+			newStr.characters[i] = right.at(counter);
 			counter++;
 		}
-		newStr.characters[total2] = '\0';
+		newStr.characters[newTotal] = '\0';
 		return newStr;
 	}
 
-	String String::operator+(const char*str) const
+	String operator+(const std::string& left, const String&right)
 	{
 		String newStr;
-		unsigned int total2 = total + strlen(str);
-		newStr.characters = (char*)std::realloc(newStr.characters, total2+1);
-		newStr.total = total2;
-		for(unsigned int i=0; i<total; i++)
+		unsigned int newTotal = left.length() + right.total;
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left.length(); i++)
 		{
-			newStr.characters[i] = characters[i];
+			newStr.characters[i] = left.at(i);
 		}
 		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		for(unsigned int i=left.length(); i<newTotal; i++)
 		{
-			newStr.characters[i] = str[counter];
+			newStr.characters[i] = right.characters[counter];
 			counter++;
 		}
-		newStr.characters[total2] = '\0';
+		newStr.characters[newTotal] = '\0';
 		return newStr;
 	}
 
-	String String::operator+(const wchar_t*str) const
+	String operator+(const String&left, const std::wstring&right)
 	{
 		String newStr;
-		String str2(str);
-		unsigned int total2 = total + str2.length();
-		newStr.characters = (char*)std::realloc(newStr.characters, total2+1);
-		newStr.total = total2;
-		for(unsigned int i=0; i<total; i++)
+
+		String rightStr(right);
+
+		unsigned int newTotal = left.total + rightStr.total;
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left.total; i++)
 		{
-			newStr.characters[i] = characters[i];
+			newStr.characters[i] = left.characters[i];
 		}
 		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		for(unsigned int i=left.total; i<newTotal; i++)
 		{
-			newStr.characters[i] = str2.characters[counter];
+			newStr.characters[i] = rightStr.characters[i];
 			counter++;
 		}
-		newStr.characters[total2] = '\0';
+		newStr.characters[newTotal] = '\0';
 		return newStr;
 	}
 
-	String String::operator+(const std::wstring& str) const
+	String operator+(const std::wstring&left, const String&right)
 	{
 		String newStr;
-		String str2(str);
-		unsigned int total2 = total + str2.length();
-		newStr.characters = (char*)std::realloc(newStr.characters, total2+1);
-		newStr.total = total2;
-		for(unsigned int i=0; i<total; i++)
+		String leftStr(left);
+		unsigned int newTotal = leftStr.total + right.total;
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<leftStr.total; i++)
 		{
-			newStr.characters[i] = characters[i];
+			newStr.characters[i] = leftStr.characters[i];
 		}
 		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		for(unsigned int i=leftStr.total; i<newTotal; i++)
 		{
-			newStr.characters[i] = str2.characters[counter];
+			newStr.characters[i] = right.characters[i];
 			counter++;
 		}
-		newStr.characters[total2] = '\0';
+		newStr.characters[newTotal] = '\0';
 		return newStr;
 	}
 
-	String String::operator+(bool b) const
+	String operator+(const String&left, const char*right)
 	{
-		String newStr = characters;
-		if(b)
+		String newStr;
+		unsigned int newTotal = left.total + strlen(right);
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left.total; i++)
 		{
-			newStr += "true";
+			newStr.characters[i] = left.characters[i];
+		}
+		unsigned int counter = 0;
+		for(unsigned int i=left.total; i<newTotal; i++)
+		{
+			newStr.characters[i] = right[counter];
+			counter++;
+		}
+		newStr.characters[newTotal] = '\0';
+		return newStr;
+	}
+
+	String operator+(const char*left, const String&right)
+	{
+		String newStr;
+		unsigned int left_total = strlen(left);
+		unsigned int newTotal = left_total + right.total;
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left_total; i++)
+		{
+			newStr.characters[i] = left[i];
+		}
+		unsigned int counter = 0;
+		for(unsigned int i=left_total; i<newTotal; i++)
+		{
+			newStr.characters[i] = right.characters[counter];
+			counter++;
+		}
+		newStr.characters[newTotal] = '\0';
+		return newStr;
+	}
+
+	String operator+(const String&left, const wchar_t*right)
+	{
+		String newStr;
+		String rightStr(right);
+		unsigned int newTotal = left.total + rightStr.total;
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left.total; i++)
+		{
+			newStr.characters[i] = left.characters[i];
+		}
+		unsigned int counter = 0;
+		for(unsigned int i=left.total; i<newTotal; i++)
+		{
+			newStr.characters[i] = rightStr.characters[counter];
+			counter++;
+		}
+		newStr.characters[newTotal] = '\0';
+		return newStr;
+	}
+
+	String operator+(const wchar_t*left, const String&right)
+	{
+		String newStr;
+		String leftStr(left);
+		unsigned int newTotal = leftStr.total + right.total;
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<leftStr.total; i++)
+		{
+			newStr.characters[i] = leftStr.characters[i];
+		}
+		unsigned int counter=0;
+		for(unsigned int i=leftStr.total; i<newTotal; i++)
+		{
+			newStr.characters[i] = right.characters[counter];
+			counter++;
+		}
+		newStr.characters[newTotal] = '\0';
+		return newStr;
+	}
+
+	String operator+(const String&left, const bool&right)
+	{
+		String newStr;
+		if(right)
+		{
+			unsigned int newTotal = left.total + 4;
+			newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
+			newStr.total = newTotal;
+			for(unsigned int i=0; i<left.total; i++)
+			{
+				newStr.characters[i] = left.characters[i];
+			}
+			newStr.characters[left.total]   = 't';
+			newStr.characters[left.total+1] = 'r';
+			newStr.characters[left.total+2] = 'u';
+			newStr.characters[left.total+3] = 'e';
+			newStr.characters[newTotal] = '\0';
 		}
 		else
 		{
-			newStr += "false";
+			unsigned int newTotal = left.total + 5;
+			newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
+			newStr.total = newTotal;
+			for(unsigned int i=0; i<left.total; i++)
+			{
+				newStr.characters[i] = left.characters[i];
+			}
+			newStr.characters[left.total]   = 'f';
+			newStr.characters[left.total+1] = 'a';
+			newStr.characters[left.total+2] = 'l';
+			newStr.characters[left.total+3] = 's';
+			newStr.characters[left.total+3] = 'e';
+			newStr.characters[newTotal] = '\0';
+		}
+		return newStr;
+	}
+	
+	String operator+(const bool&left, const String&right)
+	{
+		String newStr;
+		if(left)
+		{
+			unsigned int newTotal = 4 + right.total;
+			newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
+			newStr.total = newTotal;
+			newStr.characters[0] = 't';
+			newStr.characters[1] = 'r';
+			newStr.characters[2] = 'u';
+			newStr.characters[3] = 'e';
+			unsigned int counter=0;
+			for(unsigned int i=4; i<newTotal; i++)
+			{
+				newStr.characters[i] = right.characters[counter];
+				counter++;
+			}
+			newStr.characters[newTotal] = '\0';
+		}
+		else
+		{
+			unsigned int newTotal = 5 + right.total;
+			newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
+			newStr.total = newTotal;
+			newStr.characters[0] = 'f';
+			newStr.characters[1] = 'a';
+			newStr.characters[2] = 'l';
+			newStr.characters[3] = 's';
+			newStr.characters[4] = 'e';
+			unsigned int counter=0;
+			for(unsigned int i=5; i<newTotal; i++)
+			{
+				newStr.characters[i] = right.characters[counter];
+				counter++;
+			}
+			newStr.characters[newTotal] = '\0';
 		}
 		return newStr;
 	}
 
-	String String::operator+(char c) const
+	String operator+(const String&left, const char&right)
 	{
 		String newStr;
-		unsigned int total2 = total+1;
-		newStr.characters = (char*)std::realloc(newStr.characters, total2+1);
-		newStr.total = total2;
-		for(unsigned int i=0; i<total; i++)
+		unsigned int newTotal = left.total+1;
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left.total; i++)
 		{
-			newStr.characters[i] = characters[i];
+			newStr.characters[i] = left.characters[i];
 		}
-		newStr.characters[total] = c;
-		newStr.characters[total+1] = '\0';
+		newStr.characters[left.total] = right;
+		newStr.characters[newTotal] = '\0';
 		return newStr;
 	}
 
-	String String::operator+(unsigned char num) const
+	String operator+(const char&left, const String&right)
 	{
 		String newStr;
-		std::string str = String::intToString((int)num);
-		unsigned int total2 = total + str.length();
-		newStr.characters = (char*)std::realloc(newStr.characters, total2+1);
-		newStr.total = total2;
-		for(unsigned int i=0; i<total; i++)
+		unsigned int newTotal = 1+right.total;
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
+		newStr.total = newTotal;
+		newStr.characters[0] = left;
+		unsigned int counter=0;
+		for(unsigned int i=1; i<newTotal; i++)
 		{
-			newStr.characters[i] = characters[i];
-		}
-		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
-		{
-			newStr.characters[i] = str.at(counter);
+			newStr.characters[i] = right.characters[counter];
 			counter++;
 		}
-		newStr.characters[total2] = '\0';
+		newStr.characters[newTotal] = '\0';
 		return newStr;
 	}
 
-	String String::operator+(int num) const
+	String operator+(const String&left, const unsigned char&right)
 	{
 		String newStr;
-		std::string str = String::intToString(num);
-		unsigned int total2 = total + str.length();
-		newStr.characters = (char*)std::realloc(newStr.characters, total2+1);
-		newStr.total = total2;
-		for(unsigned int i=0; i<total; i++)
+		std::string rightStr = String_convert_fromintegral((unsigned short)right);
+		unsigned int newTotal = left.total + rightStr.length();
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left.total; i++)
 		{
-			newStr.characters[i] = characters[i];
+			newStr.characters[i] = left.characters[i];
 		}
 		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		for(unsigned int i=left.total; i<newTotal; i++)
 		{
-			newStr.characters[i] = str.at(counter);
+			newStr.characters[i] = rightStr.at(counter);
 			counter++;
 		}
-		newStr.characters[total2] = '\0';
+		newStr.characters[newTotal] = '\0';
 		return newStr;
 	}
 
-	String String::operator+(unsigned int num) const
+	String operator+(const unsigned char&left, const String&right)
 	{
 		String newStr;
-		std::string str = String::uintToString(num);
-		unsigned int total2 = total + str.length();
-		newStr.characters = (char*)std::realloc(newStr.characters, total2+1);
-		newStr.total = total2;
-		for(unsigned int i=0; i<total; i++)
+		std::string leftStr = String_convert_fromintegral((unsigned short)left);
+		unsigned int left_total = leftStr.length();
+		unsigned int newTotal = left_total + right.total;
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left_total; i++)
 		{
-			newStr.characters[i] = characters[i];
+			newStr.characters[i] = leftStr.at(i);
 		}
 		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		for(unsigned int i=left_total; i<newTotal; i++)
 		{
-			newStr.characters[i] = str.at(counter);
+			newStr.characters[i] = right.characters[counter];
 			counter++;
 		}
-		newStr.characters[total2] = '\0';
+		newStr.characters[newTotal] = '\0';
 		return newStr;
 	}
 
-	String String::operator+(long num) const
+	String operator+(const String&left, const short&right)
 	{
 		String newStr;
-		std::string str = String::longToString(num);
-		unsigned int total2 = total + str.length();
-		newStr.characters = (char*)std::realloc(newStr.characters, total2+1);
-		newStr.total = total2;
-		for(unsigned int i=0; i<total; i++)
+		std::string rightStr = String_convert_fromintegral(right);
+		unsigned int newTotal = left.total + rightStr.length();
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left.total; i++)
 		{
-			newStr.characters[i] = characters[i];
+			newStr.characters[i] = left.characters[i];
 		}
 		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		for(unsigned int i=left.total; i<newTotal; i++)
 		{
-			newStr.characters[i] = str.at(counter);
+			newStr.characters[i] = rightStr.at(counter);
 			counter++;
 		}
-		newStr.characters[total2] = '\0';
+		newStr.characters[newTotal] = '\0';
+		return newStr;
+	}
+	
+	String operator+(const short&left, const String&right)
+	{
+		String newStr;
+		std::string leftStr = String_convert_fromintegral(left);
+		unsigned int left_total = leftStr.length();
+		unsigned int newTotal = left_total + right.total;
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left_total; i++)
+		{
+			newStr.characters[i] = leftStr.at(i);
+		}
+		unsigned int counter = 0;
+		for(unsigned int i=left_total; i<newTotal; i++)
+		{
+			newStr.characters[i] = right.characters[counter];
+			counter++;
+		}
+		newStr.characters[newTotal] = '\0';
 		return newStr;
 	}
 
-	String String::operator+(float num) const
+	String operator+(const String&left, const unsigned short&right)
 	{
 		String newStr;
-		std::string str = String::floatToString(num);
-		unsigned int total2 = total + str.length();
-		newStr.characters = (char*)std::realloc(newStr.characters, total2+1);
-		newStr.total = total2;
-		for(unsigned int i=0; i<total; i++)
+		std::string rightStr = String_convert_fromintegral(right);
+		unsigned int newTotal = left.total + rightStr.length();
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left.total; i++)
 		{
-			newStr.characters[i] = characters[i];
+			newStr.characters[i] = left.characters[i];
 		}
 		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		for(unsigned int i=left.total; i<newTotal; i++)
 		{
-			newStr.characters[i] = str.at(counter);
+			newStr.characters[i] = rightStr.at(counter);
 			counter++;
 		}
-		newStr.characters[total2] = '\0';
+		newStr.characters[newTotal] = '\0';
+		return newStr;
+	}
+	
+	String operator+(const unsigned short&left, const String&right)
+	{
+		String newStr;
+		std::string leftStr = String_convert_fromintegral(left);
+		unsigned int left_total = leftStr.length();
+		unsigned int newTotal = left_total + right.total;
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left_total; i++)
+		{
+			newStr.characters[i] = leftStr.at(i);
+		}
+		unsigned int counter = 0;
+		for(unsigned int i=left_total; i<newTotal; i++)
+		{
+			newStr.characters[i] = right.characters[counter];
+			counter++;
+		}
+		newStr.characters[newTotal] = '\0';
 		return newStr;
 	}
 
-	String String::operator+(double num) const
+	String operator+(const String&left, const int&right)
 	{
 		String newStr;
-		std::string str = String::doubleToString(num);
-		unsigned int total2 = total + str.length();
-		newStr.characters = (char*)std::realloc(newStr.characters, total2+1);
-		newStr.total = total2;
-		for(unsigned int i=0; i<total; i++)
+		std::string rightStr = String_convert_fromintegral(right);
+		unsigned int newTotal = left.total + rightStr.length();
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left.total; i++)
 		{
-			newStr.characters[i] = characters[i];
+			newStr.characters[i] = left.characters[i];
 		}
 		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		for(unsigned int i=left.total; i<newTotal; i++)
 		{
-			newStr.characters[i] = str.at(counter);
+			newStr.characters[i] = rightStr.at(counter);
 			counter++;
 		}
-		newStr.characters[total2] = '\0';
+		newStr.characters[newTotal] = '\0';
+		return newStr;
+	}
+	
+	String operator+(const int&left, const String&right)
+	{
+		String newStr;
+		std::string leftStr = String_convert_fromintegral(left);
+		unsigned int left_total = leftStr.length();
+		unsigned int newTotal = left_total + right.total;
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left_total; i++)
+		{
+			newStr.characters[i] = leftStr.at(i);
+		}
+		unsigned int counter = 0;
+		for(unsigned int i=left_total; i<newTotal; i++)
+		{
+			newStr.characters[i] = right.characters[counter];
+			counter++;
+		}
+		newStr.characters[newTotal] = '\0';
+		return newStr;
+	}
+
+	String operator+(const String&left, const unsigned int&right)
+	{
+		String newStr;
+		std::string rightStr = String_convert_fromintegral(right);
+		unsigned int newTotal = left.total + rightStr.length();
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left.total; i++)
+		{
+			newStr.characters[i] = left.characters[i];
+		}
+		unsigned int counter = 0;
+		for(unsigned int i=left.total; i<newTotal; i++)
+		{
+			newStr.characters[i] = rightStr.at(counter);
+			counter++;
+		}
+		newStr.characters[newTotal] = '\0';
+		return newStr;
+	}
+	
+	String operator+(const unsigned int&left, const String&right)
+	{
+		String newStr;
+		std::string leftStr = String_convert_fromintegral(left);
+		unsigned int left_total = leftStr.length();
+		unsigned int newTotal = left_total + right.total;
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left_total; i++)
+		{
+			newStr.characters[i] = leftStr.at(i);
+		}
+		unsigned int counter = 0;
+		for(unsigned int i=left_total; i<newTotal; i++)
+		{
+			newStr.characters[i] = right.characters[counter];
+			counter++;
+		}
+		newStr.characters[newTotal] = '\0';
+		return newStr;
+	}
+
+	String operator+(const String&left, const long&right)
+	{
+		String newStr;
+		std::string rightStr = String_convert_fromintegral(right);
+		unsigned int newTotal = left.total + rightStr.length();
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left.total; i++)
+		{
+			newStr.characters[i] = left.characters[i];
+		}
+		unsigned int counter = 0;
+		for(unsigned int i=left.total; i<newTotal; i++)
+		{
+			newStr.characters[i] = rightStr.at(counter);
+			counter++;
+		}
+		newStr.characters[newTotal] = '\0';
+		return newStr;
+	}
+	
+	String operator+(const long&left, const String&right)
+	{
+		String newStr;
+		std::string leftStr = String_convert_fromintegral(left);
+		unsigned int left_total = leftStr.length();
+		unsigned int newTotal = left_total + right.total;
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left_total; i++)
+		{
+			newStr.characters[i] = leftStr.at(i);
+		}
+		unsigned int counter = 0;
+		for(unsigned int i=left_total; i<newTotal; i++)
+		{
+			newStr.characters[i] = right.characters[counter];
+			counter++;
+		}
+		newStr.characters[newTotal] = '\0';
+		return newStr;
+	}
+
+	String operator+(const String&left, const unsigned long&right)
+	{
+		String newStr;
+		std::string rightStr = String_convert_fromintegral(right);
+		unsigned int newTotal = left.total + rightStr.length();
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left.total; i++)
+		{
+			newStr.characters[i] = left.characters[i];
+		}
+		unsigned int counter = 0;
+		for(unsigned int i=left.total; i<newTotal; i++)
+		{
+			newStr.characters[i] = rightStr.at(counter);
+			counter++;
+		}
+		newStr.characters[newTotal] = '\0';
+		return newStr;
+	}
+	
+	String operator+(const unsigned long&left, const String&right)
+	{
+		String newStr;
+		std::string leftStr = String_convert_fromintegral(left);
+		unsigned int left_total = leftStr.length();
+		unsigned int newTotal = left_total + right.total;
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left_total; i++)
+		{
+			newStr.characters[i] = leftStr.at(i);
+		}
+		unsigned int counter = 0;
+		for(unsigned int i=left_total; i<newTotal; i++)
+		{
+			newStr.characters[i] = right.characters[counter];
+			counter++;
+		}
+		newStr.characters[newTotal] = '\0';
+		return newStr;
+	}
+
+	String operator+(const String&left, const long long&right)
+	{
+		String newStr;
+		std::string rightStr = String_convert_fromintegral(right);
+		unsigned int newTotal = left.total + rightStr.length();
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left.total; i++)
+		{
+			newStr.characters[i] = left.characters[i];
+		}
+		unsigned int counter = 0;
+		for(unsigned int i=left.total; i<newTotal; i++)
+		{
+			newStr.characters[i] = rightStr.at(counter);
+			counter++;
+		}
+		newStr.characters[newTotal] = '\0';
+		return newStr;
+	}
+	
+	String operator+(const long long&left, const String&right)
+	{
+		String newStr;
+		std::string leftStr = String_convert_fromintegral(left);
+		unsigned int left_total = leftStr.length();
+		unsigned int newTotal = left_total + right.total;
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left_total; i++)
+		{
+			newStr.characters[i] = leftStr.at(i);
+		}
+		unsigned int counter = 0;
+		for(unsigned int i=left_total; i<newTotal; i++)
+		{
+			newStr.characters[i] = right.characters[counter];
+			counter++;
+		}
+		newStr.characters[newTotal] = '\0';
+		return newStr;
+	}
+
+	String operator+(const String&left, const unsigned long long&right)
+	{
+		String newStr;
+		std::string rightStr = String_convert_fromintegral(right);
+		unsigned int newTotal = left.total + rightStr.length();
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left.total; i++)
+		{
+			newStr.characters[i] = left.characters[i];
+		}
+		unsigned int counter = 0;
+		for(unsigned int i=left.total; i<newTotal; i++)
+		{
+			newStr.characters[i] = rightStr.at(counter);
+			counter++;
+		}
+		newStr.characters[newTotal] = '\0';
+		return newStr;
+	}
+	
+	String operator+(const unsigned long long&left, const String&right)
+	{
+		String newStr;
+		std::string leftStr = String_convert_fromintegral(left);
+		unsigned int left_total = leftStr.length();
+		unsigned int newTotal = left_total + right.total;
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left_total; i++)
+		{
+			newStr.characters[i] = leftStr.at(i);
+		}
+		unsigned int counter = 0;
+		for(unsigned int i=left_total; i<newTotal; i++)
+		{
+			newStr.characters[i] = right.characters[counter];
+			counter++;
+		}
+		newStr.characters[newTotal] = '\0';
+		return newStr;
+	}
+
+	String operator+(const String&left, const float&right)
+	{
+		String newStr;
+		std::string rightStr = String_convert_fromdecimal(right);
+		unsigned int newTotal = left.total + rightStr.length();
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left.total; i++)
+		{
+			newStr.characters[i] = left.characters[i];
+		}
+		unsigned int counter = 0;
+		for(unsigned int i=left.total; i<newTotal; i++)
+		{
+			newStr.characters[i] = rightStr.at(counter);
+			counter++;
+		}
+		newStr.characters[newTotal] = '\0';
+		return newStr;
+	}
+	
+	String operator+(const float&left, const String&right)
+	{
+		String newStr;
+		std::string leftStr = String_convert_fromdecimal(left);
+		unsigned int left_total = leftStr.length();
+		unsigned int newTotal = left_total + right.total;
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left_total; i++)
+		{
+			newStr.characters[i] = leftStr.at(i);
+		}
+		unsigned int counter = 0;
+		for(unsigned int i=left_total; i<newTotal; i++)
+		{
+			newStr.characters[i] = right.characters[counter];
+			counter++;
+		}
+		newStr.characters[newTotal] = '\0';
+		return newStr;
+	}
+
+	String operator+(const String&left, const double&right)
+	{
+		String newStr;
+		std::string rightStr = String_convert_fromdecimal(right);
+		unsigned int newTotal = left.total + rightStr.length();
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left.total; i++)
+		{
+			newStr.characters[i] = left.characters[i];
+		}
+		unsigned int counter = 0;
+		for(unsigned int i=left.total; i<newTotal; i++)
+		{
+			newStr.characters[i] = rightStr.at(counter);
+			counter++;
+		}
+		newStr.characters[newTotal] = '\0';
+		return newStr;
+	}
+	
+	String operator+(const double&left, const String&right)
+	{
+		String newStr;
+		std::string leftStr = String_convert_fromdecimal(left);
+		unsigned int left_total = leftStr.length();
+		unsigned int newTotal = left_total + right.total;
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left_total; i++)
+		{
+			newStr.characters[i] = leftStr.at(i);
+		}
+		unsigned int counter = 0;
+		for(unsigned int i=left_total; i<newTotal; i++)
+		{
+			newStr.characters[i] = right.characters[counter];
+			counter++;
+		}
+		newStr.characters[newTotal] = '\0';
+		return newStr;
+	}
+
+	String operator+(const String&left, const long double&right)
+	{
+		String newStr;
+		std::string rightStr = String_convert_fromdecimal(right);
+		unsigned int newTotal = left.total + rightStr.length();
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left.total; i++)
+		{
+			newStr.characters[i] = left.characters[i];
+		}
+		unsigned int counter = 0;
+		for(unsigned int i=left.total; i<newTotal; i++)
+		{
+			newStr.characters[i] = rightStr.at(counter);
+			counter++;
+		}
+		newStr.characters[newTotal] = '\0';
+		return newStr;
+	}
+	
+	String operator+(const long double&left, const String&right)
+	{
+		String newStr;
+		std::string leftStr = String_convert_fromdecimal(left);
+		unsigned int left_total = leftStr.length();
+		unsigned int newTotal = left_total + right.total;
+		newStr.characters = (char*)std::realloc(newStr.characters, newTotal);
+		newStr.total = newTotal;
+		for(unsigned int i=0; i<left_total; i++)
+		{
+			newStr.characters[i] = leftStr.at(i);
+		}
+		unsigned int counter = 0;
+		for(unsigned int i=left_total; i<newTotal; i++)
+		{
+			newStr.characters[i] = right.characters[counter];
+			counter++;
+		}
+		newStr.characters[newTotal] = '\0';
 		return newStr;
 	}
 
@@ -1482,6 +2018,22 @@ namespace GameLibrary
 		return *this;
 	}
 
+	String& String::operator+=(const std::wstring& str)
+	{
+		String str2(str);
+		unsigned int total2 = total + str2.length();
+		characters = (char*)std::realloc(characters, total2+1);
+		unsigned int counter = 0;
+		for(unsigned int i=total; i<total2; i++)
+		{
+			characters[i] = str2.characters[counter];
+			counter++;
+		}
+		total = total2;
+		characters[total2] = '\0';
+		return *this;
+	}
+
 	String& String::operator+=(const char*str)
 	{
 		unsigned int total2 = total + strlen(str);
@@ -1498,22 +2050,6 @@ namespace GameLibrary
 	}
 
 	String& String::operator+=(const wchar_t*str)
-	{
-		String str2(str);
-		unsigned int total2 = total + str2.length();
-		characters = (char*)std::realloc(characters, total2+1);
-		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
-		{
-			characters[i] = str2.characters[counter];
-			counter++;
-		}
-		total = total2;
-		characters[total2] = '\0';
-		return *this;
-	}
-
-	String& String::operator+=(const std::wstring& str)
 	{
 		String str2(str);
 		unsigned int total2 = total + str2.length();
@@ -1567,7 +2103,39 @@ namespace GameLibrary
 
 	String& String::operator+=(unsigned char num)
 	{
-		std::string str2 = String::intToString((int)num);
+		std::string str2 = String_convert_fromintegral((unsigned short)num);
+		unsigned int total2 = total + str2.length();
+		characters = (char*)std::realloc(characters, total2+1);
+		unsigned int counter = 0;
+		for(unsigned int i=total; i<total2; i++)
+		{
+			characters[i] = str2.at(counter);
+			counter++;
+		}
+		total = total2;
+		characters[total2] = '\0';
+		return *this;
+	}
+
+	String& String::operator+=(short num)
+	{
+		std::string str2 = String_convert_fromintegral(num);
+		unsigned int total2 = total + str2.length();
+		characters = (char*)std::realloc(characters, total2+1);
+		unsigned int counter = 0;
+		for(unsigned int i=total; i<total2; i++)
+		{
+			characters[i] = str2.at(counter);
+			counter++;
+		}
+		total = total2;
+		characters[total2] = '\0';
+		return *this;
+	}
+
+	String& String::operator+=(unsigned short num)
+	{
+		std::string str2 = String_convert_fromintegral(num);
 		unsigned int total2 = total + str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		unsigned int counter = 0;
@@ -1583,7 +2151,7 @@ namespace GameLibrary
 
 	String& String::operator+=(int num)
 	{
-		std::string str2 = String::intToString(num);
+		std::string str2 = String_convert_fromintegral(num);
 		unsigned int total2 = total + str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		unsigned int counter = 0;
@@ -1599,7 +2167,7 @@ namespace GameLibrary
 
 	String& String::operator+=(unsigned int num)
 	{
-		std::string str2 = String::uintToString(num);
+		std::string str2 = String_convert_fromintegral(num);
 		unsigned int total2 = total + str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		unsigned int counter = 0;
@@ -1615,7 +2183,55 @@ namespace GameLibrary
 
 	String& String::operator+=(long num)
 	{
-		std::string str2 = String::longToString(num);
+		std::string str2 = String_convert_fromintegral(num);
+		unsigned int total2 = total + str2.length();
+		characters = (char*)std::realloc(characters, total2+1);
+		unsigned int counter = 0;
+		for(unsigned int i=total; i<total2; i++)
+		{
+			characters[i] = str2.at(counter);
+			counter++;
+		}
+		total = total2;
+		characters[total2] = '\0';
+		return *this;
+	}
+
+	String& String::operator+=(unsigned long num)
+	{
+		std::string str2 = String_convert_fromintegral(num);
+		unsigned int total2 = total + str2.length();
+		characters = (char*)std::realloc(characters, total2+1);
+		unsigned int counter = 0;
+		for(unsigned int i=total; i<total2; i++)
+		{
+			characters[i] = str2.at(counter);
+			counter++;
+		}
+		total = total2;
+		characters[total2] = '\0';
+		return *this;
+	}
+
+	String& String::operator+=(long long num)
+	{
+		std::string str2 = String_convert_fromintegral(num);
+		unsigned int total2 = total + str2.length();
+		characters = (char*)std::realloc(characters, total2+1);
+		unsigned int counter = 0;
+		for(unsigned int i=total; i<total2; i++)
+		{
+			characters[i] = str2.at(counter);
+			counter++;
+		}
+		total = total2;
+		characters[total2] = '\0';
+		return *this;
+	}
+
+	String& String::operator+=(unsigned long long num)
+	{
+		std::string str2 = String_convert_fromintegral(num);
 		unsigned int total2 = total + str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		unsigned int counter = 0;
@@ -1631,7 +2247,7 @@ namespace GameLibrary
 
 	String& String::operator+=(float num)
 	{
-		std::string str2 = String::floatToString(num);
+		std::string str2 = String_convert_fromdecimal(num);
 		unsigned int total2 = total + str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		unsigned int counter = 0;
@@ -1647,7 +2263,23 @@ namespace GameLibrary
 
 	String& String::operator+=(double num)
 	{
-		std::string str2 = String::doubleToString(num);
+		std::string str2 = String_convert_fromdecimal(num);
+		unsigned int total2 = total + str2.length();
+		characters = (char*)std::realloc(characters, total2+1);
+		unsigned int counter = 0;
+		for(unsigned int i=total; i<total2; i++)
+		{
+			characters[i] = str2.at(counter);
+			counter++;
+		}
+		total = total2;
+		characters[total2] = '\0';
+		return *this;
+	}
+
+	String& String::operator+=(long double num)
+	{
+		std::string str2 = String_convert_fromdecimal(num);
 		unsigned int total2 = total + str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		unsigned int counter = 0;
@@ -1687,6 +2319,20 @@ namespace GameLibrary
 		return *this;
 	}
 
+	String& String::operator=(const std::wstring& str)
+	{
+		String str2(str);
+		unsigned int total2 = str2.length();
+		characters = (char*)std::realloc(characters, total2+1);
+		total = total2;
+		for(unsigned int i=0; i<total2; i++)
+		{
+			characters[i] = str2.characters[i];
+		}
+		characters[total2] = '\0';
+		return *this;
+	}
+
 	String& String::operator=(const char*str)
 	{
 		unsigned int total2 = strlen(str);
@@ -1701,20 +2347,6 @@ namespace GameLibrary
 	}
 
 	String& String::operator=(const wchar_t*str)
-	{
-		String str2(str);
-		unsigned int total2 = str2.length();
-		characters = (char*)std::realloc(characters, total2+1);
-		total = total2;
-		for(unsigned int i=0; i<total2; i++)
-		{
-			characters[i] = str2.characters[i];
-		}
-		characters[total2] = '\0';
-		return *this;
-	}
-
-	String& String::operator=(const std::wstring& str)
 	{
 		String str2(str);
 		unsigned int total2 = str2.length();
@@ -1766,7 +2398,35 @@ namespace GameLibrary
 
 	String& String::operator=(unsigned char num)
 	{
-		std::string str2 = String::intToString((int)num);
+		std::string str2 = String_convert_fromintegral((unsigned short)num);
+		unsigned int total2 = str2.length();
+		characters = (char*)std::realloc(characters, total2+1);
+		total = total2;
+		for(unsigned int i=0; i<total2; i++)
+		{
+			characters[i] = str2.at(i);
+		}
+		characters[total2] = '\0';
+		return *this;
+	}
+
+	String& String::operator=(short num)
+	{
+		std::string str2 = String_convert_fromintegral(num);
+		unsigned int total2 = str2.length();
+		characters = (char*)std::realloc(characters, total2+1);
+		total = total2;
+		for(unsigned int i=0; i<total2; i++)
+		{
+			characters[i] = str2.at(i);
+		}
+		characters[total2] = '\0';
+		return *this;
+	}
+
+	String& String::operator=(unsigned short num)
+	{
+		std::string str2 = String_convert_fromintegral(num);
 		unsigned int total2 = str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		total = total2;
@@ -1780,7 +2440,7 @@ namespace GameLibrary
 
 	String& String::operator=(int num)
 	{
-		std::string str2 = String::intToString(num);
+		std::string str2 = String_convert_fromintegral(num);
 		unsigned int total2 = str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		total = total2;
@@ -1794,7 +2454,7 @@ namespace GameLibrary
 
 	String& String::operator=(unsigned int num)
 	{
-		std::string str2 = String::uintToString(num);
+		std::string str2 = String_convert_fromintegral(num);
 		unsigned int total2 = str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		total = total2;
@@ -1808,7 +2468,7 @@ namespace GameLibrary
 
 	String& String::operator=(long num)
 	{
-		std::string str2 = String::longToString(num);
+		std::string str2 = String_convert_fromintegral(num);
 		unsigned int total2 = str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		total = total2;
@@ -1820,9 +2480,9 @@ namespace GameLibrary
 		return *this;
 	}
 
-	String& String::operator=(float num)
+	String& String::operator=(unsigned long num)
 	{
-		std::string str2 = String::floatToString(num);
+		std::string str2 = String_convert_fromintegral(num);
 		unsigned int total2 = str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		total = total2;
@@ -1834,9 +2494,23 @@ namespace GameLibrary
 		return *this;
 	}
 
-	String& String::operator=(double num)
+	String& String::operator=(long long num)
 	{
-		std::string str2 = String::doubleToString(num);
+		std::string str2 = String_convert_fromintegral(num);
+		unsigned int total2 = str2.length();
+		characters = (char*)std::realloc(characters, total2+1);
+		total = total2;
+		for(unsigned int i=0; i<total2; i++)
+		{
+			characters[i] = str2.at(i);
+		}
+		characters[total2] = '\0';
+		return *this;
+	}
+
+	String& String::operator=(unsigned long long num)
+	{
+		std::string str2 = String_convert_fromintegral(num);
 		unsigned int total2 = str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		total = total2;
@@ -2039,6 +2713,46 @@ namespace GameLibrary
 			}
 			return 0;
 		}
+	}
+
+	bool String::operator<(const String&cmp) const
+	{
+		int result = compare(cmp);
+		if(result==-1)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	bool String::operator<=(const String&cmp) const
+	{
+		int result = compare(cmp);
+		if(result == -1 || result == 0)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	bool String::operator>(const String&cmp) const
+	{
+		int result = compare(cmp);
+		if(result==1)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	bool String::operator>=(const String&cmp) const
+	{
+		int result = compare(cmp);
+		if(result == 1 || result == 0)
+		{
+			return true;
+		}
+		return false;
 	}
 	
 	void String::clear()

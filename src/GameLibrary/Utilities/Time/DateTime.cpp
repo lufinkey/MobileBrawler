@@ -147,7 +147,7 @@ namespace GameLibrary
 		String numStr = (String)"" + num;
 		while(numStr.length() < size)
 		{
-			numStr = (String)padding + numStr;
+			numStr = padding + numStr;
 		}
 		return numStr;
 	}
