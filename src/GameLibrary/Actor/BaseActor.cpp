@@ -3,6 +3,7 @@
 #include "../Input/Mouse.h"
 #include "../Input/Multitouch.h"
 #include "../Utilities/PlatformChecks.h"
+#include "../IO/Console.h"
 
 namespace GameLibrary
 {
@@ -36,7 +37,7 @@ namespace GameLibrary
 	{
 		prevclicked = clicked;
 		prevmouseover = mouseover;
-
+		
 		#if defined(TARGETPLATFORM_MOBILE)
 			updateTouch(appData);
 		#else
@@ -182,21 +183,25 @@ namespace GameLibrary
 	void BaseActor::onMousePress(Window*window, unsigned int touchID)
 	{
 		//Open for implementation
+		Console::writeLine("press");
 	}
 
 	void BaseActor::onMouseRelease(Window*window, unsigned int touchID)
 	{
 		//Open for implementation
+		Console::writeLine("release");
 	}
 
 	void BaseActor::onMouseEnter(Window*window, unsigned int touchID)
 	{
 		//Open for implementation
+		Console::writeLine("enter");
 	}
 
 	void BaseActor::onMouseLeave(Window*window, unsigned int touchID)
 	{
 		//Open for implementation
+		Console::writeLine("leave");
 	}
 
 	bool BaseActor::isTouchDataActive(unsigned int touchID)
@@ -350,11 +355,18 @@ namespace GameLibrary
 					{
 						applyTouchData(touchID, true);
 						clicked = true;
-						//mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSEPRESS));
+						if(!Mouse::wasButtonPressed(window, touchID, Mouse::BUTTON_LEFT))
+						{
+							mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSEPRESS));
+						}
 					}
 					else
 					{
 						applyTouchData(touchID, false);
+						if(Mouse::wasButtonPressed(window, touchID, Mouse::BUTTON_LEFT))
+						{
+							mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSERELEASE));
+						}
 					}
 				}
 				else

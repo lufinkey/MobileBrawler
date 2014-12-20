@@ -36,6 +36,16 @@ namespace GameLibrary
 
 	void Actor::update(ApplicationData appData)
 	{
+		prevUpdateTime = appData.getTime().getMilliseconds();
+		if(firstUpdate)
+		{
+			if(animations.size()>0)
+			{
+				animation_prevFrameTime = prevUpdateTime;
+			}
+		}
+		firstUpdate = false;
+
 		BaseActor::update(appData);
 		//TODO implement update
 	}
@@ -44,7 +54,7 @@ namespace GameLibrary
 	{
 		BaseActor::draw(appData, graphics);
 		
-		graphics.translate(x+(width / 2), y+(height/2));
+		graphics.translate(x, y);
 		graphics.compositeTintColor(color);
 		graphics.rotate(rotation);
 		if(mirrored)
@@ -98,7 +108,14 @@ namespace GameLibrary
 		animInfo.animation = animation;
 		animInfo.destruct = destruct;
 
+		unsigned int prevSize = animations.size();
+
 		animations.add(animInfo);
+
+		if(prevSize == 0)
+		{
+			changeAnimation(name, Animation::FORWARD);
+		}
 	}
 
 	void Actor::removeAnimation(const String&name)

@@ -215,6 +215,8 @@ namespace GameLibrary
 		}
 		
 		Keyboard::update();
+		Mouse::update();
+		Multitouch::update();
 		Thread::update();
 	}
 	
