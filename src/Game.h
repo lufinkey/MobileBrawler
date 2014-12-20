@@ -8,6 +8,7 @@ class Game : public GameLibrary::Application
 private:
 	GameLibrary::Screen* rootScrn;
 	GameLibrary::ScreenManager* screenMgr;
+	GameLibrary::Actor* actor;
 public:
 	Game();
 	virtual ~Game();

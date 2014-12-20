@@ -7,6 +7,7 @@ Game::Game()
 {
 	rootScrn = nullptr;
 	screenMgr = nullptr;
+	actor = nullptr;
 }
 
 Game::~Game()
@@ -19,6 +20,10 @@ Game::~Game()
 	{
 		delete rootScrn;
 	}
+	if(actor != nullptr)
+	{
+		delete actor;
+	}
 }
 
 void Game::initialize()
@@ -30,7 +35,9 @@ void Game::initialize()
 
 void Game::loadContent(GameLibrary::AssetManager*assetManager)
 {
-	assetManager->loadTexture("test.png");
+	//assetManager->loadTexture("test.png");
+	actor = new Actor(200,200);
+	actor->addAnimation("normal", new Animation(assetManager, 1, "test.png"));
 }
 
 void Game::unloadContent(GameLibrary::AssetManager*assetManager)
@@ -41,11 +48,13 @@ void Game::unloadContent(GameLibrary::AssetManager*assetManager)
 void Game::update(GameLibrary::AppData appData)
 {
 	screenMgr->update(appData);
+	actor->update(appData);
 }
 
 void Game::draw(GameLibrary::AppData appData, GameLibrary::Graphics graphics) const
 {
 	screenMgr->draw(appData, graphics);
-	GameLibrary::TextureImage*img = appData.getAssetManager()->getTexture("test.png");
-	graphics.drawImage(img, 200,200);
+	/*GameLibrary::TextureImage*img = appData.getAssetManager()->getTexture("test.png");
+	graphics.drawImage(img, 200,200);*/
+	actor->draw(appData, graphics);
 }
