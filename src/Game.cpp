@@ -1,8 +1,6 @@
 
 #include "Game.h"
 
-using namespace GameLibrary;
-
 Game::Game()
 {
 	rootScrn = nullptr;
@@ -29,12 +27,12 @@ Game::~Game()
 void Game::initialize()
 {
 	setFPS(60);
-	rootScrn = new GameLibrary::Screen();
-	rootScrn->setBackgroundColor(GameLibrary::Color::BLUE);
-	screenMgr = new GameLibrary::ScreenManager(getWindow(), rootScrn);
+	rootScrn = new Screen();
+	rootScrn->setBackgroundColor(Color::BLUE);
+	screenMgr = new ScreenManager(getWindow(), rootScrn);
 }
 
-void Game::loadContent(GameLibrary::AssetManager*assetManager)
+void Game::loadContent(AssetManager*assetManager)
 {
 	//assetManager->loadTexture("images/tails.png");
 	actor = new Actor(200,200);
@@ -44,22 +42,21 @@ void Game::loadContent(GameLibrary::AssetManager*assetManager)
 	actor->setScale(6.0f);
 }
 
-void Game::unloadContent(GameLibrary::AssetManager*assetManager)
+void Game::unloadContent(AssetManager*assetManager)
 {
 	//
 }
 
-void Game::update(GameLibrary::AppData appData)
+void Game::update(AppData appData)
 {
 	screenMgr->update(appData);
 	actor->update(appData);
 }
 
-void Game::draw(GameLibrary::AppData appData, GameLibrary::Graphics graphics) const
+void Game::draw(AppData appData, Graphics graphics) const
 {
 	screenMgr->draw(appData, graphics);
-	GameLibrary::TextureImage* img = appData.getAssetManager()->getTexture("images/sonic.png");
-	/*GameLibrary::TextureImage*img = appData.getAssetManager()->getTexture("images/tails.png");
+	/*TextureImage*img = appData.getAssetManager()->getTexture("images/tails.png");
 	graphics.drawImage(img, 200,200);*/
 	actor->draw(appData, graphics);
 	graphics.setColor(Color::GREEN);

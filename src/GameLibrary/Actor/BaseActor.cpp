@@ -192,13 +192,11 @@ namespace GameLibrary
 	void BaseActor::onMouseEnter(Window*window, unsigned int touchID)
 	{
 		//Open for implementation
-		setColor(Color::RED);
 	}
 
 	void BaseActor::onMouseLeave(Window*window, unsigned int touchID)
 	{
 		//Open for implementation
-		setColor(Color::WHITE);
 	}
 
 	bool BaseActor::isTouchDataActive(unsigned int touchID)

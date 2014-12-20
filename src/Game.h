@@ -3,19 +3,21 @@
 
 #pragma once
 
+using namespace GameLibrary;
+
 class Game : public GameLibrary::Application
 {
 private:
-	GameLibrary::Screen* rootScrn;
-	GameLibrary::ScreenManager* screenMgr;
-	GameLibrary::Actor* actor;
+	Screen* rootScrn;
+	ScreenManager* screenMgr;
+	Actor* actor;
 public:
 	Game();
 	virtual ~Game();
 
 	virtual void initialize();
-	virtual void loadContent(GameLibrary::AssetManager*assetManager);
-	virtual void unloadContent(GameLibrary::AssetManager*assetManager);
-	virtual void update(GameLibrary::AppData appData);
-	virtual void draw(GameLibrary::AppData appData, GameLibrary::Graphics graphics) const;
+	virtual void loadContent(AssetManager*assetManager);
+	virtual void unloadContent(AssetManager*assetManager);
+	virtual void update(AppData appData);
+	virtual void draw(AppData appData, Graphics graphics) const;
 };
