@@ -44,13 +44,7 @@ namespace GameLibrary
 
 	Color::operator GameLibrary::Uint32() const
 	{
-		Uint32 rgba = 0;
-		byte*arr = (byte*)(&rgba);
-		arr[3] = r;
-		arr[2] = g;
-		arr[1] = b;
-		arr[0] = a;
-		return rgba;
+		return RGBA(r,g,b,a);
 	}
 	
 	Color& Color::operator=(const Color&color)
@@ -79,13 +73,7 @@ namespace GameLibrary
 	
 	Uint32 Color::getRGBA() const
 	{
-		Uint32 rgba = 0;
-		byte*arr = (byte*)(&rgba);
-		arr[3] = r;
-		arr[2] = g;
-		arr[1] = b;
-		arr[0] = a;
-		return rgba;
+		return RGBA(r,g,b,a);
 	}
 
 	Uint32 Color::getARGB() const

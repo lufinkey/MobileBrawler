@@ -73,6 +73,12 @@
     <Filter Include="src\GameLibrary\Screen\UI">
       <UniqueIdentifier>{056a697e-c673-46f3-9f00-1c819ff7f992}</UniqueIdentifier>
     </Filter>
+    <Filter Include="images">
+      <UniqueIdentifier>{1d33167c-157d-42e6-85e1-5d8e34de4a5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fonts">
+      <UniqueIdentifier>{d94fc3fb-b258-4a36-afe9-dc6672d312b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameLibrary\Actor\Actor.cpp">
@@ -545,5 +551,18 @@
     <ClInclude Include="src\GameLibrary\Graphics\PixelIterator.h">
       <Filter>src\GameLibrary\Graphics</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="fonts\arial.ttf">
+      <Filter>fonts</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="images\sonic.png">
+      <Filter>images</Filter>
+    </Image>
+    <Image Include="images\tails.png">
+      <Filter>images</Filter>
+    </Image>
   </ItemGroup>
 </Project>

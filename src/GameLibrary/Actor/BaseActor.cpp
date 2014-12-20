@@ -3,7 +3,6 @@
 #include "../Input/Mouse.h"
 #include "../Input/Multitouch.h"
 #include "../Utilities/PlatformChecks.h"
-#include "../IO/Console.h"
 
 namespace GameLibrary
 {
@@ -183,25 +182,23 @@ namespace GameLibrary
 	void BaseActor::onMousePress(Window*window, unsigned int touchID)
 	{
 		//Open for implementation
-		Console::writeLine("press");
 	}
 
 	void BaseActor::onMouseRelease(Window*window, unsigned int touchID)
 	{
 		//Open for implementation
-		Console::writeLine("release");
 	}
 
 	void BaseActor::onMouseEnter(Window*window, unsigned int touchID)
 	{
 		//Open for implementation
-		Console::writeLine("enter");
+		setColor(Color::RED);
 	}
 
 	void BaseActor::onMouseLeave(Window*window, unsigned int touchID)
 	{
 		//Open for implementation
-		Console::writeLine("leave");
+		setColor(Color::WHITE);
 	}
 
 	bool BaseActor::isTouchDataActive(unsigned int touchID)

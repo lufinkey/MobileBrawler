@@ -59,6 +59,8 @@ namespace GameLibrary
 
 		TextureImage* getImage(unsigned int frameNum) const;
 		TextureImage* getImage() const;
+		Rectangle getImageSourceRect(unsigned int frameNum) const;
+		Rectangle getImageSourceRect() const;
 
 		virtual RectangleF getFrame() const;
 		RectangleF getFrame(unsigned int frameNum) const;

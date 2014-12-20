@@ -7,7 +7,7 @@ namespace GameLibrary
 	{
 		//
 	}
-
+	
 	Actor::Actor(float x1, float y1)
 	{
 		x = x1;
@@ -21,7 +21,7 @@ namespace GameLibrary
 		firstUpdate = true;
 		prevUpdateTime = 0;
 	}
-
+	
 	Actor::~Actor()
 	{
 		for(unsigned int i=0; i<animations.size(); i++)
@@ -33,7 +33,7 @@ namespace GameLibrary
 			}
 		}
 	}
-
+	
 	void Actor::update(ApplicationData appData)
 	{
 		prevUpdateTime = appData.getTime().getMilliseconds();
@@ -45,18 +45,72 @@ namespace GameLibrary
 			}
 		}
 		firstUpdate = false;
-
+		
 		BaseActor::update(appData);
-		//TODO implement update
-	}
 
+		//update animation loop
+		if(animation_direction == Animation::STOPPED)
+		{
+			animation_prevFrameTime = prevUpdateTime;
+		}
+		else
+		{
+			unsigned int fps = animation_current->getFPS();
+			if(fps!=0)
+			{
+				long long waitTime = 1000/fps;
+				long long finishTime = animation_prevFrameTime + waitTime;
+				if(finishTime <= prevUpdateTime)
+				{
+					animation_prevFrameTime = prevUpdateTime;
+					if(animation_direction == Animation::FORWARD)
+					{
+						animation_frame++;
+						unsigned int totalFrames = animation_current->getTotalFrames();
+						if(animation_frame >= totalFrames)
+						{
+							animation_frame = 0;
+							animation_current->setCurrentFrame(animation_frame);
+							onAnimationFinish(animation_current);
+						}
+						else
+						{
+							animation_current->setCurrentFrame(animation_frame);
+						}
+					}
+					else if(animation_direction == Animation::BACKWARD)
+					{
+						if(animation_frame == 0)
+						{
+							unsigned int totalFrames = animation_current->getTotalFrames();
+							if(totalFrames > 0)
+							{
+								animation_frame = totalFrames-1;
+							}
+							animation_current->setCurrentFrame(animation_frame);
+							onAnimationFinish(animation_current);
+						}
+						else
+						{
+							animation_frame--;
+							animation_current->setCurrentFrame(animation_frame);
+						}
+					}
+				}
+			}
+		}
+	}
+	
 	void Actor::draw(ApplicationData appData, Graphics graphics) const
 	{
 		BaseActor::draw(appData, graphics);
 		
 		graphics.translate(x, y);
 		graphics.compositeTintColor(color);
-		graphics.rotate(rotation);
+		if(rotation!=0)
+		{
+			graphics.rotate(rotation);
+		}
 		if(mirrored)
 		{
 			if(mirroredVertical)
@@ -84,16 +138,21 @@ namespace GameLibrary
 		animation_current->draw(appData, graphics);
 	}
 
+	RectangleF Actor::getFrame() const
+	{
+		return RectangleF(x-(width/2), y-(height/2), width, height);
+	}
+
+	void Actor::onAnimationFinish(Animation*animation)
+	{
+		//Open for implementation
+	}
+
 	void Actor::updateSize()
 	{
 		RectangleF frame = animation_current->getFrame(animation_frame);
 		width = frame.width*scale;
 		height = frame.height*scale;
-	}
-
-	RectangleF Actor::getFrame() const
-	{
-		return RectangleF(x-(width/2), y-(height/2), width, height);
 	}
 
 	void Actor::addAnimation(const String&name, Animation*animation, bool destruct)
@@ -117,7 +176,7 @@ namespace GameLibrary
 			changeAnimation(name, Animation::FORWARD);
 		}
 	}
-
+	
 	void Actor::removeAnimation(const String&name)
 	{
 		unsigned int totalAnimations = animations.size();
@@ -148,7 +207,7 @@ namespace GameLibrary
 		}
 		return false;
 	}
-
+	
 	Animation* Actor::getAnimation(const String&name) const
 	{
 		unsigned int totalAnimations = animations.size();
@@ -285,10 +344,16 @@ namespace GameLibrary
 			}
 			
 			TextureImage* img = animation_current->getImage(animation_frame);
-			unsigned int pxlX = (unsigned int)(ratX*img->getWidth());
-			unsigned int pxlY = (unsigned int)(ratY*img->getHeight());
+			Rectangle srcRect = animation_current->getImageSourceRect(animation_frame);
+			unsigned int pxlX = (unsigned int)(ratX*((float)srcRect.width));
+			unsigned int pxlY = (unsigned int)(ratY*((float)srcRect.height));
 
-			return img->checkPixel(pxlX,pxlY);
+			bool px = img->checkPixel((unsigned int)srcRect.x+pxlX,(unsigned int)srcRect.y+pxlY);
+			if(px)
+			{
+				return true;
+			}
+			return false;
 		}
 		return false;
 	}

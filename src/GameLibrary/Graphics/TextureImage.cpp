@@ -245,8 +245,8 @@ namespace GameLibrary
 					{
 						pixels[i] = false;
 					}
-					texture_pixels[i] = px.getRGBA();
-
+					unsigned int rgba = px.getRGBA();
+					texture_pixels[i] = rgba;
 					i++;
 					counter += bpp;
 				}
@@ -254,6 +254,7 @@ namespace GameLibrary
 			}
 
 			SDL_UnlockTexture((SDL_Texture*)texture);
+			SDL_SetTextureBlendMode((SDL_Texture*)texture,SDL_BLENDMODE_BLEND);
 
 			width = w;
 			height = h;

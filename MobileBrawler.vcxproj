@@ -243,6 +243,13 @@
     <ClInclude Include="src\GameLibrary\Window\View.h" />
     <ClInclude Include="src\GameLibrary\Window\Window.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="fonts\arial.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="images\tails.png" />
+    <Image Include="images\sonic.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -19,6 +19,8 @@ namespace GameLibrary
 
 		virtual RectangleF getFrame() const;
 
+		virtual void onAnimationFinish(Animation*animation);
+
 		void addAnimation(const String&name, Animation*animation, bool destruct=true);
 		void removeAnimation(const String&name);
 		bool hasAnimation(const String&name) const;

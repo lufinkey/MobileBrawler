@@ -89,12 +89,12 @@ namespace GameLibrary
 		addFrame(assetManager, file);
 	}
 
-	Animation::Animation(AssetManager*assetManager, unsigned int fps_arg, unsigned int rows, unsigned int cols, const String&file) : Animation(fps)
+	Animation::Animation(AssetManager*assetManager, unsigned int fps, unsigned int rows, unsigned int cols, const String&file) : Animation(fps)
 	{
 		addFrames(assetManager, file, rows, cols);
 	}
 
-	Animation::Animation(AssetManager*assetManager, unsigned int fps_arg, unsigned int rows, unsigned int cols, const String&file, const ArrayList<Vector2u>& sequence) : Animation(fps)
+	Animation::Animation(AssetManager*assetManager, unsigned int fps, unsigned int rows, unsigned int cols, const String&file, const ArrayList<Vector2u>& sequence) : Animation(fps)
 	{
 		addFrames(assetManager, file, rows, cols, sequence);
 	}
@@ -284,6 +284,29 @@ namespace GameLibrary
 	{
 		return getImage(currentFrame);
 	}
+
+	Rectangle Animation::getImageSourceRect(unsigned int fNum) const
+	{
+		unsigned int frameNum = fNum;
+		unsigned int totalFrames = frames.size();
+		if(frameNum > totalFrames)
+		{
+			if(totalFrames>0)
+			{
+				frameNum = (totalFrames-1);
+			}
+			else
+			{
+				frameNum = 0;
+			}
+		}
+		return frames.get(frameNum).getSourceRect();
+	}
+
+	Rectangle Animation::getImageSourceRect() const
+	{
+		return getImageSourceRect(currentFrame);
+	}
 	
 	RectangleF Animation::getFrame() const
 	{
@@ -306,7 +329,7 @@ namespace GameLibrary
 			float height = ((float)imgheight/(float)animFrame.rows);
 			float left = -(width/2);
 			float top = -(height/2);
-			return RectangleF(top, left, width, height);
+			return RectangleF(left, top, width, height);
 		}
 	}
 	
