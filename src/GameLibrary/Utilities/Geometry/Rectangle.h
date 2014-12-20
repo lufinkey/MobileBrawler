@@ -1,4 +1,6 @@
 
+#include "Vector2.h"
+
 #pragma once
 
 namespace GameLibrary
@@ -13,6 +15,9 @@ namespace GameLibrary
 
 		Rectangle();
 		Rectangle(int x, int y, int width, int height);
+
+		bool contains(const Vector2i&point);
+		bool intersects(const Rectangle&rect);
 	};
 
 	class RectangleF
@@ -25,5 +30,8 @@ namespace GameLibrary
 
 		RectangleF();
 		RectangleF(float x, float y, float width, float height);
+
+		bool contains(const Vector2f&point);
+		bool intersects(const RectangleF&rect);
 	};
 }

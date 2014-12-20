@@ -28,10 +28,10 @@ namespace GameLibrary
 		virtual ~BaseActor();
 		
 		BaseActor& operator=(const BaseActor&) = delete;
-
+		
 		virtual void update(ApplicationData appData);
 		virtual void draw(ApplicationData appData, Graphics graphics) const;
-
+		
 		virtual RectangleF getFrame() const;
 		
 		ActorType getActorType() const;
@@ -45,7 +45,7 @@ namespace GameLibrary
 		void setScale(float scale);
 		void mirror(bool);
 		void mirrorVertical(bool);
-
+		
 		bool isVisible() const;
 		Color getColor() const;
 		float getRotation() const;
@@ -53,15 +53,15 @@ namespace GameLibrary
 		float getScale() const;
 		bool isMirrored() const;
 		bool isMirroredVertical() const;
-
+		
 		virtual bool isOnScreen(View*view) const;
-
+		
 		bool isMouseOver() const;
 		bool isMouseClicked() const;
 		bool wasMouseClicked() const;
 		bool didMouseClick() const;
 		bool didMouseRelease() const;
-
+		
 	protected:
 		virtual void updateSize();
 		
