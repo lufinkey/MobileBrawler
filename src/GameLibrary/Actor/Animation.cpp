@@ -261,12 +261,30 @@ namespace GameLibrary
 	{
 		return fps;
 	}
-
+	
+	TextureImage* Animation::getCurrentImage() const
+	{
+		unsigned int frameNum = currentFrame;
+		unsigned int totalFrames = frames.size();
+		if(frameNum > totalFrames)
+		{
+			if(totalFrames>0)
+			{
+				frameNum = (totalFrames-1);
+			}
+			else
+			{
+				frameNum = 0;
+			}
+		}
+		return frames.get(frameNum).img;
+	}
+	
 	RectangleF Animation::getFrame() const
 	{
 		return getFrame(currentFrame);
 	}
-
+	
 	RectangleF Animation::getFrame(unsigned int frameNum) const
 	{
 		const AnimationFrame& animFrame = frames.get(frameNum);
@@ -286,14 +304,21 @@ namespace GameLibrary
 			return RectangleF(top, left, width, height);
 		}
 	}
-
+	
 	void Animation::update(ApplicationData appData)
 	{
 		unsigned int updateFrame = currentFrame;
 		unsigned int totalFrames = frames.size();
 		if(updateFrame > totalFrames)
 		{
-			updateFrame = (totalFrames-1);
+			if(totalFrames>0)
+			{
+				updateFrame = (totalFrames-1);
+			}
+			else
+			{
+				updateFrame = 0;
+			}
 		}
 		AnimationFrame& animFrame = frames.get(updateFrame);
 		TextureImage* img = appData.getAssetManager()->getTexture(animFrame.file);
@@ -306,7 +331,14 @@ namespace GameLibrary
 		unsigned int totalFrames = frames.size();
 		if(drawFrame > totalFrames)
 		{
-			drawFrame = (totalFrames-1);
+			if(totalFrames>0)
+			{
+				drawFrame = (totalFrames-1);
+			}
+			else
+			{
+				drawFrame = 0;
+			}
 		}
 		const AnimationFrame& animFrame = frames.get(drawFrame);
 

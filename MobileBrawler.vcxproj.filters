@@ -294,6 +294,9 @@
     <ClCompile Include="src\GameLibrary\Screen\UI\TextInputElement.cpp">
       <Filter>src\GameLibrary\Screen\UI</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Graphics\PixelIterator.cpp">
+      <Filter>src\GameLibrary\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -538,6 +541,9 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Screen\UI\TextInputElement.h">
       <Filter>src\GameLibrary\Screen\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Graphics\PixelIterator.h">
+      <Filter>src\GameLibrary\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
