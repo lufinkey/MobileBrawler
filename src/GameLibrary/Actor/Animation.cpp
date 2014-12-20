@@ -262,9 +262,9 @@ namespace GameLibrary
 		return fps;
 	}
 	
-	TextureImage* Animation::getCurrentImage() const
+	TextureImage* Animation::getImage(unsigned int fNum) const
 	{
-		unsigned int frameNum = currentFrame;
+		unsigned int frameNum = fNum;
 		unsigned int totalFrames = frames.size();
 		if(frameNum > totalFrames)
 		{
@@ -278,6 +278,11 @@ namespace GameLibrary
 			}
 		}
 		return frames.get(frameNum).img;
+	}
+
+	TextureImage* Animation::getImage() const
+	{
+		return getImage(currentFrame);
 	}
 	
 	RectangleF Animation::getFrame() const

@@ -226,4 +226,53 @@ namespace GameLibrary
 		animation->setCurrentFrame(animation_frame);
 		updateSize();
 	}
+	
+	bool Actor::checkPointCollide(const Vector2f&point)
+	{
+		if(animation_current == nullptr)
+		{
+			return false;
+		}
+		float halfwidth = width/2;
+		float halfheight = height/2;
+		float left = x-halfwidth;
+		float right = x+halfwidth;
+		float top = y-halfheight;
+		float bottom = y+halfheight;
+		if(point.x>left && point.y>top && point.x<right && point.y<bottom)
+		{
+			Vector2f pointFixed = point;
+			pointFixed.x -= left;
+			pointFixed.y -= top;
+			
+			//TODO add rotation matrix
+			
+			if((mirrored && !animation_current->isMirrored()) || (!mirrored && animation_current->isMirrored()))
+			{
+				pointFixed.x = width - pointFixed.x;
+			}
+			if((mirroredVertical && !animation_current->isMirroredVertical()) || (!mirroredVertical && animation_current->isMirroredVertical()))
+			{
+				pointFixed.y = height - pointFixed.y;
+			}
+			
+			RectangleF animRect = animation_current->getFrame(animation_frame);
+			float w = animRect.width*scale;
+			float h = animRect.height*scale;
+			
+			float ratX = pointFixed.x/w;
+			float ratY = pointFixed.y/h;
+			if(ratX < 0 || ratY < 0 || ratX>1 || ratY>1)
+			{
+				return false;
+			}
+			
+			TextureImage* img = animation_current->getImage(animation_frame);
+			unsigned int pxlX = (unsigned int)(ratX*img->getWidth());
+			unsigned int pxlY = (unsigned int)(ratY*img->getHeight());
+
+			return img->checkPixel(pxlX,pxlY);
+		}
+		return false;
+	}
 }

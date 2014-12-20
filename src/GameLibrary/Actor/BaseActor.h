@@ -57,13 +57,18 @@ namespace GameLibrary
 		virtual bool isOnScreen(View*view) const;
 		
 		bool isMouseOver() const;
-		bool isMouseClicked() const;
-		bool wasMouseClicked() const;
-		bool didMouseClick() const;
-		bool didMouseRelease() const;
+		bool wasMouseOver() const;
+		bool isMousePressed() const;
+		bool wasMousePressed() const;
+
+		virtual void onMousePress(Window*window, unsigned int touchID);
+		virtual void onMouseRelease(Window*window, unsigned int touchID);
+		virtual void onMouseEnter(Window*window, unsigned int touchID);
+		virtual void onMouseLeave(Window*window, unsigned int touchID);
 		
 	protected:
 		virtual void updateSize();
+		virtual bool checkPointCollide(const Vector2f&point);
 		
 	private:
 		float width;
@@ -72,6 +77,8 @@ namespace GameLibrary
 		ActorType actorType;
 		bool clicked;
 		bool prevclicked;
+		bool mouseover;
+		bool prevmouseover;
 		bool visible;
 		bool mirrored;
 		bool mirroredVertical;
@@ -79,5 +86,23 @@ namespace GameLibrary
 		float rotation;
 		float alpha;
 		float scale;
+
+		typedef struct
+		{
+			unsigned long touchID;
+			bool pressed;
+		} MouseTouchData;
+		ArrayList<MouseTouchData> currentTouches;
+
+		bool isTouchDataActive(unsigned int touchID);
+		bool isTouchDataPressed(unsigned int touchID);
+		void applyTouchData(unsigned int touchID, bool pressed);
+		void removeTouchData(unsigned int touchID);
+		MouseTouchData* getTouchData(unsigned int touchID);
+		ArrayList<unsigned int> getDifTouchData(const ArrayList<unsigned int>&touchIDs);
+
+		void updateMouse(ApplicationData&appData);
+		void updateTouch(ApplicationData&appData);
+		void callMouseEvents(Window*window, const ArrayList<Pair<unsigned int, byte> >& eventCallData);
 	};
 }

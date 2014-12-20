@@ -57,7 +57,8 @@ namespace GameLibrary
 		void setFPS(unsigned int fps);
 		unsigned int getFPS() const;
 
-		TextureImage* getCurrentImage() const;
+		TextureImage* getImage(unsigned int frameNum) const;
+		TextureImage* getImage() const;
 
 		virtual RectangleF getFrame() const;
 		RectangleF getFrame(unsigned int frameNum) const;

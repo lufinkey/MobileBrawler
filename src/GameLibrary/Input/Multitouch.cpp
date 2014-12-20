@@ -250,6 +250,22 @@ namespace GameLibrary
 		Multitouch_changedListeners.clear();
 		Multitouch_changedListeners_mutex.unlock();
 	}
+
+	ArrayList<unsigned int> Multitouch::getTouchIDs(Window*window)
+	{
+		ArrayList<unsigned int> touchIDs;
+		Multitouch_state_mutex.lock();
+		for(unsigned int i=0; i<Multitouch_currentActiveTouches.size(); i++)
+		{
+			MultitouchData&touchData = Multitouch_currentActiveTouches.get(i);
+			if(touchData.window == window)
+			{
+				touchIDs.add(touchData.touchID);
+			}
+		}
+		Multitouch_state_mutex.unlock();
+		return touchIDs;
+	}
 	
 	void Multitouch::handleTouchMove(Window*window, long long givenID, const Vector2f&pos, const Vector2f&dif)
 	{

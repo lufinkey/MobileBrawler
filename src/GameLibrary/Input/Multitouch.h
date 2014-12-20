@@ -13,6 +13,8 @@ namespace GameLibrary
 	{
 		friend class EventManager;
 	public:
+		static ArrayList<unsigned int> getTouchIDs(Window*window);
+
 		static bool isTouchActive(Window*window, unsigned int touchID);
 		static bool wasTouchActive(Window*window, unsigned int touchID);
 		

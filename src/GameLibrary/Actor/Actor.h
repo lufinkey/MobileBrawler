@@ -27,6 +27,7 @@ namespace GameLibrary
 
 	protected:
 		virtual void updateSize();
+		virtual bool checkPointCollide(const Vector2f&point);
 
 	private:
 		typedef struct

@@ -22,6 +22,9 @@ namespace GameLibrary
 			BUTTON_RIGHT
 		};
 		typedef enum Button Button;
+
+		/*Returns the total number of Mouse instances for a specified Window*/
+		static unsigned int getTotalMouseInstances(Window*window);
 		
 		/*Returns true if Button is currently in a pressed state.
 		window: the window containing the mouse instance, or null for the currently mouse-focused window

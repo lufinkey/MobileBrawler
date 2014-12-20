@@ -32,7 +32,7 @@ namespace GameLibrary
 	//stores listeners that were added or removed from inside a MouseEventListener event
 	static ArrayList<Pair<MouseEventListener*, bool> > Mouse_changedListeners;
 	static std::mutex Mouse_changedListeners_mutex;
-
+	
 	static std::mutex Mouse_state_mutex;
 	//stores the current state of all mouse instances
 	static ArrayList<MouseData> Mouse_states;
@@ -173,6 +173,22 @@ namespace GameLibrary
 		Mouse_changedListeners_mutex.lock();
 		Mouse_changedListeners.clear();
 		Mouse_changedListeners_mutex.unlock();
+	}
+
+	unsigned int Mouse::getTotalMouseInstances(Window*window)
+	{
+		unsigned int counter = 0;
+		Mouse_state_mutex.lock();
+		for(unsigned int i=0; i<Mouse_currentStates.size(); i++)
+		{
+			MouseData& mouseData = Mouse_currentStates.get(i);
+			if(mouseData.window == window)
+			{
+				counter++;
+			}
+		}
+		Mouse_state_mutex.unlock();
+		return counter;
 	}
 	
 	void Mouse::handleMouseMovement(Window*window, unsigned int mouseIndex, const Vector2f&pos, const Vector2f&dif)
@@ -509,7 +525,7 @@ namespace GameLibrary
 		Mouse_currentStates = Mouse_states;
 		Mouse_state_mutex.unlock();
 	}
-
+	
 	void MouseEventListener::onMouseButtonPress(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2f&mousepos)
 	{
 		//
