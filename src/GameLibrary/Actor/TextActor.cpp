@@ -81,7 +81,7 @@ namespace GameLibrary
 			BaseActor::draw(appData, graphics);
 			
 			Graphics actorGraphics(graphics);
-			actorGraphics.compositeTintColor(color);
+			actorGraphics.setColor(color);
 			
 			unsigned int size_original = font->getSize();
 			Font::Style style_original = font->getStyle();
@@ -105,16 +105,16 @@ namespace GameLibrary
 					default:
 					case ALIGN_BOTTOMLEFT:
 					case ALIGN_TOPLEFT:
-					graphics.drawString(line, 0, lineoffset+linerect.y+linerect.height);
+					actorGraphics.drawString(line, 0, lineoffset+linerect.y+linerect.height);
 					break;
 					
 					case ALIGN_BOTTOMRIGHT:
 					case ALIGN_TOPRIGHT:
-					graphics.drawString(line, (float)(boundsrect.width-linerect.width), lineoffset+linerect.y+linerect.height);
+					actorGraphics.drawString(line, (float)(boundsrect.width-linerect.width), lineoffset+linerect.y+linerect.height);
 					break;
 					
 					case ALIGN_CENTER:
-					graphics.drawString(line, -linerect.width/2, lineoffset+linerect.y+linerect.height);
+					actorGraphics.drawString(line, -linerect.width/2, lineoffset+linerect.y+linerect.height);
 					break;
 				}
 			}

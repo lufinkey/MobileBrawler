@@ -96,6 +96,7 @@ namespace GameLibrary
 		}
 
 		SDL_UnlockTexture((SDL_Texture*)texture);
+		SDL_SetTextureBlendMode((SDL_Texture*)texture,SDL_BLENDMODE_BLEND);
 	}
 
 	//TODO figure out where the Rect updates first, so I can figure out how to update the bool vector
@@ -321,6 +322,7 @@ namespace GameLibrary
 			}
 
 			SDL_UnlockTexture((SDL_Texture*)texture);
+			SDL_SetTextureBlendMode((SDL_Texture*)texture,SDL_BLENDMODE_BLEND);
 
 			width = w;
 			height = h;

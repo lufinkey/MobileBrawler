@@ -7,6 +7,7 @@ Game::Game()
 	screenMgr = nullptr;
 	actor = nullptr;
 	textActor = nullptr;
+	wireframeActor = nullptr;
 }
 
 Game::~Game()
@@ -26,6 +27,10 @@ Game::~Game()
 	if(textActor != nullptr)
 	{
 		delete textActor;
+	}
+	if(wireframeActor != nullptr)
+	{
+		delete wireframeActor;
 	}
 }
 
@@ -49,13 +54,21 @@ void Game::loadContent(AssetManager*assetManager)
 	actor->setFrameVisible(true);
 	actor->setRotation(45);
 
-	textActor = new TextActor(400,200, "Hello World\nThis is Finke\nThere are a few things I need\nI need you to kill yourself");
+	textActor = new TextActor(400,100, "Hello World\nThis is Finke\nThere are a few things I need\nI need you to kill yourself");
 	textActor->setFrameColor(Color::GREEN);
 	textActor->setFrameVisible(true);
 	textActor->setRotation(45);
-	textActor->setScale(2.0f);
-	textActor->setAlignment(TextActor::ALIGN_TOPLEFT);
+	textActor->setScale(1.2f);
+	textActor->setAlignment(TextActor::ALIGN_BOTTOMLEFT);
 	textActor->setLineSpacing(-40);
+
+	wireframeActor = new WireframeActor(400, 400, 100, 100);
+	wireframeActor->setColor(Color::YELLOW);
+	wireframeActor->setFilled(true);
+	wireframeActor->setFrameColor(Color::GREEN);
+	wireframeActor->setFrameVisible(true);
+	wireframeActor->setRotation(45);
+	wireframeActor->setScale(1.4f);
 }
 
 void Game::unloadContent(AssetManager*assetManager)
@@ -68,6 +81,7 @@ void Game::update(AppData appData)
 	screenMgr->update(appData);
 	actor->update(appData);
 	textActor->update(appData);
+	wireframeActor->update(appData);
 }
 
 void Game::draw(AppData appData, Graphics graphics) const
@@ -77,6 +91,5 @@ void Game::draw(AppData appData, Graphics graphics) const
 	graphics.drawImage(img, 200,200);*/
 	actor->draw(appData, graphics);
 	textActor->draw(appData, graphics);
-	graphics.setColor(Color::RED);
-	graphics.fillRect(400,200,2,2);
+	wireframeActor->draw(appData, graphics);
 }

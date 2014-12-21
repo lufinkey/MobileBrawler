@@ -15,11 +15,21 @@ namespace GameLibrary
 		virtual void draw(ApplicationData appData, Graphics graphics) const;
 		
 		virtual RectangleF getFrame() const;
-		
-		void setFilled(bool);
-		bool isFilled() const;
 
+		void setSize(const Vector2f&);
+		void setSize(float width, float height);
+		void setFilled(bool);
+		
+		const Vector2f& getSize() const;
+		bool isFilled() const;
+		
+	protected:
+		virtual void updateSize();
+		virtual void drawActor(ApplicationData&appData, Graphics&graphics, float x, float y, float scale) const;
+		
 	private:
 		bool filled;
+		Vector2f size;
+		RectangleF framerect;
 	};
 }

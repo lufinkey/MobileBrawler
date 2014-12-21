@@ -12,6 +12,8 @@ private:
 	ScreenManager* screenMgr;
 	Actor* actor;
 	TextActor* textActor;
+	WireframeActor* wireframeActor;
+
 public:
 	Game();
 	virtual ~Game();
