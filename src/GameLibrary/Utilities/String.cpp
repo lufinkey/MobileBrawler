@@ -994,6 +994,15 @@ namespace GameLibrary
 		characters[total] = '\0';
 	}
 
+	String::String(const char&c)
+	{
+		total = 1;
+		characters = (char*)std::calloc(total+1, 1);
+		
+		characters[0] = c;
+		characters[total] = '\0';
+	}
+
 	/*String::String(bool b)
 	{
 		if(b)

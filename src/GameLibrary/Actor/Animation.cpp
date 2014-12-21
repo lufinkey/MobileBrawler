@@ -109,12 +109,12 @@ namespace GameLibrary
 		frames.clear();
 	}
 
-	void Animation::mirror(bool toggle)
+	void Animation::setMirrored(bool toggle)
 	{
 		mirrored = toggle;
 	}
 
-	void Animation::mirrorVertical(bool toggle)
+	void Animation::setMirroredVertical(bool toggle)
 	{
 		mirroredVertical = toggle;
 	}

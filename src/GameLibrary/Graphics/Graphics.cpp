@@ -121,7 +121,7 @@ namespace GameLibrary
 			translate(difX,difY);
 		}
 	}
-
+	
 	Graphics::Graphics(Window&win)
 	{
 		if(win.windowdata == nullptr)
@@ -136,11 +136,11 @@ namespace GameLibrary
 			//TODO replace with more specific exception type
 			throw Exception(SDL_GetError());
 		}
-
+		
 		color = Color::BLACK;
 		tintColor = Color::WHITE;
 		alpha = 255;
-
+		
 		if(defaultFont == nullptr)
 		{
 			defaultFont = new Font();
@@ -153,29 +153,29 @@ namespace GameLibrary
 			defaultFont->setAntialiasing(true);
 		}
 		font = defaultFont;
-
+		
 		if(win.view == nullptr || win.view->matchWindow)
 		{
 			const Vector2u& winSize = win.getSize();
 			clipRect = RectangleF(0, 0, (float)winSize.x, (float)winSize.y);
 		}
 		clipOffset = Vector2f(0,0);
-
+		
 		transform = Transform();
 		rotation = 0;
 		scaling.x = 1;
 		scaling.y = 1;
-
+		
 		derived = false;
-
+		
 		pixel = new TextureImage();
 		pixel->create(1,1,*this);
 		Color pixelColor = Color::WHITE;
 		pixel->update(&pixelColor);
-
+		
 		reset();
 	}
-
+	
 	Graphics::Graphics(const Graphics&g)
 	{
 		derived = true;
@@ -192,7 +192,7 @@ namespace GameLibrary
 		rotation = g.rotation;
 		scaling = g.scaling;
 	}
-
+	
 	Graphics::~Graphics()
 	{
 		if(!derived)
@@ -374,14 +374,15 @@ namespace GameLibrary
 		unsigned int fontSize = font->getSize();
 		Color compColor = color.composite(tintColor);
 		float alphaMult = (float)alpha / 255;
-
-		float y1_top = y1 - (float)fontSize;
+		
+		float y1_top = y1 - (float)dimensions.y;
 		float x_offset = 0;
 		for(unsigned int i = 0; i < glyphs.size(); i++)
 		{
 			RenderedGlyphContainer::RenderedGlyph& glyph = glyphs.get(i);
 			float mult = (float)fontSize/(float)glyph.size;
 			SDL_Texture*texture = (SDL_Texture*)glyph.texture;
+			Vector2u glyphDimensions = font->measureString(text.charAt(i));
 			unsigned int format = 0;
 			int access = 0;
 			int w = 0;
@@ -391,50 +392,50 @@ namespace GameLibrary
 			float realHeight = (float)h*mult;
 			
 			Vector2f pnt = transform.transformPoint(Vector2f(x1 + x_offset, y1_top));
-
+			
 			SDL_Rect rect;
 			rect.x = (int)pnt.x;
 			rect.y = (int)pnt.y;
 			rect.w = (int)(realWidth*scaling.x);
 			rect.h = (int)(realHeight*scaling.y);
-
+			
 			SDL_Point center;
 			center.x = 0;
 			center.y = 0;
-
+			
 			beginDraw();
-
+			
 			SDL_SetTextureColorMod(texture, compColor.r, compColor.g, compColor.b);
 			SDL_SetTextureAlphaMod(texture, (byte)(compColor.a * alphaMult));
-
+			
 			SDL_RenderCopyEx((SDL_Renderer*)renderer, (SDL_Texture*)glyph.texture, nullptr, &rect, rotation, &center, SDL_FLIP_NONE);
-
+			
 			SDL_SetTextureColorMod(texture, 255,255,255);
 			SDL_SetTextureAlphaMod(texture, 255);
-
+			
 			endDraw();
-
-			x_offset += realWidth;
+			
+			x_offset += glyphDimensions.x;
 		}
 	}
-
+	
 	void Graphics::drawString(const String&text, const Vector2f& point)
 	{
 		drawString(text, point.x, point.y);
 	}
-
+	
 	void Graphics::drawLine(float x1, float y1, float x2, float y2)
 	{
 		Vector2f pnt1 = transform.transformPoint(Vector2f(x1, y1));
 		Vector2f pnt2 = transform.transformPoint(Vector2f(x2, y2));
-
+		
 		beginDraw();
-
+		
 		SDL_RenderDrawLine((SDL_Renderer*)renderer, (int)pnt1.x, (int)pnt1.y, (int)pnt2.x, (int)pnt2.y);
-
+		
 		endDraw();
 	}
-
+	
 	void Graphics::drawLine(const Vector2f& point1, const Vector2f& point2)
 	{
 		drawLine(point1.x, point1.y, point2.x, point2.y);

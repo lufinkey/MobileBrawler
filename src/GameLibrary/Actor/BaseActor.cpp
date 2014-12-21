@@ -21,7 +21,9 @@ namespace GameLibrary
 		visible = true;
 		mirrored = false;
 		mirroredVertical = false;
+		frame_visible = false;
 		color = Color::WHITE;
+		frame_color = Color::GREEN;
 		rotation = 0;
 		alpha = 1;
 		scale = 1;
@@ -48,10 +50,10 @@ namespace GameLibrary
 	{
 		//Open for implementation
 	}
-
+	
 	RectangleF BaseActor::getFrame() const
 	{
-		return RectangleF(x,y,width,height);
+		return RectangleF(x, y, width, height);
 	}
 	
 	BaseActor::ActorType BaseActor::getActorType() const
@@ -115,14 +117,24 @@ namespace GameLibrary
 		scale = s;
 		updateSize();
 	}
+
+	void BaseActor::setFrameVisible(bool toggle)
+	{
+		frame_visible = toggle;
+	}
 	
-	void BaseActor::mirror(bool toggle)
+	void BaseActor::setFrameColor(const Color&color)
+	{
+		frame_color = color;
+	}
+	
+	void BaseActor::setMirrored(bool toggle)
 	{
 		mirrored = toggle;
 		updateSize();
 	}
 	
-	void BaseActor::mirrorVertical(bool toggle)
+	void BaseActor::setMirroredVertical(bool toggle)
 	{
 		mirroredVertical = toggle;
 		updateSize();
@@ -151,6 +163,16 @@ namespace GameLibrary
 	float BaseActor::getScale() const
 	{
 		return scale;
+	}
+
+	bool BaseActor::isFrameVisible() const
+	{
+		return frame_visible;
+	}
+	
+	const Color& BaseActor::getFrameColor() const
+	{
+		return frame_color;
 	}
 	
 	bool BaseActor::isMirrored() const
@@ -212,13 +234,11 @@ namespace GameLibrary
 	void BaseActor::onMouseEnter(Window*window, unsigned int touchID)
 	{
 		//Open for implementation
-		setColor(Color::RED);
 	}
 
 	void BaseActor::onMouseLeave(Window*window, unsigned int touchID)
 	{
 		//Open for implementation
-		setColor(Color::WHITE);
 	}
 
 	bool BaseActor::isTouchDataActive(unsigned int touchID)

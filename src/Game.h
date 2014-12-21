@@ -11,6 +11,7 @@ private:
 	Screen* rootScrn;
 	ScreenManager* screenMgr;
 	Actor* actor;
+	TextActor* textActor;
 public:
 	Game();
 	virtual ~Game();

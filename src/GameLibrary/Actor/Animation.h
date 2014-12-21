@@ -36,8 +36,8 @@ namespace GameLibrary
 
 		void clear();
 
-		void mirror(bool);
-		void mirrorVertical(bool);
+		void setMirrored(bool);
+		void setMirroredVertical(bool);
 		bool isMirrored() const;
 		bool isMirroredVertical() const;
 

@@ -113,6 +113,7 @@ namespace GameLibrary
 		String(const std::wstring&);
 		String(const char*);
 		String(const wchar_t*);
+		String(const char&);
 		virtual ~String();
 
 		std::wstring wstring() const;

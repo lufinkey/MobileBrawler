@@ -18,6 +18,7 @@ namespace GameLibrary
 
 		bool contains(const Vector2i&point);
 		bool intersects(const Rectangle&rect);
+		void combine(const Rectangle&rect);
 	};
 
 	class RectangleF
@@ -33,5 +34,6 @@ namespace GameLibrary
 
 		bool contains(const Vector2f&point);
 		bool intersects(const RectangleF&rect);
+		void combine(const RectangleF&rect);
 	};
 }

@@ -64,6 +64,41 @@ namespace GameLibrary
 		
 	    return true;
 	}
+
+	void Rectangle::combine(const Rectangle&rect)
+	{
+		int rect_left = rect.x;
+		int rect_top = rect.y;
+		int rect_right = rect.x + rect.width;
+		int rect_bottom = rect.y + rect.height;
+
+		int left = x;
+		int top = y;
+		int right = x + width;
+		int bottom = y + height;
+
+		if(rect_left < left)
+		{
+			left = rect_left;
+		}
+		if(rect_top < top)
+		{
+			top = rect_top;
+		}
+		if(rect_right > right)
+		{
+			right = rect_right;
+		}
+		if(rect_bottom > bottom)
+		{
+			bottom = rect_bottom;
+		}
+
+		x = left;
+		y = top;
+		width = right-left;
+		height = bottom-top;
+	}
 	
 	RectangleF::RectangleF()
 	{
@@ -125,5 +160,40 @@ namespace GameLibrary
 	    }
 		
 	    return true;
+	}
+	
+	void RectangleF::combine(const RectangleF&rect)
+	{
+		float rect_left = rect.x;
+		float rect_top = rect.y;
+		float rect_right = rect.x + rect.width;
+		float rect_bottom = rect.y + rect.height;
+
+		float left = x;
+		float top = y;
+		float right = x + width;
+		float bottom = y + height;
+
+		if(rect_left < left)
+		{
+			left = rect_left;
+		}
+		if(rect_top < top)
+		{
+			top = rect_top;
+		}
+		if(rect_right > right)
+		{
+			right = rect_right;
+		}
+		if(rect_bottom > bottom)
+		{
+			bottom = rect_bottom;
+		}
+
+		x = left;
+		y = top;
+		width = right-left;
+		height = bottom-top;
 	}
 }

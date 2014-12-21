@@ -16,7 +16,7 @@ namespace GameLibrary
 		
 		virtual void update(ApplicationData appData);
 		virtual void draw(ApplicationData appData, Graphics graphics) const;
-		
+
 		virtual RectangleF getFrame() const;
 		
 		virtual void onAnimationFinish(Animation*animation);
@@ -26,16 +26,13 @@ namespace GameLibrary
 		bool hasAnimation(const String&name) const;
 		Animation* getAnimation(const String&name) const;
 		void changeAnimation(const String&name, const Animation::AnimationDirection&direction);
-
-		void setWireframeVisible(bool);
-		void setWireframeColor(const Color&);
-
-		bool isWireframeVisible() const;
-		const Color& getWireframeColor() const;
 		
 	protected:
 		virtual void updateSize();
+
+		//NOTE: this function is very inefficient in loops. You should use it for checking single pixels. Do NOT use for pixel level collisions (use PixelIterator)
 		virtual bool checkPointCollision(const Vector2f&point);
+		
 		virtual void drawActor(ApplicationData&appData, Graphics&graphics, float x, float y, float scale) const;
 		
 	private:
@@ -54,8 +51,7 @@ namespace GameLibrary
 		long long animation_prevFrameTime;
 		Animation::AnimationDirection animation_direction;
 
-		bool wireframe_visible;
-		Color wireframe_color;
+		Vector2f framesize;
 		
 		bool firstUpdate;
 		long long prevUpdateTime;

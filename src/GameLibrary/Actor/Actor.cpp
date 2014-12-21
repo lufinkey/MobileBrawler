@@ -18,9 +18,6 @@ namespace GameLibrary
 		animation_prevFrameTime = 0;
 		animation_direction = Animation::FORWARD;
 
-		wireframe_visible = false;
-		wireframe_color = Color::GREEN;
-
 		firstUpdate = true;
 		prevUpdateTime = 0;
 	}
@@ -111,15 +108,15 @@ namespace GameLibrary
 	
 	void Actor::drawActor(ApplicationData&appData, Graphics&graphics, float x, float y, float scale) const
 	{
-		BaseActor::draw(appData, graphics);
-
-		if(visible)
+		if(visible && scale!=0)
 		{
 			graphics.translate(x, y);
+			Graphics boundingBoxGraphics(graphics);
 			if(rotation!=0)
 			{
 				graphics.rotate(rotation);
 			}
+			Graphics frameGraphics(graphics);
 			if(mirrored)
 			{
 				if(mirroredVertical)
@@ -142,25 +139,28 @@ namespace GameLibrary
 					graphics.scale(scale,scale);
 				}
 			}
+
+			BaseActor::draw(appData, graphics);
+			
 			Graphics actorGraphics(graphics);
 			actorGraphics.compositeTintColor(color);
 			
 			animation_current->setCurrentFrame(animation_frame);
 			animation_current->draw(appData, actorGraphics);
 			
-			if(wireframe_visible)
+			if(frame_visible)
 			{
-				RectangleF wireframeRect = animation_current->getFrame(animation_frame);
-				Graphics wireframeGraphics(graphics);
-				wireframeGraphics.setColor(wireframe_color);
-				wireframeGraphics.drawRect(wireframeRect.x, wireframeRect.y, wireframeRect.width, wireframeRect.height);
+				frameGraphics.setColor(frame_color);
+				frameGraphics.drawRect(-(width/2), -(height/2), width, height);
+				boundingBoxGraphics.setColor(frame_color);
+				boundingBoxGraphics.drawRect(-(framesize.x/2), -(framesize.y/2), framesize.x, framesize.y);
 			}
 		}
 	}
 	
 	RectangleF Actor::getFrame() const
 	{
-		return RectangleF(x-(width/2), y-(height/2), width, height);
+		return RectangleF(x-(framesize.x/2), y-(framesize.y/2), framesize.x, framesize.y);
 	}
 	
 	void Actor::onAnimationFinish(Animation*animation)
@@ -175,9 +175,14 @@ namespace GameLibrary
 		frame.y*=scale;
 		frame.width*=scale;
 		frame.height*=scale;
-		frame = rotationMatrix.transformRectangle(frame);
+
 		width = frame.width;
 		height = frame.height;
+
+		frame = rotationMatrix.transformRectangle(frame);
+		
+		framesize.x = frame.width;
+		framesize.y = frame.height;
 	}
 	
 	void Actor::addAnimation(const String&name, Animation*animation, bool destruct)
@@ -328,26 +333,6 @@ namespace GameLibrary
 		updateSize();
 	}
 	
-	void Actor::setWireframeVisible(bool toggle)
-	{
-		wireframe_visible = toggle;
-	}
-	
-	void Actor::setWireframeColor(const Color&color)
-	{
-		wireframe_color = color;
-	}
-	
-	bool Actor::isWireframeVisible() const
-	{
-		return wireframe_visible;
-	}
-	
-	const Color& Actor::getWireframeColor() const
-	{
-		return wireframe_color;
-	}
-	
 	bool Actor::checkPointCollision(const Vector2f&point)
 	{
 		if(animation_current == nullptr)
@@ -368,12 +353,8 @@ namespace GameLibrary
 			
 			pointFixed = inverseRotationMatrix.transformPoint(pointFixed);
 
-			RectangleF animRect = animation_current->getFrame(animation_frame);
-			float w = animRect.width*scale;
-			float h = animRect.height*scale;
-
-			pointFixed.x += w/2;
-			pointFixed.y += h/2;
+			pointFixed.x += width/2;
+			pointFixed.y += height/2;
 			
 			if((mirrored && !animation_current->isMirrored()) || (!mirrored && animation_current->isMirrored()))
 			{
@@ -384,8 +365,8 @@ namespace GameLibrary
 				pointFixed.y = height - pointFixed.y;
 			}
 			
-			float ratX = pointFixed.x/w;
-			float ratY = pointFixed.y/h;
+			float ratX = pointFixed.x/width;
+			float ratY = pointFixed.y/height;
 			if(ratX < 0 || ratY < 0 || ratX>1 || ratY>1)
 			{
 				return false;

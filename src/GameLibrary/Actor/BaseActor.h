@@ -44,14 +44,18 @@ namespace GameLibrary
 		void setRotation(float degrees);
 		void setAlpha(float alpha);
 		void setScale(float scale);
-		void mirror(bool);
-		void mirrorVertical(bool);
+		void setFrameVisible(bool);
+		void setFrameColor(const Color&);
+		void setMirrored(bool);
+		void setMirroredVertical(bool);
 		
 		bool isVisible() const;
 		const Color& getColor() const;
 		float getRotation() const;
 		float getAlpha() const;
 		float getScale() const;
+		bool isFrameVisible() const;
+		const Color& getFrameColor() const;
 		bool isMirrored() const;
 		bool isMirroredVertical() const;
 		
@@ -83,7 +87,9 @@ namespace GameLibrary
 		bool visible;
 		bool mirrored;
 		bool mirroredVertical;
+		bool frame_visible;
 		Color color;
+		Color frame_color;
 		float rotation;
 		float alpha;
 		float scale;
