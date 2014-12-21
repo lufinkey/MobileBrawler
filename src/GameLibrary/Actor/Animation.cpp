@@ -378,10 +378,10 @@ namespace GameLibrary
 		float dst_right = dst_left + dstRect.width;
 		float dst_bottom = dst_top + dstRect.height;
 
-		int src_left = srcRect.x;
-		int src_top = srcRect.y;
-		int src_right = src_left + srcRect.width;
-		int src_bottom = src_top + srcRect.height;
+		unsigned int src_left = (unsigned int)srcRect.x;
+		unsigned int src_top = (unsigned int)srcRect.y;
+		unsigned int src_right = (unsigned int)(src_left + srcRect.width);
+		unsigned int src_bottom = (unsigned int)(src_top + srcRect.height);
 
 		if(mirrored)
 		{

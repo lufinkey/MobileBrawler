@@ -467,35 +467,33 @@ namespace GameLibrary
 	void Graphics::fillRect(float x, float y, float width, float height)
 	{
 		Vector2f pnt = transform.transformPoint(Vector2f(x, y));
-
+		
 		float rectLeft = pnt.x;
 		float rectTop = pnt.y;
-		float rectRight = rectLeft + (width*scaling.x);
-		float rectBottom = rectTop + (height*scaling.y);
-
+		
 		SDL_Rect rect;
 		rect.x = (int)rectLeft;
 		rect.y = (int)rectTop;
-		rect.w = (int)(rectRight - (float)rect.x);
-		rect.h = (int)(rectBottom - (float)rect.y);
-
+		rect.w = (int)(((x+width) - (float)((int)x))*scaling.x);
+		rect.h = (int)(((y+height) - (float)((int)y))*scaling.y);
+		
 		SDL_Point center;
 		center.x = 0;
 		center.y = 0;
-
+		
 		Color compColor = color.composite(tintColor);
-
+		
 		beginDraw();
-
+		
 		float alphaMult = (float)alpha/255;
 		SDL_SetTextureColorMod((SDL_Texture*)pixel->texture, compColor.r, compColor.g, compColor.b);
 		SDL_SetTextureAlphaMod((SDL_Texture*)pixel->texture, (byte)(compColor.a * alphaMult));
-
+		
 		SDL_RenderCopyEx((SDL_Renderer*)renderer, (SDL_Texture*)pixel->texture, nullptr, &rect, rotation, &center, SDL_FLIP_NONE);
-
+		
 		SDL_SetTextureColorMod((SDL_Texture*)pixel->texture, 255,255,255);
 		SDL_SetTextureAlphaMod((SDL_Texture*)pixel->texture, 255);
-
+		
 		endDraw();
 	}
 
@@ -529,38 +527,12 @@ namespace GameLibrary
 		SDL_Texture*texture = (SDL_Texture*)img->texture;
 		unsigned int texWidth = img->getWidth();
 		unsigned int texHeight = img->getHeight();
-		if(texWidth != 0 && texHeight != 0)
-		{
-			Vector2f pnt = transform.transformPoint(Vector2f(x, y));
 
-			float dstrectLeft = pnt.x;
-			float dstrectTop = pnt.y;
-			float dstrectRight = dstrectLeft + ((float)texWidth*scaling.x);
-			float dstrectBottom = dstrectTop + ((float)texHeight*scaling.y);
-
-			SDL_Rect dstrect;
-			dstrect.x = (int)dstrectLeft;
-			dstrect.y = (int)dstrectTop;
-			dstrect.w = (int)(dstrectRight - (float)dstrect.x);
-			dstrect.h = (int)(dstrectBottom - (float)dstrect.y);
-
-			SDL_Point center;
-			center.x = 0;
-			center.y = 0;
-
-			beginDraw();
-
-			float alphaMult = (float)alpha/255;
-			SDL_SetTextureColorMod(texture, tintColor.r, tintColor.g, tintColor.b);
-			SDL_SetTextureAlphaMod(texture, (byte)(tintColor.a * alphaMult));
-
-			SDL_RenderCopyEx((SDL_Renderer*)renderer, texture, nullptr, &dstrect, rotation, &center, SDL_FLIP_NONE);
-
-			SDL_SetTextureColorMod(texture, 255,255,255);
-			SDL_SetTextureAlphaMod(texture, 255);
-
-			endDraw();
-		}
+		float dx1 = x;
+		float dy1 = y;
+		float dx2 = x+((float)texWidth);
+		float dy2 = y+((float)texHeight);
+		drawImage(img, dx1,dy1,dx2,dy2, 0,0,texWidth,texHeight);
 	}
 
 	void Graphics::drawImage(TextureImage*img, const Vector2f& point)
@@ -573,38 +545,12 @@ namespace GameLibrary
 		SDL_Texture*texture = (SDL_Texture*)img->texture;
 		unsigned int texWidth = img->width;
 		unsigned int texHeight = img->height;
-		if(texWidth != 0 && texHeight != 0)
-		{
-			Vector2f pnt = transform.transformPoint(Vector2f(x, y));
-
-			float dstrectLeft = pnt.x;
-			float dstrectTop = pnt.y;
-			float dstrectRight = dstrectLeft + (width*scaling.x);
-			float dstrectBottom = dstrectTop + (height*scaling.y);
-
-			SDL_Rect dstrect;
-			dstrect.x = (int)dstrectLeft;
-			dstrect.y = (int)dstrectTop;
-			dstrect.w = (int)(dstrectRight - (float)dstrect.x);
-			dstrect.h = (int)(dstrectBottom - (float)dstrect.y);
-
-			SDL_Point center;
-			center.x = 0;
-			center.y = 0;
-
-			beginDraw();
-
-			float alphaMult = (float)alpha/255;
-			SDL_SetTextureColorMod(texture, tintColor.r, tintColor.g, tintColor.b);
-			SDL_SetTextureAlphaMod(texture, (byte)(tintColor.a * alphaMult));
-
-			SDL_RenderCopyEx((SDL_Renderer*)renderer, texture, nullptr, &dstrect, rotation, &center, SDL_FLIP_NONE);
-
-			SDL_SetTextureColorMod(texture, 255,255,255);
-			SDL_SetTextureAlphaMod(texture, 255);
-
-			endDraw();
-		}
+		
+		float dx1 = x;
+		float dy1 = y;
+		float dx2 = x+width;
+		float dy2 = y+height;
+		drawImage(img, dx1,dy1,dx2,dy2, 0,0,texWidth,texHeight);
 	}
 
 	void Graphics::drawImage(TextureImage*img, const RectangleF& rect)
@@ -612,7 +558,7 @@ namespace GameLibrary
 		drawImage(img, rect.x, rect.y, rect.width, rect.height);
 	}
 
-	void Graphics::drawImage(TextureImage*img, float dx1, float dy1, float dx2, float dy2, int sx1, int sy1, int sx2, int sy2)
+	void Graphics::drawImage(TextureImage*img, float dx1, float dy1, float dx2, float dy2, unsigned int sx1, unsigned int sy1, unsigned int sx2, unsigned int sy2)
 	{
 		SDL_Texture*texture = (SDL_Texture*)img->texture;
 		unsigned int texWidth = img->width;
@@ -620,19 +566,18 @@ namespace GameLibrary
 		if(texWidth != 0 && texHeight != 0)
 		{
 			SDL_Rect srcrect;
-			srcrect.x = sx1;
-			srcrect.y = sy1;
-			srcrect.w = sx2 - sx1;
-			srcrect.h = sy2 - sy1;
+			srcrect.x = (int)sx1;
+			srcrect.y = (int)sy1;
+			srcrect.w = (int)(sx2 - sx1);
+			srcrect.h = (int)(sy2 - sy1);
 
 			Vector2f pnt1 = transform.transformPoint(Vector2f(dx1, dy1));
-			Vector2f pnt2 = transform.transformPoint(Vector2f(dx2, dy2));
 
 			SDL_Rect dstrect;
 			dstrect.x = (int)pnt1.x;
 			dstrect.y = (int)pnt1.y;
-			dstrect.w = (int)(pnt2.x - (float)dstrect.x);
-			dstrect.h = (int)(pnt2.y - (float)dstrect.y);
+			dstrect.w = (int)((dx2 - (float)((int)dx1))*scaling.x);
+			dstrect.h = (int)((dy2 - (float)((int)dy1))*scaling.y);
 
 			SDL_Point center;
 			center.x = 0;

@@ -33,7 +33,7 @@ namespace GameLibrary
 		Vector2f transformPoint(float x, float y) const;
 		Vector2f transformPoint(const Vector2f& point) const;
 		Rectangle transformRectangle(const Rectangle& rectangle) const;
-		RectangleF transformRectangleF(const RectangleF& rectangle) const;
+		RectangleF transformRectangle(const RectangleF& rectangle) const;
 		
 		Transform& combine(const Transform& transform);
 		Transform& translate(float x, float y);

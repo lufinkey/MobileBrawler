@@ -104,7 +104,7 @@ namespace GameLibrary
 		void drawImage(TextureImage*img, const Vector2f& point);
 		void drawImage(TextureImage*img, float x, float y, float width, float height);
 		void drawImage(TextureImage*img, const RectangleF& rect);
-		void drawImage(TextureImage*img, float dx1, float dy1, float dx2, float dy2, int sx1, int sy1, int sx2, int sy2);
+		void drawImage(TextureImage*img, float dx1, float dy1, float dx2, float dy2, unsigned int sx1, unsigned int sy1, unsigned int sx2, unsigned int sy2);
 		void drawImage(TextureImage*img, const RectangleF& dst, const Rectangle& src);
 	};
 }
