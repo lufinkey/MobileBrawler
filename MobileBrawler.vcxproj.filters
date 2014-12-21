@@ -273,9 +273,6 @@
     <ClCompile Include="src\GameLibrary\Screen\Transition\PopoverTransition.cpp">
       <Filter>src\GameLibrary\Screen\Transition</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameLibrary\Actor\BaseActor.cpp">
-      <Filter>src\GameLibrary\Actor</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameLibrary\Exception\Screen\ScreenNavigationException.cpp">
       <Filter>src\GameLibrary\Exception\Screen</Filter>
     </ClCompile>
@@ -302,6 +299,9 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Graphics\PixelIterator.cpp">
       <Filter>src\GameLibrary\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Actor\BaseActor.cpp">
+      <Filter>src\GameLibrary\Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -518,9 +518,6 @@
     <ClInclude Include="src\GameLibrary\Screen\Transition\PopoverTransition.h">
       <Filter>src\GameLibrary\Screen\Transition</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameLibrary\Actor\BaseActor.h">
-      <Filter>src\GameLibrary\Actor</Filter>
-    </ClInclude>
     <ClInclude Include="src\GameLibrary\Screen\Drawable.h">
       <Filter>src\GameLibrary\Screen</Filter>
     </ClInclude>
@@ -550,6 +547,9 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Graphics\PixelIterator.h">
       <Filter>src\GameLibrary\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Actor\BaseActor.h">
+      <Filter>src\GameLibrary\Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -18,6 +18,9 @@ namespace GameLibrary
 		animation_prevFrameTime = 0;
 		animation_direction = Animation::FORWARD;
 
+		wireframe_visible = false;
+		wireframe_color = Color::GREEN;
+
 		firstUpdate = true;
 		prevUpdateTime = 0;
 	}
@@ -100,77 +103,94 @@ namespace GameLibrary
 			}
 		}
 	}
-	
+
 	void Actor::draw(ApplicationData appData, Graphics graphics) const
 	{
-		BaseActor::draw(appData, graphics);
-		
-		graphics.translate(x, y);
-		graphics.compositeTintColor(color);
-		if(rotation!=0)
-		{
-			graphics.rotate(rotation);
-		}
-		if(mirrored)
-		{
-			if(mirroredVertical)
-			{
-				graphics.scale(-scale,-scale);
-			}
-			else
-			{
-				graphics.scale(-scale,scale);
-			}
-		}
-		else
-		{
-			if(mirroredVertical)
-			{
-				graphics.scale(scale,-scale);
-			}
-			else
-			{
-				graphics.scale(scale,scale);
-			}
-		}
-
-		animation_current->setCurrentFrame(animation_frame);
-		animation_current->draw(appData, graphics);
+		drawActor(appData, graphics, x, y, scale);
 	}
+	
+	void Actor::drawActor(ApplicationData&appData, Graphics&graphics, float x, float y, float scale) const
+	{
+		BaseActor::draw(appData, graphics);
 
+		if(visible)
+		{
+			graphics.translate(x, y);
+			if(rotation!=0)
+			{
+				graphics.rotate(rotation);
+			}
+			if(mirrored)
+			{
+				if(mirroredVertical)
+				{
+					graphics.scale(-scale,-scale);
+				}
+				else
+				{
+					graphics.scale(-scale,scale);
+				}
+			}
+			else
+			{
+				if(mirroredVertical)
+				{
+					graphics.scale(scale,-scale);
+				}
+				else
+				{
+					graphics.scale(scale,scale);
+				}
+			}
+			Graphics actorGraphics(graphics);
+			actorGraphics.compositeTintColor(color);
+			
+			animation_current->setCurrentFrame(animation_frame);
+			animation_current->draw(appData, actorGraphics);
+			
+			if(wireframe_visible)
+			{
+				RectangleF wireframeRect = animation_current->getFrame(animation_frame);
+				Graphics wireframeGraphics(graphics);
+				wireframeGraphics.setColor(wireframe_color);
+				wireframeGraphics.drawRect(wireframeRect.x, wireframeRect.y, wireframeRect.width, wireframeRect.height);
+			}
+		}
+	}
+	
 	RectangleF Actor::getFrame() const
 	{
 		return RectangleF(x-(width/2), y-(height/2), width, height);
 	}
-
+	
 	void Actor::onAnimationFinish(Animation*animation)
 	{
 		//Open for implementation
 	}
-
+	
 	void Actor::updateSize()
 	{
 		RectangleF frame = animation_current->getFrame(animation_frame);
 		width = frame.width*scale;
 		height = frame.height*scale;
 	}
-
+	
 	void Actor::addAnimation(const String&name, Animation*animation, bool destruct)
 	{
 		if(hasAnimation(name))
 		{
 			throw IllegalArgumentException("Animation with name \"" + name + "\" is already added to this Actor");
 		}
-
+		
 		AnimationInfo animInfo;
 		animInfo.name = name;
 		animInfo.animation = animation;
 		animInfo.destruct = destruct;
-
+		
 		unsigned int prevSize = animations.size();
-
+		
 		animations.add(animInfo);
-
+		
 		if(prevSize == 0)
 		{
 			changeAnimation(name, Animation::FORWARD);
@@ -248,7 +268,7 @@ namespace GameLibrary
 				animation_direction = direction;
 			}
 			break;
-
+			
 			case Animation::BACKWARD:
 			{
 				unsigned int totalFrames = animation->getTotalFrames();
@@ -301,6 +321,26 @@ namespace GameLibrary
 		
 		animation->setCurrentFrame(animation_frame);
 		updateSize();
+	}
+	
+	void Actor::setWireframeVisible(bool toggle)
+	{
+		wireframe_visible = toggle;
+	}
+	
+	void Actor::setWireframeColor(const Color&color)
+	{
+		wireframe_color = color;
+	}
+	
+	bool Actor::isWireframeVisible() const
+	{
+		return wireframe_visible;
+	}
+	
+	const Color& Actor::getWireframeColor() const
+	{
+		return wireframe_color;
 	}
 	
 	bool Actor::checkPointCollide(const Vector2f&point)

@@ -36,12 +36,12 @@ namespace GameLibrary
 	{
 		BaseActor::draw(appData, graphics);
 	}
-		
+	
 	RectangleF WireframeActor::getFrame() const
 	{
 		return RectangleF(x,y,width,height);
 	}
-		
+	
 	void WireframeActor::setFilled(bool toggle)
 	{
 		filled = toggle;

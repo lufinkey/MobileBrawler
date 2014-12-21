@@ -113,7 +113,7 @@ namespace GameLibrary
 		return visible;
 	}
 	
-	Color BaseActor::getColor() const
+	const Color& BaseActor::getColor() const
 	{
 		return color;
 	}

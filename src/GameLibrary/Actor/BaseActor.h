@@ -47,7 +47,7 @@ namespace GameLibrary
 		void mirrorVertical(bool);
 		
 		bool isVisible() const;
-		Color getColor() const;
+		const Color& getColor() const;
 		float getRotation() const;
 		float getAlpha() const;
 		float getScale() const;
