@@ -40,6 +40,7 @@ namespace GameLibrary
 		
 		void setVisible(bool);
 		void setColor(const Color&);
+		void rotate(float degrees);
 		void setRotation(float degrees);
 		void setAlpha(float alpha);
 		void setScale(float scale);
@@ -68,7 +69,7 @@ namespace GameLibrary
 		
 	protected:
 		virtual void updateSize();
-		virtual bool checkPointCollide(const Vector2f&point);
+		virtual bool checkPointCollision(const Vector2f&point);
 		
 	private:
 		float width;
@@ -86,6 +87,9 @@ namespace GameLibrary
 		float rotation;
 		float alpha;
 		float scale;
+
+		Transform rotationMatrix;
+		Transform inverseRotationMatrix;
 
 		typedef struct
 		{

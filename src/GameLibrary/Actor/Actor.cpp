@@ -171,8 +171,13 @@ namespace GameLibrary
 	void Actor::updateSize()
 	{
 		RectangleF frame = animation_current->getFrame(animation_frame);
-		width = frame.width*scale;
-		height = frame.height*scale;
+		frame.x*=scale;
+		frame.y*=scale;
+		frame.width*=scale;
+		frame.height*=scale;
+		frame = rotationMatrix.transformRectangle(frame);
+		width = frame.width;
+		height = frame.height;
 	}
 	
 	void Actor::addAnimation(const String&name, Animation*animation, bool destruct)
@@ -343,7 +348,7 @@ namespace GameLibrary
 		return wireframe_color;
 	}
 	
-	bool Actor::checkPointCollide(const Vector2f&point)
+	bool Actor::checkPointCollision(const Vector2f&point)
 	{
 		if(animation_current == nullptr)
 		{
@@ -358,10 +363,17 @@ namespace GameLibrary
 		if(point.x>left && point.y>top && point.x<right && point.y<bottom)
 		{
 			Vector2f pointFixed = point;
-			pointFixed.x -= left;
-			pointFixed.y -= top;
+			pointFixed.x -= x;
+			pointFixed.y -= y;
 			
-			//TODO add rotation matrix
+			pointFixed = inverseRotationMatrix.transformPoint(pointFixed);
+
+			RectangleF animRect = animation_current->getFrame(animation_frame);
+			float w = animRect.width*scale;
+			float h = animRect.height*scale;
+
+			pointFixed.x += w/2;
+			pointFixed.y += h/2;
 			
 			if((mirrored && !animation_current->isMirrored()) || (!mirrored && animation_current->isMirrored()))
 			{
@@ -371,10 +383,6 @@ namespace GameLibrary
 			{
 				pointFixed.y = height - pointFixed.y;
 			}
-			
-			RectangleF animRect = animation_current->getFrame(animation_frame);
-			float w = animRect.width*scale;
-			float h = animRect.height*scale;
 			
 			float ratX = pointFixed.x/w;
 			float ratY = pointFixed.y/h;
@@ -388,12 +396,7 @@ namespace GameLibrary
 			unsigned int pxlX = (unsigned int)(ratX*((float)srcRect.width));
 			unsigned int pxlY = (unsigned int)(ratY*((float)srcRect.height));
 
-			bool px = img->checkPixel((unsigned int)srcRect.x+pxlX,(unsigned int)srcRect.y+pxlY);
-			if(px)
-			{
-				return true;
-			}
-			return false;
+			return img->checkPixel((unsigned int)srcRect.x+pxlX,(unsigned int)srcRect.y+pxlY);
 		}
 		return false;
 	}

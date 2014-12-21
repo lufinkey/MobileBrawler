@@ -35,7 +35,7 @@ namespace GameLibrary
 		
 	protected:
 		virtual void updateSize();
-		virtual bool checkPointCollide(const Vector2f&point);
+		virtual bool checkPointCollision(const Vector2f&point);
 		virtual void drawActor(ApplicationData&appData, Graphics&graphics, float x, float y, float scale) const;
 		
 	private:

@@ -79,10 +79,30 @@ namespace GameLibrary
 		color = c;
 	}
 	
+	void BaseActor::rotate(float degrees)
+	{
+		if(degrees!=0)
+		{
+			rotation += degrees;
+			rotationMatrix.rotate(degrees,0,0);
+			inverseRotationMatrix = rotationMatrix.getInverse();
+			updateSize();
+		}
+	}
+	
 	void BaseActor::setRotation(float degrees)
 	{
-		rotation = degrees;
-		updateSize();
+		if(degrees!=rotation)
+		{
+			rotation = degrees;
+			rotationMatrix.reset();
+			if(degrees!=0)
+			{
+				rotationMatrix.rotate(degrees,0,0);
+			}
+			inverseRotationMatrix = rotationMatrix.getInverse();
+			updateSize();
+		}
 	}
 	
 	void BaseActor::setAlpha(float a)
@@ -174,7 +194,7 @@ namespace GameLibrary
 		height = 0;
 	}
 
-	bool BaseActor::checkPointCollide(const Vector2f&point)
+	bool BaseActor::checkPointCollision(const Vector2f&point)
 	{
 		return false;
 	}
@@ -192,11 +212,13 @@ namespace GameLibrary
 	void BaseActor::onMouseEnter(Window*window, unsigned int touchID)
 	{
 		//Open for implementation
+		setColor(Color::RED);
 	}
 
 	void BaseActor::onMouseLeave(Window*window, unsigned int touchID)
 	{
 		//Open for implementation
+		setColor(Color::WHITE);
 	}
 
 	bool BaseActor::isTouchDataActive(unsigned int touchID)
@@ -328,7 +350,7 @@ namespace GameLibrary
 			unsigned int touchID = touchIDs.get(i);
 			Vector2f mousepos = Mouse::getPosition(window, touchID);
 			Vector2f transformedPos = mouseTransform.transformPoint(mousepos);
-			if(checkPointCollide(transformedPos))
+			if(checkPointCollision(transformedPos))
 			{
 				mouseover = true;
 				if(isTouchDataPressed(touchID))
@@ -427,7 +449,7 @@ namespace GameLibrary
 			unsigned int touchID = i;
 			Vector2f touchpos = Mouse::getPosition(window, touchID);
 			Vector2f transformedPos = mouseTransform.transformPoint(touchpos);
-			if(checkPointCollide(transformedPos))
+			if(checkPointCollision(transformedPos))
 			{
 				mouseover = true;
 				if(isTouchDataActive(touchID))
