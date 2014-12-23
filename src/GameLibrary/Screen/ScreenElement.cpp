@@ -54,6 +54,7 @@ namespace GameLibrary
 	{
 		frame = frame_arg;
 		window = nullptr;
+		screen = nullptr;
 		parentElement = nullptr;
 		updatingElements = false;
 		relativePosition = true;

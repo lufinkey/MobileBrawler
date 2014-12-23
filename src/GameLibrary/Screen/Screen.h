@@ -48,6 +48,8 @@ namespace GameLibrary
 
 		TransitionData overlayData;
 
+		ScreenElement* element;
+		
 		Screen* parentScreen;
 		Screen* childScreen;
 
@@ -82,6 +84,7 @@ namespace GameLibrary
 		void present(Screen*screen, const Transition*transition=defaultPresentTransition, unsigned long long duration=Transition::defaultDuration, CompletionCallback completion=nullptr);
 		void dismiss(const Transition*transition=defaultPresentTransition, unsigned long long duration=Transition::defaultDuration, CompletionCallback completion=nullptr);
 
+		ScreenElement* getElement();
 		Screen* getTopScreen();
 		Screen* getBottomScreen();
 		Screen* getRootScreen();

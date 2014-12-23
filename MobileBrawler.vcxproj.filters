@@ -303,6 +303,9 @@
     <ClCompile Include="src\GameLibrary\Actor\BaseActor.cpp">
       <Filter>src\GameLibrary\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Screen\MenuScreen.cpp">
+      <Filter>src\GameLibrary\Screen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -550,6 +553,9 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Actor\BaseActor.h">
       <Filter>src\GameLibrary\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Screen\MenuScreen.h">
+      <Filter>src\GameLibrary\Screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -6,7 +6,7 @@
 namespace GameLibrary
 {
 	const Transition* const Screen::defaultPresentTransition = new PopoverTransition(PopoverTransition::POPOVER_UP);
-
+	
 	void Screen::updateFrame(Window*window)
 	{
 		if(window != nullptr)
@@ -18,11 +18,13 @@ namespace GameLibrary
 				if(frame.width!=size.x || frame.height!=size.y)
 				{
 					setFrame(RectangleF(frame.x, frame.y, size.x, size.y));
+					ScreenElement* mainElement = getElement();
+					mainElement->setFrame(RectangleF(0,0,size.x,size.y));
 				}
 			}
 		}
 	}
-
+	
 	void Screen::setWindow(Window*win)
 	{
 		if(window!=win)
@@ -50,7 +52,7 @@ namespace GameLibrary
 			updateFrame(win);
 		}
 	}
-
+	
 	void Screen::TransitionData_clear(Screen::TransitionData&data)
 	{
 		data.screen = nullptr;
@@ -64,7 +66,7 @@ namespace GameLibrary
 		data.completion = nullptr;
 		data.caller = nullptr;
 	}
-
+	
 	void Screen::TransitionData_begin(TransitionData&data, Screen*screen, Screen*transitionScreen, byte action, const Transition*transition, unsigned long long duration, CompletionCallback completion, void*caller)
 	{
 		data.screen = screen;
@@ -78,7 +80,7 @@ namespace GameLibrary
 		data.completion = completion;
 		data.caller = caller;
 	}
-
+	
 	void Screen::TransitionData_checkInitialization(ApplicationData& appData, Screen::TransitionData&data)
 	{
 		if(data.requiresInitializing)
@@ -87,7 +89,7 @@ namespace GameLibrary
 			data.requiresInitializing = false;
 		}
 	}
-
+	
 	byte Screen::TransitionData_applyProgress(ApplicationData& appData, Screen::TransitionData&data)
 	{
 		byte finishedAction = TRANSITION_NONE;
@@ -106,7 +108,7 @@ namespace GameLibrary
 		}
 		return finishedAction;
 	}
-
+	
 	void Screen::TransitionData_checkFinished(ApplicationData& appData, Screen::TransitionData&data, Screen**onDidDisappearCaller, Screen**onDidAppearCaller)
 	{
 		//apply any progress to the presenting transition
@@ -122,7 +124,7 @@ namespace GameLibrary
 			*onDidAppearCaller = data.transitionScreen;
 		}
 	}
-
+	
 	void Screen::TransitionData_callVirtualFunctions(TransitionData&data, Screen*onDidDisappearCaller, Screen*onDidAppearCaller)
 	{
 		if(onDidDisappearCaller!=nullptr || onDidAppearCaller!=nullptr)
@@ -145,7 +147,7 @@ namespace GameLibrary
 			}
 		}
 	}
-
+	
 	Screen::Screen(Window*wndw)
 	{
 		screenManager = nullptr;
@@ -157,12 +159,12 @@ namespace GameLibrary
 
 		setWindow(wndw);
 	}
-
+	
 	Screen::Screen() : Screen(nullptr)
 	{
 		//
 	}
-
+	
 	Screen::~Screen()
 	{
 		if(childScreen!=nullptr)
@@ -171,47 +173,52 @@ namespace GameLibrary
 			childScreen->parentScreen = nullptr;
 			childScreen = nullptr;
 		}
+		if(element != nullptr)
+		{
+			delete element;
+			element = nullptr;
+		}
 	}
-
+	
 	void Screen::onWillAppear(const Transition*transition)
 	{
 		//
 	}
-
+	
 	void Screen::onDidAppear(const Transition*transition)
 	{
 		//
 	}
-
+	
 	void Screen::onWillDisappear(const Transition*transition)
 	{
 		//
 	}
-
+	
 	void Screen::onDidDisappear(const Transition*transition)
 	{
 		//
 	}
-
+	
 	void Screen::update(ApplicationData appData)
 	{
 		Screen* updateCaller = nullptr;
 		Screen* overlay_onDidDisappearCaller = nullptr;
 		Screen* overlay_onDidAppearCaller = nullptr;
-
+		
 		TransitionData_checkFinished(appData, overlayData, &overlay_onDidDisappearCaller, &overlay_onDidAppearCaller);
-
+		
 		if(childScreen!=nullptr)
 		{
 			updateCaller = childScreen;
 		}
-
+		
 		updateFrame(window);
-
+		
 		TransitionData_callVirtualFunctions(overlayData, overlay_onDidDisappearCaller, overlay_onDidAppearCaller);
-
+		
 		updateFrame(window);
-
+		
 		if(updateCaller != nullptr)
 		{
 			updateCaller->update(appData);
@@ -220,12 +227,18 @@ namespace GameLibrary
 		{
 			ScreenElement::update(appData);
 		}
-
+		
+		if(element == nullptr)
+		{
+			getElement();
+		}
+		element->update(appData);
+		
 		TransitionData_checkInitialization(appData, overlayData);
-
+		
 		updateFrame(window);
 	}
-
+	
 	void Screen::drawBackground(ApplicationData appData, Graphics graphics) const
 	{
 		if(childScreen == nullptr || overlayData.action != TRANSITION_NONE)
@@ -233,22 +246,26 @@ namespace GameLibrary
 			ScreenElement::drawBackground(appData, graphics);
 		}
 	}
-
+	
 	void Screen::drawElements(ApplicationData appData, Graphics graphics) const
 	{
+		if(element != nullptr)
+		{
+			element->draw(appData, graphics);
+		}
 		if(childScreen == nullptr || overlayData.action != TRANSITION_NONE)
 		{
 			ScreenElement::drawElements(appData, graphics);
 		}
 	}
-
+	
 	void Screen::drawOverlay(ApplicationData appData, Graphics graphics) const
 	{
 		if(childScreen!=nullptr || overlayData.action!=TRANSITION_NONE)
 		{
 			RectangleF frame = getFrame();
 			graphics.translate(frame.x, frame.y);
-
+			
 			if(overlayData.action == TRANSITION_NONE)
 			{
 				RectangleF overlayFrame = childScreen->getFrame();
@@ -260,17 +277,17 @@ namespace GameLibrary
 			else
 			{
 				float progress = overlayData.progress;
-
+				
 				if(overlayData.action == TRANSITION_HIDE)
 				{
 					progress = 1 - progress;
 				}
-
+				
 				overlayData.transition->draw(appData, graphics, progress, overlayData.screen, overlayData.transitionScreen);
 			}
 		}
 	}
-
+	
 	void Screen::draw(ApplicationData appData, Graphics graphics) const
 	{
 		if(overlayData.action==TRANSITION_NONE)
@@ -291,7 +308,7 @@ namespace GameLibrary
 			drawingOverlayTransition = false;
 		}
 	}
-
+	
 	void Screen::present(Screen*screen, const Transition*transition, unsigned long long duration, CompletionCallback completion)
 	{
 		if(screen == nullptr)
@@ -337,12 +354,12 @@ namespace GameLibrary
 				{
 					onWillDisappear(transition);
 					topScreen->onWillAppear(transition);
-
+					
 					TransitionData_clear(overlayData);
-
+					
 					onDidDisappear(transition);
 					topScreen->onDidAppear(transition);
-
+					
 					if(completion != nullptr)
 					{
 						completion((void*)this);
@@ -351,7 +368,7 @@ namespace GameLibrary
 				else
 				{
 					TransitionData_clear(overlayData);
-
+					
 					if(completion != nullptr)
 					{
 						completion((void*)this);
@@ -368,7 +385,7 @@ namespace GameLibrary
 			}
 		}
 	}
-
+	
 	void Screen::dismiss(const Transition*transition, unsigned long long duration, CompletionCallback completion)
 	{
 		if(childScreen == nullptr)
@@ -387,19 +404,19 @@ namespace GameLibrary
 				setWindow(nullptr);
 				parentScreen = nullptr;
 				parentElement = nullptr;
-
+				
 				if(transition == nullptr || duration==0)
 				{
 					if(visible)
 					{
 						topScreen->onWillDisappear(transition);
 						ownerScreen->onWillAppear(transition);
-
+						
 						TransitionData_clear(ownerScreen->overlayData);
-
+						
 						topScreen->onDidDisappear(transition);
 						ownerScreen->onDidAppear(transition);
-
+						
 						if(completion != nullptr)
 						{
 							completion((void*)this);
@@ -408,7 +425,7 @@ namespace GameLibrary
 					else
 					{
 						TransitionData_clear(ownerScreen->overlayData);
-
+						
 						if(completion != nullptr)
 						{
 							completion((void*)this);
@@ -442,19 +459,19 @@ namespace GameLibrary
 			childScreen->parentScreen = nullptr;
 			childScreen->parentElement = nullptr;
 			childScreen = nullptr;
-
+			
 			if(transition == nullptr || duration==0)
 			{
 				if(visible)
 				{
 					topScreen->onWillDisappear(transition);
 					onWillAppear(transition);
-
+					
 					TransitionData_clear(overlayData);
-
+					
 					topScreen->onDidDisappear(transition);
 					onDidAppear(transition);
-
+					
 					if(completion != nullptr)
 					{
 						completion((void*)this);
@@ -463,7 +480,7 @@ namespace GameLibrary
 				else
 				{
 					TransitionData_clear(overlayData);
-
+					
 					if(completion != nullptr)
 					{
 						completion((void*)this);
@@ -480,7 +497,17 @@ namespace GameLibrary
 			}
 		}
 	}
-
+	
+	ScreenElement* Screen::getElement()
+	{
+		if(element == nullptr)
+		{
+			RectangleF screenFrame = getFrame();
+			element = new ScreenElement(RectangleF(0,0, screenFrame.width, screenFrame.height));
+		}
+		return element;
+	}
+	
 	Screen* Screen::getTopScreen()
 	{
 		if(childScreen == nullptr)
@@ -489,7 +516,7 @@ namespace GameLibrary
 		}
 		return childScreen->getTopScreen();
 	}
-
+	
 	Screen* Screen::getBottomScreen()
 	{
 		if(parentScreen == nullptr)
@@ -498,7 +525,7 @@ namespace GameLibrary
 		}
 		return parentScreen->getBottomScreen();
 	}
-
+	
 	Screen* Screen::getRootScreen()
 	{
 		Screen* bottomScreen = getBottomScreen();
@@ -508,7 +535,7 @@ namespace GameLibrary
 		}
 		return bottomScreen->screenManager->getRootScreen();
 	}
-
+	
 	bool Screen::isVisible()
 	{
 		if(childScreen!=nullptr)
@@ -549,12 +576,12 @@ namespace GameLibrary
 			return false;
 		}
 	}
-
+	
 	void Screen::setBackgroundColor(const Color&color)
 	{
 		ScreenElement::setBackgroundColor(color);
 	}
-
+	
 	const Color& Screen::getBackgroundColor() const
 	{
 		return ScreenElement::getBackgroundColor();

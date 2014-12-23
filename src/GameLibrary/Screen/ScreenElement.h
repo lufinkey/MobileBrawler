@@ -21,6 +21,7 @@ namespace GameLibrary
 
 		RectangleF frame;
 
+		Screen*screen;
 		ScreenElement* parentElement;
 		ArrayList<ScreenElement*> childElements;
 		ArrayList<ScreenElement*> removedChildElements;
