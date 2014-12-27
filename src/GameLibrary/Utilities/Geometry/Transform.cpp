@@ -84,26 +84,26 @@ namespace GameLibrary
 		}
 	}
 	
-	Vector2f Transform::transformPoint(float x, float y) const
+	Vector2f Transform::transform(float x, float y) const
 	{
 		return Vector2f(m_matrix[0] * x + m_matrix[4] * y + m_matrix[12],
 						m_matrix[1] * x + m_matrix[5] * y + m_matrix[13]);
 	}
 	
-	Vector2f Transform::transformPoint(const Vector2f& point) const
+	Vector2f Transform::transform(const Vector2f& point) const
 	{
-		return transformPoint(point.x, point.y);
+		return transform(point.x, point.y);
 	}
 	
-	Rectangle Transform::transformRectangle(const Rectangle& rectangle) const
+	Rectangle Transform::transform(const Rectangle& rectangle) const
 	{
 		// Transform the 4 corners of the rectangle
 		const Vector2f points[] =
 		{
-			transformPoint((float)rectangle.x, (float)rectangle.y),
-			transformPoint((float)rectangle.x, (float)(rectangle.y+rectangle.height)),
-			transformPoint((float)(rectangle.x+rectangle.width), (float)rectangle.y),
-			transformPoint((float)(rectangle.x+rectangle.width), (float)(rectangle.y+rectangle.height))
+			transform((float)rectangle.x, (float)rectangle.y),
+			transform((float)rectangle.x, (float)(rectangle.y+rectangle.height)),
+			transform((float)(rectangle.x+rectangle.width), (float)rectangle.y),
+			transform((float)(rectangle.x+rectangle.width), (float)(rectangle.y+rectangle.height))
 		};
 		
 		// Compute the bounding rectangle of the transformed points
@@ -134,15 +134,15 @@ namespace GameLibrary
 		return Rectangle((int)left, (int)top, (int)(right-left), (int)(bottom-top));
 	}
 	
-	RectangleF Transform::transformRectangle(const RectangleF& rectangle) const
+	RectangleF Transform::transform(const RectangleF& rectangle) const
 	{
 		// Transform the 4 corners of the rectangle
 		const Vector2f points[] =
 		{
-			transformPoint(rectangle.x, rectangle.y),
-			transformPoint(rectangle.x, rectangle.y + rectangle.height),
-			transformPoint(rectangle.x + rectangle.width, rectangle.y),
-			transformPoint(rectangle.x + rectangle.width, rectangle.y + rectangle.height)
+			transform(rectangle.x, rectangle.y),
+			transform(rectangle.x, rectangle.y + rectangle.height),
+			transform(rectangle.x + rectangle.width, rectangle.y),
+			transform(rectangle.x + rectangle.width, rectangle.y + rectangle.height)
 		};
 		
 		// Compute the bounding rectangle of the transformed points
@@ -171,6 +171,17 @@ namespace GameLibrary
 		}
 		
 		return RectangleF(left, top, right - left, bottom - top);
+	}
+
+	Polygon Transform::transform(const Polygon& polygon) const
+	{
+		Polygon newPoly;
+		const ArrayList<Vector2f>& points = polygon.getPoints();
+		for(unsigned int i=0; i<points.size(); i++)
+		{
+			newPoly.addPoint(transform(points.get(i)));
+		}
+		return newPoly;
 	}
 	
 	Transform& Transform::combine(const Transform& transform)

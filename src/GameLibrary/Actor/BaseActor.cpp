@@ -369,7 +369,7 @@ namespace GameLibrary
 		{
 			unsigned int touchID = touchIDs.get(i);
 			Vector2f mousepos = Mouse::getPosition(window, touchID);
-			Vector2f transformedPos = mouseTransform.transformPoint(mousepos);
+			Vector2f transformedPos = mouseTransform.transform(mousepos);
 			if(checkPointCollision(transformedPos))
 			{
 				mouseover = true;
@@ -468,7 +468,7 @@ namespace GameLibrary
 		{
 			unsigned int touchID = i;
 			Vector2f touchpos = Mouse::getPosition(window, touchID);
-			Vector2f transformedPos = mouseTransform.transformPoint(touchpos);
+			Vector2f transformedPos = mouseTransform.transform(touchpos);
 			if(checkPointCollision(transformedPos))
 			{
 				mouseover = true;

@@ -103,7 +103,7 @@ namespace GameLibrary
 	{
 		width = size.x*scale;
 		height = size.y*scale;
-		framerect = rotationMatrix.transformRectangle(RectangleF(0, 0, width, height));
+		framerect = rotationMatrix.transform(RectangleF(0, 0, width, height));
 	}
 	
 	RectangleF WireframeActor::getFrame() const

@@ -179,7 +179,7 @@ namespace GameLibrary
 		width = frame.width;
 		height = frame.height;
 
-		frame = rotationMatrix.transformRectangle(frame);
+		frame = rotationMatrix.transform(frame);
 		
 		framesize.x = frame.width;
 		framesize.y = frame.height;
@@ -252,7 +252,7 @@ namespace GameLibrary
 		return nullptr;
 	}
 	
-	void Actor::changeAnimation(const String&name, const Animation::AnimationDirection&direction)
+	void Actor::changeAnimation(const String&name, const Animation::Direction&direction)
 	{
 		if(direction != Animation::FORWARD && direction != Animation::BACKWARD && direction != Animation::STOPPED && direction != Animation::NO_CHANGE)
 		{
@@ -351,7 +351,7 @@ namespace GameLibrary
 			pointFixed.x -= x;
 			pointFixed.y -= y;
 			
-			pointFixed = inverseRotationMatrix.transformPoint(pointFixed);
+			pointFixed = inverseRotationMatrix.transform(pointFixed);
 
 			pointFixed.x += width/2;
 			pointFixed.y += height/2;

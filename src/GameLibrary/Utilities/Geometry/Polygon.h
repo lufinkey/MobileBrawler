@@ -18,7 +18,7 @@ namespace GameLibrary
 		Polygon(const ArrayList<Vector2f>& points);
 		Polygon(const Vector2f* points, unsigned int numpoints);
 		~Polygon();
-
+		
 		Polygon& operator=(const Polygon&);
 		
 		void addPoint(float x, float y);

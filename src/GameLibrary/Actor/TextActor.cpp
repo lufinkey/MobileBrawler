@@ -179,7 +179,7 @@ namespace GameLibrary
 			height = rect.height*scale;
 		}
 
-		framerect = rotationMatrix.transformRectangle(getBoundsRect(width, height));
+		framerect = rotationMatrix.transform(getBoundsRect(width, height));
 	}
 
 	void TextActor::getLinesList(const String&text, ArrayList<String>&lines)

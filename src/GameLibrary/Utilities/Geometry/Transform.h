@@ -1,6 +1,7 @@
 
 #include "Vector2.h"
 #include "Rectangle.h"
+#include "Polygon.h"
 
 #pragma once
 
@@ -30,10 +31,11 @@ namespace GameLibrary
 		const float* getMatrix() const;
 		Transform getInverse() const;
 		
-		Vector2f transformPoint(float x, float y) const;
-		Vector2f transformPoint(const Vector2f& point) const;
-		Rectangle transformRectangle(const Rectangle& rectangle) const;
-		RectangleF transformRectangle(const RectangleF& rectangle) const;
+		Vector2f transform(float x, float y) const;
+		Vector2f transform(const Vector2f& point) const;
+		Rectangle transform(const Rectangle& rectangle) const;
+		RectangleF transform(const RectangleF& rectangle) const;
+		Polygon transform(const Polygon& polygon) const;
 		
 		Transform& combine(const Transform& transform);
 		Transform& translate(float x, float y);

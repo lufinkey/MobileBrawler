@@ -391,7 +391,7 @@ namespace GameLibrary
 			float realWidth = (float)w*mult;
 			float realHeight = (float)h*mult;
 			
-			Vector2f pnt = transform.transformPoint(Vector2f(x1 + x_offset, y1_top));
+			Vector2f pnt = transform.transform(Vector2f(x1 + x_offset, y1_top));
 			
 			SDL_Rect rect;
 			rect.x = (int)pnt.x;
@@ -426,8 +426,8 @@ namespace GameLibrary
 	
 	void Graphics::drawLine(float x1, float y1, float x2, float y2)
 	{
-		Vector2f pnt1 = transform.transformPoint(Vector2f(x1, y1));
-		Vector2f pnt2 = transform.transformPoint(Vector2f(x2, y2));
+		Vector2f pnt1 = transform.transform(Vector2f(x1, y1));
+		Vector2f pnt2 = transform.transform(Vector2f(x2, y2));
 		
 		beginDraw();
 		
@@ -445,10 +445,10 @@ namespace GameLibrary
 	{
 		float right = x+width;
 		float bottom = y+height;
-		Vector2f topleft = transform.transformPoint(Vector2f(x, y));
-		Vector2f topright = transform.transformPoint(Vector2f(right, y));
-		Vector2f bottomright = transform.transformPoint(Vector2f(right, bottom));
-		Vector2f bottomleft = transform.transformPoint(Vector2f(x, bottom));
+		Vector2f topleft = transform.transform(Vector2f(x, y));
+		Vector2f topright = transform.transform(Vector2f(right, y));
+		Vector2f bottomright = transform.transform(Vector2f(right, bottom));
+		Vector2f bottomleft = transform.transform(Vector2f(x, bottom));
 
 		beginDraw();
 
@@ -467,7 +467,7 @@ namespace GameLibrary
 
 	void Graphics::fillRect(float x, float y, float width, float height)
 	{
-		Vector2f pnt = transform.transformPoint(Vector2f(x, y));
+		Vector2f pnt = transform.transform(Vector2f(x, y));
 		
 		float rectLeft = pnt.x;
 		float rectTop = pnt.y;
@@ -572,7 +572,7 @@ namespace GameLibrary
 			srcrect.w = (int)(sx2 - sx1);
 			srcrect.h = (int)(sy2 - sy1);
 
-			Vector2f pnt1 = transform.transformPoint(Vector2f(dx1, dy1));
+			Vector2f pnt1 = transform.transform(Vector2f(dx1, dy1));
 
 			SDL_Rect dstrect;
 			dstrect.x = (int)pnt1.x;

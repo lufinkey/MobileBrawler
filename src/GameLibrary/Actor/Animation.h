@@ -14,14 +14,14 @@ namespace GameLibrary
 	class Animation : public Drawable
 	{
 	public:
-		enum AnimationDirection : byte
+		enum Direction : byte
 		{
 			NO_CHANGE,
 			FORWARD,
 			BACKWARD,
 			STOPPED
 		};
-		typedef enum AnimationDirection AnimationDirection;
+		typedef enum Direction Direction;
 
 		Animation(const Animation&);
 		Animation(AssetManager*assetManager, unsigned int fps, const String&file=String());

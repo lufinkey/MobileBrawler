@@ -25,7 +25,7 @@ namespace GameLibrary
 		void removeAnimation(const String&name);
 		bool hasAnimation(const String&name) const;
 		Animation* getAnimation(const String&name) const;
-		void changeAnimation(const String&name, const Animation::AnimationDirection&direction);
+		void changeAnimation(const String&name, const Animation::Direction&direction);
 		
 	protected:
 		virtual void updateSize();
@@ -49,7 +49,7 @@ namespace GameLibrary
 		Animation* animation_current;
 		unsigned int animation_frame;
 		long long animation_prevFrameTime;
-		Animation::AnimationDirection animation_direction;
+		Animation::Direction animation_direction;
 
 		Vector2f framesize;
 		

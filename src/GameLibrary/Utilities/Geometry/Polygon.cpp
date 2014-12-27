@@ -136,7 +136,7 @@ namespace GameLibrary
 		
 		for(unsigned int i=0; i<points.size(); i++)
 		{
-			points.set(i, transform.transformPoint(points.get(i)));
+			points.set(i, transform.transform(points.get(i)));
 		}
 	}
 
