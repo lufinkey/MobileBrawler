@@ -7,22 +7,22 @@ namespace GameLibrary
 {
 	class PopoverTransition : public Transition
 	{
-	protected:
-		byte direction;
-		bool fade;
-		
 	public:
-		enum PopoverDirection : byte
+		typedef enum
 		{
 			POPOVER_UP,
 			POPOVER_RIGHT,
 			POPOVER_DOWN,
 			POPOVER_LEFT
-		};
+		} PopoverDirection;
 		
-		PopoverTransition(byte direction, bool fade=false);
+		PopoverTransition(PopoverDirection direction, bool fade=false);
 		virtual ~PopoverTransition();
 		
 		virtual void draw(ApplicationData appData, Graphics graphics, float progress, Drawable*element1, Drawable*element2) const;
+		
+	protected:
+		PopoverDirection direction;
+		bool fade;
 	};
 }

@@ -18,7 +18,7 @@ namespace GameLibrary
 		friend class Graphics;
 		friend class RenderedGlyphContainer;
 	public:
-		enum Style : byte
+		enum Style
 		{
 			STYLE_PLAIN         = 0x00000000,
 			STYLE_BOLD          = 0x00000001,
@@ -63,6 +63,8 @@ namespace GameLibrary
 		RenderedGlyphContainer* getRenderedGlyphContainer(void*renderer);
 		ArrayList<RenderedGlyphContainer::RenderedGlyph> getRenderedGlyphs(const String&text, void*renderer);
 
-		static int styleToTTFStyle(byte style);
+		static int styleToTTFStyle(int fontstyle);
 	};
+
+	typedef Font::Style FontStyle;
 }

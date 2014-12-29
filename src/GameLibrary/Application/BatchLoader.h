@@ -13,16 +13,16 @@ namespace GameLibrary
 	class BatchLoader
 	{
 	private:
-		enum LoadType : byte
+		typedef enum
 		{
 			LOADTYPE_TEXTURE,
 			LOADTYPE_FONT
-		};
+		} LoadType;
 
 		typedef struct
 		{
 			String path;
-			byte type;
+			LoadType type;
 			unsigned int value;
 		} LoadInfo;
 

@@ -17,7 +17,7 @@ namespace GameLibrary
 		{
 			void* texture;
 			unsigned int size;
-			byte style;
+			int fontstyle;
 			bool antialias;
 		} RenderedGlyph;
 
@@ -29,18 +29,18 @@ namespace GameLibrary
 		RenderedGlyphStyles* glyphs[256];
 		std::mutex mlock;
 
-		RenderedGlyph renderGlyph(char glyph, void*fontptr, void*renderer, unsigned int size, byte style, bool antialiasing);
+		RenderedGlyph renderGlyph(char glyph, void*fontptr, void*renderer, unsigned int size, int fontstyle, bool antialiasing);
 		void destroyGlyph(RenderedGlyph&renderedGlyph);
 		void destroyGlyphStyles(RenderedGlyphStyles*glyphStyles);
 
-		RenderedGlyph getGlyph(char glyph, void*fontptr, void*renderer, unsigned int size, byte style, bool antialiasing);
-		RenderedGlyph findGlyph(const ArrayList<RenderedGlyph>&glyphStyles, unsigned int size, byte style, bool antialiasing);
+		RenderedGlyph getGlyph(char glyph, void*fontptr, void*renderer, unsigned int size, int fontstyle, bool antialiasing);
+		RenderedGlyph findGlyph(const ArrayList<RenderedGlyph>&glyphStyles, unsigned int size, int fontstyle, bool antialiasing);
 
 	public:
 		RenderedGlyphContainer();
 		~RenderedGlyphContainer();
 
-		ArrayList<RenderedGlyph> getRenderedGlyphs(void*fontptr, void*renderer, unsigned int size, byte style, const String&txt, bool antialiasing = false);
+		ArrayList<RenderedGlyph> getRenderedGlyphs(void*fontptr, void*renderer, unsigned int size, int fontstyle, const String&txt, bool antialiasing = false);
 
 		void clear();
 	};

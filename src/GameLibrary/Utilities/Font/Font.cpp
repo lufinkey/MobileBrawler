@@ -6,28 +6,28 @@
 
 namespace GameLibrary
 {
-	int Font::styleToTTFStyle(byte style)
+	int Font::styleToTTFStyle(int fontstyle)
 	{
-		if(style == Font::STYLE_PLAIN)
+		if(fontstyle == Font::STYLE_PLAIN)
 		{
 			return TTF_STYLE_NORMAL;
 		}
 		else
 		{
 			int stylemask = 0;
-			if((style & Font::STYLE_BOLD) == Font::STYLE_BOLD)
+			if((fontstyle & Font::STYLE_BOLD) == Font::STYLE_BOLD)
 			{
 				stylemask = stylemask | TTF_STYLE_BOLD;
 			}
-			if((style & Font::STYLE_ITALIC) == Font::STYLE_ITALIC)
+			if((fontstyle & Font::STYLE_ITALIC) == Font::STYLE_ITALIC)
 			{
 				stylemask = stylemask | TTF_STYLE_ITALIC;
 			}
-			if((style & Font::STYLE_UNDERLINE) == Font::STYLE_UNDERLINE)
+			if((fontstyle & Font::STYLE_UNDERLINE) == Font::STYLE_UNDERLINE)
 			{
 				stylemask = stylemask | TTF_STYLE_UNDERLINE;
 			}
-			if((style & Font::STYLE_STRIKETHROUGH) == Font::STYLE_STRIKETHROUGH)
+			if((fontstyle & Font::STYLE_STRIKETHROUGH) == Font::STYLE_STRIKETHROUGH)
 			{
 				stylemask = stylemask | TTF_STYLE_STRIKETHROUGH;
 			}

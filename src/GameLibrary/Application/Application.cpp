@@ -62,7 +62,7 @@ namespace GameLibrary
 		//
 	}
 
-	int Application::run(const WindowSettings&windowSettings, byte orientations)
+	int Application::run(const WindowSettings&windowSettings, int orientations)
 	{
 		std::srand((unsigned int)std::time(nullptr));
 
@@ -104,7 +104,7 @@ namespace GameLibrary
 		app_closing = true;
 	}
 
-	int Application::loadMainWindow(const WindowSettings&windowSettings, byte orientations)
+	int Application::loadMainWindow(const WindowSettings&windowSettings, int orientations)
 	{
 		Rectangle displayRect = Window::getDisplayBounds(0);
 

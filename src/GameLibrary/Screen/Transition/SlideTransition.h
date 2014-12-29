@@ -8,21 +8,21 @@ namespace GameLibrary
 {
 	class SlideTransition : public Transition
 	{
-	protected:
-		byte direction;
-		
 	public:
-		enum SlideDirection : byte
+		typedef enum
 		{
 			SLIDE_UP,
 			SLIDE_RIGHT,
 			SLIDE_DOWN,
 			SLIDE_LEFT
-		};
+		} SlideDirection;
 		
-		SlideTransition(byte direction);
+		SlideTransition(SlideDirection direction);
 		virtual ~SlideTransition();
 		
 		virtual void draw(ApplicationData appData, Graphics graphics, float progress, Drawable*element1, Drawable*element2) const;
+		
+	protected:
+		SlideDirection direction;
 	};
 }

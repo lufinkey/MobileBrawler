@@ -33,7 +33,7 @@ namespace GameLibrary
 		style = windowSettings.style;
 	}
 
-	WindowSettings::WindowSettings(const Vector2i& pos, const Vector2u& sz, const String&ttl, Image*ico, const Color&bgcolor, byte sty)
+	WindowSettings::WindowSettings(const Vector2i& pos, const Vector2u& sz, const String&ttl, Image*ico, const Color&bgcolor, int sty)
 	{
 		position = pos;
 		size = sz;
@@ -124,12 +124,12 @@ namespace GameLibrary
 		return backgroundColor;
 	}
 	
-	void WindowSettings::setStyle(byte sty)
+	void WindowSettings::setStyle(int sty)
 	{
 		style = sty;
 	}
 	
-	byte WindowSettings::getStyle() const
+	int WindowSettings::getStyle() const
 	{
 		return style;
 	}
@@ -196,7 +196,7 @@ namespace GameLibrary
 		#endif
 		
 		unsigned int flags = 0;
-		byte style = windowSettings.style;
+		int style = windowSettings.style;
 		if(style != Window::STYLE_DEFAULT)
 		{
 			if((style & Window::STYLE_BORDERLESS) == Window::STYLE_BORDERLESS)

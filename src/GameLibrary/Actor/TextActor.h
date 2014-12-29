@@ -8,7 +8,7 @@ namespace GameLibrary
 	class TextActor : public BaseActor
 	{
 	public:
-		enum TextAlignment : byte
+		enum TextAlignment
 		{
 			ALIGN_BOTTOMLEFT,
 			ALIGN_BOTTOMRIGHT,

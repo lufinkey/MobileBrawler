@@ -3,7 +3,7 @@
 
 namespace GameLibrary
 {
-	PopoverTransition::PopoverTransition(byte dir, bool fades)
+	PopoverTransition::PopoverTransition(PopoverDirection dir, bool fades)
 	{
 		if(dir == POPOVER_UP || dir == POPOVER_RIGHT || dir == POPOVER_DOWN || dir == POPOVER_LEFT)
 		{
@@ -31,7 +31,7 @@ namespace GameLibrary
 		
 		float translationX = xOff;
 		float translationY = yOff;
-		switch (direction)
+		switch(direction)
 		{
 			case POPOVER_UP:
 			translationY += (e1rect.height*(1-progress));

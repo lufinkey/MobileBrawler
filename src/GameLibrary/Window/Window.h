@@ -22,14 +22,14 @@ namespace GameLibrary
 		String title;
 		Image*icon;
 		Color backgroundColor;
-		byte style;
+		int style;
 
 		void* createIconData() const;
 		
 	public:
 		WindowSettings();
 		WindowSettings(const WindowSettings&);
-		WindowSettings(const Vector2i& position, const Vector2u& size, const String&title="", Image*icon=nullptr, const Color&backgroundColor=Color::WHITE, byte style=0);
+		WindowSettings(const Vector2i& position, const Vector2u& size, const String&title="", Image*icon=nullptr, const Color&backgroundColor=Color::WHITE, int style=0);
 		~WindowSettings();
 
 		WindowSettings& operator=(const WindowSettings&);
@@ -49,8 +49,8 @@ namespace GameLibrary
 		void setBackgroundColor(const Color&);
 		const Color& getBackgroundColor() const;
 		
-		void setStyle(byte);
-		byte getStyle() const;
+		void setStyle(int);
+		int getStyle() const;
 	};
 
 //Window
@@ -77,7 +77,7 @@ namespace GameLibrary
 		void callListenerEvent(byte eventType, int x, int y, bool external);
 
 	public:
-		enum WindowStyle : byte
+		enum WindowStyle
 		{
 			STYLE_DEFAULT = 0x00000000,
 			STYLE_BORDERLESS = 0x00000001,
@@ -88,7 +88,7 @@ namespace GameLibrary
 			STYLE_MAXIMIZED = 0x00000020
 		};
 
-		enum WindowPosition : int
+		enum WindowPosition
 		{
 			POSITION_UNDEFINED = 0x0fffffff,
 			POSITION_CENTERED = 0x0ffffffe

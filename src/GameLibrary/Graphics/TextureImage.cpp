@@ -79,7 +79,7 @@ namespace GameLibrary
 			throw TextureImageUpdateException(SDL_GetError());
 		}
 
-		Color*texture_pixels = (Color*)pixelptr;
+		GameLibrary::Uint32*texture_pixels = (GameLibrary::Uint32*)pixelptr;
 		unsigned int total = width*height;
 		for(unsigned int i=0; i<total; i++)
 		{

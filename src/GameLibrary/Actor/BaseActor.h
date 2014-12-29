@@ -11,7 +11,7 @@ namespace GameLibrary
 		friend class TextActor;
 		friend class WireframeActor;
 	public:
-		enum ActorType : byte
+		enum ActorType
 		{
 			ACTORTYPE_BASE,
 			ACTORTYPE_NORMAL,

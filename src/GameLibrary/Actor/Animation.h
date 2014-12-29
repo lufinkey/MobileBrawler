@@ -14,7 +14,7 @@ namespace GameLibrary
 	class Animation : public Drawable
 	{
 	public:
-		enum Direction : byte
+		enum Direction
 		{
 			NO_CHANGE,
 			FORWARD,

@@ -12,7 +12,7 @@ namespace GameLibrary
 		byte b;
 		
 	public:
-		enum Bitmask : byte
+		enum Bitmask
 		{
 			BITMASK_1 = 0x01,
 			BITMASK_2 = 0x02,

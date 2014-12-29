@@ -3,7 +3,7 @@
 
 namespace GameLibrary
 {
-	SlideTransition::SlideTransition(byte dir)
+	SlideTransition::SlideTransition(SlideDirection dir)
 	{
 		if(dir == SLIDE_UP || dir == SLIDE_RIGHT || dir == SLIDE_DOWN || dir == SLIDE_LEFT)
 		{
@@ -51,7 +51,7 @@ namespace GameLibrary
 			mainSize.y = e2rect.y;
 		}
 		
-		switch (direction)
+		switch(direction)
 		{
 			case SLIDE_UP:
 			{

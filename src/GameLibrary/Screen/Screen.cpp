@@ -67,7 +67,7 @@ namespace GameLibrary
 		data.caller = nullptr;
 	}
 	
-	void Screen::TransitionData_begin(TransitionData&data, Screen*screen, Screen*transitionScreen, byte action, const Transition*transition, unsigned long long duration, CompletionCallback completion, void*caller)
+	void Screen::TransitionData_begin(TransitionData&data, Screen*screen, Screen*transitionScreen, TransitionAction action, const Transition*transition, unsigned long long duration, CompletionCallback completion, void*caller)
 	{
 		data.screen = screen;
 		data.transitionScreen = transitionScreen;

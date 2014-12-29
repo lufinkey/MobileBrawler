@@ -20,7 +20,7 @@ namespace GameLibrary
 		a = A;
 	}
 	
-	Color::Color(const GameLibrary::Uint32& rgba)
+	Color::Color(const GameLibrary::Color::RGBA32& rgba)
 	{
 		byte*rgbaArray = (byte*)(&rgba);
 		r = rgbaArray[3];
@@ -41,11 +41,6 @@ namespace GameLibrary
 	{
 		//
 	}
-
-	Color::operator GameLibrary::Uint32() const
-	{
-		return RGBA(r,g,b,a);
-	}
 	
 	Color& Color::operator=(const Color&color)
 	{
@@ -56,7 +51,7 @@ namespace GameLibrary
 		return *this;
 	}
 
-	Color& Color::operator=(const GameLibrary::Uint32& rgba)
+	Color& Color::operator=(const GameLibrary::Color::RGBA32& rgba)
 	{
 		byte*rgbaArray = (byte*)(&rgba);
 		r = rgbaArray[3];

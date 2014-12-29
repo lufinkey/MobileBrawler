@@ -34,11 +34,11 @@ namespace GameLibrary
 		
 		void callListenerEvent(unsigned int eventType);
 
-		int loadMainWindow(const WindowSettings&windowSettings, byte orientations);
+		int loadMainWindow(const WindowSettings&windowSettings, int orientations);
 		int runMainLoop();
 
 	public:
-		enum Orientation : byte
+		enum Orientation
 		{
 			ORIENTATION_ALL = 0x00,
 			ORIENTATION_LANDSCAPELEFT = 0x01,
@@ -48,7 +48,7 @@ namespace GameLibrary
 			ORIENTATION_LANDSCAPE = 0x01 | 0x02,
 		};
 
-		enum ExitCode : int
+		enum ExitCode
 		{
 			EXITCODE_ALREADYRUNNING = 1,
 			EXITCODE_SUCCESS = 0,
@@ -67,9 +67,9 @@ namespace GameLibrary
 		virtual void draw(ApplicationData appData, Graphics g) const;
 
 #if TARGETPLATFORM_MOBILE
-		int run(const WindowSettings&windowSettings = Window::defaultMobileSettings, byte orientations = ORIENTATION_ALL);
+		int run(const WindowSettings&windowSettings = Window::defaultMobileSettings, int orientations = ORIENTATION_ALL);
 #else
-		int run(const WindowSettings&windowSettings = Window::defaultDesktopSettings, byte orientations = ORIENTATION_ALL);
+		int run(const WindowSettings&windowSettings = Window::defaultDesktopSettings, int orientations = ORIENTATION_ALL);
 #endif
 
 		void close(int exitcode);

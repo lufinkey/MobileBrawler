@@ -14,11 +14,18 @@ namespace GameLibrary
 	{
 		friend class ScreenManager;
 	private:
+		typedef enum
+		{
+			TRANSITION_NONE,
+			TRANSITION_SHOW,
+			TRANSITION_HIDE
+		} TransitionAction;
+
 		typedef struct
 		{
 			Screen* screen;
 			Screen* transitionScreen;
-			byte action;
+			TransitionAction action;
 			bool requiresInitializing;
 			long long startTime;
 			const Transition*transition;
@@ -29,7 +36,7 @@ namespace GameLibrary
 		} TransitionData;
 
 		static void TransitionData_clear(TransitionData&data);
-		static void TransitionData_begin(TransitionData&data, Screen*screen, Screen*transitionScreen, byte action, const Transition*transition, unsigned long long duration, CompletionCallback completion, void*caller);
+		static void TransitionData_begin(TransitionData&data, Screen*screen, Screen*transitionScreen, TransitionAction action, const Transition*transition, unsigned long long duration, CompletionCallback completion, void*caller);
 		/*Makes sure the TransitionData is initialized, if it requires it.*/
 		static void TransitionData_checkInitialization(ApplicationData& appData, TransitionData&data);
 		/*Applies any new progress to the transition.
@@ -38,13 +45,6 @@ namespace GameLibrary
 		/*Checks if the transition is finished by calling TransitionData_applyProgress, and stores the objects that need calling if so.*/
 		static void TransitionData_checkFinished(ApplicationData&appData, TransitionData&data, Screen**onDidDisappearCaller, Screen**onDidAppearCaller);
 		static void TransitionData_callVirtualFunctions(TransitionData&data, Screen*onDidDisappearCaller, Screen*onDidAppearCaller);
-
-		enum TransitionAction : byte
-		{
-			TRANSITION_NONE,
-			TRANSITION_SHOW,
-			TRANSITION_HIDE
-		};
 
 		TransitionData overlayData;
 

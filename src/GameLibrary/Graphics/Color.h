@@ -5,13 +5,13 @@
 
 namespace GameLibrary
 {
-#define RGBA(r,g,b,a) (((unsigned)a) | (((unsigned)b)<<8) | (((unsigned)g)<<16) | (((unsigned)r)<<24))
+#define RGBA(r,g,b,a) (a | (b<<8) | (g<<16) | (r<<24))
 #define RGBX(r,g,b) RGBA(r,g,b,255)
 
 	class Color
 	{
 	public:
-		enum ColorValue : GameLibrary::Uint32
+		enum RGBA32
 		{
 			BLACK = RGBX(0, 0, 0),
 			BLUE = RGBX(0, 0, 255),
@@ -182,18 +182,18 @@ namespace GameLibrary
 			WHITESMOKE = RGBX(245, 245, 245),
 			YELLOWGREEN = RGBX(154, 205, 50),
 		};
+		typedef enum RGBA32 RGBA32;
 		
 		byte a,g,b,r;
 		
 		Color();
 		Color(const Color&);
-		Color(const GameLibrary::Uint32&rgba);
+		Color(const GameLibrary::Color::RGBA32&rgba);
 		Color(byte r, byte g, byte b, byte a=255);
 		~Color();
 		
-		operator GameLibrary::Uint32() const;
 		Color&operator=(const Color&);
-		Color&operator=(const GameLibrary::Uint32&rgba);
+		Color&operator=(const GameLibrary::Color::RGBA32&rgba);
 		bool operator==(const Color&) const;
 		
 		GameLibrary::Uint32 getRGBA() const;
