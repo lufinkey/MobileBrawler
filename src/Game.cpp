@@ -62,7 +62,7 @@ void Game::loadContent(AssetManager*assetManager)
 	textActor->setAlignment(TextActor::ALIGN_BOTTOMLEFT);
 	textActor->setLineSpacing(-40);
 
-	wireframeActor = new WireframeActor(400, 400, 100, 100);
+	wireframeActor = new WireframeActor(480, 300, 100, 100);
 	wireframeActor->setColor(Color::YELLOW);
 	wireframeActor->setFilled(true);
 	wireframeActor->setFrameColor(Color::GREEN);

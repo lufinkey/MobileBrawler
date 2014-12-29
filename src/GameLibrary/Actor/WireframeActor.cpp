@@ -82,17 +82,17 @@ namespace GameLibrary
 
 			if(filled)
 			{
-				actorGraphics.fillRect(0, 0, size.x*scale, size.y*scale);
+				actorGraphics.fillRect(0, 0, size.x, size.y);
 			}
 			else
 			{
-				actorGraphics.drawRect(0, 0, size.x*scale, size.y*scale);
+				actorGraphics.drawRect(0, 0, size.x, size.y);
 			}
 
 			if(frame_visible)
 			{
 				frameGraphics.setColor(frame_color);
-				frameGraphics.drawRect(0, 0, size.x*scale, size.y*scale);
+				frameGraphics.drawRect(0, 0, width, height);
 				boundingBoxGraphics.setColor(frame_color);
 				boundingBoxGraphics.drawRect(framerect.x, framerect.y, framerect.width, framerect.height);
 			}
@@ -103,7 +103,11 @@ namespace GameLibrary
 	{
 		width = size.x*scale;
 		height = size.y*scale;
-		framerect = rotationMatrix.transform(RectangleF(0, 0, width, height));
+		framerect = rotationMatrix.transform(RectangleF(0, 0, size.x, size.y));
+		framerect.x *= scale;
+		framerect.y *= scale;
+		framerect.width *= scale;
+		framerect.height *= scale;
 	}
 	
 	RectangleF WireframeActor::getFrame() const
@@ -141,5 +145,19 @@ namespace GameLibrary
 	bool WireframeActor::isFilled() const
 	{
 		return filled;
+	}
+
+	bool WireframeActor::checkPointCollision(const Vector2f&point)
+	{
+		Polygon polygon = Polygon();
+		polygon.addPoint(Vector2f(0,0));
+		polygon.addPoint(Vector2f(width,0));
+		polygon.addPoint(Vector2f(width,height));
+		polygon.addPoint(Vector2f(0,height));
+		polygon = rotationMatrix.transform(polygon);
+
+		Vector2f fixedPoint(point.x-x, point.y-y);
+
+		return polygon.contains(fixedPoint);
 	}
 }

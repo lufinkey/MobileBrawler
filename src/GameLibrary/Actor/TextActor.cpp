@@ -60,6 +60,7 @@ namespace GameLibrary
 				if(mirroredVertical)
 				{
 					graphics.scale(-scale,-scale);
+
 				}
 				else
 				{
@@ -100,6 +101,8 @@ namespace GameLibrary
 			{
 				const String&line = lines.get(i);
 				const RectangleF&linerect = linerects.get(i);
+				//TODO add mirroring
+				
 				switch(alignment)
 				{
 					default:
@@ -116,6 +119,32 @@ namespace GameLibrary
 					case ALIGN_CENTER:
 					actorGraphics.drawString(line, -linerect.width/2, lineoffset+linerect.y+linerect.height);
 					break;
+				}
+
+				if(frame_visible)
+				{
+					RectangleF fixedLineRect;
+					switch(alignment)
+					{
+						default:
+						case ALIGN_BOTTOMLEFT:
+						case ALIGN_TOPLEFT:
+						fixedLineRect = RectangleF(0, lineoffset+linerect.y, linerect.width, linerect.height);
+						break;
+					
+						case ALIGN_BOTTOMRIGHT:
+						case ALIGN_TOPRIGHT:
+						fixedLineRect = RectangleF((float)(boundsrect.width-linerect.width), lineoffset+linerect.y, linerect.width, linerect.height);
+						break;
+					
+						case ALIGN_CENTER:
+						fixedLineRect = RectangleF(-linerect.width/2, lineoffset+linerect.y, linerect.width, linerect.height);
+						break;
+					}
+
+					actorGraphics.setColor(frame_color);
+					actorGraphics.drawRect(fixedLineRect.x, fixedLineRect.y, fixedLineRect.width, fixedLineRect.height);
+					actorGraphics.setColor(color);
 				}
 			}
 			
@@ -138,6 +167,7 @@ namespace GameLibrary
 		{
 			width = 0;
 			height = 0;
+			linerects.clear();
 		}
 		else
 		{
@@ -311,5 +341,63 @@ namespace GameLibrary
 	int TextActor::getLineSpacing() const
 	{
 		return lineSpacing;
+	}
+	
+	bool TextActor::checkPointCollision(const Vector2f&point)
+	{
+		if(text.length() == 0 || font==nullptr)
+		{
+			return false;
+		}
+		RectangleF frame = getFrame();
+		float left = frame.x;
+		float top = frame.y;
+		float right = frame.x+frame.width;
+		float bottom = frame.y+frame.height;
+		if(point.x>left && point.y>top && point.x<right && point.y<bottom)
+		{
+			Vector2f pointFixed = point;
+			pointFixed.x -= x;
+			pointFixed.y -= y;
+			
+			pointFixed = inverseRotationMatrix.transform(pointFixed);
+			
+			float ratX = pointFixed.x/width;
+			float ratY = pointFixed.y/height;
+
+			float pxlX = (ratX*((float)boundsrect.width));
+			float pxlY = (ratY*((float)boundsrect.height));
+
+			float lineoffset = boundsrect.y;
+			
+			for(unsigned int i=0; i<linerects.size(); i++)
+			{
+				const RectangleF&linerect = linerects.get(i);
+				RectangleF fixedLineRect;
+				switch(alignment)
+				{
+					default:
+					case ALIGN_BOTTOMLEFT:
+					case ALIGN_TOPLEFT:
+					fixedLineRect = RectangleF(0, lineoffset+linerect.y, linerect.width, linerect.height);
+					break;
+					
+					case ALIGN_BOTTOMRIGHT:
+					case ALIGN_TOPRIGHT:
+					fixedLineRect = RectangleF((float)(boundsrect.width-linerect.width), lineoffset+linerect.y, linerect.width, linerect.height);
+					break;
+					
+					case ALIGN_CENTER:
+					fixedLineRect = RectangleF(-linerect.width/2, lineoffset+linerect.y, linerect.width, linerect.height);
+					break;
+				}
+
+				if(fixedLineRect.contains(Vector2f(pxlX, pxlY)))
+				{
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

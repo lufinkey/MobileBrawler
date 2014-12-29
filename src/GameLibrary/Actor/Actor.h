@@ -29,10 +29,8 @@ namespace GameLibrary
 		
 	protected:
 		virtual void updateSize();
-
 		//NOTE: this function is very inefficient in loops. You should use it for checking single pixels. Do NOT use for pixel level collisions (use PixelIterator)
 		virtual bool checkPointCollision(const Vector2f&point);
-		
 		virtual void drawActor(ApplicationData&appData, Graphics&graphics, float x, float y, float scale) const;
 		
 	private:
