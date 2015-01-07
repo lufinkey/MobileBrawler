@@ -18,6 +18,8 @@ namespace GameLibrary
 		prevclicked = false;
 		mouseover = false;
 		prevmouseover = false;
+		didpress = false;
+		didrelease = true;
 		visible = true;
 		mirrored = false;
 		mirroredVertical = false;
@@ -38,12 +40,21 @@ namespace GameLibrary
 	{
 		prevclicked = clicked;
 		prevmouseover = mouseover;
-		
+
 		#if defined(TARGETPLATFORM_MOBILE)
 			updateTouch(appData);
 		#else
 			updateMouse(appData);
 		#endif
+		
+		if(currentTouches.size() == 0)
+		{
+			didpress = false;
+		}
+		else
+		{
+			didrelease = false;
+		}
 	}
 	
 	void BaseActor::draw(ApplicationData appData, Graphics graphics) const
@@ -208,6 +219,21 @@ namespace GameLibrary
 	bool BaseActor::wasMousePressed() const
 	{
 		return prevclicked;
+	}
+	
+	bool BaseActor::didMousePress() const
+	{
+		return didpress;
+	}
+
+	bool BaseActor::didMouseRelease() const
+	{
+		return didrelease;
+	}
+
+	void BaseActor::clearMouseState()
+	{
+		currentTouches.clear();
 	}
 	
 	void BaseActor::updateSize()
@@ -527,10 +553,12 @@ namespace GameLibrary
 				break;
 
 				case EVENTCALL_MOUSEPRESS:
+				didpress = true;
 				onMousePress(window, eventData.second);
 				break;
 
 				case EVENTCALL_MOUSERELEASE:
+				didrelease = true;
 				onMouseRelease(window, eventData.second);
 				break;
 			}

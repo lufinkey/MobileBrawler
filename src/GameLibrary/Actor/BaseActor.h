@@ -65,6 +65,10 @@ namespace GameLibrary
 		bool wasMouseOver() const;
 		bool isMousePressed() const;
 		bool wasMousePressed() const;
+		bool didMousePress() const;
+		bool didMouseRelease() const;
+
+		void clearMouseState();
 
 		virtual void onMousePress(Window*window, unsigned int touchID);
 		virtual void onMouseRelease(Window*window, unsigned int touchID);
@@ -84,6 +88,8 @@ namespace GameLibrary
 		bool prevclicked;
 		bool mouseover;
 		bool prevmouseover;
+		bool didpress;
+		bool didrelease;
 		bool visible;
 		bool mirrored;
 		bool mirroredVertical;
