@@ -19,7 +19,7 @@ namespace GameLibrary
 		bool contains(const Vector2i&point) const;
 		bool intersects(const Rectangle&rect) const;
 		void combine(const Rectangle&rect);
-		Rectangle getIntersect(const Rectangle&rect) const
+		Rectangle getIntersect(const Rectangle&rect) const;
 	};
 
 	class RectangleF

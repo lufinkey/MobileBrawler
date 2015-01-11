@@ -79,6 +79,18 @@
     <Filter Include="fonts">
       <UniqueIdentifier>{d94fc3fb-b258-4a36-afe9-dc6672d312b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\MobileBrawler">
+      <UniqueIdentifier>{6fa0df9a-358a-4a1d-80b5-04bdab450672}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\SmashBros">
+      <UniqueIdentifier>{1ff2cefd-8e32-4d68-84e8-fee6bc0a677f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\SmashBros\Game">
+      <UniqueIdentifier>{196a71a0-deda-4032-b74a-9332669fcfaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\SmashBros\Menu">
+      <UniqueIdentifier>{c1bbaa57-ae03-4a23-bb97-647f07037720}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameLibrary\Actor\Actor.cpp">
@@ -305,6 +317,15 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Screen\MenuScreen.cpp">
       <Filter>src\GameLibrary\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Screen\UI\ImageElement.cpp">
+      <Filter>src\GameLibrary\Screen\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\MainMenu.cpp">
+      <Filter>src\SmashBros\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\TitleScreen.cpp">
+      <Filter>src\SmashBros\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -556,6 +577,15 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Screen\MenuScreen.h">
       <Filter>src\GameLibrary\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Screen\UI\ImageElement.h">
+      <Filter>src\GameLibrary\Screen\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\MainMenu.h">
+      <Filter>src\SmashBros\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\TitleScreen.h">
+      <Filter>src\SmashBros\Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

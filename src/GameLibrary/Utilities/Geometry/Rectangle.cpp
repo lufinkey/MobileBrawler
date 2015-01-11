@@ -175,6 +175,7 @@ namespace GameLibrary
 		overlapRect.y = y + overlapTop;
 		overlapRect.width = overlapRight - overlapLeft;
 		overlapRect.height = overlapBottom - overlapTop;
+		return overlapRect;
 	}
 	
 	RectangleF::RectangleF()
@@ -349,5 +350,6 @@ namespace GameLibrary
 		overlapRect.y = y + overlapTop;
 		overlapRect.width = overlapRight - overlapLeft;
 		overlapRect.height = overlapBottom - overlapTop;
+		return overlapRect;
 	}
 }
