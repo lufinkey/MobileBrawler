@@ -16,9 +16,10 @@ namespace GameLibrary
 		Rectangle();
 		Rectangle(int x, int y, int width, int height);
 
-		bool contains(const Vector2i&point);
-		bool intersects(const Rectangle&rect);
+		bool contains(const Vector2i&point) const;
+		bool intersects(const Rectangle&rect) const;
 		void combine(const Rectangle&rect);
+		Rectangle getIntersect(const Rectangle&rect) const
 	};
 
 	class RectangleF
@@ -32,8 +33,9 @@ namespace GameLibrary
 		RectangleF();
 		RectangleF(float x, float y, float width, float height);
 
-		bool contains(const Vector2f&point);
-		bool intersects(const RectangleF&rect);
+		bool contains(const Vector2f&point) const;
+		bool intersects(const RectangleF&rect) const;
 		void combine(const RectangleF&rect);
+		RectangleF getIntersect(const RectangleF&rect) const;
 	};
 }

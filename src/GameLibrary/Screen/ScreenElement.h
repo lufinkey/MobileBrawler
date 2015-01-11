@@ -27,7 +27,6 @@ namespace GameLibrary
 		ArrayList<ScreenElement*> removedChildElements;
 
 		mutable bool updatingElements;
-		bool relativePosition;
 
 		Color backgroundColor;
 
@@ -62,9 +61,6 @@ namespace GameLibrary
 
 		const ArrayList<ScreenElement*>& getChildElements() const;
 		ScreenElement* getParentElement() const;
-
-		void enableRelativePositioning(bool);
-		bool relativePositioningEnabled() const;
 		
 		void setBackgroundColor(const Color&);
 		const Color& getBackgroundColor() const;

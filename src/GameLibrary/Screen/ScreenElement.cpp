@@ -57,7 +57,6 @@ namespace GameLibrary
 		screen = nullptr;
 		parentElement = nullptr;
 		updatingElements = false;
-		relativePosition = true;
 		backgroundColor = Color::TRANSPARENT;
 	}
 
@@ -113,8 +112,7 @@ namespace GameLibrary
 
 		RectangleF frame = getFrame();
 
-		Graphics relativeGraphics(graphics);
-		relativeGraphics.translate(frame.x, frame.y);
+		graphics.translate(frame.x, frame.y);
 
 		for(unsigned int i=0; i<children.size(); i++)
 		{
@@ -132,14 +130,7 @@ namespace GameLibrary
 
 			if(element_notremoved)
 			{
-				if(element->relativePosition)
-				{
-					element->draw(appData,relativeGraphics);
-				}
-				else
-				{
-					element->draw(appData,graphics);
-				}
+				element->draw(appData,graphics);
 			}
 		}
 		updatingElements = false;
@@ -224,16 +215,6 @@ namespace GameLibrary
 	ScreenElement* ScreenElement::getParentElement() const
 	{
 		return parentElement;
-	}
-
-	void ScreenElement::enableRelativePositioning(bool toggle)
-	{
-		relativePosition = toggle;
-	}
-
-	bool ScreenElement::relativePositioningEnabled() const
-	{
-		return relativePosition;
 	}
 
 	void ScreenElement::setBackgroundColor(const Color&color)
