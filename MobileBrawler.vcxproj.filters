@@ -91,6 +91,9 @@
     <Filter Include="src\SmashBros\Menu">
       <UniqueIdentifier>{c1bbaa57-ae03-4a23-bb97-647f07037720}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\import">
+      <UniqueIdentifier>{986e5ec3-0468-4541-a5dd-59c198e2e94b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameLibrary\Actor\Actor.cpp">
@@ -237,9 +240,6 @@
     <ClCompile Include="src\GameLibrary\Window\Window.cpp">
       <Filter>src\GameLibrary\Window</Filter>
     </ClCompile>
-    <ClCompile Include="src\main.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameLibrary\Application\EventManager.cpp">
       <Filter>src\GameLibrary\Application</Filter>
     </ClCompile>
@@ -260,9 +260,6 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Application\BatchLoader.cpp">
       <Filter>src\GameLibrary\Application</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Game.cpp">
-      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Screen\ScreenElement.cpp">
       <Filter>src\GameLibrary\Screen</Filter>
@@ -325,6 +322,15 @@
       <Filter>src\SmashBros\Menu</Filter>
     </ClCompile>
     <ClCompile Include="src\SmashBros\Menu\TitleScreen.cpp">
+      <Filter>src\SmashBros\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\main.cpp">
+      <Filter>src\SmashBros</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Game.cpp">
+      <Filter>src\SmashBros</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\SmashBrosMenuScreen.cpp">
       <Filter>src\SmashBros\Menu</Filter>
     </ClCompile>
   </ItemGroup>
@@ -518,9 +524,6 @@
     <ClInclude Include="src\GameLibrary\Application\BatchLoader.h">
       <Filter>src\GameLibrary\Application</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\GameLibrary\Screen\ScreenElement.h">
       <Filter>src\GameLibrary\Screen</Filter>
     </ClInclude>
@@ -585,6 +588,15 @@
       <Filter>src\SmashBros\Menu</Filter>
     </ClInclude>
     <ClInclude Include="src\SmashBros\Menu\TitleScreen.h">
+      <Filter>src\SmashBros\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Game.h">
+      <Filter>src\SmashBros</Filter>
+    </ClInclude>
+    <ClInclude Include="src\import\GameLibraryImport.hpp">
+      <Filter>src\import</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\SmashBrosMenuScreen.h">
       <Filter>src\SmashBros\Menu</Filter>
     </ClInclude>
   </ItemGroup>

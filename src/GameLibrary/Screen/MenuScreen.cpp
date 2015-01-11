@@ -17,6 +17,7 @@ namespace GameLibrary
 	
 	void MenuScreen::MainElement::update(ApplicationData appData)
 	{
+		setFrame(getParentElement()->getFrame());
 		ScreenElement::update(appData);
 		
 		ArrayList<Pair<Keyboard::Key, KeyDirection> > keys = menuScreen->keys;
@@ -255,38 +256,55 @@ namespace GameLibrary
 	}
 	
 //MenuScreen
-
-	MenuScreen::MenuScreen()
-	{
-		selectedIndex = MENUSCREEN_NOSELECTION;
-		keyboardEnabled = false;
-		pressingItem = false;
-	}
-
-	MenuScreen::~MenuScreen()
+	MenuScreen::MenuScreen() : MenuScreen(nullptr)
 	{
 		//
 	}
 	
-	void MenuScreen::addItem(float x, float y, Animation*animation, const Animation::Direction&direction, bool destruct)
+	MenuScreen::MenuScreen(Window*window) : Screen(window)
+	{
+		selectedIndex = MENUSCREEN_NOSELECTION;
+		keyboardEnabled = false;
+		pressingItem = false;
+		GameLibrary::ScreenElement* element = getElement();
+		mainElement = new MainElement(this, element->getFrame());
+		element->addChildElement(mainElement);
+	}
+
+	MenuScreen::~MenuScreen()
+	{
+		mainElement->removeFromParentElement();
+		delete mainElement;
+		mainElement = nullptr;
+		
+		for(unsigned int i = 0; i < items.size(); i++)
+		{
+			delete items.get(i);
+		}
+		items.clear();
+	}
+	
+	unsigned int MenuScreen::addItem(const Vector2f&position, Animation*animation, const Animation::Direction&direction, bool destruct)
 	{
 		if(animation == nullptr)
 		{
 			throw IllegalArgumentException("Cannot add an item with a null Animation to a GameLibrary::MenuScreen object");
 		}
-		ImageItem* actor = new ImageItem(this, x,y);
+		ImageItem* actor = new ImageItem(this, position.x, position.y);
 		actor->addAnimation("default", animation, destruct);
 		items.add(actor);
+		return items.size()-1;
 	}
 	
-	void MenuScreen::addItem(float x, float y, const String&text, Font*font, const Color&color, unsigned int fontsize, const Font::Style&fontstyle, const TextActor::TextAlignment&alignment)
+	unsigned int MenuScreen::addItem(const Vector2f&position, const String&text, Font*font, const Color&color, unsigned int fontsize, const Font::Style&fontstyle, const TextActor::TextAlignment&alignment)
 	{
 		if(font == nullptr)
 		{
 			throw IllegalArgumentException("Cannot add an item with a null Font to a GameLibrary::MenuScreen object");
 		}
-		TextItem* textActor = new TextItem(this, x, y, text, font, color, fontsize, fontstyle, alignment);
+		TextItem* textActor = new TextItem(this, position.x, position.y, text, font, color, fontsize, fontstyle, alignment);
 		items.add(textActor);
+		return items.size()-1;
 	}
 	
 	void MenuScreen::removeItem(unsigned int index)
@@ -353,204 +371,77 @@ namespace GameLibrary
 	
 	void MenuScreen::moveHoverUp()
 	{
-		setKeyboardEnabled(true);
-		if(selectedIndex == MENUSCREEN_NOSELECTION)
+		unsigned int index = getSelectedIndex();
+		unsigned int totalItems = getTotalItems();
+		if(index == MENUSCREEN_NOSELECTION)
 		{
-			if(items.size()>0)
+			if(totalItems>0)
 			{
-				selectedIndex = items.size()-1;
-				onItemHover(selectedIndex);
+				index = totalItems-1;
+				setSelectedIndex(index);
 			}
 		}
 		else
 		{
-			unsigned int oldIndex = selectedIndex;
-			if(selectedIndex==0)
+			if(index==0)
 			{
-				if(items.size()>0)
+				if(totalItems>0)
 				{
-					selectedIndex = items.size()-1;
+					index = totalItems-1;
 				}
 				else
 				{
-					selectedIndex = MENUSCREEN_NOSELECTION;
+					index = MENUSCREEN_NOSELECTION;
 				}
 			}
 			else
 			{
-				selectedIndex--;
+				index--;
 			}
 
-			if(oldIndex != selectedIndex)
-			{
-				bool wasPressingItem = pressingItem;
-				pressingItem = false;
-				if(wasPressingItem)
-				{
-					onItemPressCancel(oldIndex);
-				}
-				onItemHoverFinish(oldIndex);
-				if(selectedIndex != MENUSCREEN_NOSELECTION)
-				{
-					onItemHover(selectedIndex);
-					if(wasPressingItem)
-					{
-						pressingItem = true;
-						onItemPress(selectedIndex);
-					}
-				}
-			}
+			setSelectedIndex(index);
 		}
 	}
 	
 	void MenuScreen::moveHoverDown()
 	{
-		setKeyboardEnabled(true);
-		if(selectedIndex == MENUSCREEN_NOSELECTION)
+		unsigned int index = getSelectedIndex();
+		unsigned int totalItems = getTotalItems();
+		if(index == MENUSCREEN_NOSELECTION)
 		{
-			if(items.size()>0)
+			if(totalItems>0)
 			{
-				selectedIndex = 0;
-				onItemHover(selectedIndex);
+				index = 0;
+				setSelectedIndex(index);
 			}
 		}
 		else
 		{
-			unsigned int oldIndex = selectedIndex;
-			selectedIndex++;
-			if(selectedIndex >= items.size())
+			index++;
+			if(index>totalItems)
 			{
-				if(items.size()>0)
+				if(totalItems>0)
 				{
-					selectedIndex = 0;
+					index = 0;
 				}
 				else
 				{
-					selectedIndex = MENUSCREEN_NOSELECTION;
+					index = MENUSCREEN_NOSELECTION;
 				}
 			}
 
-			if(oldIndex != selectedIndex)
-			{
-				bool wasPressingItem = pressingItem;
-				pressingItem = false;
-				if(wasPressingItem)
-				{
-					onItemPressCancel(oldIndex);
-				}
-				onItemHoverFinish(oldIndex);
-				if(selectedIndex!=MENUSCREEN_NOSELECTION)
-				{
-					onItemHover(selectedIndex);
-					if(wasPressingItem)
-					{
-						pressingItem = true;
-						onItemPress(selectedIndex);
-					}
-				}
-			}
+			setSelectedIndex(index);
 		}
 	}
 	
 	void MenuScreen::moveHoverLeft()
 	{
-		setKeyboardEnabled(true);
-		if(selectedIndex == MENUSCREEN_NOSELECTION)
-		{
-			if(items.size()>0)
-			{
-				selectedIndex = items.size()-1;
-				onItemHover(selectedIndex);
-			}
-		}
-		else
-		{
-			unsigned int oldIndex = selectedIndex;
-			if(selectedIndex==0)
-			{
-				if(items.size()>0)
-				{
-					selectedIndex = items.size()-1;
-				}
-				else
-				{
-					selectedIndex = MENUSCREEN_NOSELECTION;
-				}
-			}
-			else
-			{
-				selectedIndex--;
-			}
-
-			if(oldIndex != selectedIndex)
-			{
-				bool wasPressingItem = pressingItem;
-				pressingItem = false;
-				if(wasPressingItem)
-				{
-					onItemPressCancel(oldIndex);
-				}
-				onItemHoverFinish(oldIndex);
-				if(selectedIndex != MENUSCREEN_NOSELECTION)
-				{
-					onItemHover(selectedIndex);
-					if(wasPressingItem)
-					{
-						pressingItem = true;
-						onItemPress(selectedIndex);
-					}
-				}
-			}
-		}
+		moveHoverUp();
 	}
 	
 	void MenuScreen::moveHoverRight()
 	{
-		setKeyboardEnabled(true);
-		if(selectedIndex == MENUSCREEN_NOSELECTION)
-		{
-			if(items.size()>0)
-			{
-				selectedIndex = 0;
-				onItemHover(selectedIndex);
-			}
-		}
-		else
-		{
-			unsigned int oldIndex = selectedIndex;
-			selectedIndex++;
-			if(selectedIndex >= items.size())
-			{
-				if(items.size()>0)
-				{
-					selectedIndex = 0;
-				}
-				else
-				{
-					selectedIndex = MENUSCREEN_NOSELECTION;
-				}
-			}
-
-			if(oldIndex != selectedIndex)
-			{
-				bool wasPressingItem = pressingItem;
-				pressingItem = false;
-				if(wasPressingItem)
-				{
-					onItemPressCancel(oldIndex);
-				}
-				onItemHoverFinish(oldIndex);
-				if(selectedIndex!=MENUSCREEN_NOSELECTION)
-				{
-					onItemHover(selectedIndex);
-					if(wasPressingItem)
-					{
-						pressingItem = true;
-						onItemPress(selectedIndex);
-					}
-				}
-			}
-		}
+		moveHoverDown();
 	}
 	
 	bool MenuScreen::selectCurrentIndex()
@@ -645,7 +536,7 @@ namespace GameLibrary
 
 	void MenuScreen::setKeyboardEnabled(bool toggle)
 	{
-		if(toggle && !keyboardEnabled)
+		if((toggle && !keyboardEnabled) || (keyboardEnabled && selectedIndex==MENUSCREEN_NOSELECTION))
 		{
 			//enable keyboard
 			keyboardEnabled = true;
@@ -675,8 +566,46 @@ namespace GameLibrary
 		}
 	}
 	
+	void MenuScreen::setSelectedIndex(unsigned int index)
+	{
+		bool keyboardWasEnabled = keyboardEnabled;
+		setKeyboardEnabled(true);
+		if(index != selectedIndex)
+		{
+			unsigned int oldSelectedIndex = selectedIndex;
+			bool wasPressingItem = pressingItem;
+			pressingItem = false;
+			
+			if(oldSelectedIndex != MENUSCREEN_NOSELECTION)
+			{
+				if(wasPressingItem)
+				{
+					onItemPressCancel(oldSelectedIndex);
+				}
+				selectedIndex = MENUSCREEN_NOSELECTION;
+				onItemHoverFinish(oldSelectedIndex);
+			}
+			
+			if(index != MENUSCREEN_NOSELECTION && index<items.size())
+			{
+				selectedIndex = index;
+				onItemHover(index);
+				if(wasPressingItem && keyboardWasEnabled)
+				{
+					pressingItem = true;
+					onItemPress(index);
+				}
+			}
+		}
+	}
+	
 	bool MenuScreen::isKeyboardEnabled() const
 	{
 		return keyboardEnabled;
+	}
+	
+	unsigned int MenuScreen::getSelectedIndex() const
+	{
+		return selectedIndex;
 	}
 }

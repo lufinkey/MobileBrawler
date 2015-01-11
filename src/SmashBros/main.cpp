@@ -3,7 +3,7 @@
 
 int main(int argc, char *argv[])
 {
-	Game* game = new Game();
+	SmashBros::Game* game = new SmashBros::Game();
 	int returnVal = game->run();
 	delete game;
 	return returnVal;

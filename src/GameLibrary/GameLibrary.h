@@ -48,14 +48,17 @@
 
 #include "Network/NetworkProtocol.h"
 
+#include "Screen/Drawable.h"
 #include "Screen/ScreenElement.h"
 #include "Screen/Screen.h"
 #include "Screen/ScreenManager.h"
+#include "Screen/MenuScreen.h"
 #include "Screen/Transition/Transition.h"
 #include "Screen/Transition/FadeColorTransition.h"
 #include "Screen/Transition/FadeZoomTransition.h"
 #include "Screen/Transition/PopoverTransition.h"
 #include "Screen/Transition/SlideTransition.h"
+#include "Screen/UI/ImageElement.h"
 
 #include "Utilities/Any.h"
 #include "Utilities/ArrayList.h"

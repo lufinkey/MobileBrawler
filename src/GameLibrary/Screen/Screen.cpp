@@ -150,6 +150,7 @@ namespace GameLibrary
 	
 	Screen::Screen(Window*wndw)
 	{
+		initialized = false;
 		screenManager = nullptr;
 		parentScreen = nullptr;
 		childScreen = nullptr;
@@ -157,7 +158,21 @@ namespace GameLibrary
 
 		TransitionData_clear(overlayData);
 
-		setWindow(wndw);
+		window = wndw;
+		if(window != nullptr)
+		{
+			View*view = window->getView();
+			if(view != nullptr)
+			{
+				const Vector2f& size = view->getSize();
+				if(frame.width!=size.x || frame.height!=size.y)
+				{
+					frame = RectangleF(frame.x, frame.y, size.x, size.y);
+					ScreenElement* mainElement = getElement();
+					mainElement->setFrame(RectangleF(0,0,size.x,size.y));
+				}
+			}
+		}
 	}
 	
 	Screen::Screen() : Screen(nullptr)
@@ -178,6 +193,11 @@ namespace GameLibrary
 			delete element;
 			element = nullptr;
 		}
+	}
+	
+	void Screen::initialize()
+	{
+		//
 	}
 	
 	void Screen::onWillAppear(const Transition*transition)

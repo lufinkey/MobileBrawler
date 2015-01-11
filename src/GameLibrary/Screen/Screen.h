@@ -54,6 +54,8 @@ namespace GameLibrary
 		Screen* childScreen;
 
 		ScreenManager* screenManager;
+		
+		bool initialized;
 
 		void updateFrame(Window*window);
 		virtual void setWindow(Window*window);
@@ -71,6 +73,8 @@ namespace GameLibrary
 		Screen(Window*window);
 		Screen();
 		virtual ~Screen();
+		
+		virtual void initialize();
 
 		virtual void update(ApplicationData appData);
 		virtual void draw(ApplicationData appData, Graphics graphics) const;
@@ -89,7 +93,7 @@ namespace GameLibrary
 		Screen* getBottomScreen();
 		Screen* getRootScreen();
 		bool isVisible();
-
+		
 		void setBackgroundColor(const Color&);
 		const Color& getBackgroundColor() const;
 	};

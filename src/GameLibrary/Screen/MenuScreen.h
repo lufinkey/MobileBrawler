@@ -18,10 +18,11 @@ namespace GameLibrary
 	{
 	public:
 		MenuScreen();
+		MenuScreen(Window*window);
 		virtual ~MenuScreen();
 		
-		void addItem(float x, float y, Animation*animation, const Animation::Direction&direction, bool destruct=true);
-		void addItem(float x, float y, const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontsize=18, const Font::Style&fontstyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_CENTER);
+		unsigned int addItem(const Vector2f&position, Animation*animation, const Animation::Direction&direction, bool destruct=true);
+		unsigned int addItem(const Vector2f&position, const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontsize=18, const Font::Style&fontstyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_CENTER);
 		void removeItem(unsigned int index);
 		unsigned int getTotalItems();
 		
@@ -48,7 +49,10 @@ namespace GameLibrary
 		void clearKeys();
 
 		void setKeyboardEnabled(bool);
+		void setSelectedIndex(unsigned int);
+		
 		bool isKeyboardEnabled() const;
+		unsigned int getSelectedIndex() const;
 		
 	private:
 		class MainElement : public GameLibrary::ScreenElement
@@ -93,6 +97,7 @@ namespace GameLibrary
 		
 		ArrayList<BaseActor*> items;
 		unsigned int selectedIndex;
+		MainElement* mainElement;
 		bool keyboardEnabled;
 		bool pressingItem;
 		
@@ -107,4 +112,19 @@ namespace GameLibrary
 		
 		ArrayList<Pair<Keyboard::Key, KeyDirection> > keys;
 	};
+	
+	//TODO make moveHoverUp, moveHoverDown, moveHoverLeft, and moveHoverRight look for the nearest box in the specified direction
+	// ex: moveHoverDown()
+	//     _________
+	//     |       |
+	//     |_______|
+	//    /         \
+	//   /           \
+	// _____
+	// |___|
+	//
+	// that box at the bottom left will get selected, because it's within the range of "down" for the current item.
+	// the "technical" x and y values will get stored in order to keep a straight line going down (ie. if there's a "fork")
+	// if there are no items within the direction's range, it will look for all items with a center that is below it's center (or left of for left, right of for right, etc)
+	// if there are no items there, it will look for the furthest most item within the opposite range
 }
