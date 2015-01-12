@@ -7,9 +7,12 @@ namespace GameLibrary
 	{
 	public:
 		WireframeActor();
+		WireframeActor(const WireframeActor&) = delete;
 		WireframeActor(float x, float y);
 		WireframeActor(float x, float y, float width, float height);
 		virtual ~WireframeActor();
+		
+		WireframeActor& operator=(const WireframeActor&) = delete;
 		
 		virtual void update(ApplicationData appData);
 		virtual void draw(ApplicationData appData, Graphics graphics) const;

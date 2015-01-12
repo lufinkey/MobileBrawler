@@ -19,9 +19,12 @@ namespace GameLibrary
 		typedef enum TextAlignment TextAlignment;
 		
 		TextActor();
+		TextActor(const TextActor&) = delete;
 		TextActor(const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK);
 		TextActor(float x, float y, const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK);
 		virtual ~TextActor();
+		
+		TextActor& operator=(const TextActor&) = delete;
 		
 		virtual void update(ApplicationData appData);
 		virtual void draw(ApplicationData appData, Graphics graphics) const;

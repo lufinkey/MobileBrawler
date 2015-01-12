@@ -164,6 +164,11 @@ namespace GameLibrary
 		{
 			throw IllegalArgumentException("Cannot add a null ScreenElement to a ScreenElement");
 		}
+		else if(element->parentElement != nullptr)
+		{
+			throw IllegalArgumentException("Cannot add a ScreenElement that is already added to another ScreenElement");
+		}
+		element->parentElement = this;
 		childElements.add(element);
 	}
 

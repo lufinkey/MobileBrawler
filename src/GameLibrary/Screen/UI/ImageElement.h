@@ -11,9 +11,12 @@ namespace GameLibrary
 		
 	public:
 		ImageElement();
+		ImageElement(const ImageElement&) = delete;
 		ImageElement(const RectangleF&frame);
 		ImageElement(const RectangleF&frame, TextureImage*image);
 		virtual ~ImageElement();
+		
+		ImageElement& operator=(const ImageElement&) = delete;
 		
 		virtual void draw(ApplicationData appData, Graphics graphics) const;
 

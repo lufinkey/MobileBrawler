@@ -11,8 +11,11 @@ namespace GameLibrary
 	{
 	public:
 		Actor();
+		Actor(const Actor&) = delete;
 		Actor(float x, float y);
 		virtual ~Actor();
+		
+		Actor& operator=(const Actor&) = delete;
 		
 		virtual void update(ApplicationData appData);
 		virtual void draw(ApplicationData appData, Graphics graphics) const;

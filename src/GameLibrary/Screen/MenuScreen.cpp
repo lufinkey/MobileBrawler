@@ -41,9 +41,9 @@ namespace GameLibrary
 	
 //MenuScreen::ImageItem
 	
-	MenuScreen::ImageItem::ImageItem(MenuScreen*menuScreen, float x, float y)
+	MenuScreen::ImageItem::ImageItem(MenuScreen*screen, float x, float y) : Actor(x,y)
 	{
-		//
+		menuScreen = screen;
 	}
 
 	MenuScreen::ImageItem::~ImageItem()

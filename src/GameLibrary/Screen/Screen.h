@@ -68,9 +68,12 @@ namespace GameLibrary
 	public:
 		static const Transition* const defaultPresentTransition;
 
-		Screen(Window*window);
 		Screen();
+		Screen(const Screen&) = delete;
+		Screen(Window*window);
 		virtual ~Screen();
+		
+		Screen& operator=(const Screen&) = delete;
 
 		virtual void update(ApplicationData appData);
 		virtual void draw(ApplicationData appData, Graphics graphics) const;

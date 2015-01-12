@@ -23,9 +23,12 @@ namespace GameLibrary
 	public:
 		static const Transition* const defaultPushTransition;
 
-		ScreenManager(Window*window, Screen*rootScreen);
+		ScreenManager(const ScreenManager&) = delete;
 		ScreenManager(Screen*rootScreen);
+		ScreenManager(Window*window, Screen*rootScreen);
 		virtual ~ScreenManager();
+		
+		ScreenManager& operator=(const ScreenManager&) = delete;
 
 		virtual void update(ApplicationData appData);
 		virtual void draw(ApplicationData appData, Graphics graphics) const;

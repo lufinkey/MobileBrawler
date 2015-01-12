@@ -193,7 +193,7 @@ namespace GameLibrary
 
 		apptime.start();
 		
-		float framespeedMult = (float)(((long double)1000)/((long double)sleeptime));
+		float framespeedMult = (float)(((long double)sleeptime)/((long double)1000));
 
 		while(app_running && !app_closing)
 		{
@@ -203,7 +203,7 @@ namespace GameLibrary
 
 			TimeInterval currentapptime = apptime;
 			currentapptime.stop();
-			ApplicationData appdata(this,window,window->getAssetManager(),currentapptime,window->getViewTransform(), framespeedMult);
+			ApplicationData appdata(this,window,window->getAssetManager(),currentapptime,window->getViewTransform().getInverse(), framespeedMult);
 			if(!app_closing)
 			{
 				update(appdata);
@@ -232,7 +232,7 @@ namespace GameLibrary
 			{
 				long long actualEndFrameTime = apptime.getMilliseconds();
 				long long totalFrameTime = (long long)(actualEndFrameTime - startFrameTime);
-				framespeedMult = (float)(((long double)1000)/((long double)totalFrameTime));
+				framespeedMult = (float)(((long double)totalFrameTime)/((long double)1000));
 			}
 		}
 

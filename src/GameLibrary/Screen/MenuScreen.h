@@ -18,8 +18,11 @@ namespace GameLibrary
 	{
 	public:
 		MenuScreen();
+		MenuScreen(const MenuScreen&) = delete;
 		MenuScreen(Window*window);
 		virtual ~MenuScreen();
+		
+		MenuScreen& operator=(const MenuScreen&) = delete;
 		
 		unsigned int addItem(const Vector2f&position, Animation*animation, const Animation::Direction&direction=Animation::FORWARD, bool destructAnimation=true);
 		unsigned int addItem(const Vector2f&position, const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontsize=18, const Font::Style&fontstyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_CENTER);
