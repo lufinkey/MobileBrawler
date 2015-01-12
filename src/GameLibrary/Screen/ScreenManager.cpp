@@ -97,6 +97,16 @@ namespace GameLibrary
 
 	void ScreenManager::update(ApplicationData appData)
 	{
+		if(!isshown)
+		{
+			isshown = true;
+			if(window != nullptr && parentScreen == nullptr && screenManager == nullptr)
+			{
+				onWillAppear(nullptr);
+				onDidAppear(nullptr);
+			}
+		}
+		
 		Screen* updateCaller = nullptr;
 		Screen* pushpop_onDidDisappearCaller = nullptr;
 		Screen* pushpop_onDidAppearCaller = nullptr;
@@ -171,6 +181,16 @@ namespace GameLibrary
 
 	void ScreenManager::set(const ArrayList<Screen*>& newScreens, const Transition*transition, unsigned long long duration, CompletionCallback completion)
 	{
+		if(!isshown)
+		{
+			isshown = true;
+			if(window != nullptr && parentScreen == nullptr && screenManager == nullptr)
+			{
+				onWillAppear(nullptr);
+				onDidAppear(nullptr);
+			}
+		}
+		
 		if(pushpopData.action != TRANSITION_NONE)
 		{
 			throw ScreenNavigationException("Cannot set a ScreenManager's screens while the ScreenManager is performing a transition");
@@ -314,6 +334,16 @@ namespace GameLibrary
 
 	void ScreenManager::push(Screen*screen, const Transition*transition, unsigned long long duration, CompletionCallback completion)
 	{
+		if(!isshown)
+		{
+			isshown = true;
+			if(window != nullptr && parentScreen == nullptr && screenManager == nullptr)
+			{
+				onWillAppear(nullptr);
+				onDidAppear(nullptr);
+			}
+		}
+		
 		ArrayList<Screen*> screens(1);
 		screens.set(0, screen);
 		push(screens, transition, duration, completion);
@@ -321,6 +351,16 @@ namespace GameLibrary
 
 	void ScreenManager::push(const ArrayList<Screen*>& newScreens, const Transition*transition, unsigned long long duration, CompletionCallback completion)
 	{
+		if(!isshown)
+		{
+			isshown = true;
+			if(window != nullptr && parentScreen == nullptr && screenManager == nullptr)
+			{
+				onWillAppear(nullptr);
+				onDidAppear(nullptr);
+			}
+		}
+
 		if(pushpopData.action != TRANSITION_NONE)
 		{
 			throw ScreenNavigationException("Cannot push Screens on a ScreenManager while the ScreenManager is performing a transition");

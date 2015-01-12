@@ -103,6 +103,11 @@ namespace GameLibrary
 			graphics.fillRect(rect.x, rect.y, rect.width, rect.height);
 		}
 	}
+	
+	void ScreenElement::drawMain(ApplicationData appData, Graphics graphics) const
+	{
+		//Open for implementation
+	}
 
 	void ScreenElement::drawElements(ApplicationData appData, Graphics graphics) const
 	{
@@ -138,6 +143,7 @@ namespace GameLibrary
 	void ScreenElement::draw(ApplicationData appData, Graphics graphics) const
 	{
 		drawBackground(appData, graphics);
+		drawMain(appData, graphics);
 		drawElements(appData, graphics);
 	}
 
@@ -208,6 +214,26 @@ namespace GameLibrary
 			ScreenElement* element = childElements.get(index);
 			childElements.remove(index);
 			childElements.add(element);
+		}
+	}
+	
+	void ScreenElement::sendChildElementToBack(ScreenElement*element)
+	{
+		if(element->parentElement != this)
+		{
+			throw IllegalArgumentException("Specified ScreenElement is not a child of this ScreenElement");
+		}
+		
+		unsigned int index = childElements.indexOf(element);
+		if(index == ARRAYLIST_NOTFOUND)
+		{
+			throw IllegalStateException("Child ScreenElement not found in parent ScreenElement");
+		}
+		else
+		{
+			ScreenElement* element = childElements.get(index);
+			childElements.remove(index);
+			childElements.add(0,element);
 		}
 	}
 

@@ -154,6 +154,7 @@ namespace GameLibrary
 		parentScreen = nullptr;
 		childScreen = nullptr;
 		drawingOverlayTransition = false;
+		isshown = false;
 		backgroundColor = Color::TRANSPARENT;
 
 		TransitionData_clear(overlayData);
@@ -217,6 +218,16 @@ namespace GameLibrary
 	
 	void Screen::update(ApplicationData appData)
 	{
+		if(!isshown)
+		{
+			isshown = true;
+			if(window != nullptr && parentScreen == nullptr && screenManager == nullptr)
+			{
+				onWillAppear(nullptr);
+				onDidAppear(nullptr);
+			}
+		}
+
 		Screen* updateCaller = nullptr;
 		Screen* overlay_onDidDisappearCaller = nullptr;
 		Screen* overlay_onDidAppearCaller = nullptr;
@@ -338,6 +349,16 @@ namespace GameLibrary
 	
 	void Screen::present(Screen*screen, const Transition*transition, unsigned long long duration, CompletionCallback completion)
 	{
+		if(!isshown)
+		{
+			isshown = true;
+			if(window != nullptr && parentScreen == nullptr && screenManager == nullptr)
+			{
+				onWillAppear(nullptr);
+				onDidAppear(nullptr);
+			}
+		}
+		
 		if(screen == nullptr)
 		{
 			throw IllegalArgumentException("Cannot present a null Screen");

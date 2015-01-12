@@ -24,17 +24,11 @@ namespace GameLibrary
 		//
 	}
 	
-	void ImageElement::draw(ApplicationData appData, Graphics graphics) const
+	void ImageElement::drawMain(ApplicationData appData, Graphics graphics) const
 	{
-		drawBackground(appData, graphics);
-		
 		if(image!=nullptr)
 		{
 			if(maintainAspectRatio)
-			{
-				graphics.drawImage(image, getFrame());
-			}
-			else
 			{
 				RectangleF frame = getFrame();
 				
@@ -86,9 +80,11 @@ namespace GameLibrary
 					graphics.drawImage(image, frame.x+offset.x, frame.y+offset.y, fixedWidth, fixedHeight);
 				}
 			}
+			else
+			{
+				graphics.drawImage(image, getFrame());
+			}
 		}
-		
-		drawElements(appData, graphics);
 	}
 
 	void ImageElement::setImage(TextureImage*img)

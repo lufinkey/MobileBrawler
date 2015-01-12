@@ -5,22 +5,35 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-#define PULSE_UPPERBOUND 1.2f
+#define PULSE_UPPERBOUND 1.1f
 #define PULSE_LOWERBOUND 0.98f
-#define PULSE_SPEED 0.7f
+#define PULSE_SPEED 0.3f
 #define PULSE_HOVERCOLOR Color::LIGHTBLUE
 #define PULSE_PRESSCOLOR Color::BLUE
 		
-		SmashBrosMenuScreen::SmashBrosMenuScreen()
+		SmashBrosMenuScreen::SmashBrosMenuScreen(AssetManager*assetManager)
 		{
 			hoverPulseScale = 1;
 			hoverPulseGrowing = true;
 			hoverPressed = false;
+			assetManager->loadTexture("images/menu/backgrounds/circles.png");
+			ScreenElement* element = getElement();
+			backgroundElement = new ImageElement(getElement()->getFrame(), assetManager->getTexture("images/menu/backgrounds/circles.png"));
+			element->addChildElement(backgroundElement);
+			element->sendChildElementToBack(backgroundElement);
 		}
 		
 		SmashBrosMenuScreen::~SmashBrosMenuScreen()
 		{
-			//
+			backgroundElement->removeFromParentElement();
+			delete backgroundElement;
+		}
+		
+		void SmashBrosMenuScreen::onWillAppear(const Transition*transition)
+		{
+			MenuScreen::onWillAppear(transition);
+			RectangleF screenFrame = getFrame();
+			backgroundElement->setFrame(RectangleF(0,0,screenFrame.width,screenFrame.height));
 		}
 		
 		void SmashBrosMenuScreen::updateItems(ApplicationData appData)

@@ -54,11 +54,11 @@ namespace GameLibrary
 		TransitionData overlayData;
 
 		ScreenElement* element;
-		
 		Screen* parentScreen;
 		Screen* childScreen;
-
 		ScreenManager* screenManager;
+
+		bool isshown;
 
 		void updateFrame(Window*window);
 		virtual void setWindow(Window*window);

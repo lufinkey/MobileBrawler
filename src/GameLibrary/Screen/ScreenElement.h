@@ -34,6 +34,7 @@ namespace GameLibrary
 
 	protected:
 		virtual void drawBackground(ApplicationData appData, Graphics graphics) const;
+		virtual void drawMain(ApplicationData appData, Graphics graphics) const;
 		virtual void drawElements(ApplicationData appData, Graphics graphics) const;
 
 		virtual void onRemoveFromWindow(Window*window);
@@ -58,6 +59,7 @@ namespace GameLibrary
 		void addChildElement(ScreenElement*element);
 		void removeFromParentElement();
 		void bringChildElementToFront(ScreenElement*element);
+		void sendChildElementToBack(ScreenElement*element);
 
 		const ArrayList<ScreenElement*>& getChildElements() const;
 		ScreenElement* getParentElement() const;

@@ -9,6 +9,9 @@ namespace GameLibrary
 		TextureImage* image;
 		bool maintainAspectRatio;
 		
+	protected:
+		virtual void drawMain(ApplicationData appData, Graphics graphics) const;
+		
 	public:
 		ImageElement();
 		ImageElement(const ImageElement&) = delete;
@@ -17,8 +20,6 @@ namespace GameLibrary
 		virtual ~ImageElement();
 		
 		ImageElement& operator=(const ImageElement&) = delete;
-		
-		virtual void draw(ApplicationData appData, Graphics graphics) const;
 
 		void setImage(TextureImage*);
 		void setMaintainAspectRatio(bool);
