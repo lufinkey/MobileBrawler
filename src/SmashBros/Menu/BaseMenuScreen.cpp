@@ -19,6 +19,7 @@ namespace SmashBros
 			assetManager->loadTexture("images/menu/backgrounds/circles.png");
 			ScreenElement* element = getElement();
 			backgroundElement = new ImageElement(getElement()->getFrame(), assetManager->getTexture("images/menu/backgrounds/circles.png"));
+			backgroundElement->setDisplayMode(ImageElement::DISPLAY_ZOOM);
 			element->addChildElement(backgroundElement);
 			element->sendChildElementToBack(backgroundElement);
 		}

@@ -176,25 +176,28 @@ namespace GameLibrary
 		}
 		SDL_SetHintWithPriority("SDL_HINT_ORIENTATIONS", hintString, SDL_HINT_OVERRIDE);
 		SDL_SetEventFilter(&ApplicationEventFilter, this);
-
+		
 		window->create(settings);
-
+		window->clear(Color::BLACK);
+		
 		return exitcode;
 	}
 
 	int Application::runMainLoop()
 	{
+		window->refresh();
+		
 		loadContent(window->getAssetManager());
-
+		
 		if(!app_closing) //makes sure Application::close(int) hasn't been called
 		{
 			window->getGraphics()->reset();
 		}
-
+		
 		apptime.start();
 		
 		float framespeedMult = (float)(((long double)sleeptime)/((long double)1000));
-
+		
 		while(app_running && !app_closing)
 		{
 			long long startFrameTime = apptime.getMilliseconds();
@@ -214,7 +217,7 @@ namespace GameLibrary
 			}
 			if(!app_closing)
 			{
-				window->update();
+				window->refresh();
 
 				long long endFrameTime = apptime.getMilliseconds();
 				unsigned long long totalFrameTime = (unsigned long long)(endFrameTime - startFrameTime);

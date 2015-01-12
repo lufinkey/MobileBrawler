@@ -12,6 +12,8 @@ namespace SmashBros
 		public:
 			TitleScreen(AssetManager*assetManager);
 			virtual ~TitleScreen();
+			
+			virtual void onItemSelect(unsigned int index);
 		};
 	}
 }

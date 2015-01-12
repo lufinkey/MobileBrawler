@@ -16,7 +16,7 @@ namespace GameLibrary
 	ImageElement::ImageElement(const RectangleF&frame, TextureImage*img) : ScreenElement(frame)
 	{
 		image = img;
-		maintainAspectRatio = false;
+		displayMode = DISPLAY_STRETCH;
 	}
 	
 	ImageElement::~ImageElement()
@@ -28,63 +28,44 @@ namespace GameLibrary
 	{
 		if(image!=nullptr)
 		{
-			if(maintainAspectRatio)
+			switch(displayMode)
 			{
-				RectangleF frame = getFrame();
-				
-				float imgwidth = (float)image->getWidth();
-				float imgheight = (float)image->getHeight();
-				
-				if(imgwidth!=0 && imgheight!=0 && frame.width!=0 && frame.height!=0)
+				case DISPLAY_FIT:
 				{
-					float fixedWidth = frame.width;
-					float fixedHeight = frame.height;
-					
-					if(frame.width > frame.height)
+					RectangleF frame = getFrame();
+					float imgwidth = (float)image->getWidth();
+					float imgheight = (float)image->getHeight();
+					if(imgwidth!=0 && imgheight!=0 && frame.width!=0 && frame.height!=0)
 					{
-						// frame height is first constraint
-						if(frame.height < imgheight)
-						{
-							fixedHeight = frame.height;
-							float ratY = frame.height/imgheight;
-							fixedWidth = imgwidth*ratY;
-						}
-						else if(frame.width < imgwidth)
-						{
-							fixedWidth = frame.width;
-							float ratX = frame.width/imgwidth;
-							fixedHeight = imgheight*ratX;
-						}
+						RectangleF drawFrame(frame.x, frame.y, imgwidth, imgheight);
+						drawFrame.scaleToFit(frame);
+						graphics.drawImage(image, drawFrame.x, drawFrame.y, drawFrame.width, drawFrame.height);
 					}
-					else
-					{
-						// frame width is first constraint
-						if(frame.width < imgwidth)
-						{
-							fixedWidth = frame.width;
-							float ratX = frame.width/imgwidth;
-							fixedHeight = imgheight*ratX;
-						}
-						else if(frame.height < imgheight)
-						{
-							fixedHeight = frame.height;
-							float ratY = frame.height/imgheight;
-							fixedWidth = imgwidth*ratY;
-						}
-					}
-					
-					Vector2f offset(0,0);
-					offset.x = (frame.width - fixedWidth)/2;
-					offset.y = (frame.height - fixedHeight)/2;
-					
-					graphics.drawImage(image, frame.x+offset.x, frame.y+offset.y, fixedWidth, fixedHeight);
 				}
+				break;
+				
+				case DISPLAY_ZOOM:
+				{
+					RectangleF frame = getFrame();
 
-				//TODO add sizing up if the image is smaller than the frame
-			}
-			else
-			{
-				graphics.drawImage(image, getFrame());
+					float imgwidth = (float)image->getWidth();
+					float imgheight = (float)image->getHeight();
+					if(imgwidth!=0 && imgheight!=0 && frame.width!=0 && frame.height!=0)
+					{
+						RectangleF drawFrame(frame.x, frame.y, imgwidth, imgheight);
+						drawFrame.scaleToFill(frame);
+						graphics.clip(frame);
+						graphics.drawImage(image, drawFrame.x, drawFrame.y, drawFrame.width, drawFrame.height);
+					}
+				}
+				break;
+				
+				case DISPLAY_STRETCH:
+				default:
+				{
+					graphics.drawImage(image, getFrame());
+				}
+				break;
 			}
 		}
 	}
@@ -94,9 +75,9 @@ namespace GameLibrary
 		image = img;
 	}
 	
-	void ImageElement::setMaintainAspectRatio(bool toggle)
+	void ImageElement::setDisplayMode(const DisplayMode&mode)
 	{
-		maintainAspectRatio = toggle;
+		displayMode = mode;
 	}
 	
 	TextureImage* ImageElement::getImage() const
@@ -104,8 +85,8 @@ namespace GameLibrary
 		return image;
 	}
 	
-	bool ImageElement::maintainsAspectRatio() const
+	ImageElement::DisplayMode ImageElement::getDisplayMode() const
 	{
-		return maintainAspectRatio;
+		return displayMode;
 	}
 }

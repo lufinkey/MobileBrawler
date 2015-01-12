@@ -30,8 +30,8 @@ namespace GameLibrary
 		scaling.x = 1;
 		scaling.y = 1;
 		
-		clipOffset.x = 0;
-		clipOffset.y = 0;
+		clipoffset.x = 0;
+		clipoffset.y = 0;
 		
 		SDL_SetRenderDrawColor((SDL_Renderer*)renderer, clearColor.r,clearColor.g,clearColor.b,clearColor.a);
 		SDL_RenderClear((SDL_Renderer*)renderer);
@@ -95,8 +95,8 @@ namespace GameLibrary
 				fillRect(0,0,winSize.x,letterBoxH);
 				fillRect(0,letterBoxH+fixedHeight,winSize.x,letterBoxH);
 			}
-			clipOffset.x = letterBoxW;
-			clipOffset.y = letterBoxH;
+			clipoffset.x = letterBoxW;
+			clipoffset.y = letterBoxH;
 			setClipRect(0,0,fixedWidth, fixedHeight);
 
 			float scaleVal = zoom*multScale;
@@ -157,9 +157,9 @@ namespace GameLibrary
 		if(win.view == nullptr || win.view->matchWindow)
 		{
 			const Vector2u& winSize = win.getSize();
-			clipRect = RectangleF(0, 0, (float)winSize.x, (float)winSize.y);
+			cliprect = RectangleF(0, 0, (float)winSize.x, (float)winSize.y);
 		}
-		clipOffset = Vector2f(0,0);
+		clipoffset = Vector2f(0,0);
 		
 		transform = Transform();
 		rotation = 0;
@@ -186,8 +186,8 @@ namespace GameLibrary
 		alpha = g.alpha;
 		font = g.font;
 		pixel = g.pixel;
-		clipRect = g.clipRect;
-		clipOffset = g.clipOffset;
+		cliprect = g.cliprect;
+		clipoffset = g.clipoffset;
 		transform = g.transform;
 		rotation = g.rotation;
 		scaling = g.scaling;
@@ -212,8 +212,8 @@ namespace GameLibrary
 		alpha = g.alpha;
 		font = g.font;
 		pixel = g.pixel;
-		clipRect = g.clipRect;
-		clipOffset = g.clipOffset;
+		cliprect = g.cliprect;
+		clipoffset = g.clipoffset;
 		transform = g.transform;
 		rotation = g.rotation;
 		scaling = g.scaling;
@@ -223,10 +223,10 @@ namespace GameLibrary
 
 	void Graphics::beginDraw()
 	{
-		float clipLeft = (clipOffset.x + clipRect.x);
-		float clipTop = (clipOffset.y + clipRect.y);
-		float clipRight = clipLeft + clipRect.width;
-		float clipBottom = clipTop + clipRect.height;
+		float clipLeft = (clipoffset.x + cliprect.x);
+		float clipTop = (clipoffset.y + cliprect.y);
+		float clipRight = clipLeft + cliprect.width;
+		float clipBottom = clipTop + cliprect.height;
 
 		SDL_Rect clip;
 		clip.x = (int)clipLeft;
@@ -371,12 +371,20 @@ namespace GameLibrary
 	
 	void Graphics::setClipRect(const RectangleF&cr)
 	{
-		clipRect = cr;
+		cliprect = cr;
+	}
+	
+	void Graphics::clip(const RectangleF&cr)
+	{
+		RectangleF trueCR = transform.transform(cr);
+		trueCR.x -= clipoffset.x;
+		trueCR.y -= clipoffset.y;
+		cliprect = cliprect.getIntersect(trueCR);
 	}
 
 	const RectangleF& Graphics::getClipRect()
 	{
-		return clipRect;
+		return cliprect;
 	}
 
 	void Graphics::drawString(const String&text, float x1, float y1)

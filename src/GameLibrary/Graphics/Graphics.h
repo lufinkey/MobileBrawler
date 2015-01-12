@@ -27,8 +27,8 @@ namespace GameLibrary
 
 		TextureImage*pixel;
 		
-		RectangleF clipRect;
-		Vector2f clipOffset;
+		RectangleF cliprect;
+		Vector2f clipoffset;
 
 		float rotation;
 		Vector2f scaling;
@@ -82,6 +82,7 @@ namespace GameLibrary
 		
 		virtual void setClipRect(float x, float y, float width, float height);
 		virtual void setClipRect(const RectangleF&);
+		virtual void clip(const RectangleF&);
 		virtual const RectangleF& getClipRect();
 
 		void drawString(const String&text, float x1, float y1);

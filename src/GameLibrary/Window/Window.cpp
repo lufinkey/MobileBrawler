@@ -307,13 +307,24 @@ namespace GameLibrary
 		EventManager::addWindow(this);
 	}
 	
-	void Window::update()
+	void Window::refresh()
 	{
 		if(windowdata!=nullptr)
 		{
 			//SDL_GL_SwapWindow((SDL_Window*)windowdata);
 			SDL_RenderPresent((SDL_Renderer*)graphics->renderer);
 			graphics->reset(settings.getBackgroundColor());
+		}
+	}
+	
+	void Window::clear(const Color&clearColor)
+	{
+		if(windowdata != nullptr)
+		{
+			SDL_Renderer* renderer = SDL_GetRenderer((SDL_Window*)windowdata);
+			SDL_SetRenderDrawColor(renderer, clearColor.r, clearColor.g, clearColor.b, clearColor.a);
+			SDL_RenderClear(renderer);
+			SDL_RenderPresent(renderer);
 		}
 	}
 	

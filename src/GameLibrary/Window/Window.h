@@ -108,7 +108,8 @@ namespace GameLibrary
 #else
 		void create(const WindowSettings&settings = defaultDesktopSettings);
 #endif
-		void update();
+		void refresh();
+		void clear(const Color&clearColor=Color::WHITE);
 		void destroy();
 		
 		Image*capture();

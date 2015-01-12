@@ -184,7 +184,7 @@ namespace GameLibrary
 			height = bottom-top;
 		}
 	
-		void scaleToContainment(const RectangleType<T>&container)
+		void scaleToFit(const RectangleType<T>&container)
 		{
 			T fixedHeight = height;
 			long double ratX = ((long double)container.width)/((long double)width);
@@ -194,8 +194,8 @@ namespace GameLibrary
 			{
 				width = container.width;
 				height = fixedHeight;
-				x = (container.width - width)/2;
-				y = (container.height - height)/2;
+				x = container.x + ((container.width - width)/2);
+				y = container.y + ((container.height - height)/2);
 				return;
 			}
 		
@@ -205,8 +205,8 @@ namespace GameLibrary
 
 			width = fixedWidth;
 			height = container.height;
-			x = (container.width - width)/2;
-			y = (container.height - height)/2;
+			x = container.x + ((container.width - width)/2);
+			y = container.y + ((container.height - height)/2);
 		}
 	
 		void scaleToFill(const RectangleType<T>&container)
@@ -219,8 +219,8 @@ namespace GameLibrary
 			{
 				width = container.width;
 				height = fixedHeight;
-				x = (container.width - width)/2;
-				y = (container.height - height)/2;
+				x = container.x + ((container.width - width)/2);
+				y = container.y + ((container.height - height)/2);
 				return;
 			}
 			
@@ -230,8 +230,8 @@ namespace GameLibrary
 
 			width = fixedWidth;
 			height = container.height;
-			x = (container.width - width)/2;
-			y = (container.height - height)/2;
+			x = container.x + ((container.width - width)/2);
+			y = container.y + ((container.height - height)/2);
 		}
 		
 		Polygon toPolygon() const

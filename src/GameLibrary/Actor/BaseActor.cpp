@@ -129,10 +129,18 @@ namespace GameLibrary
 		updateSize();
 	}
 	
-	void BaseActor::setScaleToRect(const RectangleF&rect)
+	void BaseActor::scaleToFit(const RectangleF&rect)
 	{
 		RectangleF frame = getFrame();
-		//TODO implement this
+		RectangleF newFrame = frame;
+		newFrame.scaleToFit(rect);
+		setScale(newFrame.width/width);
+		
+		float xoffset = newFrame.x - frame.x;
+		float yoffset = newFrame.y - frame.y;
+		
+		x += xoffset;
+		y += yoffset;
 	}
 
 	void BaseActor::setFrameVisible(bool toggle)
