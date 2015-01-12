@@ -15,9 +15,9 @@ namespace GameLibrary
 			if(view != nullptr)
 			{
 				const Vector2f& size = view->getSize();
-				if(frame.width!=size.x || frame.height!=size.y)
+				if(framesize.x!=size.x || framesize.y!=size.y)
 				{
-					setFrame(RectangleF(frame.x, frame.y, size.x, size.y));
+					framesize = size; //setFrame(RectangleF(frame.x, frame.y, size.x, size.y));
 					ScreenElement* mainElement = getElement();
 					mainElement->setFrame(RectangleF(0,0,size.x,size.y));
 				}
@@ -35,12 +35,12 @@ namespace GameLibrary
 				{
 					childScreen->setWindow(nullptr);
 				}
-				ScreenElement::setWindow(nullptr);
+				window = nullptr; //ScreenElement::setWindow(nullptr);
 			}
 			if(win != nullptr)
 			{
 				updateFrame(win);
-				ScreenElement::setWindow(win);
+				window = win; //ScreenElement::setWindow(win);
 				if(childScreen!=nullptr)
 				{
 					childScreen->setWindow(win);
@@ -154,6 +154,7 @@ namespace GameLibrary
 		parentScreen = nullptr;
 		childScreen = nullptr;
 		drawingOverlayTransition = false;
+		backgroundColor = Color::TRANSPARENT;
 
 		TransitionData_clear(overlayData);
 
@@ -164,9 +165,9 @@ namespace GameLibrary
 			if(view != nullptr)
 			{
 				const Vector2f& size = view->getSize();
-				if(frame.width!=size.x || frame.height!=size.y)
+				if(framesize.x!=size.x || framesize.y!=size.y)
 				{
-					frame = RectangleF(frame.x, frame.y, size.x, size.y);
+					framesize = size; //frame = RectangleF(frame.x, frame.y, size.x, size.y);
 					ScreenElement* mainElement = getElement();
 					mainElement->setFrame(RectangleF(0,0,size.x,size.y));
 				}
@@ -183,7 +184,7 @@ namespace GameLibrary
 	{
 		if(childScreen!=nullptr)
 		{
-			childScreen->parentElement = nullptr;
+			//childScreen->parentElement = nullptr;
 			childScreen->parentScreen = nullptr;
 			childScreen = nullptr;
 		}
@@ -239,7 +240,8 @@ namespace GameLibrary
 		}
 		else
 		{
-			ScreenElement::update(appData);
+			//TODO possibly add updating capabilities from ScreenElement
+			//ScreenElement::update(appData);
 		}
 		
 		if(element == nullptr)
@@ -257,19 +259,25 @@ namespace GameLibrary
 	{
 		if(childScreen == nullptr || overlayData.action != TRANSITION_NONE)
 		{
-			ScreenElement::drawBackground(appData, graphics);
+			//ScreenElement::drawBackground(appData, graphics);
+			if(!backgroundColor.equals(Color::TRANSPARENT))
+			{
+				RectangleF frame = getFrame();
+				graphics.setColor(backgroundColor);
+				graphics.fillRect(frame.x, frame.y, frame.width, frame.height);
+			}
 		}
 	}
 	
 	void Screen::drawElements(ApplicationData appData, Graphics graphics) const
 	{
-		if(element != nullptr)
-		{
-			element->draw(appData, graphics);
-		}
 		if(childScreen == nullptr || overlayData.action != TRANSITION_NONE)
 		{
-			ScreenElement::drawElements(appData, graphics);
+			if(element != nullptr)
+			{
+				element->draw(appData, graphics);
+			}
+			//ScreenElement::drawElements(appData, graphics);
 		}
 	}
 	
@@ -323,6 +331,11 @@ namespace GameLibrary
 		}
 	}
 	
+	RectangleF Screen::getFrame() const
+	{
+		return RectangleF(0,0,framesize.x,framesize.y);
+	}
+	
 	void Screen::present(Screen*screen, const Transition*transition, unsigned long long duration, CompletionCallback completion)
 	{
 		if(screen == nullptr)
@@ -333,10 +346,10 @@ namespace GameLibrary
 		{
 			throw IllegalArgumentException("Cannot present Screen that is already presenting on another Screen");
 		}
-		else if(screen->parentElement != nullptr)
+		/*else if(screen->parentElement != nullptr)
 		{
 			throw IllegalArgumentException("Cannot present Screen that is already displaying on another ScreenElement");
-		}
+		}*/
 		else if(screen->screenManager != nullptr)
 		{
 			throw IllegalArgumentException("Cannot present Screen that is already displaying in a ScreenManager");
@@ -361,7 +374,7 @@ namespace GameLibrary
 			childScreen = screen;
 			childScreen->setWindow(window);
 			childScreen->parentScreen = this;
-			childScreen->parentElement = this;
+			//childScreen->parentElement = this;
 			if(transition == nullptr || duration==0)
 			{
 				if(visible)
@@ -417,7 +430,7 @@ namespace GameLibrary
 				ownerScreen->childScreen = nullptr;
 				setWindow(nullptr);
 				parentScreen = nullptr;
-				parentElement = nullptr;
+				//parentElement = nullptr;
 				
 				if(transition == nullptr || duration==0)
 				{
@@ -471,7 +484,7 @@ namespace GameLibrary
 			TransitionData_begin(overlayData, this, childScreen, TRANSITION_HIDE, transition, duration, completion, (void*)this);
 			childScreen->setWindow(nullptr);
 			childScreen->parentScreen = nullptr;
-			childScreen->parentElement = nullptr;
+			//childScreen->parentElement = nullptr;
 			childScreen = nullptr;
 			
 			if(transition == nullptr || duration==0)
@@ -593,11 +606,11 @@ namespace GameLibrary
 	
 	void Screen::setBackgroundColor(const Color&color)
 	{
-		ScreenElement::setBackgroundColor(color);
+		backgroundColor = color; //ScreenElement::setBackgroundColor(color);
 	}
 	
 	const Color& Screen::getBackgroundColor() const
 	{
-		return ScreenElement::getBackgroundColor();
+		return backgroundColor; //return ScreenElement::getBackgroundColor();
 	}
 }

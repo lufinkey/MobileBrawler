@@ -1,12 +1,12 @@
 
+#pragma once
+
 #include "Drawable.h"
 #include "../Exception/IllegalArgumentException.h"
 #include "../Exception/IllegalStateException.h"
 #include "../Utilities/ArrayList.h"
 #include "../Utilities/Pair.h"
 #include <mutex>
-
-#pragma once
 
 namespace GameLibrary
 {

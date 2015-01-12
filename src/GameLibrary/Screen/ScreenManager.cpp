@@ -20,7 +20,7 @@ namespace GameLibrary
 				{
 					screens.get(i)->setWindow(nullptr);
 				}
-				ScreenElement::setWindow(nullptr);
+				window = nullptr; //ScreenElement::setWindow(nullptr);
 			}
 			if(win != nullptr)
 			{
@@ -29,7 +29,7 @@ namespace GameLibrary
 				{
 					screens.get(i)->setWindow(win);
 				}
-				ScreenElement::setWindow(win);
+				window = win; //ScreenElement::setWindow(win);
 				if(childScreen!=nullptr)
 				{
 					childScreen->setWindow(nullptr);
@@ -60,7 +60,7 @@ namespace GameLibrary
 		{
 			Screen* screen = screens.get(i);
 			screen->screenManager = nullptr;
-			screen->parentElement = nullptr;
+			//screen->parentElement = nullptr;
 		}
 		screens.clear();
 	}
@@ -196,10 +196,10 @@ namespace GameLibrary
 				{
 					throw IllegalArgumentException("Cannot set a ScreenManager with a Screen that is already presented on another Screen");
 				}
-				else if(screen->parentElement != nullptr && (screen->parentElement!=this || screen->screenManager!=this))
+				/*else if(screen->parentElement != nullptr && (screen->parentElement!=this || screen->screenManager!=this))
 				{
 					throw IllegalArgumentException("Cannot set a ScreenManager with a Screen that is already added to a ScreenElement");
-				}
+				}*/
 				else if(screen->window != nullptr && screen->screenManager!=this)
 				{
 					throw IllegalArgumentException("Cannot set a ScreenManager with a Screen that already belongs to another Window");
@@ -225,7 +225,7 @@ namespace GameLibrary
 				{
 					Screen* screen = screens.get(i);
 					screen->screenManager = nullptr;
-					screen->parentElement = nullptr;
+					//screen->parentElement = nullptr;
 					screen->setWindow(nullptr);
 				}
 				screens = newScreens;
@@ -233,7 +233,7 @@ namespace GameLibrary
 				{
 					Screen* screen = screens.get(i);
 					screen->screenManager = this;
-					screen->parentElement = this;
+					//screen->parentElement = this;
 					screen->setWindow(window);
 				}
 
@@ -261,7 +261,7 @@ namespace GameLibrary
 				{
 					Screen*screen = screens.get(i);
 					screen->screenManager = nullptr;
-					screen->parentElement = nullptr;
+					//screen->parentElement = nullptr;
 					screen->setWindow(nullptr);
 				}
 				screens = newScreens;
@@ -269,7 +269,7 @@ namespace GameLibrary
 				{
 					Screen*screen = screens.get(i);
 					screen->screenManager = this;
-					screen->parentElement = this;
+					//screen->parentElement = this;
 					screen->setWindow(window);
 				}
 
@@ -346,10 +346,10 @@ namespace GameLibrary
 				{
 					throw IllegalArgumentException("Cannot push a Screen that is already presented on another Screen");
 				}
-				else if(screen->parentElement != nullptr)
+				/*else if(screen->parentElement != nullptr)
 				{
 					throw IllegalArgumentException("Cannot push a Screen that is already added to a ScreenElement");
-				}
+				}*/
 				else if(screen->window != nullptr)
 				{
 					throw IllegalArgumentException("Cannot push a Screen that already belongs to another Window");
@@ -379,7 +379,7 @@ namespace GameLibrary
 			{
 				Screen* screen = newScreens.get(i);
 				screen->screenManager = this;
-				screen->parentElement = this;
+				//screen->parentElement = this;
 				screen->setWindow(window);
 				screens.add(screen);
 			}
@@ -462,7 +462,7 @@ namespace GameLibrary
 			for(unsigned int i=(index+1); i<screens.size(); i++)
 			{
 				Screen* screen = screens.get(i);
-				screen->parentElement = nullptr;
+				//screen->parentElement = nullptr;
 				screen->screenManager = nullptr;
 				screen->setWindow(nullptr);
 				popped.add(screen);

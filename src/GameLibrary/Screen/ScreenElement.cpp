@@ -99,9 +99,8 @@ namespace GameLibrary
 		if(!backgroundColor.equals(Color::TRANSPARENT))
 		{
 			RectangleF rect = getFrame();
-
 			graphics.setColor(backgroundColor);
-			graphics.fillRect(frame.x, frame.y, frame.width, frame.height);
+			graphics.fillRect(rect.x, rect.y, rect.width, rect.height);
 		}
 	}
 

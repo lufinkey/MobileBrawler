@@ -1,16 +1,17 @@
 
+#pragma once
+
 #include "ScreenElement.h"
 #include "Transition/Transition.h"
 #include "../Exception/IllegalStateException.h"
 #include "../Utilities/ArrayList.h"
 
-#pragma once
-
 namespace GameLibrary
 {
 	class ScreenManager;
 
-	class Screen : private ScreenElement
+	//TODO change to publically inheriting Drawable
+	class Screen : public Drawable
 	{
 		friend class ScreenManager;
 	private:
@@ -46,6 +47,10 @@ namespace GameLibrary
 		static void TransitionData_checkFinished(ApplicationData&appData, TransitionData&data, Screen**onDidDisappearCaller, Screen**onDidAppearCaller);
 		static void TransitionData_callVirtualFunctions(TransitionData&data, Screen*onDidDisappearCaller, Screen*onDidAppearCaller);
 
+		Window* window;
+		Vector2f framesize;
+		Color backgroundColor;
+
 		TransitionData overlayData;
 
 		ScreenElement* element;
@@ -77,6 +82,8 @@ namespace GameLibrary
 
 		virtual void update(ApplicationData appData);
 		virtual void draw(ApplicationData appData, Graphics graphics) const;
+		
+		virtual RectangleF getFrame() const;
 
 		virtual void onWillAppear(const Transition*transition);
 		virtual void onDidAppear(const Transition*transition);
