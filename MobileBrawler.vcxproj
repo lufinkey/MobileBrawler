@@ -159,6 +159,7 @@
     <ClCompile Include="src\GameLibrary\Window\View.cpp" />
     <ClCompile Include="src\GameLibrary\Window\Window.cpp" />
     <ClCompile Include="src\SmashBros\Game.cpp" />
+    <ClCompile Include="src\SmashBros\Global.cpp" />
     <ClCompile Include="src\SmashBros\main.cpp" />
     <ClCompile Include="src\SmashBros\Menu\MainMenu.cpp" />
     <ClCompile Include="src\SmashBros\Menu\SmashBrosMenuScreen.cpp" />
@@ -250,6 +251,7 @@
     <ClInclude Include="src\GameLibrary\Window\Window.h" />
     <ClInclude Include="src\import\GameLibraryImport.hpp" />
     <ClInclude Include="src\SmashBros\Game.h" />
+    <ClInclude Include="src\SmashBros\Global.h" />
     <ClInclude Include="src\SmashBros\Menu\MainMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\SmashBrosMenuScreen.h" />
     <ClInclude Include="src\SmashBros\Menu\TitleScreen.h" />

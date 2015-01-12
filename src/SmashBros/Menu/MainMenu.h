@@ -7,10 +7,10 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-		class MainMenu : SmashBrosMenuScreen
+		class MainMenu : public SmashBrosMenuScreen
 		{
 		public:
-			MainMenu();
+			MainMenu(AssetManager*assetManager);
 			virtual ~MainMenu();
 			
 			virtual void onItemSelect(unsigned int index);

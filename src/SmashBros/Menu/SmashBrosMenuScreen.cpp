@@ -5,9 +5,9 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-#define PULSE_UPPERBOUND 1.4f
-#define PULSE_LOWERBOUND 0.75f
-#define PULSE_SPEED 1.4f
+#define PULSE_UPPERBOUND 1.2f
+#define PULSE_LOWERBOUND 0.98f
+#define PULSE_SPEED 0.7f
 #define PULSE_HOVERCOLOR Color::LIGHTBLUE
 #define PULSE_PRESSCOLOR Color::BLUE
 		
@@ -56,10 +56,7 @@ namespace SmashBros
 			{
 				BaseActor* actor = getItem(itemIndex);
 				RectangleF frame = actor->getFrame();
-				float difX = (frame.width - (frame.width*hoverPulseScale))/(2*hoverPulseScale);
-				float difY = (frame.height - (frame.height*hoverPulseScale))/(2*hoverPulseScale);
-				graphics.scale(hoverPulseScale, hoverPulseScale);
-				graphics.translate(difX, difY);
+				graphics.scale(hoverPulseScale, hoverPulseScale, actor->x, actor->y);
 				if(hoverPressed)
 				{
 					graphics.compositeTintColor(PULSE_PRESSCOLOR);

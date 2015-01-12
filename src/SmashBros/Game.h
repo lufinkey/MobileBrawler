@@ -10,9 +10,6 @@ namespace SmashBros
 	private:
 		Screen* rootScrn;
 		ScreenManager* screenMgr;
-		Actor* actor;
-		TextActor* textActor;
-		WireframeActor* wireframeActor;
 
 	public:
 		Game();

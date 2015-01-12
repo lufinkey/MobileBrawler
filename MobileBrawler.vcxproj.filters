@@ -333,6 +333,9 @@
     <ClCompile Include="src\SmashBros\Menu\SmashBrosMenuScreen.cpp">
       <Filter>src\SmashBros\Menu</Filter>
     </ClCompile>
+    <ClCompile Include="src\SmashBros\Global.cpp">
+      <Filter>src\SmashBros</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -598,6 +601,9 @@
     </ClInclude>
     <ClInclude Include="src\SmashBros\Menu\SmashBrosMenuScreen.h">
       <Filter>src\SmashBros\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Global.h">
+      <Filter>src\SmashBros</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
