@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "BaseMenuScreen.h"
+#include "MainMenu.h"
 
 namespace SmashBros
 {
@@ -10,12 +10,19 @@ namespace SmashBros
 		class TitleScreen : public SmashBros::Menu::BaseMenuScreen
 		{
 		private:
-			//
+			FadeColorTransition* transition;
+			MainMenu* mainMenu;
+			ImageElement* titleElement;
+			WireframeActor* tapRegion;
+			
+		protected:
+			virtual void updateItems(ApplicationData appData);
+			
 		public:
 			TitleScreen(AssetManager*assetManager);
 			virtual ~TitleScreen();
 			
-			virtual void onItemSelect(unsigned int index);
+			virtual void onWillAppear(const Transition*transition);
 		};
 	}
 }

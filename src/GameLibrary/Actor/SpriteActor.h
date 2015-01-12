@@ -19,8 +19,10 @@ namespace GameLibrary
 		
 		virtual void update(ApplicationData appData);
 		virtual void draw(ApplicationData appData, Graphics graphics) const;
-
+		
 		virtual RectangleF getFrame() const;
+		
+		virtual void scaleToFit(const RectangleF&container);
 		
 		virtual void onAnimationFinish(Animation*animation);
 		

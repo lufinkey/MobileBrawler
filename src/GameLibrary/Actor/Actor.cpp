@@ -19,7 +19,7 @@ namespace GameLibrary
 		mouseover = false;
 		prevmouseover = false;
 		didpress = false;
-		didrelease = true;
+		didrelease = false;
 		visible = true;
 		mirrored = false;
 		mirroredVertical = false;
@@ -38,6 +38,8 @@ namespace GameLibrary
 	
 	void Actor::update(ApplicationData appData)
 	{
+		didpress = false;
+		didrelease = false;
 		prevclicked = clicked;
 		prevmouseover = mouseover;
 
@@ -47,7 +49,16 @@ namespace GameLibrary
 			updateMouse(appData);
 		#endif
 		
-		if(currentTouches.size() == 0)
+		unsigned int pressedTouches = 0;
+		for(unsigned int i=0; i<currentTouches.size(); i++)
+		{
+			if(currentTouches.get(i).pressed)
+			{
+				pressedTouches++;
+			}
+		}
+		
+		if(pressedTouches == 0)
 		{
 			didpress = false;
 		}
@@ -65,6 +76,17 @@ namespace GameLibrary
 	RectangleF Actor::getFrame() const
 	{
 		return RectangleF(x, y, width, height);
+	}
+	
+	void Actor::scaleToFit(const RectangleF&container)
+	{
+		RectangleF currentFrame = getFrame();
+		currentFrame.scaleToFit(container);
+		float ratio = container.width/currentFrame.width;
+		setScale(getScale()*ratio);
+		RectangleF newFrame = getFrame();
+		x = (container.width-newFrame.width)/2;
+		y = (container.height-newFrame.height)/2;
 	}
 	
 	Actor::ActorType Actor::getActorType() const
@@ -127,20 +149,6 @@ namespace GameLibrary
 	{
 		scale = s;
 		updateSize();
-	}
-	
-	void Actor::scaleToFit(const RectangleF&rect)
-	{
-		RectangleF frame = getFrame();
-		RectangleF newFrame = frame;
-		newFrame.scaleToFit(rect);
-		setScale(newFrame.width/width);
-		
-		float xoffset = newFrame.x - frame.x;
-		float yoffset = newFrame.y - frame.y;
-		
-		x += xoffset;
-		y += yoffset;
 	}
 
 	void Actor::setFrameVisible(bool toggle)

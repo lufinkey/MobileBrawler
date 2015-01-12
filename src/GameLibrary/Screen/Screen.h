@@ -95,6 +95,10 @@ namespace GameLibrary
 		void dismiss(const Transition*transition=defaultPresentTransition, unsigned long long duration=Transition::defaultDuration, CompletionCallback completion=nullptr);
 
 		ScreenElement* getElement();
+		ScreenManager* getScreenManager() const;
+		Screen* getParentScreen() const;
+		Screen* getChildScreen() const;
+
 		Screen* getTopScreen();
 		Screen* getBottomScreen();
 		Screen* getRootScreen();

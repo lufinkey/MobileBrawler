@@ -20,6 +20,8 @@ namespace GameLibrary
 		virtual void draw(ApplicationData appData, Graphics graphics) const;
 		
 		virtual RectangleF getFrame() const;
+		
+		virtual void scaleToFit(const RectangleF&container);
 
 		void setSize(const Vector2f&);
 		void setSize(float width, float height);

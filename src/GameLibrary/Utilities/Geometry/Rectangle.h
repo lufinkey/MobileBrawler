@@ -234,6 +234,18 @@ namespace GameLibrary
 			y = container.y + ((container.height - height)/2);
 		}
 		
+		/*void scale(double scaleX, double scaleY, const T&originX, const T& originY)
+		{
+			Transform transform;
+			transform.scale((float)scaleX, (float)scaleY, (float)originX, (float)originY);
+			Polygon polygon = toPolygon();
+			polygon = transform.transform(polygon);
+			x = (T)(polygon.getPoints().get(0).x);
+			y = (T)(polygon.getPoints().get(0).y);
+			width = (T)(polygon.getPoints().get(2).x - polygon.getPoints().get(0).x);
+			height = (T)(polygon.getPoints().get(2).y - polygon.getPoints().get(0).y);
+		}*/
+		
 		Polygon toPolygon() const
 		{
 			Polygon polygon;

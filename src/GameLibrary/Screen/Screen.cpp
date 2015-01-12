@@ -556,6 +556,21 @@ namespace GameLibrary
 		return element;
 	}
 	
+	ScreenManager* Screen::getScreenManager() const
+	{
+		return screenManager;
+	}
+	
+	Screen* Screen::getParentScreen() const
+	{
+		return parentScreen;
+	}
+	
+	Screen* Screen::getChildScreen() const
+	{
+		return childScreen;
+	}
+	
 	Screen* Screen::getTopScreen()
 	{
 		if(childScreen == nullptr)

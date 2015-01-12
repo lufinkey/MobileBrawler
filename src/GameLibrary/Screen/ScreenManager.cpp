@@ -46,6 +46,7 @@ namespace GameLibrary
 		}
 		TransitionData_clear(pushpopData);
 		rootScreen->setWindow(window);
+		rootScreen->screenManager = this;
 		screens.add(rootScreen);
 	}
 
@@ -68,7 +69,7 @@ namespace GameLibrary
 	void ScreenManager::onWillAppear(const Transition*transition)
 	{
 		Screen::onWillAppear(transition);
-		if(pushpopData.action!=TRANSITION_NONE)
+		if(pushpopData.action==TRANSITION_NONE)
 		{
 			screens.get(screens.size()-1)->onWillAppear(transition);
 		}
@@ -77,7 +78,7 @@ namespace GameLibrary
 	void ScreenManager::onDidAppear(const Transition*transition)
 	{
 		Screen::onDidAppear(transition);
-		if(pushpopData.action!=TRANSITION_NONE)
+		if(pushpopData.action==TRANSITION_NONE)
 		{
 			screens.get(screens.size()-1)->onDidAppear(transition);
 		}

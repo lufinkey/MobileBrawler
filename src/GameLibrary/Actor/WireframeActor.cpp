@@ -117,6 +117,17 @@ namespace GameLibrary
 		frame.y += y;
 		return frame;
 	}
+	
+	void WireframeActor::scaleToFit(const RectangleF&container)
+	{
+		RectangleF currentFrame = getFrame();
+		currentFrame.scaleToFit(container);
+		float ratio = container.width/currentFrame.width;
+		setScale(getScale()*ratio);
+		RectangleF newFrame = getFrame();
+		x = (container.width-newFrame.width)/2;
+		y = (container.height-newFrame.height)/2;
+	}
 
 	void WireframeActor::setSize(const Vector2f&sz)
 	{

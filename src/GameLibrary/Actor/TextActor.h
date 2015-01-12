@@ -30,6 +30,8 @@ namespace GameLibrary
 		virtual void draw(ApplicationData appData, Graphics graphics) const;
 		
 		virtual RectangleF getFrame() const;
+		
+		virtual void scaleToFit(const RectangleF&container);
 
 		void setText(const String&);
 		void setFont(Font*);

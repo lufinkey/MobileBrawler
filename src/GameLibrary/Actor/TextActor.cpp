@@ -277,6 +277,44 @@ namespace GameLibrary
 		return frame;
 	}
 	
+	void TextActor::scaleToFit(const RectangleF&container)
+	{
+		RectangleF currentFrame = getFrame();
+		currentFrame.scaleToFit(container);
+		float ratio = container.width/currentFrame.width;
+		setScale(getScale()*ratio);
+		RectangleF newFrame = getFrame();
+		
+		switch(alignment)
+		{
+			default:
+			case ALIGN_BOTTOMLEFT:
+			x = (container.width-newFrame.width)/2;
+			y = ((container.height-newFrame.height)/2) + newFrame.height;
+			break;
+			
+			case ALIGN_BOTTOMRIGHT:
+			x = ((container.width-newFrame.width)/2) + newFrame.width;
+			y = ((container.height-newFrame.height)/2) + newFrame.height;
+			break;
+			
+			case ALIGN_CENTER:
+			x = (container.width/2);
+			y = (container.height/2);
+			break;
+			
+			case ALIGN_TOPLEFT:
+			x = (container.width-newFrame.width)/2;
+			y = (container.height-newFrame.height)/2;
+			break;
+			
+			case ALIGN_TOPRIGHT:
+			x = ((container.width-newFrame.width)/2) + newFrame.width;
+			y = (container.height-newFrame.height)/2;
+			break;
+		}
+	}
+	
 	void TextActor::setText(const String&str)
 	{
 		text = str;

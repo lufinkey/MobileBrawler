@@ -34,6 +34,8 @@ namespace GameLibrary
 		
 		virtual RectangleF getFrame() const;
 		
+		virtual void scaleToFit(const RectangleF&container);
+		
 		ActorType getActorType() const;
 		float getWidth() const;
 		float getHeight() const;
@@ -44,7 +46,6 @@ namespace GameLibrary
 		void setRotation(float degrees);
 		void setAlpha(float alpha);
 		void setScale(float scale);
-		void scaleToFit(const RectangleF&rect);
 		void setFrameVisible(bool);
 		void setFrameColor(const Color&);
 		void setMirrored(bool);

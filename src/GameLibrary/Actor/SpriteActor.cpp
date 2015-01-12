@@ -163,6 +163,17 @@ namespace GameLibrary
 		return RectangleF(x-(framesize.x/2), y-(framesize.y/2), framesize.x, framesize.y);
 	}
 	
+	void SpriteActor::scaleToFit(const RectangleF&container)
+	{
+		RectangleF currentFrame = getFrame();
+		currentFrame.scaleToFit(container);
+		float ratio = container.width/currentFrame.width;
+		setScale(getScale()*ratio);
+
+		x = container.width/2;
+		y = container.height/2;
+	}
+	
 	void SpriteActor::onAnimationFinish(Animation*animation)
 	{
 		//Open for implementation

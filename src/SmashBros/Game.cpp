@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "Global.h"
 
-#include "Menu/MainMenu.h"
+#include "Menu/TitleScreen.h"
 
 namespace SmashBros
 {
@@ -33,7 +33,7 @@ namespace SmashBros
 
 	void Game::loadContent(AssetManager*assetManager)
 	{
-		rootScrn = new Menu::MainMenu(assetManager);
+		rootScrn = new Menu::TitleScreen(assetManager);
 		screenMgr = new ScreenManager(getWindow(), rootScrn);
 	}
 

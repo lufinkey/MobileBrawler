@@ -33,6 +33,7 @@ namespace SmashBros
 		void BaseMenuScreen::onWillAppear(const Transition*transition)
 		{
 			MenuScreen::onWillAppear(transition);
+			
 			RectangleF screenFrame = getFrame();
 			backgroundElement->setFrame(RectangleF(0,0,screenFrame.width,screenFrame.height));
 		}
@@ -112,6 +113,11 @@ namespace SmashBros
 		void BaseMenuScreen::onItemRelease(unsigned int index)
 		{
 			hoverPressed = false;
+		}
+		
+		ImageElement* BaseMenuScreen::getBackgroundElement() const
+		{
+			return backgroundElement;
 		}
 	}
 }
