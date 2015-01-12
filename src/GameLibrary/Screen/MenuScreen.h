@@ -1,4 +1,6 @@
 
+#pragma once
+
 #include "Screen.h"
 #include "ScreenElement.h"
 #include "../Actor/BaseActor.h"
@@ -8,8 +10,6 @@
 #include "../Graphics/Graphics.h"
 #include "../Input/Keyboard.h"
 #include <climits>
-
-#pragma once
 
 namespace GameLibrary
 {

@@ -1,8 +1,8 @@
 
+#pragma once
+
 #include "../Utilities/String.h"
 #include <exception>
-
-#pragma once
 
 namespace GameLibrary
 {

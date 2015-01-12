@@ -1,7 +1,7 @@
 
-#include "BaseActor.h"
-
 #pragma once
+
+#include "BaseActor.h"
 
 namespace GameLibrary
 {

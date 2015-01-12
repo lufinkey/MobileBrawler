@@ -1,7 +1,7 @@
 
-#include "Vector2.h"
-
 #pragma once
+
+#include "Vector2.h"
 
 namespace GameLibrary
 {

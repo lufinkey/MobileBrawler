@@ -1,12 +1,12 @@
 
+#pragma once
+
 #include "Image.h"
 #include "Graphics.h"
 #include "../Exception/InitializeLibraryException.h"
 #include "../Exception/Graphics/TextureImageCreateException.h"
 #include "../Exception/Graphics/TextureImageUpdateException.h"
 #include <vector>
-
-#pragma once
 
 namespace GameLibrary
 {

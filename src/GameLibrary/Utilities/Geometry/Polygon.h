@@ -1,8 +1,8 @@
 
+#pragma once
+
 #include "../ArrayList.h"
 #include "Vector2.h"
-
-#pragma once
 
 namespace GameLibrary
 {

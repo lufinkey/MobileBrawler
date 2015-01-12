@@ -1,8 +1,8 @@
 
+#pragma once
+
 #include "../../Types.h"
 #include "../Drawable.h"
-
-#pragma once
 
 namespace GameLibrary
 {

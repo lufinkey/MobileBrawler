@@ -1,4 +1,6 @@
 
+#pragma once
+
 #include "ApplicationData.h"
 #include "../Exception/InitializeLibraryException.h"
 #include "../Graphics/Graphics.h"
@@ -7,8 +9,6 @@
 #include "../Utilities/Time/TimeInterval.h"
 #include "../Window/Window.h"
 #include <mutex>
-
-#pragma once
 
 namespace GameLibrary
 {

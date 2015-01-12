@@ -1,4 +1,6 @@
 
+#pragma once
+
 #include "View.h"
 #include "../Application/AssetManager.h"
 #include "../Graphics/Image.h"
@@ -6,8 +8,6 @@
 #include "../Utilities/String.h"
 #include "../Utilities/Geometry/Vector2.h"
 #include <mutex>
-
-#pragma once
 
 namespace GameLibrary
 {

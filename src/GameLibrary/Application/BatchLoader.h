@@ -1,10 +1,10 @@
 
+#pragma once
+
 #include "../Types.h"
 #include "../Utilities/ArrayList.h"
 #include "../Utilities/Pair.h"
 #include "../Utilities/Time/TimeInterval.h"
-
-#pragma once
 
 namespace GameLibrary
 {

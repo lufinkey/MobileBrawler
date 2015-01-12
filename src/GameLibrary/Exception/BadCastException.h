@@ -1,7 +1,7 @@
 
-#include "Exception.h"
-
 #pragma once
+
+#include "Exception.h"
 
 namespace GameLibrary
 {

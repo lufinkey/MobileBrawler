@@ -1,17 +1,17 @@
 
-#include <GameLibraryImport.hpp>
-
 #pragma once
+
+#include <GameLibraryImport.hpp>
 
 namespace SmashBros
 {
 	namespace Menu
 	{
-		class SmashBrosMenuScreen : public GameLibrary::MenuScreen
+		class BaseMenuScreen : public GameLibrary::MenuScreen
 		{
 		public:
-			SmashBrosMenuScreen(AssetManager*assetManager);
-			virtual ~SmashBrosMenuScreen();
+			BaseMenuScreen(AssetManager*assetManager);
+			virtual ~BaseMenuScreen();
 			
 			virtual void onWillAppear(const Transition*transition);
 			

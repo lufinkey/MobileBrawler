@@ -1,8 +1,8 @@
 
+#pragma once
+
 #include <climits>
 #include <string>
-
-#pragma once
 
 #define STRING_USES_GAMELIBRARY
 

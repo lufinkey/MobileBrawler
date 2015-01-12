@@ -1,7 +1,7 @@
 
-#include "../../IllegalFormatException.h"
-
 #pragma once
+
+#include "../../IllegalFormatException.h"
 
 namespace GameLibrary
 {

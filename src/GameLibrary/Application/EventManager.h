@@ -1,8 +1,8 @@
 
+#pragma once
+
 #include "../Types.h"
 #include "../Utilities/ArrayList.h"
-
-#pragma once
 
 namespace GameLibrary
 {

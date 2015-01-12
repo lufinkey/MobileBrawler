@@ -1,7 +1,7 @@
 
-#include "../BadCastException.h"
-
 #pragma once
+
+#include "../BadCastException.h"
 
 namespace GameLibrary
 {

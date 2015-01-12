@@ -1,9 +1,9 @@
 
+#pragma once
+
 #include "../Types.h"
 #include "../Exception/IllegalArgumentException.h"
 #include "../Exception/Utilities/DataPacketOutOfBoundsException.h"
-
-#pragma once
 
 namespace GameLibrary
 {

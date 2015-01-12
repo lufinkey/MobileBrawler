@@ -1,9 +1,9 @@
 
+#pragma once
+
 #include "BitSet.h"
 #include "ArrayList.h"
 #include "../Exception/Utilities/BitListOutOfBoundsException.h"
-
-#pragma once
 
 namespace GameLibrary
 {

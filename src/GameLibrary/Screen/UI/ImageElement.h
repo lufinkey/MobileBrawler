@@ -1,4 +1,6 @@
 
+#pragma once
+
 #include "../ScreenElement.h"
 
 namespace GameLibrary

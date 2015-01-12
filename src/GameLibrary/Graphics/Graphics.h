@@ -1,10 +1,10 @@
 
+#pragma once
+
 #include "Color.h"
 #include "../Types.h"
 #include "../Utilities/Geometry/Rectangle.h"
 #include "../Utilities/Geometry/Transform.h"
-
-#pragma once
 
 namespace GameLibrary
 {

@@ -1,9 +1,9 @@
 
+#pragma once
+
 #include "Vector2.h"
 #include "Rectangle.h"
 #include "Polygon.h"
-
-#pragma once
 
 // all credit to SFML library for original Transform code
 // SFML - Simple and Fast Multimedia Library

@@ -1,8 +1,8 @@
 
+#pragma once
+
 #include "../Application/ApplicationData.h"
 #include "../Graphics/Graphics.h"
-
-#pragma once
 
 namespace GameLibrary
 {

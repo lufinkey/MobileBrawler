@@ -1,8 +1,8 @@
 
+#pragma once
+
 #include "ArrayList.h"
 #include "Pair.h"
-
-#pragma once
 
 namespace GameLibrary
 {

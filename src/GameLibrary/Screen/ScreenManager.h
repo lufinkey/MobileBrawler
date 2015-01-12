@@ -1,9 +1,9 @@
 
+#pragma once
+
 #include "Screen.h"
 #include "../Exception/Screen/ScreenNavigationException.h"
 #include "../Utilities/ArrayList.h"
-
-#pragma once
 
 namespace GameLibrary
 {

@@ -1,7 +1,7 @@
 
-#include <GameLibraryImport.hpp>
-
 #pragma once
+
+#include <GameLibraryImport.hpp>
 
 namespace SmashBros
 {

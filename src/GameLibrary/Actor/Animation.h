@@ -1,12 +1,12 @@
 
+#pragma once
+
 #include "../Application/AssetManager.h"
 #include "../Exception/IllegalArgumentException.h"
 #include "../Screen/Drawable.h"
 #include "../Utilities/ArrayList.h"
 #include "../Utilities/String.h"
 #include "../Utilities/Geometry/Rectangle.h"
-
-#pragma once
 
 namespace GameLibrary
 {

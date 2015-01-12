@@ -1,9 +1,9 @@
 
-#include <climits>
-#include <initializer_list>
-#include <vector>
-
 #pragma once
+
+#include <climits>
+//#include <initializer_list>
+#include <vector>
 
 #define ARRAYLIST_USES_GAMELIBRARY
 
@@ -66,14 +66,14 @@ namespace GameLibrary
 			}
 		}
 		
-		ArrayList(const std::initializer_list<T>&list)
+		/*ArrayList(const std::initializer_list<T>&list)
 		{
 			objects.resize(list.size())
 			for(int i=0; i<list.size(); i++)
 			{
 				objects[i] = list[i];
 			}
-		}
+		}*/
 		
 		ArrayList(unsigned int size)
 		{

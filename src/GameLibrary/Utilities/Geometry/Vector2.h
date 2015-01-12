@@ -1,7 +1,7 @@
 
-#include "../../Types.h"
-
 #pragma once
+
+#include "../../Types.h"
 
 namespace GameLibrary
 {

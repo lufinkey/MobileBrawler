@@ -1,7 +1,7 @@
 
-#include "../OutOfBoundsException.h"
-
 #pragma once
+
+#include "../OutOfBoundsException.h"
 
 namespace GameLibrary
 {

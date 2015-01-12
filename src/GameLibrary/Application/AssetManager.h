@@ -1,11 +1,11 @@
 
+#pragma once
+
 #include "../Graphics/TextureImage.h"
 #include "../Utilities/Font/Font.h"
 
 #include "../Utilities/ArrayList.h"
 #include "../Utilities/Pair.h"
-
-#pragma once
 
 namespace GameLibrary
 {

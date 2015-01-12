@@ -1,8 +1,8 @@
 
+#pragma once
+
 #include "../Exception/IllegalArgumentException.h"
 #include "../Window/Window.h"
-
-#pragma once
 
 namespace GameLibrary
 {

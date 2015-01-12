@@ -1,10 +1,10 @@
 
+#pragma once
+
 #include "AssetManager.h"
 #include "../Utilities/Geometry/Transform.h"
 #include "../Utilities/Time/TimeInterval.h"
 #include "../Window/Window.h"
-
-#pragma once
 
 namespace GameLibrary
 {

@@ -6,7 +6,7 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-		MainMenu::MainMenu(AssetManager*assetManager) : SmashBrosMenuScreen(assetManager)
+		MainMenu::MainMenu(AssetManager*assetManager) : SmashBros::Menu::BaseMenuScreen(assetManager)
 		{
 			unsigned int itemIndex = 0;
 			itemIndex = addItem(getScreenCoords(0.31f, 0.437f), new Animation(assetManager, 1, "images/menu/buttons/smash.png"));

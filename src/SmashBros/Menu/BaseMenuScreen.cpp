@@ -1,5 +1,5 @@
 
-#include "SmashBrosMenuScreen.h"
+#include "BaseMenuScreen.h"
 
 namespace SmashBros
 {
@@ -11,7 +11,7 @@ namespace SmashBros
 #define PULSE_HOVERCOLOR Color::LIGHTBLUE
 #define PULSE_PRESSCOLOR Color::BLUE
 		
-		SmashBrosMenuScreen::SmashBrosMenuScreen(AssetManager*assetManager)
+		BaseMenuScreen::BaseMenuScreen(AssetManager*assetManager)
 		{
 			hoverPulseScale = 1;
 			hoverPulseGrowing = true;
@@ -23,20 +23,20 @@ namespace SmashBros
 			element->sendChildElementToBack(backgroundElement);
 		}
 		
-		SmashBrosMenuScreen::~SmashBrosMenuScreen()
+		BaseMenuScreen::~BaseMenuScreen()
 		{
 			backgroundElement->removeFromParentElement();
 			delete backgroundElement;
 		}
 		
-		void SmashBrosMenuScreen::onWillAppear(const Transition*transition)
+		void BaseMenuScreen::onWillAppear(const Transition*transition)
 		{
 			MenuScreen::onWillAppear(transition);
 			RectangleF screenFrame = getFrame();
 			backgroundElement->setFrame(RectangleF(0,0,screenFrame.width,screenFrame.height));
 		}
 		
-		void SmashBrosMenuScreen::updateItems(ApplicationData appData)
+		void BaseMenuScreen::updateItems(ApplicationData appData)
 		{
 			if(getSelectedIndex() != MENUSCREEN_NOSELECTION)
 			{
@@ -63,7 +63,7 @@ namespace SmashBros
 			MenuScreen::updateItems(appData);
 		}
 		
-		void SmashBrosMenuScreen::drawItem(ApplicationData appData, Graphics graphics, unsigned int itemIndex) const
+		void BaseMenuScreen::drawItem(ApplicationData appData, Graphics graphics, unsigned int itemIndex) const
 		{
 			if(itemIndex == getSelectedIndex())
 			{
@@ -82,7 +82,7 @@ namespace SmashBros
 			MenuScreen::drawItem(appData, graphics, itemIndex);
 		}
 		
-		void SmashBrosMenuScreen::onItemHover(unsigned int index)
+		void BaseMenuScreen::onItemHover(unsigned int index)
 		{
 			#if defined(TARGETPLATFORM_DESKTOP)
 				hoverPulseScale = 1;
@@ -90,7 +90,7 @@ namespace SmashBros
 			#endif
 		}
 		
-		void SmashBrosMenuScreen::onItemHoverFinish(unsigned int index)
+		void BaseMenuScreen::onItemHoverFinish(unsigned int index)
 		{
 			#if defined(TARGETPLATFORM_DESKTOP)
 				hoverPulseScale = 1;
@@ -98,17 +98,17 @@ namespace SmashBros
 			#endif
 		}
 		
-		void SmashBrosMenuScreen::onItemPress(unsigned int index)
+		void BaseMenuScreen::onItemPress(unsigned int index)
 		{
 			hoverPressed = true;
 		}
 		
-		void SmashBrosMenuScreen::onItemPressCancel(unsigned int index)
+		void BaseMenuScreen::onItemPressCancel(unsigned int index)
 		{
 			hoverPressed = false;
 		}
 		
-		void SmashBrosMenuScreen::onItemRelease(unsigned int index)
+		void BaseMenuScreen::onItemRelease(unsigned int index)
 		{
 			hoverPressed = false;
 		}

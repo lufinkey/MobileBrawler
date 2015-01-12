@@ -1,7 +1,7 @@
 
-#include "../Screen/Drawable.h"
-
 #pragma once
+
+#include "../Screen/Drawable.h"
 
 namespace GameLibrary
 {

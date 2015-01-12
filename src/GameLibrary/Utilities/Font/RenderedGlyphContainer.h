@@ -1,10 +1,10 @@
 
+#pragma once
+
 #include "../../Types.h"
 #include "../ArrayList.h"
 #include "../String.h"
 #include <mutex>
-
-#pragma once
 
 namespace GameLibrary
 {

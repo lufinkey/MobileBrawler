@@ -1,9 +1,9 @@
 
+#pragma once
+
 #include "../String.h"
 #include "../Dictionary.h"
 #include "../../Exception/Utilities/Time/IllegalDateTimeFormatException.h"
-
-#pragma once
 
 namespace GameLibrary
 {

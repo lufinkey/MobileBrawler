@@ -330,11 +330,11 @@
     <ClCompile Include="src\SmashBros\Game.cpp">
       <Filter>src\SmashBros</Filter>
     </ClCompile>
-    <ClCompile Include="src\SmashBros\Menu\SmashBrosMenuScreen.cpp">
-      <Filter>src\SmashBros\Menu</Filter>
-    </ClCompile>
     <ClCompile Include="src\SmashBros\Global.cpp">
       <Filter>src\SmashBros</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\BaseMenuScreen.cpp">
+      <Filter>src\SmashBros\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -599,11 +599,11 @@
     <ClInclude Include="src\import\GameLibraryImport.hpp">
       <Filter>src\import</Filter>
     </ClInclude>
-    <ClInclude Include="src\SmashBros\Menu\SmashBrosMenuScreen.h">
-      <Filter>src\SmashBros\Menu</Filter>
-    </ClInclude>
     <ClInclude Include="src\SmashBros\Global.h">
       <Filter>src\SmashBros</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\BaseMenuScreen.h">
+      <Filter>src\SmashBros\Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,10 +1,10 @@
 
+#pragma once
+
 #include "Any.h"
 #include "ArrayList.h"
 #include "Pair.h"
 #include "String.h"
-
-#pragma once
 
 namespace GameLibrary
 {

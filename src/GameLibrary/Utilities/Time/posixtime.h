@@ -1,4 +1,6 @@
 
+#pragma once
+
 #include <stdint.h>
 #include <ctime>
 #ifdef _WIN32
@@ -7,8 +9,6 @@
 #else
 #include <sys/time.h>
 #endif
-
-#pragma once
 
 #ifdef _WIN32
 typedef int suseconds_t;

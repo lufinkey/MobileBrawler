@@ -1,4 +1,6 @@
 
+#pragma once
+
 #include "RenderedGlyphContainer.h"
 #include "../ArrayList.h"
 #include "../Pair.h"
@@ -8,8 +10,6 @@
 #include "../../Exception/Utilities/Font/RenderGlyphException.h"
 #include <mutex>
 #include <memory>
-
-#pragma once
 
 namespace GameLibrary
 {

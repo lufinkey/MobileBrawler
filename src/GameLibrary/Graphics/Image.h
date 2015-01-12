@@ -1,11 +1,11 @@
 
+#pragma once
+
 #include "Color.h"
 #include "../Utilities/ArrayList.h"
 #include "../Utilities/Pair.h"
 #include "../Exception/Graphics/ImageOutOfBoundsException.h"
 #include "../Exception/Graphics/UnsupportedImageFormatException.h"
-
-#pragma once
 
 namespace GameLibrary
 {

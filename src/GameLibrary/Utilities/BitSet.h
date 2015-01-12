@@ -1,8 +1,8 @@
 
+#pragma once
+
 #include "../Types.h"
 #include "../Exception/Utilities/BitSetOutOfBoundsException.h"
-
-#pragma once
 
 namespace GameLibrary
 {

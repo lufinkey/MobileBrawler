@@ -1,4 +1,6 @@
 
+#pragma once
+
 #include "BaseActor.h"
 
 namespace GameLibrary

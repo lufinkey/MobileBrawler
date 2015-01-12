@@ -1,7 +1,7 @@
 
-#include "Transition.h"
-
 #pragma once
+
+#include "Transition.h"
 
 namespace GameLibrary
 {

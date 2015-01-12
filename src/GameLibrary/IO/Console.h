@@ -1,7 +1,7 @@
 
-#include "../Utilities/String.h"
-
 #pragma once
+
+#include "../Utilities/String.h"
 
 namespace GameLibrary
 {

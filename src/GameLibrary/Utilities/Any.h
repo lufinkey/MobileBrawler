@@ -1,4 +1,6 @@
 
+#pragma once
+
 #include "../Exception/Utilities/BadAnyCastException.h"
 #include <type_traits>
 
@@ -6,8 +8,6 @@
 #pragma warning(push)
 #pragma warning(disable : 4521)
 #endif
-
-#pragma once
 
 namespace GameLibrary
 {
