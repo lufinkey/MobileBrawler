@@ -1,11 +1,11 @@
 
 #pragma once
 
-#include "BaseActor.h"
+#include "Actor.h"
 
 namespace GameLibrary
 {
-	class WireframeActor : public BaseActor
+	class WireframeActor : public Actor
 	{
 	public:
 		WireframeActor();

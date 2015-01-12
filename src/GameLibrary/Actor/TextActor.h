@@ -1,11 +1,11 @@
 
 #pragma once
 
-#include "BaseActor.h"
+#include "Actor.h"
 
 namespace GameLibrary
 {
-	class TextActor : public BaseActor
+	class TextActor : public Actor
 	{
 	public:
 		enum TextAlignment

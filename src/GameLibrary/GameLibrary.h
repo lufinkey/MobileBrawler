@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include "Actor/BaseActor.h"
 #include "Actor/Actor.h"
+#include "Actor/SpriteActor.h"
 #include "Actor/TextActor.h"
 #include "Actor/WireframeActor.h"
 

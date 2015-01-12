@@ -10,7 +10,7 @@
 
 namespace GameLibrary
 {
-	/*Animation object that holds Animation data for the Actor class*/
+	/*Animation object that holds Animation data for the SpriteActor class*/
 	class Animation : public Drawable
 	{
 	public:

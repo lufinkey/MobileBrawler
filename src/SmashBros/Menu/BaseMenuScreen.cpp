@@ -68,7 +68,7 @@ namespace SmashBros
 		{
 			if(itemIndex == getSelectedIndex())
 			{
-				BaseActor* actor = getItem(itemIndex);
+				Actor* actor = getItem(itemIndex);
 				RectangleF frame = actor->getFrame();
 				graphics.scale(hoverPulseScale, hoverPulseScale, actor->x, actor->y);
 				if(hoverPressed)

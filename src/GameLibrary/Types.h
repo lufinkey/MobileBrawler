@@ -4,11 +4,12 @@
 namespace GameLibrary
 {
 	//Actor
-	class ActorType;
-		class Actor;
+	class Actor;
+		class SpriteActor;
+		class Animation;
 		class TextActor;
 		class WireframeActor;
-
+	
 	//Application
 	class Application;
 	class ApplicationData;
@@ -47,12 +48,12 @@ namespace GameLibrary
 	class Color;
 	class Image;
 	class TextureImage;
-
+	
 	//Input
 	class Keyboard;
 	class Mouse;
 	class Multitouch;
-
+	
 	//IO
 	class Console;
 	
@@ -89,17 +90,17 @@ namespace GameLibrary
 	class Math;
 	class String;
 	class Thread;
-
+	
 	//View
 	class View;
 	class Window;
 	
 	typedef signed char Int8;
 	typedef unsigned char Uint8;
-
+	
 	typedef signed short Int16;
 	typedef unsigned short Uint16;
-
+	
 	typedef signed int Int32;
 	typedef unsigned int Uint32;
 	
@@ -110,7 +111,7 @@ namespace GameLibrary
 		typedef signed long long Int64;
 		typedef unsigned long long Uint64;
 	#endif
-
+	
 	typedef Uint8 byte;
 	typedef bool boolean;
 	

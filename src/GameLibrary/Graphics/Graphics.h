@@ -102,6 +102,9 @@ namespace GameLibrary
 
 		//void fillOval(float x1,float y1,float w,float h);
 		//void fillOval(const RectangleF& rect);
+		
+		void drawPolygon(const Polygon&polygon);
+		//void fillPolygon(const Polygon&polygon);
 
 		void drawImage(TextureImage*img, float x, float y);
 		void drawImage(TextureImage*img, const Vector2f& point);

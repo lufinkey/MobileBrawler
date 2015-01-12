@@ -1,384 +1,586 @@
 
 #include "Actor.h"
+#include "../Input/Mouse.h"
+#include "../Input/Multitouch.h"
+#include "../Utilities/PlatformChecks.h"
 
 namespace GameLibrary
 {
-	Actor::Actor() : Actor(0,0)
+	Actor::Actor()
 	{
-		//
-	}
-	
-	Actor::Actor(float x1, float y1)
-	{
-		x = x1;
-		y = y1;
-
-		animation_current = nullptr;
-		animation_frame = 0;
-		animation_prevFrameTime = 0;
-		animation_direction = Animation::FORWARD;
-
-		firstUpdate = true;
-		prevUpdateTime = 0;
+		actorType = ACTORTYPE_BASE;
+		x = 0;
+		y = 0;
+		width = 0;
+		height = 0;
+		
+		clicked = false;
+		prevclicked = false;
+		mouseover = false;
+		prevmouseover = false;
+		didpress = false;
+		didrelease = true;
+		visible = true;
+		mirrored = false;
+		mirroredVertical = false;
+		frame_visible = false;
+		color = Color::WHITE;
+		frame_color = Color::GREEN;
+		rotation = 0;
+		alpha = 1;
+		scale = 1;
 	}
 	
 	Actor::~Actor()
 	{
-		for(unsigned int i=0; i<animations.size(); i++)
-		{
-			AnimationInfo& info = animations.get(i);
-			if(info.destruct)
-			{
-				delete info.animation;
-			}
-		}
+		//
 	}
 	
 	void Actor::update(ApplicationData appData)
 	{
-		prevUpdateTime = appData.getTime().getMilliseconds();
-		if(firstUpdate)
-		{
-			if(animations.size()>0)
-			{
-				animation_prevFrameTime = prevUpdateTime;
-			}
-		}
-		firstUpdate = false;
-		
-		BaseActor::update(appData);
+		prevclicked = clicked;
+		prevmouseover = mouseover;
 
-		//update animation loop
-		if(animation_direction == Animation::STOPPED)
+		#if defined(TARGETPLATFORM_MOBILE)
+			updateTouch(appData);
+		#else
+			updateMouse(appData);
+		#endif
+		
+		if(currentTouches.size() == 0)
 		{
-			animation_prevFrameTime = prevUpdateTime;
+			didpress = false;
 		}
 		else
 		{
-			unsigned int fps = animation_current->getFPS();
-			if(fps!=0)
-			{
-				long long waitTime = 1000/fps;
-				long long finishTime = animation_prevFrameTime + waitTime;
-				if(finishTime <= prevUpdateTime)
-				{
-					animation_prevFrameTime = prevUpdateTime;
-					if(animation_direction == Animation::FORWARD)
-					{
-						animation_frame++;
-						unsigned int totalFrames = animation_current->getTotalFrames();
-						if(animation_frame >= totalFrames)
-						{
-							animation_frame = 0;
-							animation_current->setCurrentFrame(animation_frame);
-							onAnimationFinish(animation_current);
-						}
-						else
-						{
-							animation_current->setCurrentFrame(animation_frame);
-						}
-					}
-					else if(animation_direction == Animation::BACKWARD)
-					{
-						if(animation_frame == 0)
-						{
-							unsigned int totalFrames = animation_current->getTotalFrames();
-							if(totalFrames > 0)
-							{
-								animation_frame = totalFrames-1;
-							}
-							animation_current->setCurrentFrame(animation_frame);
-							onAnimationFinish(animation_current);
-						}
-						else
-						{
-							animation_frame--;
-							animation_current->setCurrentFrame(animation_frame);
-						}
-					}
-				}
-			}
+			didrelease = false;
 		}
 	}
-
+	
 	void Actor::draw(ApplicationData appData, Graphics graphics) const
-	{
-		drawActor(appData, graphics, x, y, scale);
-	}
-	
-	void Actor::drawActor(ApplicationData&appData, Graphics&graphics, float x, float y, float scale) const
-	{
-		if(visible && scale!=0)
-		{
-			graphics.translate(x, y);
-			Graphics boundingBoxGraphics(graphics);
-			if(rotation!=0)
-			{
-				graphics.rotate(rotation);
-			}
-			Graphics frameGraphics(graphics);
-			if(mirrored)
-			{
-				if(mirroredVertical)
-				{
-					graphics.scale(-scale,-scale);
-				}
-				else
-				{
-					graphics.scale(-scale,scale);
-				}
-			}
-			else
-			{
-				if(mirroredVertical)
-				{
-					graphics.scale(scale,-scale);
-				}
-				else
-				{
-					graphics.scale(scale,scale);
-				}
-			}
-
-			BaseActor::draw(appData, graphics);
-			
-			Graphics actorGraphics(graphics);
-			actorGraphics.compositeTintColor(color);
-			
-			animation_current->setCurrentFrame(animation_frame);
-			animation_current->draw(appData, actorGraphics);
-			
-			if(frame_visible)
-			{
-				frameGraphics.setColor(frame_color);
-				frameGraphics.drawRect(-(width/2), -(height/2), width, height);
-				boundingBoxGraphics.setColor(frame_color);
-				boundingBoxGraphics.drawRect(-(framesize.x/2), -(framesize.y/2), framesize.x, framesize.y);
-			}
-		}
-	}
-	
-	RectangleF Actor::getFrame() const
-	{
-		return RectangleF(x-(framesize.x/2), y-(framesize.y/2), framesize.x, framesize.y);
-	}
-	
-	void Actor::onAnimationFinish(Animation*animation)
 	{
 		//Open for implementation
 	}
 	
+	RectangleF Actor::getFrame() const
+	{
+		return RectangleF(x, y, width, height);
+	}
+	
+	Actor::ActorType Actor::getActorType() const
+	{
+		return actorType;
+	}
+	
+	float Actor::getWidth() const
+	{
+		return width;
+	}
+	
+	float Actor::getHeight() const
+	{
+		return height;
+	}
+	
+	void Actor::setVisible(bool toggle)
+	{
+		visible = toggle;
+	}
+	
+	void Actor::setColor(const Color&c)
+	{
+		color = c;
+	}
+	
+	void Actor::rotate(float degrees)
+	{
+		if(degrees!=0)
+		{
+			rotation += degrees;
+			rotationMatrix.rotate(degrees,0,0);
+			inverseRotationMatrix = rotationMatrix.getInverse();
+			updateSize();
+		}
+	}
+	
+	void Actor::setRotation(float degrees)
+	{
+		if(degrees!=rotation)
+		{
+			rotation = degrees;
+			rotationMatrix.reset();
+			if(degrees!=0)
+			{
+				rotationMatrix.rotate(degrees,0,0);
+			}
+			inverseRotationMatrix = rotationMatrix.getInverse();
+			updateSize();
+		}
+	}
+	
+	void Actor::setAlpha(float a)
+	{
+		alpha = a;
+	}
+	
+	void Actor::setScale(float s)
+	{
+		scale = s;
+		updateSize();
+	}
+	
+	void Actor::scaleToFit(const RectangleF&rect)
+	{
+		RectangleF frame = getFrame();
+		RectangleF newFrame = frame;
+		newFrame.scaleToFit(rect);
+		setScale(newFrame.width/width);
+		
+		float xoffset = newFrame.x - frame.x;
+		float yoffset = newFrame.y - frame.y;
+		
+		x += xoffset;
+		y += yoffset;
+	}
+
+	void Actor::setFrameVisible(bool toggle)
+	{
+		frame_visible = toggle;
+	}
+	
+	void Actor::setFrameColor(const Color&color)
+	{
+		frame_color = color;
+	}
+	
+	void Actor::setMirrored(bool toggle)
+	{
+		mirrored = toggle;
+		updateSize();
+	}
+	
+	void Actor::setMirroredVertical(bool toggle)
+	{
+		mirroredVertical = toggle;
+		updateSize();
+	}
+	
+	bool Actor::isVisible() const
+	{
+		return visible;
+	}
+	
+	const Color& Actor::getColor() const
+	{
+		return color;
+	}
+	
+	float Actor::getRotation() const
+	{
+		return rotation;
+	}
+	
+	float Actor::getAlpha() const
+	{
+		return alpha;
+	}
+	
+	float Actor::getScale() const
+	{
+		return scale;
+	}
+
+	bool Actor::isFrameVisible() const
+	{
+		return frame_visible;
+	}
+	
+	const Color& Actor::getFrameColor() const
+	{
+		return frame_color;
+	}
+	
+	bool Actor::isMirrored() const
+	{
+		return mirrored;
+	}
+	
+	bool Actor::isMirroredVertical() const
+	{
+		return mirroredVertical;
+	}
+	
+	bool Actor::isOnScreen(View*view) const
+	{
+		return true;
+	}
+	
+	bool Actor::isMouseOver() const
+	{
+		return mouseover;
+	}
+	
+	bool Actor::wasMouseOver() const
+	{
+		return prevmouseover;
+	}
+	
+	bool Actor::isMousePressed() const
+	{
+		return clicked;
+	}
+	
+	bool Actor::wasMousePressed() const
+	{
+		return prevclicked;
+	}
+	
+	bool Actor::didMousePress() const
+	{
+		return didpress;
+	}
+
+	bool Actor::didMouseRelease() const
+	{
+		return didrelease;
+	}
+
+	void Actor::clearMouseState()
+	{
+		currentTouches.clear();
+	}
+	
 	void Actor::updateSize()
 	{
-		RectangleF frame = animation_current->getFrame(animation_frame);
-		frame.x*=scale;
-		frame.y*=scale;
-		frame.width*=scale;
-		frame.height*=scale;
+		width = 0;
+		height = 0;
+	}
 
-		width = frame.width;
-		height = frame.height;
+	bool Actor::checkPointCollision(const Vector2f&point)
+	{
+		return false;
+	}
+	
+	void Actor::onMousePress(Window*window, unsigned int touchID)
+	{
+		//Open for implementation
+	}
 
-		frame = rotationMatrix.transform(frame);
-		
-		framesize.x = frame.width;
-		framesize.y = frame.height;
-	}
-	
-	void Actor::addAnimation(const String&name, Animation*animation, bool destruct)
+	void Actor::onMouseRelease(Window*window, unsigned int touchID)
 	{
-		if(hasAnimation(name))
-		{
-			throw IllegalArgumentException("Animation with name \"" + name + "\" is already added to this Actor");
-		}
-		
-		AnimationInfo animInfo;
-		animInfo.name = name;
-		animInfo.animation = animation;
-		animInfo.destruct = destruct;
-		
-		unsigned int prevSize = animations.size();
-		
-		animations.add(animInfo);
-		
-		if(prevSize == 0)
-		{
-			changeAnimation(name, Animation::FORWARD);
-		}
+		//Open for implementation
 	}
-	
-	void Actor::removeAnimation(const String&name)
+
+	void Actor::onMouseEnter(Window*window, unsigned int touchID)
 	{
-		unsigned int totalAnimations = animations.size();
-		for(unsigned int i=0; i<totalAnimations; i++)
-		{
-			AnimationInfo animInfo = animations.get(i);
-			if(animInfo.name.equals(name))
-			{
-				if(animInfo.destruct)
-				{
-					delete animInfo.animation;
-				}
-				animations.remove(i);
-				return;
-			}
-		}
+		//Open for implementation
 	}
-	
-	bool Actor::hasAnimation(const String&name) const
+
+	void Actor::onMouseLeave(Window*window, unsigned int touchID)
 	{
-		unsigned int totalAnimations = animations.size();
-		for(unsigned int i=0; i<totalAnimations; i++)
+		//Open for implementation
+	}
+
+	bool Actor::isTouchDataActive(unsigned int touchID)
+	{
+		for(unsigned int i=0; i<currentTouches.size(); i++)
 		{
-			if(animations.get(i).name.equals(name))
+			if(currentTouches.get(i).touchID == touchID)
 			{
 				return true;
 			}
 		}
 		return false;
 	}
-	
-	Animation* Actor::getAnimation(const String&name) const
+
+	bool Actor::isTouchDataPressed(unsigned int touchID)
 	{
-		unsigned int totalAnimations = animations.size();
-		for(unsigned int i=0; i<totalAnimations; i++)
+		for(unsigned int i=0; i<currentTouches.size(); i++)
 		{
-			const AnimationInfo&animInfo = animations.get(i);
-			if(animInfo.name.equals(name))
+			MouseTouchData& touchData = currentTouches.get(i);
+			if(touchData.touchID == touchID)
 			{
-				return animInfo.animation;
+				return touchData.pressed;
+			}
+		}
+		return false;
+	}
+
+	void Actor::applyTouchData(unsigned int touchID, bool pressed)
+	{
+		for(unsigned int i=0; i<currentTouches.size(); i++)
+		{
+			MouseTouchData& touchData = currentTouches.get(i);
+			if(touchData.touchID == touchID)
+			{
+				touchData.pressed = pressed;
+				return;
+			}
+		}
+		MouseTouchData touchData;
+		touchData.touchID = touchID;
+		touchData.pressed = pressed;
+		currentTouches.add(touchData);
+	}
+
+	void Actor::removeTouchData(unsigned int touchID)
+	{
+		for(unsigned int i=0; i<currentTouches.size(); i++)
+		{
+			MouseTouchData& touchData = currentTouches.get(i);
+			if(touchData.touchID == touchID)
+			{
+				currentTouches.remove(i);
+				return;
+			}
+		}
+	}
+
+	Actor::MouseTouchData* Actor::getTouchData(unsigned int touchID)
+	{
+		for(unsigned int i=0; i<currentTouches.size(); i++)
+		{
+			MouseTouchData& touchData = currentTouches.get(i);
+			if(touchData.touchID == touchID)
+			{
+				return &touchData;
 			}
 		}
 		return nullptr;
 	}
-	
-	void Actor::changeAnimation(const String&name, const Animation::Direction&direction)
+
+	ArrayList<unsigned int> Actor::getDifTouchData(const ArrayList<unsigned int>& touchIDs)
 	{
-		if(direction != Animation::FORWARD && direction != Animation::BACKWARD && direction != Animation::STOPPED && direction != Animation::NO_CHANGE)
+		ArrayList<unsigned int> unlisted;
+		for(unsigned int i=0; i<currentTouches.size(); i++)
 		{
-			throw IllegalArgumentException((String)"Invalid value " + direction + " for direction argument in Actor::changeAnimation");
-		}
-		
-		Animation* animation = getAnimation(name);
-		if(animation == nullptr)
-		{
-			throw IllegalArgumentException("Animation with name \"" + name + "\" does not exist");
-		}
-		
-		animation_name = name;
-		animation_current = animation;
-		
-		switch(direction)
-		{
-			case Animation::FORWARD:
-			case Animation::STOPPED:
+			MouseTouchData& touchData = currentTouches.get(i);
+			bool found = false;
+			for(unsigned j=0; j<touchIDs.size(); j++)
 			{
-				animation_frame = 0;
-				animation_prevFrameTime = prevUpdateTime;
-				animation_direction = direction;
-			}
-			break;
-			
-			case Animation::BACKWARD:
-			{
-				unsigned int totalFrames = animation->getTotalFrames();
-				if(totalFrames>0)
+				if(touchIDs.get(i) == touchData.touchID)
 				{
-					animation_frame = (totalFrames-1);
+					found = true;
+					j = touchIDs.size();
+				}
+			}
+			
+			if(!found)
+			{
+				unlisted.add(touchData.touchID);
+			}
+		}
+		return unlisted;
+	}
+	
+	#define EVENTCALL_MOUSEENTER 1
+	#define EVENTCALL_MOUSELEAVE 2
+	#define EVENTCALL_MOUSEPRESS 3
+	#define EVENTCALL_MOUSERELEASE 4
+	
+	void Actor::updateMouse(ApplicationData&appData)
+	{
+		Window* window = appData.getWindow();
+		Transform& mouseTransform = appData.getTransform();
+		
+		mouseover = false;
+		clicked = false;
+		ArrayList<Pair<unsigned int,byte> > mouseEventCalls;
+		
+		ArrayList<unsigned int> touchIDs;
+		unsigned int mouseInstances = Mouse::getTotalMouseInstances(window);
+		for(unsigned int i=0; i<mouseInstances; i++)
+		{
+			touchIDs.add(i);
+		}
+
+		ArrayList<unsigned int> unlistedIDs = getDifTouchData(touchIDs);
+		for(unsigned int i = 0; i < unlistedIDs.size(); i++)
+		{
+			unsigned int touchID = unlistedIDs.get(i);
+			MouseTouchData* touchData = getTouchData(touchID);
+			if(touchData != nullptr)
+			{
+				mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSERELEASE));
+			}
+		}
+
+		for(unsigned int i=0; i<touchIDs.size(); i++)
+		{
+			unsigned int touchID = touchIDs.get(i);
+			Vector2f mousepos = Mouse::getPosition(window, touchID);
+			Vector2f transformedPos = mouseTransform.transform(mousepos);
+			if(checkPointCollision(transformedPos))
+			{
+				mouseover = true;
+				if(isTouchDataPressed(touchID))
+				{
+					if(Mouse::isButtonPressed(window, touchID, Mouse::BUTTON_LEFT))
+					{
+						applyTouchData(touchID, true);
+						clicked = true;
+					}
+					else
+					{
+						applyTouchData(touchID, false);
+						mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSERELEASE));
+					}
+				}
+				else if(isTouchDataActive(touchID))
+				{
+					if(Mouse::isButtonPressed(window, touchID, Mouse::BUTTON_LEFT))
+					{
+						applyTouchData(touchID, true);
+						clicked = true;
+						if(!Mouse::wasButtonPressed(window, touchID, Mouse::BUTTON_LEFT))
+						{
+							mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSEPRESS));
+						}
+					}
+					else
+					{
+						applyTouchData(touchID, false);
+						if(Mouse::wasButtonPressed(window, touchID, Mouse::BUTTON_LEFT))
+						{
+							mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSERELEASE));
+						}
+					}
 				}
 				else
 				{
-					animation_frame = 0;
+					mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSEENTER));
+					if(Mouse::isButtonPressed(window, touchID, Mouse::BUTTON_LEFT) && !Mouse::wasButtonPressed(window, touchID, Mouse::BUTTON_LEFT))
+					{
+						applyTouchData(touchID, true);
+						clicked = true;
+						mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSEPRESS));
+					}
+					else
+					{
+						applyTouchData(touchID, false);
+					}
 				}
-				animation_prevFrameTime = prevUpdateTime;
-				animation_direction = direction;
 			}
-			break;
-			
-			case Animation::NO_CHANGE:
+			else
 			{
-				switch(animation_direction)
+				if(isTouchDataPressed(touchID))
 				{
-					case Animation::FORWARD:
-					case Animation::STOPPED:
+					mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSELEAVE));
+					if(!Mouse::isButtonPressed(window, touchID, Mouse::BUTTON_LEFT))
 					{
-						if(animation_frame >= animation->getTotalFrames())
-						{
-							animation_frame = 0;
-						}
+						mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSERELEASE));
 					}
-					break;
-					
-					case Animation::BACKWARD:
-					{
-						unsigned int totalFrames = animation->getTotalFrames();
-						if(animation_frame >= totalFrames)
-						{
-							if(totalFrames>0)
-							{
-								animation_frame = (totalFrames-1);
-							}
-							else
-							{
-								animation_frame = 0;
-							}
-						}
-					}
-					break;
 				}
+				else if(isTouchDataActive(touchID))
+				{
+					mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSELEAVE));
+				}
+				removeTouchData(touchID);
+			}
+		}
+
+		callMouseEvents(window, mouseEventCalls);
+	}
+	
+	void Actor::updateTouch(ApplicationData&appData)
+	{
+		Window* window = appData.getWindow();
+		Transform& mouseTransform = appData.getTransform();
+		
+		mouseover = false;
+		clicked = false;
+		ArrayList<Pair<unsigned int,byte> > mouseEventCalls;
+		
+		ArrayList<unsigned int> touchIDs = Multitouch::getTouchIDs(window);
+
+		ArrayList<unsigned int> unlistedIDs = getDifTouchData(touchIDs);
+		for(unsigned int i = 0; i < unlistedIDs.size(); i++)
+		{
+			unsigned int touchID = unlistedIDs.get(i);
+			MouseTouchData* touchData = getTouchData(touchID);
+			if(touchData != nullptr)
+			{
+				mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSERELEASE));
+			}
+		}
+
+		for(unsigned int i=0; i<touchIDs.size(); i++)
+		{
+			unsigned int touchID = i;
+			Vector2f touchpos = Mouse::getPosition(window, touchID);
+			Vector2f transformedPos = mouseTransform.transform(touchpos);
+			if(checkPointCollision(transformedPos))
+			{
+				mouseover = true;
+				if(isTouchDataActive(touchID))
+				{
+					applyTouchData(touchID, true);
+					clicked = true;
+				}
+				else
+				{
+					if(!Multitouch::wasTouchActive(window, touchID))
+					{
+						applyTouchData(touchID, true);
+						clicked = true;
+						mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSEPRESS));
+					}
+					else
+					{
+						applyTouchData(touchID, true);
+						clicked = true;
+						mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSEENTER));
+					}
+				}
+			}
+			else
+			{
+				if(isTouchDataActive(touchID))
+				{
+					applyTouchData(touchID, false);
+					mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSELEAVE));
+				}
+				else
+				{
+					applyTouchData(touchID, false);
+				}
+				removeTouchData(touchID);
 			}
 		}
 		
-		animation->setCurrentFrame(animation_frame);
-		updateSize();
+		callMouseEvents(window, mouseEventCalls);
+	}
+
+	void Actor::callMouseEvents(Window*window, const ArrayList<Pair<unsigned int, byte> >& eventCallData)
+	{
+		for(unsigned int i=0; i<eventCallData.size(); i++)
+		{
+			const Pair<unsigned int, byte>& eventData = eventCallData.get(i);
+			switch(eventData.second)
+			{
+				case EVENTCALL_MOUSEENTER:
+				onMouseEnter(window, eventData.second);
+				break;
+
+				case EVENTCALL_MOUSELEAVE:
+				onMouseLeave(window, eventData.second);
+				break;
+
+				case EVENTCALL_MOUSEPRESS:
+				didpress = true;
+				onMousePress(window, eventData.second);
+				break;
+
+				case EVENTCALL_MOUSERELEASE:
+				didrelease = true;
+				onMouseRelease(window, eventData.second);
+				break;
+			}
+		}
 	}
 	
-	bool Actor::checkPointCollision(const Vector2f&point)
-	{
-		if(animation_current == nullptr)
-		{
-			return false;
-		}
-		float halfwidth = width/2;
-		float halfheight = height/2;
-		float left = x-halfwidth;
-		float right = x+halfwidth;
-		float top = y-halfheight;
-		float bottom = y+halfheight;
-		if(point.x>left && point.y>top && point.x<right && point.y<bottom)
-		{
-			Vector2f pointFixed = point;
-			pointFixed.x -= x;
-			pointFixed.y -= y;
-			
-			pointFixed = inverseRotationMatrix.transform(pointFixed);
-
-			pointFixed.x += width/2;
-			pointFixed.y += height/2;
-			
-			if((mirrored && !animation_current->isMirrored()) || (!mirrored && animation_current->isMirrored()))
-			{
-				pointFixed.x = width - pointFixed.x;
-			}
-			if((mirroredVertical && !animation_current->isMirroredVertical()) || (!mirroredVertical && animation_current->isMirroredVertical()))
-			{
-				pointFixed.y = height - pointFixed.y;
-			}
-			
-			float ratX = pointFixed.x/width;
-			float ratY = pointFixed.y/height;
-			if(ratX < 0 || ratY < 0 || ratX>1 || ratY>1)
-			{
-				return false;
-			}
-			
-			TextureImage* img = animation_current->getImage(animation_frame);
-			RectangleI srcRect = animation_current->getImageSourceRect(animation_frame);
-			unsigned int pxlX = (unsigned int)(ratX*((float)srcRect.width));
-			unsigned int pxlY = (unsigned int)(ratY*((float)srcRect.height));
-
-			return img->checkPixel((unsigned int)srcRect.x+pxlX,(unsigned int)srcRect.y+pxlY);
-		}
-		return false;
-	}
+	#undef EVENTCALL_MOUSEENTER
+	#undef EVENTCALL_MOUSELEAVE
+	#undef EVENTCALL_MOUSEPRESS
+	#undef EVENTCALL_MOUSERELEASE
 }

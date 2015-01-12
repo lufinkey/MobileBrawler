@@ -84,9 +84,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\GameLibrary\Actor\Actor.cpp" />
+    <ClCompile Include="src\GameLibrary\Actor\SpriteActor.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\Animation.cpp" />
-    <ClCompile Include="src\GameLibrary\Actor\BaseActor.cpp" />
+    <ClCompile Include="src\GameLibrary\Actor\Actor.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\TextActor.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\WireframeActor.cpp" />
     <ClCompile Include="src\GameLibrary\Application\Application.cpp" />
@@ -165,9 +165,9 @@
     <ClCompile Include="src\SmashBros\Menu\TitleScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\GameLibrary\Actor\Actor.h" />
+    <ClInclude Include="src\GameLibrary\Actor\SpriteActor.h" />
     <ClInclude Include="src\GameLibrary\Actor\Animation.h" />
-    <ClInclude Include="src\GameLibrary\Actor\BaseActor.h" />
+    <ClInclude Include="src\GameLibrary\Actor\Actor.h" />
     <ClInclude Include="src\GameLibrary\Actor\TextActor.h" />
     <ClInclude Include="src\GameLibrary\Actor\WireframeActor.h" />
     <ClInclude Include="src\GameLibrary\Application\Application.h" />

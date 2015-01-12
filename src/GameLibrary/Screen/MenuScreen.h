@@ -3,8 +3,8 @@
 
 #include "Screen.h"
 #include "ScreenElement.h"
-#include "../Actor/BaseActor.h"
 #include "../Actor/Actor.h"
+#include "../Actor/SpriteActor.h"
 #include "../Actor/Animation.h"
 #include "../Actor/TextActor.h"
 #include "../Graphics/Graphics.h"
@@ -29,7 +29,7 @@ namespace GameLibrary
 		void removeItem(unsigned int index);
 		unsigned int getTotalItems();
 		
-		BaseActor* getItem(unsigned int index) const;
+		Actor* getItem(unsigned int index) const;
 		
 		virtual void onItemHover(unsigned int index);
 		virtual void onItemHoverFinish(unsigned int index);
@@ -74,7 +74,7 @@ namespace GameLibrary
 			virtual void draw(ApplicationData appData, Graphics graphics) const;
 		};
 
-		class ImageItem : public GameLibrary::Actor
+		class ImageItem : public GameLibrary::SpriteActor
 		{
 		private:
 			MenuScreen*menuScreen;
@@ -102,7 +102,7 @@ namespace GameLibrary
 			virtual void onMouseLeave(Window*window, unsigned int touchID);
 		};
 		
-		ArrayList<BaseActor*> items;
+		ArrayList<Actor*> items;
 		unsigned int selectedIndex;
 		MainElement* mainElement;
 		bool keyboardEnabled;

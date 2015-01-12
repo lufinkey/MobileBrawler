@@ -9,6 +9,8 @@ namespace SmashBros
 	{
 		class TitleScreen : public SmashBros::Menu::BaseMenuScreen
 		{
+		private:
+			//
 		public:
 			TitleScreen(AssetManager*assetManager);
 			virtual ~TitleScreen();

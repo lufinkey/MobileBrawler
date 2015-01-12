@@ -41,7 +41,7 @@ namespace GameLibrary
 	
 //MenuScreen::ImageItem
 	
-	MenuScreen::ImageItem::ImageItem(MenuScreen*screen, float x, float y) : Actor(x,y)
+	MenuScreen::ImageItem::ImageItem(MenuScreen*screen, float x, float y) : SpriteActor(x,y)
 	{
 		menuScreen = screen;
 	}
@@ -190,7 +190,7 @@ namespace GameLibrary
 			//test/update currently hovered actor
 			if(lastSelectedIndex != MENUSCREEN_NOSELECTION)
 			{
-				BaseActor* actor = items.get(lastSelectedIndex);
+				Actor* actor = items.get(lastSelectedIndex);
 				actor->update(appData);
 				if(actor->isMouseOver())
 				{
@@ -221,14 +221,14 @@ namespace GameLibrary
 				}
 			}
 
-			ArrayList<BaseActor*> menuItems = items;
+			ArrayList<Actor*> menuItems = items;
 
 			//test/update other actors
 			for(unsigned int i=0; i<menuItems.size(); i++)
 			{
 				if(i != lastSelectedIndex)
 				{
-					BaseActor* actor = menuItems.get(i);
+					Actor* actor = menuItems.get(i);
 
 					//make sure actor wasn't added or removed from the screen during an event
 					unsigned int actorIndex = ARRAYLIST_NOTFOUND;
@@ -302,7 +302,7 @@ namespace GameLibrary
 	
 	void MenuScreen::drawItem(ApplicationData appData, Graphics graphics, unsigned int itemIndex) const
 	{
-		BaseActor* actor = items.get(itemIndex);
+		Actor* actor = items.get(itemIndex);
 		actor->draw(appData, graphics);
 	}
 	
@@ -336,7 +336,7 @@ namespace GameLibrary
 	
 	void MenuScreen::removeItem(unsigned int index)
 	{
-		BaseActor* actor = items.get(index);
+		Actor* actor = items.get(index);
 		items.remove(index);
 		delete actor;
 		if(selectedIndex == index)
@@ -361,7 +361,7 @@ namespace GameLibrary
 		return items.size();
 	}
 	
-	BaseActor* MenuScreen::getItem(unsigned int index) const
+	Actor* MenuScreen::getItem(unsigned int index) const
 	{
 		return items.get(index);
 	}
@@ -584,7 +584,7 @@ namespace GameLibrary
 			}
 			if(selectedIndex != MENUSCREEN_NOSELECTION)
 			{
-				BaseActor* actor = items.get(selectedIndex);
+				Actor* actor = items.get(selectedIndex);
 				if(!actor->isMouseOver())
 				{
 					onItemHoverFinish(selectedIndex);

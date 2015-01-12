@@ -36,7 +36,7 @@ namespace GameLibrary
 	
 	void TextActor::update(ApplicationData appData)
 	{
-		BaseActor::update(appData);
+		Actor::update(appData);
 	}
 	
 	void TextActor::draw(ApplicationData appData, Graphics graphics) const
@@ -79,7 +79,7 @@ namespace GameLibrary
 				}
 			}
 			
-			BaseActor::draw(appData, graphics);
+			Actor::draw(appData, graphics);
 			
 			Graphics actorGraphics(graphics);
 			actorGraphics.setColor(color);

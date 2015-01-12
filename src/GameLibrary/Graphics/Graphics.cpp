@@ -542,7 +542,48 @@ namespace GameLibrary
 	{
 		fillOval(rect.x, rect.y, rect.width, rect.height);
 	}*/
-
+	
+	void Graphics::drawPolygon(const Polygon& polygon)
+	{
+		Polygon transformedPolygon = transform.transform(polygon);
+		
+		const ArrayList<Vector2f>& points = transformedPolygon.getPoints();
+		if(points.size() > 0)
+		{
+			beginDraw();
+			
+			if(points.size() == 1)
+			{
+				const Vector2f& point = points.get(0);
+				SDL_RenderDrawPoint((SDL_Renderer*)renderer, (int)point.x, (int)point.y);
+			}
+			else
+			{
+				for(unsigned int i=0; i<points.size(); i++)
+				{
+					const Vector2f& point = points.get(i);
+					if(i == (points.size()-1))
+					{
+						const Vector2f& startPoint = points.get(0);
+						SDL_RenderDrawLine((SDL_Renderer*)renderer, (int)point.x, (int)point.y, (int)startPoint.x, (int)startPoint.y);
+					}
+					else
+					{
+						const Vector2f& nextPoint = points.get(i+1);
+						SDL_RenderDrawLine((SDL_Renderer*)renderer, (int)point.x, (int)point.y, (int)nextPoint.x, (int)nextPoint.y);
+					}
+				}
+			}
+			
+			endDraw();
+		}
+	}
+	
+	/*void Graphics::fillPolygon(const Polygon& polygon)
+	{
+		//
+	}*/
+	
 	void Graphics::drawImage(TextureImage*img, float x, float y)
 	{
 		SDL_Texture*texture = (SDL_Texture*)img->texture;
