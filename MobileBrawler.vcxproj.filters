@@ -94,6 +94,21 @@
     <Filter Include="src\import">
       <UniqueIdentifier>{986e5ec3-0468-4541-a5dd-59c198e2e94b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="images\test">
+      <UniqueIdentifier>{3df26331-d0e5-4bde-9c48-a3ba8a935dac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="images\menu">
+      <UniqueIdentifier>{b844ba75-a5a3-4114-995a-dfb775a486eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="images\menu\backgrounds">
+      <UniqueIdentifier>{1f76dac9-b716-4fd5-bcd1-1d7809ccbbe9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="images\menu\titlescreen">
+      <UniqueIdentifier>{eee67790-84f6-40bd-b826-a7c290d10af0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="images\menu\buttons">
+      <UniqueIdentifier>{d7010ce7-d0c7-463e-ab0f-c82f4c7e9203}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameLibrary\Actor\Actor.cpp">
@@ -612,11 +627,23 @@
     </Font>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="images\sonic.png">
-      <Filter>images</Filter>
+    <Image Include="images\menu\backgrounds\circles.png">
+      <Filter>images\menu\backgrounds</Filter>
     </Image>
-    <Image Include="images\tails.png">
-      <Filter>images</Filter>
+    <Image Include="images\menu\titlescreen\logo.png">
+      <Filter>images\menu\titlescreen</Filter>
+    </Image>
+    <Image Include="images\menu\buttons\smash.png">
+      <Filter>images\menu\buttons</Filter>
+    </Image>
+    <Image Include="images\menu\buttons\solo.png">
+      <Filter>images\menu\buttons</Filter>
+    </Image>
+    <Image Include="images\test\sonic.png">
+      <Filter>images\test</Filter>
+    </Image>
+    <Image Include="images\test\tails.png">
+      <Filter>images\test</Filter>
     </Image>
   </ItemGroup>
 </Project>

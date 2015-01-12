@@ -260,8 +260,12 @@
     <Font Include="fonts\arial.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="images\tails.png" />
-    <Image Include="images\sonic.png" />
+    <Image Include="images\menu\backgrounds\circles.png" />
+    <Image Include="images\menu\buttons\smash.png" />
+    <Image Include="images\menu\buttons\solo.png" />
+    <Image Include="images\menu\titlescreen\logo.png" />
+    <Image Include="images\test\sonic.png" />
+    <Image Include="images\test\tails.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
