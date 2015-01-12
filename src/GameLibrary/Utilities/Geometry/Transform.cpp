@@ -95,7 +95,7 @@ namespace GameLibrary
 		return transform(point.x, point.y);
 	}
 	
-	Rectangle Transform::transform(const Rectangle& rectangle) const
+	RectangleI Transform::transform(const RectangleI& rectangle) const
 	{
 		// Transform the 4 corners of the rectangle
 		const Vector2f points[] =
@@ -131,7 +131,7 @@ namespace GameLibrary
 			}
 		}
 		
-		return Rectangle((int)left, (int)top, (int)(right-left), (int)(bottom-top));
+		return RectangleI((int)left, (int)top, (int)(right-left), (int)(bottom-top));
 	}
 	
 	RectangleF Transform::transform(const RectangleF& rectangle) const

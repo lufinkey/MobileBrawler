@@ -365,14 +365,14 @@ namespace GameLibrary
 		return assetManager;
 	}
 	
-	Rectangle Window::getDisplayBounds(unsigned int displayIndex)
+	RectangleI Window::getDisplayBounds(unsigned int displayIndex)
 	{
 		SDL_Rect rect;
 		if(SDL_GetDisplayBounds((int)displayIndex, &rect) == 0)
 		{
-			return Rectangle(rect.x,rect.y,rect.w,rect.h);
+			return RectangleI(rect.x,rect.y,rect.w,rect.h);
 		}
-		return Rectangle();
+		return RectangleI();
 	}
 	
 	const Vector2i& Window::getPosition()

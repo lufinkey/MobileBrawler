@@ -128,6 +128,12 @@ namespace GameLibrary
 		scale = s;
 		updateSize();
 	}
+	
+	void BaseActor::setScaleToRect(const RectangleF&rect)
+	{
+		RectangleF frame = getFrame();
+		//TODO implement this
+	}
 
 	void BaseActor::setFrameVisible(bool toggle)
 	{

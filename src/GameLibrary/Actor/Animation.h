@@ -59,8 +59,8 @@ namespace GameLibrary
 
 		TextureImage* getImage(unsigned int frameNum) const;
 		TextureImage* getImage() const;
-		Rectangle getImageSourceRect(unsigned int frameNum) const;
-		Rectangle getImageSourceRect() const;
+		RectangleI getImageSourceRect(unsigned int frameNum) const;
+		RectangleI getImageSourceRect() const;
 
 		virtual RectangleF getFrame() const;
 		RectangleF getFrame(unsigned int frameNum) const;
@@ -81,7 +81,7 @@ namespace GameLibrary
 			AnimationFrame(const String&file, TextureImage*img=nullptr);
 			AnimationFrame(const String&file, unsigned int rows, unsigned int cols, unsigned int row, unsigned int col, TextureImage*img=nullptr);
 			
-			Rectangle getSourceRect() const;
+			RectangleI getSourceRect() const;
 		};
 
 		Animation(unsigned int fps);

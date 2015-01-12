@@ -79,6 +79,8 @@ namespace GameLibrary
 					
 					graphics.drawImage(image, frame.x+offset.x, frame.y+offset.y, fixedWidth, fixedHeight);
 				}
+
+				//TODO add sizing up if the image is smaller than the frame
 			}
 			else
 			{

@@ -77,8 +77,6 @@ namespace GameLibrary
 		//Geometry
 		class Circle;
 		class Polygon;
-		class Rectangle;
-		class RectangleF;
 		class Transform;
 		//Time
 		class DateTime;

@@ -115,7 +115,7 @@ namespace GameLibrary
 		virtual Graphics* getGraphics();
 		AssetManager* getAssetManager();
 
-		static Rectangle getDisplayBounds(unsigned int displayIndex);
+		static RectangleI getDisplayBounds(unsigned int displayIndex);
 		
 		const Vector2i& getPosition();
 		void setPosition(const Vector2i&);

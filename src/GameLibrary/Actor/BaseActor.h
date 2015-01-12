@@ -44,6 +44,7 @@ namespace GameLibrary
 		void setRotation(float degrees);
 		void setAlpha(float alpha);
 		void setScale(float scale);
+		void setScaleToRect(const RectangleF&rect);
 		void setFrameVisible(bool);
 		void setFrameColor(const Color&);
 		void setMirrored(bool);

@@ -147,7 +147,6 @@
     <ClCompile Include="src\GameLibrary\Utilities\Font\RenderedGlyphContainer.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Geometry\Circle.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Geometry\Polygon.cpp" />
-    <ClCompile Include="src\GameLibrary\Utilities\Geometry\Rectangle.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Geometry\Transform.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Math.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\String.cpp" />

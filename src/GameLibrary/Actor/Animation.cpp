@@ -43,17 +43,17 @@ namespace GameLibrary
 		img = tximg;
 	}
 
-	Rectangle Animation::AnimationFrame::getSourceRect() const
+	RectangleI Animation::AnimationFrame::getSourceRect() const
 	{
 		if(img == nullptr)
 		{
-			return Rectangle(0,0,0,0);
+			return RectangleI(0,0,0,0);
 		}
 		else
 		{
 			unsigned int width = (img->getWidth()/cols);
 			unsigned int height = (img->getHeight()/rows);
-			return Rectangle((int)(x*width), (int)(y*height), (int)width, (int)height);
+			return RectangleI((int)(x*width), (int)(y*height), (int)width, (int)height);
 		}
 	}
 
@@ -285,7 +285,7 @@ namespace GameLibrary
 		return getImage(currentFrame);
 	}
 
-	Rectangle Animation::getImageSourceRect(unsigned int fNum) const
+	RectangleI Animation::getImageSourceRect(unsigned int fNum) const
 	{
 		unsigned int frameNum = fNum;
 		unsigned int totalFrames = frames.size();
@@ -303,7 +303,7 @@ namespace GameLibrary
 		return frames.get(frameNum).getSourceRect();
 	}
 
-	Rectangle Animation::getImageSourceRect() const
+	RectangleI Animation::getImageSourceRect() const
 	{
 		return getImageSourceRect(currentFrame);
 	}
@@ -371,7 +371,7 @@ namespace GameLibrary
 		const AnimationFrame& animFrame = frames.get(drawFrame);
 
 		RectangleF dstRect = getFrame(drawFrame);
-		Rectangle srcRect = animFrame.getSourceRect();
+		RectangleI srcRect = animFrame.getSourceRect();
 
 		float dst_left = dstRect.x;
 		float dst_top = dstRect.y;

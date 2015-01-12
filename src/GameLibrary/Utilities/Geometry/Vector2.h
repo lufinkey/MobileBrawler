@@ -17,16 +17,14 @@ namespace GameLibrary
 			//
 		}
 
-		Vector2(const T&X, const T&Y)
+		Vector2(const T&X, const T&Y) : x(X), y(Y)
 		{
-			x = X;
-			y = Y;
+			//
 		}
 
-		Vector2(const Vector2<T>&vect)
+		Vector2(const Vector2<T>&vect) : x(vect.x), y(vect.y)
 		{
-			x = vect.x;
-			y = vect.y;
+			//
 		}
 
 		void operator=(const Vector2<T>&vect)

@@ -106,7 +106,7 @@ namespace GameLibrary
 
 	int Application::loadMainWindow(const WindowSettings&windowSettings, int orientations)
 	{
-		Rectangle displayRect = Window::getDisplayBounds(0);
+		RectangleI displayRect = Window::getDisplayBounds(0);
 
 		unsigned int bigger;
 		unsigned int smaller;

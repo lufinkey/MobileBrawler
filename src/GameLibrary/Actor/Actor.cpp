@@ -373,7 +373,7 @@ namespace GameLibrary
 			}
 			
 			TextureImage* img = animation_current->getImage(animation_frame);
-			Rectangle srcRect = animation_current->getImageSourceRect(animation_frame);
+			RectangleI srcRect = animation_current->getImageSourceRect(animation_frame);
 			unsigned int pxlX = (unsigned int)(ratX*((float)srcRect.width));
 			unsigned int pxlY = (unsigned int)(ratY*((float)srcRect.height));
 

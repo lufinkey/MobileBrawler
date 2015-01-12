@@ -611,7 +611,7 @@ namespace GameLibrary
 		}
 	}
 
-	void Graphics::drawImage(TextureImage*img, const RectangleF& dst, const Rectangle& src)
+	void Graphics::drawImage(TextureImage*img, const RectangleF& dst, const RectangleI& src)
 	{
 		drawImage(img, dst.x, dst.y, dst.x+dst.width, dst.y+dst.height, src.x, src.y, src.x+src.width, src.y+src.height);
 	}

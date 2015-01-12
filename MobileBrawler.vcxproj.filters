@@ -234,9 +234,6 @@
     <ClCompile Include="src\GameLibrary\Utilities\Geometry\Polygon.cpp">
       <Filter>src\GameLibrary\Utilities\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameLibrary\Utilities\Geometry\Rectangle.cpp">
-      <Filter>src\GameLibrary\Utilities\Geometry</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameLibrary\Utilities\Geometry\Transform.cpp">
       <Filter>src\GameLibrary\Utilities\Geometry</Filter>
     </ClCompile>
