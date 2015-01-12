@@ -280,10 +280,22 @@ namespace GameLibrary
 		scaling.x *= scaleX;
 		scaling.y *= scaleY;
 	}
-
+	
 	void Graphics::scale(const Vector2f& factors)
 	{
 		scale(factors.x, factors.y);
+	}
+	
+	void Graphics::scale(float scaleX, float scaleY, float originX, float originY)
+	{
+		transform.scale(scaleX,scaleY, originX, originY);
+		scaling.x *= scaleX;
+		scaling.y *= scaleY;
+	}
+
+	void Graphics::scale(const Vector2f& factors, const Vector2f& origin)
+	{
+		scale(factors.x, factors.y, origin.x, origin.y);
 	}
 		
 	void Graphics::translate(float x, float y)

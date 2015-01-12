@@ -19,167 +19,23 @@ namespace GameLibrary
 	{
 		setFrame(getParentElement()->getFrame());
 		ScreenElement::update(appData);
-		
-		ArrayList<Pair<Keyboard::Key, KeyDirection> > keys = menuScreen->keys;
-		for(unsigned int i=0; i<keys.size(); i++)
+		menuScreen->updateItems(appData);
+	}
+	
+	void MenuScreen::MainElement::draw(ApplicationData appData, Graphics graphics) const
+	{
+		unsigned int hoveredIndex = menuScreen->selectedIndex;
+		for(unsigned int i=0; i<menuScreen->items.size(); i++)
 		{
-			Pair<Keyboard::Key, KeyDirection>& keypair = keys.get(i);
-			if(Keyboard::isKeyPressed(keypair.first) && !Keyboard::wasKeyPressed(keypair.first))
+			if(i!=hoveredIndex)
 			{
-				//on key press
-				switch(keypair.second)
-				{
-					case KEYDIR_UP:
-					menuScreen->moveHoverUp();
-					break;
-					
-					case KEYDIR_DOWN:
-					menuScreen->moveHoverDown();
-					break;
-					
-					case KEYDIR_LEFT:
-					menuScreen->moveHoverLeft();
-					break;
-					
-					case KEYDIR_RIGHT:
-					menuScreen->moveHoverRight();
-					break;
-					
-					case KEYDIR_SELECT:
-					if(menuScreen->keyboardEnabled && menuScreen->selectedIndex!=MENUSCREEN_NOSELECTION)
-					{
-						menuScreen->pressingItem = true;
-						menuScreen->onItemPress(menuScreen->selectedIndex);
-					}
-					break;
-				}
-			}
-			else if(Keyboard::wasKeyPressed(keypair.first) && !Keyboard::isKeyPressed(keypair.first))
-			{
-				if(keypair.second==KEYDIR_SELECT)
-				{
-					if(menuScreen->keyboardEnabled && menuScreen->pressingItem)
-					{
-						menuScreen->onItemRelease(menuScreen->selectedIndex);
-						menuScreen->selectCurrentIndex();
-					}
-				}
+				menuScreen->drawItem(appData, graphics, i);
 			}
 		}
-
-		if(!menuScreen->keyboardEnabled)
+		
+		if(hoveredIndex != MENUSCREEN_NOSELECTION)
 		{
-			unsigned int lastSelectedIndex = menuScreen->selectedIndex;
-			//test/update currently hovered actor
-			if(lastSelectedIndex != MENUSCREEN_NOSELECTION)
-			{
-				BaseActor* actor = menuScreen->items.get(lastSelectedIndex);
-				actor->update(appData);
-				if(actor->isMouseOver())
-				{
-					//actor->wasMouseOver() is implied to be true, since we're testing for the currently hovered object
-					if(actor->isMousePressed() && !actor->wasMousePressed())
-					{
-						menuScreen->pressingItem = true;
-						menuScreen->onItemPress(lastSelectedIndex);
-					}
-					else if(menuScreen->pressingItem && !actor->isMousePressed())
-					{
-						menuScreen->pressingItem = false;
-						actor->clearMouseState();
-						menuScreen->onItemRelease(lastSelectedIndex);
-						menuScreen->onItemHoverFinish(lastSelectedIndex);
-						menuScreen->onItemSelect(lastSelectedIndex);
-					}
-				}
-				else
-				{
-					menuScreen->selectedIndex = MENUSCREEN_NOSELECTION;
-					if(menuScreen->pressingItem)
-					{
-						menuScreen->pressingItem = false;
-						menuScreen->onItemPressCancel(lastSelectedIndex);
-					}
-					menuScreen->onItemHoverFinish(lastSelectedIndex);
-				}
-			}
-
-			ArrayList<BaseActor*> menuItems = menuScreen->items;
-
-			//test/update other actors
-			for(unsigned int i=0; i<menuItems.size(); i++)
-			{
-				if(i != lastSelectedIndex)
-				{
-					BaseActor* actor = menuItems.get(i);
-
-					//make sure actor wasn't added or removed from the screen during an event
-					unsigned int actorIndex = ARRAYLIST_NOTFOUND;
-					if(i<menuScreen->items.size() && menuScreen->items.get(i)==actor)
-					{
-						actorIndex = i;
-					}
-					else
-					{
-						actorIndex = menuScreen->items.indexOf(actor);
-					}
-
-					//if the actor is still in the screen
-					if(actorIndex!=ARRAYLIST_NOTFOUND)
-					{
-						actor->update(appData);
-						
-						//checking selection by mouse
-						if(!menuScreen->keyboardEnabled)
-						{
-							if(menuScreen->selectedIndex == MENUSCREEN_NOSELECTION)
-							{
-								if(actor->isMouseOver())
-								{
-									//actor->wasMouseOver() is implied to be false, since we're testing for objects that are not the current value of MenuScreen::selectedIndex
-									
-									//make sure actor wasn't added or removed from the screen during an event
-									if(actorIndex<menuScreen->items.size() && menuScreen->items.get(actorIndex)==actor)
-									{
-										menuScreen->selectedIndex = actorIndex;
-									}
-									else
-									{
-										actorIndex = menuScreen->items.indexOf(actor);
-									}
-									
-									//check item's mouse hover/press state
-									if(actorIndex != MENUSCREEN_NOSELECTION)
-									{
-										menuScreen->selectedIndex = actorIndex;
-										menuScreen->onItemHover(menuScreen->selectedIndex);
-										
-										//make sure actor wasn't added or removed from the screen during an event
-										if(actorIndex<menuScreen->items.size() && menuScreen->items.get(actorIndex)==actor)
-										{
-											menuScreen->selectedIndex = actorIndex;
-										}
-										else
-										{
-											actorIndex = menuScreen->items.indexOf(actor);
-										}
-										
-										//check item's mouse press state
-										if(actorIndex!=ARRAYLIST_NOTFOUND && menuScreen->selectedIndex==actorIndex && !menuScreen->keyboardEnabled)
-										{
-											if(actor->isMousePressed() && !actor->wasMousePressed())
-											{
-												menuScreen->pressingItem = true;
-												menuScreen->onItemPress(menuScreen->selectedIndex);
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
+			menuScreen->drawItem(appData, graphics, hoveredIndex);
 		}
 	}
 	
@@ -250,11 +106,6 @@ namespace GameLibrary
 		menuScreen->setKeyboardEnabled(false);
 	}
 	
-	void MenuScreen::MainElement::draw(ApplicationData appData, Graphics graphics) const
-	{
-		ScreenElement::draw(appData, graphics);
-	}
-	
 //MenuScreen
 	MenuScreen::MenuScreen() : MenuScreen(nullptr)
 	{
@@ -284,14 +135,190 @@ namespace GameLibrary
 		items.clear();
 	}
 	
-	unsigned int MenuScreen::addItem(const Vector2f&position, Animation*animation, const Animation::Direction&direction, bool destruct)
+	void MenuScreen::updateItems(ApplicationData appData)
+	{
+		ArrayList<Pair<Keyboard::Key, KeyDirection> > keyList = keys;
+		for(unsigned int i=0; i<keyList.size(); i++)
+		{
+			Pair<Keyboard::Key, KeyDirection>& keypair = keyList.get(i);
+			if(Keyboard::isKeyPressed(keypair.first) && !Keyboard::wasKeyPressed(keypair.first))
+			{
+				//on key press
+				switch(keypair.second)
+				{
+					case KEYDIR_UP:
+					moveHoverUp();
+					break;
+					
+					case KEYDIR_DOWN:
+					moveHoverDown();
+					break;
+					
+					case KEYDIR_LEFT:
+					moveHoverLeft();
+					break;
+					
+					case KEYDIR_RIGHT:
+					moveHoverRight();
+					break;
+					
+					case KEYDIR_SELECT:
+					if(keyboardEnabled && selectedIndex!=MENUSCREEN_NOSELECTION)
+					{
+						pressingItem = true;
+						onItemPress(selectedIndex);
+					}
+					break;
+				}
+			}
+			else if(Keyboard::wasKeyPressed(keypair.first) && !Keyboard::isKeyPressed(keypair.first))
+			{
+				if(keypair.second==KEYDIR_SELECT)
+				{
+					if(keyboardEnabled && pressingItem)
+					{
+						onItemRelease(selectedIndex);
+						selectCurrentIndex();
+					}
+				}
+			}
+		}
+
+		if(!keyboardEnabled)
+		{
+			unsigned int lastSelectedIndex = selectedIndex;
+			//test/update currently hovered actor
+			if(lastSelectedIndex != MENUSCREEN_NOSELECTION)
+			{
+				BaseActor* actor = items.get(lastSelectedIndex);
+				actor->update(appData);
+				if(actor->isMouseOver())
+				{
+					//actor->wasMouseOver() is implied to be true, since we're testing for the currently hovered object
+					if(actor->isMousePressed() && !actor->wasMousePressed())
+					{
+						pressingItem = true;
+						onItemPress(lastSelectedIndex);
+					}
+					else if(pressingItem && !actor->isMousePressed())
+					{
+						pressingItem = false;
+						actor->clearMouseState();
+						onItemRelease(lastSelectedIndex);
+						onItemHoverFinish(lastSelectedIndex);
+						onItemSelect(lastSelectedIndex);
+					}
+				}
+				else
+				{
+					selectedIndex = MENUSCREEN_NOSELECTION;
+					if(pressingItem)
+					{
+						pressingItem = false;
+						onItemPressCancel(lastSelectedIndex);
+					}
+					onItemHoverFinish(lastSelectedIndex);
+				}
+			}
+
+			ArrayList<BaseActor*> menuItems = items;
+
+			//test/update other actors
+			for(unsigned int i=0; i<menuItems.size(); i++)
+			{
+				if(i != lastSelectedIndex)
+				{
+					BaseActor* actor = menuItems.get(i);
+
+					//make sure actor wasn't added or removed from the screen during an event
+					unsigned int actorIndex = ARRAYLIST_NOTFOUND;
+					if(i<items.size() && items.get(i)==actor)
+					{
+						actorIndex = i;
+					}
+					else
+					{
+						actorIndex = items.indexOf(actor);
+					}
+
+					//if the actor is still in the screen
+					if(actorIndex!=ARRAYLIST_NOTFOUND)
+					{
+						actor->update(appData);
+						
+						//checking selection by mouse
+						if(!keyboardEnabled)
+						{
+							if(selectedIndex == MENUSCREEN_NOSELECTION)
+							{
+								if(actor->isMouseOver())
+								{
+									//actor->wasMouseOver() is implied to be false, since we're testing for objects that are not the current value of MenuScreen::selectedIndex
+									
+									//make sure actor wasn't added or removed from the screen during an event
+									if(actorIndex<items.size() && items.get(actorIndex)==actor)
+									{
+										selectedIndex = actorIndex;
+									}
+									else
+									{
+										actorIndex = items.indexOf(actor);
+									}
+									
+									//check item's mouse hover/press state
+									if(actorIndex != MENUSCREEN_NOSELECTION)
+									{
+										selectedIndex = actorIndex;
+										onItemHover(selectedIndex);
+										
+										//make sure actor wasn't added or removed from the screen during an event
+										if(actorIndex<items.size() && items.get(actorIndex)==actor)
+										{
+											selectedIndex = actorIndex;
+										}
+										else
+										{
+											actorIndex = items.indexOf(actor);
+										}
+										
+										//check item's mouse press state
+										if(actorIndex!=ARRAYLIST_NOTFOUND && selectedIndex==actorIndex && !keyboardEnabled)
+										{
+											if(actor->isMousePressed() && !actor->wasMousePressed())
+											{
+												pressingItem = true;
+												onItemPress(selectedIndex);
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	void MenuScreen::drawItem(ApplicationData appData, Graphics graphics, unsigned int itemIndex) const
+	{
+		BaseActor* actor = items.get(itemIndex);
+		actor->draw(appData, graphics);
+	}
+	
+	unsigned int MenuScreen::addItem(const Vector2f&position, Animation*animation, const Animation::Direction&direction, bool destructAnimation)
 	{
 		if(animation == nullptr)
 		{
 			throw IllegalArgumentException("Cannot add an item with a null Animation to a GameLibrary::MenuScreen object");
 		}
+		else if(!(direction==Animation::FORWARD || direction==Animation::BACKWARD || direction==Animation::STOPPED || direction==Animation::NO_CHANGE))
+		{
+			throw IllegalArgumentException((String)"Invalid value " + direction + "for \"direction\" argument");
+		}
 		ImageItem* actor = new ImageItem(this, position.x, position.y);
-		actor->addAnimation("default", animation, destruct);
+		actor->addAnimation("default", animation, destructAnimation);
+		actor->changeAnimation("default", direction);
 		items.add(actor);
 		return items.size()-1;
 	}
@@ -334,7 +361,7 @@ namespace GameLibrary
 		return items.size();
 	}
 	
-	BaseActor* MenuScreen::getItem(unsigned int index)
+	BaseActor* MenuScreen::getItem(unsigned int index) const
 	{
 		return items.get(index);
 	}

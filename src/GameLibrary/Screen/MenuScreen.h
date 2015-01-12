@@ -21,12 +21,12 @@ namespace GameLibrary
 		MenuScreen(Window*window);
 		virtual ~MenuScreen();
 		
-		unsigned int addItem(const Vector2f&position, Animation*animation, const Animation::Direction&direction, bool destruct=true);
+		unsigned int addItem(const Vector2f&position, Animation*animation, const Animation::Direction&direction=Animation::FORWARD, bool destructAnimation=true);
 		unsigned int addItem(const Vector2f&position, const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontsize=18, const Font::Style&fontstyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_CENTER);
 		void removeItem(unsigned int index);
 		unsigned int getTotalItems();
 		
-		BaseActor* getItem(unsigned int index);
+		BaseActor* getItem(unsigned int index) const;
 		
 		virtual void onItemHover(unsigned int index);
 		virtual void onItemHoverFinish(unsigned int index);
@@ -53,6 +53,10 @@ namespace GameLibrary
 		
 		bool isKeyboardEnabled() const;
 		unsigned int getSelectedIndex() const;
+		
+	protected:
+		virtual void updateItems(ApplicationData appData);
+		virtual void drawItem(ApplicationData appData, Graphics graphics, unsigned int itemIndex) const;
 		
 	private:
 		class MainElement : public GameLibrary::ScreenElement

@@ -192,6 +192,8 @@ namespace GameLibrary
 		}
 
 		apptime.start();
+		
+		float framespeedMult = (float)(((long double)1000)/((long double)sleeptime));
 
 		while(app_running && !app_closing)
 		{
@@ -201,7 +203,7 @@ namespace GameLibrary
 
 			TimeInterval currentapptime = apptime;
 			currentapptime.stop();
-			ApplicationData appdata(this,window,window->getAssetManager(),currentapptime,window->getViewTransform());
+			ApplicationData appdata(this,window,window->getAssetManager(),currentapptime,window->getViewTransform(), framespeedMult);
 			if(!app_closing)
 			{
 				update(appdata);
@@ -225,6 +227,12 @@ namespace GameLibrary
 					unsigned long long adjustedSleepTime = sleeptime - totalFrameTime;
 					Thread::sleep(adjustedSleepTime);
 				}
+			}
+			if(!app_closing)
+			{
+				long long actualEndFrameTime = apptime.getMilliseconds();
+				long long totalFrameTime = (long long)(actualEndFrameTime - startFrameTime);
+				framespeedMult = (float)(((long double)1000)/((long double)totalFrameTime));
 			}
 		}
 

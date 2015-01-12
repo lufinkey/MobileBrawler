@@ -1,15 +1,17 @@
 
 #include "ApplicationData.h"
+#include "Application.h"
 
 namespace GameLibrary
 {
-	ApplicationData::ApplicationData(Application*app, Window*win, AssetManager*assetMgr, const TimeInterval&time, const Transform&transfrm)
+	ApplicationData::ApplicationData(Application*app, Window*win, AssetManager*assetMgr, const TimeInterval&time, const Transform&transfrm, float fpsMult)
 	{
 		application = app;
 		window = win;
 		assetManager = assetMgr;
 		timeInterval = time;
 		transform = transfrm;
+		framespeedMult = fpsMult;
 	}
 
 	ApplicationData::ApplicationData(const ApplicationData&appdata)
@@ -19,6 +21,7 @@ namespace GameLibrary
 		assetManager = appdata.assetManager;
 		timeInterval = appdata.timeInterval;
 		transform = appdata.transform;
+		framespeedMult = appdata.framespeedMult;
 	}
 
 	ApplicationData& ApplicationData::operator=(const ApplicationData&appdata)
@@ -28,6 +31,7 @@ namespace GameLibrary
 		assetManager = appdata.assetManager;
 		timeInterval = appdata.timeInterval;
 		transform = appdata.transform;
+		framespeedMult = appdata.framespeedMult;
 
 		return *this;
 	}
@@ -65,6 +69,11 @@ namespace GameLibrary
 	const Transform& ApplicationData::getTransform() const
 	{
 		return transform;
+	}
+	
+	float ApplicationData::getFrameSpeedMultiplier() const
+	{
+		return framespeedMult;
 	}
 
 	void ApplicationData::setApplication(Application*app)

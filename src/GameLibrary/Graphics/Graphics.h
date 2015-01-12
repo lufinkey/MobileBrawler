@@ -59,6 +59,8 @@ namespace GameLibrary
 		
 		virtual void scale(float scaleX, float scaleY);
 		virtual void scale(const Vector2f& factors);
+		virtual void scale(float scaleX, float scaleY, float originX, float originY);
+		virtual void scale(const Vector2f& factors, const Vector2f& origin);
 		
 		virtual void translate(float x, float y);
 		virtual void translate(const Vector2f&delta);

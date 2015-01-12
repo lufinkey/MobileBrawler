@@ -19,9 +19,10 @@ namespace GameLibrary
 		AssetManager* assetManager;
 		TimeInterval timeInterval;
 		Transform transform;
+		float framespeedMult;
 
 	public:
-		ApplicationData(Application*application, Window*window, AssetManager*assetManager, const TimeInterval&timeInterval, const Transform&transform);
+		ApplicationData(Application*application, Window*window, AssetManager*assetManager, const TimeInterval&timeInterval, const Transform&transform, float framespeedMult);
 		ApplicationData(const ApplicationData&);
 
 		ApplicationData& operator=(const ApplicationData&);
@@ -33,6 +34,7 @@ namespace GameLibrary
 		const TimeInterval& getTime() const;
 		Transform& getTransform();
 		const Transform& getTransform() const;
+		float getFrameSpeedMultiplier() const;
 
 		void setApplication(Application*application);
 		void setWindow(Window*window);

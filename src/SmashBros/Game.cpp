@@ -48,8 +48,8 @@ namespace SmashBros
 	{
 		//assetManager->loadTexture("images/tails.png");
 		actor = new Actor(200,200);
-		actor->addAnimation("tails", new Animation(assetManager, 1, "images/tails.png"));
-		actor->addAnimation("sonic", new Animation(assetManager, 16, 8, 1, "images/sonic.png"));
+		actor->addAnimation("tails", new Animation(assetManager, 1, "images/test/tails.png"));
+		actor->addAnimation("sonic", new Animation(assetManager, 16, 8, 1, "images/test/sonic.png"));
 		actor->changeAnimation("sonic", Animation::FORWARD);
 		actor->setScale(6.0f);
 		actor->setFrameColor(Color::GREEN);
@@ -89,7 +89,7 @@ namespace SmashBros
 	void Game::draw(AppData appData, Graphics graphics) const
 	{
 		screenMgr->draw(appData, graphics);
-		/*TextureImage*img = appData.getAssetManager()->getTexture("images/tails.png");
+		/*TextureImage*img = appData.getAssetManager()->getTexture("images/test/tails.png");
 		graphics.drawImage(img, 200,200);*/
 		actor->draw(appData, graphics);
 		textActor->draw(appData, graphics);

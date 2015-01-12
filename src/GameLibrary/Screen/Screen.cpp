@@ -150,7 +150,6 @@ namespace GameLibrary
 	
 	Screen::Screen(Window*wndw)
 	{
-		initialized = false;
 		screenManager = nullptr;
 		parentScreen = nullptr;
 		childScreen = nullptr;
@@ -193,11 +192,6 @@ namespace GameLibrary
 			delete element;
 			element = nullptr;
 		}
-	}
-	
-	void Screen::initialize()
-	{
-		//
 	}
 	
 	void Screen::onWillAppear(const Transition*transition)
