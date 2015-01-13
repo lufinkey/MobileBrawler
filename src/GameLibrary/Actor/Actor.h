@@ -35,6 +35,7 @@ namespace GameLibrary
 		virtual RectangleF getFrame() const;
 		
 		virtual void scaleToFit(const RectangleF&container);
+		void scaleToFit(const Vector2f&size);
 		
 		ActorType getActorType() const;
 		float getWidth() const;

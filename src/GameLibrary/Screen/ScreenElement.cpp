@@ -57,6 +57,7 @@ namespace GameLibrary
 		screen = nullptr;
 		parentElement = nullptr;
 		updatingElements = false;
+		visible = true;
 		backgroundColor = Color::TRANSPARENT;
 	}
 
@@ -96,7 +97,7 @@ namespace GameLibrary
 	
 	void ScreenElement::drawBackground(ApplicationData appData, Graphics graphics) const
 	{
-		if(!backgroundColor.equals(Color::TRANSPARENT))
+		if(visible && !backgroundColor.equals(Color::TRANSPARENT))
 		{
 			RectangleF rect = getFrame();
 			graphics.setColor(backgroundColor);
@@ -255,5 +256,22 @@ namespace GameLibrary
 	const Color& ScreenElement::getBackgroundColor() const
 	{
 		return backgroundColor;
+	}
+	
+	void ScreenElement::setVisible(bool toggle, bool applyToChildren)
+	{
+		visible = toggle;
+		if(applyToChildren)
+		{
+			for(unsigned int i=0; i<childElements.size(); i++)
+			{
+				childElements.get(i)->setVisible(toggle, applyToChildren);
+			}
+		}
+	}
+	
+	bool ScreenElement::isVisible() const
+	{
+		return visible;
 	}
 }

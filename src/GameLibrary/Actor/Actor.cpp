@@ -81,12 +81,23 @@ namespace GameLibrary
 	void Actor::scaleToFit(const RectangleF&container)
 	{
 		RectangleF currentFrame = getFrame();
+		RectangleF oldFrame = currentFrame;
 		currentFrame.scaleToFit(container);
-		float ratio = container.width/currentFrame.width;
+		float ratio = currentFrame.width/oldFrame.width;
 		setScale(getScale()*ratio);
 		RectangleF newFrame = getFrame();
-		x = (container.width-newFrame.width)/2;
-		y = (container.height-newFrame.height)/2;
+		x = container.x + ((container.width-newFrame.width)/2);
+		y = container.y + ((container.height-newFrame.height)/2);
+	}
+	
+	void Actor::scaleToFit(const Vector2f& size)
+	{
+		RectangleF container(0,0,size.x,size.y);
+		RectangleF currentFrame = getFrame();
+		RectangleF oldFrame = currentFrame;
+		currentFrame.scaleToFit(container);
+		float ratio = currentFrame.width/oldFrame.width;
+		setScale(getScale()*ratio);
 	}
 	
 	Actor::ActorType Actor::getActorType() const

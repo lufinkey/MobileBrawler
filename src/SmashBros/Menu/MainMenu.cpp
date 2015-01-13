@@ -8,11 +8,10 @@ namespace SmashBros
 	{
 		MainMenu::MainMenu(AssetManager*assetManager) : SmashBros::Menu::BaseMenuScreen(assetManager)
 		{
-			unsigned int itemIndex = 0;
-			itemIndex = addItem(getScreenCoords(0.31f, 0.437f), new Animation(assetManager, 1, "images/menu/buttons/smash.png"));
-			getItem(itemIndex)->setScale(0.65f);
-			itemIndex = addItem(getScreenCoords(0.745f, 0.516f), new Animation(assetManager, 1, "images/menu/buttons/solo.png"));
-			getItem(itemIndex)->setScale(0.65f);
+			groupButton = getItem(addItem(getScreenCoords(0.31f, 0.437f), new Animation(assetManager, 1, "images/menu/buttons/smash.png")));
+			groupButton->scaleToFit(getScreenCoords(0.5f,0.5f));
+			soloButton = getItem(addItem(getScreenCoords(0.745f, 0.516f), new Animation(assetManager, 1, "images/menu/buttons/solo.png")));
+			soloButton->scaleToFit(getScreenCoords(0.5f,0.5f));
 			
 			backTransition = new FadeColorTransition(Color::BLACK, 0.6f);
 		}

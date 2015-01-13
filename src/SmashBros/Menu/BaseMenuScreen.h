@@ -24,6 +24,7 @@ namespace SmashBros
 			
 			ImageElement* getBackgroundElement() const;
 			SpriteActor* getBackButton() const;
+			ImageElement* getHeaderbarElement() const;
 			
 			void enableHoverPulse(bool);
 			
@@ -35,10 +36,11 @@ namespace SmashBros
 			float hoverPulseScale;
 			bool hoverPulseGrowing;
 			bool hoverPulseEnabled;
-
+			
 			bool hoverPressed;
 			ImageElement* backgroundElement;
 			SpriteActor* backButton;
+			ImageElement* headerbarElement;
 		};
 	}
 }

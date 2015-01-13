@@ -26,7 +26,7 @@ namespace GameLibrary
 	
 	void ImageElement::drawMain(ApplicationData appData, Graphics graphics) const
 	{
-		if(image!=nullptr)
+		if(image!=nullptr && isVisible())
 		{
 			switch(displayMode)
 			{

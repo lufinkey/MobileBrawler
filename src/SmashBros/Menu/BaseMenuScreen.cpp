@@ -14,32 +14,55 @@ namespace SmashBros
 		
 		BaseMenuScreen::BaseMenuScreen(AssetManager*assetManager)
 		{
+			assetManager->loadTexture("images/menu/backgrounds/circles.png");
+			assetManager->loadTexture("images/menu/elements/headerbar_full.png");
+			assetManager->loadTexture("images/menu/elements/headerbar_small.png");
+
 			hoverPulseScale = 1;
 			hoverPulseGrowing = true;
 			hoverPulseEnabled = false;
 			hoverPressed = false;
-			assetManager->loadTexture("images/menu/backgrounds/circles.png");
+			
 			ScreenElement* element = getElement();
-			backgroundElement = new ImageElement(getElement()->getFrame(), assetManager->getTexture("images/menu/backgrounds/circles.png"));
+
+			RectangleF frame = element->getFrame();
+			
+			backgroundElement = new ImageElement(RectangleF(0,0,frame.width, frame.height), assetManager->getTexture("images/menu/backgrounds/circles.png"));
 			backgroundElement->setDisplayMode(ImageElement::DISPLAY_ZOOM);
 			element->addChildElement(backgroundElement);
+			
+			headerbarElement = new ImageElement(RectangleF(0,0,frame.width, 50), assetManager->getTexture("images/menu/elements/headerbar_full.png"));
+			headerbarElement->setDisplayMode(ImageElement::DISPLAY_ZOOM);
+			element->addChildElement(headerbarElement);
+			
+			element->sendChildElementToBack(headerbarElement);
 			element->sendChildElementToBack(backgroundElement);
 			
-			backButton = (SpriteActor*)getItem(addItem(getScreenCoords(0.08f,0.1f), new Animation(assetManager, 1, "images/menu/buttons/back.png")));
+			backButton = (SpriteActor*)getItem(addItem(getScreenCoords(0.07f,0.08f), new Animation(assetManager, 1, "images/menu/buttons/back.png")));
+			backButton->Actor::scaleToFit(getScreenCoords(0.175f,0.175f));
 		}
 		
 		BaseMenuScreen::~BaseMenuScreen()
 		{
 			backgroundElement->removeFromParentElement();
 			delete backgroundElement;
+			headerbarElement->removeFromParentElement();
+			delete headerbarElement;
 		}
 		
 		void BaseMenuScreen::onWillAppear(const Transition*transition)
 		{
 			MenuScreen::onWillAppear(transition);
 			
-			RectangleF screenFrame = getFrame();
-			backgroundElement->setFrame(RectangleF(0,0,screenFrame.width,screenFrame.height));
+			RectangleF frame = getFrame();
+			
+			backgroundElement->setFrame(RectangleF(0,0,frame.width,frame.height));
+			
+			TextureImage* headerbarImage = headerbarElement->getImage();
+			float headerbarImgWidth = (float)headerbarImage->getWidth();
+			float headerbarImgHeight = (float)headerbarImage->getHeight();
+			float ratX = frame.width/headerbarImgWidth;
+			headerbarElement->setFrame(RectangleF(0,0,frame.width, headerbarImgHeight*ratX));
 		}
 		
 		void BaseMenuScreen::updateItems(ApplicationData appData)
@@ -140,6 +163,11 @@ namespace SmashBros
 		SpriteActor* BaseMenuScreen::getBackButton() const
 		{
 			return backButton;
+		}
+		
+		ImageElement* BaseMenuScreen::getHeaderbarElement() const
+		{
+			return headerbarElement;
 		}
 		
 		void BaseMenuScreen::enableHoverPulse(bool toggle)

@@ -109,6 +109,9 @@
     <Filter Include="images\menu\buttons">
       <UniqueIdentifier>{d7010ce7-d0c7-463e-ab0f-c82f4c7e9203}</UniqueIdentifier>
     </Filter>
+    <Filter Include="images\menu\elements">
+      <UniqueIdentifier>{03f3c9b1-4ae0-4628-a366-096d43e9ed2c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameLibrary\Actor\TextActor.cpp">
@@ -641,6 +644,18 @@
     </Image>
     <Image Include="images\test\tails.png">
       <Filter>images\test</Filter>
+    </Image>
+    <Image Include="images\menu\backgrounds\gradient_lightblue_whitestripe.png">
+      <Filter>images\menu\backgrounds</Filter>
+    </Image>
+    <Image Include="images\menu\buttons\back.png">
+      <Filter>images\menu\buttons</Filter>
+    </Image>
+    <Image Include="images\menu\elements\headerbar_full.png">
+      <Filter>images\menu\elements</Filter>
+    </Image>
+    <Image Include="images\menu\elements\headerbar_small.png">
+      <Filter>images\menu\elements</Filter>
     </Image>
   </ItemGroup>
 </Project>

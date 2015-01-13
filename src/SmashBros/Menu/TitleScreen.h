@@ -12,7 +12,7 @@ namespace SmashBros
 		private:
 			FadeColorTransition* transition;
 			MainMenu* mainMenu;
-			ImageElement* titleElement;
+			ImageElement* logo;
 			WireframeActor* tapRegion;
 			
 		protected:

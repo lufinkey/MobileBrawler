@@ -10,6 +10,9 @@ namespace SmashBros
 		class MainMenu : public SmashBros::Menu::BaseMenuScreen
 		{
 		private:
+			Actor* groupButton;
+			Actor* soloButton;
+			
 			FadeColorTransition* backTransition;
 			
 		public:

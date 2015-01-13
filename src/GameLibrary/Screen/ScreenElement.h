@@ -28,6 +28,7 @@ namespace GameLibrary
 
 		mutable bool updatingElements;
 
+		bool visible;
 		Color backgroundColor;
 
 		virtual void setWindow(Window*window);
@@ -66,5 +67,8 @@ namespace GameLibrary
 		
 		void setBackgroundColor(const Color&);
 		const Color& getBackgroundColor() const;
+		
+		void setVisible(bool toggle, bool applyToChildren=true);
+		bool isVisible() const;
 	};
 }

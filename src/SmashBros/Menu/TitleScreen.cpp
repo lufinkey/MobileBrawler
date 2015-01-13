@@ -14,16 +14,16 @@ namespace SmashBros
 			getBackgroundElement()->setImage(assetManager->getTexture("images/menu/backgrounds/gradient_lightblue_whitestripe.png"));
 			
 			assetManager->loadTexture("images/menu/titlescreen/logo.png");
-			TextureImage* titleImage = assetManager->getTexture("images/menu/titlescreen/logo.png");
-			Vector2f titleImageSize(0,0);
-			if(titleImage != nullptr)
+			TextureImage* logoImage = assetManager->getTexture("images/menu/titlescreen/logo.png");
+			Vector2f logoImageSize(0,0);
+			if(logoImage != nullptr)
 			{
-				titleImageSize.x = (float)titleImage->getWidth();
-				titleImageSize.y = (float)titleImage->getHeight();
+				logoImageSize.x = (float)logoImage->getWidth();
+				logoImageSize.y = (float)logoImage->getHeight();
 			}
-			RectangleF titleElementFrame(screenCenter.x-(titleImageSize.x/2), screenCenter.y-(titleImageSize.y/2), titleImageSize.x, titleImageSize.y);
-			titleElement = new ImageElement(titleElementFrame, titleImage);
-			getElement()->addChildElement(titleElement);
+			RectangleF logoFrame(screenCenter.x-(logoImageSize.x/2), screenCenter.y-(logoImageSize.y/2), logoImageSize.x, logoImageSize.y);
+			logo = new ImageElement(logoFrame, logoImage);
+			getElement()->addChildElement(logo);
 			
 			mainMenu = new MainMenu(assetManager);
 			transition = new FadeColorTransition(Color::WHITE, 0.6f);
@@ -31,14 +31,15 @@ namespace SmashBros
 			tapRegion = new WireframeActor();
 			
 			getBackButton()->setVisible(false);
+			getHeaderbarElement()->setVisible(false);
 		}
 		
 		TitleScreen::~TitleScreen()
 		{
 			delete mainMenu;
 			delete transition;
-			titleElement->removeFromParentElement();
-			delete titleElement;
+			logo->removeFromParentElement();
+			delete logo;
 			delete tapRegion;
 		}
 		
@@ -53,9 +54,9 @@ namespace SmashBros
 			tapRegion->y = 0;
 			tapRegion->setSize(bounds.width, bounds.height);
 			
-			RectangleF titleElementFrame = titleElement->getFrame();
-			titleElementFrame.scaleToFit(bounds);
-			titleElement->setFrame(titleElementFrame);
+			RectangleF logoFrame = logo->getFrame();
+			logoFrame.scaleToFit(bounds);
+			logo->setFrame(logoFrame);
 		}
 		
 		void TitleScreen::updateItems(ApplicationData appData)

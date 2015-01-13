@@ -166,12 +166,13 @@ namespace GameLibrary
 	void SpriteActor::scaleToFit(const RectangleF&container)
 	{
 		RectangleF currentFrame = getFrame();
+		RectangleF oldFrame = currentFrame;
 		currentFrame.scaleToFit(container);
-		float ratio = container.width/currentFrame.width;
+		float ratio = currentFrame.width/oldFrame.width;
 		setScale(getScale()*ratio);
 
-		x = container.width/2;
-		y = container.height/2;
+		x = container.x + (container.width/2);
+		y = container.y + (container.height/2);
 	}
 	
 	void SpriteActor::onAnimationFinish(Animation*animation)

@@ -260,8 +260,12 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="images\menu\backgrounds\circles.png" />
+    <Image Include="images\menu\backgrounds\gradient_lightblue_whitestripe.png" />
+    <Image Include="images\menu\buttons\back.png" />
     <Image Include="images\menu\buttons\smash.png" />
     <Image Include="images\menu\buttons\solo.png" />
+    <Image Include="images\menu\elements\headerbar_full.png" />
+    <Image Include="images\menu\elements\headerbar_small.png" />
     <Image Include="images\menu\titlescreen\logo.png" />
     <Image Include="images\test\sonic.png" />
     <Image Include="images\test\tails.png" />
