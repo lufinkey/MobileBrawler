@@ -99,7 +99,6 @@ namespace GameLibrary
 			long long currentTime = appData.getTime().getMilliseconds();
 			long long timeDif = currentTime - data.startTime;
 			data.progress = (float)(((double)timeDif) / ((double)data.duration));
-			
 			if(data.progress >= 1)
 			{
 				finishedAction = data.action;

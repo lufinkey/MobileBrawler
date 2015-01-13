@@ -9,6 +9,9 @@ namespace SmashBros
 	{
 		class MainMenu : public SmashBros::Menu::BaseMenuScreen
 		{
+		private:
+			FadeColorTransition* backTransition;
+			
 		public:
 			MainMenu(AssetManager*assetManager);
 			virtual ~MainMenu();

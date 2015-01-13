@@ -11,7 +11,7 @@ namespace SmashBros
 		screenMgr = nullptr;
 		rootScrn = nullptr;
 	}
-
+	
 	Game::~Game()
 	{
 		if(screenMgr != nullptr)
@@ -23,30 +23,30 @@ namespace SmashBros
 			delete rootScrn;
 		}
 	}
-
+	
 	void Game::initialize()
 	{
 		this->getWindow()->setSize(Vector2u(SMASHBROS_WINDOWWIDTH, SMASHBROS_WINDOWHEIGHT));
 		this->getWindow()->getView()->setSize(SMASHBROS_WINDOWWIDTH, SMASHBROS_WINDOWHEIGHT);
 		setFPS(60);
 	}
-
+	
 	void Game::loadContent(AssetManager*assetManager)
 	{
 		rootScrn = new Menu::TitleScreen(assetManager);
 		screenMgr = new ScreenManager(getWindow(), rootScrn);
 	}
-
+	
 	void Game::unloadContent(AssetManager*assetManager)
 	{
 		//
 	}
-
+	
 	void Game::update(AppData appData)
 	{
 		screenMgr->update(appData);
 	}
-
+	
 	void Game::draw(AppData appData, Graphics graphics) const
 	{
 		screenMgr->draw(appData, graphics);

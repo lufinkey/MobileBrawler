@@ -389,7 +389,7 @@ namespace GameLibrary
 	void Actor::updateMouse(ApplicationData&appData)
 	{
 		Window* window = appData.getWindow();
-		Transform& mouseTransform = appData.getTransform();
+		Transform& mouseTransform = appData.getTransform().getInverse();
 		
 		mouseover = false;
 		clicked = false;
@@ -493,7 +493,7 @@ namespace GameLibrary
 	void Actor::updateTouch(ApplicationData&appData)
 	{
 		Window* window = appData.getWindow();
-		Transform& mouseTransform = appData.getTransform();
+		Transform& mouseTransform = appData.getTransform().getInverse();
 		
 		mouseover = false;
 		clicked = false;

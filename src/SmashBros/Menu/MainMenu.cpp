@@ -13,6 +13,8 @@ namespace SmashBros
 			getItem(itemIndex)->setScale(0.65f);
 			itemIndex = addItem(getScreenCoords(0.745f, 0.516f), new Animation(assetManager, 1, "images/menu/buttons/solo.png"));
 			getItem(itemIndex)->setScale(0.65f);
+			
+			backTransition = new FadeColorTransition(Color::BLACK, 0.6f);
 		}
 		
 		MainMenu::~MainMenu()
@@ -22,7 +24,15 @@ namespace SmashBros
 		
 		void MainMenu::onItemSelect(unsigned int index)
 		{
-			Console::writeLine((String)"selected index " + index);
+			Actor* item = getItem(index);
+			ScreenManager* screenMgr = getScreenManager();
+			if(screenMgr!=nullptr)
+			{
+				if(item == getBackButton())
+				{
+					screenMgr->pop(backTransition, 2000);
+				}
+			}
 		}
 	}
 }

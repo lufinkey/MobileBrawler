@@ -23,6 +23,8 @@ namespace SmashBros
 			virtual ~TitleScreen();
 			
 			virtual void onWillAppear(const Transition*transition);
+			
+			virtual void onItemSelect(unsigned int index);
 		};
 	}
 }

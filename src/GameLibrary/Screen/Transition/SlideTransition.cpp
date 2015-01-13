@@ -36,19 +36,19 @@ namespace GameLibrary
 		Vector2f mainSize;
 		if(e1rect.x > e2rect.x)
 		{
-			mainSize.x = e1rect.x;
+			mainSize.x = e1rect.width;
 		}
 		else
 		{
-			mainSize.x = e2rect.x;
+			mainSize.x = e2rect.width;
 		}
 		if(e1rect.y > e2rect.y)
 		{
-			mainSize.y = e1rect.y;
+			mainSize.y = e1rect.height;
 		}
 		else
 		{
-			mainSize.y = e2rect.y;
+			mainSize.y = e2rect.height;
 		}
 		
 		switch(direction)

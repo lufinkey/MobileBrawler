@@ -11,8 +11,7 @@ namespace SmashBros
 			Vector2f screenCenter = getScreenCoords(0.5f, 0.5f);
 
 			assetManager->loadTexture("images/menu/backgrounds/gradient_lightblue_whitestripe.png");
-			TextureImage* backgroundImage = assetManager->getTexture("images/menu/backgrounds/gradient_lightblue_whitestripe.png");
-			getBackgroundElement()->setImage(backgroundImage);
+			getBackgroundElement()->setImage(assetManager->getTexture("images/menu/backgrounds/gradient_lightblue_whitestripe.png"));
 			
 			assetManager->loadTexture("images/menu/titlescreen/logo.png");
 			TextureImage* titleImage = assetManager->getTexture("images/menu/titlescreen/logo.png");
@@ -27,9 +26,11 @@ namespace SmashBros
 			getElement()->addChildElement(titleElement);
 			
 			mainMenu = new MainMenu(assetManager);
-			transition = new FadeColorTransition(Color::WHITE, 0.5f);
+			transition = new FadeColorTransition(Color::WHITE, 0.6f);
 			
 			tapRegion = new WireframeActor();
+			
+			getBackButton()->setVisible(false);
 		}
 		
 		TitleScreen::~TitleScreen()
@@ -54,9 +55,6 @@ namespace SmashBros
 			
 			RectangleF titleElementFrame = titleElement->getFrame();
 			titleElementFrame.scaleToFit(bounds);
-			Transform transform;
-			transform.scale(0.7f, 0.7f, bounds.width/2, bounds.height/2);
-			titleElementFrame = transform.transform(titleElementFrame);
 			titleElement->setFrame(titleElementFrame);
 		}
 		
@@ -69,9 +67,14 @@ namespace SmashBros
 				ScreenManager* screenMgr = getScreenManager();
 				if(screenMgr!=nullptr)
 				{
-					screenMgr->push(mainMenu, transition, 1000);
+					screenMgr->push(mainMenu, transition, 2000);
 				}
 			}
+		}
+		
+		void TitleScreen::onItemSelect(unsigned int index)
+		{
+			//no behavior
 		}
 	}
 }

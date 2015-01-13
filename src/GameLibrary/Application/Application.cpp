@@ -206,7 +206,7 @@ namespace GameLibrary
 
 			TimeInterval currentapptime = apptime;
 			currentapptime.stop();
-			ApplicationData appdata(this,window,window->getAssetManager(),currentapptime,window->getViewTransform().getInverse(), framespeedMult);
+			ApplicationData appdata(this,window,window->getAssetManager(),currentapptime,window->getViewTransform(), framespeedMult);
 			if(!app_closing)
 			{
 				update(appdata);

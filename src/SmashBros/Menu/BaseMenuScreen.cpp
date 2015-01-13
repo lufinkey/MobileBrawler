@@ -1,5 +1,6 @@
 
 #include "BaseMenuScreen.h"
+#include "../Global.h"
 
 namespace SmashBros
 {
@@ -15,6 +16,7 @@ namespace SmashBros
 		{
 			hoverPulseScale = 1;
 			hoverPulseGrowing = true;
+			hoverPulseEnabled = false;
 			hoverPressed = false;
 			assetManager->loadTexture("images/menu/backgrounds/circles.png");
 			ScreenElement* element = getElement();
@@ -22,6 +24,8 @@ namespace SmashBros
 			backgroundElement->setDisplayMode(ImageElement::DISPLAY_ZOOM);
 			element->addChildElement(backgroundElement);
 			element->sendChildElementToBack(backgroundElement);
+			
+			backButton = (SpriteActor*)getItem(addItem(getScreenCoords(0.08f,0.1f), new Animation(assetManager, 1, "images/menu/buttons/back.png")));
 		}
 		
 		BaseMenuScreen::~BaseMenuScreen()
@@ -42,23 +46,26 @@ namespace SmashBros
 		{
 			if(getSelectedIndex() != MENUSCREEN_NOSELECTION)
 			{
-				float scaleIncrement = PULSE_SPEED * appData.getFrameSpeedMultiplier();
-				if(hoverPulseGrowing)
+				if(hoverPulseEnabled)
 				{
-					hoverPulseScale += scaleIncrement;
-					if(hoverPulseScale >= PULSE_UPPERBOUND)
+					float scaleIncrement = PULSE_SPEED * appData.getFrameSpeedMultiplier();
+					if(hoverPulseGrowing)
 					{
-						hoverPulseScale = PULSE_UPPERBOUND;
-						hoverPulseGrowing = false;
+						hoverPulseScale += scaleIncrement;
+						if(hoverPulseScale >= PULSE_UPPERBOUND)
+						{
+							hoverPulseScale = PULSE_UPPERBOUND;
+							hoverPulseGrowing = false;
+						}
 					}
-				}
-				else
-				{
-					hoverPulseScale -= scaleIncrement;
-					if(hoverPulseScale <= PULSE_LOWERBOUND)
+					else
 					{
-						hoverPulseScale = PULSE_LOWERBOUND;
-						hoverPulseGrowing = true;
+						hoverPulseScale -= scaleIncrement;
+						if(hoverPulseScale <= PULSE_LOWERBOUND)
+						{
+							hoverPulseScale = PULSE_LOWERBOUND;
+							hoverPulseGrowing = true;
+						}
 					}
 				}
 			}
@@ -87,16 +94,14 @@ namespace SmashBros
 		void BaseMenuScreen::onItemHover(unsigned int index)
 		{
 			#if defined(TARGETPLATFORM_DESKTOP)
-				hoverPulseScale = 1;
-				hoverPulseGrowing = true;
+				enableHoverPulse(true);
 			#endif
 		}
 		
 		void BaseMenuScreen::onItemHoverFinish(unsigned int index)
 		{
 			#if defined(TARGETPLATFORM_DESKTOP)
-				hoverPulseScale = 1;
-				hoverPulseGrowing = true;
+				enableHoverPulse(false);
 			#endif
 		}
 		
@@ -115,9 +120,42 @@ namespace SmashBros
 			hoverPressed = false;
 		}
 		
+		void BaseMenuScreen::onItemSelect(unsigned int index)
+		{
+			ScreenManager* screenMgr = getScreenManager();
+			if(screenMgr != nullptr)
+			{
+				if(getItem(index) == backButton)
+				{
+					screenMgr->pop();
+				}
+			}
+		}
+		
 		ImageElement* BaseMenuScreen::getBackgroundElement() const
 		{
 			return backgroundElement;
+		}
+		
+		SpriteActor* BaseMenuScreen::getBackButton() const
+		{
+			return backButton;
+		}
+		
+		void BaseMenuScreen::enableHoverPulse(bool toggle)
+		{
+			if(toggle && !hoverPulseEnabled)
+			{
+				hoverPulseEnabled = true;
+				hoverPulseScale = 1;
+				hoverPulseGrowing = true;
+			}
+			else if(!toggle && hoverPulseEnabled)
+			{
+				hoverPulseEnabled = false;
+				hoverPulseScale = 1;
+				hoverPulseGrowing = true;
+			}
 		}
 	}
 }

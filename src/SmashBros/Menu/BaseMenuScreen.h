@@ -20,8 +20,12 @@ namespace SmashBros
 			virtual void onItemPress(unsigned int index);
 			virtual void onItemPressCancel(unsigned int index);
 			virtual void onItemRelease(unsigned int index);
+			virtual void onItemSelect(unsigned int index);
 			
 			ImageElement* getBackgroundElement() const;
+			SpriteActor* getBackButton() const;
+			
+			void enableHoverPulse(bool);
 			
 		protected:
 			virtual void updateItems(ApplicationData appData);
@@ -30,8 +34,11 @@ namespace SmashBros
 		private:
 			float hoverPulseScale;
 			bool hoverPulseGrowing;
+			bool hoverPulseEnabled;
+
 			bool hoverPressed;
 			ImageElement* backgroundElement;
+			SpriteActor* backButton;
 		};
 	}
 }

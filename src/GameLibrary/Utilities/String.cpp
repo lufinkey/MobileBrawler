@@ -917,7 +917,7 @@ namespace GameLibrary
 	std::string String_convert_fromdecimal(const T&decimal)
 	{
 		char buffer[26];
-		std::sprintf(buffer, "%f", buffer);
+		std::sprintf(buffer, "%f", decimal);
 		return std::string(buffer);
 	}
 
