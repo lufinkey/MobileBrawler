@@ -2,6 +2,8 @@
 #pragma once
 
 #include "BaseMenuScreen.h"
+#include "GroupMenu.h"
+#include "SoloMenu.h"
 
 namespace SmashBros
 {
@@ -14,6 +16,9 @@ namespace SmashBros
 			Actor* soloButton;
 			
 			FadeColorTransition* backTransition;
+			
+			GroupMenu* groupMenu;
+			SoloMenu* soloMenu;
 			
 		public:
 			MainMenu(AssetManager*assetManager);

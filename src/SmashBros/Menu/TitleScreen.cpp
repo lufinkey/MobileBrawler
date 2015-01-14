@@ -10,11 +10,11 @@ namespace SmashBros
 		{
 			Vector2f screenCenter = getScreenCoords(0.5f, 0.5f);
 
-			assetManager->loadTexture("images/menu/backgrounds/gradient_lightblue_whitestripe.png");
-			getBackgroundElement()->setImage(assetManager->getTexture("images/menu/backgrounds/gradient_lightblue_whitestripe.png"));
+			assetManager->loadTexture("assets/menu/backgrounds/gradient_lightblue_whitestripe.png");
+			getBackgroundElement()->setImage(assetManager->getTexture("assets/menu/backgrounds/gradient_lightblue_whitestripe.png"));
 			
-			assetManager->loadTexture("images/menu/titlescreen/logo.png");
-			TextureImage* logoImage = assetManager->getTexture("images/menu/titlescreen/logo.png");
+			assetManager->loadTexture("assets/menu/titlescreen/logo.png");
+			TextureImage* logoImage = assetManager->getTexture("assets/menu/titlescreen/logo.png");
 			Vector2f logoImageSize(0,0);
 			if(logoImage != nullptr)
 			{

@@ -2,6 +2,7 @@
 #pragma once
 
 #include <GameLibraryImport.hpp>
+#include "../Global.h"
 
 namespace SmashBros
 {
@@ -10,6 +11,12 @@ namespace SmashBros
 		class BaseMenuScreen : public GameLibrary::MenuScreen
 		{
 		public:
+			typedef enum
+			{
+				HEADERBAR_SMALL,
+				HEADERBAR_FULL
+			} HeaderbarMode;
+			
 			BaseMenuScreen(AssetManager*assetManager);
 			virtual ~BaseMenuScreen();
 			
@@ -26,6 +33,8 @@ namespace SmashBros
 			SpriteActor* getBackButton() const;
 			ImageElement* getHeaderbarElement() const;
 			
+			void setHeaderbarMode(const HeaderbarMode&mode);
+			
 			void enableHoverPulse(bool);
 			
 		protected:
@@ -36,6 +45,9 @@ namespace SmashBros
 			float hoverPulseScale;
 			bool hoverPulseGrowing;
 			bool hoverPulseEnabled;
+			
+			TextureImage* img_headerbar_small;
+			TextureImage* img_headerbar_full;
 			
 			bool hoverPressed;
 			ImageElement* backgroundElement;

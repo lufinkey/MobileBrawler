@@ -73,12 +73,6 @@
     <Filter Include="src\GameLibrary\Screen\UI">
       <UniqueIdentifier>{056a697e-c673-46f3-9f00-1c819ff7f992}</UniqueIdentifier>
     </Filter>
-    <Filter Include="images">
-      <UniqueIdentifier>{1d33167c-157d-42e6-85e1-5d8e34de4a5e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="fonts">
-      <UniqueIdentifier>{d94fc3fb-b258-4a36-afe9-dc6672d312b4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\MobileBrawler">
       <UniqueIdentifier>{6fa0df9a-358a-4a1d-80b5-04bdab450672}</UniqueIdentifier>
     </Filter>
@@ -94,23 +88,59 @@
     <Filter Include="src\import">
       <UniqueIdentifier>{986e5ec3-0468-4541-a5dd-59c198e2e94b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="images\test">
-      <UniqueIdentifier>{3df26331-d0e5-4bde-9c48-a3ba8a935dac}</UniqueIdentifier>
+    <Filter Include="assets">
+      <UniqueIdentifier>{507741fa-cfb0-4cf0-a972-17afe75b1d1a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="images\menu">
-      <UniqueIdentifier>{b844ba75-a5a3-4114-995a-dfb775a486eb}</UniqueIdentifier>
+    <Filter Include="assets\characters">
+      <UniqueIdentifier>{d50fd7e9-58da-4996-9254-678450382ef5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="images\menu\backgrounds">
-      <UniqueIdentifier>{1f76dac9-b716-4fd5-bcd1-1d7809ccbbe9}</UniqueIdentifier>
+    <Filter Include="assets\fonts">
+      <UniqueIdentifier>{ed4a7290-6991-4427-b3b9-1e4ab163633e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="images\menu\titlescreen">
-      <UniqueIdentifier>{eee67790-84f6-40bd-b826-a7c290d10af0}</UniqueIdentifier>
+    <Filter Include="assets\test">
+      <UniqueIdentifier>{bed69406-bc91-45bf-b8a2-cdd195018bda}</UniqueIdentifier>
     </Filter>
-    <Filter Include="images\menu\buttons">
-      <UniqueIdentifier>{d7010ce7-d0c7-463e-ab0f-c82f4c7e9203}</UniqueIdentifier>
+    <Filter Include="assets\stages">
+      <UniqueIdentifier>{ee5f56e7-6a49-4f51-80cd-2ef4d5ef45f1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="images\menu\elements">
-      <UniqueIdentifier>{03f3c9b1-4ae0-4628-a366-096d43e9ed2c}</UniqueIdentifier>
+    <Filter Include="assets\menu">
+      <UniqueIdentifier>{ccb7e0c5-6e8b-43e6-8437-03a6a77736d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\characters\bowser">
+      <UniqueIdentifier>{6d233b72-5efb-4896-a19f-21754ae5201a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\characters\fox">
+      <UniqueIdentifier>{e3d97f95-6627-4500-8094-e05f89fbc366}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\characters\ichigo">
+      <UniqueIdentifier>{8127ab90-d91f-4c28-9a9f-be6af8e3750f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\characters\kirby">
+      <UniqueIdentifier>{de230218-a63e-4af5-8418-c9d934f1bd53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\characters\link">
+      <UniqueIdentifier>{6709464b-4a7d-4596-baee-1c970e1d0c15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\characters\sonic">
+      <UniqueIdentifier>{b81fe9ea-58fd-4db7-b3ec-e2b38c40d0dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\characters\pikachu">
+      <UniqueIdentifier>{faafd7aa-133d-4c21-bc9f-4cf51e8c46bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\characters\mario">
+      <UniqueIdentifier>{f27046cc-140f-4fbb-ba62-a5c410c73e8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\menu\backgrounds">
+      <UniqueIdentifier>{2c75c768-cfef-4409-acdd-ca0cfa3b65a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\menu\buttons">
+      <UniqueIdentifier>{2953ab91-8a7e-4a2b-9704-033b854c5791}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\menu\elements">
+      <UniqueIdentifier>{f7264ac0-3563-4d5a-a72f-5dd740f72579}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\menu\titlescreen">
+      <UniqueIdentifier>{d571c32a-17b2-4d76-813d-c762aeaf611f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -350,6 +380,12 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Actor\SpriteActor.cpp">
       <Filter>src\GameLibrary\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\GroupMenu.cpp">
+      <Filter>src\SmashBros\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\SoloMenu.cpp">
+      <Filter>src\SmashBros\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -620,42 +656,90 @@
     <ClInclude Include="src\GameLibrary\Actor\SpriteActor.h">
       <Filter>src\GameLibrary\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\GroupMenu.h">
+      <Filter>src\SmashBros\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\SoloMenu.h">
+      <Filter>src\SmashBros\Menu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Font Include="fonts\arial.ttf">
-      <Filter>fonts</Filter>
+    <Image Include="assets\characters\bowser\icon.png">
+      <Filter>assets\characters\bowser</Filter>
+    </Image>
+    <Image Include="assets\characters\fox\icon.png">
+      <Filter>assets\characters\fox</Filter>
+    </Image>
+    <Image Include="assets\characters\ichigo\icon.png">
+      <Filter>assets\characters\ichigo</Filter>
+    </Image>
+    <Image Include="assets\characters\kirby\icon.png">
+      <Filter>assets\characters\kirby</Filter>
+    </Image>
+    <Image Include="assets\characters\link\icon.png">
+      <Filter>assets\characters\link</Filter>
+    </Image>
+    <Image Include="assets\characters\mario\icon.png">
+      <Filter>assets\characters\mario</Filter>
+    </Image>
+    <Image Include="assets\characters\pikachu\icon.png">
+      <Filter>assets\characters\pikachu</Filter>
+    </Image>
+    <Image Include="assets\characters\sonic\icon.png">
+      <Filter>assets\characters\sonic</Filter>
+    </Image>
+    <Image Include="assets\menu\backgrounds\circles.png">
+      <Filter>assets\menu\backgrounds</Filter>
+    </Image>
+    <Image Include="assets\menu\backgrounds\gradient_lightblue_whitestripe.png">
+      <Filter>assets\menu\backgrounds</Filter>
+    </Image>
+    <Image Include="assets\menu\buttons\back.png">
+      <Filter>assets\menu\buttons</Filter>
+    </Image>
+    <Image Include="assets\menu\buttons\group.png">
+      <Filter>assets\menu\buttons</Filter>
+    </Image>
+    <Image Include="assets\menu\buttons\group2.png">
+      <Filter>assets\menu\buttons</Filter>
+    </Image>
+    <Image Include="assets\menu\buttons\rules.png">
+      <Filter>assets\menu\buttons</Filter>
+    </Image>
+    <Image Include="assets\menu\buttons\smash.png">
+      <Filter>assets\menu\buttons</Filter>
+    </Image>
+    <Image Include="assets\menu\buttons\solo.png">
+      <Filter>assets\menu\buttons</Filter>
+    </Image>
+    <Image Include="assets\menu\buttons\solo2.png">
+      <Filter>assets\menu\buttons</Filter>
+    </Image>
+    <Image Include="assets\menu\buttons\training.png">
+      <Filter>assets\menu\buttons</Filter>
+    </Image>
+    <Image Include="assets\menu\elements\headerbar_full.png">
+      <Filter>assets\menu\elements</Filter>
+    </Image>
+    <Image Include="assets\menu\elements\headerbar_small.png">
+      <Filter>assets\menu\elements</Filter>
+    </Image>
+    <Image Include="assets\menu\titlescreen\logo.png">
+      <Filter>assets\menu\titlescreen</Filter>
+    </Image>
+    <Image Include="assets\test\sonic.png">
+      <Filter>assets\test</Filter>
+    </Image>
+    <Image Include="assets\test\tails.png">
+      <Filter>assets\test</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\fonts\arial.ttf">
+      <Filter>assets\fonts</Filter>
     </Font>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="images\menu\backgrounds\circles.png">
-      <Filter>images\menu\backgrounds</Filter>
-    </Image>
-    <Image Include="images\menu\titlescreen\logo.png">
-      <Filter>images\menu\titlescreen</Filter>
-    </Image>
-    <Image Include="images\menu\buttons\smash.png">
-      <Filter>images\menu\buttons</Filter>
-    </Image>
-    <Image Include="images\menu\buttons\solo.png">
-      <Filter>images\menu\buttons</Filter>
-    </Image>
-    <Image Include="images\test\sonic.png">
-      <Filter>images\test</Filter>
-    </Image>
-    <Image Include="images\test\tails.png">
-      <Filter>images\test</Filter>
-    </Image>
-    <Image Include="images\menu\backgrounds\gradient_lightblue_whitestripe.png">
-      <Filter>images\menu\backgrounds</Filter>
-    </Image>
-    <Image Include="images\menu\buttons\back.png">
-      <Filter>images\menu\buttons</Filter>
-    </Image>
-    <Image Include="images\menu\elements\headerbar_full.png">
-      <Filter>images\menu\elements</Filter>
-    </Image>
-    <Image Include="images\menu\elements\headerbar_small.png">
-      <Filter>images\menu\elements</Filter>
-    </Image>
+    <Font Include="assets\fonts\LemonMilk.otf">
+      <Filter>assets\fonts</Filter>
+    </Font>
   </ItemGroup>
 </Project>

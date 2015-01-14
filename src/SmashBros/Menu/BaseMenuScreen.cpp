@@ -1,6 +1,5 @@
 
 #include "BaseMenuScreen.h"
-#include "../Global.h"
 
 namespace SmashBros
 {
@@ -14,9 +13,12 @@ namespace SmashBros
 		
 		BaseMenuScreen::BaseMenuScreen(AssetManager*assetManager)
 		{
-			assetManager->loadTexture("images/menu/backgrounds/circles.png");
-			assetManager->loadTexture("images/menu/elements/headerbar_full.png");
-			assetManager->loadTexture("images/menu/elements/headerbar_small.png");
+			assetManager->loadTexture("assets/menu/backgrounds/circles.png");
+			assetManager->loadTexture("assets/menu/elements/headerbar_full.png");
+			assetManager->loadTexture("assets/menu/elements/headerbar_small.png");
+			
+			img_headerbar_small = assetManager->getTexture("assets/menu/elements/headerbar_small.png");
+			img_headerbar_full = assetManager->getTexture("assets/menu/elements/headerbar_full.png");
 
 			hoverPulseScale = 1;
 			hoverPulseGrowing = true;
@@ -27,18 +29,18 @@ namespace SmashBros
 
 			RectangleF frame = element->getFrame();
 			
-			backgroundElement = new ImageElement(RectangleF(0,0,frame.width, frame.height), assetManager->getTexture("images/menu/backgrounds/circles.png"));
+			backgroundElement = new ImageElement(RectangleF(0,0,frame.width, frame.height), assetManager->getTexture("assets/menu/backgrounds/circles.png"));
 			backgroundElement->setDisplayMode(ImageElement::DISPLAY_ZOOM);
 			element->addChildElement(backgroundElement);
 			
-			headerbarElement = new ImageElement(RectangleF(0,0,frame.width, 50), assetManager->getTexture("images/menu/elements/headerbar_full.png"));
+			headerbarElement = new ImageElement(RectangleF(0,0,frame.width, 50), img_headerbar_full);
 			headerbarElement->setDisplayMode(ImageElement::DISPLAY_ZOOM);
 			element->addChildElement(headerbarElement);
 			
 			element->sendChildElementToBack(headerbarElement);
 			element->sendChildElementToBack(backgroundElement);
 			
-			backButton = (SpriteActor*)getItem(addItem(getScreenCoords(0.07f,0.08f), new Animation(assetManager, 1, "images/menu/buttons/back.png")));
+			backButton = (SpriteActor*)getItem(addItem(getScreenCoords(0.07f,0.08f), new Animation(assetManager, 1, "assets/menu/buttons/back.png")));
 			backButton->Actor::scaleToFit(getScreenCoords(0.175f,0.175f));
 		}
 		
@@ -168,6 +170,18 @@ namespace SmashBros
 		ImageElement* BaseMenuScreen::getHeaderbarElement() const
 		{
 			return headerbarElement;
+		}
+		
+		void BaseMenuScreen::setHeaderbarMode(const HeaderbarMode&mode)
+		{
+			if(mode == HEADERBAR_FULL)
+			{
+				headerbarElement->setImage(img_headerbar_full);
+			}
+			else if(mode == HEADERBAR_SMALL)
+			{
+				headerbarElement->setImage(img_headerbar_small);
+			}
 		}
 		
 		void BaseMenuScreen::enableHoverPulse(bool toggle)

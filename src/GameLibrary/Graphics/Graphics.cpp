@@ -7,6 +7,7 @@
 #include "../Utilities/PlatformChecks.h"
 #include "../Window/Window.h"
 #include <SDL.h>
+#include <SDL_renderdriver.h>
 
 namespace GameLibrary
 {
@@ -145,7 +146,7 @@ namespace GameLibrary
 		{
 			defaultFont = new Font();
 			String error;
-			bool success = defaultFont->loadFromFile("fonts/arial.ttf", 24, error);
+			bool success = defaultFont->loadFromFile("assets/fonts/arial.ttf", 24, error);
 			if(!success)
 			{
 				Console::writeLine(error);
@@ -240,12 +241,16 @@ namespace GameLibrary
 		SDL_RenderSetClipRect((SDL_Renderer*)renderer, &clip);
 		SDL_SetRenderDrawColor((SDL_Renderer*)renderer, colorComp.r, colorComp.g, colorComp.b, newAlpha);
 
+		//SDL_GLContext context = SDL_RendererGetGLContext((SDL_Renderer*)renderer);
+		//SDL_GL_MakeCurrent((SDL_Window*)window->windowdata, context);
 		//glPushMatrix();
-		//glLoadMatrixf(transform.getMatrix());
+		//glRotatef(1.0f,1.0f,1.0f,1.0f);
 	}
 
 	void Graphics::endDraw()
 	{
+		//SDL_GLContext context = SDL_RendererGetGLContext((SDL_Renderer*)renderer);
+		//SDL_GL_MakeCurrent((SDL_Window*)window->windowdata, context);
 		//glPopMatrix();
 		
 		SDL_SetRenderDrawColor((SDL_Renderer*)renderer, 0,0,0,255);

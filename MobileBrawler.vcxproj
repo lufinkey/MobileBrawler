@@ -162,6 +162,8 @@
     <ClCompile Include="src\SmashBros\main.cpp" />
     <ClCompile Include="src\SmashBros\Menu\MainMenu.cpp" />
     <ClCompile Include="src\SmashBros\Menu\BaseMenuScreen.cpp" />
+    <ClCompile Include="src\SmashBros\Menu\GroupMenu.cpp" />
+    <ClCompile Include="src\SmashBros\Menu\SoloMenu.cpp" />
     <ClCompile Include="src\SmashBros\Menu\TitleScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -253,22 +255,38 @@
     <ClInclude Include="src\SmashBros\Global.h" />
     <ClInclude Include="src\SmashBros\Menu\MainMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\BaseMenuScreen.h" />
+    <ClInclude Include="src\SmashBros\Menu\GroupMenu.h" />
+    <ClInclude Include="src\SmashBros\Menu\SoloMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\TitleScreen.h" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="fonts\arial.ttf" />
+    <Image Include="assets\characters\bowser\icon.png" />
+    <Image Include="assets\characters\fox\icon.png" />
+    <Image Include="assets\characters\ichigo\icon.png" />
+    <Image Include="assets\characters\kirby\icon.png" />
+    <Image Include="assets\characters\link\icon.png" />
+    <Image Include="assets\characters\mario\icon.png" />
+    <Image Include="assets\characters\pikachu\icon.png" />
+    <Image Include="assets\characters\sonic\icon.png" />
+    <Image Include="assets\menu\backgrounds\circles.png" />
+    <Image Include="assets\menu\backgrounds\gradient_lightblue_whitestripe.png" />
+    <Image Include="assets\menu\buttons\back.png" />
+    <Image Include="assets\menu\buttons\group.png" />
+    <Image Include="assets\menu\buttons\group2.png" />
+    <Image Include="assets\menu\buttons\rules.png" />
+    <Image Include="assets\menu\buttons\smash.png" />
+    <Image Include="assets\menu\buttons\solo.png" />
+    <Image Include="assets\menu\buttons\solo2.png" />
+    <Image Include="assets\menu\buttons\training.png" />
+    <Image Include="assets\menu\elements\headerbar_full.png" />
+    <Image Include="assets\menu\elements\headerbar_small.png" />
+    <Image Include="assets\menu\titlescreen\logo.png" />
+    <Image Include="assets\test\sonic.png" />
+    <Image Include="assets\test\tails.png" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="images\menu\backgrounds\circles.png" />
-    <Image Include="images\menu\backgrounds\gradient_lightblue_whitestripe.png" />
-    <Image Include="images\menu\buttons\back.png" />
-    <Image Include="images\menu\buttons\smash.png" />
-    <Image Include="images\menu\buttons\solo.png" />
-    <Image Include="images\menu\elements\headerbar_full.png" />
-    <Image Include="images\menu\elements\headerbar_small.png" />
-    <Image Include="images\menu\titlescreen\logo.png" />
-    <Image Include="images\test\sonic.png" />
-    <Image Include="images\test\tails.png" />
+    <Font Include="assets\fonts\arial.ttf" />
+    <Font Include="assets\fonts\LemonMilk.otf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
