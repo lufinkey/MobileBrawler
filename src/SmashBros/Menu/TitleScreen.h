@@ -19,7 +19,7 @@ namespace SmashBros
 			virtual void updateItems(ApplicationData appData);
 			
 		public:
-			TitleScreen(AssetManager*assetManager);
+			TitleScreen(const MenuData&menuData);
 			virtual ~TitleScreen();
 			
 			virtual void onWillAppear(const Transition*transition);

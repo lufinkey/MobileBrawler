@@ -11,8 +11,10 @@ namespace SmashBros
 #define PULSE_HOVERCOLOR Color::LIGHTBLUE
 #define PULSE_PRESSCOLOR Color::BLUE
 		
-		BaseMenuScreen::BaseMenuScreen(AssetManager*assetManager)
+		BaseMenuScreen::BaseMenuScreen(const MenuData&menuData)
 		{
+			AssetManager* assetManager = menuData.getAssetManager();
+			
 			assetManager->loadTexture("assets/menu/backgrounds/circles.png");
 			assetManager->loadTexture("assets/menu/elements/headerbar_full.png");
 			assetManager->loadTexture("assets/menu/elements/headerbar_small.png");
@@ -40,8 +42,8 @@ namespace SmashBros
 			element->sendChildElementToBack(headerbarElement);
 			element->sendChildElementToBack(backgroundElement);
 			
-			backButton = (SpriteActor*)getItem(addItem(getScreenCoords(0.07f,0.08f), new Animation(assetManager, 1, "assets/menu/buttons/back.png")));
-			backButton->Actor::scaleToFit(getScreenCoords(0.175f,0.175f));
+			backButton = (SpriteActor*)getItem(addItem(Global::getScreenCoords(0.07f,0.08f), new Animation(assetManager, 1, "assets/menu/buttons/back.png")));
+			backButton->Actor::scaleToFit(Global::getScreenCoords(0.175f,0.175f));
 		}
 		
 		BaseMenuScreen::~BaseMenuScreen()
@@ -103,7 +105,10 @@ namespace SmashBros
 			{
 				Actor* actor = getItem(itemIndex);
 				RectangleF frame = actor->getFrame();
-				graphics.scale(hoverPulseScale, hoverPulseScale, actor->x, actor->y);
+				if(hoverPulseEnabled)
+				{
+					graphics.scale(hoverPulseScale, hoverPulseScale, actor->x, actor->y);
+				}
 				if(hoverPressed)
 				{
 					graphics.compositeTintColor(PULSE_PRESSCOLOR);

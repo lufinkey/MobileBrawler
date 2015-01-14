@@ -5,10 +5,10 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-		SoloMenu::SoloMenu(AssetManager*assetManager) : SmashBros::Menu::BaseMenuScreen(assetManager)
+		SoloMenu::SoloMenu(const MenuData&menuData) : SmashBros::Menu::BaseMenuScreen(menuData)
 		{
-			trainingButton = getItem(addItem(getScreenCoords(0.5f, 0.5f), new Animation(assetManager, 1, "assets/menu/buttons/training.png")));
-			trainingButton->scaleToFit(getScreenCoords(0.8f,0.8f));
+			trainingButton = getItem(addItem(Global::getScreenCoords(0.5f, 0.5f), new Animation(menuData.getAssetManager(), 1, "assets/menu/buttons/training.png")));
+			trainingButton->scaleToFit(Global::getScreenCoords(0.8f,0.8f));
 		}
 		
 		SoloMenu::~SoloMenu()

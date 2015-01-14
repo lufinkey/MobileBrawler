@@ -2,6 +2,7 @@
 #pragma once
 
 #include <GameLibraryImport.hpp>
+#include "MenuData.h"
 #include "../Global.h"
 
 namespace SmashBros
@@ -17,7 +18,7 @@ namespace SmashBros
 				HEADERBAR_FULL
 			} HeaderbarMode;
 			
-			BaseMenuScreen(AssetManager*assetManager);
+			BaseMenuScreen(const MenuData&menuData);
 			virtual ~BaseMenuScreen();
 			
 			virtual void onWillAppear(const Transition*transition);

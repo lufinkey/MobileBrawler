@@ -11,7 +11,7 @@ namespace SmashBros
 			Actor* trainingButton;
 			
 		public:
-			SoloMenu(AssetManager*assetManager);
+			SoloMenu(const MenuData&menuData);
 			virtual ~SoloMenu();
 			
 			virtual void onItemSelect(unsigned int index);

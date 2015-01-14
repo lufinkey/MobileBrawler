@@ -6,9 +6,10 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-		TitleScreen::TitleScreen(AssetManager*assetManager) : SmashBros::Menu::BaseMenuScreen(assetManager)
+		TitleScreen::TitleScreen(const MenuData&menuData) : SmashBros::Menu::BaseMenuScreen(menuData)
 		{
-			Vector2f screenCenter = getScreenCoords(0.5f, 0.5f);
+			Vector2f screenCenter = Global::getScreenCoords(0.5f, 0.5f);
+			AssetManager* assetManager = menuData.getAssetManager();
 
 			assetManager->loadTexture("assets/menu/backgrounds/gradient_lightblue_whitestripe.png");
 			getBackgroundElement()->setImage(assetManager->getTexture("assets/menu/backgrounds/gradient_lightblue_whitestripe.png"));

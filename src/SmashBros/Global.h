@@ -8,6 +8,10 @@
 
 namespace SmashBros
 {
-	Vector2f getScreenCoords(float ratX, float ratY);
-	Vector2f getScreenCoords(const Vector2f&rat);
+	class Global
+	{
+	public:
+		static Vector2f getScreenCoords(float ratX, float ratY);
+		static Vector2f getScreenCoords(const Vector2f&rat);
+	};
 }

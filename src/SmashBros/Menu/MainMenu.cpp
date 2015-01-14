@@ -5,12 +5,14 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-		MainMenu::MainMenu(AssetManager*assetManager) : SmashBros::Menu::BaseMenuScreen(assetManager)
+		MainMenu::MainMenu(const MenuData&menuData) : SmashBros::Menu::BaseMenuScreen(menuData)
 		{
-			groupButton = getItem(addItem(getScreenCoords(0.31f, 0.437f), new Animation(assetManager, 1, "assets/menu/buttons/group.png")));
-			groupButton->scaleToFit(getScreenCoords(0.5f,0.5f));
-			soloButton = getItem(addItem(getScreenCoords(0.745f, 0.516f), new Animation(assetManager, 1, "assets/menu/buttons/solo.png")));
-			soloButton->scaleToFit(getScreenCoords(0.5f,0.5f));
+			AssetManager* assetManager = menuData.getAssetManager();
+			
+			groupButton = getItem(addItem(Global::getScreenCoords(0.31f, 0.437f), new Animation(assetManager, 1, "assets/menu/buttons/group.png")));
+			groupButton->scaleToFit(Global::getScreenCoords(0.5f,0.5f));
+			soloButton = getItem(addItem(Global::getScreenCoords(0.745f, 0.516f), new Animation(assetManager, 1, "assets/menu/buttons/solo.png")));
+			soloButton->scaleToFit(Global::getScreenCoords(0.5f,0.5f));
 			
 			backTransition = new FadeColorTransition(Color::BLACK, 0.6f);
 			

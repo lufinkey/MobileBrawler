@@ -21,7 +21,7 @@ namespace SmashBros
 			SoloMenu* soloMenu;
 			
 		public:
-			MainMenu(AssetManager*assetManager);
+			MainMenu(const MenuData&menuData);
 			virtual ~MainMenu();
 			
 			virtual void onItemSelect(unsigned int index);
