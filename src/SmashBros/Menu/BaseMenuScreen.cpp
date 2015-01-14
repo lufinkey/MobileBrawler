@@ -15,12 +15,8 @@ namespace SmashBros
 		{
 			AssetManager* assetManager = menuData.getAssetManager();
 			
-			assetManager->loadTexture("assets/menu/backgrounds/circles.png");
-			assetManager->loadTexture("assets/menu/elements/headerbar_full.png");
-			assetManager->loadTexture("assets/menu/elements/headerbar_small.png");
-			
-			img_headerbar_small = assetManager->getTexture("assets/menu/elements/headerbar_small.png");
-			img_headerbar_full = assetManager->getTexture("assets/menu/elements/headerbar_full.png");
+			img_headerbar_small = assetManager->getTexture("elements/headerbar_small.png");
+			img_headerbar_full = assetManager->getTexture("elements/headerbar_full.png");
 
 			hoverPulseScale = 1;
 			hoverPulseGrowing = true;
@@ -31,7 +27,7 @@ namespace SmashBros
 
 			RectangleF frame = element->getFrame();
 			
-			backgroundElement = new ImageElement(RectangleF(0,0,frame.width, frame.height), assetManager->getTexture("assets/menu/backgrounds/circles.png"));
+			backgroundElement = new ImageElement(RectangleF(0,0,frame.width, frame.height), assetManager->getTexture("backgrounds/main.png"));
 			backgroundElement->setDisplayMode(ImageElement::DISPLAY_ZOOM);
 			element->addChildElement(backgroundElement);
 			
@@ -42,7 +38,7 @@ namespace SmashBros
 			element->sendChildElementToBack(headerbarElement);
 			element->sendChildElementToBack(backgroundElement);
 			
-			backButton = (SpriteActor*)getItem(addItem(Global::getScreenCoords(0.07f,0.08f), new Animation(assetManager, 1, "assets/menu/buttons/back.png")));
+			backButton = (SpriteActor*)getItem(addItem(Global::getScreenCoords(0.07f,0.08f), new Animation(assetManager, 1, "buttons/back.png")));
 			backButton->Actor::scaleToFit(Global::getScreenCoords(0.175f,0.175f));
 		}
 		

@@ -7,11 +7,11 @@ namespace SmashBros
 	{
 		GroupMenu::GroupMenu(const MenuData&menuData) : SmashBros::Menu::BaseMenuScreen(menuData)
 		{
-			smashButton = getItem(addItem(Global::getScreenCoords(0.3f, 0.45f), new Animation(menuData.getAssetManager(), 1, "assets/menu/buttons/smash.png")));
+			smashButton = getItem(addItem(Global::getScreenCoords(0.3f, 0.45f), new Animation(menuData.getAssetManager(), 1, "buttons/group/smash.png")));
 			smashButton->scaleToFit(Global::getScreenCoords(0.5f, 0.5f));
-			specialSmashButton = nullptr;//specialSmashButton = getItem(addItem(Global::getScreenCoords(0.7f,0.5f), new Animation(menuData.getAssetManager(), 1, "assets/menu/buttons/specialsmash.png"));
+			specialSmashButton = nullptr;//specialSmashButton = getItem(addItem(Global::getScreenCoords(0.7f,0.5f), new Animation(menuData.getAssetManager(), 1, "buttons/group/specialsmash.png"));
 			//specialSmashButton->scaleToFit(getScreenCoords(0.5f, 0.5f));
-			rulesButton = getItem(addItem(Global::getScreenCoords(0.5f, 0.75f), new Animation(menuData.getAssetManager(), 1, "assets/menu/buttons/rules.png")));
+			rulesButton = getItem(addItem(Global::getScreenCoords(0.5f, 0.75f), new Animation(menuData.getAssetManager(), 1, "buttons/group/rules.png")));
 			rulesButton->scaleToFit(Global::getScreenCoords(0.5f, 0.5f));
 		}
 		

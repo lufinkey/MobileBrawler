@@ -17,6 +17,7 @@ namespace GameLibrary
 	} GameLibrary_ContextData;*/
 	
 	Font* Graphics::defaultFont = nullptr;
+	String Graphics::defaultFontPath = "fonts/arial.ttf";
 	
 	void Graphics::reset(const Color&clearColor)
 	{
@@ -146,7 +147,7 @@ namespace GameLibrary
 		{
 			defaultFont = new Font();
 			String error;
-			bool success = defaultFont->loadFromFile("assets/fonts/arial.ttf", 24, error);
+			bool success = defaultFont->loadFromFile(defaultFontPath, 24, error);
 			if(!success)
 			{
 				Console::writeLine(error);
@@ -260,6 +261,11 @@ namespace GameLibrary
 	Font* Graphics::getDefaultFont()
 	{
 		return defaultFont;
+	}
+	
+	void Graphics::setDefaultFontPath(const String&path)
+	{
+		defaultFontPath = path;
 	}
 	
 	void Graphics::rotate(float degrees)

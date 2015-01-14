@@ -4,15 +4,47 @@
 
 namespace GameLibrary
 {
-	AssetManager::AssetManager(Window&win)
+	AssetManager::AssetManager(Window&win, const String&root)
 	{
 		window = &win;
+		rootdir = root;
 	}
 
 	AssetManager::~AssetManager()
 	{
 		unloadTextures();
 		unloadFonts();
+	}
+	
+	String AssetManager::getFullPath(const String&path) const
+	{
+		String fullpath;
+		if(rootdir.length() == 0)
+		{
+			fullpath = path;
+		}
+		else
+		{
+			if(rootdir.charAt(rootdir.length()-1)=='/')
+			{
+				fullpath = rootdir + path;
+			}
+			else
+			{
+				fullpath = rootdir + '/' + path;
+			}
+		}
+		return fullpath;
+	}
+	
+	void AssetManager::setRootDirectory(const String&root)
+	{
+		rootdir = root;
+	}
+	
+	const String& AssetManager::getRootDirectory() const
+	{
+		return rootdir;
 	}
 
 	bool AssetManager::loadTexture(const String&path, String&error)
@@ -27,7 +59,8 @@ namespace GameLibrary
 		}
 
 		TextureImage* texture = new TextureImage();
-		bool success = texture->loadFromFile(path, *window->getGraphics(), error);
+		String fullpath = getFullPath(path);
+		bool success = texture->loadFromFile(fullpath, *window->getGraphics(), error);
 		if(success)
 		{
 			textures.add(Pair<String,TextureImage*>(path, texture));
@@ -88,7 +121,8 @@ namespace GameLibrary
 		}
 
 		Font* font = new Font();
-		bool success = font->loadFromFile(path, 24, error);
+		String fullpath = getFullPath(path);
+		bool success = font->loadFromFile(fullpath, 24, error);
 		if(success)
 		{
 			fonts.add(Pair<String,Font*>(path, font));

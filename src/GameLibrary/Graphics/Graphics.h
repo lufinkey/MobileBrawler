@@ -24,6 +24,7 @@ namespace GameLibrary
 		
 		Font*font;
 		static Font*defaultFont;
+		static String defaultFontPath;
 
 		TextureImage*pixel;
 		
@@ -52,6 +53,7 @@ namespace GameLibrary
 		Graphics& operator=(const Graphics&);
 
 		static Font*getDefaultFont();
+		static void setDefaultFontPath(const String&);
 		
 		virtual void rotate(float degrees);
 		virtual void rotate(float degrees, float x, float y);

@@ -18,10 +18,17 @@ namespace GameLibrary
 
 		ArrayList<Pair<String,TextureImage*> > textures;
 		ArrayList<Pair<String,Font*> > fonts;
+		
+		String rootdir;
+		
+		String getFullPath(const String&path) const;
 
 	public:
-		AssetManager(Window&window);
+		AssetManager(Window&window, const String&root="");
 		virtual ~AssetManager();
+		
+		void setRootDirectory(const String&);
+		const String& getRootDirectory() const;
 
 		virtual bool loadTexture(const String&path, String&error=String());
 		virtual void unloadTexture(const String&path);

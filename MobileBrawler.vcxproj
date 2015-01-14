@@ -274,25 +274,40 @@
     <Image Include="assets\characters\mario\icon.png" />
     <Image Include="assets\characters\pikachu\icon.png" />
     <Image Include="assets\characters\sonic\icon.png" />
-    <Image Include="assets\menu\backgrounds\circles.png" />
-    <Image Include="assets\menu\backgrounds\gradient_lightblue_whitestripe.png" />
+    <Image Include="assets\menu\backgrounds\main.png" />
     <Image Include="assets\menu\buttons\back.png" />
-    <Image Include="assets\menu\buttons\group.png" />
-    <Image Include="assets\menu\buttons\group2.png" />
-    <Image Include="assets\menu\buttons\rules.png" />
-    <Image Include="assets\menu\buttons\smash.png" />
-    <Image Include="assets\menu\buttons\solo.png" />
-    <Image Include="assets\menu\buttons\solo2.png" />
-    <Image Include="assets\menu\buttons\training.png" />
+    <Image Include="assets\menu\buttons\group\rules.png" />
+    <Image Include="assets\menu\buttons\group\smash.png" />
+    <Image Include="assets\menu\buttons\main\group.png" />
+    <Image Include="assets\menu\buttons\main\group2.png" />
+    <Image Include="assets\menu\buttons\main\solo.png" />
+    <Image Include="assets\menu\buttons\main\solo2.png" />
+    <Image Include="assets\menu\buttons\solo\training.png" />
+    <Image Include="assets\menu\characterselect\chip_cpu.png" />
+    <Image Include="assets\menu\characterselect\chip_p1.png" />
+    <Image Include="assets\menu\characterselect\chip_p2.png" />
+    <Image Include="assets\menu\characterselect\chip_p3.png" />
+    <Image Include="assets\menu\characterselect\chip_p4.png" />
+    <Image Include="assets\menu\characterselect\panel_blank.png" />
+    <Image Include="assets\menu\characterselect\panel_cpu.png" />
+    <Image Include="assets\menu\characterselect\panel_na.png" />
+    <Image Include="assets\menu\characterselect\panel_p1.png" />
+    <Image Include="assets\menu\characterselect\panel_p2.png" />
+    <Image Include="assets\menu\characterselect\panel_p3.png" />
+    <Image Include="assets\menu\characterselect\panel_p4.png" />
     <Image Include="assets\menu\elements\headerbar_full.png" />
     <Image Include="assets\menu\elements\headerbar_small.png" />
+    <Image Include="assets\menu\titlescreen\background.png" />
     <Image Include="assets\menu\titlescreen\logo.png" />
     <Image Include="assets\test\sonic.png" />
     <Image Include="assets\test\tails.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="assets\fonts\arial.ttf" />
-    <Font Include="assets\fonts\LemonMilk.otf" />
+    <Font Include="assets\menu\fonts\LemonMilk.otf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\menu\characterselect\panel_template.xcf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

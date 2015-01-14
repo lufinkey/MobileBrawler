@@ -38,7 +38,7 @@ namespace GameLibrary
 
 		void setApplication(Application*application);
 		void setWindow(Window*window);
-		void getAssetManager(AssetManager*assetManager);
+		void setAssetManager(AssetManager*assetManager);
 		void setTime(const TimeInterval&time);
 		void setTransform(const Transform&transform);
 	};

@@ -14,6 +14,7 @@ namespace GameLibrary
 	class Application;
 	class ApplicationData;
 	class AssetManager;
+	class BatchLoader;
 	class EventManager;
 	
 	//Audio

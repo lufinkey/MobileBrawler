@@ -145,6 +145,21 @@
     <Filter Include="src\SmashBros\Menu\Elements">
       <UniqueIdentifier>{d32cc984-c28c-47cc-a3f9-e2f367d45a0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assets\menu\buttons\solo">
+      <UniqueIdentifier>{b66d7ea1-0c22-413d-b8ae-90c83fd6b861}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\menu\buttons\group">
+      <UniqueIdentifier>{b4f227da-f61a-436f-b4ae-fabd38740c58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\menu\buttons\main">
+      <UniqueIdentifier>{08b6fc81-3ffe-436d-9ff8-94ef9063e82a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\menu\characterselect">
+      <UniqueIdentifier>{5af8126a-0a12-4226-8c53-a9febbe16639}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\menu\fonts">
+      <UniqueIdentifier>{1e1a344d-6a04-4db1-bfe3-22e811de9454}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameLibrary\Actor\TextActor.cpp">
@@ -709,36 +724,6 @@
     <Image Include="assets\characters\sonic\icon.png">
       <Filter>assets\characters\sonic</Filter>
     </Image>
-    <Image Include="assets\menu\backgrounds\circles.png">
-      <Filter>assets\menu\backgrounds</Filter>
-    </Image>
-    <Image Include="assets\menu\backgrounds\gradient_lightblue_whitestripe.png">
-      <Filter>assets\menu\backgrounds</Filter>
-    </Image>
-    <Image Include="assets\menu\buttons\back.png">
-      <Filter>assets\menu\buttons</Filter>
-    </Image>
-    <Image Include="assets\menu\buttons\group.png">
-      <Filter>assets\menu\buttons</Filter>
-    </Image>
-    <Image Include="assets\menu\buttons\group2.png">
-      <Filter>assets\menu\buttons</Filter>
-    </Image>
-    <Image Include="assets\menu\buttons\rules.png">
-      <Filter>assets\menu\buttons</Filter>
-    </Image>
-    <Image Include="assets\menu\buttons\smash.png">
-      <Filter>assets\menu\buttons</Filter>
-    </Image>
-    <Image Include="assets\menu\buttons\solo.png">
-      <Filter>assets\menu\buttons</Filter>
-    </Image>
-    <Image Include="assets\menu\buttons\solo2.png">
-      <Filter>assets\menu\buttons</Filter>
-    </Image>
-    <Image Include="assets\menu\buttons\training.png">
-      <Filter>assets\menu\buttons</Filter>
-    </Image>
     <Image Include="assets\menu\elements\headerbar_full.png">
       <Filter>assets\menu\elements</Filter>
     </Image>
@@ -754,13 +739,84 @@
     <Image Include="assets\test\tails.png">
       <Filter>assets\test</Filter>
     </Image>
+    <Image Include="assets\menu\backgrounds\main.png">
+      <Filter>assets\menu\backgrounds</Filter>
+    </Image>
+    <Image Include="assets\menu\buttons\back.png">
+      <Filter>assets\menu\buttons</Filter>
+    </Image>
+    <Image Include="assets\menu\buttons\group\rules.png">
+      <Filter>assets\menu\buttons\group</Filter>
+    </Image>
+    <Image Include="assets\menu\buttons\group\smash.png">
+      <Filter>assets\menu\buttons\group</Filter>
+    </Image>
+    <Image Include="assets\menu\buttons\main\group.png">
+      <Filter>assets\menu\buttons\main</Filter>
+    </Image>
+    <Image Include="assets\menu\buttons\main\group2.png">
+      <Filter>assets\menu\buttons\main</Filter>
+    </Image>
+    <Image Include="assets\menu\buttons\main\solo.png">
+      <Filter>assets\menu\buttons\main</Filter>
+    </Image>
+    <Image Include="assets\menu\buttons\main\solo2.png">
+      <Filter>assets\menu\buttons\main</Filter>
+    </Image>
+    <Image Include="assets\menu\buttons\solo\training.png">
+      <Filter>assets\menu\buttons\solo</Filter>
+    </Image>
+    <Image Include="assets\menu\characterselect\chip_cpu.png">
+      <Filter>assets\menu\characterselect</Filter>
+    </Image>
+    <Image Include="assets\menu\characterselect\chip_p1.png">
+      <Filter>assets\menu\characterselect</Filter>
+    </Image>
+    <Image Include="assets\menu\characterselect\chip_p2.png">
+      <Filter>assets\menu\characterselect</Filter>
+    </Image>
+    <Image Include="assets\menu\characterselect\chip_p3.png">
+      <Filter>assets\menu\characterselect</Filter>
+    </Image>
+    <Image Include="assets\menu\characterselect\chip_p4.png">
+      <Filter>assets\menu\characterselect</Filter>
+    </Image>
+    <Image Include="assets\menu\characterselect\panel_blank.png">
+      <Filter>assets\menu\characterselect</Filter>
+    </Image>
+    <Image Include="assets\menu\characterselect\panel_cpu.png">
+      <Filter>assets\menu\characterselect</Filter>
+    </Image>
+    <Image Include="assets\menu\characterselect\panel_na.png">
+      <Filter>assets\menu\characterselect</Filter>
+    </Image>
+    <Image Include="assets\menu\characterselect\panel_p1.png">
+      <Filter>assets\menu\characterselect</Filter>
+    </Image>
+    <Image Include="assets\menu\characterselect\panel_p2.png">
+      <Filter>assets\menu\characterselect</Filter>
+    </Image>
+    <Image Include="assets\menu\characterselect\panel_p3.png">
+      <Filter>assets\menu\characterselect</Filter>
+    </Image>
+    <Image Include="assets\menu\characterselect\panel_p4.png">
+      <Filter>assets\menu\characterselect</Filter>
+    </Image>
+    <Image Include="assets\menu\titlescreen\background.png">
+      <Filter>assets\menu\titlescreen</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="assets\fonts\arial.ttf">
       <Filter>assets\fonts</Filter>
     </Font>
-    <Font Include="assets\fonts\LemonMilk.otf">
-      <Filter>assets\fonts</Filter>
+    <Font Include="assets\menu\fonts\LemonMilk.otf">
+      <Filter>assets\menu\fonts</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\menu\characterselect\panel_template.xcf">
+      <Filter>assets\menu\characterselect</Filter>
+    </None>
   </ItemGroup>
 </Project>

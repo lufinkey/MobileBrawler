@@ -2,14 +2,17 @@
 #pragma once
 
 #include <GameLibraryImport.hpp>
+#include "Menu/TitleScreen.h"
 
 namespace SmashBros
 {
 	class Game : public GameLibrary::Application
 	{
 	private:
-		Screen* rootScrn;
-		ScreenManager* screenMgr;
+		AssetManager* menuAssetManager;
+		
+		Menu::TitleScreen* titleScreen;
+		ScreenManager* menuScreenMgr;
 
 	public:
 		Game();
@@ -20,5 +23,7 @@ namespace SmashBros
 		virtual void unloadContent(AssetManager*assetManager);
 		virtual void update(AppData appData);
 		virtual void draw(AppData appData, Graphics graphics) const;
+		
+		void loadMenuAssets(AssetManager*assetManager);
 	};
 }

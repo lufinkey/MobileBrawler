@@ -26,7 +26,7 @@ namespace GameLibrary
 			unsigned int value;
 		} LoadInfo;
 
-		Window*window;
+		AssetManager*assetManager;
 
 		ArrayList<LoadInfo> loadlist;
 		unsigned int loadindex;
@@ -39,7 +39,7 @@ namespace GameLibrary
 		bool loading;
 
 	public:
-		BatchLoader(Window&window);
+		BatchLoader(AssetManager*assetManager);
 		BatchLoader(const BatchLoader&);
 		~BatchLoader();
 

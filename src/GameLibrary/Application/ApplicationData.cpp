@@ -86,7 +86,7 @@ namespace GameLibrary
 		window = win;
 	}
 
-	void ApplicationData::getAssetManager(AssetManager*assetMgr)
+	void ApplicationData::setAssetManager(AssetManager*assetMgr)
 	{
 		assetManager = assetMgr;
 	}

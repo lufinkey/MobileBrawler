@@ -4,9 +4,9 @@
 
 namespace GameLibrary
 {
-	BatchLoader::BatchLoader(Window&win)
+	BatchLoader::BatchLoader(AssetManager*assetMgr)
 	{
-		window = &win;
+		assetManager = assetMgr;
 		loadindex = 0;
 		loadcurrent = 0;
 		loadtotal = 0;
@@ -15,7 +15,7 @@ namespace GameLibrary
 
 	BatchLoader::BatchLoader(const BatchLoader&batchLoader)
 	{
-		window = batchLoader.window;
+		assetManager = batchLoader.assetManager;
 		loadlist = batchLoader.loadlist;
 		loadindex = batchLoader.loadindex;
 		loadcurrent = batchLoader.loadcurrent;
@@ -90,7 +90,7 @@ namespace GameLibrary
 			if(info.type == LOADTYPE_TEXTURE)
 			{
 				String error;
-				bool success = window->getAssetManager()->loadTexture(info.path, error);
+				bool success = assetManager->loadTexture(info.path, error);
 				loadcurrent+=info.value;
 				if(success)
 				{
@@ -114,7 +114,7 @@ namespace GameLibrary
 			else if(info.type == LOADTYPE_FONT)
 			{
 				String error;
-				bool success = window->getAssetManager()->loadFont(info.path, error);
+				bool success = assetManager->loadFont(info.path, error);
 				loadcurrent+=info.value;
 				if(success)
 				{

@@ -9,6 +9,7 @@
 #include "Application/Application.h"
 #include "Application/ApplicationData.h"
 #include "Application/AssetManager.h"
+#include "Application/BatchLoader.h"
 
 #include "Audio/Music.h"
 #include "Audio/Sound.h"
