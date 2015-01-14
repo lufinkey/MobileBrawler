@@ -38,6 +38,27 @@ namespace GameLibrary
 		total = bitlist.total;
 		bitTotal = bitlist.bitTotal;
 	}
+	
+	BitList::BitList(const std::vector<bool>&boolvect)
+	{
+		bitTotal = 0;
+		total = 0;
+		for(unsigned int i = 0; i < boolvect.size(); i++)
+		{
+			total++;
+			if(bitTotal==8 || bitTotal==0)
+			{
+				bitTotal = 1;
+				bytes.add(BitSet());
+				bytes.get(bytes.size()-1).set(0, boolvect.at(i));
+			}
+			else
+			{
+				bitTotal++;
+				bytes.get(bytes.size()-1).set(bitTotal-1, boolvect.at(i));
+			}
+		}
+	}
 
 	BitList::BitList(unsigned int size)
 	{

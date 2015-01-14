@@ -33,10 +33,11 @@ namespace GameLibrary
 
 		BitList();
 		BitList(const BitList&);
+		BitList(const std::vector<bool>&);
 
 		//TODO implement if std::initializer_list is available
 		//BitList(const std::initializer_list<T>&);
-
+		
 		BitList(unsigned int size);
 		~BitList();
 
