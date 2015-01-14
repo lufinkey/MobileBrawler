@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\BrawlerLibrary\Loader\CharacterLoader.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\SpriteActor.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\Animation.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\Actor.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="src\SmashBros\Menu\TitleScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\BrawlerLibrary\Loader\CharacterLoader.h" />
     <ClInclude Include="src\GameLibrary\Actor\SpriteActor.h" />
     <ClInclude Include="src\GameLibrary\Actor\Animation.h" />
     <ClInclude Include="src\GameLibrary\Actor\Actor.h" />

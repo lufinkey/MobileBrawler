@@ -146,7 +146,7 @@ namespace GameLibrary
 		{
 			typedef StorageType<U> T;
 			auto derived = dynamic_cast<Derived<T>*> (ptr);
-			return derived;
+			return (derived!=nullptr);
 		}
 
 		template<class U>

@@ -73,9 +73,6 @@
     <Filter Include="src\GameLibrary\Screen\UI">
       <UniqueIdentifier>{056a697e-c673-46f3-9f00-1c819ff7f992}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\MobileBrawler">
-      <UniqueIdentifier>{6fa0df9a-358a-4a1d-80b5-04bdab450672}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\SmashBros">
       <UniqueIdentifier>{1ff2cefd-8e32-4d68-84e8-fee6bc0a677f}</UniqueIdentifier>
     </Filter>
@@ -159,6 +156,12 @@
     </Filter>
     <Filter Include="assets\menu\fonts">
       <UniqueIdentifier>{1e1a344d-6a04-4db1-bfe3-22e811de9454}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BrawlerLibrary">
+      <UniqueIdentifier>{2b87e8e0-f8a5-4790-abfb-8176fb7291e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BrawlerLibrary\Loader">
+      <UniqueIdentifier>{3757c64a-7ddc-4f18-b42f-6ec44af9952f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -413,6 +416,9 @@
     </ClCompile>
     <ClCompile Include="src\SmashBros\Menu\Elements\ActorGrid.cpp">
       <Filter>src\SmashBros\Menu\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BrawlerLibrary\Loader\CharacterLoader.cpp">
+      <Filter>src\BrawlerLibrary\Loader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -697,6 +703,9 @@
     </ClInclude>
     <ClInclude Include="src\SmashBros\Menu\Elements\ActorGrid.h">
       <Filter>src\SmashBros\Menu\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BrawlerLibrary\Loader\CharacterLoader.h">
+      <Filter>src\BrawlerLibrary\Loader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -18,14 +18,14 @@ namespace SmashBros
 			class CharacterIcon : public SpriteActor
 			{
 			public:
-				CharacterIcon(const MenuData&menuData, float x, float y);
+				CharacterIcon(float x, float y);
 				virtual ~CharacterIcon();
 			};
 			
 			class PlayerChip : public SpriteActor
 			{
 			public:
-				PlayerChip(const MenuData&menuData, float x, float y);
+				PlayerChip(float x, float y);
 				virtual ~PlayerChip();
 			};
 			
