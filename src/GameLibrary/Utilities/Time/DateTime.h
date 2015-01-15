@@ -45,6 +45,7 @@ namespace GameLibrary
 		DateTime();
 		/* DateTime copy constructor */
 		DateTime(const DateTime&);
+		DateTime(const time_t&);
 
 		//DateTime is immutable for now
 		//DateTime(const String&datestring, const String&format=String("%Y-%m-%d %H:%M:%S %z"));
@@ -67,6 +68,7 @@ namespace GameLibrary
 		long getOffsetUTC() const;
 
 		String toString(const String&format=String("%Y-%m-%d %H:%M:%S %z")) const;
+		time_t toTimeType() const;
 		
 		/*void setMicrosecond(int usec);
 		void setSecond(int sec);

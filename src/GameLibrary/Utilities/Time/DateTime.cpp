@@ -1,4 +1,6 @@
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "DateTime.h"
 #include "../ArrayList.h"
 #include "../Math.h"
@@ -214,6 +216,32 @@ namespace GameLibrary
 		wday = datetime.wday;
 		yday = datetime.yday;
 		utc_offset = datetime.utc_offset;
+	}
+	
+	DateTime::DateTime(const time_t&current)
+	{
+		struct timeval64 tv;
+		gettimeofday64(&tv, nullptr);
+		Time64_T now = (Time64_T)tv.tv_sec;
+		struct tm lclnow = *localtime64(&now);
+		struct tm gmt = *gmtime64(&now);
+
+		Time64_T lclnow_total = mktime64(&lclnow);
+		Time64_T gmt_total = mktime64(&gmt);
+		Int64 gmt_dif = ((Int64)lclnow_total - (Int64)gmt_total);
+		
+		struct tm lcl = *localtime(&current);
+
+		usec = 0;
+		sec = lcl.tm_sec;
+		min = lcl.tm_min;
+		hour = lcl.tm_hour;
+		mday = lcl.tm_mday;
+		mon = lcl.tm_mon + 1;
+		year = lcl.tm_year + DATETIME_TM_BASEYEAR;
+		wday = lcl.tm_wday + 1;
+		yday = lcl.tm_yday + 1;
+		utc_offset = (long)gmt_dif;
 	}
 
 //DateTime destructor
@@ -678,5 +706,20 @@ namespace GameLibrary
 			}
 		}
 		return outputString;
+	}
+	
+	time_t DateTime::toTimeType() const
+	{
+		struct tm lcl;
+		lcl.tm_sec = sec;
+		lcl.tm_min = min;
+		lcl.tm_hour = hour;
+		lcl.tm_mday = mday;
+		lcl.tm_mon = mon-1;
+		lcl.tm_year = year-DATETIME_TM_BASEYEAR;
+		lcl.tm_wday = wday-1;
+		lcl.tm_yday = yday-1;
+		lcl.tm_isdst = -1;
+		return mktime(&lcl);
 	}
 }

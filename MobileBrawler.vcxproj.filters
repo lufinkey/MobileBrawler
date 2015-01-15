@@ -163,6 +163,15 @@
     <Filter Include="src\BrawlerLibrary\Loader">
       <UniqueIdentifier>{3757c64a-7ddc-4f18-b42f-6ec44af9952f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="external">
+      <UniqueIdentifier>{df520f86-68e5-4efa-a057-b031b643740c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="external\PlistCpp">
+      <UniqueIdentifier>{bec8cd48-986f-494c-9f8c-c38affcca2bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="external\PlistCpp\src">
+      <UniqueIdentifier>{28853977-0297-4ea4-8daa-92389c44ad5f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameLibrary\Actor\TextActor.cpp">
@@ -419,6 +428,15 @@
     </ClCompile>
     <ClCompile Include="src\BrawlerLibrary\Loader\CharacterLoader.cpp">
       <Filter>src\BrawlerLibrary\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="external\PlistCpp\src\Plist.cpp">
+      <Filter>external\PlistCpp\src</Filter>
+    </ClCompile>
+    <ClCompile Include="external\PlistCpp\src\PlistDate.cpp">
+      <Filter>external\PlistCpp\src</Filter>
+    </ClCompile>
+    <ClCompile Include="external\PlistCpp\src\pugixml.cpp">
+      <Filter>external\PlistCpp\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

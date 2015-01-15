@@ -13,6 +13,7 @@ namespace GameLibrary
 {
 	template<class T>
 	using StorageType = typename std::decay<T>::type;
+	
 	class Any
 	{
 	private:
@@ -162,7 +163,7 @@ namespace GameLibrary
 		}
 
 		template<class U>
-		const StorageType<U>& as()
+		const StorageType<U>& as() const
 		{
 			typedef StorageType<U> T;
 			auto derived = dynamic_cast<Derived<T>*>(ptr);

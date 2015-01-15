@@ -6,6 +6,7 @@
 #include "DataPacket.h"
 #include "Pair.h"
 #include "String.h"
+#include "Time/DateTime.h"
 
 namespace GameLibrary
 {
@@ -21,8 +22,10 @@ namespace GameLibrary
 		Dictionary(const ArrayList<String>& keys, const ArrayList<Any>& values);
 		virtual ~Dictionary();
 
-		void set(const String& key, const Any& value);
-		Any get(const String& key) const;
+		void set(const String& key, const Any& value, Any**valueptr=nullptr);
+		Any& get(const String& key);
+		const Any& get(const String& key) const;
+		bool has(const String& key) const;
 
 		ArrayList<String> getKeys() const;
 		ArrayList<Any> getValues() const;
