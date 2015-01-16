@@ -319,6 +319,11 @@ namespace GameLibrary
 		translate(delta.x, delta.y);
 	}
 	
+	Transform Graphics::getTransform() const
+	{
+		return transform;
+	}
+	
 	void Graphics::setAlpha(byte a)
 	{
 		alpha = a;

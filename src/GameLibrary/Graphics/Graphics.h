@@ -67,6 +67,8 @@ namespace GameLibrary
 		virtual void translate(float x, float y);
 		virtual void translate(const Vector2f&delta);
 		
+		virtual Transform getTransform() const;
+		
 		virtual void setAlpha(byte);
 		virtual void compositeAlpha(byte);
 		virtual byte getAlpha();

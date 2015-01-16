@@ -87,7 +87,7 @@
     <ClCompile Include="external\PlistCpp\src\Plist.cpp" />
     <ClCompile Include="external\PlistCpp\src\PlistDate.cpp" />
     <ClCompile Include="external\PlistCpp\src\pugixml.cpp" />
-    <ClCompile Include="src\BrawlerLibrary\Loader\CharacterData.cpp" />
+    <ClCompile Include="src\BrawlerLibrary\Loader\CharacterInfo.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Loader\CharacterLoader.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\SpriteActor.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\Animation.cpp" />
@@ -175,7 +175,7 @@
     <ClCompile Include="src\SmashBros\Menu\TitleScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\BrawlerLibrary\Loader\CharacterData.h" />
+    <ClInclude Include="src\BrawlerLibrary\Loader\CharacterInfo.h" />
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterLoader.h" />
     <ClInclude Include="src\GameLibrary\Actor\SpriteActor.h" />
     <ClInclude Include="src\GameLibrary\Actor\Animation.h" />
@@ -273,14 +273,8 @@
     <ClInclude Include="src\SmashBros\Menu\TitleScreen.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="assets\characters\bowser\icon.png" />
-    <Image Include="assets\characters\fox\icon.png" />
-    <Image Include="assets\characters\ichigo\icon.png" />
-    <Image Include="assets\characters\kirby\icon.png" />
-    <Image Include="assets\characters\link\icon.png" />
+    <Image Include="assets\characters\mario\costumes\default\portrait.png" />
     <Image Include="assets\characters\mario\icon.png" />
-    <Image Include="assets\characters\pikachu\icon.png" />
-    <Image Include="assets\characters\sonic\icon.png" />
     <Image Include="assets\menu\backgrounds\main.png" />
     <Image Include="assets\menu\buttons\back.png" />
     <Image Include="assets\menu\buttons\group\rules.png" />
@@ -295,6 +289,8 @@
     <Image Include="assets\menu\characterselect\chip_p2.png" />
     <Image Include="assets\menu\characterselect\chip_p3.png" />
     <Image Include="assets\menu\characterselect\chip_p4.png" />
+    <Image Include="assets\menu\characterselect\icon_frame.png" />
+    <Image Include="assets\menu\characterselect\icon_mask.png" />
     <Image Include="assets\menu\characterselect\panel_blank.png" />
     <Image Include="assets\menu\characterselect\panel_cpu.png" />
     <Image Include="assets\menu\characterselect\panel_na.png" />
@@ -314,6 +310,7 @@
     <Font Include="assets\menu\fonts\LemonMilk.otf" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\characters\mario\Info.plist" />
     <None Include="assets\menu\characterselect\panel_template.xcf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

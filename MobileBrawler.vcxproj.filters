@@ -172,6 +172,12 @@
     <Filter Include="src\import">
       <UniqueIdentifier>{40958fd3-65fa-4cf6-8a20-66820103e60f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assets\characters\mario\costumes">
+      <UniqueIdentifier>{833630a4-d6a3-4167-a4fd-babefeafbfae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\characters\mario\costumes\default">
+      <UniqueIdentifier>{106f0c3a-aa48-4f56-8689-79dc70a7d3d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameLibrary\Actor\TextActor.cpp">
@@ -438,7 +444,7 @@
     <ClCompile Include="external\PlistCpp\src\pugixml.cpp">
       <Filter>external\PlistCpp\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\BrawlerLibrary\Loader\CharacterData.cpp">
+    <ClCompile Include="src\BrawlerLibrary\Loader\CharacterInfo.cpp">
       <Filter>src\BrawlerLibrary\Loader</Filter>
     </ClCompile>
   </ItemGroup>
@@ -725,38 +731,14 @@
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterLoader.h">
       <Filter>src\BrawlerLibrary\Loader</Filter>
     </ClInclude>
-    <ClInclude Include="src\BrawlerLibrary\Loader\CharacterData.h">
-      <Filter>src\BrawlerLibrary\Loader</Filter>
-    </ClInclude>
     <ClInclude Include="src\import\GameLibraryImport.hpp">
       <Filter>src\import</Filter>
     </ClInclude>
+    <ClInclude Include="src\BrawlerLibrary\Loader\CharacterInfo.h">
+      <Filter>src\BrawlerLibrary\Loader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="assets\characters\bowser\icon.png">
-      <Filter>assets\characters\bowser</Filter>
-    </Image>
-    <Image Include="assets\characters\fox\icon.png">
-      <Filter>assets\characters\fox</Filter>
-    </Image>
-    <Image Include="assets\characters\ichigo\icon.png">
-      <Filter>assets\characters\ichigo</Filter>
-    </Image>
-    <Image Include="assets\characters\kirby\icon.png">
-      <Filter>assets\characters\kirby</Filter>
-    </Image>
-    <Image Include="assets\characters\link\icon.png">
-      <Filter>assets\characters\link</Filter>
-    </Image>
-    <Image Include="assets\characters\mario\icon.png">
-      <Filter>assets\characters\mario</Filter>
-    </Image>
-    <Image Include="assets\characters\pikachu\icon.png">
-      <Filter>assets\characters\pikachu</Filter>
-    </Image>
-    <Image Include="assets\characters\sonic\icon.png">
-      <Filter>assets\characters\sonic</Filter>
-    </Image>
     <Image Include="assets\menu\elements\headerbar_full.png">
       <Filter>assets\menu\elements</Filter>
     </Image>
@@ -838,6 +820,18 @@
     <Image Include="assets\menu\titlescreen\background.png">
       <Filter>assets\menu\titlescreen</Filter>
     </Image>
+    <Image Include="assets\characters\mario\icon.png">
+      <Filter>assets\characters\mario</Filter>
+    </Image>
+    <Image Include="assets\characters\mario\costumes\default\portrait.png">
+      <Filter>assets\characters\mario\costumes\default</Filter>
+    </Image>
+    <Image Include="assets\menu\characterselect\icon_frame.png">
+      <Filter>assets\menu\characterselect</Filter>
+    </Image>
+    <Image Include="assets\menu\characterselect\icon_mask.png">
+      <Filter>assets\menu\characterselect</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="assets\fonts\arial.ttf">
@@ -850,6 +844,9 @@
   <ItemGroup>
     <None Include="assets\menu\characterselect\panel_template.xcf">
       <Filter>assets\menu\characterselect</Filter>
+    </None>
+    <None Include="assets\characters\mario\Info.plist">
+      <Filter>assets\characters\mario</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -33,6 +33,15 @@ namespace GameLibrary
 			}
 			return false;
 		}
+		
+		bool contains(const RectangleType<T>&rect) const
+		{
+			if(x <= rect.x &&y <= rect.y && x >= (rect.x+rect.width) && y >= (rect.y+rect.height))
+			{
+				return true;
+			}
+			return false;
+		}
 	
 		bool intersects(const RectangleType<T>&rect) const
 		{
@@ -257,6 +266,61 @@ namespace GameLibrary
 	};
 	
 	typedef RectangleType<int> RectangleI;
+	typedef RectangleType<unsigned int> RectangleU;
 	typedef RectangleType<float> RectangleF;
 	typedef RectangleType<double> RectangleD;
+	
+	template<typename T>
+	class RectType
+	{
+	public:
+		T left;
+		T top;
+		T right;
+		T bottom;
+		
+		RectType() : left(0), top(0), right(0), bottom(0)
+		{
+			//
+		}
+		
+		RectType(const T&left, const T&top, const T&right, const T&bottom) : left(left), top(top), right(right), bottom(bottom)
+		{
+			//
+		}
+		
+		RectType(const RectType<T>&rect) : left(rect.left), top(rect.top), right(rect.right), bottom(rect.bottom)
+		{
+			//
+		}
+		
+		RectType(const RectangleType<T>&rect) : left(rect.x), top(rect.y), right(rect.x+rect.width), bottom(rect.y+rect.height)
+		{
+			//
+		}
+		
+		RectType<T>& operator=(const RectType<T>&rect)
+		{
+			left = rect.left;
+			top = rect.top;
+			right = rect.right;
+			bottom = rect.bottom;
+			return *this;
+		}
+		
+		RectangleType<T>& toRectangle() const
+		{
+			return RectangleType<T>(left,top,right-left,bottom-top);
+		}
+		
+		operator RectangleType<T>() const
+		{
+			return RectangleType<T>(left,top,right-left,bottom-top);
+		}
+	};
+	
+	typedef RectType<int> RectI;
+	typedef RectType<unsigned int> RectU;
+	typedef RectType<float> RectF;
+	typedef RectType<double> RectD;
 }

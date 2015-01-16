@@ -21,9 +21,13 @@ namespace BrawlerLibrary
 		//
 	}
 	
-	CharacterInfo& CharacterInfo::operator=(const CharacterInfo&)
+	CharacterInfo& CharacterInfo::operator=(const CharacterInfo&info)
 	{
-		//
+		path = info.path;
+		name = info.name;
+		creator = info.creator;
+		minsmashversion = info.minsmashversion;
+		return *this;
 	}
 	
 	bool CharacterInfo::loadFromPath(const String&path, String&error)
@@ -34,17 +38,17 @@ namespace BrawlerLibrary
 	
 	const String& CharacterInfo::getPath() const
 	{
-		//
+		return path;
 	}
 	
 	const String& CharacterInfo::getName() const
 	{
-		//
+		return name;
 	}
 	
 	const String& CharacterInfo::getMinimumSmashVersion() const
 	{
-		//
+		return minsmashversion;
 	}
 	
 	void CharacterInfo::setPath(const String&path)

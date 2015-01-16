@@ -296,7 +296,16 @@ namespace GameLibrary
 	
 	void Image::applyAlphaMask(const Image&image)
 	{
-		//TODO implement this after PixelIterator is finished
+		applyAlphaMask(image, RectangleI(0,0,width,height));
+	}
+	
+	void Image::applyAlphaMask(const Image&image, const RectangleI&dstRect)
+	{
+		if(width == 0 || height == 0)
+		{
+			return;
+		}
+		//TODO implement when PixelIterator is finished
 	}
 
 	unsigned int Image::getSize() const
