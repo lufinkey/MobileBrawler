@@ -293,6 +293,11 @@ namespace GameLibrary
 			}
 		}
 	}
+	
+	void Image::applyAlphaMask(const Image&image)
+	{
+		//TODO implement this after PixelIterator is finished
+	}
 
 	unsigned int Image::getSize() const
 	{

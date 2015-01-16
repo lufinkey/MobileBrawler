@@ -87,6 +87,7 @@
     <ClCompile Include="external\PlistCpp\src\Plist.cpp" />
     <ClCompile Include="external\PlistCpp\src\PlistDate.cpp" />
     <ClCompile Include="external\PlistCpp\src\pugixml.cpp" />
+    <ClCompile Include="src\BrawlerLibrary\Loader\CharacterData.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Loader\CharacterLoader.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\SpriteActor.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\Animation.cpp" />
@@ -174,6 +175,7 @@
     <ClCompile Include="src\SmashBros\Menu\TitleScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\BrawlerLibrary\Loader\CharacterData.h" />
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterLoader.h" />
     <ClInclude Include="src\GameLibrary\Actor\SpriteActor.h" />
     <ClInclude Include="src\GameLibrary\Actor\Animation.h" />

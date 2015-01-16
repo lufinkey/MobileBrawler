@@ -916,9 +916,12 @@ namespace GameLibrary
 	template<typename T>
 	std::string String_convert_fromdecimal(const T&decimal)
 	{
-		char buffer[26];
-		std::sprintf(buffer, "%f", decimal);
+		char buffer[60];
+		std::sprintf(buffer, "%g", decimal);
 		return std::string(buffer);
+		/*std::ostringstream oss;
+		oss << std::setprecision(9999) << decimal;
+		return oss.str();*/
 	}
 
 	template<typename T>
@@ -926,7 +929,7 @@ namespace GameLibrary
 	{
 		std::stringstream ss;
 		ss << integral;
-		return std::string(ss.str());
+		return ss.str();
 	}
 
 	String::String()

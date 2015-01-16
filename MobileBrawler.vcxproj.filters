@@ -82,9 +82,6 @@
     <Filter Include="src\SmashBros\Menu">
       <UniqueIdentifier>{c1bbaa57-ae03-4a23-bb97-647f07037720}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\import">
-      <UniqueIdentifier>{986e5ec3-0468-4541-a5dd-59c198e2e94b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="assets">
       <UniqueIdentifier>{507741fa-cfb0-4cf0-a972-17afe75b1d1a}</UniqueIdentifier>
     </Filter>
@@ -171,6 +168,9 @@
     </Filter>
     <Filter Include="external\PlistCpp\src">
       <UniqueIdentifier>{28853977-0297-4ea4-8daa-92389c44ad5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\import">
+      <UniqueIdentifier>{40958fd3-65fa-4cf6-8a20-66820103e60f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -438,6 +438,9 @@
     <ClCompile Include="external\PlistCpp\src\pugixml.cpp">
       <Filter>external\PlistCpp\src</Filter>
     </ClCompile>
+    <ClCompile Include="src\BrawlerLibrary\Loader\CharacterData.cpp">
+      <Filter>src\BrawlerLibrary\Loader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -692,9 +695,6 @@
     <ClInclude Include="src\SmashBros\Game.h">
       <Filter>src\SmashBros</Filter>
     </ClInclude>
-    <ClInclude Include="src\import\GameLibraryImport.hpp">
-      <Filter>src\import</Filter>
-    </ClInclude>
     <ClInclude Include="src\SmashBros\Global.h">
       <Filter>src\SmashBros</Filter>
     </ClInclude>
@@ -724,6 +724,12 @@
     </ClInclude>
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterLoader.h">
       <Filter>src\BrawlerLibrary\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BrawlerLibrary\Loader\CharacterData.h">
+      <Filter>src\BrawlerLibrary\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\import\GameLibraryImport.hpp">
+      <Filter>src\import</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
