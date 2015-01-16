@@ -37,7 +37,7 @@ namespace GameLibrary
 		
 	public:
 		PixelIterator(const RectangleU&srcRect, const RectangleF&dstRect, const RectangleF&loopRect, float xincrement, float yincrement, bool mirror=false, bool mirrorVertical=false);
-		PixelIterator(const RectangleU&srcRect, const RectangleF&dstRect, const RectangleF&loopRect, float xincrement, float yincrement, const Transform&transform, bool mirror=false, bool mirrorVertical=false);
+		PixelIterator(const RectangleU&srcRect, const RectangleF&dstRect, const RectangleF&loopRect, float xincrement, float yincrement, const Transform&transform, const Vector2f&ratio, bool mirror=false, bool mirrorVertical=false);
 		PixelIterator(const PixelIterator&);
 		~PixelIterator();
 		

@@ -36,7 +36,7 @@ namespace GameLibrary
 		lastRowStartIndex = currentPixelIndex;
 	}
 	
-	PixelIterator::PixelIterator(const RectangleU&srcrect, const RectangleF&dstrect, const RectangleF&looprect, float xincrement, float yincrement, const Transform&transform, bool mirror_arg, bool mirrorVertical_arg)
+	PixelIterator::PixelIterator(const RectangleU&srcrect, const RectangleF&dstrect, const RectangleF&looprect, float xincrement, float yincrement, const Transform&transform, const Vector2f&rat, bool mirror_arg, bool mirrorVertical_arg)
 	{
 		if(!dstRect.contains(loopRect))
 		{
@@ -51,8 +51,8 @@ namespace GameLibrary
 		dstRect = dstrect;
 		loopRect = looprect;
 		loopRectRel = RectF(loopRect.x-dstRect.x, loopRect.y-dstRect.y, loopRect.x+loopRect.width-dstRect.x, loopRect.y+loopRect.height-dstRect.y);
-		ratio.x = srcRectF.width/dstRect.width;
-		ratio.y = srcRectF.height/dstRect.height;
+		ratio.x = rat.x;
+		ratio.y = rat.y;
 		srcLoopRectWidth = loopRect.width*ratio.x;
 		incr.x = xincrement;
 		incr.y = yincrement;
@@ -182,6 +182,7 @@ namespace GameLibrary
 	
 	bool PixelIterator::nextPixelIndex()
 	{
+		bool finished = false;
 		if(usesTransform)
 		{
 			if(started)
@@ -194,6 +195,7 @@ namespace GameLibrary
 					if(currentPoint.y >= loopRectRel.bottom)
 					{
 						currentPoint.y = loopRectRel.top;
+						finished = true;
 					}
 				}
 				currentPixelIndex = calculatePixelIndex();
@@ -241,6 +243,7 @@ namespace GameLibrary
 						currentPoint.y = loopRectRel.top;
 						row = 0;
 						currentPixelIndex = calculatePixelIndex();
+						finished = true;
 					}
 				}
 			}
@@ -249,12 +252,7 @@ namespace GameLibrary
 				started = true;
 			}
 		}
-		
-		if(currentPixelIndex < 0)
-		{
-			return false;
-		}
-		return true;
+		return finished;
 	}
 	
 	float PixelIterator::getCurrentPixelIndex() const

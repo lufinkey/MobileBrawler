@@ -4,6 +4,7 @@
 #include "Actor.h"
 #include "Animation.h"
 #include "../Exception/IllegalArgumentException.h"
+#include "../Exception/IllegalStateException.h"
 
 namespace GameLibrary
 {
@@ -31,6 +32,8 @@ namespace GameLibrary
 		bool hasAnimation(const String&name) const;
 		Animation* getAnimation(const String&name) const;
 		void changeAnimation(const String&name, const Animation::Direction&direction);
+		
+		bool isColliding(SpriteActor*) const;
 		
 	protected:
 		virtual void updateSize();

@@ -5,6 +5,7 @@
 
 namespace GameLibrary
 {
+	/* Thrown to indicate that a function has been invoked at an illegal or inappropriate time. */
 	class IllegalStateException : public Exception
 	{
 	public:

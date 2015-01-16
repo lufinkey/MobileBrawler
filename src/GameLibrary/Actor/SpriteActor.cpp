@@ -1,5 +1,6 @@
 
 #include "SpriteActor.h"
+#include "../Graphics/PixelIterator.h"
 
 namespace GameLibrary
 {
@@ -390,6 +391,137 @@ namespace GameLibrary
 			unsigned int pxlY = (unsigned int)(ratY*((float)srcRect.height));
 
 			return img->checkPixel((unsigned int)srcRect.x+pxlX,(unsigned int)srcRect.y+pxlY);
+		}
+		return false;
+	}
+	
+	bool SpriteActor::isColliding(SpriteActor*actor) const
+	{
+		if(actor == nullptr)
+		{
+			throw IllegalArgumentException("Cannot pass a null actor to SpriteActor::isColliding");
+		}
+		else if(animation_current==nullptr || actor->animation_current==nullptr || scale==0 || actor->scale==0)
+		{
+			return false;
+		}
+		RectangleF frame = getFrame();
+		RectangleF actor_frame = actor->getFrame();
+		if(frame.intersects(actor_frame))
+		{
+			RectangleF overlap = frame.getIntersect(actor_frame);
+			
+			float incr = 1;
+			if(scale < actor->scale)
+			{
+				incr = scale;
+			}
+			else
+			{
+				incr = actor->scale;
+			}
+			
+			TextureImage* img = animation_current->getImage(animation_frame);
+			if(img == nullptr)
+			{
+				throw IllegalStateException("The animation images within SpriteActor have not been loaded through an AssetManager");
+			}
+			RectangleI srcRect = animation_current->getImageSourceRect(animation_frame);
+			RectangleU srcRectU = RectangleU((unsigned int)srcRect.x, (unsigned int)srcRect.y, (unsigned int)srcRect.width, (unsigned int)srcRect.height);
+			
+			TextureImage* actor_img = actor->animation_current->getImage(actor->animation_frame);
+			if(actor_img == nullptr)
+			{
+				throw IllegalStateException("The animation images within SpriteActor have not been loaded through an AssetManager");
+			}
+			RectangleI actor_srcRect = actor->animation_current->getImageSourceRect(actor->animation_frame);
+			RectangleU actor_srcRectU = RectangleU((unsigned int)actor_srcRect.x, (unsigned int)actor_srcRect.y, (unsigned int)actor_srcRect.width, (unsigned int)actor_srcRect.height);
+			
+			bool mirror = false;
+			if(mirrored != animation_current->isMirrored())
+			{
+				mirror = true;
+			}
+			bool mirrorVertical = false;
+			if(mirroredVertical != animation_current->isMirroredVertical())
+			{
+				mirrorVertical = true;
+			}
+			
+			bool actor_mirror = false;
+			if(actor->mirrored != actor->animation_current->isMirrored())
+			{
+				actor_mirror = true;
+			}
+			bool actor_mirrorVertical = false;
+			if(actor->mirroredVertical != actor->animation_current->isMirroredVertical())
+			{
+				actor_mirrorVertical = true;
+			}
+			
+			PixelIterator*pxlIter = nullptr;
+			if(rotation == 0)
+			{
+				pxlIter = new PixelIterator(srcRectU, frame, overlap, incr, incr, mirror, mirrorVertical);
+			}
+			else
+			{
+				Transform transform = rotationMatrix;
+				transform.translate(-(width/2), -(height/2));
+				float ratiox = ((float)srcRect.width)/width;
+				float ratioy = ((float)srcRect.height)/height;
+				pxlIter = new PixelIterator(srcRectU, frame, overlap, incr, incr, transform, Vector2f(ratiox, ratioy), mirror, mirrorVertical);
+			}
+			PixelIterator& pxlIterRef = *pxlIter;
+			
+			PixelIterator*actor_pxlIter = nullptr;
+			if(actor->rotation == 0)
+			{
+				actor_pxlIter = new PixelIterator(actor_srcRectU, actor_frame, overlap, incr, incr, actor_mirror, actor_mirrorVertical);
+			}
+			else
+			{
+				Transform transform = actor->rotationMatrix;
+				transform.translate(-(actor->width/2), -(actor->height/2));
+				float ratiox = ((float)actor_srcRect.width)/actor->width;
+				float ratioy = ((float)actor_srcRect.height)/actor->height;
+				actor_pxlIter = new PixelIterator(actor_srcRectU, actor_frame, overlap, incr, incr, transform, Vector2f(ratiox, ratioy), actor_mirror, actor_mirrorVertical);
+			}
+			PixelIterator& actor_pxlIterRef = *actor_pxlIter;
+
+			bool running = pxlIterRef.nextPixelIndex();
+			bool actor_running = actor_pxlIterRef.nextPixelIndex();
+			while(running && actor_running)
+			{
+				float pxlIndex = pxlIterRef.getCurrentPixelIndex();
+				float actor_pxlIndex = actor_pxlIterRef.getCurrentPixelIndex();
+				bool pxlOn = false;
+				if(pxlIndex >= 0)
+				{
+					pxlOn = img->checkPixel((unsigned int)pxlIndex);
+				}
+				bool actor_pxlOn = false;
+				if(actor_pxlIndex >= 0)
+				{
+					actor_pxlOn = actor_img->checkPixel((unsigned int)actor_pxlIndex);
+				}
+				
+				if(pxlOn && actor_pxlOn)
+				{
+					delete pxlIter;
+					delete actor_pxlIter;
+					return true;
+				}
+			}
+			if(running != actor_running)
+			{
+				delete pxlIter;
+				delete actor_pxlIter;
+				throw Exception("Unknown collision bug. This exception means there is a bug within the SpriteActor::isColliding function");
+			}
+			delete pxlIter;
+			delete actor_pxlIter;
+			return false;
 		}
 		return false;
 	}
