@@ -1,10 +1,12 @@
 
 #pragma once
 
-#include <GameLibraryImport.hpp>
+#include <GameLibrary/GameLibrary.h>
 
 namespace SmashBros
 {
+	using namespace GameLibrary;
+	
 	namespace Menu
 	{
 		class ActorGrid

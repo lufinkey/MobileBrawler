@@ -1,13 +1,15 @@
 
 #pragma once
 
-#include <GameLibraryImport.hpp>
+#include <GameLibrary/GameLibrary.h>
 
 #define SMASHBROS_WINDOWWIDTH 900
 #define SMASHBROS_WINDOWHEIGHT 600
 
 namespace SmashBros
 {
+	using namespace GameLibrary;
+	
 	class Global
 	{
 	public:

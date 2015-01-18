@@ -1,10 +1,12 @@
 
 #pragma once
 
-#include <GameLibraryImport.hpp>
+#include <GameLibrary/GameLibrary.h>
 
 namespace BrawlerLibrary
 {
+	using namespace GameLibrary;
+	
 	class CharacterInfo
 	{
 	private:
@@ -24,10 +26,12 @@ namespace BrawlerLibrary
 		
 		const String& getPath() const;
 		const String& getName() const;
+		const String& getCreator() const;
 		const String& getMinimumSmashVersion() const;
 		
 		void setPath(const String&path);
 		void setName(const String&name);
-		void setMinimumSmashVersion() const;
+		void setCreator(const String&creator);
+		void setMinimumSmashVersion(const String&minsmashversion);
 	};
 }

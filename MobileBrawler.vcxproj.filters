@@ -169,9 +169,6 @@
     <Filter Include="external\PlistCpp\src">
       <UniqueIdentifier>{28853977-0297-4ea4-8daa-92389c44ad5f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\import">
-      <UniqueIdentifier>{40958fd3-65fa-4cf6-8a20-66820103e60f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="assets\characters\mario\costumes">
       <UniqueIdentifier>{833630a4-d6a3-4167-a4fd-babefeafbfae}</UniqueIdentifier>
     </Filter>
@@ -731,9 +728,6 @@
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterLoader.h">
       <Filter>src\BrawlerLibrary\Loader</Filter>
     </ClInclude>
-    <ClInclude Include="src\import\GameLibraryImport.hpp">
-      <Filter>src\import</Filter>
-    </ClInclude>
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterInfo.h">
       <Filter>src\BrawlerLibrary\Loader</Filter>
     </ClInclude>
@@ -769,13 +763,7 @@
     <Image Include="assets\menu\buttons\main\group.png">
       <Filter>assets\menu\buttons\main</Filter>
     </Image>
-    <Image Include="assets\menu\buttons\main\group2.png">
-      <Filter>assets\menu\buttons\main</Filter>
-    </Image>
     <Image Include="assets\menu\buttons\main\solo.png">
-      <Filter>assets\menu\buttons\main</Filter>
-    </Image>
-    <Image Include="assets\menu\buttons\main\solo2.png">
       <Filter>assets\menu\buttons\main</Filter>
     </Image>
     <Image Include="assets\menu\buttons\solo\training.png">

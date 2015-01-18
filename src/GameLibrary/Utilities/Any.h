@@ -127,16 +127,11 @@ namespace GameLibrary
 			}
 		}
 
-		bool is_null() const
+		bool empty() const
 		{
 			return !ptr;
 		}
-
-		bool not_null() const
-		{
-			return ptr!=nullptr;
-		}
-
+		
 		template<typename U>
 		Any(U&& value) : ptr(new Derived<StorageType<U>>(std::forward<U>(value)))
 		{
@@ -151,27 +146,45 @@ namespace GameLibrary
 		}
 
 		template<class U>
-		StorageType<U>& as()
+		StorageType<U>& as(bool unsafe=false)
 		{
-			typedef StorageType<U> T;
-			auto derived = dynamic_cast<Derived<T>*>(ptr);
-			if (!derived)
+			if(unsafe)
 			{
-				throw BadAnyCastException(typeid(U).name());
+				typedef StorageType<U> T;
+				Derived<T>*derived = (Derived<T>*)ptr;
+				return derived->value;
 			}
-			return derived->value;
+			else
+			{
+				typedef StorageType<U> T;
+				auto derived = dynamic_cast<Derived<T>*>(ptr);
+				if (!derived)
+				{
+					throw BadAnyCastException(typeid(U).name());
+				}
+				return derived->value;
+			}
 		}
 
 		template<class U>
-		const StorageType<U>& as() const
+		const StorageType<U>& as(bool unsafe=false) const
 		{
-			typedef StorageType<U> T;
-			auto derived = dynamic_cast<Derived<T>*>(ptr);
-			if (!derived)
+			if(unsafe)
 			{
-				throw BadAnyCastException(typeid(U).name());
+				typedef StorageType<U> T;
+				Derived<T>* derived = (Derived<T>*)ptr;
+				return derived->value;
 			}
-			return derived->value;
+			else
+			{
+				typedef StorageType<U> T;
+				auto derived = dynamic_cast<Derived<T>*>(ptr);
+				if (!derived)
+				{
+					throw BadAnyCastException(typeid(U).name());
+				}
+				return derived->value;
+			}
 		}
 	};
 }

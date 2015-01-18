@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include <GameLibraryImport.hpp>
+#include <GameLibrary/GameLibrary.h>
 #include "Menu/TitleScreen.h"
 
 namespace SmashBros

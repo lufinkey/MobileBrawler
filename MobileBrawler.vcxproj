@@ -53,7 +53,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>src\import;external\SDL\include;external\PlistCpp\include;external\PlistCpp\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;external\SDL\include;external\PlistCpp\include;external\PlistCpp\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -72,7 +72,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>src\import;external\SDL\include;external\PlistCpp\include;external\PlistCpp\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;external\SDL\include;external\PlistCpp\include;external\PlistCpp\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -260,7 +260,6 @@
     <ClInclude Include="src\GameLibrary\Utilities\Time\TimeInterval.h" />
     <ClInclude Include="src\GameLibrary\Window\View.h" />
     <ClInclude Include="src\GameLibrary\Window\Window.h" />
-    <ClInclude Include="src\import\GameLibraryImport.hpp" />
     <ClInclude Include="src\SmashBros\Game.h" />
     <ClInclude Include="src\SmashBros\Global.h" />
     <ClInclude Include="src\SmashBros\Menu\CharacterSelectScreen.h" />
@@ -280,9 +279,7 @@
     <Image Include="assets\menu\buttons\group\rules.png" />
     <Image Include="assets\menu\buttons\group\smash.png" />
     <Image Include="assets\menu\buttons\main\group.png" />
-    <Image Include="assets\menu\buttons\main\group2.png" />
     <Image Include="assets\menu\buttons\main\solo.png" />
-    <Image Include="assets\menu\buttons\main\solo2.png" />
     <Image Include="assets\menu\buttons\solo\training.png" />
     <Image Include="assets\menu\characterselect\chip_cpu.png" />
     <Image Include="assets\menu\characterselect\chip_p1.png" />
