@@ -1,7 +1,6 @@
 
 #include "PixelIterator.h"
 #include "../Utilities/Math.h"
-#include "../IO/Console.h"
 
 namespace GameLibrary
 {
