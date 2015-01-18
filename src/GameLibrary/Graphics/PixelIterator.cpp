@@ -1,6 +1,7 @@
 
 #include "PixelIterator.h"
 #include "../Utilities/Math.h"
+#include "../IO/Console.h"
 
 namespace GameLibrary
 {
@@ -21,7 +22,6 @@ namespace GameLibrary
 		loopRectRel = RectF(loopRect.x-dstRect.x, loopRect.y-dstRect.y, loopRect.x+loopRect.width-dstRect.x, loopRect.y+loopRect.height-dstRect.y);
 		ratio.x = srcRectF.width/dstRect.width;
 		ratio.y = srcRectF.height/dstRect.height;
-		srcLoopRectWidth = loopRect.width*ratio.x;
 		incr.x = xincrement;
 		incr.y = yincrement;
 		incrpxl.x = incr.x*ratio.x;
@@ -53,7 +53,6 @@ namespace GameLibrary
 		loopRectRel = RectF(loopRect.x-dstRect.x, loopRect.y-dstRect.y, loopRect.x+loopRect.width-dstRect.x, loopRect.y+loopRect.height-dstRect.y);
 		ratio.x = rat.x;
 		ratio.y = rat.y;
-		srcLoopRectWidth = loopRect.width*ratio.x;
 		incr.x = xincrement;
 		incr.y = yincrement;
 		incrpxl.x = incr.x*ratio.x;
@@ -78,7 +77,6 @@ namespace GameLibrary
 		dstRect = iterator.dstRect;
 		loopRect = iterator.loopRect;
 		loopRectRel = iterator.loopRectRel;
-		srcLoopRectWidth = iterator.srcLoopRectWidth;
 		inverseTransform = iterator.inverseTransform;
 		usesTransform = iterator.usesTransform;
 		mirror = iterator.mirror;
@@ -107,7 +105,6 @@ namespace GameLibrary
 		dstRect = iterator.dstRect;
 		loopRect = iterator.loopRect;
 		loopRectRel = iterator.loopRectRel;
-		srcLoopRectWidth = iterator.srcLoopRectWidth;
 		inverseTransform = iterator.inverseTransform;
 		usesTransform = iterator.usesTransform;
 		mirror = iterator.mirror;
@@ -153,7 +150,7 @@ namespace GameLibrary
 			}
 			else
 			{
-				pixelIndex = (srcRectF.width*pixelPoint.x)+pixelPoint.y;
+				pixelIndex = (srcRectF.width*Math::floor(pixelPoint.y))+pixelPoint.x;
 			}
 		}
 		else
@@ -170,19 +167,21 @@ namespace GameLibrary
 			if(mirrorVertical)
 			{
 				pixelPoint.y = srcRectF.y + (srcRectF.height - (pixelPoint.y-srcRectF.y));
+				row = Math::ceil(pixelPoint.y) - pixelPoint.y;
 			}
 			else
 			{
 				pixelPoint.y = srcRectF.y + pixelPoint.y;
+				row = pixelPoint.y - Math::floor(pixelPoint.y);
 			}
-			pixelIndex = (srcRectF.width*pixelPoint.y)+pixelPoint.x;
+			pixelIndex = (srcRectF.width*Math::floor(pixelPoint.y))+pixelPoint.x;
 		}
 		return pixelIndex;
 	}
 	
 	bool PixelIterator::nextPixelIndex()
 	{
-		bool finished = false;
+		bool running = true;
 		if(usesTransform)
 		{
 			if(started)
@@ -195,7 +194,7 @@ namespace GameLibrary
 					if(currentPoint.y >= loopRectRel.bottom)
 					{
 						currentPoint.y = loopRectRel.top;
-						finished = true;
+						running = false;
 					}
 				}
 				currentPixelIndex = calculatePixelIndex();
@@ -231,19 +230,20 @@ namespace GameLibrary
 					{
 						if(mirrorVertical)
 						{
-							currentPixelIndex -= srcLoopRectWidth*((float)rowDif);
+							currentPixelIndex -= srcRectF.width*((float)rowDif);
 						}
 						else
 						{
-							currentPixelIndex += srcLoopRectWidth*((float)rowDif);
+							currentPixelIndex += srcRectF.width*((float)rowDif);
 						}
+						lastRowStartIndex = currentPixelIndex;
 					}
 					if(currentPoint.y >= loopRectRel.bottom)
 					{
 						currentPoint.y = loopRectRel.top;
 						row = 0;
 						currentPixelIndex = calculatePixelIndex();
-						finished = true;
+						running = false;
 					}
 				}
 			}
@@ -252,7 +252,7 @@ namespace GameLibrary
 				started = true;
 			}
 		}
-		return finished;
+		return running;
 	}
 	
 	float PixelIterator::getCurrentPixelIndex() const

@@ -17,7 +17,6 @@ namespace GameLibrary
 		RectangleF dstRect;
 		RectangleF loopRect;
 		RectF loopRectRel; //relative to dstRect
-		float srcLoopRectWidth;
 
 		Transform inverseTransform;
 		bool usesTransform;

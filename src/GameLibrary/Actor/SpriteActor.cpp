@@ -512,6 +512,9 @@ namespace GameLibrary
 					delete actor_pxlIter;
 					return true;
 				}
+
+				running = pxlIterRef.nextPixelIndex();
+				actor_running = actor_pxlIterRef.nextPixelIndex();
 			}
 			if(running != actor_running)
 			{
