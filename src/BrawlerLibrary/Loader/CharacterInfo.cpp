@@ -39,42 +39,42 @@ namespace BrawlerLibrary
 			Any val_name = dict.get("name");
 			if(val_name.empty())
 			{
-				error = "plist does not contain value for \"name\"";
+				error = "Plist does not contain value for \"name\"";
 				return false;
 			}
 			else if(!val_name.is<String>())
 			{
-				error = "incorrect value type for key \"name\"; value type should be string";
+				error = "Incorrect value type for key \"name\". Value should be a string";
 				return false;
 			}
 			
 			Any val_creator = dict.get("creator");
 			if(val_creator.empty())
 			{
-				error = "plist does not contain value for \"creator\"";
+				error = "Plist does not contain value for \"creator\"";
 				return false;
 			}
 			else if(!val_creator.is<String>())
 			{
-				error = "incorrect value type for key \"creator\"; value type should be string";
+				error = "Incorrect value type for key \"creator\". Value should be a string";
 				return false;
 			}
 			
 			Any val_minsmashversion = dict.get("minsmashversion");
 			if(val_minsmashversion.empty())
 			{
-				error = "plist does not contain value for \"minsmashversion\"";
+				error = "Plist does not contain value for \"minsmashversion\"";
 				return false;
 			}
 			else if(!val_minsmashversion.is<String>())
 			{
-				error = "incorrect value type for key \"minsmashversion\"; value type should be string";
+				error = "Incorrect value type for key \"minsmashversion\". Value should be a string";
 				return false;
 			}
 			
-			name = val_name.as<String>(true);
-			creator = val_creator.as<String>(true);
-			minsmashversion = val_minsmashversion.as<String>(true);
+			name = val_name.as<String>(false);
+			creator = val_creator.as<String>(false);
+			minsmashversion = val_minsmashversion.as<String>(false);
 			path = folderpath;
 			return true;
 		}

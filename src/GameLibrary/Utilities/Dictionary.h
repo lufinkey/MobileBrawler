@@ -7,6 +7,10 @@
 #include "Pair.h"
 #include "String.h"
 #include "Time/DateTime.h"
+#include "../Exception/NumberFormatException.h"
+
+//Dictionary loading and saving code adapted from PlistCpp. https://github.com/animetrics/PlistCpp
+//All credit goes to animetrics
 
 namespace GameLibrary
 {
@@ -29,6 +33,7 @@ namespace GameLibrary
 
 		ArrayList<String> getKeys() const;
 		ArrayList<Any> getValues() const;
+		const ArrayList<Pair<String, Any> >& getContents() const;
 
 		void clear();
 
@@ -36,6 +41,6 @@ namespace GameLibrary
 		bool loadFromData(const DataPacket&data, String&error=String());
 		bool loadFromPointer(const void*ptr, unsigned int size, String&error=String());
 		bool loadFromString(const String&string, String&error=String());
-		bool saveToFile(const String&path, String&error=String());
+		bool saveToFile(const String&path, bool binary=false, String&error=String());
 	};
 }

@@ -98,11 +98,12 @@ namespace GameLibrary
 		static float asFloat(const String&);
 		static double asDouble(const String&);
 		static long long asLongLong(const String&);
-		static unsigned int asUInt(const String&);
-		static unsigned char asUChar(const String&);
-		static unsigned long asULong(const String&);
-		static unsigned short asUShort(const String&);
-		static unsigned long long asULongLong(const String&);
+		static long double asLongDouble(const String&);
+		static unsigned int asUnsignedInt(const String&);
+		static unsigned char asUnsignedChar(const String&);
+		static unsigned long asUnsignedLong(const String&);
+		static unsigned short asUnsignedShort(const String&);
+		static unsigned long long asUnsignedLongLong(const String&);
 
 		static char asLowerCaseChar(char c);
 		static char asUpperCaseChar(char c);
@@ -112,7 +113,9 @@ namespace GameLibrary
 		String(const std::string&);
 		String(const std::wstring&);
 		String(const char*);
+		String(const char*str, unsigned int size);
 		String(const wchar_t*);
+		String(const wchar_t*str, unsigned int size);
 		String(const char&);
 		virtual ~String();
 

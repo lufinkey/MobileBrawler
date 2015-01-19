@@ -448,7 +448,7 @@ namespace GameLibrary
 		{
 			char c = str.charAt(i);
 			int value = (int)(c - '0');
-			totalVal += (float)(value*std::pow((float)10,counter));
+			totalVal += (float)std::pow((float)10,counter)*value;
 			counter--;
 		}
 
@@ -464,7 +464,7 @@ namespace GameLibrary
 			}
 			else
 			{
-				totalVal += (float)(value*(int)std::pow((float)10,counter));
+				totalVal += (float)std::pow((float)10,counter)*value;
 			}
 			counter++;
 
@@ -543,7 +543,7 @@ namespace GameLibrary
 		{
 			char c = str.charAt(i);
 			int value = (int)(c - '0');
-			totalVal += (double)(value*std::pow((double)10,counter));
+			totalVal += (double)(std::pow((double)10,counter)*value);
 			counter--;
 		}
 
@@ -559,7 +559,7 @@ namespace GameLibrary
 			}
 			else
 			{
-				totalVal += (value*(double)std::pow((double)10,counter));
+				totalVal += (double)std::pow((double)10,counter)*value;
 			}
 			counter++;
 
@@ -634,8 +634,103 @@ namespace GameLibrary
 		
 		return (long long)(totalVal*mult);
 	}
-
-	unsigned int String::asUInt(const String&str)
+	
+	long double String::asLongDouble(const String&str)
+	{
+		if(str.total == 0)
+		{
+#ifdef STRING_USES_GAMELIBRARY
+			throw NumberFormatException("long double", "String is empty");
+#else
+			throw StringException("Unable to convert to type long double: String is empty");
+#endif
+		}
+		
+		bool hasDecimal = false;
+		unsigned int decimalIndex = str.total;
+		
+		for(unsigned int i=0; i<str.total; i++)
+		{
+			char c = str.charAt(i);
+			if(!((c>='0' && c<='9') || (c=='-' && i==0) || (c=='+' && i==0)))
+			{
+				if(c=='.')
+				{
+					if(hasDecimal)
+					{
+#ifdef STRING_USES_GAMELIBRARY
+				throw NumberFormatException("long double", "Too many decimal points");
+#else
+				throw StringException("Unable to convert to type long double: Too many decimal points");
+#endif
+					}
+					else
+					{
+						hasDecimal = true;
+						decimalIndex = i;
+					}
+				}
+				else
+				{
+#ifdef STRING_USES_GAMELIBRARY
+				throw NumberFormatException("long double", (String)"Unexpected character \'" + c + '\'');
+#else
+				throw StringException((std::string)"Unable to convert to type long double: Unexpected character \'" + c + '\'');
+#endif
+				}
+			}
+		}
+		
+		int mult = 1;
+		unsigned int startIndex = 0;
+		if(str.charAt(0)=='-')
+		{
+			mult = -1;
+			startIndex = 1;
+		}
+		else if(str.charAt(0)=='+')
+		{
+			mult = 1;
+			startIndex = 1;
+		}
+		
+		int counter = -1;
+		long double totalVal = 0;
+		
+		for(unsigned int i=(decimalIndex+1); i<str.total; i++)
+		{
+			char c = str.charAt(i);
+			int value = (int)(c - '0');
+			totalVal += (long double)std::pow((long double)10,counter)*value;
+			counter--;
+		}
+		
+		counter = 0;
+		
+		for(unsigned int i=(decimalIndex-1); i>=startIndex; i--)
+		{
+			char c = str.charAt(i);
+			int value = (int)(c - '0');
+			if(counter==0)
+			{
+				totalVal += value;
+			}
+			else
+			{
+				totalVal += (long double)std::pow((long double)10,counter)*value;
+			}
+			counter++;
+			
+			if(i == startIndex)
+			{
+				return totalVal*mult;
+			}
+		}
+		
+		return totalVal*mult;
+	}
+	
+	unsigned int String::asUnsignedInt(const String&str)
 	{
 		if(str.total == 0)
 		{
@@ -687,7 +782,7 @@ namespace GameLibrary
 		return totalVal;
 	}
 
-	unsigned char String::asUChar(const String&str)
+	unsigned char String::asUnsignedChar(const String&str)
 	{
 		if(str.total == 0)
 		{
@@ -739,7 +834,7 @@ namespace GameLibrary
 		return totalVal;
 	}
 
-	unsigned long String::asULong(const String&str)
+	unsigned long String::asUnsignedLong(const String&str)
 	{
 		if(str.total == 0)
 		{
@@ -791,7 +886,7 @@ namespace GameLibrary
 		return totalVal;
 	}
 
-	unsigned short String::asUShort(const String&str)
+	unsigned short String::asUnsignedShort(const String&str)
 	{
 		if(str.total == 0)
 		{
@@ -843,7 +938,7 @@ namespace GameLibrary
 		return totalVal;
 	}
 
-	unsigned long long String::asULongLong(const String&str)
+	unsigned long long String::asUnsignedLongLong(const String&str)
 	{
 		if(str.total == 0)
 		{
@@ -916,12 +1011,15 @@ namespace GameLibrary
 	template<typename T>
 	std::string String_convert_fromdecimal(const T&decimal)
 	{
-		char buffer[60];
+		/*char buffer[60];
 		std::sprintf(buffer, "%g", decimal);
-		return std::string(buffer);
+		return std::string(buffer);*/
 		/*std::ostringstream oss;
 		oss << std::setprecision(9999) << decimal;
 		return oss.str();*/
+		std::stringstream ss;
+		ss << decimal;
+		return ss.str();
 	}
 
 	template<typename T>
@@ -973,10 +1071,15 @@ namespace GameLibrary
 		
 		characters[total] = '\0';
 	}
-
-	String::String(const char*str)
+	
+	String::String(const char*str) : String(str, std::strlen(str))
 	{
-		total = std::strlen(str);
+		//
+	}
+
+	String::String(const char*str, unsigned int size)
+	{
+		total = size;
 		characters = (char*)std::calloc(total+1,1);
 		for(unsigned int i=0; i<total; i++)
 		{
@@ -985,13 +1088,28 @@ namespace GameLibrary
 
 		characters[total] = '\0';
 	}
-
-	String::String(const wchar_t*str)
+	
+	String::String(const wchar_t*str) : String(str, std::wcslen(str))
 	{
-		total = (std::wcslen(str)*4);
+		//
+	}
+
+	String::String(const wchar_t*str, unsigned int size)
+	{
+		total = (size*4);
 		characters = (char*)std::calloc(total+1,1);
 
 		total = std::wcstombs(characters,str,total+1);
+		if(total < size)
+		{
+			std::free(characters);
+#ifdef STRING_USES_GAMELIBRARY
+			throw StringOutOfBoundsException(total+1, total);
+#else
+			throw StringException((String)"wchar_t pointer is smaller than the specified size. " + size + " is larger than the converted char* pointer of size " + total);
+#endif
+		}
+		total = size;
 		characters = (char*)std::realloc(characters, total+1);
 
 		characters[total] = '\0';

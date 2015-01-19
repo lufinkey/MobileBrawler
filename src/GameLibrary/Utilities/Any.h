@@ -83,13 +83,21 @@ namespace GameLibrary
 		{
 			//
 		}
-
-		template<class U>
-		operator U()
+		
+		template<typename U>
+		Any(U&& value) : ptr(new Derived<StorageType<U>>(std::forward<U>(value)))
 		{
-			return as<StorageType<U>>();
+			//
 		}
-
+		
+		~Any()
+		{
+			if (ptr)
+			{
+				delete ptr;
+			}
+		}
+		
 		Any& operator=(const Any& any)
 		{
 			if (ptr == any.ptr)
@@ -118,24 +126,22 @@ namespace GameLibrary
 
 			return *this;
 		}
-
-		~Any()
+		
+		template<class U>
+		operator U&()
 		{
-			if (ptr)
-			{
-				delete ptr;
-			}
+			return as<StorageType<U>>();
+		}
+		
+		template<class U>
+		operator const U&() const
+		{
+			return as<StorageType<U>>();
 		}
 
 		bool empty() const
 		{
 			return !ptr;
-		}
-		
-		template<typename U>
-		Any(U&& value) : ptr(new Derived<StorageType<U>>(std::forward<U>(value)))
-		{
-			//
 		}
 
 		template<class U> bool is() const
@@ -146,36 +152,30 @@ namespace GameLibrary
 		}
 
 		template<class U>
-		StorageType<U>& as(bool unsafe=false)
+		StorageType<U>& as(bool safe=true)
 		{
-			if(unsafe)
+			if(safe)
+			{
+				typedef StorageType<U> T;
+				auto derived = dynamic_cast<Derived<T>*>(ptr);
+				if (!derived)
+				{
+					throw BadAnyCastException(typeid(U).name());
+				}
+				return derived->value;
+			}
+			else
 			{
 				typedef StorageType<U> T;
 				Derived<T>*derived = (Derived<T>*)ptr;
 				return derived->value;
 			}
-			else
-			{
-				typedef StorageType<U> T;
-				auto derived = dynamic_cast<Derived<T>*>(ptr);
-				if (!derived)
-				{
-					throw BadAnyCastException(typeid(U).name());
-				}
-				return derived->value;
-			}
 		}
 
 		template<class U>
-		const StorageType<U>& as(bool unsafe=false) const
+		const StorageType<U>& as(bool safe=true) const
 		{
-			if(unsafe)
-			{
-				typedef StorageType<U> T;
-				Derived<T>* derived = (Derived<T>*)ptr;
-				return derived->value;
-			}
-			else
+			if(safe)
 			{
 				typedef StorageType<U> T;
 				auto derived = dynamic_cast<Derived<T>*>(ptr);
@@ -183,6 +183,12 @@ namespace GameLibrary
 				{
 					throw BadAnyCastException(typeid(U).name());
 				}
+				return derived->value;
+			}
+			else
+			{
+				typedef StorageType<U> T;
+				Derived<T>* derived = (Derived<T>*)ptr;
 				return derived->value;
 			}
 		}

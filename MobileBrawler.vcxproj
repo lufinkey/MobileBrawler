@@ -53,7 +53,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>src;external\SDL\include;external\PlistCpp\include;external\PlistCpp\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;external\SDL\include;external\base64\include;external\pugixml\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -72,7 +72,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>src;external\SDL\include;external\PlistCpp\include;external\PlistCpp\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;external\SDL\include;external\base64\include;external\pugixml\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -84,9 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="external\PlistCpp\src\Plist.cpp" />
-    <ClCompile Include="external\PlistCpp\src\PlistDate.cpp" />
-    <ClCompile Include="external\PlistCpp\src\pugixml.cpp" />
+    <ClCompile Include="external\pugixml\src\pugixml.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Loader\CharacterInfo.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Loader\CharacterLoader.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\SpriteActor.cpp" />
