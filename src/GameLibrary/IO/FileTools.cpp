@@ -88,6 +88,10 @@ namespace GameLibrary
 				item.type = ITEMTYPE_UNKNOWN;
 				break;
 			}
+			if(!(item.name.equals(".") || item.name.equals("..")))
+			{
+				items->add(item);
+			}
 			entry = readdir(dir);
 		}
 		closedir(dir);

@@ -33,7 +33,7 @@ namespace BrawlerLibrary
 	bool CharacterInfo::loadFromPath(const String&folderpath, String*error)
 	{
 		Dictionary dict;
-		bool success = dict.loadFromFile(folderpath, error);
+		bool success = dict.loadFromFile(folderpath + "/Info.plist", error);
 		if(success)
 		{
 			Any val_name = dict.get("name");

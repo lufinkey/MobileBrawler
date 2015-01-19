@@ -11,8 +11,10 @@ namespace BrawlerLibrary
 		ArrayList<CharacterInfo> characters;
 		ArrayList<String> paths;
 		
+		AssetManager* menuAssets;
+		
 	public:
-		CharacterLoader();
+		CharacterLoader(Window& window);
 		~CharacterLoader();
 		
 		void addPath(const String&path);
