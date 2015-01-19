@@ -90,7 +90,7 @@ namespace GameLibrary
 			if(info.type == LOADTYPE_TEXTURE)
 			{
 				String error;
-				bool success = assetManager->loadTexture(info.path, error);
+				bool success = assetManager->loadTexture(info.path, &error);
 				loadcurrent+=info.value;
 				if(success)
 				{
@@ -114,7 +114,7 @@ namespace GameLibrary
 			else if(info.type == LOADTYPE_FONT)
 			{
 				String error;
-				bool success = assetManager->loadFont(info.path, error);
+				bool success = assetManager->loadFont(info.path, &error);
 				loadcurrent+=info.value;
 				if(success)
 				{

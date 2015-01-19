@@ -28,7 +28,7 @@ namespace GameLibrary
 
 		DataPacket& operator=(const DataPacket&);
 
-		bool loadFromFile(const String&path, String&error);
+		bool loadFromFile(const String&path, String*error=nullptr);
 
 		void*getData();
 		const void*getData() const;

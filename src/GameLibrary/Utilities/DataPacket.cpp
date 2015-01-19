@@ -111,13 +111,16 @@ namespace GameLibrary
 		return *this;
 	}
 
-	bool DataPacket::loadFromFile(const String&path, String&error)
+	bool DataPacket::loadFromFile(const String&path, String*error)
 	{
 		FILE*file = std::fopen(path, "r");
 		if (file == nullptr)
 		{
 			//TODO add switch for errno
-			error = "Unable to load DataPacket from file";
+			if(error!=nullptr)
+			{
+				*error = "Unable to load DataPacket from file";
+			}
 			return false;
 		}
 		

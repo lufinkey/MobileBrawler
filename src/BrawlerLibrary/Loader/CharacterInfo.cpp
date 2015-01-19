@@ -30,7 +30,7 @@ namespace BrawlerLibrary
 		return *this;
 	}
 	
-	bool CharacterInfo::loadFromPath(const String&folderpath, String&error)
+	bool CharacterInfo::loadFromPath(const String&folderpath, String*error)
 	{
 		Dictionary dict;
 		bool success = dict.loadFromFile(folderpath, error);
@@ -39,36 +39,54 @@ namespace BrawlerLibrary
 			Any val_name = dict.get("name");
 			if(val_name.empty())
 			{
-				error = "Plist does not contain value for \"name\"";
+				if(error!=nullptr)
+				{
+					*error = "Plist does not contain value for \"name\"";
+				}
 				return false;
 			}
 			else if(!val_name.is<String>())
 			{
-				error = "Incorrect value type for key \"name\". Value should be a string";
+				if(error!=nullptr)
+				{
+					*error = "Incorrect value type for key \"name\". Value should be a string";
+				}
 				return false;
 			}
 			
 			Any val_creator = dict.get("creator");
 			if(val_creator.empty())
 			{
-				error = "Plist does not contain value for \"creator\"";
+				if(error!=nullptr)
+				{
+					*error = "Plist does not contain value for \"creator\"";
+				}
 				return false;
 			}
 			else if(!val_creator.is<String>())
 			{
-				error = "Incorrect value type for key \"creator\". Value should be a string";
+				if(error!=nullptr)
+				{
+					*error = "Incorrect value type for key \"creator\". Value should be a string";
+				}
 				return false;
 			}
 			
 			Any val_minsmashversion = dict.get("minsmashversion");
 			if(val_minsmashversion.empty())
 			{
-				error = "Plist does not contain value for \"minsmashversion\"";
+				if(error!=nullptr)
+				{
+					*error = "Plist does not contain value for \"minsmashversion\"";
+				}
 				return false;
 			}
 			else if(!val_minsmashversion.is<String>())
 			{
-				error = "Incorrect value type for key \"minsmashversion\". Value should be a string";
+				if(error!=nullptr)
+				{
+					*error = "Incorrect value type for key \"minsmashversion\". Value should be a string";
+				}
 				return false;
 			}
 			

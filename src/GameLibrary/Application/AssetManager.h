@@ -30,12 +30,12 @@ namespace GameLibrary
 		void setRootDirectory(const String&);
 		const String& getRootDirectory() const;
 
-		virtual bool loadTexture(const String&path, String&error=String());
+		virtual bool loadTexture(const String&path, String*error=nullptr);
 		virtual void unloadTexture(const String&path);
 		virtual void unloadTextures();
 		virtual TextureImage* getTexture(const String&path);
 
-		virtual bool loadFont(const String&path, String&error=String());
+		virtual bool loadFont(const String&path, String*error=nullptr);
 		virtual void unloadFont(const String&path);
 		virtual void unloadFonts();
 		virtual Font* getFont(const String&path);

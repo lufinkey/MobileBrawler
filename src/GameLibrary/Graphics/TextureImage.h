@@ -30,8 +30,8 @@ namespace GameLibrary
 		void update(const Color*pixels);
 		//void update(const Color*pixels, unsigned int x, unsigned int y, unsigned int width, unsigned int height);
 		
-		bool loadFromFile(const String&path, Graphics&graphics, String&error = String());
-		bool loadFromImage(const Image&image, Graphics&graphics, String&error = String());
+		bool loadFromFile(const String&path, Graphics&graphics, String*error=nullptr);
+		bool loadFromImage(const Image&image, Graphics&graphics, String*error=nullptr);
 		//Image copyToImage() const;
 
 		bool checkPixel(unsigned int index) const;

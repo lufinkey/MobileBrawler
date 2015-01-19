@@ -47,7 +47,7 @@ namespace GameLibrary
 		return rootdir;
 	}
 
-	bool AssetManager::loadTexture(const String&path, String&error)
+	bool AssetManager::loadTexture(const String&path, String*error)
 	{
 		for(unsigned int i=0; i<textures.size(); i++)
 		{
@@ -109,7 +109,7 @@ namespace GameLibrary
 		return nullptr;
 	}
 
-	bool AssetManager::loadFont(const String&path, String&error)
+	bool AssetManager::loadFont(const String&path, String*error)
 	{
 		for(unsigned int i=0; i<fonts.size(); i++)
 		{

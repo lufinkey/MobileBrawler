@@ -32,7 +32,7 @@ namespace GameLibrary
 		Font(const Font&);
 		~Font();
 
-		bool loadFromFile(const String&path, unsigned int size=24, String&error=String());
+		bool loadFromFile(const String&path, unsigned int size=24, String*error=nullptr);
 
 		Vector2u measureString(const String&text);
 

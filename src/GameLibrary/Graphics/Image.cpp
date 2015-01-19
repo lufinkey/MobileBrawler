@@ -64,7 +64,7 @@ namespace GameLibrary
 		height = 0;
 	}
 	
-	bool Image::loadFromFile(const String&path, String&error)
+	bool Image::loadFromFile(const String&path, String*error)
 	{
 		SDL_Surface* surface = IMG_Load(path);
 		if(surface != nullptr)
@@ -74,7 +74,10 @@ namespace GameLibrary
 			{
 				if(SDL_LockSurface(surface) < 0)
 				{
-					error = SDL_GetError();
+					if(error!=nullptr)
+					{
+						*error = SDL_GetError();
+					}
 					SDL_FreeSurface(surface);
 					return false;
 				}
@@ -154,11 +157,14 @@ namespace GameLibrary
 
 			return true;
 		}
-		error = IMG_GetError();
+		if(error!=nullptr)
+		{
+			*error = IMG_GetError();
+		}
 		return false;
 	}
 
-	bool Image::saveToFile(const String&path, String&error) const
+	bool Image::saveToFile(const String&path, String*error) const
 	{
 		unsigned int dotIndex = path.lastIndexOf('.');
 		if(dotIndex == STRING_NOTFOUND)
@@ -179,13 +185,19 @@ namespace GameLibrary
 					SDL_Surface* surface = SDL_CreateRGBSurfaceFrom((void*)pixels.getData(), (int)width, (int)height, 32, width*4, 0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000);
 					if(surface == nullptr)
 					{
-						error = SDL_GetError();
+						if(error!=nullptr)
+						{
+							*error = SDL_GetError();
+						}
 						return false;
 					}
 
 					if(IMG_SavePNG(surface, path) != 0)
 					{
-						error = IMG_GetError();
+						if(error!=nullptr)
+						{
+							*error = IMG_GetError();
+						}
 						SDL_FreeSurface(surface);
 						return false;
 					}
@@ -198,13 +210,19 @@ namespace GameLibrary
 					SDL_Surface* surface = SDL_CreateRGBSurfaceFrom((void*)pixels.getData(), (int)width, (int)height, 32, width*4, 0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000);
 					if(surface == nullptr)
 					{
-						error = SDL_GetError();
+						if(error!=nullptr)
+						{
+							*error = SDL_GetError();
+						}
 						return false;
 					}
 
 					if(SDL_SaveBMP(surface, path) != 0)
 					{
-						error = SDL_GetError();
+						if(error!=nullptr)
+						{
+							*error = SDL_GetError();
+						}
 						SDL_FreeSurface(surface);
 						return false;
 					}
@@ -218,7 +236,7 @@ namespace GameLibrary
 				}
 			}
 		}
-
+		
 		return false;
 	}
 

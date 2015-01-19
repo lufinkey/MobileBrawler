@@ -46,6 +46,7 @@
 #include "Input/Multitouch.h"
 
 #include "IO/Console.h"
+#include "IO/FileManager.h"
 
 #include "Network/NetworkProtocol.h"
 

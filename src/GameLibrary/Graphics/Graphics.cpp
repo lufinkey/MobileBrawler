@@ -147,7 +147,7 @@ namespace GameLibrary
 		{
 			defaultFont = new Font();
 			String error;
-			bool success = defaultFont->loadFromFile(defaultFontPath, 24, error);
+			bool success = defaultFont->loadFromFile(defaultFontPath, 24, &error);
 			if(!success)
 			{
 				Console::writeLine(error);

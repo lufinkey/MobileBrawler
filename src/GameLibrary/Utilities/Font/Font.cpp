@@ -122,7 +122,7 @@ namespace GameLibrary
 		glyphs.clear();
 	}
 
-	bool Font::loadFromFile(const String&path, unsigned int defaultsize, String&error)
+	bool Font::loadFromFile(const String&path, unsigned int defaultsize, String*error)
 	{
 		mlock.lock();
 		DataPacket* fontDataPacket = new DataPacket();
@@ -136,7 +136,10 @@ namespace GameLibrary
 		SDL_RWops* ops = SDL_RWFromConstMem(fontDataPacket->getData(), fontDataPacket->size());
 		if(ops == nullptr)
 		{
-			error = SDL_GetError();
+			if(error!=nullptr)
+			{
+				*error = SDL_GetError();
+			}
 			delete fontDataPacket;
 			mlock.unlock();
 			return false;
@@ -145,10 +148,16 @@ namespace GameLibrary
 		TTF_Font* loadedfont = TTF_OpenFontRW(ops,0,defaultsize);
 		if(loadedfont == nullptr)
 		{
-			error = TTF_GetError();
+			if(error!=nullptr)
+			{
+				*error = TTF_GetError();
+			}
 			if(SDL_RWclose(ops) != 0)
 			{
-				error = (String)"1: " + error + '\n' + "2: " + SDL_GetError();
+				if(error!=nullptr)
+				{
+					*error = (String)"" + *error + ".\n" + SDL_GetError();
+				}
 			}
 			delete fontDataPacket;
 			mlock.unlock();

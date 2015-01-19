@@ -26,7 +26,7 @@ namespace GameLibrary
 		Dictionary(const ArrayList<String>& keys, const ArrayList<Any>& values);
 		virtual ~Dictionary();
 
-		void set(const String& key, const Any& value, Any**valueptr=nullptr);
+		Any& set(const String& key, const Any& value);
 		Any& get(const String& key);
 		const Any& get(const String& key) const;
 		bool has(const String& key) const;
@@ -37,10 +37,10 @@ namespace GameLibrary
 
 		void clear();
 
-		bool loadFromFile(const String&path, String&error=String());
-		bool loadFromData(const DataPacket&data, String&error=String());
-		bool loadFromPointer(const void*ptr, unsigned int size, String&error=String());
-		bool loadFromString(const String&string, String&error=String());
-		bool saveToFile(const String&path, bool binary=false, String&error=String());
+		bool loadFromFile(const String&path, String*error=nullptr);
+		bool loadFromData(const DataPacket&data, String*error=nullptr);
+		bool loadFromPointer(const void*ptr, unsigned int size, String*error=nullptr);
+		bool loadFromString(const String&string, String*error=nullptr);
+		bool saveToFile(const String&path, bool binary=false, String*error=nullptr);
 	};
 }

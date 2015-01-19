@@ -22,7 +22,7 @@ namespace BrawlerLibrary
 		
 		CharacterInfo& operator=(const CharacterInfo&);
 		
-		bool loadFromPath(const String&path, String&error);
+		bool loadFromPath(const String&path, String*error=nullptr);
 		
 		const String& getPath() const;
 		const String& getName() const;

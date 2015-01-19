@@ -57,6 +57,7 @@ namespace GameLibrary
 	
 	//IO
 	class Console;
+	class FileManager;
 	
 	//Network
 	class NetworkProtocol;

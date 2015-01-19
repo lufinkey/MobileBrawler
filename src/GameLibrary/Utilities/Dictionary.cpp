@@ -9,12 +9,12 @@
 namespace GameLibrary
 {
 	static Any Dictionary_nullEntry;
-
+	
 	Dictionary::Dictionary()
 	{
 		//
 	}
-
+	
 	Dictionary::Dictionary(const ArrayList<String>& keys, const ArrayList<Any>& values)
 	{
 		for(unsigned int i=0; i<keys.size() && i<values.size(); i++)
@@ -22,13 +22,13 @@ namespace GameLibrary
 			contents.add(Pair<String,Any>(keys.get(i), values.get(i)));
 		}
 	}
-
+	
 	Dictionary::~Dictionary()
 	{
 		//
 	}
-
-	void Dictionary::set(const String& key, const Any& value, Any**valueptr)
+	
+	Any& Dictionary::set(const String& key, const Any& value)
 	{
 		for(unsigned int i=0; i<contents.size(); i++)
 		{
@@ -36,16 +36,13 @@ namespace GameLibrary
 			if(pair.first.equals(key))
 			{
 				contents.set(i, Pair<String, Any>(key, value));
-				return;
+				return contents.get(i).second;
 			}
 		}
 		contents.add(Pair<String, Any>(key, value));
-		if(valueptr!=nullptr)
-		{
-			*valueptr = &contents.get(contents.size()-1).second;
-		}
+		return contents.get(contents.size()-1).second;
 	}
-
+	
 	Any& Dictionary::get(const String& key)
 	{
 		for(unsigned int i=0; i<contents.size(); i++)
@@ -118,22 +115,25 @@ namespace GameLibrary
 	}
 	
 	Pair<unsigned int, unsigned int> Dictionary_getParsePosition(const void*ptr, unsigned int offset);
-	bool Dictionary_parse(const void*ptr, pugi::xml_node, const String&type, String&error);
-	bool Dictionary_parseDictionary(const void*ptr, pugi::xml_node&node, Dictionary&dictionary, String&error);
-	bool Dictionary_parseArray(const void*ptr, pugi::xml_node&node, ArrayList<Any>&arraylist, String&error);
-	bool Dictionary_parseDate(const void*ptr, pugi::xml_node&node, Any&any, String&error);
-	bool Dictionary_write(pugi::xml_node&node, const Any&any, String&error);
-	bool Dictionary_writeDictionary(pugi::xml_node&node, const Dictionary&dictionary, String&error);
-	bool Dictionary_writeArray(pugi::xml_node&node, const ArrayList<Any>&dictionary, String&error);
+	bool Dictionary_parse(const void*ptr, pugi::xml_node, const String&type, String*error);
+	bool Dictionary_parseDictionary(const void*ptr, pugi::xml_node&node, Dictionary&dictionary, String*error);
+	bool Dictionary_parseArray(const void*ptr, pugi::xml_node&node, ArrayList<Any>&arraylist, String*error);
+	bool Dictionary_parseDate(const void*ptr, pugi::xml_node&node, Any&any, String*error);
+	bool Dictionary_write(pugi::xml_node&node, const Any&any, String*error);
+	bool Dictionary_writeDictionary(pugi::xml_node&node, const Dictionary&dictionary, String*error);
+	bool Dictionary_writeArray(pugi::xml_node&node, const ArrayList<Any>&dictionary, String*error);
 	
-	bool Dictionary::loadFromFile(const String&path, String&error)
+	bool Dictionary::loadFromFile(const String&path, String*error)
 	{
 		//load the file into memory
 		FILE*file = std::fopen(path, "r");
 		if (file == nullptr)
 		{
 			//TODO add switch for errno
-			error = "Unable to load Dictionary from file";
+			if(error!=nullptr)
+			{
+				*error = "Unable to load Dictionary from file";
+			}
 			return false;
 		}
 		std::fseek(file, 0, SEEK_END);
@@ -149,26 +149,32 @@ namespace GameLibrary
 		return success;
 	}
 	
-	bool Dictionary::loadFromString(const String&string, String&error)
+	bool Dictionary::loadFromString(const String&string, String*error)
 	{
 		return loadFromPointer((const char*)string, string.length(), error);
 	}
 	
-	bool Dictionary::loadFromData(const DataPacket&data, String&error)
+	bool Dictionary::loadFromData(const DataPacket&data, String*error)
 	{
 		return loadFromPointer((const void*)data.getData(), data.size(), error);
 	}
 	
-	bool Dictionary::loadFromPointer(const void*ptr, unsigned int size, String&error)
+	bool Dictionary::loadFromPointer(const void*ptr, unsigned int size, String*error)
 	{
 		if(ptr == nullptr)
 		{
-			error = "Cannot load from null pointer";
+			if(error!=nullptr)
+			{
+				*error = "Cannot load from null pointer";
+			}
 			return false;
 		}
 		else if(size == 0)
 		{
-			error = "Cannot load from empty pointer";
+			if(error!=nullptr)
+			{
+				*error = "Cannot load from empty pointer";
+			}
 			return false;
 		}
 		
@@ -180,7 +186,10 @@ namespace GameLibrary
 		if(size>8 && String(str,8).equals("bplist00"))
 		{
 			//binary plist
-			error = "Binary plists are not yet supported";
+			if(error!=nullptr)
+			{
+				*error = "Binary plists are not yet supported";
+			}
 			return false;
 		}
 		else
@@ -190,7 +199,10 @@ namespace GameLibrary
 			pugi::xml_parse_result result = doc.load_buffer(ptr, (size_t)size);
 			if(!result)
 			{
-				error = result.description();
+				if(error!=nullptr)
+				{
+					*error = result.description();
+				}
 				return false;
 			}
 			pugi::xml_node rootNode = doc.child("plist").first_child();
@@ -206,17 +218,23 @@ namespace GameLibrary
 			}
 			else
 			{
-				error = "Plist root is not a \"dict\" object";
+				if(error!=nullptr)
+				{
+					*error = "Plist root is not a \"dict\" object";
+				}
 				return false;
 			}
 		}
 	}
 	
-	bool Dictionary::saveToFile(const String&path, bool binary, String&error)
+	bool Dictionary::saveToFile(const String&path, bool binary, String*error)
 	{
 		if(binary)
 		{
-			error = "This feature is not yet implemented";
+			if(error!=nullptr)
+			{
+				*error = "This feature is not yet implemented";
+			}
 			return false;
 		}
 		else
@@ -299,7 +317,7 @@ namespace GameLibrary
 		return Pair<unsigned int, unsigned int>(currentLine, currentOffset);
 	}
 	
-	bool Dictionary_parse(const void*ptr, pugi::xml_node&node, Any&any, String&error)
+	bool Dictionary_parse(const void*ptr, pugi::xml_node&node, Any&any, String*error)
 	{
 		String type = node.type();
 
@@ -349,7 +367,10 @@ namespace GameLibrary
 			{
 				unsigned int offset = node.offset_debug();
 				Pair<unsigned int, unsigned int> doc_pos = Dictionary_getParsePosition(ptr, offset);
-				error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": " + e.message;
+				if(error!=nullptr)
+				{
+					*error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": " + e.message;
+				}
 				return false;
 			}
 			return true;
@@ -372,7 +393,10 @@ namespace GameLibrary
 			{
 				unsigned int offset = node.offset_debug();
 				Pair<unsigned int, unsigned int> doc_pos = Dictionary_getParsePosition(ptr, offset);
-				error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": " + e.message;
+				if(error!=nullptr)
+				{
+					*error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": " + e.message;
+				}
 				return false;
 			}
 			return true;
@@ -393,7 +417,10 @@ namespace GameLibrary
 			{
 				unsigned int offset = node.offset_debug();
 				Pair<unsigned int, unsigned int> doc_pos = Dictionary_getParsePosition(ptr, offset);
-				error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": Invalid boolean value";
+				if(error!=nullptr)
+				{
+					*error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": Invalid boolean value";
+				}
 				return false;
 			}
 			any = val;
@@ -415,12 +442,15 @@ namespace GameLibrary
 		{
 			unsigned int offset = node.offset_debug();
 			Pair<unsigned int, unsigned int> doc_pos = Dictionary_getParsePosition(ptr, offset);
-			error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": Invalid tag";
+			if(error!=nullptr)
+			{
+				*error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": Invalid tag";
+			}
 			return false;
 		}
 	}
 
-	bool Dictionary_parseDictionary(const void*ptr, pugi::xml_node&node, Dictionary&dict, String&error)
+	bool Dictionary_parseDictionary(const void*ptr, pugi::xml_node&node, Dictionary&dict, String*error)
 	{
 		for(pugi::xml_node_iterator it = node.begin(); it != node.end(); ++it)
 		{
@@ -428,7 +458,10 @@ namespace GameLibrary
 			{
 				unsigned int offset = node.offset_debug();
 				Pair<unsigned int, unsigned int> doc_pos = Dictionary_getParsePosition(ptr, offset);
-				error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": XML dictionary key expected but not found";
+				if(error!=nullptr)
+				{
+					*error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": XML dictionary key expected but not found";
+				}
 				return false;
 			}
 			
@@ -439,21 +472,25 @@ namespace GameLibrary
 			{
 				unsigned int offset = node.offset_debug();
 				Pair<unsigned int, unsigned int> doc_pos = Dictionary_getParsePosition(ptr, offset);
-				error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": XML dictionary value expected for key " + key + "but not found";
+				if(error!=nullptr)
+				{
+					*error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": XML dictionary value expected for key " + key + "but not found";
+				}
 				return false;
 			}
 			else if(String("key").equals(it->name()))
 			{
 				unsigned int offset = node.offset_debug();
 				Pair<unsigned int, unsigned int> doc_pos = Dictionary_getParsePosition(ptr, offset);
-				error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": XML dictionary value expected for key " + key + "but found another key node";
+				if(error!=nullptr)
+				{
+					*error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": XML dictionary value expected for key " + key + "but found another key node";
+				}
 				return false;
 			}
 			
-			Any any;
-			Any* value = nullptr;
-			dict.set(key, any, &value);
-			bool result = Dictionary_parse(ptr, *it, *value, error);
+			Any& value = dict.set(key, Any());
+			bool result = Dictionary_parse(ptr, *it, value, error);
 			if(!result)
 			{
 				return false;
@@ -462,13 +499,12 @@ namespace GameLibrary
 		return true;
 	}
 	
-	bool Dictionary_parseArray(const void*ptr, pugi::xml_node&node, ArrayList<Any>&arraylist, String&error)
+	bool Dictionary_parseArray(const void*ptr, pugi::xml_node&node, ArrayList<Any>&arraylist, String*error)
 	{
 		for(pugi::xml_node_iterator it = node.begin(); it != node.end(); ++it)
 		{
 			unsigned int index = arraylist.size();
-			Any any;
-			arraylist.add(any);
+			arraylist.add(Any());
 			bool result = Dictionary_parse(ptr, node, arraylist.get(index), error);
 			if(!result)
 			{
@@ -478,7 +514,7 @@ namespace GameLibrary
 		return true;
 	}
 	
-	bool Dictionary_parseDate(const void*ptr, pugi::xml_node&node, Any&any, String&error)
+	bool Dictionary_parseDate(const void*ptr, pugi::xml_node&node, Any&any, String*error)
 	{
 		String datetimeStr = node.first_child().value();
 		int month, day, year, hour24, minute, second;
@@ -513,7 +549,10 @@ namespace GameLibrary
 			if(_time < -1)
 			{
 				Pair<unsigned int, unsigned int> doc_pos = Dictionary_getParsePosition(ptr, node.offset_debug());
-				error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": Invalid date format";
+				if(error!=nullptr)
+				{
+					*error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": Invalid date format";
+				}
 				return false;
 			}
 
@@ -537,7 +576,10 @@ namespace GameLibrary
 			if(_time < -1)
 			{
 				Pair<unsigned int, unsigned int> doc_pos = Dictionary_getParsePosition(ptr, node.offset_debug());
-				error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": Invalid date format";
+				if(error!=nullptr)
+				{
+					*error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": Invalid date format";
+				}
 				return false;
 			}
 		}
@@ -548,7 +590,7 @@ namespace GameLibrary
 	
 // plist write functions
 	
-	bool Dictionary_write(pugi::xml_node&node, const Any&any, String&error)
+	bool Dictionary_write(pugi::xml_node&node, const Any&any, String*error)
 	{
 		if(any.is<Dictionary>())
 		{
@@ -639,12 +681,15 @@ namespace GameLibrary
 		}
 		else
 		{
-			error = "Unknown type";
+			if(error!=nullptr)
+			{
+				*error = "Unknown type";
+			}
 			return false;
 		}
 	}
 	
-	bool Dictionary_writeDictionary(pugi::xml_node&node, const Dictionary&dictionary, String&error)
+	bool Dictionary_writeDictionary(pugi::xml_node&node, const Dictionary&dictionary, String*error)
 	{
 		pugi::xml_node newNode = node.append_child("dict");
 		const ArrayList<Pair<String, Any> >& contents = dictionary.getContents();
@@ -662,7 +707,7 @@ namespace GameLibrary
 		return true;
 	}
 	
-	bool Dictionary_writeArray(pugi::xml_node&node, const ArrayList<Any>&arraylist, String&error)
+	bool Dictionary_writeArray(pugi::xml_node&node, const ArrayList<Any>&arraylist, String*error)
 	{
 		pugi::xml_node newNode = node.append_child("array");
 		for(unsigned int i=0; i<arraylist.size(); i++)

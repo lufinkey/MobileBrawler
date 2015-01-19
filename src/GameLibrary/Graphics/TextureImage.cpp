@@ -131,7 +131,7 @@ namespace GameLibrary
 		SDL_UnlockTexture((SDL_Texture*)texture);
 	}*/
 	
-	bool TextureImage::loadFromFile(const String&path, Graphics&graphics, String&error)
+	bool TextureImage::loadFromFile(const String&path, Graphics&graphics, String*error)
 	{
 		SDL_Surface* surface = IMG_Load(path);
 		if(surface != nullptr)
@@ -141,7 +141,10 @@ namespace GameLibrary
 			{
 				if(SDL_LockSurface(surface) < 0)
 				{
-					error = SDL_GetError();
+					if(error!=nullptr)
+					{
+						*error = SDL_GetError();
+					}
 					SDL_FreeSurface(surface);
 					return false;
 				}
@@ -155,7 +158,10 @@ namespace GameLibrary
 			SDL_Texture* newTexture = SDL_CreateTexture((SDL_Renderer*)graphics.renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, (int)w, (int)h);
 			if(newTexture == nullptr)
 			{
-				error = SDL_GetError();
+				if(error!=nullptr)
+				{
+					*error = SDL_GetError();
+				}
 				SDL_UnlockSurface(surface);
 				SDL_FreeSurface(surface);
 				return false;
@@ -170,7 +176,10 @@ namespace GameLibrary
 			int pitch;
 			if(SDL_LockTexture(newTexture, nullptr, &pixelptr, &pitch) < 0)
 			{
-				error = SDL_GetError();
+				if(error!=nullptr)
+				{
+					*error = SDL_GetError();
+				}
 				SDL_DestroyTexture(newTexture);
 				SDL_UnlockSurface(surface);
 				SDL_FreeSurface(surface);
@@ -269,11 +278,14 @@ namespace GameLibrary
 
 			return true;
 		}
-		error = IMG_GetError();
+		if(error!=nullptr)
+		{
+			*error = IMG_GetError();
+		}
 		return false;
 	}
 
-	bool TextureImage::loadFromImage(const Image&image, Graphics&graphics, String&error)
+	bool TextureImage::loadFromImage(const Image&image, Graphics&graphics, String*error)
 	{
 		const ArrayList<Color>& image_pixels = image.getPixels();
 		if(image_pixels.size()>0)
@@ -281,7 +293,10 @@ namespace GameLibrary
 			SDL_Texture* newTexture = SDL_CreateTexture((SDL_Renderer*)graphics.renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, (int)image.getWidth(), (int)image.getHeight());
 			if(newTexture == nullptr)
 			{
-				error = SDL_GetError();
+				if(error!=nullptr)
+				{
+					*error = SDL_GetError();
+				}
 				return false;
 			}
 			if(texture != nullptr)
@@ -296,7 +311,10 @@ namespace GameLibrary
 			int pitch;
 			if(SDL_LockTexture(newTexture, nullptr, &pixelptr, &pitch) < 0)
 			{
-				error = SDL_GetError();
+				if(error!=nullptr)
+				{
+					*error = SDL_GetError();
+				}
 				SDL_DestroyTexture(newTexture);
 				return false;
 			}

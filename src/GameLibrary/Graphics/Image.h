@@ -27,8 +27,8 @@ namespace GameLibrary
 		void create(unsigned int width, unsigned int height, const Color&color = Color::TRANSPARENT);
 		void clear();
 		
-		bool loadFromFile(const String&path, String&error = String());
-		bool saveToFile(const String&path, String&error = String()) const; //currently only supports BMP and PNG
+		bool loadFromFile(const String&path, String*error=nullptr);
+		bool saveToFile(const String&path, String*error=nullptr) const; //currently only supports BMP and PNG
 		
 		void setPixel(unsigned int index, const Color&color);
 		void setPixel(unsigned int x, unsigned int y, const Color&color);
