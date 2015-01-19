@@ -32,6 +32,7 @@ namespace GameLibrary
 		bool hasAnimation(const String&name) const;
 		Animation* getAnimation(const String&name) const;
 		void changeAnimation(const String&name, const Animation::Direction&direction);
+		void reloadAnimations(AssetManager*assetManager);
 		
 		bool isColliding(SpriteActor*) const;
 		

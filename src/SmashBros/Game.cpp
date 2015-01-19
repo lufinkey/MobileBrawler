@@ -35,7 +35,6 @@ namespace SmashBros
 		getWindow()->setSize(Vector2u(SMASHBROS_WINDOWWIDTH, SMASHBROS_WINDOWHEIGHT));
 		getWindow()->getView()->setSize(SMASHBROS_WINDOWWIDTH, SMASHBROS_WINDOWHEIGHT);
 		setFPS(60);
-		
 		menuAssetManager = new AssetManager(*getWindow(), "assets/menu");
 	}
 	

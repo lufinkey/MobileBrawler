@@ -1,5 +1,6 @@
 
 #include "Image.h"
+#include "PixelIterator.h"
 #include <SDL_image.h>
 
 namespace GameLibrary
@@ -312,18 +313,54 @@ namespace GameLibrary
 		}
 	}
 	
-	void Image::applyAlphaMask(const Image&image)
+	void Image::applyAlphaMask(const Image&mask)
 	{
-		applyAlphaMask(image, RectangleI(0,0,width,height));
-	}
-	
-	void Image::applyAlphaMask(const Image&image, const RectangleI&dstRect)
-	{
-		if(width == 0 || height == 0)
+		if(width == 0 || height == 0 || mask.width==0 || mask.height==0)
 		{
 			return;
 		}
-		//TODO implement when PixelIterator is finished
+		RectangleF dstRect = RectangleF(0,0,(float)width,(float)height);
+		PixelIterator pxlIter(Vector2u(width,height), RectangleU(0,0,width,height), dstRect, dstRect, 1, 1, false, false);
+		
+		PixelIterator mask_pxlIter(Vector2u(mask.width,mask.height), RectangleU(0,0,mask.width,mask.height), dstRect, dstRect, 1, 1, false, false);
+		
+		std::vector<bool> masked(pixels.size());
+		unsigned int total = pixels.size();
+		for(unsigned int i=0; i<total; i++)
+		{
+			masked[i] = false;
+		}
+
+		bool running = pxlIter.nextPixelIndex();
+		bool mask_running = mask_pxlIter.nextPixelIndex();
+		while(running && mask_running)
+		{
+			float pxlIndex = pxlIter.getCurrentPixelIndex();
+			float mask_pxlIndex = mask_pxlIter.getCurrentPixelIndex();
+			
+			if(pxlIndex>=0 && mask_pxlIndex>=0)
+			{
+				unsigned int index = (unsigned int)pxlIndex;
+				if(!masked[index])
+				{
+					unsigned int mask_index = (unsigned int)mask_pxlIndex;
+					const Color& mask_color = mask.getPixel(mask_index);
+					float alpha = ((float)mask_color.a)/255;
+					float avg_mask = (255-(((float)(mask_color.r+mask_color.g+mask_color.b))/3))/255;
+					float pxlMask = avg_mask*alpha;
+					Color curcol = pixels[index];
+					pixels[index] = Color(curcol.r, curcol.g, curcol.b, (byte)(((float)curcol.a)*pxlMask));
+					masked[index] = true;
+				}
+			}
+			
+			running = pxlIter.nextPixelIndex();
+			mask_running = mask_pxlIter.nextPixelIndex();
+		}
+		if(running != mask_running)
+		{
+			throw Exception("Unknown masking bug. This exception means there is a bug within the Image::applyAlphaMask function");
+		}
 	}
 
 	unsigned int Image::getSize() const

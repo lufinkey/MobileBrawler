@@ -33,6 +33,8 @@ namespace GameLibrary
 
 		virtual void update(ApplicationData appData);
 		virtual void draw(ApplicationData appData, Graphics graphics) const;
+		
+		void reloadFrames(AssetManager*assetManager);
 
 		void clear();
 

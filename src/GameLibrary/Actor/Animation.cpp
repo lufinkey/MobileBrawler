@@ -103,6 +103,23 @@ namespace GameLibrary
 	{
 		//
 	}
+	
+	void Animation::reloadFrames(AssetManager*assetManager)
+	{
+		for(unsigned int i=0; i<frames.size(); i++)
+		{
+			AnimationFrame& frame = frames.get(i);
+			if(assetManager == nullptr)
+			{
+				frame.img = nullptr;
+			}
+			else
+			{
+				assetManager->loadTexture(frame.file);
+				frame.img = assetManager->getTexture(frame.file);
+			}
+		}
+	}
 
 	void Animation::clear()
 	{
@@ -302,7 +319,7 @@ namespace GameLibrary
 		}
 		return frames.get(frameNum).getSourceRect();
 	}
-
+	
 	RectangleI Animation::getImageSourceRect() const
 	{
 		return getImageSourceRect(currentFrame);
@@ -348,9 +365,9 @@ namespace GameLibrary
 				updateFrame = 0;
 			}
 		}
-		AnimationFrame& animFrame = frames.get(updateFrame);
-		TextureImage* img = appData.getAssetManager()->getTexture(animFrame.file);
-		animFrame.img = img;
+		//AnimationFrame& animFrame = frames.get(updateFrame);
+		//TextureImage* img = appData.getAssetManager()->getTexture(animFrame.file);
+		//animFrame.img = img;
 	}
 
 	void Animation::draw(ApplicationData appData, Graphics graphics) const

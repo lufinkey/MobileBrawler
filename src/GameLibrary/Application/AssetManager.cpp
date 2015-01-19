@@ -46,6 +46,11 @@ namespace GameLibrary
 	{
 		return rootdir;
 	}
+	
+	Window* AssetManager::getWindow() const
+	{
+		return window;
+	}
 
 	bool AssetManager::loadTexture(const String&path, String*error)
 	{
@@ -108,6 +113,14 @@ namespace GameLibrary
 		}
 		return nullptr;
 	}
+	
+	void AssetManager::addTexture(const String&path, TextureImage*image)
+	{
+		if(image!=nullptr)
+		{
+			textures.add(Pair<String, TextureImage*>(path, image));
+		}
+	}
 
 	bool AssetManager::loadFont(const String&path, String*error)
 	{
@@ -169,5 +182,13 @@ namespace GameLibrary
 			}
 		}
 		return nullptr;
+	}
+	
+	void AssetManager::addFont(const String&path, Font*font)
+	{
+		if(font!=nullptr)
+		{
+			fonts.add(Pair<String, Font*>(path, font));
+		}
 	}
 }

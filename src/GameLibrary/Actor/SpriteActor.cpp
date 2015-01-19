@@ -346,6 +346,14 @@ namespace GameLibrary
 		updateSize();
 	}
 	
+	void SpriteActor::reloadAnimations(AssetManager*assetManager)
+	{
+		for(unsigned int i=0; i<animations.size(); i++)
+		{
+			animations.get(i).animation->reloadFrames(assetManager);
+		}
+	}
+	
 	bool SpriteActor::checkPointCollision(const Vector2f&point)
 	{
 		if(animation_current == nullptr)
@@ -516,7 +524,7 @@ namespace GameLibrary
 					delete actor_pxlIter;
 					return true;
 				}
-
+				
 				running = pxlIterRef.nextPixelIndex();
 				actor_running = actor_pxlIterRef.nextPixelIndex();
 			}

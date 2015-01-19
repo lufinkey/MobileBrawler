@@ -38,7 +38,6 @@ namespace GameLibrary
 
 		void recolor(const ArrayList<Pair<Color,Color> >& colorSwaps);
 		void applyAlphaMask(const Image&mask);
-		void applyAlphaMask(const Image&mask, const RectangleI&dstRect);
 		
 		unsigned int getSize() const;
 		unsigned int getWidth() const;
