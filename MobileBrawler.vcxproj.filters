@@ -438,6 +438,9 @@
     <ClCompile Include="external\pugixml\src\pugixml.cpp">
       <Filter>external\pugixml\src</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\IO\FileTools.cpp">
+      <Filter>src\GameLibrary\IO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -724,6 +727,9 @@
     </ClInclude>
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterInfo.h">
       <Filter>src\BrawlerLibrary\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\IO\FileTools.h">
+      <Filter>src\GameLibrary\IO</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -53,7 +53,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>src;external\SDL\include;external\base64\include;external\pugixml\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;external\SDL\include;external\base64\include;external\dirent\include;external\pugixml\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -72,7 +72,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>src;external\SDL\include;external\base64\include;external\pugixml\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;external\SDL\include;external\base64\include;external\dirent\include;external\pugixml\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,6 +130,7 @@
     <ClCompile Include="src\GameLibrary\Input\Mouse.cpp" />
     <ClCompile Include="src\GameLibrary\Input\Multitouch.cpp" />
     <ClCompile Include="src\GameLibrary\IO\Console.cpp" />
+    <ClCompile Include="src\GameLibrary\IO\FileTools.cpp" />
     <ClCompile Include="src\GameLibrary\Network\NetworkProtocol.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\MenuScreen.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\Screen.cpp" />
@@ -218,6 +219,7 @@
     <ClInclude Include="src\GameLibrary\Input\Mouse.h" />
     <ClInclude Include="src\GameLibrary\Input\Multitouch.h" />
     <ClInclude Include="src\GameLibrary\IO\Console.h" />
+    <ClInclude Include="src\GameLibrary\IO\FileTools.h" />
     <ClInclude Include="src\GameLibrary\Network\NetworkProtocol.h" />
     <ClInclude Include="src\GameLibrary\Screen\Drawable.h" />
     <ClInclude Include="src\GameLibrary\Screen\MenuScreen.h" />
