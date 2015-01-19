@@ -4,14 +4,23 @@
 
 namespace GameLibrary
 {
-	PixelIterator::PixelIterator(const RectangleU&srcrect, const RectangleF&dstrect, const RectangleF&looprect, float xincrement, float yincrement, bool mirror_arg, bool mirrorVertical_arg)
+	PixelIterator::PixelIterator(const Vector2u&dims, const RectangleU&srcrect, const RectangleF&dstrect, const RectangleF&looprect, float xincrement, float yincrement, bool mirror_arg, bool mirrorVertical_arg)
 	{
 		if(!dstRect.contains(loopRect))
 		{
 			throw IllegalArgumentException("loopRect must be contained within dstRect");
 		}
+		if((unsigned int)(srcRect.x + srcRect.width) > dims.x)
+		{
+			throw IllegalArgumentException("srcRect cannot stretch larger than dimensions");
+		}
+		else if((unsigned int)(srcRect.y + srcRect.height) > dims.y)
+		{
+			throw IllegalArgumentException("srcRect cannot stretch larger than dimensions");
+		}
 		usesTransform = false;
 		started = false;
+		dimensions = Vector2f((float)dims.x, (float)dims.y);
 		srcRect = srcrect;
 		srcRectF = RectangleF((float)srcRect.x, (float)srcRect.y, (float)srcRect.width, (float)srcRect.height);
 		srcRectRight = srcRectF.x + srcRectF.width;
@@ -35,14 +44,23 @@ namespace GameLibrary
 		lastRowStartIndex = currentPixelIndex;
 	}
 	
-	PixelIterator::PixelIterator(const RectangleU&srcrect, const RectangleF&dstrect, const RectangleF&looprect, float xincrement, float yincrement, const Transform&transform, const Vector2f&rat, bool mirror_arg, bool mirrorVertical_arg)
+	PixelIterator::PixelIterator(const Vector2u&dims, const RectangleU&srcrect, const RectangleF&dstrect, const RectangleF&looprect, float xincrement, float yincrement, const Transform&transform, const Vector2f&rat, bool mirror_arg, bool mirrorVertical_arg)
 	{
 		if(!dstRect.contains(loopRect))
 		{
 			throw IllegalArgumentException("loopRect must be contained within dstRect");
 		}
+		if((unsigned int)(srcRect.x + srcRect.width) > dims.x)
+		{
+			throw IllegalArgumentException("srcRect cannot stretch larger than dimensions");
+		}
+		else if((unsigned int)(srcRect.y + srcRect.height) > dims.y)
+		{
+			throw IllegalArgumentException("srcRect cannot stretch larger than dimensions");
+		}
 		usesTransform = true;
 		started = false;
+		dimensions = Vector2f((float)dims.x, (float)dims.y);
 		srcRect = srcrect;
 		srcRectF = RectangleF((float)srcRect.x, (float)srcRect.y, (float)srcRect.width, (float)srcRect.height);
 		srcRectRight = srcRectF.x + srcRectF.width;
@@ -69,6 +87,7 @@ namespace GameLibrary
 	
 	PixelIterator::PixelIterator(const PixelIterator&iterator)
 	{
+		dimensions = iterator.dimensions;
 		srcRect = iterator.srcRect;
 		srcRectF = iterator.srcRectF;
 		srcRectRight = iterator.srcRectRight;
@@ -97,6 +116,7 @@ namespace GameLibrary
 	
 	PixelIterator& PixelIterator::operator=(const PixelIterator&iterator)
 	{
+		dimensions = iterator.dimensions;
 		srcRect = iterator.srcRect;
 		srcRectF = iterator.srcRectF;
 		srcRectRight = iterator.srcRectRight;
@@ -149,7 +169,7 @@ namespace GameLibrary
 			}
 			else
 			{
-				pixelIndex = (srcRectF.width*Math::floor(pixelPoint.y))+pixelPoint.x;
+				pixelIndex = (dimensions.x*Math::floor(pixelPoint.y))+pixelPoint.x;
 			}
 		}
 		else
@@ -173,7 +193,7 @@ namespace GameLibrary
 				pixelPoint.y = srcRectF.y + pixelPoint.y;
 				row = pixelPoint.y - Math::floor(pixelPoint.y);
 			}
-			pixelIndex = (srcRectF.width*Math::floor(pixelPoint.y))+pixelPoint.x;
+			pixelIndex = (dimensions.x*Math::floor(pixelPoint.y))+pixelPoint.x;
 		}
 		return pixelIndex;
 	}
@@ -229,11 +249,11 @@ namespace GameLibrary
 					{
 						if(mirrorVertical)
 						{
-							currentPixelIndex -= srcRectF.width*((float)rowDif);
+							currentPixelIndex -= dimensions.x*((float)rowDif);
 						}
 						else
 						{
-							currentPixelIndex += srcRectF.width*((float)rowDif);
+							currentPixelIndex += dimensions.x*((float)rowDif);
 						}
 						lastRowStartIndex = currentPixelIndex;
 					}

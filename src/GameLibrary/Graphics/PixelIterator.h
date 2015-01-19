@@ -10,6 +10,8 @@ namespace GameLibrary
 	class PixelIterator
 	{
 	private:
+		Vector2f dimensions;
+		
 		RectangleU srcRect;
 		RectangleF srcRectF;
 		float srcRectRight;
@@ -35,8 +37,8 @@ namespace GameLibrary
 		float calculatePixelIndex();
 		
 	public:
-		PixelIterator(const RectangleU&srcRect, const RectangleF&dstRect, const RectangleF&loopRect, float xincrement, float yincrement, bool mirror=false, bool mirrorVertical=false);
-		PixelIterator(const RectangleU&srcRect, const RectangleF&dstRect, const RectangleF&loopRect, float xincrement, float yincrement, const Transform&transform, const Vector2f&ratio, bool mirror=false, bool mirrorVertical=false);
+		PixelIterator(const Vector2u&dimensions, const RectangleU&srcRect, const RectangleF&dstRect, const RectangleF&loopRect, float xincrement, float yincrement, bool mirror=false, bool mirrorVertical=false);
+		PixelIterator(const Vector2u&dimensions, const RectangleU&srcRect, const RectangleF&dstRect, const RectangleF&loopRect, float xincrement, float yincrement, const Transform&transform, const Vector2f&ratio, bool mirror=false, bool mirrorVertical=false);
 		PixelIterator(const PixelIterator&);
 		~PixelIterator();
 		

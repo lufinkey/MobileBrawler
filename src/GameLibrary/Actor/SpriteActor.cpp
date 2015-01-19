@@ -365,7 +365,7 @@ namespace GameLibrary
 			pointFixed.y -= y;
 			
 			pointFixed = inverseRotationMatrix.transform(pointFixed);
-
+			
 			pointFixed.x += width/2;
 			pointFixed.y += height/2;
 			
@@ -462,7 +462,8 @@ namespace GameLibrary
 			PixelIterator*pxlIter = nullptr;
 			if(rotation == 0)
 			{
-				pxlIter = new PixelIterator(srcRectU, frame, overlap, incr, incr, mirror, mirrorVertical);
+				Vector2u dimensions(img->getWidth(), img->getHeight());
+				pxlIter = new PixelIterator(dimensions, srcRectU, frame, overlap, incr, incr, mirror, mirrorVertical);
 			}
 			else
 			{
@@ -470,14 +471,16 @@ namespace GameLibrary
 				transform.translate(-(width/2), -(height/2));
 				float ratiox = ((float)srcRect.width)/width;
 				float ratioy = ((float)srcRect.height)/height;
-				pxlIter = new PixelIterator(srcRectU, frame, overlap, incr, incr, transform, Vector2f(ratiox, ratioy), mirror, mirrorVertical);
+				Vector2u dimensions(img->getWidth(), img->getHeight());
+				pxlIter = new PixelIterator(dimensions, srcRectU, frame, overlap, incr, incr, transform, Vector2f(ratiox, ratioy), mirror, mirrorVertical);
 			}
 			PixelIterator& pxlIterRef = *pxlIter;
 			
 			PixelIterator*actor_pxlIter = nullptr;
 			if(actor->rotation == 0)
 			{
-				actor_pxlIter = new PixelIterator(actor_srcRectU, actor_frame, overlap, incr, incr, actor_mirror, actor_mirrorVertical);
+				Vector2u dimensions(actor_img->getWidth(), actor_img->getHeight());
+				actor_pxlIter = new PixelIterator(dimensions, actor_srcRectU, actor_frame, overlap, incr, incr, actor_mirror, actor_mirrorVertical);
 			}
 			else
 			{
@@ -485,7 +488,8 @@ namespace GameLibrary
 				transform.translate(-(actor->width/2), -(actor->height/2));
 				float ratiox = ((float)actor_srcRect.width)/actor->width;
 				float ratioy = ((float)actor_srcRect.height)/actor->height;
-				actor_pxlIter = new PixelIterator(actor_srcRectU, actor_frame, overlap, incr, incr, transform, Vector2f(ratiox, ratioy), actor_mirror, actor_mirrorVertical);
+				Vector2u dimensions(actor_img->getWidth(), actor_img->getHeight());
+				actor_pxlIter = new PixelIterator(dimensions, actor_srcRectU, actor_frame, overlap, incr, incr, transform, Vector2f(ratiox, ratioy), actor_mirror, actor_mirrorVertical);
 			}
 			PixelIterator& actor_pxlIterRef = *actor_pxlIter;
 
