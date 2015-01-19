@@ -5,12 +5,17 @@ namespace BrawlerLibrary
 {
 	CharacterLoader::CharacterLoader(Window&window)
 	{
-		menuAssets = new AssetManager(window);
+		assetManager = new AssetManager(window);
 	}
 	
 	CharacterLoader::~CharacterLoader()
 	{
-		delete menuAssets;
+		delete assetManager;
+	}
+	
+	AssetManager* CharacterLoader::getAssetManager() const
+	{
+		return assetManager;
 	}
 	
 	void CharacterLoader::addPath(const String&path)
@@ -64,6 +69,21 @@ namespace BrawlerLibrary
 					}
 				}
 			}
+		}
+	}
+	
+	void CharacterLoader::loadIcons(const Image&alphaMask)
+	{
+		for(unsigned int i=0; i<characters.size(); i++)
+		{
+			String iconPath = characters.get(i).getPath() + "/icon.png";
+			Image icon;
+			icon.loadFromFile(iconPath);
+			icon.applyAlphaMask(alphaMask);
+			TextureImage* iconTexture = new TextureImage();
+			iconTexture->loadFromImage(icon, *(assetManager->getWindow()->getGraphics()));
+			assetManager->unloadTexture(iconPath);
+			assetManager->addTexture(iconPath, iconTexture);
 		}
 	}
 }
