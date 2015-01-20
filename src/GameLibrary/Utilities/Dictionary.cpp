@@ -319,7 +319,7 @@ namespace GameLibrary
 	
 	bool Dictionary_parse(const void*ptr, pugi::xml_node&node, Any&any, String*error)
 	{
-		String type = node.type();
+		String type = node.name();
 
 		if(type.equals("dict"))
 		{
