@@ -2,7 +2,7 @@
 #pragma once
 
 #include "BaseMenuScreen.h"
-#include "Elements/ActorGrid.h"
+#include "../Elements/ActorGrid.h"
 
 namespace SmashBros
 {

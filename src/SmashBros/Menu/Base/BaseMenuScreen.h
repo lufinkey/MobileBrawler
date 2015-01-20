@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "../SmashData.h"
+#include "../../SmashData.h"
 
 namespace SmashBros
 {

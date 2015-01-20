@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "BaseMenuScreen.h"
+#include "Base/BaseMenuScreen.h"
 #include "GroupSmashCharacterSelectMenu.h"
 
 namespace SmashBros

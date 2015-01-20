@@ -163,11 +163,11 @@
     <ClCompile Include="src\GameLibrary\Window\Window.cpp" />
     <ClCompile Include="src\SmashBros\Game.cpp" />
     <ClCompile Include="src\SmashBros\main.cpp" />
-    <ClCompile Include="src\SmashBros\Menu\CharacterSelectScreen.cpp" />
+    <ClCompile Include="src\SmashBros\Menu\Base\BaseMenuScreen.cpp" />
+    <ClCompile Include="src\SmashBros\Menu\Base\CharacterSelectScreen.cpp" />
     <ClCompile Include="src\SmashBros\Menu\Elements\ActorGrid.cpp" />
     <ClCompile Include="src\SmashBros\Menu\GroupSmashCharacterSelectMenu.cpp" />
     <ClCompile Include="src\SmashBros\Menu\MainMenu.cpp" />
-    <ClCompile Include="src\SmashBros\Menu\BaseMenuScreen.cpp" />
     <ClCompile Include="src\SmashBros\Menu\GroupMenu.cpp" />
     <ClCompile Include="src\SmashBros\Menu\SoloMenu.cpp" />
     <ClCompile Include="src\SmashBros\Menu\TitleScreen.cpp" />
@@ -263,11 +263,11 @@
     <ClInclude Include="src\GameLibrary\Window\Window.h" />
     <ClInclude Include="src\SmashBros\Game.h" />
     <ClInclude Include="src\SmashBros\Global.h" />
-    <ClInclude Include="src\SmashBros\Menu\CharacterSelectScreen.h" />
+    <ClInclude Include="src\SmashBros\Menu\Base\BaseMenuScreen.h" />
+    <ClInclude Include="src\SmashBros\Menu\Base\CharacterSelectScreen.h" />
     <ClInclude Include="src\SmashBros\Menu\Elements\ActorGrid.h" />
     <ClInclude Include="src\SmashBros\Menu\GroupSmashCharacterSelectMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\MainMenu.h" />
-    <ClInclude Include="src\SmashBros\Menu\BaseMenuScreen.h" />
     <ClInclude Include="src\SmashBros\Menu\GroupMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\SoloMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\TitleScreen.h" />
