@@ -5,19 +5,19 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-		MainMenu::MainMenu(const MenuData&menuData) : SmashBros::Menu::BaseMenuScreen(menuData)
+		MainMenu::MainMenu(const SmashData&smashData) : SmashBros::Menu::BaseMenuScreen(smashData)
 		{
-			AssetManager* assetManager = menuData.getAssetManager();
+			AssetManager* assetManager = smashData.getMenuData().getAssetManager();
 			
-			groupButton = getItem(addItem(Global::getScreenCoords(0.28f, 0.437f), new Animation(assetManager, 1, "buttons/main/group.png")));
-			groupButton->scaleToFit(Global::getScreenCoords(0.5f,0.5f));
-			soloButton = getItem(addItem(Global::getScreenCoords(0.72f, 0.516f), new Animation(assetManager, 1, "buttons/main/solo.png")));
-			soloButton->scaleToFit(Global::getScreenCoords(0.5f,0.5f));
+			groupButton = getItem(addItem(smashData.getScreenCoords(0.28f, 0.437f), new Animation(assetManager, 1, "buttons/main/group.png")));
+			groupButton->scaleToFit(smashData.getScreenCoords(0.5f,0.5f));
+			soloButton = getItem(addItem(smashData.getScreenCoords(0.72f, 0.516f), new Animation(assetManager, 1, "buttons/main/solo.png")));
+			soloButton->scaleToFit(smashData.getScreenCoords(0.5f,0.5f));
 			
 			backTransition = new FadeColorTransition(Color::BLACK, 0.6f);
 			
-			groupMenu = new GroupMenu(assetManager);
-			soloMenu = new SoloMenu(assetManager);
+			groupMenu = new GroupMenu(smashData);
+			soloMenu = new SoloMenu(smashData);
 		}
 		
 		MainMenu::~MainMenu()

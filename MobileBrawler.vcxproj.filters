@@ -402,9 +402,6 @@
     <ClCompile Include="src\SmashBros\Game.cpp">
       <Filter>src\SmashBros</Filter>
     </ClCompile>
-    <ClCompile Include="src\SmashBros\Global.cpp">
-      <Filter>src\SmashBros</Filter>
-    </ClCompile>
     <ClCompile Include="src\SmashBros\Menu\BaseMenuScreen.cpp">
       <Filter>src\SmashBros\Menu</Filter>
     </ClCompile>
@@ -423,9 +420,6 @@
     <ClCompile Include="src\SmashBros\Menu\CharacterSelectScreen.cpp">
       <Filter>src\SmashBros\Menu</Filter>
     </ClCompile>
-    <ClCompile Include="src\SmashBros\Menu\MenuData.cpp">
-      <Filter>src\SmashBros\Menu</Filter>
-    </ClCompile>
     <ClCompile Include="src\SmashBros\Menu\Elements\ActorGrid.cpp">
       <Filter>src\SmashBros\Menu\Elements</Filter>
     </ClCompile>
@@ -440,6 +434,9 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\IO\FileTools.cpp">
       <Filter>src\GameLibrary\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\SmashData.cpp">
+      <Filter>src\SmashBros</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -695,9 +692,6 @@
     <ClInclude Include="src\SmashBros\Game.h">
       <Filter>src\SmashBros</Filter>
     </ClInclude>
-    <ClInclude Include="src\SmashBros\Global.h">
-      <Filter>src\SmashBros</Filter>
-    </ClInclude>
     <ClInclude Include="src\SmashBros\Menu\BaseMenuScreen.h">
       <Filter>src\SmashBros\Menu</Filter>
     </ClInclude>
@@ -716,9 +710,6 @@
     <ClInclude Include="src\SmashBros\Menu\CharacterSelectScreen.h">
       <Filter>src\SmashBros\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="src\SmashBros\Menu\MenuData.h">
-      <Filter>src\SmashBros\Menu</Filter>
-    </ClInclude>
     <ClInclude Include="src\SmashBros\Menu\Elements\ActorGrid.h">
       <Filter>src\SmashBros\Menu\Elements</Filter>
     </ClInclude>
@@ -730,6 +721,15 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\IO\FileTools.h">
       <Filter>src\GameLibrary\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\SmashData.h">
+      <Filter>src\SmashBros</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Global.h">
+      <Filter>src\SmashBros</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BrawlerLibrary\BrawlerLibrary.h">
+      <Filter>src\BrawlerLibrary</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

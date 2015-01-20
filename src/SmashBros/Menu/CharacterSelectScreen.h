@@ -11,7 +11,7 @@ namespace SmashBros
 		class CharacterSelectScreen : public BaseMenuScreen
 		{
 		public:
-			CharacterSelectScreen(const MenuData&menuData);
+			CharacterSelectScreen(const SmashData&smashData);
 			virtual ~CharacterSelectScreen();
 			
 		protected:

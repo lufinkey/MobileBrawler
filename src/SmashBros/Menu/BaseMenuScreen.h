@@ -1,8 +1,7 @@
 
 #pragma once
 
-#include "MenuData.h"
-#include "../Global.h"
+#include "../SmashData.h"
 
 namespace SmashBros
 {
@@ -17,7 +16,7 @@ namespace SmashBros
 				HEADERBAR_FULL
 			} HeaderbarMode;
 			
-			BaseMenuScreen(const MenuData&menuData);
+			BaseMenuScreen(const SmashData&smashData);
 			virtual ~BaseMenuScreen();
 			
 			virtual void onWillAppear(const Transition*transition);

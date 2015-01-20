@@ -1,16 +1,18 @@
 
 #include "Game.h"
 #include "Global.h"
-
+#include "SmashData.h"
 #include "Menu/TitleScreen.h"
 
 namespace SmashBros
 {
 	Game::Game()
 	{
+		smashData = nullptr;
+		menuAssetManager = nullptr;
+		characterLoader = nullptr;
 		menuScreenMgr = nullptr;
 		titleScreen = nullptr;
-		menuAssetManager = nullptr;
 		Graphics::setDefaultFontPath("assets/fonts/arial.ttf");
 	}
 	
@@ -24,9 +26,17 @@ namespace SmashBros
 		{
 			delete titleScreen;
 		}
+		if(smashData != nullptr)
+		{
+			delete smashData;
+		}
 		if(menuAssetManager != nullptr)
 		{
 			delete menuAssetManager;
+		}
+		if(characterLoader != nullptr)
+		{
+			delete characterLoader;
 		}
 	}
 	
@@ -35,19 +45,21 @@ namespace SmashBros
 		getWindow()->setSize(Vector2u(SMASHBROS_WINDOWWIDTH, SMASHBROS_WINDOWHEIGHT));
 		getWindow()->getView()->setSize(SMASHBROS_WINDOWWIDTH, SMASHBROS_WINDOWHEIGHT);
 		setFPS(60);
+		characterLoader = new CharacterLoader(*getWindow());
 		menuAssetManager = new AssetManager(*getWindow(), "assets/menu");
+		smashData = new SmashData(getWindow(), characterLoader, MenuData(menuAssetManager));
 	}
 	
 	void Game::loadContent(AssetManager*assetManager)
 	{
 		loadMenuAssets(menuAssetManager);
-		titleScreen = new Menu::TitleScreen(Menu::MenuData(menuAssetManager));
+		titleScreen = new Menu::TitleScreen(*smashData);
 		menuScreenMgr = new ScreenManager(getWindow(), titleScreen);
 	}
 	
 	void Game::unloadContent(AssetManager*assetManager)
 	{
-		//
+		characterLoader->getAssetManager()->unload();
 	}
 	
 	void Game::update(AppData appData)

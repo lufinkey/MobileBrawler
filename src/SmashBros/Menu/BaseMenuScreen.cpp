@@ -11,9 +11,9 @@ namespace SmashBros
 #define PULSE_HOVERCOLOR Color::LIGHTBLUE
 #define PULSE_PRESSCOLOR Color::BLUE
 		
-		BaseMenuScreen::BaseMenuScreen(const MenuData&menuData)
+		BaseMenuScreen::BaseMenuScreen(const SmashData&smashData)
 		{
-			AssetManager* assetManager = menuData.getAssetManager();
+			AssetManager* assetManager = smashData.getMenuData().getAssetManager();
 			
 			img_headerbar_small = assetManager->getTexture("elements/headerbar_small.png");
 			img_headerbar_full = assetManager->getTexture("elements/headerbar_full.png");
@@ -38,8 +38,8 @@ namespace SmashBros
 			element->sendChildElementToBack(headerbarElement);
 			element->sendChildElementToBack(backgroundElement);
 			
-			backButton = (SpriteActor*)getItem(addItem(Global::getScreenCoords(0.07f,0.08f), new Animation(assetManager, 1, "buttons/back.png")));
-			backButton->Actor::scaleToFit(Global::getScreenCoords(0.175f,0.175f));
+			backButton = (SpriteActor*)getItem(addItem(smashData.getScreenCoords(0.07f,0.08f), new Animation(assetManager, 1, "buttons/back.png")));
+			backButton->Actor::scaleToFit(smashData.getScreenCoords(0.175f,0.175f));
 		}
 		
 		BaseMenuScreen::~BaseMenuScreen()

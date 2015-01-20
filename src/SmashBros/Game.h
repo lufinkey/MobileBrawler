@@ -9,7 +9,10 @@ namespace SmashBros
 	class Game : public GameLibrary::Application
 	{
 	private:
+		SmashData* smashData;
+		
 		AssetManager* menuAssetManager;
+		CharacterLoader* characterLoader;
 		
 		Menu::TitleScreen* titleScreen;
 		ScreenManager* menuScreenMgr;

@@ -15,7 +15,7 @@ namespace SmashBros
 			Actor* rulesButton;
 			
 		public:
-			GroupMenu(const MenuData&menuData);
+			GroupMenu(const SmashData&smashData);
 			virtual ~GroupMenu();
 			
 			virtual void onItemSelect(unsigned int index);

@@ -162,18 +162,18 @@
     <ClCompile Include="src\GameLibrary\Window\View.cpp" />
     <ClCompile Include="src\GameLibrary\Window\Window.cpp" />
     <ClCompile Include="src\SmashBros\Game.cpp" />
-    <ClCompile Include="src\SmashBros\Global.cpp" />
     <ClCompile Include="src\SmashBros\main.cpp" />
     <ClCompile Include="src\SmashBros\Menu\CharacterSelectScreen.cpp" />
     <ClCompile Include="src\SmashBros\Menu\Elements\ActorGrid.cpp" />
     <ClCompile Include="src\SmashBros\Menu\MainMenu.cpp" />
     <ClCompile Include="src\SmashBros\Menu\BaseMenuScreen.cpp" />
     <ClCompile Include="src\SmashBros\Menu\GroupMenu.cpp" />
-    <ClCompile Include="src\SmashBros\Menu\MenuData.cpp" />
     <ClCompile Include="src\SmashBros\Menu\SoloMenu.cpp" />
     <ClCompile Include="src\SmashBros\Menu\TitleScreen.cpp" />
+    <ClCompile Include="src\SmashBros\SmashData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\BrawlerLibrary\BrawlerLibrary.h" />
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterInfo.h" />
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterLoader.h" />
     <ClInclude Include="src\GameLibrary\Actor\SpriteActor.h" />
@@ -267,9 +267,9 @@
     <ClInclude Include="src\SmashBros\Menu\MainMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\BaseMenuScreen.h" />
     <ClInclude Include="src\SmashBros\Menu\GroupMenu.h" />
-    <ClInclude Include="src\SmashBros\Menu\MenuData.h" />
     <ClInclude Include="src\SmashBros\Menu\SoloMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\TitleScreen.h" />
+    <ClInclude Include="src\SmashBros\SmashData.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\characters\mario\costumes\default\portrait.png" />

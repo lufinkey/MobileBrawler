@@ -191,4 +191,10 @@ namespace GameLibrary
 			fonts.add(Pair<String, Font*>(path, font));
 		}
 	}
+	
+	void AssetManager::unload()
+	{
+		unloadTextures();
+		unloadFonts();
+	}
 }

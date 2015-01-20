@@ -6,10 +6,10 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-		TitleScreen::TitleScreen(const MenuData&menuData) : SmashBros::Menu::BaseMenuScreen(menuData)
+		TitleScreen::TitleScreen(const SmashData&smashData) : SmashBros::Menu::BaseMenuScreen(smashData)
 		{
-			Vector2f screenCenter = Global::getScreenCoords(0.5f, 0.5f);
-			AssetManager* assetManager = menuData.getAssetManager();
+			Vector2f screenCenter = smashData.getScreenCoords(0.5f, 0.5f);
+			AssetManager* assetManager = smashData.getMenuData().getAssetManager();
 
 			getBackgroundElement()->setImage(assetManager->getTexture("titlescreen/background.png"));
 			
@@ -24,7 +24,7 @@ namespace SmashBros
 			logo = new ImageElement(logoFrame, logoImage);
 			getElement()->addChildElement(logo);
 			
-			mainMenu = new MainMenu(assetManager);
+			mainMenu = new MainMenu(smashData);
 			transition = new FadeColorTransition(Color::WHITE, 0.6f);
 			
 			tapRegion = new WireframeActor();
