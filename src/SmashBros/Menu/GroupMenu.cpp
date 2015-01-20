@@ -13,11 +13,13 @@ namespace SmashBros
 			//specialSmashButton->scaleToFit(smashData.getScreenCoords(0.5f, 0.5f));
 			rulesButton = getItem(addItem(smashData.getScreenCoords(0.5f, 0.75f), new Animation(smashData.getMenuData().getAssetManager(), 1, "buttons/group/rules.png")));
 			rulesButton->scaleToFit(smashData.getScreenCoords(0.5f, 0.5f));
+			
+			smashMenu = new GroupSmashCharacterSelectMenu(smashData);
 		}
 		
 		GroupMenu::~GroupMenu()
 		{
-			//
+			delete smashMenu;
 		}
 		
 		void GroupMenu::onItemSelect(unsigned int index)
@@ -29,7 +31,7 @@ namespace SmashBros
 				Actor* item = getItem(index);
 				if(item == smashButton)
 				{
-					//
+					screenMgr->push(smashMenu);
 				}
 				else if(item == specialSmashButton)
 				{

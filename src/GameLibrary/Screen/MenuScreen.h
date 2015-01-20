@@ -60,6 +60,7 @@ namespace GameLibrary
 	protected:
 		virtual void updateItems(ApplicationData appData);
 		virtual void drawItem(ApplicationData appData, Graphics graphics, unsigned int itemIndex) const;
+		virtual void drawItems(ApplicationData appData, Graphics graphics) const;
 		
 	private:
 		class MainElement : public GameLibrary::ScreenElement
@@ -71,7 +72,7 @@ namespace GameLibrary
 			virtual ~MainElement();
 			
 			virtual void update(ApplicationData appData);
-			virtual void draw(ApplicationData appData, Graphics graphics) const;
+			virtual void drawMain(ApplicationData appData, Graphics graphics) const;
 		};
 
 		class ImageItem : public GameLibrary::SpriteActor

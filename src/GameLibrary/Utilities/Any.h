@@ -167,7 +167,7 @@ namespace GameLibrary
 			else
 			{
 				typedef StorageType<U> T;
-				Derived<T>*derived = (Derived<T>*)ptr;
+				Derived<T>*derived = static_cast<Derived<T>*>(ptr);
 				return derived->value;
 			}
 		}
@@ -188,7 +188,7 @@ namespace GameLibrary
 			else
 			{
 				typedef StorageType<U> T;
-				Derived<T>* derived = (Derived<T>*)ptr;
+				Derived<T>* derived = static_cast<Derived<T>*>(ptr);
 				return derived->value;
 			}
 		}

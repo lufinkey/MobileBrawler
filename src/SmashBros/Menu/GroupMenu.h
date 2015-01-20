@@ -2,6 +2,7 @@
 #pragma once
 
 #include "BaseMenuScreen.h"
+#include "GroupSmashCharacterSelectMenu.h"
 
 namespace SmashBros
 {
@@ -13,6 +14,8 @@ namespace SmashBros
 			Actor* smashButton;
 			Actor* specialSmashButton;
 			Actor* rulesButton;
+			
+			GroupSmashCharacterSelectMenu* smashMenu;
 			
 		public:
 			GroupMenu(const SmashData&smashData);

@@ -13,6 +13,7 @@ namespace BrawlerLibrary
 		String path;
 		String name;
 		String creator;
+		String version;
 		String minsmashversion;
 		
 	public:

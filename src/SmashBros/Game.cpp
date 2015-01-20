@@ -52,7 +52,10 @@ namespace SmashBros
 	
 	void Game::loadContent(AssetManager*assetManager)
 	{
+		characterselect_iconmask.loadFromFile("assets/menu/characterselect/icon_mask.png");
 		loadMenuAssets(menuAssetManager);
+		characterLoader->addPath("assets/characters");
+		characterLoader->loadIcons(characterselect_iconmask);
 		titleScreen = new Menu::TitleScreen(*smashData);
 		menuScreenMgr = new ScreenManager(getWindow(), titleScreen);
 	}
@@ -99,6 +102,7 @@ namespace SmashBros
 		batchLoader->addTexture("characterselect/panel_cpu.png");
 		batchLoader->addTexture("characterselect/panel_na.png");
 		batchLoader->addTexture("characterselect/panel_blank.png");
+		batchLoader->addTexture("characterselect/icon_frame.png");
 		
 		batchLoader->addTexture("elements/headerbar_full.png");
 		batchLoader->addTexture("elements/headerbar_small.png");

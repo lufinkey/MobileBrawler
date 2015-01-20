@@ -438,6 +438,9 @@
     <ClCompile Include="src\SmashBros\SmashData.cpp">
       <Filter>src\SmashBros</Filter>
     </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\GroupSmashCharacterSelectMenu.cpp">
+      <Filter>src\SmashBros\Menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -730,6 +733,9 @@
     </ClInclude>
     <ClInclude Include="src\BrawlerLibrary\BrawlerLibrary.h">
       <Filter>src\BrawlerLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\GroupSmashCharacterSelectMenu.h">
+      <Filter>src\SmashBros\Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

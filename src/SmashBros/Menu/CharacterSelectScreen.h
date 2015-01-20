@@ -14,12 +14,25 @@ namespace SmashBros
 			CharacterSelectScreen(const SmashData&smashData);
 			virtual ~CharacterSelectScreen();
 			
+			void reloadIcons(const SmashData&smashData);
+			
 		protected:
+			virtual void updateItems(ApplicationData appData);
+			virtual void drawItems(ApplicationData appData, Graphics graphics) const;
+
 			class CharacterIcon : public SpriteActor
 			{
+			private:
+				CharacterInfo const* info;
+
 			public:
-				CharacterIcon(float x, float y);
+				CharacterIcon(const CharacterInfo&info, float x, float y, AssetManager*assetManager);
 				virtual ~CharacterIcon();
+				
+				bool equals(const CharacterIcon&) const;
+				
+				const String& getName() const;
+				const String& getCreator() const;
 			};
 			
 			class PlayerChip : public SpriteActor
@@ -37,7 +50,7 @@ namespace SmashBros
 			};
 			
 		private:
-			ActorGrid iconGrid;
+			ActorGrid*iconGrid;
 			ArrayList<CharacterIcon*> icons;
 		};
 	}

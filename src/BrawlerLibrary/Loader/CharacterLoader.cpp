@@ -19,6 +19,7 @@ namespace BrawlerLibrary
 	}
 	
 	void CharacterLoader::addPath(const String&path)
+		//TODO add ability to pass in ArrayList for error catching
 	{
 		for(unsigned int i=0; i<paths.size(); i++)
 		{
@@ -38,9 +39,23 @@ namespace BrawlerLibrary
 			{
 				CharacterInfo info;
 				bool success = info.loadFromPath(path + "/" + diritem.name);
+				//TODO see if minsmashversion is compatible
 				if(success)
 				{
-					characters.add(info);
+					bool alreadyAdded = false;
+					for(unsigned int j=0; j<characters.size(); j++)
+					{
+						CharacterInfo&cmp = characters.get(j);
+						if(info.getName().equals(cmp.getName()) && info.getCreator().equals(cmp.getCreator()))
+						{
+							alreadyAdded = true;
+							j = characters.size();
+						}
+					}
+					if(!alreadyAdded)
+					{
+						characters.add(info);
+					}
 				}
 			}
 		}
@@ -85,5 +100,15 @@ namespace BrawlerLibrary
 			assetManager->unloadTexture(iconPath);
 			assetManager->addTexture(iconPath, iconTexture);
 		}
+	}
+	
+	const ArrayList<String>& CharacterLoader::getPaths() const
+	{
+		return paths;
+	}
+	
+	const ArrayList<CharacterInfo>& CharacterLoader::getCharacters() const
+	{
+		return characters;
 	}
 }

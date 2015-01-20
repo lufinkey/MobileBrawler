@@ -16,6 +16,8 @@ namespace SmashBros
 		
 		Menu::TitleScreen* titleScreen;
 		ScreenManager* menuScreenMgr;
+		
+		Image characterselect_iconmask;
 
 	public:
 		Game();

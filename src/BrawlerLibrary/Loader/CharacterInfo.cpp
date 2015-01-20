@@ -13,6 +13,7 @@ namespace BrawlerLibrary
 		path = info.path;
 		name = info.name;
 		creator = info.creator;
+		version = info.version;
 		minsmashversion = info.minsmashversion;
 	}
 	
@@ -26,6 +27,7 @@ namespace BrawlerLibrary
 		path = info.path;
 		name = info.name;
 		creator = info.creator;
+		version = info.version;
 		minsmashversion = info.minsmashversion;
 		return *this;
 	}
@@ -72,6 +74,24 @@ namespace BrawlerLibrary
 				return false;
 			}
 			
+			Any val_version = dict.get("version");
+			if(val_version.empty())
+			{
+				if(error!=nullptr)
+				{
+					*error = "Plist does not contain value for \"version\"";
+				}
+				return false;
+			}
+			else if(!val_version.is<String>())
+			{
+				if(error!=nullptr)
+				{
+					*error = "Incorrect value type for key \"version\". Value should be a string";
+				}
+				return false;
+			}
+			
 			Any val_minsmashversion = dict.get("minsmashversion");
 			if(val_minsmashversion.empty())
 			{
@@ -92,9 +112,14 @@ namespace BrawlerLibrary
 			
 			name = val_name.as<String>(false);
 			creator = val_creator.as<String>(false);
+			version = val_version.as<String>(false);
 			minsmashversion = val_minsmashversion.as<String>(false);
 			path = folderpath;
 			return true;
+		}
+		if(error != nullptr)
+		{
+			*error = (String)"Unable to load Info.plist: " + *error;
 		}
 		return false;
 	}

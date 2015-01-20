@@ -22,21 +22,9 @@ namespace GameLibrary
 		menuScreen->updateItems(appData);
 	}
 	
-	void MenuScreen::MainElement::draw(ApplicationData appData, Graphics graphics) const
+	void MenuScreen::MainElement::drawMain(ApplicationData appData, Graphics graphics) const
 	{
-		unsigned int hoveredIndex = menuScreen->selectedIndex;
-		for(unsigned int i=0; i<menuScreen->items.size(); i++)
-		{
-			if(i!=hoveredIndex)
-			{
-				menuScreen->drawItem(appData, graphics, i);
-			}
-		}
-		
-		if(hoveredIndex != MENUSCREEN_NOSELECTION)
-		{
-			menuScreen->drawItem(appData, graphics, hoveredIndex);
-		}
+		menuScreen->drawItems(appData, graphics);
 	}
 	
 //MenuScreen::ImageItem
@@ -304,6 +292,23 @@ namespace GameLibrary
 	{
 		Actor* actor = items.get(itemIndex);
 		actor->draw(appData, graphics);
+	}
+	
+	void MenuScreen::drawItems(ApplicationData appData, Graphics graphics) const
+	{
+		unsigned int hoveredIndex = selectedIndex;
+		for(unsigned int i=0; i<items.size(); i++)
+		{
+			if(i!=hoveredIndex)
+			{
+				drawItem(appData, graphics, i);
+			}
+		}
+		
+		if(hoveredIndex != MENUSCREEN_NOSELECTION)
+		{
+			drawItem(appData, graphics, hoveredIndex);
+		}
 	}
 	
 	unsigned int MenuScreen::addItem(const Vector2f&position, Animation*animation, const Animation::Direction&direction, bool destructAnimation)
