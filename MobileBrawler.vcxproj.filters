@@ -453,6 +453,12 @@
     <ClCompile Include="src\BrawlerLibrary\Game\WinCondition.cpp">
       <Filter>src\BrawlerLibrary\Game</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Utilities\Number.cpp">
+      <Filter>src\GameLibrary\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Exception\Utilities\IllegalNumberOperationException.cpp">
+      <Filter>src\GameLibrary\Exception\Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -754,6 +760,12 @@
     </ClInclude>
     <ClInclude Include="src\BrawlerLibrary\Game\WinCondition.h">
       <Filter>src\BrawlerLibrary\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\Number.h">
+      <Filter>src\GameLibrary\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Exception\Utilities\IllegalNumberOperationException.h">
+      <Filter>src\GameLibrary\Exception\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -120,6 +120,7 @@
     <ClCompile Include="src\GameLibrary\Exception\Utilities\BitSetOutOfBoundsException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\Utilities\DataPacketOutOfBoundsException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\Utilities\Font\RenderGlyphException.cpp" />
+    <ClCompile Include="src\GameLibrary\Exception\Utilities\IllegalNumberOperationException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\Utilities\StringOutOfBoundsException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\Utilities\Time\IllegalDateTimeFormatException.cpp" />
     <ClCompile Include="src\GameLibrary\GameLibrary.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="src\GameLibrary\Utilities\Geometry\Polygon.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Geometry\Transform.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Math.cpp" />
+    <ClCompile Include="src\GameLibrary\Utilities\Number.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\String.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Thread.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Time\DateTime.cpp" />
@@ -212,6 +214,7 @@
     <ClInclude Include="src\GameLibrary\Exception\Utilities\BitSetOutOfBoundsException.h" />
     <ClInclude Include="src\GameLibrary\Exception\Utilities\DataPacketOutOfBoundsException.h" />
     <ClInclude Include="src\GameLibrary\Exception\Utilities\Font\RenderGlyphException.h" />
+    <ClInclude Include="src\GameLibrary\Exception\Utilities\IllegalNumberOperationException.h" />
     <ClInclude Include="src\GameLibrary\Exception\Utilities\StringOutOfBoundsException.h" />
     <ClInclude Include="src\GameLibrary\Exception\Utilities\Time\IllegalDateTimeFormatException.h" />
     <ClInclude Include="src\GameLibrary\GameLibrary.h" />
@@ -253,6 +256,7 @@
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\Transform.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\Vector2.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Math.h" />
+    <ClInclude Include="src\GameLibrary\Utilities\Number.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Pair.h" />
     <ClInclude Include="src\GameLibrary\Utilities\PlatformChecks.h" />
     <ClInclude Include="src\GameLibrary\Utilities\String.h" />
