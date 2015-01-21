@@ -29,6 +29,7 @@ namespace SmashBros
 		MenuData menuData;
 		Window* window;
 		CharacterLoader*characterLoader;
+		Rules* rules;
 		
 	public:
 		SmashData(Window*window, CharacterLoader*characterLoader, const MenuData&menuData);
@@ -43,5 +44,6 @@ namespace SmashBros
 		const MenuData& getMenuData() const;
 		Window* getWindow() const;
 		CharacterLoader* getCharacterLoader() const;
+		Rules* getRules() const;
 	};
 }

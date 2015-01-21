@@ -33,6 +33,7 @@ namespace SmashBros
 	{
 		window = smashData.window;
 		characterLoader = smashData.characterLoader;
+		rules = smashData.rules;
 	}
 	
 	SmashData::~SmashData()
@@ -45,6 +46,7 @@ namespace SmashBros
 		menuData = smashData.menuData;
 		window = smashData.window;
 		characterLoader = smashData.characterLoader;
+		rules = smashData.rules;
 		return *this;
 	}
 	
@@ -81,5 +83,10 @@ namespace SmashBros
 	CharacterLoader* SmashData::getCharacterLoader() const
 	{
 		return characterLoader;
+	}
+	
+	Rules* SmashData::getRules() const
+	{
+		return rules;
 	}
 }

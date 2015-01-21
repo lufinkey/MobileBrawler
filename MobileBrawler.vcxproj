@@ -85,6 +85,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="external\pugixml\src\pugixml.cpp" />
+    <ClCompile Include="src\BrawlerLibrary\Game\Rules.cpp" />
+    <ClCompile Include="src\BrawlerLibrary\Game\WinCondition.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Loader\CharacterInfo.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Loader\CharacterLoader.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\SpriteActor.cpp" />
@@ -175,6 +177,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BrawlerLibrary\BrawlerLibrary.h" />
+    <ClInclude Include="src\BrawlerLibrary\Game\Rules.h" />
+    <ClInclude Include="src\BrawlerLibrary\Game\WinCondition.h" />
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterInfo.h" />
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterLoader.h" />
     <ClInclude Include="src\GameLibrary\Actor\SpriteActor.h" />

@@ -23,27 +23,27 @@ namespace GameLibrary
 			{
 				//
 			}
-
+			
 			virtual Base* clone() const = 0;
 		};
-
+		
 		template<typename T>
 		struct Derived : Base
 		{
 			T value;
-
+			
 			template<typename U>
 			Derived(U&& value) : value(std::forward<U>(value))
 			{
 				//
 			}
-
+			
 			Base* clone() const
 			{
 				return new Derived<T>(value);
 			}
 		};
-
+		
 		Base* clone() const
 		{
 			if (ptr)
@@ -55,25 +55,25 @@ namespace GameLibrary
 				return nullptr;
 			}
 		}
-
+		
 		Base* ptr;
-
+		
 	public:
 		Any() : ptr(nullptr)
 		{
 			//
 		}
-
+		
 		Any(Any& any) : ptr(any.clone())
 		{
 			//
 		}
-
+		
 		Any(Any&& any) : ptr(any.ptr)
 		{
 			any.ptr = nullptr;
 		}
-
+		
 		Any(const Any& any) : ptr(any.clone())
 		{
 			//

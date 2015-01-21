@@ -178,6 +178,9 @@
     <Filter Include="src\SmashBros\Menu\Base">
       <UniqueIdentifier>{a49ea25f-1cc7-471b-981e-e3a101c00690}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\BrawlerLibrary\Game">
+      <UniqueIdentifier>{692a2ab6-8df7-4fb6-9acb-e62f48cff3fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameLibrary\Actor\TextActor.cpp">
@@ -443,6 +446,12 @@
     </ClCompile>
     <ClCompile Include="src\SmashBros\Menu\Base\CharacterSelectScreen.cpp">
       <Filter>src\SmashBros\Menu\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BrawlerLibrary\Game\Rules.cpp">
+      <Filter>src\BrawlerLibrary\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BrawlerLibrary\Game\WinCondition.cpp">
+      <Filter>src\BrawlerLibrary\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -739,6 +748,12 @@
     </ClInclude>
     <ClInclude Include="src\SmashBros\Menu\Base\CharacterSelectScreen.h">
       <Filter>src\SmashBros\Menu\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BrawlerLibrary\Game\Rules.h">
+      <Filter>src\BrawlerLibrary\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BrawlerLibrary\Game\WinCondition.h">
+      <Filter>src\BrawlerLibrary\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
