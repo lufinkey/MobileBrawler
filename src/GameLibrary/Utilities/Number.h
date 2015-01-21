@@ -2,6 +2,7 @@
 #pragma once
 
 #include "../Exception/Utilities/IllegalNumberOperationException.h"
+#include "../Utilities/String.h"
 
 namespace GameLibrary
 {
@@ -61,6 +62,9 @@ namespace GameLibrary
 		Number& operator/=(const Number&);
 		Number& operator%=(const Number&);
 		
+		bool isIntegral() const;
+		Number::NumberType getType() const;
+		
 		bool asBool() const;
 		char asChar() const;
 		unsigned char asUnsignedChar() const;
@@ -75,6 +79,7 @@ namespace GameLibrary
 		float asFloat() const;
 		double asDouble() const;
 		long double asLongDouble() const;
+		String asString() const;
 		
 	private:
 		_BaseNumberType* value;

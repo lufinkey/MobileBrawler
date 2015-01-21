@@ -22,6 +22,8 @@ namespace GameLibrary
 		virtual _BaseNumberType& operator/=(const _BaseNumberType&) = 0;
 		virtual _BaseNumberType& operator%=(const _BaseNumberType&) = 0;
 		
+		virtual bool isIntegral() const = 0;
+		
 		virtual bool asBool() const = 0;
 		virtual char asChar() const = 0;
 		virtual unsigned char asUnsignedChar() const = 0;
@@ -36,6 +38,7 @@ namespace GameLibrary
 		virtual float asFloat() const = 0;
 		virtual double asDouble() const = 0;
 		virtual long double asLongDouble() const = 0;
+		virtual String asString() const = 0;
 	};
 	
 	template<typename T>
@@ -358,6 +361,11 @@ namespace GameLibrary
 			return *((_BaseNumberType*)this);
 		}
 		
+		virtual bool isIntegral() const
+		{
+			return false;
+		}
+		
 		virtual bool asBool() const
 		{
 			return static_cast<bool>(value);
@@ -426,6 +434,11 @@ namespace GameLibrary
 		virtual long double asLongDouble() const
 		{
 			return static_cast<long double>(value);
+		}
+		
+		virtual String asString() const
+		{
+			return (String)"" + value;
 		}
 	};
 	
@@ -516,6 +529,11 @@ namespace GameLibrary
 				break;
 			}
 			return *((_BaseNumberType*)this);
+		}
+		
+		virtual bool isIntegral() const
+		{
+			return true;
 		}
 	};
 	
@@ -658,6 +676,24 @@ namespace GameLibrary
 		return *this;
 	}
 	
+	bool Number::isIntegral() const
+	{
+		if(value == nullptr)
+		{
+			return false;
+		}
+		return value->isIntegral();
+	}
+	
+	Number::NumberType Number::getType() const
+	{
+		if(value == nullptr)
+		{
+			return TYPE_NULL;
+		}
+		return value->type;
+	}
+	
 	bool Number::asBool() const
 	{
 		if(value == nullptr)
@@ -782,6 +818,15 @@ namespace GameLibrary
 			return 0;
 		}
 		return value->asLongDouble();
+	}
+	
+	String Number::asString() const
+	{
+		if(value == nullptr)
+		{
+			return "(null)";
+		}
+		return value->asString();
 	}
 
 #define NUMBER_OPERATION_TONUMBER(operatr) \

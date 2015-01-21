@@ -4,6 +4,7 @@
 #include "Any.h"
 #include "ArrayList.h"
 #include "DataPacket.h"
+#include "Number.h"
 #include "Pair.h"
 #include "String.h"
 #include "Time/DateTime.h"

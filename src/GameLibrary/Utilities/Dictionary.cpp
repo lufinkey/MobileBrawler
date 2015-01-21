@@ -356,11 +356,11 @@ namespace GameLibrary
 				const char* str = node.first_child().value();
 				if(str[0] == '\0')
 				{
-					any = 0LL;
+					any = Number(0LL);
 				}
 				else
 				{
-					any = (GameLibrary::Int64)String::asLongLong(String(str));
+					any = Number(String::asLongLong(String(str)));
 				}
 			}
 			catch(const NumberFormatException&e)
@@ -382,11 +382,11 @@ namespace GameLibrary
 				const char* str = node.first_child().value();
 				if(str[0] == '\0')
 				{
-					any = 0LL;
+					any = Number(0.0L);
 				}
 				else
 				{
-					any = String::asLongDouble(String(str));
+					any = Number(String::asLongDouble(String(str)));
 				}
 			}
 			catch(const NumberFormatException&e)
@@ -423,19 +423,17 @@ namespace GameLibrary
 				}
 				return false;
 			}
-			any = val;
+			any = Number(val);
 			return true;
 		}
 		else if(type.equals("true"))
 		{
-			bool val = true;
-			any = val;
+			any = Number(true);
 			return true;
 		}
 		else if(type.equals("false"))
 		{
-			bool val = false;
-			any = val;
+			any = Number(false);
 			return true;
 		}
 		else
@@ -637,6 +635,45 @@ namespace GameLibrary
 			newNode.append_child(pugi::node_pcdata).set_value(datetimeStr);
 			return true;
 		}
+		else if(any.is<Number>())
+		{
+			const Number& number = any.as<Number>(false);
+			Number::NumberType numberType = number.getType();
+			if(numberType == Number::TYPE_NULL)
+			{
+				pugi::xml_node newNode = node.append_child("integer");
+				newNode.append_child(pugi::node_pcdata).set_value("");
+				return true;
+			}
+			else if(numberType == Number::TYPE_BOOL)
+			{
+				bool val = number.asBool();
+				if(val)
+				{
+					node.append_child("true");
+				}
+				else
+				{
+					node.append_child("false");
+				}
+				return true;
+			}
+			else
+			{
+				if(number.isIntegral())
+				{
+					pugi::xml_node newNode = node.append_child("integer");
+					newNode.append_child(pugi::node_pcdata).set_value(number.asString());
+					return true;
+				}
+				else
+				{
+					pugi::xml_node newNode = node.append_child("real");
+					newNode.append_child(pugi::node_pcdata).set_value(number.asString());
+					return true;
+				}
+			}
+		}
 		else if(any.is<GameLibrary::Int64>())
 		{
 			pugi::xml_node newNode = node.append_child("integer");
@@ -677,6 +714,19 @@ namespace GameLibrary
 		{
 			pugi::xml_node newNode = node.append_child("real");
 			newNode.append_child(pugi::node_pcdata).set_value((String)"" + any.as<float>(false));
+			return true;
+		}
+		else if(any.is<bool>())
+		{
+			bool val = any.as<bool>(false);
+			if(val)
+			{
+				node.append_child("true");
+			}
+			else
+			{
+				node.append_child("false");
+			}
 			return true;
 		}
 		else
