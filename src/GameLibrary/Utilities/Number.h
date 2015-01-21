@@ -6,10 +6,71 @@
 
 namespace GameLibrary
 {
+	class Number;
 	class _BaseNumberType;
+	
+#define NUMBER_OPERATOR_DECLARE(prefix, type, operatr) \
+	prefix Number operator##operatr(const Number&left, const type&right); \
+	prefix type operator##operatr(const type&left, const Number&right);
+	
+#define NUMBER_OPERATOR_DECLARE_SET(prefix, type) \
+	NUMBER_OPERATOR_DECLARE(prefix, type, +) \
+	NUMBER_OPERATOR_DECLARE(prefix, type, -) \
+	NUMBER_OPERATOR_DECLARE(prefix, type, *) \
+	NUMBER_OPERATOR_DECLARE(prefix, type, /) \
+	NUMBER_OPERATOR_DECLARE(prefix, type, %)
+	
+#define NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT(prefix, type) \
+	NUMBER_OPERATOR_DECLARE(prefix, type, +) \
+	NUMBER_OPERATOR_DECLARE(prefix, type, -) \
+	NUMBER_OPERATOR_DECLARE(prefix, type, *) \
+	NUMBER_OPERATOR_DECLARE(prefix, type, /) \
+	prefix type operator%(const type&left, const Number&right);
+	
+	Number operator+(const Number&left, const Number&right);
+	Number operator-(const Number&left, const Number&right);
+	Number operator*(const Number&left, const Number&right);
+	Number operator/(const Number&left, const Number&right);
+	Number operator%(const Number&left, const Number&right);
+	String operator+(const Number&left, const String&right);
+	String operator+(const String&left, const Number&right);
+	
+	NUMBER_OPERATOR_DECLARE_SET(, char)
+	NUMBER_OPERATOR_DECLARE_SET(, unsigned char)
+	NUMBER_OPERATOR_DECLARE_SET(, short)
+	NUMBER_OPERATOR_DECLARE_SET(, unsigned short)
+	NUMBER_OPERATOR_DECLARE_SET(, int)
+	NUMBER_OPERATOR_DECLARE_SET(, unsigned int)
+	NUMBER_OPERATOR_DECLARE_SET(, long)
+	NUMBER_OPERATOR_DECLARE_SET(, unsigned long)
+	NUMBER_OPERATOR_DECLARE_SET(, long long)
+	NUMBER_OPERATOR_DECLARE_SET(, unsigned long long)
+	NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT(, float)
+	NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT(, double)
+	NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT(, long double)
 	
 	class Number
 	{
+		NUMBER_OPERATOR_DECLARE_SET(friend, char)
+		NUMBER_OPERATOR_DECLARE_SET(friend, unsigned char)
+		NUMBER_OPERATOR_DECLARE_SET(friend, short)
+		NUMBER_OPERATOR_DECLARE_SET(friend, unsigned short)
+		NUMBER_OPERATOR_DECLARE_SET(friend, int)
+		NUMBER_OPERATOR_DECLARE_SET(friend, unsigned int)
+		NUMBER_OPERATOR_DECLARE_SET(friend, long)
+		NUMBER_OPERATOR_DECLARE_SET(friend, unsigned long)
+		NUMBER_OPERATOR_DECLARE_SET(friend, long long)
+		NUMBER_OPERATOR_DECLARE_SET(friend, unsigned long long)
+		NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT(friend, float)
+		NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT(friend, double)
+		NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT(friend, long double)
+		friend Number operator+(const Number&left, const Number&right);
+		friend Number operator-(const Number&left, const Number&right);
+		friend Number operator*(const Number&left, const Number&right);
+		friend Number operator/(const Number&left, const Number&right);
+		friend Number operator%(const Number&left, const Number&right);
+		friend String operator+(const Number&left, const String&right);
+		friend String operator+(const String&left, const Number&right);
 	public:
 		typedef enum
 		{
@@ -50,12 +111,6 @@ namespace GameLibrary
 		
 		Number& operator=(const Number&);
 		
-		Number operator+(const Number&) const;
-		Number operator-(const Number&) const;
-		Number operator*(const Number&) const;
-		Number operator/(const Number&) const;
-		Number operator%(const Number&) const;
-		
 		Number& operator+=(const Number&);
 		Number& operator-=(const Number&);
 		Number& operator*=(const Number&);
@@ -64,6 +119,21 @@ namespace GameLibrary
 		
 		bool isIntegral() const;
 		Number::NumberType getType() const;
+		
+		operator bool() const;
+		operator char() const;
+		operator unsigned char() const;
+		operator short() const;
+		operator unsigned short() const;
+		operator int() const;
+		operator unsigned int() const;
+		operator long() const;
+		operator unsigned long() const;
+		operator long long() const;
+		operator unsigned long long() const;
+		operator float() const;
+		operator double() const;
+		operator long double() const;
 		
 		bool asBool() const;
 		char asChar() const;
@@ -85,177 +155,8 @@ namespace GameLibrary
 		_BaseNumberType* value;
 	};
 	
-	/*//bool
-	Number operator+(const Number&left, const bool&right);
-	bool operator+(const bool&left, const Number&right);
-	Number operator-(const Number&left, const bool&right);
-	bool operator-(const bool&left, const Number&right);
-	Number operator*(const Number&left, const bool&right);
-	bool operator*(const bool&left, const Number&right);
-	Number operator/(const Number&left, const bool&right);
-	bool operator/(const bool&left, const Number&right);
-	Number operator%(const Number&left, const bool&right);
-	bool operator%(const bool&left, const Number&right);*/
-	
-	Number operator+(const Number&left, const Number&right);
-	Number operator-(const Number&left, const Number&right);
-	Number operator*(const Number&left, const Number&right);
-	Number operator/(const Number&left, const Number&right);
-	Number operator%(const Number&left, const Number&right);
-	
-	//char
-	Number operator+(const Number&left, const char&right);
-	char operator+(const char&left, const Number&right);
-	Number operator-(const Number&left, const char&right);
-	char operator-(const char&left, const Number&right);
-	Number operator*(const Number&left, const char&right);
-	char operator*(const char&left, const Number&right);
-	Number operator/(const Number&left, const char&right);
-	char operator/(const char&left, const Number&right);
-	Number operator%(const Number&left, const char&right);
-	char operator%(const char&left, const Number&right);
-	
-	//unsigned char
-	Number operator+(const Number&left, const unsigned char&right);
-	unsigned char operator+(const unsigned char&left, const Number&right);
-	Number operator-(const Number&left, const unsigned char&right);
-	unsigned char operator-(const unsigned char&left, const Number&right);
-	Number operator*(const Number&left, const unsigned char&right);
-	unsigned char operator*(const unsigned char&left, const Number&right);
-	Number operator/(const Number&left, const unsigned char&right);
-	unsigned char operator/(const unsigned char&left, const Number&right);
-	Number operator%(const Number&left, const unsigned char&right);
-	unsigned char operator%(const unsigned char&left, const Number&right);
-	
-	//short
-	Number operator+(const Number&left, const short&right);
-	short operator+(const short&left, const Number&right);
-	Number operator-(const Number&left, const short&right);
-	short operator-(const short&left, const Number&right);
-	Number operator*(const Number&left, const short&right);
-	short operator*(const short&left, const Number&right);
-	Number operator/(const Number&left, const short&right);
-	short operator/(const short&left, const Number&right);
-	Number operator%(const Number&left, const short&right);
-	short operator%(const short&left, const Number&right);
-	
-	//unsigned short
-	Number operator+(const Number&left, const unsigned short&right);
-	unsigned short operator+(const unsigned short&left, const Number&right);
-	Number operator-(const Number&left, const unsigned short&right);
-	unsigned short operator-(const unsigned short&left, const Number&right);
-	Number operator*(const Number&left, const unsigned short&right);
-	unsigned short operator*(const unsigned short&left, const Number&right);
-	Number operator/(const Number&left, const unsigned short&right);
-	unsigned short operator/(const unsigned short&left, const Number&right);
-	Number operator%(const Number&left, const unsigned short&right);
-	unsigned short operator%(const unsigned short&left, const Number&right);
-	
-	//int
-	Number operator+(const Number&left, const int&right);
-	int operator+(const int&left, const Number&right);
-	Number operator-(const Number&left, const int&right);
-	int operator-(const int&left, const Number&right);
-	Number operator*(const Number&left, const int&right);
-	int operator*(const int&left, const Number&right);
-	Number operator/(const Number&left, const int&right);
-	int operator/(const int&left, const Number&right);
-	Number operator%(const Number&left, const int&right);
-	int operator%(const int&left, const Number&right);
-	
-	//unsigned int
-	Number operator+(const Number&left, const unsigned int&right);
-	unsigned int operator+(const unsigned int&left, const Number&right);
-	Number operator-(const Number&left, const unsigned int&right);
-	unsigned int operator-(const unsigned int&left, const Number&right);
-	Number operator*(const Number&left, const unsigned int&right);
-	unsigned int operator*(const unsigned int&left, const Number&right);
-	Number operator/(const Number&left, const unsigned int&right);
-	unsigned int operator/(const unsigned int&left, const Number&right);
-	Number operator%(const Number&left, const unsigned int&right);
-	unsigned int operator%(const unsigned int&left, const Number&right);
-	
-	//long
-	Number operator+(const Number&left, const long&right);
-	long operator+(const long&left, const Number&right);
-	Number operator-(const Number&left, const long&right);
-	long operator-(const long&left, const Number&right);
-	Number operator*(const Number&left, const long&right);
-	long operator*(const long&left, const Number&right);
-	Number operator/(const Number&left, const long&right);
-	long operator/(const long&left, const Number&right);
-	Number operator%(const Number&left, const long&right);
-	long operator%(const long&left, const Number&right);
-	
-	//unsigned long
-	Number operator+(const Number&left, const unsigned long&right);
-	unsigned long operator+(const unsigned long&left, const Number&right);
-	Number operator-(const Number&left, const unsigned long&right);
-	unsigned long operator-(const unsigned long&left, const Number&right);
-	Number operator*(const Number&left, const unsigned long&right);
-	unsigned long operator*(const unsigned long&left, const Number&right);
-	Number operator/(const Number&left, const unsigned long&right);
-	unsigned long operator/(const unsigned long&left, const Number&right);
-	Number operator%(const Number&left, const unsigned long&right);
-	unsigned long operator%(const unsigned long&left, const Number&right);
-	
-	//long long
-	Number operator+(const Number&left, const long long&right);
-	long long operator+(const long long&left, const Number&right);
-	Number operator-(const Number&left, const long long&right);
-	long long operator-(const long long&left, const Number&right);
-	Number operator*(const Number&left, const long long&right);
-	long long operator*(const long long&left, const Number&right);
-	Number operator/(const Number&left, const long long&right);
-	long long operator/(const long long&left, const Number&right);
-	Number operator%(const Number&left, const long long&right);
-	long long operator%(const long long&left, const Number&right);
-	
-	//unsigned long long
-	Number operator+(const Number&left, const unsigned long long&right);
-	unsigned long long operator+(const unsigned long long&left, const Number&right);
-	Number operator-(const Number&left, const unsigned long long&right);
-	unsigned long long operator-(const unsigned long long&left, const Number&right);
-	Number operator*(const Number&left, const unsigned long long&right);
-	unsigned long long operator*(const unsigned long long&left, const Number&right);
-	Number operator/(const Number&left, const unsigned long long&right);
-	unsigned long long operator/(const unsigned long long&left, const Number&right);
-	Number operator%(const Number&left, const unsigned long long&right);
-	unsigned long long operator%(const unsigned long long&left, const Number&right);
-	
-	//float
-	Number operator+(const Number&left, const float&right);
-	float operator+(const float&left, const Number&right);
-	Number operator-(const Number&left, const float&right);
-	float operator-(const float&left, const Number&right);
-	Number operator*(const Number&left, const float&right);
-	float operator*(const float&left, const Number&right);
-	Number operator/(const Number&left, const float&right);
-	float operator/(const float&left, const Number&right);
-	//Number operator%(const Number&left, const float&right);
-	float operator%(const float&left, const Number&right);
-	
-	//double
-	Number operator+(const Number&left, const double&right);
-	double operator+(const double&left, const Number&right);
-	Number operator-(const Number&left, const double&right);
-	double operator-(const double&left, const Number&right);
-	Number operator*(const Number&left, const double&right);
-	double operator*(const double&left, const Number&right);
-	Number operator/(const Number&left, const double&right);
-	double operator/(const double&left, const Number&right);
-	//Number operator%(const Number&left, const double&right);
-	double operator%(const double&left, const Number&right);
-	
-	//long double
-	Number operator+(const Number&left, const long double&right);
-	long double operator+(const long double&left, const Number&right);
-	Number operator-(const Number&left, const long double&right);
-	long double operator-(const long double&left, const Number&right);
-	Number operator*(const Number&left, const long double&right);
-	long double operator*(const long double&left, const Number&right);
-	Number operator/(const Number&left, const long double&right);
-	long double operator/(const long double&left, const Number&right);
-	//Number operator%(const Number&left, const long double&right);
-	long double operator%(const long double&left, const Number&right);
+	#undef NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT
+	#undef NUMBER_OPERATOR_DECLARE_SET
+	#undef NUMBER_OPERATORTO_DECLARE
+	#undef NUMBER_OPERATOR_DECLARE
 }

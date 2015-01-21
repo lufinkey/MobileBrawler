@@ -5,16 +5,25 @@
 #pragma warning(push)
 #pragma warning(disable : 4800)
 #pragma warning(disable : 4804)
+#pragma warning(disable : 4244)
 #endif
 
 namespace GameLibrary
 {
+#define NULL_STRING "(null)"
+	
 	class _BaseNumberType
 	{
 	public:
 		Number::NumberType type;
 		
 		virtual _BaseNumberType* clone() const = 0;
+		
+		virtual Number operator+(const _BaseNumberType&) const = 0;
+		virtual Number operator-(const _BaseNumberType&) const = 0;
+		virtual Number operator*(const _BaseNumberType&) const = 0;
+		virtual Number operator/(const _BaseNumberType&) const = 0;
+		virtual Number operator%(const _BaseNumberType&) const = 0;
 		
 		virtual _BaseNumberType& operator+=(const _BaseNumberType&) = 0;
 		virtual _BaseNumberType& operator-=(const _BaseNumberType&) = 0;
@@ -67,63 +76,125 @@ namespace GameLibrary
 				break;
 				
 				case Number::TYPE_BOOL:
-				//value = (T)(value + ((_DerivedNumberType<bool>*)&num)->value);
+				//value += ((_DerivedNumberType<bool>*)&num)->value;
 				throw IllegalNumberOperationException("+=", "bool", "right");
 				break;
 				
 				case Number::TYPE_CHAR:
-				value = (T)(value + ((_DerivedNumberType<char>*)&num)->value);
+				value += ((_DerivedNumberType<char>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDCHAR:
-				value = (T)(value + ((_DerivedNumberType<unsigned char>*)&num)->value);
+				value += ((_DerivedNumberType<unsigned char>*)&num)->value;
 				break;
 				
 				case Number::TYPE_SHORT:
-				value = (T)(value + ((_DerivedNumberType<short>*)&num)->value);
+				value += ((_DerivedNumberType<short>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDSHORT:
-				value = (T)(value + ((_DerivedNumberType<unsigned short>*)&num)->value);
+				value += ((_DerivedNumberType<unsigned short>*)&num)->value;
 				break;
 				
 				case Number::TYPE_INT:
-				value = (T)(value + ((_DerivedNumberType<int>*)&num)->value);
+				value += ((_DerivedNumberType<int>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDINT:
-				value = (T)(value + ((_DerivedNumberType<unsigned int>*)&num)->value);
+				value += ((_DerivedNumberType<unsigned int>*)&num)->value;
 				break;
 				
 				case Number::TYPE_LONG:
-				value = (T)(value + ((_DerivedNumberType<long>*)&num)->value);
+				value += ((_DerivedNumberType<long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDLONG:
-				value = (T)(value + ((_DerivedNumberType<unsigned long>*)&num)->value);
+				value += ((_DerivedNumberType<unsigned long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_LONGLONG:
-				value = (T)(value + ((_DerivedNumberType<long long>*)&num)->value);
+				value += ((_DerivedNumberType<long long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDLONGLONG:
-				value = (T)(value + ((_DerivedNumberType<unsigned long long>*)&num)->value);
+				value += ((_DerivedNumberType<unsigned long long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_FLOAT:
-				value = (T)(value + ((_DerivedNumberType<float>*)&num)->value);
+				value += ((_DerivedNumberType<float>*)&num)->value;
 				break;
 				
 				case Number::TYPE_DOUBLE:
-				value = (T)(value + ((_DerivedNumberType<double>*)&num)->value);
+				value += ((_DerivedNumberType<double>*)&num)->value;
 				break;
 				
 				case Number::TYPE_LONGDOUBLE:
-				value = (T)(value + ((_DerivedNumberType<long double>*)&num)->value);
+				value += ((_DerivedNumberType<long double>*)&num)->value;
 				break;
 			}
 			return *((_BaseNumberType*)this);
+		}
+		
+		virtual Number operator+(const _BaseNumberType&num) const
+		{
+			if(type == Number::TYPE_BOOL)
+			{
+				throw IllegalNumberOperationException("+", "bool", "left");
+			}
+			switch(num.type)
+			{
+				default:
+				case Number::TYPE_NULL:
+				return value;
+				
+				case Number::TYPE_BOOL:
+				//return value + ((_DerivedNumberType<bool>*)&num)->value;
+				throw IllegalNumberOperationException("+", "bool", "right");
+				
+				case Number::TYPE_CHAR:
+				return value + ((_DerivedNumberType<char>*)&num)->value;
+				
+				case Number::TYPE_UNSIGNEDCHAR:
+				return value + ((_DerivedNumberType<unsigned char>*)&num)->value;
+				
+				case Number::TYPE_SHORT:
+				return value + ((_DerivedNumberType<short>*)&num)->value;
+				break;
+				
+				case Number::TYPE_UNSIGNEDSHORT:
+				return value + ((_DerivedNumberType<unsigned short>*)&num)->value;
+				break;
+				
+				case Number::TYPE_INT:
+				return value + ((_DerivedNumberType<int>*)&num)->value;
+				break;
+				
+				case Number::TYPE_UNSIGNEDINT:
+				return value + ((_DerivedNumberType<unsigned int>*)&num)->value;
+				break;
+				
+				case Number::TYPE_LONG:
+				return value + ((_DerivedNumberType<long>*)&num)->value;
+				
+				case Number::TYPE_UNSIGNEDLONG:
+				return value + ((_DerivedNumberType<unsigned long>*)&num)->value;
+				
+				case Number::TYPE_LONGLONG:
+				return value + ((_DerivedNumberType<long long>*)&num)->value;
+				
+				case Number::TYPE_UNSIGNEDLONGLONG:
+				return value + ((_DerivedNumberType<unsigned long long>*)&num)->value;
+				
+				case Number::TYPE_FLOAT:
+				return value + ((_DerivedNumberType<float>*)&num)->value;
+				
+				case Number::TYPE_DOUBLE:
+				return value + ((_DerivedNumberType<double>*)&num)->value;
+				
+				case Number::TYPE_LONGDOUBLE:
+				return value + ((_DerivedNumberType<long double>*)&num)->value;
+			}
+			return (T)0;
 		}
 		
 		virtual _BaseNumberType& operator-=(const _BaseNumberType&num)
@@ -139,63 +210,121 @@ namespace GameLibrary
 				break;
 				
 				case Number::TYPE_BOOL:
-				//value = (T)(value - ((_DerivedNumberType<bool>*)&num)->value);
+				//value -= ((_DerivedNumberType<bool>*)&num)->value);
 				throw IllegalNumberOperationException("-=", "bool", "right");
 				break;
 				
 				case Number::TYPE_CHAR:
-				value = (T)(value - ((_DerivedNumberType<char>*)&num)->value);
+				value -= ((_DerivedNumberType<char>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDCHAR:
-				value = (T)(value - ((_DerivedNumberType<unsigned char>*)&num)->value);
+				value -= ((_DerivedNumberType<unsigned char>*)&num)->value;
 				break;
 				
 				case Number::TYPE_SHORT:
-				value = (T)(value - ((_DerivedNumberType<short>*)&num)->value);
+				value -= ((_DerivedNumberType<short>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDSHORT:
-				value = (T)(value - ((_DerivedNumberType<unsigned short>*)&num)->value);
+				value -= ((_DerivedNumberType<unsigned short>*)&num)->value;
 				break;
 				
 				case Number::TYPE_INT:
-				value = (T)(value - ((_DerivedNumberType<int>*)&num)->value);
+				value -= ((_DerivedNumberType<int>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDINT:
-				value = (T)(value - ((_DerivedNumberType<unsigned int>*)&num)->value);
+				value -= ((_DerivedNumberType<unsigned int>*)&num)->value;
 				break;
 				
 				case Number::TYPE_LONG:
-				value = (T)(value - ((_DerivedNumberType<long>*)&num)->value);
+				value -= ((_DerivedNumberType<long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDLONG:
-				value = (T)(value - ((_DerivedNumberType<unsigned long>*)&num)->value);
+				value -= ((_DerivedNumberType<unsigned long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_LONGLONG:
-				value = (T)(value - ((_DerivedNumberType<long long>*)&num)->value);
+				value -= ((_DerivedNumberType<long long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDLONGLONG:
-				value = (T)(value - ((_DerivedNumberType<unsigned long long>*)&num)->value);
+				value -= ((_DerivedNumberType<unsigned long long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_FLOAT:
-				value = (T)(value - ((_DerivedNumberType<float>*)&num)->value);
+				value -= ((_DerivedNumberType<float>*)&num)->value;
 				break;
 				
 				case Number::TYPE_DOUBLE:
-				value = (T)(value - ((_DerivedNumberType<double>*)&num)->value);
+				value -= ((_DerivedNumberType<double>*)&num)->value;
 				break;
 				
 				case Number::TYPE_LONGDOUBLE:
-				value = (T)(value - ((_DerivedNumberType<long double>*)&num)->value);
+				value -= ((_DerivedNumberType<long double>*)&num)->value;
 				break;
 			}
 			return *((_BaseNumberType*)this);
+		}
+		
+		virtual Number operator-(const _BaseNumberType&num) const
+		{
+			if(type == Number::TYPE_BOOL)
+			{
+				throw IllegalNumberOperationException("-", "bool", "left");
+			}
+			switch(num.type)
+			{
+				default:
+				case Number::TYPE_NULL:
+				return value;
+				
+				case Number::TYPE_BOOL:
+				//return value - ((_DerivedNumberType<bool>*)&num)->value;
+				throw IllegalNumberOperationException("-", "bool", "right");
+				
+				case Number::TYPE_CHAR:
+				return value - ((_DerivedNumberType<char>*)&num)->value;
+				
+				case Number::TYPE_UNSIGNEDCHAR:
+				return value - ((_DerivedNumberType<unsigned char>*)&num)->value;
+				
+				case Number::TYPE_SHORT:
+				return value - ((_DerivedNumberType<short>*)&num)->value;
+				
+				case Number::TYPE_UNSIGNEDSHORT:
+				return value - ((_DerivedNumberType<unsigned short>*)&num)->value;
+				
+				case Number::TYPE_INT:
+				return value - ((_DerivedNumberType<int>*)&num)->value;
+				
+				case Number::TYPE_UNSIGNEDINT:
+				return value - ((_DerivedNumberType<unsigned int>*)&num)->value;
+				
+				case Number::TYPE_LONG:
+				return value - ((_DerivedNumberType<long>*)&num)->value;
+				
+				case Number::TYPE_UNSIGNEDLONG:
+				return value - ((_DerivedNumberType<unsigned long>*)&num)->value;
+				
+				case Number::TYPE_LONGLONG:
+				return value - ((_DerivedNumberType<long long>*)&num)->value;
+				
+				case Number::TYPE_UNSIGNEDLONGLONG:
+				return value - ((_DerivedNumberType<unsigned long long>*)&num)->value;
+				
+				case Number::TYPE_FLOAT:
+				return value - ((_DerivedNumberType<float>*)&num)->value;
+				
+				case Number::TYPE_DOUBLE:
+				return value - ((_DerivedNumberType<double>*)&num)->value;
+				
+				case Number::TYPE_LONGDOUBLE:
+				return value - ((_DerivedNumberType<long double>*)&num)->value;
+			}
+			return (T)0;
 		}
 		
 		virtual _BaseNumberType& operator*=(const _BaseNumberType&num)
@@ -208,66 +337,125 @@ namespace GameLibrary
 			{
 				default:
 				case Number::TYPE_NULL:
+				value = (T)0;
 				break;
 				
 				case Number::TYPE_BOOL:
-				//value = (T)(value * ((_DerivedNumberType<bool>*)&num)->value);
+				//value *= ((_DerivedNumberType<bool>*)&num)->value;
 				throw IllegalNumberOperationException("*=", "bool", "right");
 				break;
 				
 				case Number::TYPE_CHAR:
-				value = (T)(value * ((_DerivedNumberType<char>*)&num)->value);
+				value *= ((_DerivedNumberType<char>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDCHAR:
-				value = (T)(value * ((_DerivedNumberType<unsigned char>*)&num)->value);
+				value *= ((_DerivedNumberType<unsigned char>*)&num)->value;
 				break;
 				
 				case Number::TYPE_SHORT:
-				value = (T)(value * ((_DerivedNumberType<short>*)&num)->value);
+				value *= ((_DerivedNumberType<short>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDSHORT:
-				value = (T)(value * ((_DerivedNumberType<unsigned short>*)&num)->value);
+				value *= ((_DerivedNumberType<unsigned short>*)&num)->value;
 				break;
 				
 				case Number::TYPE_INT:
-				value = (T)(value * ((_DerivedNumberType<int>*)&num)->value);
+				value *= ((_DerivedNumberType<int>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDINT:
-				value = (T)(value * ((_DerivedNumberType<unsigned int>*)&num)->value);
+				value *= ((_DerivedNumberType<unsigned int>*)&num)->value;
 				break;
 				
 				case Number::TYPE_LONG:
-				value = (T)(value * ((_DerivedNumberType<long>*)&num)->value);
+				value *= ((_DerivedNumberType<long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDLONG:
-				value = (T)(value * ((_DerivedNumberType<unsigned long>*)&num)->value);
+				value *= ((_DerivedNumberType<unsigned long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_LONGLONG:
-				value = (T)(value * ((_DerivedNumberType<long long>*)&num)->value);
+				value *= ((_DerivedNumberType<long long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDLONGLONG:
-				value = (T)(value * ((_DerivedNumberType<unsigned long long>*)&num)->value);
+				value *= ((_DerivedNumberType<unsigned long long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_FLOAT:
-				value = (T)(value * ((_DerivedNumberType<float>*)&num)->value);
+				value *= ((_DerivedNumberType<float>*)&num)->value;
 				break;
 				
 				case Number::TYPE_DOUBLE:
-				value = (T)(value * ((_DerivedNumberType<double>*)&num)->value);
+				value *= ((_DerivedNumberType<double>*)&num)->value;
 				break;
 				
 				case Number::TYPE_LONGDOUBLE:
-				value = (T)(value * ((_DerivedNumberType<long double>*)&num)->value);
+				value *= ((_DerivedNumberType<long double>*)&num)->value;
 				break;
 			}
 			return *((_BaseNumberType*)this);
+		}
+		
+		virtual Number operator*(const _BaseNumberType&num) const
+		{
+			if(type == Number::TYPE_BOOL)
+			{
+				throw IllegalNumberOperationException("*", "bool", "left");
+			}
+			switch(num.type)
+			{
+				default:
+				case Number::TYPE_NULL:
+				return Number();
+				
+				case Number::TYPE_BOOL:
+				//return value * ((_DerivedNumberType<bool>*)&num)->value;
+				throw IllegalNumberOperationException("*", "bool", "right");
+				
+				case Number::TYPE_CHAR:
+				return value * ((_DerivedNumberType<char>*)&num)->value;
+				
+				case Number::TYPE_UNSIGNEDCHAR:
+				return value * ((_DerivedNumberType<unsigned char>*)&num)->value;
+				
+				case Number::TYPE_SHORT:
+				return value * ((_DerivedNumberType<short>*)&num)->value;
+				
+				case Number::TYPE_UNSIGNEDSHORT:
+				return value * ((_DerivedNumberType<unsigned short>*)&num)->value;
+				
+				case Number::TYPE_INT:
+				return value * ((_DerivedNumberType<int>*)&num)->value;
+				
+				case Number::TYPE_UNSIGNEDINT:
+				return value * ((_DerivedNumberType<unsigned int>*)&num)->value;
+				
+				case Number::TYPE_LONG:
+				return value * ((_DerivedNumberType<long>*)&num)->value;
+				
+				case Number::TYPE_UNSIGNEDLONG:
+				return value * ((_DerivedNumberType<unsigned long>*)&num)->value;
+				
+				case Number::TYPE_LONGLONG:
+				return value * ((_DerivedNumberType<long long>*)&num)->value;
+				
+				case Number::TYPE_UNSIGNEDLONGLONG:
+				return value * ((_DerivedNumberType<unsigned long long>*)&num)->value;
+				
+				case Number::TYPE_FLOAT:
+				return value * ((_DerivedNumberType<float>*)&num)->value;
+				
+				case Number::TYPE_DOUBLE:
+				return value * ((_DerivedNumberType<double>*)&num)->value;
+				
+				case Number::TYPE_LONGDOUBLE:
+				return value * ((_DerivedNumberType<long double>*)&num)->value;
+			}
+			return (T)0;
 		}
 		
 		virtual _BaseNumberType& operator/=(const _BaseNumberType&num)
@@ -280,69 +468,128 @@ namespace GameLibrary
 			{
 				default:
 				case Number::TYPE_NULL:
+				value = (T)0;
 				break;
 				
 				case Number::TYPE_BOOL:
-				//value = (T)(value / ((_DerivedNumberType<bool>*)&num)->value);
+				//value /= ((_DerivedNumberType<bool>*)&num)->value;
 				throw IllegalNumberOperationException("/=", "bool", "right");
 				break;
 				
 				case Number::TYPE_CHAR:
-				value = (T)(value / ((_DerivedNumberType<char>*)&num)->value);
+				value /= ((_DerivedNumberType<char>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDCHAR:
-				value = (T)(value / ((_DerivedNumberType<unsigned char>*)&num)->value);
+				value /= ((_DerivedNumberType<unsigned char>*)&num)->value;
 				break;
 				
 				case Number::TYPE_SHORT:
-				value = (T)(value / ((_DerivedNumberType<short>*)&num)->value);
+				value /= ((_DerivedNumberType<short>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDSHORT:
-				value = (T)(value / ((_DerivedNumberType<unsigned short>*)&num)->value);
+				value /= ((_DerivedNumberType<unsigned short>*)&num)->value;
 				break;
 				
 				case Number::TYPE_INT:
-				value = (T)(value / ((_DerivedNumberType<int>*)&num)->value);
+				value /= ((_DerivedNumberType<int>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDINT:
-				value = (T)(value / ((_DerivedNumberType<unsigned int>*)&num)->value);
+				value /= ((_DerivedNumberType<unsigned int>*)&num)->value;
 				break;
 				
 				case Number::TYPE_LONG:
-				value = (T)(value / ((_DerivedNumberType<long>*)&num)->value);
+				value /= ((_DerivedNumberType<long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDLONG:
-				value = (T)(value / ((_DerivedNumberType<unsigned long>*)&num)->value);
+				value /= ((_DerivedNumberType<unsigned long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_LONGLONG:
-				value = (T)(value / ((_DerivedNumberType<long long>*)&num)->value);
+				value /= ((_DerivedNumberType<long long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDLONGLONG:
-				value = (T)(value / ((_DerivedNumberType<unsigned long long>*)&num)->value);
+				value /= ((_DerivedNumberType<unsigned long long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_FLOAT:
-				value = (T)(value / ((_DerivedNumberType<float>*)&num)->value);
+				value /= ((_DerivedNumberType<float>*)&num)->value;
 				break;
 				
 				case Number::TYPE_DOUBLE:
-				value = (T)(value / ((_DerivedNumberType<double>*)&num)->value);
+				value /= ((_DerivedNumberType<double>*)&num)->value;
 				break;
 				
 				case Number::TYPE_LONGDOUBLE:
-				value = (T)(value / ((_DerivedNumberType<long double>*)&num)->value);
+				value /= ((_DerivedNumberType<long double>*)&num)->value;
 				break;
 			}
 			return *((_BaseNumberType*)this);
 		}
 		
-		virtual _BaseNumberType& operator%=(const _BaseNumberType&num) override
+		virtual Number operator/(const _BaseNumberType&num) const
+		{
+			if(type == Number::TYPE_BOOL)
+			{
+				throw IllegalNumberOperationException("/=", "bool", "left");
+			}
+			switch(num.type)
+			{
+				default:
+				case Number::TYPE_NULL:
+				return Number();
+				
+				case Number::TYPE_BOOL:
+				//return value / ((_DerivedNumberType<bool>*)&num)->value;
+				throw IllegalNumberOperationException("/=", "bool", "right");
+				
+				case Number::TYPE_CHAR:
+				return value / ((_DerivedNumberType<char>*)&num)->value;
+				
+				case Number::TYPE_UNSIGNEDCHAR:
+				return value / ((_DerivedNumberType<unsigned char>*)&num)->value;
+				
+				case Number::TYPE_SHORT:
+				return value / ((_DerivedNumberType<short>*)&num)->value;
+				
+				case Number::TYPE_UNSIGNEDSHORT:
+				return value / ((_DerivedNumberType<unsigned short>*)&num)->value;
+				
+				case Number::TYPE_INT:
+				return value / ((_DerivedNumberType<int>*)&num)->value;
+				
+				case Number::TYPE_UNSIGNEDINT:
+				return value / ((_DerivedNumberType<unsigned int>*)&num)->value;
+				
+				case Number::TYPE_LONG:
+				return value / ((_DerivedNumberType<long>*)&num)->value;
+				
+				case Number::TYPE_UNSIGNEDLONG:
+				return value / ((_DerivedNumberType<unsigned long>*)&num)->value;
+				
+				case Number::TYPE_LONGLONG:
+				return value / ((_DerivedNumberType<long long>*)&num)->value;
+				
+				case Number::TYPE_UNSIGNEDLONGLONG:
+				return value / ((_DerivedNumberType<unsigned long long>*)&num)->value;
+				
+				case Number::TYPE_FLOAT:
+				return value / ((_DerivedNumberType<float>*)&num)->value;
+				
+				case Number::TYPE_DOUBLE:
+				return value / ((_DerivedNumberType<double>*)&num)->value;
+				
+				case Number::TYPE_LONGDOUBLE:
+				return value / ((_DerivedNumberType<long double>*)&num)->value;
+			}
+			return (T)0;
+		}
+		
+		virtual _BaseNumberType& operator%=(const _BaseNumberType&num)
 		{
 			switch(type)
 			{
@@ -359,6 +606,25 @@ namespace GameLibrary
 				break;
 			}
 			return *((_BaseNumberType*)this);
+		}
+		
+		virtual Number operator%(const _BaseNumberType&num) const
+		{
+			switch(type)
+			{
+				case Number::TYPE_FLOAT:
+				throw IllegalNumberOperationException("%=", "float", "left");
+				break;
+				
+				case Number::TYPE_DOUBLE:
+				throw IllegalNumberOperationException("%=", "double", "left");
+				break;
+				
+				case Number::TYPE_LONGDOUBLE:
+				throw IllegalNumberOperationException("%=", "long double", "left");
+				break;
+			}
+			return (T)0;
 		}
 		
 		virtual bool isIntegral() const
@@ -438,7 +704,7 @@ namespace GameLibrary
 		
 		virtual String asString() const
 		{
-			return (String)"" + value;
+			return String("") + value;
 		}
 	};
 	
@@ -469,66 +735,127 @@ namespace GameLibrary
 				break;
 				
 				case Number::TYPE_BOOL:
-				//value = (T)(value % ((_DerivedNumberType<bool>*)&num)->value);
+				//value %= ((_DerivedNumberType<bool>*)&num)->value;
 				throw IllegalNumberOperationException("%=", "bool", "right");
 				break;
 				
 				case Number::TYPE_CHAR:
-				value = (T)(value % ((_DerivedNumberType<char>*)&num)->value);
+				value %= ((_DerivedNumberType<char>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDCHAR:
-				value = (T)(value % ((_DerivedNumberType<unsigned char>*)&num)->value);
+				value %= ((_DerivedNumberType<unsigned char>*)&num)->value;
 				break;
 				
 				case Number::TYPE_SHORT:
-				value = (T)(value % ((_DerivedNumberType<short>*)&num)->value);
+				value %= ((_DerivedNumberType<short>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDSHORT:
-				value = (T)(value % ((_DerivedNumberType<unsigned short>*)&num)->value);
+				value %= ((_DerivedNumberType<unsigned short>*)&num)->value;
 				break;
 				
 				case Number::TYPE_INT:
-				value = (T)(value % ((_DerivedNumberType<int>*)&num)->value);
+				value %= ((_DerivedNumberType<int>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDINT:
-				value = (T)(value % ((_DerivedNumberType<unsigned int>*)&num)->value);
+				value %= ((_DerivedNumberType<unsigned int>*)&num)->value;
 				break;
 				
 				case Number::TYPE_LONG:
-				value = (T)(value % ((_DerivedNumberType<long>*)&num)->value);
+				value %= ((_DerivedNumberType<long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDLONG:
-				value = (T)(value % ((_DerivedNumberType<unsigned long>*)&num)->value);
+				value %= ((_DerivedNumberType<unsigned long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_LONGLONG:
-				value = (T)(value % ((_DerivedNumberType<long long>*)&num)->value);
+				value %= ((_DerivedNumberType<long long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDLONGLONG:
-				value = (T)(value % ((_DerivedNumberType<unsigned long long>*)&num)->value);
+				value %= ((_DerivedNumberType<unsigned long long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_FLOAT:
-				//value = (T)(value % ((_DerivedNumberType<float>*)&num)->value);
+				//value %= ((_DerivedNumberType<float>*)&num)->value;
 				throw IllegalNumberOperationException("%=", "float", "right");
 				break;
 				
 				case Number::TYPE_DOUBLE:
-				//value = (T)(value % ((_DerivedNumberType<double>*)&num)->value);
+				//value %= ((_DerivedNumberType<double>*)&num)->value;
 				throw IllegalNumberOperationException("%=", "double", "right");
 				break;
 				
 				case Number::TYPE_LONGDOUBLE:
-				//value = (T)(value % ((_DerivedNumberType<long double>*)&num)->value);
+				//value %= ((_DerivedNumberType<long double>*)&num)->value;
 				throw IllegalNumberOperationException("%=", "long double", "right");
 				break;
 			}
 			return *((_BaseNumberType*)this);
+		}
+		
+		virtual Number operator%(const _BaseNumberType&num) const
+		{
+			if(type==Number::TYPE_BOOL)
+			{
+				throw IllegalNumberOperationException("%=", "bool", "left");
+			}
+			switch(num.type)
+			{
+				default:
+				case Number::TYPE_NULL:
+				return Number();
+				
+				case Number::TYPE_BOOL:
+				//return value % ((_DerivedNumberType<bool>*)&num)->value;
+				throw IllegalNumberOperationException("%=", "bool", "right");
+				
+				case Number::TYPE_CHAR:
+				return value % ((_DerivedNumberType<char>*)&num)->value;
+				
+				case Number::TYPE_UNSIGNEDCHAR:
+				return value % ((_DerivedNumberType<unsigned char>*)&num)->value;
+				
+				case Number::TYPE_SHORT:
+				return value % ((_DerivedNumberType<short>*)&num)->value;
+				
+				case Number::TYPE_UNSIGNEDSHORT:
+				return value % ((_DerivedNumberType<unsigned short>*)&num)->value;
+				
+				case Number::TYPE_INT:
+				return value % ((_DerivedNumberType<int>*)&num)->value;
+				
+				case Number::TYPE_UNSIGNEDINT:
+				return value % ((_DerivedNumberType<unsigned int>*)&num)->value;
+				
+				case Number::TYPE_LONG:
+				return value % ((_DerivedNumberType<long>*)&num)->value;
+				
+				case Number::TYPE_UNSIGNEDLONG:
+				return value % ((_DerivedNumberType<unsigned long>*)&num)->value;
+				
+				case Number::TYPE_LONGLONG:
+				return value % ((_DerivedNumberType<long long>*)&num)->value;
+				
+				case Number::TYPE_UNSIGNEDLONGLONG:
+				return value % ((_DerivedNumberType<unsigned long long>*)&num)->value;
+				
+				case Number::TYPE_FLOAT:
+				//return value % ((_DerivedNumberType<float>*)&num)->value;
+				throw IllegalNumberOperationException("%=", "float", "right");
+				
+				case Number::TYPE_DOUBLE:
+				//return value % ((_DerivedNumberType<double>*)&num)->value;
+				throw IllegalNumberOperationException("%=", "double", "right");
+				
+				case Number::TYPE_LONGDOUBLE:
+				//return value % ((_DerivedNumberType<long double>*)&num)->value;
+				throw IllegalNumberOperationException("%=", "long double", "right");
+			}
+			return (T)0;
 		}
 		
 		virtual bool isIntegral() const
@@ -694,6 +1021,132 @@ namespace GameLibrary
 		return value->type;
 	}
 	
+	Number::operator bool() const
+	{
+		if(value == nullptr)
+		{
+			return false;
+		}
+		return value->asBool();
+	}
+	
+	Number::operator char() const
+	{
+		if(value == nullptr)
+		{
+			return 0;
+		}
+		return value->asChar();
+	}
+	
+	Number::operator unsigned char() const
+	{
+		if(value == nullptr)
+		{
+			return 0;
+		}
+		return value->asChar();
+	}
+	
+	Number::operator short() const
+	{
+		if(value == nullptr)
+		{
+			return 0;
+		}
+		return value->asShort();
+	}
+	
+	Number::operator unsigned short() const
+	{
+		if(value == nullptr)
+		{
+			return 0;
+		}
+		return value->asUnsignedShort();
+	}
+	
+	Number::operator int() const
+	{
+		if(value == nullptr)
+		{
+			return 0;
+		}
+		return value->asInt();
+	}
+	
+	Number::operator unsigned int() const
+	{
+		if(value == nullptr)
+		{
+			return 0;
+		}
+		return value->asUnsignedInt();
+	}
+	
+	Number::operator long() const
+	{
+		if(value == nullptr)
+		{
+			return 0;
+		}
+		return value->asLong();
+	}
+	
+	Number::operator unsigned long() const
+	{
+		if(value == nullptr)
+		{
+			return 0;
+		}
+		return value->asUnsignedLong();
+	}
+	
+	Number::operator long long() const
+	{
+		if(value == nullptr)
+		{
+			return 0;
+		}
+		return value->asLongLong();
+	}
+	
+	Number::operator unsigned long long() const
+	{
+		if(value == nullptr)
+		{
+			return 0;
+		}
+		return value->asUnsignedLongLong();
+	}
+	
+	Number::operator float() const
+	{
+		if(value == nullptr)
+		{
+			return 0;
+		}
+		return value->asFloat();
+	}
+	
+	Number::operator double() const
+	{
+		if(value == nullptr)
+		{
+			return 0;
+		}
+		return value->asDouble();
+	}
+	
+	Number::operator long double() const
+	{
+		if(value == nullptr)
+		{
+			return 0;
+		}
+		return value->asLongDouble();
+	}
+	
 	bool Number::asBool() const
 	{
 		if(value == nullptr)
@@ -824,78 +1277,146 @@ namespace GameLibrary
 	{
 		if(value == nullptr)
 		{
-			return "(null)";
+			return NULL_STRING;
 		}
 		return value->asString();
 	}
 
-#define NUMBER_OPERATION_TONUMBER(operatr) \
-	Number result(left); \
-	Number right_num(right); \
-	result operatr##= right_num; \
-	return result;
+#define NUMBER_OPERATION_TONUMBER(operatr, type, defaultReturn) \
+	Number operator##operatr(const Number&left, const type&right) \
+	{ \
+		if(left.value==nullptr) \
+		{ \
+			return defaultReturn; \
+		} \
+		return *left.value operatr *Number(right).value; \
+	}
 	
-#define NUMBER_OPERATION_TOPRIMITIVE(operatr, convertFunc) \
-	Number result(left); \
-	result += right; \
-	return result.convertFunc();
+#define NUMBER_OPERATION_TOPRIMITIVE(operatr, type, convertFunc, defaultReturn) \
+	type operator##operatr(const type&left, const Number&right) \
+	{ \
+		if(right.value==nullptr) \
+		{ \
+			return defaultReturn; \
+		} \
+		return *Number(left).value operatr *right.value; \
+	}
+	
+#define NUMBER_OPERATIONTO_DEFINE(operatr, type, convertFunc, defaultReturn) \
+	type operator##operatr(type&left, const Number&right) \
+	{ \
+		if(right.value==nullptr) \
+		{ \
+			return defaultReturn; \
+		} \
+		left operatr right.value->convertFunc(); \
+		return left; \
+	}
 	
 #define NUMBER_OPERATOR_SET(type, convertFunc) \
-	Number operator+(const Number&left, const type&right) { NUMBER_OPERATION_TONUMBER(+) } \
-	type operator+(const type&left, const Number&right) { NUMBER_OPERATION_TOPRIMITIVE(+, convertFunc); } \
-	Number operator-(const Number&left, const type&right) { NUMBER_OPERATION_TONUMBER(-) } \
-	type operator-(const type&left, const Number&right) { NUMBER_OPERATION_TOPRIMITIVE(-, convertFunc); } \
-	Number operator*(const Number&left, const type&right) { NUMBER_OPERATION_TONUMBER(*) } \
-	type operator*(const type&left, const Number&right) { NUMBER_OPERATION_TOPRIMITIVE(*, convertFunc); } \
-	Number operator/(const Number&left, const type&right) { NUMBER_OPERATION_TONUMBER(/) } \
-	type operator/(const type&left, const Number&right) { NUMBER_OPERATION_TOPRIMITIVE(/, convertFunc); } \
-	Number operator%(const Number&left, const type&right) { NUMBER_OPERATION_TONUMBER(%) } \
-	type operator%(const type&left, const Number&right) { NUMBER_OPERATION_TOPRIMITIVE(%, convertFunc); } \
+	NUMBER_OPERATION_TONUMBER(+, type, left) \
+	NUMBER_OPERATION_TOPRIMITIVE(+, type, convertFunc, left) \
+	NUMBER_OPERATION_TONUMBER(-, type, left) \
+	NUMBER_OPERATION_TOPRIMITIVE(-, type, convertFunc, left) \
+	NUMBER_OPERATION_TONUMBER(*, type, left) \
+	NUMBER_OPERATION_TOPRIMITIVE(*, type, convertFunc, (type)0) \
+	NUMBER_OPERATION_TONUMBER(/, type, left) \
+	NUMBER_OPERATION_TOPRIMITIVE(/, type, convertFunc, (type)0) \
+	NUMBER_OPERATION_TONUMBER(%, type, left) \
+	NUMBER_OPERATION_TOPRIMITIVE(%, type, convertFunc, (type)0)
 	
 #define NUMBER_OPERATOR_SET_FLOATINGPOINT(type, convertFunc) \
-	Number operator+(const Number&left, const type&right) { NUMBER_OPERATION_TONUMBER(+) } \
-	type operator+(const type&left, const Number&right) { NUMBER_OPERATION_TOPRIMITIVE(+, convertFunc); } \
-	Number operator-(const Number&left, const type&right) { NUMBER_OPERATION_TONUMBER(-) } \
-	type operator-(const type&left, const Number&right) { NUMBER_OPERATION_TOPRIMITIVE(-, convertFunc); } \
-	Number operator*(const Number&left, const type&right) { NUMBER_OPERATION_TONUMBER(*) } \
-	type operator*(const type&left, const Number&right) { NUMBER_OPERATION_TOPRIMITIVE(*, convertFunc); } \
-	Number operator/(const Number&left, const type&right) { NUMBER_OPERATION_TONUMBER(/) } \
-	type operator/(const type&left, const Number&right) { NUMBER_OPERATION_TOPRIMITIVE(/, convertFunc); } \
-	type operator%(const type&left, const Number&right) { NUMBER_OPERATION_TOPRIMITIVE(%, convertFunc); } \
+	NUMBER_OPERATION_TONUMBER(+, type, left) \
+	NUMBER_OPERATION_TOPRIMITIVE(+, type, convertFunc, left) \
+	NUMBER_OPERATION_TONUMBER(-, type, left) \
+	NUMBER_OPERATION_TOPRIMITIVE(-, type, convertFunc, left) \
+	NUMBER_OPERATION_TONUMBER(*, type, left) \
+	NUMBER_OPERATION_TOPRIMITIVE(*, type, convertFunc, (type)0) \
+	NUMBER_OPERATION_TONUMBER(/, type, left) \
+	NUMBER_OPERATION_TOPRIMITIVE(/, type, convertFunc, (type)0) \
+	NUMBER_OPERATION_TOPRIMITIVE(%, type, convertFunc, (type)0)
 	
 	Number operator+(const Number&left, const Number&right)
 	{
-		Number result(left);
-		result += right;
-		return result;
+		if(left.value == nullptr)
+		{
+			return left;
+		}
+		else if(right.value == nullptr)
+		{
+			return left;
+		}
+		return *left.value + *right.value;
 	}
 	
 	Number operator-(const Number&left, const Number&right)
 	{
-		Number result(left);
-		result -= right;
-		return result;
+		if(left.value == nullptr)
+		{
+			return left;
+		}
+		else if(right.value == nullptr)
+		{
+			return left;
+		}
+		return *left.value - *right.value;
 	}
 	
 	Number operator*(const Number&left, const Number&right)
 	{
-		Number result(left);
-		result *= right;
-		return result;
+		if(left.value == nullptr)
+		{
+			return left;
+		}
+		else if(right.value == nullptr)
+		{
+			return right;
+		}
+		return *left.value * *right.value;
 	}
 	
 	Number operator/(const Number&left, const Number&right)
 	{
-		Number result(left);
-		result /= right;
-		return result;
+		if(left.value == nullptr)
+		{
+			return left;
+		}
+		else if(right.value == nullptr)
+		{
+			return right;
+		}
+		return *left.value / *right.value;
 	}
 	
 	Number operator%(const Number&left, const Number&right)
 	{
-		Number result(left);
-		result %= right;
-		return result;
+		if(left.value == nullptr)
+		{
+			return left;
+		}
+		else if(right.value == nullptr)
+		{
+			return right;
+		}
+		return *left.value % *right.value;
+	}
+	
+	String operator+(const String&left, const Number&right)
+	{
+		if(right.value == nullptr)
+		{
+			return left + NULL_STRING;
+		}
+		return left + right.value->asString();
+	}
+	
+	String operator+(const Number&left, const String&right)
+	{
+		if(left.value == nullptr)
+		{
+			return NULL_STRING + right;
+		}
+		return left.value->asString() + right;
 	}
 	
 	//NUMBER_OPERATOR_SET(bool, asBool)

@@ -19,7 +19,7 @@ namespace SmashBros
 		~MenuData();
 		
 		MenuData& operator=(const MenuData&);
-
+		
 		AssetManager* getAssetManager() const;
 	};
 	
