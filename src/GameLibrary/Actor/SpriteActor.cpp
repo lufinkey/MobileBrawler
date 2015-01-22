@@ -54,7 +54,7 @@ namespace GameLibrary
 		{
 			animation_prevFrameTime = prevUpdateTime;
 		}
-		else
+		else if(animation_current!=nullptr)
 		{
 			unsigned int fps = animation_current->getFPS();
 			if(fps!=0)
@@ -109,7 +109,7 @@ namespace GameLibrary
 	
 	void SpriteActor::drawActor(ApplicationData&appData, Graphics&graphics, float x, float y, float scale) const
 	{
-		if(visible && scale!=0)
+		if(visible && scale!=0 && animation_current!=nullptr)
 		{
 			graphics.translate(x, y);
 			Graphics boundingBoxGraphics(graphics);
@@ -183,6 +183,15 @@ namespace GameLibrary
 	
 	void SpriteActor::updateSize()
 	{
+		if(animation_current == nullptr)
+		{
+			framesize.x = 0;
+			framesize.y = 0;
+			width = 0;
+			height = 0;
+			return;
+		}
+		
 		RectangleF frame = animation_current->getFrame(animation_frame);
 		frame.x*=scale;
 		frame.y*=scale;
