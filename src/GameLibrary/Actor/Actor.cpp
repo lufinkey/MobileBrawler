@@ -43,11 +43,14 @@ namespace GameLibrary
 		prevclicked = clicked;
 		prevmouseover = mouseover;
 
-		#if defined(TARGETPLATFORM_MOBILE)
+		if(Multitouch::isEnabled())
+		{
 			updateTouch(appData);
-		#else
+		}
+		else
+		{
 			updateMouse(appData);
-		#endif
+		}
 		
 		unsigned int pressedTouches = 0;
 		for(unsigned int i=0; i<currentTouches.size(); i++)
@@ -420,6 +423,7 @@ namespace GameLibrary
 			MouseTouchData* touchData = getTouchData(touchID);
 			if(touchData != nullptr)
 			{
+				removeTouchData(touchID);
 				mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSERELEASE));
 			}
 		}
@@ -511,7 +515,7 @@ namespace GameLibrary
 		ArrayList<Pair<unsigned int,byte> > mouseEventCalls;
 		
 		ArrayList<unsigned int> touchIDs = Multitouch::getTouchIDs(window);
-
+		
 		ArrayList<unsigned int> unlistedIDs = getDifTouchData(touchIDs);
 		for(unsigned int i = 0; i < unlistedIDs.size(); i++)
 		{
@@ -519,14 +523,15 @@ namespace GameLibrary
 			MouseTouchData* touchData = getTouchData(touchID);
 			if(touchData != nullptr)
 			{
+				removeTouchData(touchID);
 				mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSERELEASE));
 			}
 		}
-
+		
 		for(unsigned int i=0; i<touchIDs.size(); i++)
 		{
-			unsigned int touchID = i;
-			Vector2f touchpos = Mouse::getPosition(window, touchID);
+			unsigned int touchID = touchIDs.get(i);
+			Vector2f touchpos = Multitouch::getPosition(window, touchID);
 			Vector2f transformedPos = mouseTransform.transform(touchpos);
 			if(checkPointCollision(transformedPos))
 			{
@@ -561,7 +566,7 @@ namespace GameLibrary
 				}
 				else
 				{
-					applyTouchData(touchID, false);
+					//applyTouchData(touchID, false);
 				}
 				removeTouchData(touchID);
 			}

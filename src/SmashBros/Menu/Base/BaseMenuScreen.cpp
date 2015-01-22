@@ -17,20 +17,20 @@ namespace SmashBros
 			
 			img_headerbar_small = assetManager->getTexture("elements/headerbar_small.png");
 			img_headerbar_full = assetManager->getTexture("elements/headerbar_full.png");
-
+			
 			hoverPulseScale = 1;
 			hoverPulseGrowing = true;
 			hoverPulseEnabled = false;
 			hoverPressed = false;
 			
 			ScreenElement* element = getElement();
-
+			
 			Vector2f screenSize = smashData.getScreenCoords(1.0f, 1.0f);
 			
 			backgroundElement = new ImageElement(RectangleF(0,0,screenSize.x,screenSize.y), assetManager->getTexture("backgrounds/main.png"));
 			backgroundElement->setDisplayMode(ImageElement::DISPLAY_ZOOM);
 			element->addChildElement(backgroundElement);
-
+			
 			float headerbarImgWidth = (float)img_headerbar_full->getWidth();
 			float headerbarImgHeight = (float)img_headerbar_full->getHeight();
 			float ratX = screenSize.x/headerbarImgWidth;

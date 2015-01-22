@@ -228,7 +228,7 @@ namespace GameLibrary
 					{
 						actorIndex = items.indexOf(actor);
 					}
-
+					
 					//if the actor is still in the screen
 					if(actorIndex!=ARRAYLIST_NOTFOUND)
 					{

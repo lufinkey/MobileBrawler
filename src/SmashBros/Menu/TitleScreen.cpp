@@ -8,6 +8,7 @@ namespace SmashBros
 	{
 		TitleScreen::TitleScreen(const SmashData&smashData) : SmashBros::Menu::BaseMenuScreen(smashData)
 		{
+			Vector2f screenSize = smashData.getScreenCoords(1.0f, 1.0f);
 			Vector2f screenCenter = smashData.getScreenCoords(0.5f, 0.5f);
 			AssetManager* assetManager = smashData.getMenuData().getAssetManager();
 
@@ -21,13 +22,14 @@ namespace SmashBros
 				logoImageSize.y = (float)logoImage->getHeight();
 			}
 			RectangleF logoFrame(screenCenter.x-(logoImageSize.x/2), screenCenter.y-(logoImageSize.y/2), logoImageSize.x, logoImageSize.y);
+			logoFrame.scaleToFit(RectangleF(0,0,screenSize.x,screenSize.y));
 			logo = new ImageElement(logoFrame, logoImage);
 			getElement()->addChildElement(logo);
 			
 			mainMenu = new MainMenu(smashData);
 			transition = new FadeColorTransition(Color::WHITE, 0.6f);
 			
-			tapRegion = new WireframeActor();
+			tapRegion = new WireframeActor(0,0,screenSize.x,screenSize.y);
 			
 			getBackButton()->setVisible(false);
 			getHeaderbarElement()->setVisible(false);
@@ -40,22 +42,6 @@ namespace SmashBros
 			logo->removeFromParentElement();
 			delete logo;
 			delete tapRegion;
-		}
-		
-		void TitleScreen::onWillAppear(const Transition*transition)
-		{
-			BaseMenuScreen::onWillAppear(transition);
-			
-			RectangleF frame = getFrame();
-			RectangleF bounds = RectangleF(0,0,frame.width,frame.height);
-			
-			tapRegion->x = 0;
-			tapRegion->y = 0;
-			tapRegion->setSize(bounds.width, bounds.height);
-			
-			RectangleF logoFrame = logo->getFrame();
-			logoFrame.scaleToFit(bounds);
-			logo->setFrame(logoFrame);
 		}
 		
 		void TitleScreen::updateItems(ApplicationData appData)

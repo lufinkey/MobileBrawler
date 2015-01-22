@@ -146,17 +146,20 @@ namespace GameLibrary
 					case SDL_FINGERDOWN:
 					{
 						Window*window = EventManager_windows.get(0);
+						Vector2u winSize = window->getSize();
+						Vector2f fingerpos = Vector2f(((float)event.tfinger.x)*((float)winSize.x), ((float)event.tfinger.y)*((float)winSize.y));
 						if(event.tfinger.type==SDL_FINGERDOWN)
 						{
-							Multitouch::handleTouchDown(window, (long long)event.tfinger.fingerId, Vector2f((float)event.tfinger.x, (float)event.tfinger.y));
+							Multitouch::handleTouchDown(window, (long long)event.tfinger.fingerId, fingerpos);
 						}
 						else if(event.tfinger.type == SDL_FINGERUP)
 						{
-							Multitouch::handleTouchUp(window, (long long)event.tfinger.fingerId, Vector2f((float)event.tfinger.x, (float)event.tfinger.y));
+							Multitouch::handleTouchUp(window, (long long)event.tfinger.fingerId, fingerpos);
 						}
 						else if(event.tfinger.type == SDL_FINGERMOTION)
 						{
-							Multitouch::handleTouchMove(window, (long long)event.tfinger.fingerId, Vector2f((float)event.tfinger.x, (float)event.tfinger.y), Vector2f((float)event.tfinger.dx, (float)event.tfinger.dy));
+							Vector2f diffingerpos = Vector2f(((float)event.tfinger.dx)*((float)winSize.x), ((float)event.tfinger.dy)*((float)winSize.y));
+							Multitouch::handleTouchMove(window, (long long)event.tfinger.fingerId, fingerpos, diffingerpos);
 						}
 					}
 					break;
