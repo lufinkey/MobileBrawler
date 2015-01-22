@@ -234,6 +234,7 @@ namespace GameLibrary
 	{
 		switch (key)
 		{
+			case UNKNOWN_KEY: return "";
 			case A: return "a";
 			case B: return "b";
 			case C: return "c";

@@ -17,6 +17,8 @@ namespace GameLibrary
 	public:
 		Number::NumberType type;
 		
+		virtual ~_BaseNumberType(){}
+		
 		virtual _BaseNumberType* clone() const = 0;
 		
 		virtual Number operator+(const _BaseNumberType&) const = 0;
@@ -719,12 +721,12 @@ namespace GameLibrary
 		
 		virtual _BaseNumberType* clone() const
 		{
-			return (_BaseNumberType*)(new _DerivedIntegralType<T>(value, type));
+			return (_BaseNumberType*)(new _DerivedIntegralType<T>(value, _BaseNumberType::type));
 		}
 		
 		virtual _BaseNumberType& operator%=(const _BaseNumberType&num)
 		{
-			if(type==Number::TYPE_BOOL)
+			if(_BaseNumberType::type==Number::TYPE_BOOL)
 			{
 				throw IllegalNumberOperationException("%=", "bool", "left");
 			}
@@ -799,7 +801,7 @@ namespace GameLibrary
 		
 		virtual Number operator%(const _BaseNumberType&num) const
 		{
-			if(type==Number::TYPE_BOOL)
+			if(_BaseNumberType::type==Number::TYPE_BOOL)
 			{
 				throw IllegalNumberOperationException("%=", "bool", "left");
 			}
@@ -1283,7 +1285,7 @@ namespace GameLibrary
 	}
 
 #define NUMBER_OPERATION_TONUMBER(operatr, type, defaultReturn) \
-	Number operator##operatr(const Number&left, const type&right) \
+	Number operator operatr(const Number&left, const type&right) \
 	{ \
 		if(left.value==nullptr) \
 		{ \
@@ -1293,7 +1295,7 @@ namespace GameLibrary
 	}
 	
 #define NUMBER_OPERATION_TOPRIMITIVE(operatr, type, convertFunc, defaultReturn) \
-	type operator##operatr(const type&left, const Number&right) \
+	type operator operatr(const type&left, const Number&right) \
 	{ \
 		if(right.value==nullptr) \
 		{ \
@@ -1303,7 +1305,7 @@ namespace GameLibrary
 	}
 	
 #define NUMBER_OPERATIONTO_DEFINE(operatr, type, convertFunc, defaultReturn) \
-	type operator##operatr(type&left, const Number&right) \
+	type operator operatr(type&left, const Number&right) \
 	{ \
 		if(right.value==nullptr) \
 		{ \

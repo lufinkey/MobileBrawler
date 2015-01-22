@@ -602,7 +602,7 @@ namespace GameLibrary
 	
 	void Graphics::drawImage(TextureImage*img, float x, float y)
 	{
-		SDL_Texture*texture = (SDL_Texture*)img->texture;
+		//SDL_Texture*texture = (SDL_Texture*)img->texture;
 		unsigned int texWidth = img->getWidth();
 		unsigned int texHeight = img->getHeight();
 
@@ -620,7 +620,7 @@ namespace GameLibrary
 
 	void Graphics::drawImage(TextureImage*img, float x, float y, float width, float height)
 	{
-		SDL_Texture*texture = (SDL_Texture*)img->texture;
+		//SDL_Texture*texture = (SDL_Texture*)img->texture;
 		unsigned int texWidth = img->width;
 		unsigned int texHeight = img->height;
 		

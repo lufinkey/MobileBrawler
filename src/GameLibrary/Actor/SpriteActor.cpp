@@ -321,6 +321,10 @@ namespace GameLibrary
 			{
 				switch(animation_direction)
 				{
+					default:
+					case Animation::NO_CHANGE:
+					break;
+					
 					case Animation::FORWARD:
 					case Animation::STOPPED:
 					{

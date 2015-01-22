@@ -3,6 +3,7 @@
 #include "../Utilities/PlatformChecks.h"	
 
 #include <dirent.h>
+#include <sys/stat.h>
 
 #if defined(TARGETPLATFORM_WINDOWS)
 	#include <direct.h>

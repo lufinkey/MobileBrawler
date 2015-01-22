@@ -3,6 +3,7 @@
 
 #include "Dictionary.h"
 #include <ctime>
+#include <cstdlib>
 #include <pugixml.hpp>
 #include <base64.hpp>
 
@@ -338,7 +339,6 @@ namespace GameLibrary
 		}
 		else if(type.equals("data"))
 		{
-			DataPacket&data = any.as<DataPacket>(false);
 			const char*str = (const char*)node.first_child().value();
 			std::vector<char> data_vect;
 			Dictionary_base64Decode(str, data_vect);

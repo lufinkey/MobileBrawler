@@ -1,12 +1,14 @@
 
 #include "TimeInterval.h"
 #include "posixtime.h"
+#include <sys/time.h>
+#include <time.h>
 
 namespace GameLibrary
 {
 	long long TimeInterval_getCurrentMilliseconds()
 	{
-		timeval64 tv;
+		struct timeval64 tv;
 		gettimeofday64(&tv, nullptr);
 		return (long long)(((long long)tv.tv_sec*1000) + ((long long)tv.tv_usec/1000));
 	}

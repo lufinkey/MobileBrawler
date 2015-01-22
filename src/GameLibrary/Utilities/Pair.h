@@ -31,13 +31,13 @@ namespace GameLibrary
 			//
 		}
 
-		template<class Other1, class Other2,
+		/*template<class Other1, class Other2,
 			class = typename enable_if<is_convertible<const O1&, T1>::value
 				&& is_convertible<const O2&, T2>::value, void>::type>
 		Pair(const Pair<Other1, Other2>& p) : first(p.first), second(p.second)
 		{
 			//
-		}
+		}*/
 
 		pair_type& operator=(const pair_type& p)
 		{

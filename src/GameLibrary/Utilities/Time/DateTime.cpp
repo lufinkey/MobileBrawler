@@ -7,6 +7,8 @@
 #include "posixtime.h"
 #include "time64/time64.h"
 #include <ctime>
+#include <sys/time.h>
+#include <time.h>
 
 //TODO important create separate DateTimeParser class and Locale class. DateTime should not remain in this disorganized state.
 	//DateTimeParser or Locale should have separate profile or info classes on each DateTime character placeholder
@@ -322,14 +324,14 @@ namespace GameLibrary
 
 					case DATEFORMAT_DAYOFWEEK_ABBR_LOCALE:
 					{
-						char* weekdayAbbrs[] = DATETIME_LIST_WEEKDAYS_ABBR;
+						const char* weekdayAbbrs[] = DATETIME_LIST_WEEKDAYS_ABBR;
 						outputString += weekdayAbbrs[wday-1];
 					}
 					break;
 
 					case DATEFORMAT_DAYOFWEEK_FULLNAME_LOCALE:
 					{
-						char* weekdays[] = DATETIME_LIST_WEEKDAYS;
+						const char* weekdays[] = DATETIME_LIST_WEEKDAYS;
 						outputString += weekdays[wday-1];
 					}
 					break;
@@ -337,14 +339,14 @@ namespace GameLibrary
 					case DATEFORMAT_MONTH_ABBR_LOCALE:
 					case DATEFORMAT_MONTH_ABBR2_LOCALE:
 					{
-						char* monthAbbrs[] = DATETIME_LIST_MONTHS_ABBR;
+						const char* monthAbbrs[] = DATETIME_LIST_MONTHS_ABBR;
 						outputString += monthAbbrs[mon-1];
 					}
 					break;
 
 					case DATEFORMAT_MONTH_FULLNAME_LOCALE:
 					{
-						char* months[] = DATETIME_LIST_MONTHS;
+						const char* months[] = DATETIME_LIST_MONTHS;
 						outputString += months[mon-1];
 					}
 					break;

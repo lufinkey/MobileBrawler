@@ -5,6 +5,7 @@
 #include "../Utilities/Thread.h"
 #include <SDL.h>
 #include <ctime>
+#include <cstdlib>
 
 namespace GameLibrary
 {
@@ -123,17 +124,17 @@ namespace GameLibrary
 		}
 
 		WindowSettings settings = windowSettings;
-		#if TARGETPLATFORM_MOBILE
+		#if defined(TARGETPLATFORM_MOBILE)
 			settings.setPosition(Vector2i(0,0));
 			if(((orientations & ORIENTATION_PORTRAIT) == ORIENTATION_PORTRAIT)
 			|| ((orientations & ORIENTATION_PORTRAITUPSIDEDOWN) == ORIENTATION_PORTRAITUPSIDEDOWN)
 			|| (orientations == ORIENTATION_ALL))
 			{
-				windowSettings.setSize(Vector2u(smaller,bigger));
+				settings.setSize(Vector2u(smaller,bigger));
 			}
 			else
 			{
-				windowSettings.setSize(Vector2u(bigger,smaller));
+				settings.setSize(Vector2u(bigger,smaller));
 			}
 		#endif
 

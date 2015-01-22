@@ -10,8 +10,8 @@ namespace GameLibrary
 	class _BaseNumberType;
 	
 #define NUMBER_OPERATOR_DECLARE(prefix, type, operatr) \
-	prefix Number operator##operatr(const Number&left, const type&right); \
-	prefix type operator##operatr(const type&left, const Number&right);
+	prefix Number operator operatr(const Number&left, const type&right); \
+	prefix type operator operatr(const type&left, const Number&right);
 	
 #define NUMBER_OPERATOR_DECLARE_SET(prefix, type) \
 	NUMBER_OPERATOR_DECLARE(prefix, type, +) \

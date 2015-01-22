@@ -13,6 +13,7 @@ namespace SmashBros
 		
 		BaseMenuScreen::BaseMenuScreen(const SmashData&smashData)
 		{
+			Console::writeLine("base menu screen - called constructor");
 			AssetManager* assetManager = smashData.getMenuData().getAssetManager();
 			
 			img_headerbar_small = assetManager->getTexture("elements/headerbar_small.png");
@@ -89,7 +90,7 @@ namespace SmashBros
 			if(itemIndex == getSelectedIndex())
 			{
 				Actor* actor = getItem(itemIndex);
-				RectangleF frame = actor->getFrame();
+				//RectangleF frame = actor->getFrame();
 				if(hoverPulseEnabled)
 				{
 					graphics.scale(hoverPulseScale, hoverPulseScale, actor->x, actor->y);

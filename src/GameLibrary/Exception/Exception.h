@@ -16,7 +16,7 @@ namespace GameLibrary
 		Exception(const Exception&);
 		Exception(const String&message);
 		virtual ~Exception();
-
-		virtual const char* what() const;
+		
+		virtual const char* what() const _NOEXCEPT;
 	};
 }

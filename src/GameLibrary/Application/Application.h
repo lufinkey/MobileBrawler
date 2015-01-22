@@ -66,7 +66,7 @@ namespace GameLibrary
 		virtual void update(ApplicationData appData);
 		virtual void draw(ApplicationData appData, Graphics g) const;
 
-#if TARGETPLATFORM_MOBILE
+#if defined(TARGETPLATFORM_MOBILE)
 		int run(const WindowSettings&windowSettings = Window::defaultMobileSettings, int orientations = ORIENTATION_ALL);
 #else
 		int run(const WindowSettings&windowSettings = Window::defaultDesktopSettings, int orientations = ORIENTATION_ALL);

@@ -103,7 +103,7 @@ namespace GameLibrary
 
 		Window& operator=(const Window&) = delete;
 		
-#if TARGETPLATFORM_MOBILE
+#if defined(TARGETPLATFORM_MOBILE)
 		void create(const WindowSettings&settings = defaultMobileSettings);
 #else
 		void create(const WindowSettings&settings = defaultDesktopSettings);

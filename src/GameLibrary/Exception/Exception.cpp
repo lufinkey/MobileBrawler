@@ -26,7 +26,7 @@ namespace GameLibrary
 		//
 	}
 
-	const char* Exception::what() const
+	const char* Exception::what() const _NOEXCEPT
 	{
 		return message;
 	}

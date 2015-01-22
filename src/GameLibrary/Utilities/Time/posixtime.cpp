@@ -1,14 +1,14 @@
 
 #include "posixtime.h"
 
-#ifdef _WIN32
+#if defined(_WIN32)
 	#include <Windows.h>
 	#define DELTA_EPOCH_IN_MICROSECS  11644473600000000Ui64
 #else
 	#define DELTA_EPOCH_IN_MICROSECS  11644473600000000ULL
 #endif
 
-#ifdef _WIN32
+#if defined(_WIN32)
 int gettimeofday(struct timeval*tv, struct timezone*tz)
 {
 	FILETIME ft;
@@ -47,7 +47,9 @@ int gettimeofday(struct timeval*tv, struct timezone*tz)
 
 	return 0;
 }
+#endif
 
+#if defined(_WIN32)
 int gettimeofday64(struct timeval64*tv, struct timezone*tz)
 {
 	static int tzflag;
@@ -86,5 +88,15 @@ int gettimeofday64(struct timeval64*tv, struct timezone*tz)
 	}
 
 	return 0;
+}
+
+#elif defined(__APPLE__)
+int gettimeofday64(struct timeval64*tv, struct timezone*tz)
+{
+	struct timeval tv32;
+	int result = gettimeofday(&tv32, tz);
+	tv->tv_sec = (int64_t)tv32.tv_sec;
+	tv->tv_usec = (int32_t)tv32.tv_usec;
+	return result;
 }
 #endif
