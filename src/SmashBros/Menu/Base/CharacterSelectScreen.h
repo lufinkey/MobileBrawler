@@ -14,9 +14,14 @@ namespace SmashBros
 			CharacterSelectScreen(const SmashData&smashData);
 			virtual ~CharacterSelectScreen();
 			
-			void reloadIcons(const SmashData&smashData);
+			void setPlayerCount(unsigned int count);
 			
 		protected:
+			SmashData const* smashData;
+			
+			void reloadIcons(const SmashData&smashData);
+			void reloadPlayerPanels(const SmashData&smashData);
+
 			virtual void updateItems(ApplicationData appData);
 			virtual void drawItems(ApplicationData appData, Graphics graphics) const;
 
@@ -35,23 +40,34 @@ namespace SmashBros
 				const String& getCreator() const;
 			};
 			
-			class PlayerChip : public SpriteActor
-			{
-			public:
-				PlayerChip(float x, float y);
-				virtual ~PlayerChip();
-			};
-			
 			class PlayerPanel : public SpriteActor
 			{
+			private:
+				unsigned int playerNum;
+				CharacterSelectScreen*charSelectScreen;
 			public:
-				PlayerPanel(float x, float y);
+				PlayerPanel(unsigned int playerNum, CharacterSelectScreen*charSelectScreen, float x, float y, AssetManager*assetManager);
 				virtual ~PlayerPanel();
 			};
 			
+			class PlayerChip : public SpriteActor
+			{
+			private:
+				unsigned int playerNum;
+				CharacterSelectScreen*charSelectScreen;
+			public:
+				PlayerChip(unsigned int playerNum, CharacterSelectScreen*charSelectScreen, float x, float y, AssetManager*assetManager);
+				virtual ~PlayerChip();
+			};
+			
 		private:
+			unsigned int playerCount;
+			
+			RectangleF iconGridFrame;
 			ActorGrid*iconGrid;
 			ArrayList<CharacterIcon*> icons;
+			ArrayList<PlayerPanel*> panels;
+			ArrayList<PlayerChip*> chips;
 		};
 	}
 }

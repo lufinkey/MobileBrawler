@@ -37,19 +37,15 @@ namespace SmashBros
 			return info->getCreator();
 		}
 		
-		CharacterSelectScreen::PlayerChip::PlayerChip(float x, float y)
+		CharacterSelectScreen::PlayerPanel::PlayerPanel(unsigned int pNum, CharacterSelectScreen*screen, float x, float y, AssetManager*assetManager) : SpriteActor(x, y)
 		{
-			//
-		}
-		
-		CharacterSelectScreen::PlayerChip::~PlayerChip()
-		{
-			//
-		}
-		
-		CharacterSelectScreen::PlayerPanel::PlayerPanel(float x, float y)
-		{
-			//
+			playerNum = pNum;
+			charSelectScreen = screen;
+			addAnimation("default", new Animation(assetManager, 1, (String)"characterselect/panel_p" + playerNum + ".png"));
+			addAnimation("cpu", new Animation(assetManager, 1, "characterselect/panel_cpu.png"));
+			addAnimation("na", new Animation(assetManager, 1, "characterselect/panel_na.png"));
+			addAnimation("blank", new Animation(assetManager, 1, "characterselect/panel_blank.png"));
+			changeAnimation("na", Animation::FORWARD);
 		}
 		
 		CharacterSelectScreen::PlayerPanel::~PlayerPanel()
@@ -57,15 +53,50 @@ namespace SmashBros
 			//
 		}
 		
+		CharacterSelectScreen::PlayerChip::PlayerChip(unsigned int pNum, CharacterSelectScreen*screen, float x, float y, AssetManager*assetManager) : SpriteActor(x,y)
+		{
+			playerNum = pNum;
+			charSelectScreen = screen;
+			addAnimation("default", new Animation(assetManager, 1, (String)"characterselect/chip_p" + playerNum + ".png"));
+			addAnimation("cpu", new Animation(assetManager, 1, "characterselect/chip_cpu.png"));
+			changeAnimation("default", Animation::FORWARD);
+		}
+		
+		CharacterSelectScreen::PlayerChip::~PlayerChip()
+		{
+			//
+		}
+		
+//CharacterSelectScreen
+		
 		CharacterSelectScreen::CharacterSelectScreen(const SmashData&smashData) : SmashBros::Menu::BaseMenuScreen(smashData)
 		{
+			playerCount = 4;
 			iconGrid = nullptr;
-			reloadIcons(smashData);
+			this->smashData = &smashData;
 		}
 		
 		CharacterSelectScreen::~CharacterSelectScreen()
 		{
-
+			if(iconGrid != nullptr)
+			{
+				delete iconGrid;
+			}
+			for(unsigned int i=0; i<icons.size(); i++)
+			{
+				delete icons.get(i);
+			}
+			for(unsigned int i=0; i<panels.size(); i++)
+			{
+				delete panels.get(i);
+			}
+		}
+		
+		void CharacterSelectScreen::setPlayerCount(unsigned int count)
+		{
+			playerCount = count;
+			//TODO set rules player count
+			reloadPlayerPanels(*smashData);
 		}
 		
 		void CharacterSelectScreen::reloadIcons(const SmashData&smashData)
@@ -99,7 +130,8 @@ namespace SmashBros
 			
 			Vector2f topLeft = smashData.getScreenCoords(0.1f, 0.16f);
 			Vector2f bottomRight = smashData.getScreenCoords(0.9f, 0.6f);
-			RectangleF charSelectRect = RectangleF(topLeft.x, topLeft.y, bottomRight.x-topLeft.x, bottomRight.y-topLeft.y);
+			RectangleF charSelectRect(topLeft.x, topLeft.y, bottomRight.x-topLeft.x, bottomRight.y-topLeft.y);
+			iconGridFrame = charSelectRect;
 			
 			float icon_width = charSelectRect.width/((float)cols);
 			float icon_height = charSelectRect.height/((float)rows);
@@ -118,12 +150,59 @@ namespace SmashBros
 			}
 		}
 		
+		void CharacterSelectScreen::reloadPlayerPanels(const SmashData&smashData)
+		{
+			for(unsigned int i=0; i<panels.size(); i++)
+			{
+				delete panels.get(i);
+			}
+			panels.clear();
+			for(unsigned int i = 0; i < chips.size(); i++)
+			{
+				delete chips.get(i);
+			}
+			chips.clear();
+			
+			if(playerCount == 0)
+			{
+				return;
+			}
+			
+			Vector2f topLeft = smashData.getScreenCoords(0.0f, 0.6f);
+			Vector2f bottomRight = smashData.getScreenCoords(1.0f, 1.0f);
+			RectangleF frame(topLeft.x, topLeft.y, bottomRight.x-topLeft.x, bottomRight.y-topLeft.y);
+			
+			float panelframe_width = frame.width/(float)playerCount;
+			float panelframe_height = frame.height*(5.0f/6.0f);
+			float offsetX = frame.x + (panelframe_width/2);
+			float offsetY = frame.y + (frame.height/2);
+			
+			for(unsigned int i = 0; i < playerCount; i++)
+			{
+				unsigned int playerNum = i+1;
+				PlayerPanel* panel = new PlayerPanel(playerNum, this, offsetX + (panelframe_width*(float)i), offsetY, smashData.getMenuData().getAssetManager());
+				panel->Actor::scaleToFit(Vector2f(panelframe_width, panelframe_height));
+				panels.add(panel);
+				PlayerChip* chip = new PlayerChip(playerNum, this, panel->x-(panel->getWidth()/2), panel->y, smashData.getMenuData().getAssetManager());
+				chip->Actor::scaleToFit(Vector2f(panelframe_width/4, panelframe_height/4));
+				chips.add(chip);
+			}
+		}
+		
 		void CharacterSelectScreen::updateItems(ApplicationData appData)
 		{
 			BaseMenuScreen::updateItems(appData);
 			for(unsigned int i=0; i<icons.size(); i++)
 			{
 				icons.get(i)->update(appData);
+			}
+			for(unsigned int i=0; i<panels.size(); i++)
+			{
+				panels.get(i)->update(appData);
+			}
+			for(unsigned int i=0; i<chips.size(); i++)
+			{
+				chips.get(i)->update(appData);
 			}
 		}
 		
@@ -137,6 +216,16 @@ namespace SmashBros
 				icon->draw(appData, graphics);
 				RectangleF frame = icon->getFrame();
 				graphics.drawImage(icon_frame, frame);
+			}
+			for(unsigned int i=0; i<panels.size(); i++)
+			{
+				PlayerPanel* panel = panels.get(i);
+				panel->draw(appData, graphics);
+			}
+			for(unsigned int i=0; i<chips.size(); i++)
+			{
+				PlayerChip* chip = chips.get(i);
+				chip->draw(appData, graphics);
 			}
 		}
 	}
