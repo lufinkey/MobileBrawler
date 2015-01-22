@@ -108,16 +108,18 @@ namespace SmashBros
 		
 		void BaseMenuScreen::onItemHover(unsigned int index)
 		{
-			#if defined(TARGETPLATFORM_DESKTOP)
+			if(!Multitouch::isEnabled())
+			{
 				enableHoverPulse(true);
-			#endif
+			}
 		}
 		
 		void BaseMenuScreen::onItemHoverFinish(unsigned int index)
 		{
-			#if defined(TARGETPLATFORM_DESKTOP)
+			if(!Multitouch::isEnabled())
+			{
 				enableHoverPulse(false);
-			#endif
+			}
 		}
 		
 		void BaseMenuScreen::onItemPress(unsigned int index)
