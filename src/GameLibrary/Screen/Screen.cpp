@@ -149,6 +149,7 @@ namespace GameLibrary
 	
 	Screen::Screen(Window*wndw)
 	{
+		element = nullptr;
 		screenManager = nullptr;
 		parentScreen = nullptr;
 		childScreen = nullptr;
