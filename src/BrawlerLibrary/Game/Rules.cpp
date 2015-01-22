@@ -51,4 +51,24 @@ namespace BrawlerLibrary
 	{
 		character_costume = costume;
 	}
+	
+	Rules::Rules()
+	{
+		//
+	}
+	
+	Rules::~Rules()
+	{
+		//
+	}
+	
+	unsigned int Rules::getPlayerCount() const
+	{
+		return players.size();
+	}
+	
+	void Rules::setPlayerCount(unsigned int count)
+	{
+		players.resize(count);
+	}
 }

@@ -24,9 +24,11 @@ namespace SmashBros
 		return assetManager;
 	}
 	
-	SmashData::SmashData(Window*window, CharacterLoader*characterLoader, const MenuData&menuData) : window(window), characterLoader(characterLoader), menuData(menuData)
+	SmashData::SmashData(Window*win, CharacterLoader*charLoader, Rules*ruls, const MenuData&menuData) : menuData(menuData)
 	{
-		//
+		window = win;
+		characterLoader = charLoader;
+		rules = ruls;
 	}
 	
 	SmashData::SmashData(const SmashData&smashData) : menuData(smashData.menuData)
@@ -88,5 +90,10 @@ namespace SmashBros
 	Rules* SmashData::getRules() const
 	{
 		return rules;
+	}
+	
+	void SmashData::setRules(Rules*ruls)
+	{
+		rules = ruls;
 	}
 }

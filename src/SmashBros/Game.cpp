@@ -47,7 +47,7 @@ namespace SmashBros
 		setFPS(60);
 		characterLoader = new CharacterLoader(*getWindow());
 		menuAssetManager = new AssetManager(*getWindow(), "assets/menu");
-		smashData = new SmashData(getWindow(), characterLoader, MenuData(menuAssetManager));
+		smashData = new SmashData(getWindow(), characterLoader, nullptr, MenuData(menuAssetManager));
 	}
 	
 	void Game::loadContent(AssetManager*assetManager)
