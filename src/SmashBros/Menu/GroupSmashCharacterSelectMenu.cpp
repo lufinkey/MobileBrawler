@@ -9,6 +9,7 @@ namespace SmashBros
 		{
 			reloadIcons(smashData);
 			setPlayerCount(4);
+			//setHeaderbarMode(HEADERBAR_SMALL);
 		}
 	}
 }

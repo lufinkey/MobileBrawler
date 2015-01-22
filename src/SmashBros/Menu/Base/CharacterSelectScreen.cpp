@@ -196,7 +196,12 @@ namespace SmashBros
 				}
 			}
 			
-			Vector2f topLeft = smashData.getScreenCoords(0.1f, 0.16f);
+			ImageElement* headerbar = getHeaderbarElement();
+			RectangleF headerbarFrame = headerbar->getFrame();
+			Vector2f screenSize = smashData.getScreenCoords(Vector2f(1.0f,1.0f));
+			float frameoffset_y = headerbarFrame.height / screenSize.y;
+			
+			Vector2f topLeft = smashData.getScreenCoords(0.1f, frameoffset_y);
 			Vector2f bottomRight = smashData.getScreenCoords(0.9f, 0.6f);
 			RectangleF charSelectRect(topLeft.x, topLeft.y, bottomRight.x-topLeft.x, bottomRight.y-topLeft.y);
 			iconGridFrame = charSelectRect;

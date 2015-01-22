@@ -25,13 +25,17 @@ namespace SmashBros
 			
 			ScreenElement* element = getElement();
 
-			RectangleF frame = element->getFrame();
+			Vector2f screenSize = smashData.getScreenCoords(1.0f, 1.0f);
 			
-			backgroundElement = new ImageElement(RectangleF(0,0,frame.width, frame.height), assetManager->getTexture("backgrounds/main.png"));
+			backgroundElement = new ImageElement(RectangleF(0,0,screenSize.x,screenSize.y), assetManager->getTexture("backgrounds/main.png"));
 			backgroundElement->setDisplayMode(ImageElement::DISPLAY_ZOOM);
 			element->addChildElement(backgroundElement);
+
+			float headerbarImgWidth = (float)img_headerbar_full->getWidth();
+			float headerbarImgHeight = (float)img_headerbar_full->getHeight();
+			float ratX = screenSize.x/headerbarImgWidth;
 			
-			headerbarElement = new ImageElement(RectangleF(0,0,frame.width, 50), img_headerbar_full);
+			headerbarElement = new ImageElement(RectangleF(0,0,screenSize.x, headerbarImgHeight*ratX), img_headerbar_full);
 			headerbarElement->setDisplayMode(ImageElement::DISPLAY_ZOOM);
 			element->addChildElement(headerbarElement);
 			
@@ -48,21 +52,6 @@ namespace SmashBros
 			delete backgroundElement;
 			headerbarElement->removeFromParentElement();
 			delete headerbarElement;
-		}
-		
-		void BaseMenuScreen::onWillAppear(const Transition*transition)
-		{
-			MenuScreen::onWillAppear(transition);
-			
-			RectangleF frame = getFrame();
-			
-			backgroundElement->setFrame(RectangleF(0,0,frame.width,frame.height));
-			
-			TextureImage* headerbarImage = headerbarElement->getImage();
-			float headerbarImgWidth = (float)headerbarImage->getWidth();
-			float headerbarImgHeight = (float)headerbarImage->getHeight();
-			float ratX = frame.width/headerbarImgWidth;
-			headerbarElement->setFrame(RectangleF(0,0,frame.width, headerbarImgHeight*ratX));
 		}
 		
 		void BaseMenuScreen::updateItems(ApplicationData appData)
