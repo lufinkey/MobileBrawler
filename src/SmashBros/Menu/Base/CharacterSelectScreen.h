@@ -55,9 +55,13 @@ namespace SmashBros
 			private:
 				unsigned int playerNum;
 				CharacterSelectScreen*charSelectScreen;
+				unsigned int dragTouchID;
+				bool dragging;
 			public:
 				PlayerChip(unsigned int playerNum, CharacterSelectScreen*charSelectScreen, float x, float y, AssetManager*assetManager);
 				virtual ~PlayerChip();
+				virtual void onMousePress(Window*window, unsigned int touchID);
+				virtual void update(ApplicationData appData);
 			};
 			
 		private:

@@ -60,11 +60,79 @@ namespace SmashBros
 			addAnimation("default", new Animation(assetManager, 1, (String)"characterselect/chip_p" + playerNum + ".png"));
 			addAnimation("cpu", new Animation(assetManager, 1, "characterselect/chip_cpu.png"));
 			changeAnimation("default", Animation::FORWARD);
+			dragging = false;
+			dragTouchID = 0;
 		}
 		
 		CharacterSelectScreen::PlayerChip::~PlayerChip()
 		{
 			//
+		}
+		
+		void CharacterSelectScreen::PlayerChip::onMousePress(Window*window, unsigned int touchID)
+		{
+			if(!dragging)
+			{
+				bool touch_alreadyBeingUsed = false;
+				for(unsigned int i=0; i<charSelectScreen->chips.size(); i++)
+				{
+					PlayerChip*chip = charSelectScreen->chips.get(i);
+					if(chip != this)
+					{
+						if(chip->dragging && chip->dragTouchID == touchID)
+						{
+							touch_alreadyBeingUsed = true;
+						}
+					}
+				}
+				if(!touch_alreadyBeingUsed)
+				{
+					dragging = true;
+					dragTouchID = touchID;
+					unsigned int index = charSelectScreen->chips.indexOf(this);
+					charSelectScreen->chips.remove(index);
+					charSelectScreen->chips.add(0,this);
+				}
+			}
+		}
+		
+		void CharacterSelectScreen::PlayerChip::update(ApplicationData appData)
+		{
+			//TODO build dragging into Actor class
+			if(dragging)
+			{
+				if(Multitouch::isEnabled())
+				{
+					if(Multitouch::isTouchActive(appData.getWindow(), dragTouchID))
+					{
+						Vector2f touchpos = appData.getTransform().transform(Multitouch::getPosition(appData.getWindow(), dragTouchID));
+						x = touchpos.x;
+						y = touchpos.y;
+					}
+					else
+					{
+						dragging = false;
+						dragTouchID = 0;
+						//TODO add event for dragging being stopped
+					}
+				}
+				else
+				{
+					if(Mouse::isButtonPressed(appData.getWindow(), dragTouchID, Mouse::BUTTON_LEFT))
+					{
+						Vector2f mousepos = appData.getTransform().transform(Mouse::getPosition(appData.getWindow(), dragTouchID));
+						x = mousepos.x;
+						y = mousepos.y;
+					}
+					else
+					{
+						dragging = false;
+						dragTouchID = 0;
+						//TODO add event for dragging being stopped
+					}
+				}
+			}
+			SpriteActor::update(appData);
 		}
 		
 //CharacterSelectScreen
@@ -184,7 +252,7 @@ namespace SmashBros
 				panel->Actor::scaleToFit(Vector2f(panelframe_width, panelframe_height));
 				panels.add(panel);
 				PlayerChip* chip = new PlayerChip(playerNum, this, panel->x-(panel->getWidth()/2), panel->y, smashData.getMenuData().getAssetManager());
-				chip->Actor::scaleToFit(Vector2f(panelframe_width/4, panelframe_height/4));
+				chip->Actor::scaleToFit(Vector2f(panelframe_width/3, panelframe_height/3));
 				chips.add(chip);
 			}
 		}
@@ -192,17 +260,22 @@ namespace SmashBros
 		void CharacterSelectScreen::updateItems(ApplicationData appData)
 		{
 			BaseMenuScreen::updateItems(appData);
-			for(unsigned int i=0; i<icons.size(); i++)
+			ArrayList<CharacterIcon*> icons_list = icons;
+			for(unsigned int i=0; i<icons_list.size(); i++)
 			{
-				icons.get(i)->update(appData);
+				icons_list.get(i)->update(appData);
 			}
-			for(unsigned int i=0; i<panels.size(); i++)
+			icons_list.clear();
+			ArrayList<PlayerPanel*> panels_list = panels;
+			for(unsigned int i=0; i<panels_list.size(); i++)
 			{
-				panels.get(i)->update(appData);
+				panels_list.get(i)->update(appData);
 			}
-			for(unsigned int i=0; i<chips.size(); i++)
+			panels_list.clear();
+			ArrayList<PlayerChip*> chips_list = chips;
+			for(unsigned int i=0; i<chips_list.size(); i++)
 			{
-				chips.get(i)->update(appData);
+				chips_list.get(i)->update(appData);
 			}
 		}
 		
@@ -222,10 +295,14 @@ namespace SmashBros
 				PlayerPanel* panel = panels.get(i);
 				panel->draw(appData, graphics);
 			}
-			for(unsigned int i=0; i<chips.size(); i++)
+			ArrayList<PlayerChip*> chips_list;
+			for(unsigned int i=0; i<chips.size(); i++) //reverse the chips list
 			{
-				PlayerChip* chip = chips.get(i);
-				chip->draw(appData, graphics);
+				chips_list.add(0, chips.get(i));
+			}
+			for(unsigned int i=0; i<chips_list.size(); i++)
+			{
+				chips_list.get(i)->draw(appData, graphics);
 			}
 		}
 	}
