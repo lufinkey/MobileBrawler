@@ -427,9 +427,9 @@
 		A016568A1A70C16B007D0BA1 /* BrawlerLibrary */ = {
 			isa = PBXGroup;
 			children = (
-				A016568B1A70C16B007D0BA1 /* BrawlerLibrary.h */,
 				A016568C1A70C16B007D0BA1 /* Game */,
 				A01656911A70C16B007D0BA1 /* Loader */,
+				A016568B1A70C16B007D0BA1 /* BrawlerLibrary.h */,
 			);
 			path = BrawlerLibrary;
 			sourceTree = "<group>";

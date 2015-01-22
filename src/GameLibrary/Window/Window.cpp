@@ -139,6 +139,15 @@ namespace GameLibrary
 	const WindowSettings Window::defaultDesktopSettings = WindowSettings(Vector2i(Window::POSITION_UNDEFINED, Window::POSITION_UNDEFINED), Vector2u(640, 480), "", nullptr, Color::WHITE, Window::STYLE_DEFAULT);
 	const WindowSettings Window::defaultMobileSettings = WindowSettings(Vector2i(Window::POSITION_UNDEFINED, Window::POSITION_UNDEFINED), Vector2u(480, 320), "", nullptr, Color::WHITE, Window::STYLE_BORDERLESS);
 	
+	const WindowSettings& Window::getDefaultSettings()
+	{
+		#if defined(TARGETPLATFORM_MOBILE)
+			return defaultMobileSettings;
+		#else
+			return defaultDesktopSettings;
+		#endif
+	}
+	
 	Window::Window()
 	{
 		windowed_size = settings.size;

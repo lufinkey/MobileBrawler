@@ -96,6 +96,7 @@ namespace GameLibrary
 
 		static const WindowSettings defaultDesktopSettings;
 		static const WindowSettings defaultMobileSettings;
+		static const WindowSettings& getDefaultSettings();
 
 		Window();
 		Window(const Window&) = delete;
@@ -103,11 +104,8 @@ namespace GameLibrary
 
 		Window& operator=(const Window&) = delete;
 		
-#if defined(TARGETPLATFORM_MOBILE)
-		void create(const WindowSettings&settings = defaultMobileSettings);
-#else
-		void create(const WindowSettings&settings = defaultDesktopSettings);
-#endif
+		void create(const WindowSettings&settings = Window::getDefaultSettings());
+		
 		void refresh();
 		void clear(const Color&clearColor=Color::WHITE);
 		void destroy();

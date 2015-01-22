@@ -6,6 +6,8 @@
 
 namespace SmashBros
 {
+	using namespace GameLibrary;
+	
 	class Game : public GameLibrary::Application
 	{
 	private:

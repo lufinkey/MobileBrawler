@@ -44,6 +44,7 @@ namespace SmashBros
 	{
 		getWindow()->setSize(Vector2u(SMASHBROS_WINDOWWIDTH, SMASHBROS_WINDOWHEIGHT));
 		getWindow()->getView()->setSize(SMASHBROS_WINDOWWIDTH, SMASHBROS_WINDOWHEIGHT);
+		getWindow()->getView()->setLetterboxed(true);
 		setFPS(60);
 		characterLoader = new CharacterLoader(*getWindow());
 		menuAssetManager = new AssetManager(*getWindow(), "assets/menu");
