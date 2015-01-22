@@ -108,7 +108,7 @@ namespace GameLibrary
 
 		typedef struct
 		{
-			unsigned long touchID;
+			unsigned int touchID;
 			bool pressed;
 		} MouseTouchData;
 		ArrayList<MouseTouchData> currentTouches;

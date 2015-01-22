@@ -31,6 +31,8 @@ namespace GameLibrary
 		/*Removes a previously added MultitouchEventListener*/
 		static void removeEventListener(MultitouchEventListener*);
 		
+		static bool isEnabled();
+		
 	private:
 		static void handleTouchMove(Window*window, long long givenID, const Vector2f&pos, const Vector2f&dif);
 		static void handleTouchDown(Window*window, long long givenID, const Vector2f&pos);

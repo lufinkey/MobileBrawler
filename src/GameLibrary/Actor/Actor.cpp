@@ -578,21 +578,21 @@ namespace GameLibrary
 			switch(eventData.second)
 			{
 				case EVENTCALL_MOUSEENTER:
-				onMouseEnter(window, eventData.second);
+				onMouseEnter(window, eventData.first);
 				break;
 
 				case EVENTCALL_MOUSELEAVE:
-				onMouseLeave(window, eventData.second);
+				onMouseLeave(window, eventData.first);
 				break;
 
 				case EVENTCALL_MOUSEPRESS:
 				didpress = true;
-				onMousePress(window, eventData.second);
+				onMousePress(window, eventData.first);
 				break;
 
 				case EVENTCALL_MOUSERELEASE:
 				didrelease = true;
-				onMouseRelease(window, eventData.second);
+				onMouseRelease(window, eventData.first);
 				break;
 			}
 		}

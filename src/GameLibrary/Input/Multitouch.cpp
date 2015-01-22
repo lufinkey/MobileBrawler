@@ -533,6 +533,15 @@ namespace GameLibrary
 		Multitouch_state_mutex.unlock();
 	}
 	
+	bool Multitouch::isEnabled()
+	{
+		#if defined(TARGETPLATFORM_MOBILE)
+			return true;
+		#else
+			return false;
+		#endif
+	}
+	
 	void MultitouchEventListener::onMultitouchDown(Window*window, unsigned int touchID, const Vector2f&touchpos)
 	{
 		//
