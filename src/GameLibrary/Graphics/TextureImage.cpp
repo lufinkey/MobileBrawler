@@ -78,7 +78,7 @@ namespace GameLibrary
 		{
 			throw TextureImageUpdateException(SDL_GetError());
 		}
-
+		
 		GameLibrary::Uint32*texture_pixels = (GameLibrary::Uint32*)pixelptr;
 		unsigned int total = width*height;
 		for(unsigned int i=0; i<total; i++)
@@ -94,7 +94,7 @@ namespace GameLibrary
 			}
 			texture_pixels[i] = color.getRGBA();
 		}
-
+		
 		SDL_UnlockTexture((SDL_Texture*)texture);
 		SDL_SetTextureBlendMode((SDL_Texture*)texture,SDL_BLENDMODE_BLEND);
 	}
@@ -149,12 +149,22 @@ namespace GameLibrary
 					return false;
 				}
 			}
-
+			
 			unsigned int bpp = (unsigned int)surface->format->BytesPerPixel;
+			
+			unsigned int rmask = (unsigned int)surface->format->Rmask;
+			unsigned int rshift = (unsigned int)surface->format->Rshift;
+			unsigned int gmask = (unsigned int)surface->format->Gmask;
+			unsigned int gshift = (unsigned int)surface->format->Gshift;
+			unsigned int bmask = (unsigned int)surface->format->Bmask;
+			unsigned int bshift = (unsigned int)surface->format->Bshift;
+			unsigned int amask = (unsigned int)surface->format->Amask;
+			unsigned int ashift = (unsigned int)surface->format->Ashift;
+			
 			unsigned int w = (unsigned int)surface->w;
 			unsigned int h = (unsigned int)surface->h;
 			unsigned int total = w*h;
-
+			
 			SDL_Texture* newTexture = SDL_CreateTexture((SDL_Renderer*)graphics.renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, (int)w, (int)h);
 			if(newTexture == nullptr)
 			{
@@ -171,7 +181,7 @@ namespace GameLibrary
 				SDL_DestroyTexture((SDL_Texture*)texture);
 				texture = nullptr;
 			}
-
+			
 			void*pixelptr;
 			int pitch;
 			if(SDL_LockTexture(newTexture, nullptr, &pixelptr, &pitch) < 0)
@@ -218,32 +228,25 @@ namespace GameLibrary
 						px.b = surfacePixels[counter+1];
 						px.a = 255;
 						break;
-
+						
 						case 3:
-	#if SDL_BYTEORDER == SDL_BIG_ENDIAN
-						px.r = surfacePixels[counter+2];
-						px.g = surfacePixels[counter+1];
-						px.b = surfacePixels[counter];
-	#else
-						px.r = surfacePixels[counter];
-						px.g = surfacePixels[counter+1];
-						px.b = surfacePixels[counter+2];
-	#endif
-						px.a = 255;
+						{
+							int color = *((int*)&surfacePixels[counter]);
+							px.r = (byte)((color & rmask) >> rshift);
+							px.g = (byte)((color & gmask) >> gshift);
+							px.b = (byte)((color & bmask) >> bshift);
+							px.a = 255;
+						}
 						break;
-
+						
 						case 4:
-	#if SDL_BYTEORDER == SDL_BIG_ENDIAN
-						px.r = surfacePixels[counter+3];
-						px.g = surfacePixels[counter+2];
-						px.b = surfacePixels[counter+1];
-						px.a = surfacePixels[counter];
-	#else
-						px.r = surfacePixels[counter];
-						px.g = surfacePixels[counter+1];
-						px.b = surfacePixels[counter+2];
-						px.a = surfacePixels[counter+3];
-	#endif
+						{
+							int color = *((int*)&surfacePixels[counter]);
+							px.r = (byte)((color & rmask) >> rshift);
+							px.g = (byte)((color & gmask) >> gshift);
+							px.b = (byte)((color & bmask) >> bshift);
+							px.a = (byte)((color & amask) >> ashift);
+						}
 						break;
 					}
 					
@@ -255,8 +258,8 @@ namespace GameLibrary
 					{
 						pixels[i] = false;
 					}
-					unsigned int rgba = px.getRGBA();
-					texture_pixels[i] = rgba;
+					unsigned int abgr = px.getRGBA();
+					texture_pixels[i] = abgr;
 					i++;
 					counter += bpp;
 				}

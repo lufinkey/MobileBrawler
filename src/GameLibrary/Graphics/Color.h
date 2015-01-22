@@ -199,6 +199,7 @@ namespace GameLibrary
 		GameLibrary::Uint32 getRGBA() const;
 		GameLibrary::Uint32 getARGB() const;
 		GameLibrary::Uint32 getABGR() const;
+		GameLibrary::Uint32 getBGRA() const;
 		
 		bool equals(const Color&) const;
 
