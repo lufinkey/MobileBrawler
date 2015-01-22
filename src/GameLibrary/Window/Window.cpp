@@ -427,6 +427,7 @@ namespace GameLibrary
 
 	void Window::setSize(const Vector2u&size)
 	{
+#if defined(TARGETPLATFORM_DESKTOP)
 		if(windowdata != nullptr)
 		{
 			if((settings.style & Window::STYLE_FULLSCREEN) == Window::STYLE_FULLSCREEN)
@@ -445,6 +446,7 @@ namespace GameLibrary
 				view->setSize((float)size.x, (float)size.y);
 			}
 		}
+#endif
 	}
 
 	const String& Window::getTitle()

@@ -1,8 +1,11 @@
 
 #include "TimeInterval.h"
 #include "posixtime.h"
-#include <sys/time.h>
 #include <time.h>
+
+#ifndef _WIN32
+	#include <sys/time.h>
+#endif
 
 namespace GameLibrary
 {

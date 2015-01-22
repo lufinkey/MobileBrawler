@@ -13,7 +13,6 @@ namespace SmashBros
 		
 		BaseMenuScreen::BaseMenuScreen(const SmashData&smashData)
 		{
-			Console::writeLine("base menu screen - called constructor");
 			AssetManager* assetManager = smashData.getMenuData().getAssetManager();
 			
 			img_headerbar_small = assetManager->getTexture("elements/headerbar_small.png");

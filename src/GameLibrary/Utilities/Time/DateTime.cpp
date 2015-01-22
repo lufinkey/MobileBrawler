@@ -7,8 +7,11 @@
 #include "posixtime.h"
 #include "time64/time64.h"
 #include <ctime>
-#include <sys/time.h>
 #include <time.h>
+
+#ifndef _WIN32
+	#include <sys/time.h>
+#endif
 
 //TODO important create separate DateTimeParser class and Locale class. DateTime should not remain in this disorganized state.
 	//DateTimeParser or Locale should have separate profile or info classes on each DateTime character placeholder
