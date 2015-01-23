@@ -360,7 +360,7 @@ namespace GameLibrary
 				}
 				else
 				{
-					any = Number(String::asLongLong(String(str)));
+					any = Number(String::asLongLong(str));
 				}
 			}
 			catch(const NumberFormatException&e)

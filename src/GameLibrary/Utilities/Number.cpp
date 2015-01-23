@@ -1,5 +1,6 @@
 
 #include "Number.h"
+#include "../IO/Console.h"
 
 #ifdef _MSC_VER
 #pragma warning(push)
@@ -714,8 +715,6 @@ namespace GameLibrary
 	class _DerivedIntegralType : public _DerivedNumberType<T>
 	{
 	public:
-		T value;
-		
 		_DerivedIntegralType(const T&val, const Number::NumberType&tp) : _DerivedNumberType<T>(val, tp) {}
 		virtual ~_DerivedIntegralType() {}
 		
@@ -1283,7 +1282,7 @@ namespace GameLibrary
 		}
 		return value->asString();
 	}
-
+	
 #define NUMBER_OPERATION_TONUMBER(operatr, type, defaultReturn) \
 	Number operator operatr(const Number&left, const type&right) \
 	{ \
