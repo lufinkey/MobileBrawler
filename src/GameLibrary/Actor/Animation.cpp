@@ -375,6 +375,10 @@ namespace GameLibrary
 	{
 		unsigned int drawFrame = currentFrame;
 		unsigned int totalFrames = frames.size();
+		if(totalFrames == 0)
+		{
+			return;
+		}
 		if(drawFrame > totalFrames)
 		{
 			if(totalFrames>0)
@@ -386,6 +390,7 @@ namespace GameLibrary
 				drawFrame = 0;
 			}
 		}
+		
 		const AnimationFrame& animFrame = frames.get(drawFrame);
 
 		RectangleF dstRect = getFrame(drawFrame);

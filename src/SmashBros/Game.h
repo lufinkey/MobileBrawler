@@ -20,7 +20,6 @@ namespace SmashBros
 		ScreenManager* menuScreenMgr;
 		
 		Image characterselect_iconmask;
-		Image characterselect_portraitmask;
 
 	public:
 		Game();

@@ -53,12 +53,11 @@ namespace SmashBros
 	
 	void Game::loadContent(AssetManager*assetManager)
 	{
+		//TODO change this when implementing themes
 		characterselect_iconmask.loadFromFile("assets/menu/characterselect/icon_mask.png");
-		characterselect_portraitmask.loadFromFile("assets/menu/characterselect/panel_portrait_mask.png");
 		loadMenuAssets(menuAssetManager);
 		characterLoader->addPath("assets/characters");
 		characterLoader->loadIcons(characterselect_iconmask);
-		characterLoader->loadPortraits(characterselect_portraitmask);
 		titleScreen = new Menu::TitleScreen(*smashData);
 		menuScreenMgr = new ScreenManager(getWindow(), titleScreen);
 	}
@@ -98,13 +97,20 @@ namespace SmashBros
 		batchLoader->addTexture("characterselect/chip_p2.png");
 		batchLoader->addTexture("characterselect/chip_p3.png");
 		batchLoader->addTexture("characterselect/chip_p4.png");
-		batchLoader->addTexture("characterselect/panel_p1.png");
-		batchLoader->addTexture("characterselect/panel_p2.png");
-		batchLoader->addTexture("characterselect/panel_p3.png");
-		batchLoader->addTexture("characterselect/panel_p4.png");
-		batchLoader->addTexture("characterselect/panel_cpu.png");
-		batchLoader->addTexture("characterselect/panel_na.png");
-		batchLoader->addTexture("characterselect/panel_blank.png");
+		batchLoader->addTexture("characterselect/panel_background_p1.png");
+		batchLoader->addTexture("characterselect/panel_background_p2.png");
+		batchLoader->addTexture("characterselect/panel_background_p3.png");
+		batchLoader->addTexture("characterselect/panel_background_p4.png");
+		batchLoader->addTexture("characterselect/panel_background_cpu.png");
+		batchLoader->addTexture("characterselect/panel_background_na.png");
+		batchLoader->addTexture("characterselect/panel_background_blank.png");
+		batchLoader->addTexture("characterselect/panel_overlay_p1.png");
+		batchLoader->addTexture("characterselect/panel_overlay_p2.png");
+		batchLoader->addTexture("characterselect/panel_overlay_p3.png");
+		batchLoader->addTexture("characterselect/panel_overlay_p4.png");
+		batchLoader->addTexture("characterselect/panel_overlay_cpu.png");
+		batchLoader->addTexture("characterselect/panel_overlay_na.png");
+		batchLoader->addTexture("characterselect/panel_overlay_blank.png");
 		batchLoader->addTexture("characterselect/icon_frame.png");
 		
 		batchLoader->addTexture("elements/headerbar_full.png");

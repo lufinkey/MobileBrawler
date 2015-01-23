@@ -44,70 +44,221 @@ namespace SmashBros
 		}
 		
 //PlayerPanel
-		CharacterSelectScreen::PlayerPanel::PlayerPanel(unsigned int pNum, CharacterSelectScreen*screen, float x, float y, AssetManager*assetManager) : SpriteActor(x, y)
+		CharacterSelectScreen::PlayerPanel::PlayerPanel(unsigned int pNum, CharacterSelectScreen*screen, float x, float y, const Dictionary&placementDict, AssetManager*assetManager) : SpriteActor(x, y)
 		{
 			playerNum = pNum;
-			name = new TextActor(x, y+(getHeight()/2), "", assetManager->getFont("fonts/LemonMilk.ttf"), Color::BLACK, 36, Font::STYLE_PLAIN, TextActor::ALIGN_CENTER);
-			name->Actor::scaleToFit(Vector2f((getWidth()*(3.0f/8.0f)), (getHeight()/10)));
-			portrait = new SpriteActor(x,y);
-			portrait->Actor::scaleToFit(Vector2f(getWidth(), getHeight()));
 			charSelectScreen = screen;
-			addAnimation("default", new Animation(1, assetManager, (String)"characterselect/panel_p" + playerNum + ".png"));
-			addAnimation("cpu", new Animation(1, assetManager, "characterselect/panel_cpu.png"));
-			addAnimation("na", new Animation(1, assetManager, "characterselect/panel_na.png"));
-			addAnimation("blank", new Animation(1, assetManager, "characterselect/panel_blank.png"));
-			changeAnimation("na", Animation::FORWARD);
+			
+			addAnimation("default", new Animation(1, assetManager, (String)"characterselect/panel_background_p" + playerNum + ".png"));
+			addAnimation("cpu", new Animation(1, assetManager, (String)"characterselect/panel_background_cpu.png"));
+			addAnimation("na", new Animation(1, assetManager, (String)"characterselect/panel_background_na.png"));
+			addAnimation("blank", new Animation(1, assetManager, (String)"characterselect/panel_background_blank.png"));
+			changeAnimation("default", Animation::FORWARD);
+			
+			portrait = new SpriteActor(x,y);
+			portrait_anim = new Animation(1);
+			portrait->addAnimation("default", portrait_anim, false);
+			portrait->changeAnimation("default", Animation::FORWARD);
+			
+			overlay = new SpriteActor(x,y);
+			overlay->addAnimation("default", new Animation(1, assetManager, (String)"characterselect/panel_overlay_p" + playerNum + ".png"));
+			overlay->addAnimation("cpu", new Animation(1, assetManager, "characterselect/panel_overlay_cpu.png"));
+			overlay->addAnimation("na", new Animation(1, assetManager, "characterselect/panel_overlay_na.png"));
+			overlay->addAnimation("blank", new Animation(1, assetManager, "characterselect/panel_overlay_blank.png"));
+			overlay->changeAnimation("na", Animation::FORWARD);
+			
+			namebox = new TextActor(x, y, "", assetManager->getFont("fonts/LemonMilk.ttf"), Color::BLACK, 36, Font::STYLE_PLAIN, TextActor::ALIGN_CENTER);
+			
+			tapRegion = new WireframeActor();
+			tapRegion->setVisible(false);
 		}
 		
 		CharacterSelectScreen::PlayerPanel::~PlayerPanel()
 		{
-			delete name;
+			delete namebox;
+			delete overlay;
 			delete portrait;
+		}
+		
+		void CharacterSelectScreen::PlayerPanel::applyPlacementProperties(const Dictionary&placementDict)
+		{
+			const Any& portraitDict = placementDict.get("portrait");
+			if(!portraitDict.empty() && portraitDict.is<Dictionary>())
+			{
+				applyPlacementDict(&portrait_bounds, portraitDict.as<Dictionary>(false));
+			}
+			const Any& overlayDict = placementDict.get("overlay");
+			if(!overlayDict.empty() && overlayDict.is<Dictionary>())
+			{
+				applyPlacementDict(&overlay_bounds, overlayDict.as<Dictionary>(false));
+			}
+			const Any& nameboxDict = placementDict.get("namebox");
+			if(!nameboxDict.empty() && nameboxDict.is<Dictionary>())
+			{
+				const Dictionary&namebox_dict = nameboxDict.as<Dictionary>(false);
+				applyPlacementDict(&namebox_bounds, nameboxDict);
+				const Any& alignment_val = namebox_dict.get("alignment");
+				if(!alignment_val.empty() && alignment_val.is<String>())
+				{
+					String alignment = alignment_val.as<String>(false);
+					if(alignment.equals("center"))
+					{
+						namebox->setAlignment(TextActor::ALIGN_CENTER);
+					}
+					else if(alignment.equals("bottomleft"))
+					{
+						namebox->setAlignment(TextActor::ALIGN_BOTTOMLEFT);
+					}
+					else if(alignment.equals("bottomright"))
+					{
+						namebox->setAlignment(TextActor::ALIGN_BOTTOMRIGHT);
+					}
+					else if(alignment.equals("topleft"))
+					{
+						namebox->setAlignment(TextActor::ALIGN_TOPLEFT);
+					}
+					else if(alignment.equals("topright"))
+					{
+						namebox->setAlignment(TextActor::ALIGN_TOPRIGHT);
+					}
+				}
+				const Any& color_val = namebox_dict.get("color");
+				if(!color_val.empty() && color_val.is<Dictionary>())
+				{
+					const Dictionary& color_dict = color_val.as<Dictionary>(false);
+					const Any& r_val = color_dict.get("r");
+					const Any& g_val = color_dict.get("g");
+					const Any& b_val = color_dict.get("b");
+					const Any& a_val = color_dict.get("a");
+					Color color = namebox->getColor();
+					if(!r_val.empty() && r_val.is<Number>())
+					{
+						color.r = r_val.as<Number>(false).asUnsignedChar();
+					}
+					if(!g_val.empty() && g_val.is<Number>())
+					{
+						color.g = g_val.as<Number>(false).asUnsignedChar();
+					}
+					if(!b_val.empty() && b_val.is<Number>())
+					{
+						color.b = b_val.as<Number>(false).asUnsignedChar();
+					}
+					if(!a_val.empty() && a_val.is<Number>())
+					{
+						color.a = a_val.as<Number>(false).asUnsignedChar();
+					}
+					namebox->setColor(color);
+				}
+			}
+		}
+		
+		void CharacterSelectScreen::PlayerPanel::applyPlacementDict(RectF*bounds, const Dictionary&dict)
+		{
+			if(bounds == nullptr)
+			{
+				return;
+			}
+			
+			const Any& left_val = dict.get("left");
+			const Any& top_val = dict.get("top");
+			const Any& right_val = dict.get("right");
+			const Any& bottom_val = dict.get("bottom");
+			if(!left_val.empty() && left_val.is<Number>())
+			{
+				bounds->left = left_val.as<Number>(false).asFloat();
+			}
+			if(!top_val.empty() && top_val.is<Number>())
+			{
+				bounds->top = top_val.as<Number>(false).asFloat();
+			}
+			if(!right_val.empty() && right_val.is<Number>())
+			{
+				bounds->right = right_val.as<Number>(false).asFloat();
+			}
+			if(!bottom_val.empty() && bottom_val.is<Number>())
+			{
+				bounds->bottom = bottom_val.as<Number>(false).asFloat();
+			}
+		}
+		
+		RectangleF CharacterSelectScreen::PlayerPanel::getPlacementFrame(const RectangleF&container, const RectF&bounds)
+		{
+			Vector2f overlay_topleft(bounds.left*container.width, bounds.top*container.height);
+			Vector2f overlay_bottomright(bounds.right*container.width, bounds.bottom*container.height);
+			return RectangleF(container.x+overlay_topleft.x, container.y+overlay_topleft.y, overlay_bottomright.x-overlay_topleft.x, overlay_bottomright.y-overlay_topleft.y);
 		}
 		
 		void CharacterSelectScreen::PlayerPanel::update(ApplicationData appData)
 		{
 			SpriteActor::update(appData);
-			CharacterInfo*charInfo = charSelectScreen->rules->getPlayerInfo(playerNum).getCharacterInfo();
-			if(charInfo == nullptr)
+			
+			RectangleF frame = getFrame();
+			
+			tapRegion->x = frame.x;
+			tapRegion->y = frame.y;
+			tapRegion->setSize(frame.width, frame.height);
+			tapRegion->update(appData);
+			
+			if(tapRegion->didMouseRelease())
 			{
-				if(!name->getText().equals(""))
-				{
-					name->setText("");
-				}
-			}
-			else
-			{
-				String charName = charInfo->getName();
-				if(!name->getText().equals(charName))
-				{
-					name->setText(charName);
-				}
+				//TODO add switching between CPU, Human, and NA
 			}
 			
-			name->Actor::scaleToFit(Vector2f((getWidth()*(3.0f/8.0f)), (getHeight()/8)));
-			name->x = x + (getWidth()/10);
-			name->y = y + (getHeight()/2) - (name->getHeight()*(3.0f/4.0f));
-			name->update(appData);
+			RectangleF portrait_frame = getPlacementFrame(frame, portrait_bounds);
+			portrait->scaleToFit(portrait_frame);
+			portrait->update(appData);
 			
-			portrait->Actor::scaleToFit(Vector2f(getWidth(), getHeight()));
-			portrait->x = x;
-			portrait->y = y;
+			RectangleF overlay_frame = getPlacementFrame(frame, overlay_bounds);
+			overlay->scaleToFit(overlay_frame);
+			overlay->update(appData);
+			
+			RectangleF namebox_frame = getPlacementFrame(frame, namebox_bounds);
+			namebox->scaleToFit(namebox_frame);
+			namebox->update(appData);
 		}
 		
 		void CharacterSelectScreen::PlayerPanel::draw(ApplicationData appData, Graphics graphics) const
 		{
 			SpriteActor::draw(appData, graphics);
 			
-			name->Actor::scaleToFit(Vector2f((getWidth()*(3.0f/8.0f)), (getHeight()/8)));
-			name->x = x + (getWidth()/10);
-			name->y = y + (getHeight()/2) - (name->getHeight()*(3.0f/4.0f));
-			name->draw(appData, graphics);
+			RectangleF frame = getFrame();
 			
-			portrait->Actor::scaleToFit(Vector2f(getWidth(), getHeight()));
-			portrait->x = x;
-			portrait->y = y;
+			RectangleF portrait_frame = getPlacementFrame(frame, portrait_bounds);
+			portrait->scaleToFit(portrait_frame);
 			portrait->draw(appData, graphics);
+			
+			RectangleF overlay_frame = getPlacementFrame(frame, overlay_bounds);
+			overlay->scaleToFit(overlay_frame);
+			overlay->draw(appData, graphics);
+			
+			RectangleF namebox_frame = getPlacementFrame(frame, namebox_bounds);
+			namebox->scaleToFit(namebox_frame);
+			namebox->draw(appData, graphics);
+		}
+		
+		unsigned int CharacterSelectScreen::PlayerPanel::getPlayerNum() const
+		{
+			return playerNum;
+		}
+		
+		void CharacterSelectScreen::PlayerPanel::applyCharacterInfo(CharacterInfo*characterInfo)
+		{
+			if(characterInfo == nullptr)
+			{
+				namebox->setText("");
+				portrait_anim->clear();
+				portrait->updateSize();
+			}
+			else
+			{
+				namebox->setText(characterInfo->getName());
+				portrait_anim->clear();
+				AssetManager* characterAssetMgr = charSelectScreen->getCharacterLoader()->getAssetManager();
+				//TODO change portrait path when implementing costumes
+				String portraitPath = characterInfo->getPath() + "/portrait.png";
+				portrait_anim->addFrame(characterAssetMgr, portraitPath);
+				portrait->updateSize();
+			}
 		}
 		
 //PlayerChip
@@ -212,13 +363,19 @@ namespace SmashBros
 					}
 				}
 			}
+			CharacterInfo* oldInfo = charSelectScreen->rules->getPlayerInfo(playerNum).getCharacterInfo();
 			charSelectScreen->rules->getPlayerInfo(playerNum).setCharacterInfo(overlap_charInfo);
+			if(oldInfo != overlap_charInfo)
+			{
+				charSelectScreen->whenPlayerCharacterChanges(playerNum, overlap_charInfo);
+			}
 		}
 		
 //CharacterSelectScreen
 		CharacterSelectScreen::CharacterSelectScreen(const SmashData&smashData) : SmashBros::Menu::BaseMenuScreen(smashData)
 		{
 			rules = smashData.getRules();
+			characterLoader = smashData.getCharacterLoader();
 			iconGrid = nullptr;
 		}
 		
@@ -236,6 +393,16 @@ namespace SmashBros
 			{
 				delete panels.get(i);
 			}
+		}
+		
+		Rules* CharacterSelectScreen::getRules() const
+		{
+			return rules;
+		}
+		
+		CharacterLoader* CharacterSelectScreen::getCharacterLoader() const
+		{
+			return characterLoader;
 		}
 		
 		void CharacterSelectScreen::reloadIcons(const SmashData&smashData)
@@ -322,11 +489,17 @@ namespace SmashBros
 			float offsetX = frame.x + (panelframe_width/2);
 			float offsetY = frame.y + (frame.height/2);
 			
+			String menuAssetsRoot = smashData.getMenuData().getAssetManager()->getRootDirectory();
+			Dictionary placementDict;
+			//TODO change this when implementing themes
+			placementDict.loadFromFile(menuAssetsRoot + "/characterselect/panel.plist");
+			
 			for(unsigned int i = 0; i < playerCount; i++)
 			{
 				unsigned int playerNum = i+1;
-				PlayerPanel* panel = new PlayerPanel(playerNum, this, offsetX + (panelframe_width*(float)i), offsetY, smashData.getMenuData().getAssetManager());
+				PlayerPanel* panel = new PlayerPanel(playerNum, this, offsetX + (panelframe_width*(float)i), offsetY, placementDict, smashData.getMenuData().getAssetManager());
 				panel->Actor::scaleToFit(Vector2f(panelframe_width, panelframe_height));
+				panel->applyPlacementProperties(placementDict);
 				panels.add(panel);
 				PlayerChip* chip = new PlayerChip(playerNum, this, panel->x-(panel->getWidth()/2), panel->y, smashData.getMenuData().getAssetManager());
 				chip->Actor::scaleToFit(Vector2f(panelframe_width/3, panelframe_height/3));
@@ -381,6 +554,19 @@ namespace SmashBros
 			for(unsigned int i=0; i<chips_list.size(); i++)
 			{
 				chips_list.get(i)->draw(appData, graphics);
+			}
+		}
+		
+		void CharacterSelectScreen::whenPlayerCharacterChanges(unsigned int playerNum, CharacterInfo*characterInfo)
+		{
+			for(unsigned int i=0; i<panels.size(); i++)
+			{
+				PlayerPanel*panel = panels.get(i);
+				if(playerNum == panel->getPlayerNum())
+				{
+					panel->applyCharacterInfo(characterInfo);
+					return;
+				}
 			}
 		}
 	}

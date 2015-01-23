@@ -188,13 +188,31 @@ namespace GameLibrary
 	
 	void SpriteActor::updateSize()
 	{
-		if(animation_current == nullptr)
+		if(animation_current == nullptr || animation_current->getTotalFrames()==0)
 		{
 			framesize.x = 0;
 			framesize.y = 0;
 			width = 0;
 			height = 0;
 			return;
+		}
+		
+		if(animation_frame > animation_current->getTotalFrames())
+		{
+			switch(animation_direction)
+			{
+				case Animation::NO_CHANGE:
+				animation_direction = Animation::FORWARD;
+				
+				case Animation::STOPPED:
+				case Animation::FORWARD:
+				animation_frame = 0;
+				break;
+				
+				case Animation::BACKWARD:
+				animation_frame = animation_current->getTotalFrames()-1;
+				break;
+			}
 		}
 		
 		RectangleF frame = animation_current->getFrame(animation_frame);

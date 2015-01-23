@@ -97,13 +97,13 @@ namespace BrawlerLibrary
 		}
 	}
 	
-	void CharacterLoader::loadPortraits(const Image&compositeMask)
+	void CharacterLoader::loadPortraits()
 	{
 		for(unsigned int i = 0; i < characters.size(); i++)
 		{
 			String portraitPath = characters.get(i).getPath() + "/portrait.png";
 			assetManager->unloadTexture(portraitPath);
-			assetManager->loadTexture(portraitPath, compositeMask);
+			assetManager->loadTexture(portraitPath);
 		}
 	}
 	

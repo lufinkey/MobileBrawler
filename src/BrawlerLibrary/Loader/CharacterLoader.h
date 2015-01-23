@@ -23,7 +23,7 @@ namespace BrawlerLibrary
 		void reloadPaths();
 		
 		void loadIcons(const Image&compositeMask=Image());
-		void loadPortraits(const Image&compositeMask=Image());
+		void loadPortraits();
 		
 		const ArrayList<String>& getPaths() const;
 		const ArrayList<CharacterInfo>& getCharacters() const;

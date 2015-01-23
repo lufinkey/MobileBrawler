@@ -1,6 +1,5 @@
 
 #include "Number.h"
-#include "../IO/Console.h"
 
 #ifdef _MSC_VER
 #pragma warning(push)

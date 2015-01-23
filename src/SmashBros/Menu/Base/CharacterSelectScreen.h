@@ -15,6 +15,7 @@ namespace SmashBros
 			virtual ~CharacterSelectScreen();
 			
 			Rules* getRules() const;
+			CharacterLoader* getCharacterLoader() const;
 			
 		protected:
 			void reloadIcons(const SmashData&smashData);
@@ -22,7 +23,8 @@ namespace SmashBros
 
 			virtual void updateItems(ApplicationData appData);
 			virtual void drawItems(ApplicationData appData, Graphics graphics) const;
-
+			
+		private:
 			class CharacterIcon : public SpriteActor
 			{
 			private:
@@ -43,17 +45,33 @@ namespace SmashBros
 			{
 			private:
 				unsigned int playerNum;
-				TextActor* name;
+				
 				SpriteActor* portrait;
 				Animation* portrait_anim;
-
+				SpriteActor* overlay;
+				TextActor* namebox;
+				WireframeActor* tapRegion;
+				
 				CharacterSelectScreen*charSelectScreen;
+				
+				RectF portrait_bounds;
+				RectF overlay_bounds;
+				RectF namebox_bounds;
+				
+				static void applyPlacementDict(RectF*bounds, const Dictionary&dict);
+				static RectangleF getPlacementFrame(const RectangleF&container, const RectF&bounds);
+
 			public:
-				PlayerPanel(unsigned int playerNum, CharacterSelectScreen*charSelectScreen, float x, float y, AssetManager*assetManager);
+				PlayerPanel(unsigned int playerNum, CharacterSelectScreen*charSelectScreen, float x, float y, const Dictionary&placementDict, AssetManager*assetManager);
 				virtual ~PlayerPanel();
 				
 				virtual void update(ApplicationData appData);
 				virtual void draw(ApplicationData appData, Graphics graphics) const;
+				
+				unsigned int getPlayerNum() const;
+				
+				void applyPlacementProperties(const Dictionary&placementDict);
+				void applyCharacterInfo(CharacterInfo*characterInfo);
 			};
 			
 			class PlayerChip : public SpriteActor
@@ -63,6 +81,7 @@ namespace SmashBros
 				CharacterSelectScreen*charSelectScreen;
 				unsigned int dragTouchID;
 				bool dragging;
+				
 			public:
 				PlayerChip(unsigned int playerNum, CharacterSelectScreen*charSelectScreen, float x, float y, AssetManager*assetManager);
 				virtual ~PlayerChip();
@@ -70,8 +89,10 @@ namespace SmashBros
 				virtual void update(ApplicationData appData);
 			};
 			
-		private:
+			void whenPlayerCharacterChanges(unsigned int playerNum, CharacterInfo*characterInfo);
+
 			Rules*rules;
+			CharacterLoader* characterLoader;
 			RectangleF iconGridFrame;
 			ActorGrid*iconGrid;
 			ArrayList<CharacterIcon*> icons;

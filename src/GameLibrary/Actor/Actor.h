@@ -78,7 +78,6 @@ namespace GameLibrary
 		virtual void onMouseEnter(Window*window, unsigned int touchID);
 		virtual void onMouseLeave(Window*window, unsigned int touchID);
 		
-	protected:
 		virtual void updateSize();
 		virtual bool checkPointCollision(const Vector2f&point);
 		
