@@ -16,8 +16,13 @@ namespace SmashBros
 			Actor* soloButton;
 			
 			FadeColorTransition* backTransition;
+            FadeZoomTransition* fzTransition;
+            
+            // Can't find a way to access the pop directions so
+            // I'm assuming it will crash if accessed without it
+            //PopoverTransition* popTransition;
 			
-			GroupMenu* groupMenu;
+			//GroupMenu* groupMenu;
 			SoloMenu* soloMenu;
 			
 		public:

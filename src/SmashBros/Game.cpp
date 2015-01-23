@@ -81,6 +81,10 @@ namespace SmashBros
 	
 	void Game::loadMenuAssets(AssetManager*assetManager)
 	{
+        /* 
+         Load game assets into memory.
+         Make sure to add any resources to project first
+         */
 		BatchLoader* batchLoader = new BatchLoader(assetManager);
 		
 		batchLoader->addTexture("backgrounds/main.png");

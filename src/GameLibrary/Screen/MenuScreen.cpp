@@ -107,6 +107,7 @@ namespace GameLibrary
 		keyboardEnabled = false;
 		pressingItem = false;
 		GameLibrary::ScreenElement* element = getElement();
+#pragma message ("Game crashes on line below:")
 		mainElement = new MainElement(this, element->getFrame());
 		element->addChildElement(mainElement);
 	}

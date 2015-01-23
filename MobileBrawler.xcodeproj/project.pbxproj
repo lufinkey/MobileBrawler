@@ -118,6 +118,7 @@
 		A01658521A714D93007D0BA1 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A01658511A714D93007D0BA1 /* GameKit.framework */; };
 		A01658541A714DB0007D0BA1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A01658531A714DB0007D0BA1 /* MobileCoreServices.framework */; };
 		A01658561A714DD4007D0BA1 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A01658551A714DD4007D0BA1 /* ImageIO.framework */; };
+		E95FE0E31A7161DE0051E5EF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E95FE0E21A7161DE0051E5EF /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -337,6 +338,7 @@
 		A01658511A714D93007D0BA1 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		A01658531A714DB0007D0BA1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		A01658551A714DD4007D0BA1 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		E95FE0E21A7161DE0051E5EF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MobileBrawler/Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -368,6 +370,7 @@
 		A016565B1A70A6F6007D0BA1 = {
 			isa = PBXGroup;
 			children = (
+				E95FE0E21A7161DE0051E5EF /* Images.xcassets */,
 				A01656891A70C16B007D0BA1 /* src */,
 				A01656841A70AA0C007D0BA1 /* resources */,
 				A01657C41A70C27C007D0BA1 /* external */,
@@ -953,6 +956,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A016567A1A70A6F6007D0BA1 /* Default.png in Resources */,
+				E95FE0E31A7161DE0051E5EF /* Images.xcassets in Resources */,
 				A016567C1A70A6F6007D0BA1 /* Default@2x.png in Resources */,
 				A016567E1A70A6F6007D0BA1 /* Default-568h@2x.png in Resources */,
 				A01656861A70AB8D007D0BA1 /* assets in Resources */,
@@ -1135,14 +1139,20 @@
 		A01656821A70A6F6007D0BA1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobileBrawler-Prefix.pch";
 				INFOPLIST_FILE = "MobileBrawler-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/external/SDL/lib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1150,14 +1160,20 @@
 		A01656831A70A6F6007D0BA1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobileBrawler-Prefix.pch";
 				INFOPLIST_FILE = "MobileBrawler-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/external/SDL/lib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

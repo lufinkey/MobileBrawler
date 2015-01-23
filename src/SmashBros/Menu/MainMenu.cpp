@@ -23,6 +23,7 @@ namespace SmashBros
 		MainMenu::~MainMenu()
 		{
 			delete backTransition;
+            delete fzTransition;
 			delete groupMenu;
 			delete soloMenu;
 		}

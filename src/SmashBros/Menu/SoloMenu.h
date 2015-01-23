@@ -1,5 +1,6 @@
 
 #include "Base/BaseMenuScreen.h"
+#include "GroupSmashCharacterSelectMenu.h"
 
 namespace SmashBros
 {
@@ -9,6 +10,7 @@ namespace SmashBros
 		{
 		private:
 			Actor* trainingButton;
+            GroupSmashCharacterSelectMenu *smashMenu;
 			
 		public:
 			SoloMenu(const SmashData&smashData);
