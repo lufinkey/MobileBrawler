@@ -58,6 +58,7 @@ namespace SmashBros
 		loadMenuAssets(menuAssetManager);
 		characterLoader->addPath("assets/characters");
 		characterLoader->loadIcons(characterselect_iconmask);
+		characterLoader->loadPortraits();
 		titleScreen = new Menu::TitleScreen(*smashData);
 		menuScreenMgr = new ScreenManager(getWindow(), titleScreen);
 	}

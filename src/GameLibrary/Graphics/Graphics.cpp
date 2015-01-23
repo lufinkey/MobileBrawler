@@ -7,7 +7,6 @@
 #include "../Utilities/PlatformChecks.h"
 #include "../Window/Window.h"
 #include <SDL.h>
-#include <SDL_renderdriver.h>
 
 namespace GameLibrary
 {
