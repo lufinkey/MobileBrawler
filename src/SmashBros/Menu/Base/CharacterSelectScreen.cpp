@@ -10,7 +10,7 @@ namespace SmashBros
 		{
 			info = &characterInfo;
 			String icon_path = characterInfo.getPath() + "/icon.png";
-			addAnimation("default", new Animation(assetManager, 1, icon_path));
+			addAnimation("default", new Animation(1, assetManager, icon_path));
 			changeAnimation("default", Animation::FORWARD);
 		}
 		
@@ -47,19 +47,22 @@ namespace SmashBros
 		CharacterSelectScreen::PlayerPanel::PlayerPanel(unsigned int pNum, CharacterSelectScreen*screen, float x, float y, AssetManager*assetManager) : SpriteActor(x, y)
 		{
 			playerNum = pNum;
-			characterName = new TextActor(x, y+(getHeight()/2), "", assetManager->getFont("fonts/LemonMilk.ttf"), Color::BLACK, 36, Font::STYLE_PLAIN, TextActor::ALIGN_CENTER);
-			characterName->Actor::scaleToFit(Vector2f((getWidth()*(3.0f/8.0f)), (getHeight()/10)));
+			name = new TextActor(x, y+(getHeight()/2), "", assetManager->getFont("fonts/LemonMilk.ttf"), Color::BLACK, 36, Font::STYLE_PLAIN, TextActor::ALIGN_CENTER);
+			name->Actor::scaleToFit(Vector2f((getWidth()*(3.0f/8.0f)), (getHeight()/10)));
+			portrait = new SpriteActor(x,y);
+			portrait->Actor::scaleToFit(Vector2f(getWidth(), getHeight()));
 			charSelectScreen = screen;
-			addAnimation("default", new Animation(assetManager, 1, (String)"characterselect/panel_p" + playerNum + ".png"));
-			addAnimation("cpu", new Animation(assetManager, 1, "characterselect/panel_cpu.png"));
-			addAnimation("na", new Animation(assetManager, 1, "characterselect/panel_na.png"));
-			addAnimation("blank", new Animation(assetManager, 1, "characterselect/panel_blank.png"));
+			addAnimation("default", new Animation(1, assetManager, (String)"characterselect/panel_p" + playerNum + ".png"));
+			addAnimation("cpu", new Animation(1, assetManager, "characterselect/panel_cpu.png"));
+			addAnimation("na", new Animation(1, assetManager, "characterselect/panel_na.png"));
+			addAnimation("blank", new Animation(1, assetManager, "characterselect/panel_blank.png"));
 			changeAnimation("na", Animation::FORWARD);
 		}
 		
 		CharacterSelectScreen::PlayerPanel::~PlayerPanel()
 		{
-			//
+			delete name;
+			delete portrait;
 		}
 		
 		void CharacterSelectScreen::PlayerPanel::update(ApplicationData appData)
@@ -68,32 +71,43 @@ namespace SmashBros
 			CharacterInfo*charInfo = charSelectScreen->rules->getPlayerInfo(playerNum).getCharacterInfo();
 			if(charInfo == nullptr)
 			{
-				if(!characterName->getText().equals(""))
+				if(!name->getText().equals(""))
 				{
-					characterName->setText("");
+					name->setText("");
 				}
 			}
 			else
 			{
 				String charName = charInfo->getName();
-				if(!characterName->getText().equals(charName))
+				if(!name->getText().equals(charName))
 				{
-					characterName->setText(charName);
+					name->setText(charName);
 				}
 			}
-			characterName->Actor::scaleToFit(Vector2f((getWidth()*(3.0f/8.0f)), (getHeight()/8)));
-			characterName->x = x + (getWidth()/10);
-			characterName->y = y + (getHeight()/2) - (characterName->getHeight()*(3.0f/4.0f));
-			characterName->update(appData);
+			
+			name->Actor::scaleToFit(Vector2f((getWidth()*(3.0f/8.0f)), (getHeight()/8)));
+			name->x = x + (getWidth()/10);
+			name->y = y + (getHeight()/2) - (name->getHeight()*(3.0f/4.0f));
+			name->update(appData);
+			
+			portrait->Actor::scaleToFit(Vector2f(getWidth(), getHeight()));
+			portrait->x = x;
+			portrait->y = y;
 		}
 		
 		void CharacterSelectScreen::PlayerPanel::draw(ApplicationData appData, Graphics graphics) const
 		{
 			SpriteActor::draw(appData, graphics);
-			characterName->Actor::scaleToFit(Vector2f((getWidth()*(3.0f/8.0f)), (getHeight()/8)));
-			characterName->x = x + (getWidth()/10);
-			characterName->y = y + (getHeight()/2) - (characterName->getHeight()*(3.0f/4.0f));
-			characterName->draw(appData, graphics);
+			
+			name->Actor::scaleToFit(Vector2f((getWidth()*(3.0f/8.0f)), (getHeight()/8)));
+			name->x = x + (getWidth()/10);
+			name->y = y + (getHeight()/2) - (name->getHeight()*(3.0f/4.0f));
+			name->draw(appData, graphics);
+			
+			portrait->Actor::scaleToFit(Vector2f(getWidth(), getHeight()));
+			portrait->x = x;
+			portrait->y = y;
+			portrait->draw(appData, graphics);
 		}
 		
 //PlayerChip
@@ -101,8 +115,8 @@ namespace SmashBros
 		{
 			playerNum = pNum;
 			charSelectScreen = screen;
-			addAnimation("default", new Animation(assetManager, 1, (String)"characterselect/chip_p" + playerNum + ".png"));
-			addAnimation("cpu", new Animation(assetManager, 1, "characterselect/chip_cpu.png"));
+			addAnimation("default", new Animation(1, assetManager, (String)"characterselect/chip_p" + playerNum + ".png"));
+			addAnimation("cpu", new Animation(1, assetManager, "characterselect/chip_cpu.png"));
 			changeAnimation("default", Animation::FORWARD);
 			dragging = false;
 			dragTouchID = 0;

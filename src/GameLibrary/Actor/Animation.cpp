@@ -65,7 +65,7 @@ namespace GameLibrary
 		mirrored = animation.mirrored;
 		mirroredVertical = animation.mirroredVertical;
 	}
-
+	
 	Animation& Animation::operator=(const Animation&animation)
 	{
 		currentFrame = animation.currentFrame;
@@ -80,21 +80,22 @@ namespace GameLibrary
 	Animation::Animation(unsigned int fps_arg)
 	{
 		fps = fps_arg;
+		currentFrame = 0;
 		mirrored = false;
 		mirroredVertical = false;
 	}
 
-	Animation::Animation(AssetManager*assetManager, unsigned int fps, const String&file) : Animation(fps)
+	Animation::Animation(unsigned int fps, AssetManager*assetManager, const String&file) : Animation(fps)
 	{
 		addFrame(assetManager, file);
 	}
 
-	Animation::Animation(AssetManager*assetManager, unsigned int fps, unsigned int rows, unsigned int cols, const String&file) : Animation(fps)
+	Animation::Animation(unsigned int fps, unsigned int rows, unsigned int cols, AssetManager*assetManager, const String&file) : Animation(fps)
 	{
 		addFrames(assetManager, file, rows, cols);
 	}
 
-	Animation::Animation(AssetManager*assetManager, unsigned int fps, unsigned int rows, unsigned int cols, const String&file, const ArrayList<Vector2u>& sequence) : Animation(fps)
+	Animation::Animation(unsigned int fps, unsigned int rows, unsigned int cols, AssetManager*assetManager, const String&file, const ArrayList<Vector2u>& sequence) : Animation(fps)
 	{
 		addFrames(assetManager, file, rows, cols, sequence);
 	}

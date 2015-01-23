@@ -43,7 +43,9 @@ namespace SmashBros
 			{
 			private:
 				unsigned int playerNum;
-				TextActor* characterName;
+				TextActor* name;
+				SpriteActor* portrait;
+				Animation* portrait_anim;
 
 				CharacterSelectScreen*charSelectScreen;
 			public:

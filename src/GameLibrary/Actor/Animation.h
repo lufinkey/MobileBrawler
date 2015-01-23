@@ -24,9 +24,10 @@ namespace GameLibrary
 		typedef enum Direction Direction;
 
 		Animation(const Animation&);
-		Animation(AssetManager*assetManager, unsigned int fps, const String&file=String());
-		Animation(AssetManager*assetManager, unsigned int fps, unsigned int rows, unsigned int cols, const String&file);
-		Animation(AssetManager*assetManager, unsigned int fps, unsigned int rows, unsigned int cols, const String&file, const ArrayList<Vector2u>& sequence);
+		Animation(unsigned int fps);
+		Animation(unsigned int fps, AssetManager*assetManager, const String&file);
+		Animation(unsigned int fps, unsigned int rows, unsigned int cols, AssetManager*assetManager, const String&file);
+		Animation(unsigned int fps, unsigned int rows, unsigned int cols, AssetManager*assetManager, const String&file, const ArrayList<Vector2u>& sequence);
 		virtual ~Animation();
 
 		Animation& operator=(const Animation&);
@@ -85,8 +86,6 @@ namespace GameLibrary
 			
 			RectangleI getSourceRect() const;
 		};
-
-		Animation(unsigned int fps);
 
 		unsigned int currentFrame;
 		ArrayList<AnimationFrame> frames;

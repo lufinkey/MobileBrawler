@@ -82,77 +82,8 @@
     <Filter Include="src\SmashBros\Menu">
       <UniqueIdentifier>{c1bbaa57-ae03-4a23-bb97-647f07037720}</UniqueIdentifier>
     </Filter>
-    <Filter Include="assets">
-      <UniqueIdentifier>{507741fa-cfb0-4cf0-a972-17afe75b1d1a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\characters">
-      <UniqueIdentifier>{d50fd7e9-58da-4996-9254-678450382ef5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\fonts">
-      <UniqueIdentifier>{ed4a7290-6991-4427-b3b9-1e4ab163633e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\test">
-      <UniqueIdentifier>{bed69406-bc91-45bf-b8a2-cdd195018bda}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\stages">
-      <UniqueIdentifier>{ee5f56e7-6a49-4f51-80cd-2ef4d5ef45f1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\menu">
-      <UniqueIdentifier>{ccb7e0c5-6e8b-43e6-8437-03a6a77736d5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\characters\bowser">
-      <UniqueIdentifier>{6d233b72-5efb-4896-a19f-21754ae5201a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\characters\fox">
-      <UniqueIdentifier>{e3d97f95-6627-4500-8094-e05f89fbc366}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\characters\ichigo">
-      <UniqueIdentifier>{8127ab90-d91f-4c28-9a9f-be6af8e3750f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\characters\kirby">
-      <UniqueIdentifier>{de230218-a63e-4af5-8418-c9d934f1bd53}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\characters\link">
-      <UniqueIdentifier>{6709464b-4a7d-4596-baee-1c970e1d0c15}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\characters\sonic">
-      <UniqueIdentifier>{b81fe9ea-58fd-4db7-b3ec-e2b38c40d0dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\characters\pikachu">
-      <UniqueIdentifier>{faafd7aa-133d-4c21-bc9f-4cf51e8c46bf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\characters\mario">
-      <UniqueIdentifier>{f27046cc-140f-4fbb-ba62-a5c410c73e8f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\menu\backgrounds">
-      <UniqueIdentifier>{2c75c768-cfef-4409-acdd-ca0cfa3b65a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\menu\buttons">
-      <UniqueIdentifier>{2953ab91-8a7e-4a2b-9704-033b854c5791}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\menu\elements">
-      <UniqueIdentifier>{f7264ac0-3563-4d5a-a72f-5dd740f72579}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\menu\titlescreen">
-      <UniqueIdentifier>{d571c32a-17b2-4d76-813d-c762aeaf611f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\SmashBros\Menu\Elements">
       <UniqueIdentifier>{d32cc984-c28c-47cc-a3f9-e2f367d45a0b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\menu\buttons\solo">
-      <UniqueIdentifier>{b66d7ea1-0c22-413d-b8ae-90c83fd6b861}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\menu\buttons\group">
-      <UniqueIdentifier>{b4f227da-f61a-436f-b4ae-fabd38740c58}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\menu\buttons\main">
-      <UniqueIdentifier>{08b6fc81-3ffe-436d-9ff8-94ef9063e82a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\menu\characterselect">
-      <UniqueIdentifier>{5af8126a-0a12-4226-8c53-a9febbe16639}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\menu\fonts">
-      <UniqueIdentifier>{1e1a344d-6a04-4db1-bfe3-22e811de9454}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\BrawlerLibrary">
       <UniqueIdentifier>{2b87e8e0-f8a5-4790-abfb-8176fb7291e6}</UniqueIdentifier>
@@ -162,12 +93,6 @@
     </Filter>
     <Filter Include="external">
       <UniqueIdentifier>{df520f86-68e5-4efa-a057-b031b643740c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\characters\mario\costumes">
-      <UniqueIdentifier>{833630a4-d6a3-4167-a4fd-babefeafbfae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="assets\characters\mario\costumes\default">
-      <UniqueIdentifier>{106f0c3a-aa48-4f56-8689-79dc70a7d3d0}</UniqueIdentifier>
     </Filter>
     <Filter Include="external\pugixml">
       <UniqueIdentifier>{314efd25-1188-4e6b-b323-571dbc3a6ea1}</UniqueIdentifier>
@@ -767,110 +692,5 @@
     <ClInclude Include="src\GameLibrary\Exception\Utilities\IllegalNumberOperationException.h">
       <Filter>src\GameLibrary\Exception\Utilities</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="assets\menu\elements\headerbar_full.png">
-      <Filter>assets\menu\elements</Filter>
-    </Image>
-    <Image Include="assets\menu\elements\headerbar_small.png">
-      <Filter>assets\menu\elements</Filter>
-    </Image>
-    <Image Include="assets\menu\titlescreen\logo.png">
-      <Filter>assets\menu\titlescreen</Filter>
-    </Image>
-    <Image Include="assets\test\sonic.png">
-      <Filter>assets\test</Filter>
-    </Image>
-    <Image Include="assets\test\tails.png">
-      <Filter>assets\test</Filter>
-    </Image>
-    <Image Include="assets\menu\backgrounds\main.png">
-      <Filter>assets\menu\backgrounds</Filter>
-    </Image>
-    <Image Include="assets\menu\buttons\back.png">
-      <Filter>assets\menu\buttons</Filter>
-    </Image>
-    <Image Include="assets\menu\buttons\group\rules.png">
-      <Filter>assets\menu\buttons\group</Filter>
-    </Image>
-    <Image Include="assets\menu\buttons\group\smash.png">
-      <Filter>assets\menu\buttons\group</Filter>
-    </Image>
-    <Image Include="assets\menu\buttons\main\group.png">
-      <Filter>assets\menu\buttons\main</Filter>
-    </Image>
-    <Image Include="assets\menu\buttons\main\solo.png">
-      <Filter>assets\menu\buttons\main</Filter>
-    </Image>
-    <Image Include="assets\menu\buttons\solo\training.png">
-      <Filter>assets\menu\buttons\solo</Filter>
-    </Image>
-    <Image Include="assets\menu\characterselect\chip_cpu.png">
-      <Filter>assets\menu\characterselect</Filter>
-    </Image>
-    <Image Include="assets\menu\characterselect\chip_p1.png">
-      <Filter>assets\menu\characterselect</Filter>
-    </Image>
-    <Image Include="assets\menu\characterselect\chip_p2.png">
-      <Filter>assets\menu\characterselect</Filter>
-    </Image>
-    <Image Include="assets\menu\characterselect\chip_p3.png">
-      <Filter>assets\menu\characterselect</Filter>
-    </Image>
-    <Image Include="assets\menu\characterselect\chip_p4.png">
-      <Filter>assets\menu\characterselect</Filter>
-    </Image>
-    <Image Include="assets\menu\characterselect\panel_blank.png">
-      <Filter>assets\menu\characterselect</Filter>
-    </Image>
-    <Image Include="assets\menu\characterselect\panel_cpu.png">
-      <Filter>assets\menu\characterselect</Filter>
-    </Image>
-    <Image Include="assets\menu\characterselect\panel_na.png">
-      <Filter>assets\menu\characterselect</Filter>
-    </Image>
-    <Image Include="assets\menu\characterselect\panel_p1.png">
-      <Filter>assets\menu\characterselect</Filter>
-    </Image>
-    <Image Include="assets\menu\characterselect\panel_p2.png">
-      <Filter>assets\menu\characterselect</Filter>
-    </Image>
-    <Image Include="assets\menu\characterselect\panel_p3.png">
-      <Filter>assets\menu\characterselect</Filter>
-    </Image>
-    <Image Include="assets\menu\characterselect\panel_p4.png">
-      <Filter>assets\menu\characterselect</Filter>
-    </Image>
-    <Image Include="assets\menu\titlescreen\background.png">
-      <Filter>assets\menu\titlescreen</Filter>
-    </Image>
-    <Image Include="assets\characters\mario\icon.png">
-      <Filter>assets\characters\mario</Filter>
-    </Image>
-    <Image Include="assets\characters\mario\costumes\default\portrait.png">
-      <Filter>assets\characters\mario\costumes\default</Filter>
-    </Image>
-    <Image Include="assets\menu\characterselect\icon_frame.png">
-      <Filter>assets\menu\characterselect</Filter>
-    </Image>
-    <Image Include="assets\menu\characterselect\icon_mask.png">
-      <Filter>assets\menu\characterselect</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="assets\fonts\arial.ttf">
-      <Filter>assets\fonts</Filter>
-    </Font>
-    <Font Include="assets\menu\fonts\LemonMilk.otf">
-      <Filter>assets\menu\fonts</Filter>
-    </Font>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="assets\menu\characterselect\panel_template.xcf">
-      <Filter>assets\menu\characterselect</Filter>
-    </None>
-    <None Include="assets\characters\mario\Info.plist">
-      <Filter>assets\characters\mario</Filter>
-    </None>
   </ItemGroup>
 </Project>

@@ -42,7 +42,7 @@ namespace SmashBros
 			element->sendChildElementToBack(headerbarElement);
 			element->sendChildElementToBack(backgroundElement);
 			
-			backButton = (SpriteActor*)getItem(addItem(smashData.getScreenCoords(0.07f,0.08f), new Animation(assetManager, 1, "buttons/back.png")));
+			backButton = (SpriteActor*)getItem(addItem(smashData.getScreenCoords(0.07f,0.08f), new Animation(1, assetManager, "buttons/back.png")));
 			backButton->Actor::scaleToFit(smashData.getScreenCoords(0.175f,0.175f));
 		}
 		
