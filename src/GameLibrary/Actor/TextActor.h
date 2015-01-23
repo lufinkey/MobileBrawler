@@ -20,8 +20,8 @@ namespace GameLibrary
 		
 		TextActor();
 		TextActor(const TextActor&) = delete;
-		TextActor(const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK);
-		TextActor(float x, float y, const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK);
+		TextActor(const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontSize=24, const Font::Style&fontStyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_BOTTOMLEFT);
+		TextActor(float x, float y, const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontSize=24, const Font::Style&fontStyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_BOTTOMLEFT);
 		virtual ~TextActor();
 		
 		TextActor& operator=(const TextActor&) = delete;

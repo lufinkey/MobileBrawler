@@ -26,5 +26,6 @@ namespace BrawlerLibrary
 		
 		const ArrayList<String>& getPaths() const;
 		const ArrayList<CharacterInfo>& getCharacters() const;
+		ArrayList<CharacterInfo>& getCharacters();
 	};
 }

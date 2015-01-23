@@ -79,7 +79,12 @@ namespace GameLibrary
 		
 			return true;
 		}
-	
+		
+		T getArea() const
+		{
+			return width*height;
+		}
+		
 		RectangleType getIntersect(const RectangleType<T>&rect) const
 		{
 			T overlapLeft = 0;

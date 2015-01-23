@@ -37,6 +37,9 @@ namespace BrawlerLibrary
 		~Rules();
 		
 		unsigned int getPlayerCount() const;
+		PlayerInfo& getPlayerInfo(unsigned int playerNum);
+		const PlayerInfo& getPlayerInfo(unsigned int playerNum) const;
+
 		void setPlayerCount(unsigned int count);
 		
 	private:

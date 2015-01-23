@@ -84,7 +84,9 @@ namespace GameLibrary
 		virtual void draw(ApplicationData appData, Graphics graphics) const;
 		
 		virtual RectangleF getFrame() const;
-
+		
+		//TODO add events for navigation from ScreenManager
+		
 		virtual void onWillAppear(const Transition*transition);
 		virtual void onDidAppear(const Transition*transition);
 
