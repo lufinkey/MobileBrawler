@@ -5,7 +5,8 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-		CharacterSelectScreen::CharacterIcon::CharacterIcon(const CharacterInfo&characterInfo, float x, float y, AssetManager*assetManager) : SpriteActor(x,y)
+//CharacterIcon
+		CharacterSelectScreen::CharacterIcon::CharacterIcon(CharacterInfo&characterInfo, float x, float y, AssetManager*assetManager) : SpriteActor(x,y)
 		{
 			info = &characterInfo;
 			String icon_path = characterInfo.getPath() + "/icon.png";
@@ -37,9 +38,17 @@ namespace SmashBros
 			return info->getCreator();
 		}
 		
+		CharacterInfo* CharacterSelectScreen::CharacterIcon::getCharacterInfo() const
+		{
+			return info;
+		}
+		
+//PlayerPanel
 		CharacterSelectScreen::PlayerPanel::PlayerPanel(unsigned int pNum, CharacterSelectScreen*screen, float x, float y, AssetManager*assetManager) : SpriteActor(x, y)
 		{
 			playerNum = pNum;
+			characterName = new TextActor(x, y+(getHeight()/2), "", assetManager->getFont("fonts/LemonMilk.ttf"), Color::BLACK, 36, Font::STYLE_PLAIN, TextActor::ALIGN_CENTER);
+			characterName->Actor::scaleToFit(Vector2f((getWidth()*(3.0f/8.0f)), (getHeight()/10)));
 			charSelectScreen = screen;
 			addAnimation("default", new Animation(assetManager, 1, (String)"characterselect/panel_p" + playerNum + ".png"));
 			addAnimation("cpu", new Animation(assetManager, 1, "characterselect/panel_cpu.png"));
@@ -53,6 +62,41 @@ namespace SmashBros
 			//
 		}
 		
+		void CharacterSelectScreen::PlayerPanel::update(ApplicationData appData)
+		{
+			SpriteActor::update(appData);
+			CharacterInfo*charInfo = charSelectScreen->rules->getPlayerInfo(playerNum).getCharacterInfo();
+			if(charInfo == nullptr)
+			{
+				if(!characterName->getText().equals(""))
+				{
+					characterName->setText("");
+				}
+			}
+			else
+			{
+				String charName = charInfo->getName();
+				if(!characterName->getText().equals(charName))
+				{
+					characterName->setText(charName);
+				}
+			}
+			characterName->Actor::scaleToFit(Vector2f((getWidth()*(3.0f/8.0f)), (getHeight()/8)));
+			characterName->x = x + (getWidth()/10);
+			characterName->y = y + (getHeight()/2) - (characterName->getHeight()*(3.0f/4.0f));
+			characterName->update(appData);
+		}
+		
+		void CharacterSelectScreen::PlayerPanel::draw(ApplicationData appData, Graphics graphics) const
+		{
+			SpriteActor::draw(appData, graphics);
+			characterName->Actor::scaleToFit(Vector2f((getWidth()*(3.0f/8.0f)), (getHeight()/8)));
+			characterName->x = x + (getWidth()/10);
+			characterName->y = y + (getHeight()/2) - (characterName->getHeight()*(3.0f/4.0f));
+			characterName->draw(appData, graphics);
+		}
+		
+//PlayerChip
 		CharacterSelectScreen::PlayerChip::PlayerChip(unsigned int pNum, CharacterSelectScreen*screen, float x, float y, AssetManager*assetManager) : SpriteActor(x,y)
 		{
 			playerNum = pNum;
@@ -98,7 +142,7 @@ namespace SmashBros
 		
 		void CharacterSelectScreen::PlayerChip::update(ApplicationData appData)
 		{
-			//TODO build dragging into Actor class
+			//updating dragging
 			if(dragging)
 			{
 				if(Multitouch::isEnabled())
@@ -133,15 +177,35 @@ namespace SmashBros
 				}
 			}
 			SpriteActor::update(appData);
+			
+			//check if overlapping with any character icons;
+			CharacterInfo* overlap_charInfo = nullptr;
+			float overlap_area = 0;
+			ArrayList<CharacterIcon*>& icons = charSelectScreen->icons;
+			RectangleF frame = getFrame();
+			for(unsigned int i=0; i<icons.size(); i++)
+			{
+				CharacterIcon* icon = icons.get(i);
+				RectangleF iconFrame = icon->getFrame();
+				if(frame.intersects(iconFrame))
+				{
+					RectangleF overlap = frame.getIntersect(iconFrame);
+					float area = overlap.getArea();
+					if(area > overlap_area)
+					{
+						overlap_charInfo = icon->getCharacterInfo();
+						overlap_area = area;
+					}
+				}
+			}
+			charSelectScreen->rules->getPlayerInfo(playerNum).setCharacterInfo(overlap_charInfo);
 		}
 		
 //CharacterSelectScreen
-		
 		CharacterSelectScreen::CharacterSelectScreen(const SmashData&smashData) : SmashBros::Menu::BaseMenuScreen(smashData)
 		{
-			playerCount = 4;
+			rules = smashData.getRules();
 			iconGrid = nullptr;
-			this->smashData = &smashData;
 		}
 		
 		CharacterSelectScreen::~CharacterSelectScreen()
@@ -160,13 +224,6 @@ namespace SmashBros
 			}
 		}
 		
-		void CharacterSelectScreen::setPlayerCount(unsigned int count)
-		{
-			playerCount = count;
-			//TODO set rules player count
-			reloadPlayerPanels(*smashData);
-		}
-		
 		void CharacterSelectScreen::reloadIcons(const SmashData&smashData)
 		{
 			if(iconGrid != nullptr)
@@ -181,7 +238,7 @@ namespace SmashBros
 			}
 			icons.clear();
 			
-			const ArrayList<CharacterInfo>& characters = smashData.getCharacterLoader()->getCharacters();
+			ArrayList<CharacterInfo>& characters = smashData.getCharacterLoader()->getCharacters();
 			unsigned int total = characters.size();
 			float approx_cols = Math::sqrt((3.0f*((float)total))/2.0f);
 			float approx_rows = approx_cols*(2.0f/3.0f);
@@ -215,7 +272,7 @@ namespace SmashBros
 			AssetManager* loaderAssetManager = smashData.getCharacterLoader()->getAssetManager();
 			for(unsigned int i=0; i<characters.size(); i++)
 			{
-				const CharacterInfo& info = characters.get(i);
+				CharacterInfo& info = characters.get(i);
 				CharacterIcon* icon = new CharacterIcon(info, 0, 0, loaderAssetManager);
 				icon->Actor::scaleToFit(icon_size);
 				icons.add(icon);
@@ -236,7 +293,8 @@ namespace SmashBros
 			}
 			chips.clear();
 			
-			if(playerCount == 0)
+			unsigned int playerCount = rules->getPlayerCount();
+			if(playerCount==0)
 			{
 				return;
 			}
@@ -271,17 +329,18 @@ namespace SmashBros
 				icons_list.get(i)->update(appData);
 			}
 			icons_list.clear();
+			ArrayList<PlayerChip*> chips_list = chips;
+			for(unsigned int i=0; i<chips_list.size(); i++)
+			{
+				chips_list.get(i)->update(appData);
+			}
+			chips_list.clear();
 			ArrayList<PlayerPanel*> panels_list = panels;
 			for(unsigned int i=0; i<panels_list.size(); i++)
 			{
 				panels_list.get(i)->update(appData);
 			}
 			panels_list.clear();
-			ArrayList<PlayerChip*> chips_list = chips;
-			for(unsigned int i=0; i<chips_list.size(); i++)
-			{
-				chips_list.get(i)->update(appData);
-			}
 		}
 		
 		void CharacterSelectScreen::drawItems(ApplicationData appData, Graphics graphics) const

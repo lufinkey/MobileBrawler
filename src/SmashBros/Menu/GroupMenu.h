@@ -15,6 +15,8 @@ namespace SmashBros
 			Actor* specialSmashButton;
 			Actor* rulesButton;
 			
+			Rules* smashRules;
+			
 			GroupSmashCharacterSelectMenu* smashMenu;
 			
 		public:

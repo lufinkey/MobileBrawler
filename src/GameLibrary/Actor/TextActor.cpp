@@ -8,23 +8,23 @@ namespace GameLibrary
 		//
 	}
 	
-	TextActor::TextActor(const String&text, Font*font, const Color&color) : TextActor(0,0, "", Graphics::getDefaultFont(), Color::BLACK)
+	TextActor::TextActor(const String&text, Font*font, const Color&color, unsigned int fontSize, const Font::Style&fontStyle, const TextActor::TextAlignment&align) : TextActor(0,0, "", Graphics::getDefaultFont(), Color::BLACK, fontSize, fontStyle, align)
 	{
 		//
 	}
 	
-	TextActor::TextActor(float x1, float y1, const String&txt, Font*fnt, const Color&colr)
+	TextActor::TextActor(float x1, float y1, const String&txt, Font*fnt, const Color&colr, unsigned int fontSize, const Font::Style&fontStyle, const TextActor::TextAlignment&align)
 	{
 		x = x1;
 		y = y1;
 		text = txt;
 		font = fnt;
 		color = colr;
-		alignment = ALIGN_BOTTOMLEFT;
+		alignment = align;
 		lineSpacing = 0;
 		
-		fontstyle = Font::STYLE_PLAIN;
-		fontsize = 16;
+		fontstyle = fontStyle;
+		fontsize = fontSize;
 
 		updateSize();
 	}
@@ -46,7 +46,7 @@ namespace GameLibrary
 	
 	void TextActor::drawActor(ApplicationData&appData, Graphics&graphics, float x, float y, float scale) const
 	{
-		if(visible && scale!=0)
+		if(visible && scale!=0 && font!=nullptr)
 		{
 			graphics.translate(x,y);
 			Graphics boundingBoxGraphics(graphics);
@@ -279,6 +279,12 @@ namespace GameLibrary
 	
 	void TextActor::scaleToFit(const RectangleF&container)
 	{
+		if(width == 0 || height == 0)
+		{
+			x = container.x + (container.width/2);
+			y = container.y + (container.height/2);
+			return;
+		}
 		RectangleF currentFrame = getFrame();
 		RectangleF oldFrame = currentFrame;
 		currentFrame.scaleToFit(container);

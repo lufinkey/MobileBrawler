@@ -74,15 +74,18 @@ namespace GameLibrary
 
 	void Font::clearFontSizes()
 	{
-		FontSizeList& sizeList = *fontsizes.get();
-		for(unsigned int i=0; i<sizeList.size(); i++)
+		if(fontsizes.get()!=nullptr)
 		{
-			Pair<unsigned int, void*>& fontSize = sizeList.get(i);
-			TTF_Font* fontSizeData = (TTF_Font*)fontSize.second;
-			TTF_CloseFont(fontSizeData);
-			fontSize.second = nullptr;
+			FontSizeList& sizeList = *fontsizes.get();
+			for(unsigned int i=0; i<sizeList.size(); i++)
+			{
+				Pair<unsigned int, void*>& fontSize = sizeList.get(i);
+				TTF_Font* fontSizeData = (TTF_Font*)fontSize.second;
+				TTF_CloseFont(fontSizeData);
+				fontSize.second = nullptr;
+			}
+			sizeList.clear();
 		}
-		sizeList.clear();
 	}
 
 	Font::Font()

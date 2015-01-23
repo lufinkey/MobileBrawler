@@ -14,12 +14,18 @@ namespace SmashBros
 			rulesButton = getItem(addItem(smashData.getScreenCoords(0.5f, 0.75f), new Animation(smashData.getMenuData().getAssetManager(), 1, "buttons/group/rules.png")));
 			rulesButton->scaleToFit(smashData.getScreenCoords(0.45f, 0.3f));
 			
-			smashMenu = new GroupSmashCharacterSelectMenu(smashData);
+			smashRules = new Rules();
+			smashRules->setPlayerCount(4);
+			
+			SmashData groupSmashData(smashData);
+			groupSmashData.setRules(smashRules);
+			smashMenu = new GroupSmashCharacterSelectMenu(groupSmashData);
 		}
 		
 		GroupMenu::~GroupMenu()
 		{
 			delete smashMenu;
+			delete smashRules;
 		}
 		
 		void GroupMenu::onItemSelect(unsigned int index)

@@ -111,4 +111,9 @@ namespace BrawlerLibrary
 	{
 		return characters;
 	}
+	
+	ArrayList<CharacterInfo>& CharacterLoader::getCharacters()
+	{
+		return characters;
+	}
 }

@@ -8,8 +8,7 @@ namespace SmashBros
 		GroupSmashCharacterSelectMenu::GroupSmashCharacterSelectMenu(const SmashData&smashData) : CharacterSelectScreen(smashData)
 		{
 			reloadIcons(smashData);
-			setPlayerCount(4);
-			//setHeaderbarMode(HEADERBAR_SMALL);
+			reloadPlayerPanels(smashData);
 		}
 	}
 }

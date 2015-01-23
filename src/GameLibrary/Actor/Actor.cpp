@@ -83,6 +83,12 @@ namespace GameLibrary
 	
 	void Actor::scaleToFit(const RectangleF&container)
 	{
+		if(width == 0 || height == 0)
+		{
+			x = container.x + (container.width/2);
+			y = container.y + (container.height/2);
+			return;
+		}
 		RectangleF currentFrame = getFrame();
 		RectangleF oldFrame = currentFrame;
 		currentFrame.scaleToFit(container);
@@ -95,6 +101,10 @@ namespace GameLibrary
 	
 	void Actor::scaleToFit(const Vector2f& size)
 	{
+		if(width == 0 || height == 0)
+		{
+			return;
+		}
 		RectangleF container(0,0,size.x,size.y);
 		RectangleF currentFrame = getFrame();
 		RectangleF oldFrame = currentFrame;
