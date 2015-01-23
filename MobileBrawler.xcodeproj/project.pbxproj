@@ -932,11 +932,6 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Luis Finke";
-				TargetAttributes = {
-					A01656631A70A6F6007D0BA1 = {
-						DevelopmentTeam = X3R99W7RN3;
-					};
-				};
 			};
 			buildConfigurationList = A016565F1A70A6F6007D0BA1 /* Build configuration list for PBXProject "MobileBrawler" */;
 			compatibilityVersion = "Xcode 3.2";
