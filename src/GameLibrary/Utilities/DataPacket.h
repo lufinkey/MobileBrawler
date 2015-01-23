@@ -22,6 +22,7 @@ namespace GameLibrary
 
 		DataPacket();
 		DataPacket(const DataPacket&);
+		DataPacket(const String&);
 		DataPacket(unsigned int size);
 		DataPacket(const void*data, unsigned int size);
 		~DataPacket();
@@ -29,6 +30,7 @@ namespace GameLibrary
 		DataPacket& operator=(const DataPacket&);
 
 		bool loadFromFile(const String&path, String*error=nullptr);
+		bool saveToFile(const String&path, String*error=nullptr) const;
 
 		void*getData();
 		const void*getData() const;

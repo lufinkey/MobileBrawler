@@ -61,6 +61,24 @@ namespace GameLibrary
 		}
 	}
 	
+	DataPacket::DataPacket(const String&str)
+	{
+		if(str.length()==0)
+		{
+			data = nullptr;
+			total = 0;
+		}
+		{
+			data = (byte*)std::malloc(str.length());
+			const byte* cpyBytes = (const byte*)((const char*)str);
+			for(unsigned int i = 0; i < str.length(); i++)
+			{
+				data[i] = cpyBytes[i];
+			}
+			total = str.length();
+		}
+	}
+	
 	DataPacket::DataPacket(unsigned int size)
 	{
 		data = (byte*)std::malloc(size);
@@ -119,7 +137,7 @@ namespace GameLibrary
 			//TODO add switch for errno
 			if(error!=nullptr)
 			{
-				*error = "Unable to load DataPacket from file";
+				*error = "Unable to load data from file";
 			}
 			return false;
 		}
@@ -143,6 +161,42 @@ namespace GameLibrary
 
 		total = (unsigned int)fileSize;
 
+		return true;
+	}
+	
+	bool DataPacket::saveToFile(const String&path, String*error) const
+	{
+		FILE*file = std::fopen(path, "w");
+		if(file==NULL)
+		{
+			if(error != nullptr)
+			{
+				//TODO add checking of errno
+				*error = "Unable to write data to file";
+			}
+			return false;
+		}
+		
+		size_t written = std::fwrite(data, 1, total, file);
+		if(written != total)
+		{
+			if(error != nullptr)
+			{
+				//TODO add checking of errno
+				*error = (String)"Unable to write all bytes to file stream";
+			}
+			return false;
+		}
+		
+		if(std::fclose(file) == EOF)
+		{
+			if(error!=nullptr)
+			{
+				//TODO add checking of errno
+				*error = "Error closing the file";
+			}
+			return false;
+		}
 		return true;
 	}
 	

@@ -54,6 +54,7 @@ namespace SmashBros
 	void Game::loadContent(AssetManager*assetManager)
 	{
 		characterselect_iconmask.loadFromFile("assets/menu/characterselect/icon_mask.png");
+		characterselect_portraitmask.loadFromFile("assets/menu/characterselect/panel_portrait_mask.png");
 		loadMenuAssets(menuAssetManager);
 		characterLoader->addPath("assets/characters");
 		characterLoader->loadIcons(characterselect_iconmask);

@@ -87,18 +87,23 @@ namespace BrawlerLibrary
 		}
 	}
 	
-	void CharacterLoader::loadIcons(const Image&alphaMask)
+	void CharacterLoader::loadIcons(const Image&compositeMask)
 	{
 		for(unsigned int i=0; i<characters.size(); i++)
 		{
 			String iconPath = characters.get(i).getPath() + "/icon.png";
-			Image icon;
-			icon.loadFromFile(iconPath);
-			icon.applyAlphaMask(alphaMask);
-			TextureImage* iconTexture = new TextureImage();
-			iconTexture->loadFromImage(icon, *(assetManager->getWindow()->getGraphics()));
 			assetManager->unloadTexture(iconPath);
-			assetManager->addTexture(iconPath, iconTexture);
+			assetManager->loadTexture(iconPath, compositeMask);
+		}
+	}
+	
+	void CharacterLoader::loadPortraits(const Image&compositeMask)
+	{
+		for(unsigned int i = 0; i < characters.size(); i++)
+		{
+			String portraitPath = characters.get(i).getPath() + "/portrait.png";
+			assetManager->unloadTexture(portraitPath);
+			assetManager->loadTexture(portraitPath, compositeMask);
 		}
 	}
 	

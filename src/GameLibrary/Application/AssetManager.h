@@ -33,6 +33,7 @@ namespace GameLibrary
 		Window* getWindow() const;
 		
 		bool loadTexture(const String&path, String*error=nullptr);
+		bool loadTexture(const String&path, const Image&compositeMask, String*error=nullptr);
 		void unloadTexture(const String&path);
 		void unloadTextures();
 		TextureImage* getTexture(const String&path);

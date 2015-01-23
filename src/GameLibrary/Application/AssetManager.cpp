@@ -77,6 +77,42 @@ namespace GameLibrary
 			return false;
 		}
 	}
+	
+	bool AssetManager::loadTexture(const String&path, const Image&compositeMask, String*error)
+	{
+		for(unsigned int i=0; i<textures.size(); i++)
+		{
+			Pair<String,TextureImage*>& pair = textures.get(i);
+			if(pair.first.equals(path))
+			{
+				return true;
+			}
+		}
+		
+		Image image;
+		String fullpath = getFullPath(path);
+		bool success = image.loadFromFile(fullpath, error);
+		if(success)
+		{
+			image.applyCompositeMask(compositeMask);
+			TextureImage* texture = new TextureImage();
+			success = texture->loadFromImage(image, *window->getGraphics(), error);
+			if(success)
+			{
+				textures.add(Pair<String,TextureImage*>(path, texture));
+				return true;
+			}
+			else
+			{
+				delete texture;
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+	}
 
 	void AssetManager::unloadTexture(const String&path)
 	{

@@ -316,7 +316,7 @@ namespace GameLibrary
 		}
 	}
 	
-	void Image::applyAlphaMask(const Image&mask)
+	void Image::applyCompositeMask(const Image&mask)
 	{
 		if(width == 0 || height == 0 || mask.width==0 || mask.height==0)
 		{
@@ -348,11 +348,8 @@ namespace GameLibrary
 				{
 					unsigned int mask_index = (unsigned int)mask_pxlIndex;
 					const Color& mask_color = mask.getPixel(mask_index);
-					float alpha = ((float)mask_color.a)/255;
-					float avg_mask = (255-(((float)(mask_color.r+mask_color.g+mask_color.b))/3))/255;
-					float pxlMask = avg_mask*alpha;
 					Color curcol = pixels[index];
-					pixels[index] = Color(curcol.r, curcol.g, curcol.b, (byte)(((float)curcol.a)*pxlMask));
+					pixels[index] = curcol.composite(mask_color);
 					masked[index] = true;
 				}
 			}
@@ -362,7 +359,7 @@ namespace GameLibrary
 		}
 		if(running != mask_running)
 		{
-			throw Exception("Unknown masking bug. This exception means there is a bug within the Image::applyAlphaMask function");
+			throw Exception("Unknown masking bug. This exception means there is a bug within the Image::applyMask function");
 		}
 	}
 

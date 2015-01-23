@@ -37,7 +37,7 @@ namespace GameLibrary
 		const ArrayList<Color>& getPixels() const;
 
 		void recolor(const ArrayList<Pair<Color,Color> >& colorSwaps);
-		void applyAlphaMask(const Image&mask);
+		void applyCompositeMask(const Image&mask);
 		
 		unsigned int getSize() const;
 		unsigned int getWidth() const;

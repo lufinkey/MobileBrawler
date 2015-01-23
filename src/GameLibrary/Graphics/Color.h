@@ -184,7 +184,7 @@ namespace GameLibrary
 		};
 		typedef enum RGBA32 RGBA32;
 		
-		byte a,g,b,r;
+		byte r,g,b,a;
 		
 		Color();
 		Color(const Color&);
