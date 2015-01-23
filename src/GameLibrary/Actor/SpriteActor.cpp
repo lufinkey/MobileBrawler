@@ -197,10 +197,10 @@ namespace GameLibrary
 		frame.y*=scale;
 		frame.width*=scale;
 		frame.height*=scale;
-
+		
 		width = frame.width;
 		height = frame.height;
-
+		
 		frame = rotationMatrix.transform(frame);
 		
 		framesize.x = frame.width;
@@ -373,13 +373,8 @@ namespace GameLibrary
 		{
 			return false;
 		}
-		float halfwidth = width/2;
-		float halfheight = height/2;
-		float left = x-halfwidth;
-		float right = x+halfwidth;
-		float top = y-halfheight;
-		float bottom = y+halfheight;
-		if(point.x>left && point.y>top && point.x<right && point.y<bottom)
+		RectangleF frame = getFrame();
+		if(frame.contains(point))
 		{
 			Vector2f pointFixed = point;
 			pointFixed.x -= x;

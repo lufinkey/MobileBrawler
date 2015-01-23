@@ -229,19 +229,19 @@ namespace GameLibrary
 		float clipTop = (clipoffset.y + cliprect.y);
 		float clipRight = clipLeft + cliprect.width;
 		float clipBottom = clipTop + cliprect.height;
-
+		
 		SDL_Rect clip;
 		clip.x = (int)clipLeft;
 		clip.y = (int)clipTop;
 		clip.w = (int)(clipRight - (float)clip.x);
 		clip.h = (int)(clipBottom - (float)clip.y);
-
+		
 		Color colorComp = color.composite(tintColor);
 		byte newAlpha = (byte)((float)colorComp.a * ((float)alpha/255));
-
+		
 		SDL_RenderSetClipRect((SDL_Renderer*)renderer, &clip);
 		SDL_SetRenderDrawColor((SDL_Renderer*)renderer, colorComp.r, colorComp.g, colorComp.b, newAlpha);
-
+		
 		//SDL_GLContext context = SDL_RendererGetGLContext((SDL_Renderer*)renderer);
 		//SDL_GL_MakeCurrent((SDL_Window*)window->windowdata, context);
 		//glPushMatrix();

@@ -1,5 +1,6 @@
 
 #include "MenuScreen.h"
+#include "../Input/Multitouch.h"
 
 namespace GameLibrary
 {
@@ -183,6 +184,53 @@ namespace GameLibrary
 				actor->update(appData);
 				if(actor->isMouseOver())
 				{
+					if(pressingItem)
+					{
+						if(!actor->isMousePressed())
+						{
+							pressingItem = false;
+							actor->clearMouseState();
+							onItemRelease(lastSelectedIndex);
+							onItemHoverFinish(lastSelectedIndex);
+							onItemSelect(lastSelectedIndex);
+						}
+					}
+					else
+					{
+						if(actor->isMousePressed())
+						{
+							pressingItem = true;
+							onItemPress(lastSelectedIndex);
+						}
+					}
+				}
+				else
+				{
+					selectedIndex = MENUSCREEN_NOSELECTION;
+					if(pressingItem)
+					{
+						pressingItem = false;
+						if(actor->didMouseRelease())
+						{
+							//TODO have mouse state clearing be called from menuscreen subclass
+							actor->clearMouseState();
+							onItemRelease(lastSelectedIndex);
+							onItemHoverFinish(lastSelectedIndex);
+							onItemSelect(lastSelectedIndex);
+						}
+						else
+						{
+							onItemPressCancel(lastSelectedIndex);
+							onItemHoverFinish(lastSelectedIndex);
+						}
+					}
+					else
+					{
+						onItemHoverFinish(lastSelectedIndex);
+					}
+				}
+				/*if(actor->isMouseOver())
+				{
 					//actor->wasMouseOver() is implied to be true, since we're testing for the currently hovered object
 					if(actor->isMousePressed() && !actor->wasMousePressed())
 					{
@@ -207,7 +255,7 @@ namespace GameLibrary
 						onItemPressCancel(lastSelectedIndex);
 					}
 					onItemHoverFinish(lastSelectedIndex);
-				}
+				}*/
 			}
 
 			ArrayList<Actor*> menuItems = items;
@@ -229,7 +277,7 @@ namespace GameLibrary
 					{
 						actorIndex = items.indexOf(actor);
 					}
-
+					
 					//if the actor is still in the screen
 					if(actorIndex!=ARRAYLIST_NOTFOUND)
 					{
@@ -273,7 +321,12 @@ namespace GameLibrary
 										//check item's mouse press state
 										if(actorIndex!=ARRAYLIST_NOTFOUND && selectedIndex==actorIndex && !keyboardEnabled)
 										{
-											if(actor->isMousePressed() && !actor->wasMousePressed())
+											/*if(actor->isMousePressed() && !actor->wasMousePressed())
+											{
+												pressingItem = true;
+												onItemPress(selectedIndex);
+											}*/
+											if(actor->didMousePress() && !actor->wasMousePressed())
 											{
 												pressingItem = true;
 												onItemPress(selectedIndex);

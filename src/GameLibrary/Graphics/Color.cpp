@@ -68,7 +68,13 @@ namespace GameLibrary
 	
 	Uint32 Color::getRGBA() const
 	{
-		return RGBA(r,g,b,a);
+		Uint32 rgba = 0;
+		byte*arr = (byte*)(&rgba);
+		arr[3] = r;
+		arr[2] = g;
+		arr[1] = b;
+		arr[0] = a;
+		return rgba;
 	}
 
 	Uint32 Color::getARGB() const
@@ -90,6 +96,17 @@ namespace GameLibrary
 		arr[2] = b;
 		arr[1] = g;
 		arr[0] = r;
+		return abgr;
+	}
+	
+	Uint32 Color::getBGRA() const
+	{
+		Uint32 abgr = 0;
+		byte*arr = (byte*)(&abgr);
+		arr[3] = b;
+		arr[2] = g;
+		arr[1] = r;
+		arr[0] = a;
 		return abgr;
 	}
 	

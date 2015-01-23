@@ -102,10 +102,10 @@ namespace GameLibrary
 		float rotation;
 		float alpha;
 		float scale;
-
+		
 		Transform rotationMatrix;
 		Transform inverseRotationMatrix;
-
+		
 		typedef struct
 		{
 			unsigned int touchID;

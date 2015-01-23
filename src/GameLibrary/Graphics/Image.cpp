@@ -85,6 +85,16 @@ namespace GameLibrary
 			}
 
 			unsigned int bpp = (unsigned int)surface->format->BytesPerPixel;
+			
+			unsigned int rmask = (unsigned int)surface->format->Rmask;
+			unsigned int rshift = (unsigned int)surface->format->Rshift;
+			unsigned int gmask = (unsigned int)surface->format->Gmask;
+			unsigned int gshift = (unsigned int)surface->format->Gshift;
+			unsigned int bmask = (unsigned int)surface->format->Bmask;
+			unsigned int bshift = (unsigned int)surface->format->Bshift;
+			unsigned int amask = (unsigned int)surface->format->Amask;
+			unsigned int ashift = (unsigned int)surface->format->Ashift;
+			
 			width = (unsigned int)surface->w;
 			height = (unsigned int)surface->h;
 			unsigned int total = width*height;
@@ -117,30 +127,23 @@ namespace GameLibrary
 						break;
 
 						case 3:
-	#if SDL_BYTEORDER == SDL_BIG_ENDIAN
-						pixels[i].r = surfacePixels[counter+2];
-						pixels[i].g = surfacePixels[counter+1];
-						pixels[i].b = surfacePixels[counter];
-	#else
-						pixels[i].r = surfacePixels[counter];
-						pixels[i].g = surfacePixels[counter+1];
-						pixels[i].b = surfacePixels[counter+2];
-	#endif
-						pixels[i].a = 255;
+						{
+							int color = *((int*)&surfacePixels[counter]);
+							pixels[i].r = (byte)((color & rmask) >> rshift);
+							pixels[i].g = (byte)((color & gmask) >> gshift);
+							pixels[i].b = (byte)((color & bmask) >> bshift);
+							pixels[i].a = 255;
+						}
 						break;
-
+						
 						case 4:
-	#if SDL_BYTEORDER == SDL_BIG_ENDIAN
-						pixels[i].r = surfacePixels[counter+3];
-						pixels[i].g = surfacePixels[counter+2];
-						pixels[i].b = surfacePixels[counter+1];
-						pixels[i].a = surfacePixels[counter];
-	#else
-						pixels[i].r = surfacePixels[counter];
-						pixels[i].g = surfacePixels[counter+1];
-						pixels[i].b = surfacePixels[counter+2];
-						pixels[i].a = surfacePixels[counter+3];
-	#endif
+						{
+							int color = *((int*)&surfacePixels[counter]);
+							pixels[i].r = (byte)((color & rmask) >> rshift);
+							pixels[i].g = (byte)((color & gmask) >> gshift);
+							pixels[i].b = (byte)((color & bmask) >> bshift);
+							pixels[i].a = (byte)((color & amask) >> ashift);
+						}
 						break;
 					}
 					i++;

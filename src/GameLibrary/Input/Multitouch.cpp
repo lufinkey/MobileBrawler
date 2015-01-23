@@ -1,6 +1,7 @@
 
 #include "Multitouch.h"
 #include "../Application/EventManager.h"
+#include "../Utilities/PlatformChecks.h"
 #include <SDL.h>
 #include <climits>
 #include <mutex>
@@ -250,7 +251,7 @@ namespace GameLibrary
 		Multitouch_changedListeners.clear();
 		Multitouch_changedListeners_mutex.unlock();
 	}
-
+	
 	ArrayList<unsigned int> Multitouch::getTouchIDs(Window*window)
 	{
 		ArrayList<unsigned int> touchIDs;
@@ -326,9 +327,10 @@ namespace GameLibrary
 			unsigned int index = Multitouch_indexOfData_byGivenID(Multitouch_activeTouches, window, givenID);
 			if(index == ARRAYLIST_NOTFOUND)
 			{
-				unsigned int touchID = Multitouch_currentID;
+				printf("Multitouch::handleTouchUp called for givenID that was not already stored: %lld", givenID);
+				/*unsigned int touchID = Multitouch_currentID;
 				touchData = Multitouch_createTouchData(window, touchID, givenID, pos);
-				Multitouch_incrementID();
+				Multitouch_incrementID();*/
 			}
 			else
 			{

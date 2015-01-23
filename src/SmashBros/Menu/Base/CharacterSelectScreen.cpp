@@ -105,7 +105,7 @@ namespace SmashBros
 				{
 					if(Multitouch::isTouchActive(appData.getWindow(), dragTouchID))
 					{
-						Vector2f touchpos = appData.getTransform().transform(Multitouch::getPosition(appData.getWindow(), dragTouchID));
+						Vector2f touchpos = appData.getTransform().getInverse().transform(Multitouch::getPosition(appData.getWindow(), dragTouchID));
 						x = touchpos.x;
 						y = touchpos.y;
 					}
@@ -120,7 +120,7 @@ namespace SmashBros
 				{
 					if(Mouse::isButtonPressed(appData.getWindow(), dragTouchID, Mouse::BUTTON_LEFT))
 					{
-						Vector2f mousepos = appData.getTransform().transform(Mouse::getPosition(appData.getWindow(), dragTouchID));
+						Vector2f mousepos = appData.getTransform().getInverse().transform(Mouse::getPosition(appData.getWindow(), dragTouchID));
 						x = mousepos.x;
 						y = mousepos.y;
 					}
