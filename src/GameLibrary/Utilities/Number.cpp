@@ -595,6 +595,10 @@ namespace GameLibrary
 		{
 			switch(type)
 			{
+				default:
+				//Do nothing
+				break;
+				
 				case Number::TYPE_FLOAT:
 				throw IllegalNumberOperationException("%=", "float", "left");
 				break;
@@ -614,6 +618,10 @@ namespace GameLibrary
 		{
 			switch(type)
 			{
+				default:
+				//Do nothing
+				break;
+				
 				case Number::TYPE_FLOAT:
 				throw IllegalNumberOperationException("%=", "float", "left");
 				break;
@@ -719,7 +727,7 @@ namespace GameLibrary
 		
 		virtual _BaseNumberType* clone() const
 		{
-			return (_BaseNumberType*)(new _DerivedIntegralType<T>(value, _BaseNumberType::type));
+			return (_BaseNumberType*)(new _DerivedIntegralType<T>(_DerivedNumberType<T>::value, _BaseNumberType::type));
 		}
 		
 		virtual _BaseNumberType& operator%=(const _BaseNumberType&num)
@@ -740,43 +748,43 @@ namespace GameLibrary
 				break;
 				
 				case Number::TYPE_CHAR:
-				value %= ((_DerivedNumberType<char>*)&num)->value;
+				_DerivedNumberType<T>::value %= ((_DerivedNumberType<char>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDCHAR:
-				value %= ((_DerivedNumberType<unsigned char>*)&num)->value;
+				_DerivedNumberType<T>::value %= ((_DerivedNumberType<unsigned char>*)&num)->value;
 				break;
 				
 				case Number::TYPE_SHORT:
-				value %= ((_DerivedNumberType<short>*)&num)->value;
+				_DerivedNumberType<T>::value %= ((_DerivedNumberType<short>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDSHORT:
-				value %= ((_DerivedNumberType<unsigned short>*)&num)->value;
+				_DerivedNumberType<T>::value %= ((_DerivedNumberType<unsigned short>*)&num)->value;
 				break;
 				
 				case Number::TYPE_INT:
-				value %= ((_DerivedNumberType<int>*)&num)->value;
+				_DerivedNumberType<T>::value %= ((_DerivedNumberType<int>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDINT:
-				value %= ((_DerivedNumberType<unsigned int>*)&num)->value;
+				_DerivedNumberType<T>::value %= ((_DerivedNumberType<unsigned int>*)&num)->value;
 				break;
 				
 				case Number::TYPE_LONG:
-				value %= ((_DerivedNumberType<long>*)&num)->value;
+				_DerivedNumberType<T>::value %= ((_DerivedNumberType<long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDLONG:
-				value %= ((_DerivedNumberType<unsigned long>*)&num)->value;
+				_DerivedNumberType<T>::value %= ((_DerivedNumberType<unsigned long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_LONGLONG:
-				value %= ((_DerivedNumberType<long long>*)&num)->value;
+				_DerivedNumberType<T>::value %= ((_DerivedNumberType<long long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_UNSIGNEDLONGLONG:
-				value %= ((_DerivedNumberType<unsigned long long>*)&num)->value;
+				_DerivedNumberType<T>::value %= ((_DerivedNumberType<unsigned long long>*)&num)->value;
 				break;
 				
 				case Number::TYPE_FLOAT:
@@ -814,34 +822,34 @@ namespace GameLibrary
 				throw IllegalNumberOperationException("%=", "bool", "right");
 				
 				case Number::TYPE_CHAR:
-				return value % ((_DerivedNumberType<char>*)&num)->value;
+				return _DerivedNumberType<T>::value % ((_DerivedNumberType<char>*)&num)->value;
 				
 				case Number::TYPE_UNSIGNEDCHAR:
-				return value % ((_DerivedNumberType<unsigned char>*)&num)->value;
+				return _DerivedNumberType<T>::value % ((_DerivedNumberType<unsigned char>*)&num)->value;
 				
 				case Number::TYPE_SHORT:
-				return value % ((_DerivedNumberType<short>*)&num)->value;
+				return _DerivedNumberType<T>::value % ((_DerivedNumberType<short>*)&num)->value;
 				
 				case Number::TYPE_UNSIGNEDSHORT:
-				return value % ((_DerivedNumberType<unsigned short>*)&num)->value;
+				return _DerivedNumberType<T>::value % ((_DerivedNumberType<unsigned short>*)&num)->value;
 				
 				case Number::TYPE_INT:
-				return value % ((_DerivedNumberType<int>*)&num)->value;
+				return _DerivedNumberType<T>::value % ((_DerivedNumberType<int>*)&num)->value;
 				
 				case Number::TYPE_UNSIGNEDINT:
-				return value % ((_DerivedNumberType<unsigned int>*)&num)->value;
+				return _DerivedNumberType<T>::value % ((_DerivedNumberType<unsigned int>*)&num)->value;
 				
 				case Number::TYPE_LONG:
-				return value % ((_DerivedNumberType<long>*)&num)->value;
+				return _DerivedNumberType<T>::value % ((_DerivedNumberType<long>*)&num)->value;
 				
 				case Number::TYPE_UNSIGNEDLONG:
-				return value % ((_DerivedNumberType<unsigned long>*)&num)->value;
+				return _DerivedNumberType<T>::value % ((_DerivedNumberType<unsigned long>*)&num)->value;
 				
 				case Number::TYPE_LONGLONG:
-				return value % ((_DerivedNumberType<long long>*)&num)->value;
+				return _DerivedNumberType<T>::value % ((_DerivedNumberType<long long>*)&num)->value;
 				
 				case Number::TYPE_UNSIGNEDLONGLONG:
-				return value % ((_DerivedNumberType<unsigned long long>*)&num)->value;
+				return _DerivedNumberType<T>::value % ((_DerivedNumberType<unsigned long long>*)&num)->value;
 				
 				case Number::TYPE_FLOAT:
 				//return value % ((_DerivedNumberType<float>*)&num)->value;

@@ -97,7 +97,6 @@
 		A01657B91A70C16B007D0BA1 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A01657501A70C16B007D0BA1 /* Game.cpp */; };
 		A01657BA1A70C16B007D0BA1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A01657531A70C16B007D0BA1 /* main.cpp */; };
 		A01657BB1A70C16B007D0BA1 /* BaseMenuScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A01657561A70C16B007D0BA1 /* BaseMenuScreen.cpp */; };
-		A01657BC1A70C16B007D0BA1 /* CharacterSelectScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A01657581A70C16B007D0BA1 /* CharacterSelectScreen.cpp */; };
 		A01657BD1A70C16B007D0BA1 /* ActorGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A016575B1A70C16B007D0BA1 /* ActorGrid.cpp */; };
 		A01657BE1A70C16B007D0BA1 /* GroupMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A016575D1A70C16B007D0BA1 /* GroupMenu.cpp */; };
 		A01657BF1A70C16B007D0BA1 /* GroupSmashCharacterSelectMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A016575F1A70C16B007D0BA1 /* GroupSmashCharacterSelectMenu.cpp */; };
@@ -118,6 +117,11 @@
 		A01658521A714D93007D0BA1 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A01658511A714D93007D0BA1 /* GameKit.framework */; };
 		A01658541A714DB0007D0BA1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A01658531A714DB0007D0BA1 /* MobileCoreServices.framework */; };
 		A01658561A714DD4007D0BA1 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A01658551A714DD4007D0BA1 /* ImageIO.framework */; };
+		A0CA52371A74289A00CCF32A /* CharacterSelect_CharacterIcon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0CA522F1A74289A00CCF32A /* CharacterSelect_CharacterIcon.cpp */; };
+		A0CA52381A74289A00CCF32A /* CharacterSelect_PlayerChip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0CA52311A74289A00CCF32A /* CharacterSelect_PlayerChip.cpp */; };
+		A0CA52391A74289A00CCF32A /* CharacterSelect_PlayerPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0CA52331A74289A00CCF32A /* CharacterSelect_PlayerPanel.cpp */; };
+		A0CA523A1A74289A00CCF32A /* CharacterSelectScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0CA52351A74289A00CCF32A /* CharacterSelectScreen.cpp */; };
+		A0CA523B1A7429AF00CCF32A /* PlayerInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0CA522C1A7426DE00CCF32A /* PlayerInfo.cpp */; };
 		E97FD7771A72DA22005AC479 /* Icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7651A72DA22005AC479 /* Icon-60.png */; };
 		E97FD7781A72DA22005AC479 /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7661A72DA22005AC479 /* Icon-60@2x.png */; };
 		E97FD7791A72DA22005AC479 /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7671A72DA22005AC479 /* Icon-60@3x.png */; };
@@ -326,8 +330,6 @@
 		A01657531A70C16B007D0BA1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		A01657561A70C16B007D0BA1 /* BaseMenuScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaseMenuScreen.cpp; sourceTree = "<group>"; };
 		A01657571A70C16B007D0BA1 /* BaseMenuScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseMenuScreen.h; sourceTree = "<group>"; };
-		A01657581A70C16B007D0BA1 /* CharacterSelectScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CharacterSelectScreen.cpp; sourceTree = "<group>"; };
-		A01657591A70C16B007D0BA1 /* CharacterSelectScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterSelectScreen.h; sourceTree = "<group>"; };
 		A016575B1A70C16B007D0BA1 /* ActorGrid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActorGrid.cpp; sourceTree = "<group>"; };
 		A016575C1A70C16B007D0BA1 /* ActorGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActorGrid.h; sourceTree = "<group>"; };
 		A016575D1A70C16B007D0BA1 /* GroupMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroupMenu.cpp; sourceTree = "<group>"; };
@@ -355,6 +357,16 @@
 		A01658511A714D93007D0BA1 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		A01658531A714DB0007D0BA1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		A01658551A714DD4007D0BA1 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		A0CA522C1A7426DE00CCF32A /* PlayerInfo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PlayerInfo.cpp; sourceTree = "<group>"; };
+		A0CA522D1A7426DE00CCF32A /* PlayerInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerInfo.h; sourceTree = "<group>"; };
+		A0CA522F1A74289A00CCF32A /* CharacterSelect_CharacterIcon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CharacterSelect_CharacterIcon.cpp; sourceTree = "<group>"; };
+		A0CA52301A74289A00CCF32A /* CharacterSelect_CharacterIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterSelect_CharacterIcon.h; sourceTree = "<group>"; };
+		A0CA52311A74289A00CCF32A /* CharacterSelect_PlayerChip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CharacterSelect_PlayerChip.cpp; sourceTree = "<group>"; };
+		A0CA52321A74289A00CCF32A /* CharacterSelect_PlayerChip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterSelect_PlayerChip.h; sourceTree = "<group>"; };
+		A0CA52331A74289A00CCF32A /* CharacterSelect_PlayerPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CharacterSelect_PlayerPanel.cpp; sourceTree = "<group>"; };
+		A0CA52341A74289A00CCF32A /* CharacterSelect_PlayerPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterSelect_PlayerPanel.h; sourceTree = "<group>"; };
+		A0CA52351A74289A00CCF32A /* CharacterSelectScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CharacterSelectScreen.cpp; sourceTree = "<group>"; };
+		A0CA52361A74289A00CCF32A /* CharacterSelectScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterSelectScreen.h; sourceTree = "<group>"; };
 		E97FD7651A72DA22005AC479 /* Icon-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60.png"; path = "icons/Icon-60.png"; sourceTree = "<group>"; };
 		E97FD7661A72DA22005AC479 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@2x.png"; path = "icons/Icon-60@2x.png"; sourceTree = "<group>"; };
 		E97FD7671A72DA22005AC479 /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@3x.png"; path = "icons/Icon-60@3x.png"; sourceTree = "<group>"; };
@@ -404,10 +416,10 @@
 		A016565B1A70A6F6007D0BA1 = {
 			isa = PBXGroup;
 			children = (
-				E97FD7401A72D834005AC479 /* icons */,
 				A01656891A70C16B007D0BA1 /* src */,
-				A01656841A70AA0C007D0BA1 /* resources */,
 				A01657C41A70C27C007D0BA1 /* external */,
+				A01656841A70AA0C007D0BA1 /* resources */,
+				E97FD7401A72D834005AC479 /* icons */,
 				A01656661A70A6F6007D0BA1 /* Frameworks */,
 				A01656651A70A6F6007D0BA1 /* Products */,
 			);
@@ -474,10 +486,12 @@
 		A016568C1A70C16B007D0BA1 /* Game */ = {
 			isa = PBXGroup;
 			children = (
-				A016568D1A70C16B007D0BA1 /* Rules.cpp */,
+				A0CA522D1A7426DE00CCF32A /* PlayerInfo.h */,
+				A0CA522C1A7426DE00CCF32A /* PlayerInfo.cpp */,
 				A016568E1A70C16B007D0BA1 /* Rules.h */,
-				A016568F1A70C16B007D0BA1 /* WinCondition.cpp */,
+				A016568D1A70C16B007D0BA1 /* Rules.cpp */,
 				A01656901A70C16B007D0BA1 /* WinCondition.h */,
+				A016568F1A70C16B007D0BA1 /* WinCondition.cpp */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -485,10 +499,10 @@
 		A01656911A70C16B007D0BA1 /* Loader */ = {
 			isa = PBXGroup;
 			children = (
-				A01656921A70C16B007D0BA1 /* CharacterInfo.cpp */,
 				A01656931A70C16B007D0BA1 /* CharacterInfo.h */,
-				A01656941A70C16B007D0BA1 /* CharacterLoader.cpp */,
+				A01656921A70C16B007D0BA1 /* CharacterInfo.cpp */,
 				A01656951A70C16B007D0BA1 /* CharacterLoader.h */,
+				A01656941A70C16B007D0BA1 /* CharacterLoader.cpp */,
 			);
 			path = Loader;
 			sourceTree = "<group>";
@@ -507,8 +521,8 @@
 				A01657001A70C16B007D0BA1 /* Screen */,
 				A016571B1A70C16B007D0BA1 /* Utilities */,
 				A016574A1A70C16B007D0BA1 /* Window */,
-				A01656E41A70C16B007D0BA1 /* GameLibrary.cpp */,
 				A01656E51A70C16B007D0BA1 /* GameLibrary.h */,
+				A01656E41A70C16B007D0BA1 /* GameLibrary.cpp */,
 				A016571A1A70C16B007D0BA1 /* Types.h */,
 			);
 			path = GameLibrary;
@@ -517,16 +531,16 @@
 		A01656971A70C16B007D0BA1 /* Actor */ = {
 			isa = PBXGroup;
 			children = (
-				A01656981A70C16B007D0BA1 /* Actor.cpp */,
 				A01656991A70C16B007D0BA1 /* Actor.h */,
-				A016569A1A70C16B007D0BA1 /* Animation.cpp */,
+				A01656981A70C16B007D0BA1 /* Actor.cpp */,
 				A016569B1A70C16B007D0BA1 /* Animation.h */,
-				A016569C1A70C16B007D0BA1 /* SpriteActor.cpp */,
+				A016569A1A70C16B007D0BA1 /* Animation.cpp */,
 				A016569D1A70C16B007D0BA1 /* SpriteActor.h */,
-				A016569E1A70C16B007D0BA1 /* TextActor.cpp */,
+				A016569C1A70C16B007D0BA1 /* SpriteActor.cpp */,
 				A016569F1A70C16B007D0BA1 /* TextActor.h */,
-				A01656A01A70C16B007D0BA1 /* WireframeActor.cpp */,
+				A016569E1A70C16B007D0BA1 /* TextActor.cpp */,
 				A01656A11A70C16B007D0BA1 /* WireframeActor.h */,
+				A01656A01A70C16B007D0BA1 /* WireframeActor.cpp */,
 			);
 			path = Actor;
 			sourceTree = "<group>";
@@ -534,16 +548,16 @@
 		A01656A21A70C16B007D0BA1 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				A01656A31A70C16B007D0BA1 /* Application.cpp */,
 				A01656A41A70C16B007D0BA1 /* Application.h */,
-				A01656A51A70C16B007D0BA1 /* ApplicationData.cpp */,
+				A01656A31A70C16B007D0BA1 /* Application.cpp */,
 				A01656A61A70C16B007D0BA1 /* ApplicationData.h */,
-				A01656A71A70C16B007D0BA1 /* AssetManager.cpp */,
+				A01656A51A70C16B007D0BA1 /* ApplicationData.cpp */,
 				A01656A81A70C16B007D0BA1 /* AssetManager.h */,
-				A01656A91A70C16B007D0BA1 /* BatchLoader.cpp */,
+				A01656A71A70C16B007D0BA1 /* AssetManager.cpp */,
 				A01656AA1A70C16B007D0BA1 /* BatchLoader.h */,
-				A01656AB1A70C16B007D0BA1 /* EventManager.cpp */,
+				A01656A91A70C16B007D0BA1 /* BatchLoader.cpp */,
 				A01656AC1A70C16B007D0BA1 /* EventManager.h */,
+				A01656AB1A70C16B007D0BA1 /* EventManager.cpp */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -551,10 +565,10 @@
 		A01656AD1A70C16B007D0BA1 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
-				A01656AE1A70C16B007D0BA1 /* Music.cpp */,
 				A01656AF1A70C16B007D0BA1 /* Music.h */,
-				A01656B01A70C16B007D0BA1 /* Sound.cpp */,
+				A01656AE1A70C16B007D0BA1 /* Music.cpp */,
 				A01656B11A70C16B007D0BA1 /* Sound.h */,
+				A01656B01A70C16B007D0BA1 /* Sound.cpp */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -565,22 +579,22 @@
 				A01656B71A70C16B007D0BA1 /* Graphics */,
 				A01656CC1A70C16B007D0BA1 /* Screen */,
 				A01656CF1A70C16B007D0BA1 /* Utilities */,
-				A01656B31A70C16B007D0BA1 /* BadCastException.cpp */,
 				A01656B41A70C16B007D0BA1 /* BadCastException.h */,
-				A01656B51A70C16B007D0BA1 /* Exception.cpp */,
+				A01656B31A70C16B007D0BA1 /* BadCastException.cpp */,
 				A01656B61A70C16B007D0BA1 /* Exception.h */,
-				A01656C01A70C16B007D0BA1 /* IllegalArgumentException.cpp */,
+				A01656B51A70C16B007D0BA1 /* Exception.cpp */,
 				A01656C11A70C16B007D0BA1 /* IllegalArgumentException.h */,
-				A01656C21A70C16B007D0BA1 /* IllegalFormatException.cpp */,
+				A01656C01A70C16B007D0BA1 /* IllegalArgumentException.cpp */,
 				A01656C31A70C16B007D0BA1 /* IllegalFormatException.h */,
-				A01656C41A70C16B007D0BA1 /* IllegalStateException.cpp */,
+				A01656C21A70C16B007D0BA1 /* IllegalFormatException.cpp */,
 				A01656C51A70C16B007D0BA1 /* IllegalStateException.h */,
-				A01656C61A70C16B007D0BA1 /* InitializeLibraryException.cpp */,
+				A01656C41A70C16B007D0BA1 /* IllegalStateException.cpp */,
 				A01656C71A70C16B007D0BA1 /* InitializeLibraryException.h */,
-				A01656C81A70C16B007D0BA1 /* NumberFormatException.cpp */,
+				A01656C61A70C16B007D0BA1 /* InitializeLibraryException.cpp */,
 				A01656C91A70C16B007D0BA1 /* NumberFormatException.h */,
-				A01656CA1A70C16B007D0BA1 /* OutOfBoundsException.cpp */,
+				A01656C81A70C16B007D0BA1 /* NumberFormatException.cpp */,
 				A01656CB1A70C16B007D0BA1 /* OutOfBoundsException.h */,
+				A01656CA1A70C16B007D0BA1 /* OutOfBoundsException.cpp */,
 			);
 			path = Exception;
 			sourceTree = "<group>";
@@ -588,14 +602,14 @@
 		A01656B71A70C16B007D0BA1 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
-				A01656B81A70C16B007D0BA1 /* ImageOutOfBoundsException.cpp */,
 				A01656B91A70C16B007D0BA1 /* ImageOutOfBoundsException.h */,
-				A01656BA1A70C16B007D0BA1 /* TextureImageCreateException.cpp */,
+				A01656B81A70C16B007D0BA1 /* ImageOutOfBoundsException.cpp */,
 				A01656BB1A70C16B007D0BA1 /* TextureImageCreateException.h */,
-				A01656BC1A70C16B007D0BA1 /* TextureImageUpdateException.cpp */,
+				A01656BA1A70C16B007D0BA1 /* TextureImageCreateException.cpp */,
 				A01656BD1A70C16B007D0BA1 /* TextureImageUpdateException.h */,
-				A01656BE1A70C16B007D0BA1 /* UnsupportedImageFormatException.cpp */,
+				A01656BC1A70C16B007D0BA1 /* TextureImageUpdateException.cpp */,
 				A01656BF1A70C16B007D0BA1 /* UnsupportedImageFormatException.h */,
+				A01656BE1A70C16B007D0BA1 /* UnsupportedImageFormatException.cpp */,
 			);
 			path = Graphics;
 			sourceTree = "<group>";
@@ -603,8 +617,8 @@
 		A01656CC1A70C16B007D0BA1 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
-				A01656CD1A70C16B007D0BA1 /* ScreenNavigationException.cpp */,
 				A01656CE1A70C16B007D0BA1 /* ScreenNavigationException.h */,
+				A01656CD1A70C16B007D0BA1 /* ScreenNavigationException.cpp */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
@@ -614,20 +628,20 @@
 			children = (
 				A01656DA1A70C16B007D0BA1 /* Font */,
 				A01656E11A70C16B007D0BA1 /* Time */,
-				A01656D01A70C16B007D0BA1 /* ArrayListOutOfBoundsException.cpp */,
 				A01656D11A70C16B007D0BA1 /* ArrayListOutOfBoundsException.h */,
-				A01656D21A70C16B007D0BA1 /* BadAnyCastException.cpp */,
+				A01656D01A70C16B007D0BA1 /* ArrayListOutOfBoundsException.cpp */,
 				A01656D31A70C16B007D0BA1 /* BadAnyCastException.h */,
-				A01656D41A70C16B007D0BA1 /* BitListOutOfBoundsException.cpp */,
+				A01656D21A70C16B007D0BA1 /* BadAnyCastException.cpp */,
 				A01656D51A70C16B007D0BA1 /* BitListOutOfBoundsException.h */,
-				A01656D61A70C16B007D0BA1 /* BitSetOutOfBoundsException.cpp */,
+				A01656D41A70C16B007D0BA1 /* BitListOutOfBoundsException.cpp */,
 				A01656D71A70C16B007D0BA1 /* BitSetOutOfBoundsException.h */,
-				A01656D81A70C16B007D0BA1 /* DataPacketOutOfBoundsException.cpp */,
+				A01656D61A70C16B007D0BA1 /* BitSetOutOfBoundsException.cpp */,
 				A01656D91A70C16B007D0BA1 /* DataPacketOutOfBoundsException.h */,
-				A01656DD1A70C16B007D0BA1 /* IllegalNumberOperationException.cpp */,
+				A01656D81A70C16B007D0BA1 /* DataPacketOutOfBoundsException.cpp */,
 				A01656DE1A70C16B007D0BA1 /* IllegalNumberOperationException.h */,
-				A01656DF1A70C16B007D0BA1 /* StringOutOfBoundsException.cpp */,
+				A01656DD1A70C16B007D0BA1 /* IllegalNumberOperationException.cpp */,
 				A01656E01A70C16B007D0BA1 /* StringOutOfBoundsException.h */,
+				A01656DF1A70C16B007D0BA1 /* StringOutOfBoundsException.cpp */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -635,8 +649,8 @@
 		A01656DA1A70C16B007D0BA1 /* Font */ = {
 			isa = PBXGroup;
 			children = (
-				A01656DB1A70C16B007D0BA1 /* RenderGlyphException.cpp */,
 				A01656DC1A70C16B007D0BA1 /* RenderGlyphException.h */,
+				A01656DB1A70C16B007D0BA1 /* RenderGlyphException.cpp */,
 			);
 			path = Font;
 			sourceTree = "<group>";
@@ -644,8 +658,8 @@
 		A01656E11A70C16B007D0BA1 /* Time */ = {
 			isa = PBXGroup;
 			children = (
-				A01656E21A70C16B007D0BA1 /* IllegalDateTimeFormatException.cpp */,
 				A01656E31A70C16B007D0BA1 /* IllegalDateTimeFormatException.h */,
+				A01656E21A70C16B007D0BA1 /* IllegalDateTimeFormatException.cpp */,
 			);
 			path = Time;
 			sourceTree = "<group>";
@@ -653,16 +667,16 @@
 		A01656E61A70C16B007D0BA1 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
-				A01656E71A70C16B007D0BA1 /* Color.cpp */,
 				A01656E81A70C16B007D0BA1 /* Color.h */,
-				A01656E91A70C16B007D0BA1 /* Graphics.cpp */,
+				A01656E71A70C16B007D0BA1 /* Color.cpp */,
 				A01656EA1A70C16B007D0BA1 /* Graphics.h */,
-				A01656EB1A70C16B007D0BA1 /* Image.cpp */,
+				A01656E91A70C16B007D0BA1 /* Graphics.cpp */,
 				A01656EC1A70C16B007D0BA1 /* Image.h */,
-				A01656ED1A70C16B007D0BA1 /* PixelIterator.cpp */,
+				A01656EB1A70C16B007D0BA1 /* Image.cpp */,
 				A01656EE1A70C16B007D0BA1 /* PixelIterator.h */,
-				A01656EF1A70C16B007D0BA1 /* TextureImage.cpp */,
+				A01656ED1A70C16B007D0BA1 /* PixelIterator.cpp */,
 				A01656F01A70C16B007D0BA1 /* TextureImage.h */,
+				A01656EF1A70C16B007D0BA1 /* TextureImage.cpp */,
 			);
 			path = Graphics;
 			sourceTree = "<group>";
@@ -670,12 +684,12 @@
 		A01656F11A70C16B007D0BA1 /* Input */ = {
 			isa = PBXGroup;
 			children = (
-				A01656F21A70C16B007D0BA1 /* Keyboard.cpp */,
 				A01656F31A70C16B007D0BA1 /* Keyboard.h */,
-				A01656F41A70C16B007D0BA1 /* Mouse.cpp */,
+				A01656F21A70C16B007D0BA1 /* Keyboard.cpp */,
 				A01656F51A70C16B007D0BA1 /* Mouse.h */,
-				A01656F61A70C16B007D0BA1 /* Multitouch.cpp */,
+				A01656F41A70C16B007D0BA1 /* Mouse.cpp */,
 				A01656F71A70C16B007D0BA1 /* Multitouch.h */,
+				A01656F61A70C16B007D0BA1 /* Multitouch.cpp */,
 			);
 			path = Input;
 			sourceTree = "<group>";
@@ -683,10 +697,10 @@
 		A01656F81A70C16B007D0BA1 /* IO */ = {
 			isa = PBXGroup;
 			children = (
-				A01656F91A70C16B007D0BA1 /* Console.cpp */,
 				A01656FA1A70C16B007D0BA1 /* Console.h */,
-				A01656FB1A70C16B007D0BA1 /* FileTools.cpp */,
+				A01656F91A70C16B007D0BA1 /* Console.cpp */,
 				A01656FC1A70C16B007D0BA1 /* FileTools.h */,
+				A01656FB1A70C16B007D0BA1 /* FileTools.cpp */,
 			);
 			path = IO;
 			sourceTree = "<group>";
@@ -694,8 +708,8 @@
 		A01656FD1A70C16B007D0BA1 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				A01656FE1A70C16B007D0BA1 /* NetworkProtocol.cpp */,
 				A01656FF1A70C16B007D0BA1 /* NetworkProtocol.h */,
+				A01656FE1A70C16B007D0BA1 /* NetworkProtocol.cpp */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -706,14 +720,14 @@
 				A016570A1A70C16B007D0BA1 /* Transition */,
 				A01657151A70C16B007D0BA1 /* UI */,
 				A01657011A70C16B007D0BA1 /* Drawable.h */,
-				A01657021A70C16B007D0BA1 /* MenuScreen.cpp */,
 				A01657031A70C16B007D0BA1 /* MenuScreen.h */,
-				A01657041A70C16B007D0BA1 /* Screen.cpp */,
+				A01657021A70C16B007D0BA1 /* MenuScreen.cpp */,
 				A01657051A70C16B007D0BA1 /* Screen.h */,
-				A01657061A70C16B007D0BA1 /* ScreenElement.cpp */,
+				A01657041A70C16B007D0BA1 /* Screen.cpp */,
 				A01657071A70C16B007D0BA1 /* ScreenElement.h */,
-				A01657081A70C16B007D0BA1 /* ScreenManager.cpp */,
+				A01657061A70C16B007D0BA1 /* ScreenElement.cpp */,
 				A01657091A70C16B007D0BA1 /* ScreenManager.h */,
+				A01657081A70C16B007D0BA1 /* ScreenManager.cpp */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
@@ -721,16 +735,16 @@
 		A016570A1A70C16B007D0BA1 /* Transition */ = {
 			isa = PBXGroup;
 			children = (
-				A016570B1A70C16B007D0BA1 /* FadeColorTransition.cpp */,
 				A016570C1A70C16B007D0BA1 /* FadeColorTransition.h */,
-				A016570D1A70C16B007D0BA1 /* FadeZoomTransition.cpp */,
+				A016570B1A70C16B007D0BA1 /* FadeColorTransition.cpp */,
 				A016570E1A70C16B007D0BA1 /* FadeZoomTransition.h */,
-				A016570F1A70C16B007D0BA1 /* PopoverTransition.cpp */,
+				A016570D1A70C16B007D0BA1 /* FadeZoomTransition.cpp */,
 				A01657101A70C16B007D0BA1 /* PopoverTransition.h */,
-				A01657111A70C16B007D0BA1 /* SlideTransition.cpp */,
+				A016570F1A70C16B007D0BA1 /* PopoverTransition.cpp */,
 				A01657121A70C16B007D0BA1 /* SlideTransition.h */,
-				A01657131A70C16B007D0BA1 /* Transition.cpp */,
+				A01657111A70C16B007D0BA1 /* SlideTransition.cpp */,
 				A01657141A70C16B007D0BA1 /* Transition.h */,
+				A01657131A70C16B007D0BA1 /* Transition.cpp */,
 			);
 			path = Transition;
 			sourceTree = "<group>";
@@ -738,10 +752,10 @@
 		A01657151A70C16B007D0BA1 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				A01657161A70C16B007D0BA1 /* ImageElement.cpp */,
 				A01657171A70C16B007D0BA1 /* ImageElement.h */,
-				A01657181A70C16B007D0BA1 /* TextInputElement.cpp */,
+				A01657161A70C16B007D0BA1 /* ImageElement.cpp */,
 				A01657191A70C16B007D0BA1 /* TextInputElement.h */,
+				A01657181A70C16B007D0BA1 /* TextInputElement.cpp */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -754,24 +768,24 @@
 				A016573E1A70C16B007D0BA1 /* Time */,
 				A016571C1A70C16B007D0BA1 /* Any.h */,
 				A016571D1A70C16B007D0BA1 /* ArrayList.h */,
-				A016571E1A70C16B007D0BA1 /* BitList.cpp */,
 				A016571F1A70C16B007D0BA1 /* BitList.h */,
-				A01657201A70C16B007D0BA1 /* BitSet.cpp */,
+				A016571E1A70C16B007D0BA1 /* BitList.cpp */,
 				A01657211A70C16B007D0BA1 /* BitSet.h */,
-				A01657221A70C16B007D0BA1 /* DataPacket.cpp */,
+				A01657201A70C16B007D0BA1 /* BitSet.cpp */,
 				A01657231A70C16B007D0BA1 /* DataPacket.h */,
-				A01657241A70C16B007D0BA1 /* Dictionary.cpp */,
+				A01657221A70C16B007D0BA1 /* DataPacket.cpp */,
 				A01657251A70C16B007D0BA1 /* Dictionary.h */,
-				A01657341A70C16B007D0BA1 /* Math.cpp */,
+				A01657241A70C16B007D0BA1 /* Dictionary.cpp */,
 				A01657351A70C16B007D0BA1 /* Math.h */,
-				A01657361A70C16B007D0BA1 /* Number.cpp */,
+				A01657341A70C16B007D0BA1 /* Math.cpp */,
 				A01657371A70C16B007D0BA1 /* Number.h */,
+				A01657361A70C16B007D0BA1 /* Number.cpp */,
 				A01657381A70C16B007D0BA1 /* Pair.h */,
 				A01657391A70C16B007D0BA1 /* PlatformChecks.h */,
-				A016573A1A70C16B007D0BA1 /* String.cpp */,
 				A016573B1A70C16B007D0BA1 /* String.h */,
-				A016573C1A70C16B007D0BA1 /* Thread.cpp */,
+				A016573A1A70C16B007D0BA1 /* String.cpp */,
 				A016573D1A70C16B007D0BA1 /* Thread.h */,
+				A016573C1A70C16B007D0BA1 /* Thread.cpp */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -779,10 +793,10 @@
 		A01657261A70C16B007D0BA1 /* Font */ = {
 			isa = PBXGroup;
 			children = (
-				A01657271A70C16B007D0BA1 /* Font.cpp */,
 				A01657281A70C16B007D0BA1 /* Font.h */,
-				A01657291A70C16B007D0BA1 /* RenderedGlyphContainer.cpp */,
+				A01657271A70C16B007D0BA1 /* Font.cpp */,
 				A016572A1A70C16B007D0BA1 /* RenderedGlyphContainer.h */,
+				A01657291A70C16B007D0BA1 /* RenderedGlyphContainer.cpp */,
 			);
 			path = Font;
 			sourceTree = "<group>";
@@ -790,13 +804,13 @@
 		A016572B1A70C16B007D0BA1 /* Geometry */ = {
 			isa = PBXGroup;
 			children = (
-				A016572C1A70C16B007D0BA1 /* Circle.cpp */,
 				A016572D1A70C16B007D0BA1 /* Circle.h */,
-				A016572E1A70C16B007D0BA1 /* Polygon.cpp */,
+				A016572C1A70C16B007D0BA1 /* Circle.cpp */,
 				A016572F1A70C16B007D0BA1 /* Polygon.h */,
+				A016572E1A70C16B007D0BA1 /* Polygon.cpp */,
 				A01657301A70C16B007D0BA1 /* Rectangle.h */,
-				A01657311A70C16B007D0BA1 /* Transform.cpp */,
 				A01657321A70C16B007D0BA1 /* Transform.h */,
+				A01657311A70C16B007D0BA1 /* Transform.cpp */,
 				A01657331A70C16B007D0BA1 /* Vector2.h */,
 			);
 			path = Geometry;
@@ -806,12 +820,12 @@
 			isa = PBXGroup;
 			children = (
 				A01657431A70C16B007D0BA1 /* time64 */,
-				A016573F1A70C16B007D0BA1 /* DateTime.cpp */,
 				A01657401A70C16B007D0BA1 /* DateTime.h */,
-				A01657411A70C16B007D0BA1 /* posixtime.cpp */,
+				A016573F1A70C16B007D0BA1 /* DateTime.cpp */,
 				A01657421A70C16B007D0BA1 /* posixtime.h */,
-				A01657481A70C16B007D0BA1 /* TimeInterval.cpp */,
+				A01657411A70C16B007D0BA1 /* posixtime.cpp */,
 				A01657491A70C16B007D0BA1 /* TimeInterval.h */,
+				A01657481A70C16B007D0BA1 /* TimeInterval.cpp */,
 			);
 			path = Time;
 			sourceTree = "<group>";
@@ -819,8 +833,8 @@
 		A01657431A70C16B007D0BA1 /* time64 */ = {
 			isa = PBXGroup;
 			children = (
-				A01657441A70C16B007D0BA1 /* time64.c */,
 				A01657451A70C16B007D0BA1 /* time64.h */,
+				A01657441A70C16B007D0BA1 /* time64.c */,
 				A01657461A70C16B007D0BA1 /* time64_config.h */,
 				A01657471A70C16B007D0BA1 /* time64_limits.h */,
 			);
@@ -830,10 +844,10 @@
 		A016574A1A70C16B007D0BA1 /* Window */ = {
 			isa = PBXGroup;
 			children = (
-				A016574B1A70C16B007D0BA1 /* View.cpp */,
 				A016574C1A70C16B007D0BA1 /* View.h */,
-				A016574D1A70C16B007D0BA1 /* Window.cpp */,
+				A016574B1A70C16B007D0BA1 /* View.cpp */,
 				A016574E1A70C16B007D0BA1 /* Window.h */,
+				A016574D1A70C16B007D0BA1 /* Window.cpp */,
 			);
 			path = Window;
 			sourceTree = "<group>";
@@ -841,13 +855,13 @@
 		A016574F1A70C16B007D0BA1 /* SmashBros */ = {
 			isa = PBXGroup;
 			children = (
-				A01657501A70C16B007D0BA1 /* Game.cpp */,
+				A01657541A70C16B007D0BA1 /* Menu */,
 				A01657511A70C16B007D0BA1 /* Game.h */,
+				A01657501A70C16B007D0BA1 /* Game.cpp */,
 				A01657521A70C16B007D0BA1 /* Global.h */,
 				A01657531A70C16B007D0BA1 /* main.cpp */,
-				A01657541A70C16B007D0BA1 /* Menu */,
-				A01657671A70C16B007D0BA1 /* SmashData.cpp */,
 				A01657681A70C16B007D0BA1 /* SmashData.h */,
+				A01657671A70C16B007D0BA1 /* SmashData.cpp */,
 			);
 			path = SmashBros;
 			sourceTree = "<group>";
@@ -857,16 +871,16 @@
 			children = (
 				A01657551A70C16B007D0BA1 /* Base */,
 				A016575A1A70C16B007D0BA1 /* Elements */,
-				A016575D1A70C16B007D0BA1 /* GroupMenu.cpp */,
 				A016575E1A70C16B007D0BA1 /* GroupMenu.h */,
-				A016575F1A70C16B007D0BA1 /* GroupSmashCharacterSelectMenu.cpp */,
+				A016575D1A70C16B007D0BA1 /* GroupMenu.cpp */,
 				A01657601A70C16B007D0BA1 /* GroupSmashCharacterSelectMenu.h */,
-				A01657611A70C16B007D0BA1 /* MainMenu.cpp */,
+				A016575F1A70C16B007D0BA1 /* GroupSmashCharacterSelectMenu.cpp */,
 				A01657621A70C16B007D0BA1 /* MainMenu.h */,
-				A01657631A70C16B007D0BA1 /* SoloMenu.cpp */,
+				A01657611A70C16B007D0BA1 /* MainMenu.cpp */,
 				A01657641A70C16B007D0BA1 /* SoloMenu.h */,
-				A01657651A70C16B007D0BA1 /* TitleScreen.cpp */,
+				A01657631A70C16B007D0BA1 /* SoloMenu.cpp */,
 				A01657661A70C16B007D0BA1 /* TitleScreen.h */,
+				A01657651A70C16B007D0BA1 /* TitleScreen.cpp */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -874,10 +888,9 @@
 		A01657551A70C16B007D0BA1 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				A01657561A70C16B007D0BA1 /* BaseMenuScreen.cpp */,
+				A0CA522E1A74289A00CCF32A /* CharacterSelect */,
 				A01657571A70C16B007D0BA1 /* BaseMenuScreen.h */,
-				A01657581A70C16B007D0BA1 /* CharacterSelectScreen.cpp */,
-				A01657591A70C16B007D0BA1 /* CharacterSelectScreen.h */,
+				A01657561A70C16B007D0BA1 /* BaseMenuScreen.cpp */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -885,8 +898,8 @@
 		A016575A1A70C16B007D0BA1 /* Elements */ = {
 			isa = PBXGroup;
 			children = (
-				A016575B1A70C16B007D0BA1 /* ActorGrid.cpp */,
 				A016575C1A70C16B007D0BA1 /* ActorGrid.h */,
+				A016575B1A70C16B007D0BA1 /* ActorGrid.cpp */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -936,6 +949,21 @@
 				A01658281A70C291007D0BA1 /* libSDL_ttf.a */,
 			);
 			path = lib;
+			sourceTree = "<group>";
+		};
+		A0CA522E1A74289A00CCF32A /* CharacterSelect */ = {
+			isa = PBXGroup;
+			children = (
+				A0CA52301A74289A00CCF32A /* CharacterSelect_CharacterIcon.h */,
+				A0CA522F1A74289A00CCF32A /* CharacterSelect_CharacterIcon.cpp */,
+				A0CA52321A74289A00CCF32A /* CharacterSelect_PlayerChip.h */,
+				A0CA52311A74289A00CCF32A /* CharacterSelect_PlayerChip.cpp */,
+				A0CA52341A74289A00CCF32A /* CharacterSelect_PlayerPanel.h */,
+				A0CA52331A74289A00CCF32A /* CharacterSelect_PlayerPanel.cpp */,
+				A0CA52361A74289A00CCF32A /* CharacterSelectScreen.h */,
+				A0CA52351A74289A00CCF32A /* CharacterSelectScreen.cpp */,
+			);
+			path = CharacterSelect;
 			sourceTree = "<group>";
 		};
 		E97FD7401A72D834005AC479 /* icons */ = {
@@ -1129,7 +1157,6 @@
 				A01657B91A70C16B007D0BA1 /* Game.cpp in Sources */,
 				A01657BA1A70C16B007D0BA1 /* main.cpp in Sources */,
 				A01657BB1A70C16B007D0BA1 /* BaseMenuScreen.cpp in Sources */,
-				A01657BC1A70C16B007D0BA1 /* CharacterSelectScreen.cpp in Sources */,
 				A01657BD1A70C16B007D0BA1 /* ActorGrid.cpp in Sources */,
 				A01657BE1A70C16B007D0BA1 /* GroupMenu.cpp in Sources */,
 				A01657BF1A70C16B007D0BA1 /* GroupSmashCharacterSelectMenu.cpp in Sources */,
@@ -1138,6 +1165,11 @@
 				A01657C21A70C16B007D0BA1 /* TitleScreen.cpp in Sources */,
 				A01657C31A70C16B007D0BA1 /* SmashData.cpp in Sources */,
 				A01658361A70C291007D0BA1 /* pugixml.cpp in Sources */,
+				A0CA52371A74289A00CCF32A /* CharacterSelect_CharacterIcon.cpp in Sources */,
+				A0CA52381A74289A00CCF32A /* CharacterSelect_PlayerChip.cpp in Sources */,
+				A0CA52391A74289A00CCF32A /* CharacterSelect_PlayerPanel.cpp in Sources */,
+				A0CA523A1A74289A00CCF32A /* CharacterSelectScreen.cpp in Sources */,
+				A0CA523B1A7429AF00CCF32A /* PlayerInfo.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
