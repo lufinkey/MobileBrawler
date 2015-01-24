@@ -24,6 +24,7 @@ namespace SmashBros
 			
 			Rules* getRules() const;
 			CharacterLoader* getCharacterLoader() const;
+			const ArrayList<CharacterSelect::PlayerChip*>& getPlayerChips() const;
 			
 		protected:
 			void reloadIcons(const SmashData&smashData);
@@ -33,7 +34,6 @@ namespace SmashBros
 			virtual void drawItems(ApplicationData appData, Graphics graphics) const override;
 			
 		private:
-			
 			void whenPlayerChipGrabbed(unsigned int playerNum);
 			void whenPlayerChipReleased(unsigned int playerNum);
 			void whenPlayerCharacterChanges(unsigned int playerNum, CharacterInfo*characterInfo);

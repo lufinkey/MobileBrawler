@@ -1,6 +1,7 @@
 
 #include "CharacterSelect_PlayerPanel.h"
 #include "CharacterSelectScreen.h"
+#include "CharacterSelect_PlayerChip.h"
 
 namespace SmashBros
 {
@@ -8,33 +9,86 @@ namespace SmashBros
 	{
 		namespace CharacterSelect
 		{
+			class PlayerPanel_ModeTapRegion : public WireframeActor
+			{
+			private:
+				PlayerPanel* panel;
+				CharacterSelectScreen* charSelectScreen;
+				
+			public:
+				PlayerPanel_ModeTapRegion(PlayerPanel*playerPanel, CharacterSelectScreen*screen) : WireframeActor()
+				{
+					panel = playerPanel;
+					charSelectScreen = screen;
+				}
+
+				PlayerPanel_ModeTapRegion(PlayerPanel*playerPanel, CharacterSelectScreen*screen, float x, float y, float width, float height) : WireframeActor(x, y, width, height)
+				{
+					panel = playerPanel;
+					charSelectScreen = screen;
+				}
+				
+				virtual void onMouseRelease(ApplicationData appData, unsigned int touchID) override
+				{
+					Vector2f touchpos;
+					Transform mouseTransform = appData.getTransform().getInverse();
+					if(Multitouch::isEnabled())
+					{
+						touchpos = mouseTransform.transform(Multitouch::getPreviousPosition(appData.getWindow(), touchID));
+					}
+					else
+					{
+						touchpos = mouseTransform.transform(Mouse::getPreviousPosition(appData.getWindow(), touchID));
+					}
+					
+					bool doCycle = true;
+					
+					const ArrayList<PlayerChip*>& chips = charSelectScreen->getPlayerChips();
+					for(unsigned int i=0; i<chips.size(); i++)
+					{
+						PlayerChip* chip = chips.get(i);
+						if(chip->checkPointCollision(touchpos))
+						{
+							doCycle = false;
+							i = chips.size();
+						}
+					}
+					
+					if(doCycle)
+					{
+						PlayerInfo& info = charSelectScreen->getRules()->getPlayerInfo(panel->getPlayerNum());
+						info.cyclePlayerMode();
+					}
+				}
+			};
+			
 			PlayerPanel::PlayerPanel(unsigned int pNum, CharacterSelectScreen*screen, float x, float y, const Dictionary&placementDict, AssetManager*assetManager) : SpriteActor(x, y)
 			{
 				playerNum = pNum;
 				charSelectScreen = screen;
 				
-				addAnimation("default", new Animation(1, assetManager, (String)"characterselect/panel_background_p" + playerNum + ".png"));
+				addAnimation("human", new Animation(1, assetManager, (String)"characterselect/panel_background_p" + playerNum + ".png"));
 				addAnimation("cpu", new Animation(1, assetManager, (String)"characterselect/panel_background_cpu.png"));
 				addAnimation("na", new Animation(1, assetManager, (String)"characterselect/panel_background_na.png"));
-				addAnimation("blank", new Animation(1, assetManager, (String)"characterselect/panel_background_blank.png"));
-				changeAnimation("default", Animation::FORWARD);
+				//addAnimation("blank", new Animation(1, assetManager, (String)"characterselect/panel_background_blank.png"));
+				changeAnimation("na", Animation::FORWARD);
 				
 				portrait = new SpriteActor(x,y);
 				portrait_anim = new Animation(1);
-				portrait->addAnimation("default", portrait_anim, false);
+				portrait->addAnimation("default", portrait_anim);
 				portrait->changeAnimation("default", Animation::FORWARD);
 				
 				overlay = new SpriteActor(x,y);
-				overlay->addAnimation("default", new Animation(1, assetManager, (String)"characterselect/panel_overlay_p" + playerNum + ".png"));
+				overlay->addAnimation("human", new Animation(1, assetManager, (String)"characterselect/panel_overlay_p" + playerNum + ".png"));
 				overlay->addAnimation("cpu", new Animation(1, assetManager, "characterselect/panel_overlay_cpu.png"));
 				overlay->addAnimation("na", new Animation(1, assetManager, "characterselect/panel_overlay_na.png"));
-				overlay->addAnimation("blank", new Animation(1, assetManager, "characterselect/panel_overlay_blank.png"));
+				//overlay->addAnimation("blank", new Animation(1, assetManager, "characterselect/panel_overlay_blank.png"));
 				overlay->changeAnimation("na", Animation::FORWARD);
 				
 				namebox = new TextActor(x, y, "", assetManager->getFont("fonts/LemonMilk.ttf"), Color::BLACK, 36, Font::STYLE_PLAIN, TextActor::ALIGN_CENTER);
-				
-				tapRegion = new WireframeActor();
-				tapRegion->setVisible(false);
+
+				tapRegion_mode = new PlayerPanel_ModeTapRegion(this, charSelectScreen);
+				tapRegion_mode->setVisible(false);
 			}
 			
 			PlayerPanel::~PlayerPanel()
@@ -42,6 +96,7 @@ namespace SmashBros
 				delete namebox;
 				delete overlay;
 				delete portrait;
+				delete tapRegion_mode;
 			}
 			
 			void PlayerPanel::applyPlacementProperties(const Dictionary&placementDict)
@@ -158,14 +213,28 @@ namespace SmashBros
 				
 				RectangleF frame = getFrame();
 				
-				tapRegion->x = frame.x;
-				tapRegion->y = frame.y;
-				tapRegion->setSize(frame.width, frame.height);
-				tapRegion->update(appData);
+				tapRegion_mode->x = frame.x;
+				tapRegion_mode->y = frame.y;
+				tapRegion_mode->setSize(frame.width, frame.height);
+				tapRegion_mode->update(appData);
 				
-				if(tapRegion->didMouseRelease())
+				PlayerInfo& playerInfo = charSelectScreen->getRules()->getPlayerInfo(playerNum);
+				switch(playerInfo.getPlayerMode())
 				{
-					//TODO add switching between CPU, Human, and NA
+					case PlayerInfo::MODE_OFF:
+					changeAnimation("na", Animation::NO_CHANGE);
+					overlay->changeAnimation("na", Animation::NO_CHANGE);
+					break;
+					
+					case PlayerInfo::MODE_HUMAN:
+					changeAnimation("human", Animation::NO_CHANGE);
+					overlay->changeAnimation("human", Animation::NO_CHANGE);
+					break;
+					
+					case PlayerInfo::MODE_CPU:
+					changeAnimation("cpu", Animation::NO_CHANGE);
+					overlay->changeAnimation("cpu", Animation::NO_CHANGE);
+					break;
 				}
 				
 				RectangleF portrait_frame = getPlacementFrame(frame, portrait_bounds);
@@ -198,6 +267,11 @@ namespace SmashBros
 				RectangleF namebox_frame = getPlacementFrame(frame, namebox_bounds);
 				namebox->scaleToFit(namebox_frame);
 				namebox->draw(appData, graphics);
+				
+				tapRegion_mode->x = frame.x;
+				tapRegion_mode->y = frame.y;
+				tapRegion_mode->setSize(frame.width, frame.height);
+				tapRegion_mode->draw(appData, graphics);
 			}
 			
 			unsigned int PlayerPanel::getPlayerNum() const

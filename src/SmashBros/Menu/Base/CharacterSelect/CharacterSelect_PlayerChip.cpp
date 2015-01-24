@@ -53,6 +53,7 @@ namespace SmashBros
 			void PlayerChip::update(ApplicationData appData)
 			{
 				//updating dragging
+				bool stopDragging = false;
 				if(dragging)
 				{
 					if(Multitouch::isEnabled())
@@ -60,12 +61,12 @@ namespace SmashBros
 						if(Multitouch::isTouchActive(appData.getWindow(), dragTouchID))
 						{
 							Vector2f touchpos = appData.getTransform().getInverse().transform(Multitouch::getPosition(appData.getWindow(), dragTouchID));
-							x = touchpos.x;
-							y = touchpos.y;
+							x = touchpos.x + dragOffset.x;
+							y = touchpos.y + dragOffset.y;
 						}
 						else
 						{
-							releaseChip();
+							stopDragging = true;
 						}
 					}
 					else
@@ -73,12 +74,12 @@ namespace SmashBros
 						if(Mouse::isButtonPressed(appData.getWindow(), dragTouchID, Mouse::BUTTON_LEFT))
 						{
 							Vector2f mousepos = appData.getTransform().getInverse().transform(Mouse::getPosition(appData.getWindow(), dragTouchID));
-							x = mousepos.x;
-							y = mousepos.y;
+							x = mousepos.x + dragOffset.x;
+							y = mousepos.y + dragOffset.y;
 						}
 						else
 						{
-							releaseChip();
+							stopDragging = true;
 						}
 					}
 				}
@@ -104,12 +105,17 @@ namespace SmashBros
 						}
 					}
 				}
-				CharacterInfo* oldInfo = charSelectScreen->rules->getPlayerInfo(playerNum).getCharacterInfo();
-				charSelectScreen->rules->getPlayerInfo(playerNum).setCharacterInfo(overlap_charInfo);
+				CharacterInfo* oldInfo = charSelectScreen->getRules()->getPlayerInfo(playerNum).getCharacterInfo();
+				charSelectScreen->getRules()->getPlayerInfo(playerNum).setCharacterInfo(overlap_charInfo);
 				if(oldInfo != overlap_charInfo)
 				{
 					//event: whenPlayerCharacterChanges
 					charSelectScreen->whenPlayerCharacterChanges(playerNum, overlap_charInfo);
+				}
+				
+				if(stopDragging)
+				{
+					releaseChip();
 				}
 			}
 			
@@ -120,15 +126,17 @@ namespace SmashBros
 				Transform mouseTransform = appData.getTransform().getInverse();
 				if(Multitouch::isEnabled())
 				{
-					dragOffset = mouseTransform.transform(Multitouch::getPosition(appData.getWindow(), touchID)) - Vector2f(x,y);
+					dragOffset = Vector2f(x,y) - mouseTransform.transform(Multitouch::getPosition(appData.getWindow(), touchID));
 				}
 				else
 				{
-					dragOffset = mouseTransform.transform(Mouse::getPosition(appData.getWindow(), touchID)) - Vector2f(x,y);
+					dragOffset = Vector2f(x,y) - mouseTransform.transform(Mouse::getPosition(appData.getWindow(), touchID));
 				}
 				unsigned int index = charSelectScreen->chips.indexOf(this);
 				charSelectScreen->chips.remove(index);
 				charSelectScreen->chips.add(0,this);
+				//event: whenPlayerChipGrabbed
+				charSelectScreen->whenPlayerChipGrabbed(playerNum);
 			}
 			
 			void PlayerChip::releaseChip()
@@ -137,7 +145,10 @@ namespace SmashBros
 				{
 					dragging = false;
 					dragTouchID = 0;
+					dragOffset.x = 0;
+					dragOffset.y = 0;
 					//event: whenPlayerChipReleased
+					charSelectScreen->whenPlayerChipReleased(playerNum);
 				}
 			}
 		}

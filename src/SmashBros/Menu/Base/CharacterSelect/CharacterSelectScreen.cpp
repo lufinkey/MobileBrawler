@@ -24,13 +24,17 @@ namespace SmashBros
 			{
 				delete iconGrid;
 			}
-			for(unsigned int i=0; i<icons.size(); i++)
-			{
-				delete icons.get(i);
-			}
 			for(unsigned int i=0; i<panels.size(); i++)
 			{
 				delete panels.get(i);
+			}
+			for(unsigned int i=0; i<chips.size(); i++)
+			{
+				delete chips.get(i);
+			}
+			for(unsigned int i=0; i<icons.size(); i++)
+			{
+				delete icons.get(i);
 			}
 		}
 		
@@ -42,6 +46,11 @@ namespace SmashBros
 		CharacterLoader* CharacterSelectScreen::getCharacterLoader() const
 		{
 			return characterLoader;
+		}
+		
+		const ArrayList<CharacterSelect::PlayerChip*>& CharacterSelectScreen::getPlayerChips() const
+		{
+			return chips;
 		}
 		
 		void CharacterSelectScreen::reloadIcons(const SmashData&smashData)
@@ -193,6 +202,22 @@ namespace SmashBros
 			for(unsigned int i=0; i<chips_list.size(); i++)
 			{
 				chips_list.get(i)->draw(appData, graphics);
+			}
+		}
+		
+		void CharacterSelectScreen::whenPlayerChipGrabbed(unsigned int playerNum)
+		{
+			PlayerInfo& info = rules->getPlayerInfo(playerNum);
+			info.turnPlayerModeOn();
+		}
+		
+		void CharacterSelectScreen::whenPlayerChipReleased(unsigned int playerNum)
+		{
+			PlayerInfo& info = rules->getPlayerInfo(playerNum);
+			CharacterInfo* characterInfo = info.getCharacterInfo();
+			if(characterInfo == nullptr)
+			{
+				info.turnPlayerModeOff();
 			}
 		}
 		

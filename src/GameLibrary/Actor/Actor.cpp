@@ -51,24 +51,6 @@ namespace GameLibrary
 		{
 			updateMouse(appData);
 		}
-		
-		unsigned int pressedTouches = 0;
-		for(unsigned int i=0; i<currentTouches.size(); i++)
-		{
-			if(currentTouches.get(i).pressed)
-			{
-				pressedTouches++;
-			}
-		}
-		
-		if(pressedTouches == 0)
-		{
-			didpress = false;
-		}
-		else
-		{
-			didrelease = false;
-		}
 	}
 	
 	void Actor::draw(ApplicationData appData, Graphics graphics) const
@@ -587,6 +569,8 @@ namespace GameLibrary
 
 	void Actor::callMouseEvents(ApplicationData&appData, const ArrayList<Pair<unsigned int, byte> >& eventCallData)
 	{
+		bool didmousepress = false;
+		bool didmouserelease = false;
 		for(unsigned int i=0; i<eventCallData.size(); i++)
 		{
 			const Pair<unsigned int, byte>& eventData = eventCallData.get(i);
@@ -601,15 +585,35 @@ namespace GameLibrary
 				break;
 
 				case EVENTCALL_MOUSEPRESS:
-				didpress = true;
+				didmousepress = true;
 				onMousePress(appData, eventData.first);
 				break;
 
 				case EVENTCALL_MOUSERELEASE:
-				didrelease = true;
+				didmouserelease = true;
 				onMouseRelease(appData, eventData.first);
 				break;
 			}
+		}
+		
+		didpress = didmousepress;
+		didrelease = didmouserelease;
+		
+		unsigned int pressedTouches = 0;
+		for(unsigned int i=0; i<currentTouches.size(); i++)
+		{
+			if(currentTouches.get(i).pressed)
+			{
+				pressedTouches++;
+			}
+		}
+		if(pressedTouches == 0)
+		{
+			didpress = false;
+		}
+		else
+		{
+			didrelease = false;
 		}
 	}
 	

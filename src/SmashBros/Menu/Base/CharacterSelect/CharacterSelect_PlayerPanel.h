@@ -24,7 +24,7 @@ namespace SmashBros
 				Animation* portrait_anim;
 				SpriteActor* overlay;
 				TextActor* namebox;
-				WireframeActor* tapRegion;
+				WireframeActor* tapRegion_mode;
 				
 				CharacterSelectScreen*charSelectScreen;
 				
