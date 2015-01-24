@@ -85,6 +85,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="external\pugixml\src\pugixml.cpp" />
+    <ClCompile Include="src\BrawlerLibrary\Game\PlayerInfo.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Game\Rules.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Game\WinCondition.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Loader\CharacterInfo.cpp" />
@@ -168,7 +169,10 @@
     <ClCompile Include="src\SmashBros\Game.cpp" />
     <ClCompile Include="src\SmashBros\main.cpp" />
     <ClCompile Include="src\SmashBros\Menu\Base\BaseMenuScreen.cpp" />
-    <ClCompile Include="src\SmashBros\Menu\Base\CharacterSelectScreen.cpp" />
+    <ClCompile Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelectScreen.cpp" />
+    <ClCompile Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_CharacterIcon.cpp" />
+    <ClCompile Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_PlayerChip.cpp" />
+    <ClCompile Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_PlayerPanel.cpp" />
     <ClCompile Include="src\SmashBros\Menu\Elements\ActorGrid.cpp" />
     <ClCompile Include="src\SmashBros\Menu\GroupSmashCharacterSelectMenu.cpp" />
     <ClCompile Include="src\SmashBros\Menu\MainMenu.cpp" />
@@ -179,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BrawlerLibrary\BrawlerLibrary.h" />
+    <ClInclude Include="src\BrawlerLibrary\Game\PlayerInfo.h" />
     <ClInclude Include="src\BrawlerLibrary\Game\Rules.h" />
     <ClInclude Include="src\BrawlerLibrary\Game\WinCondition.h" />
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterInfo.h" />
@@ -272,7 +277,10 @@
     <ClInclude Include="src\SmashBros\Game.h" />
     <ClInclude Include="src\SmashBros\Global.h" />
     <ClInclude Include="src\SmashBros\Menu\Base\BaseMenuScreen.h" />
-    <ClInclude Include="src\SmashBros\Menu\Base\CharacterSelectScreen.h" />
+    <ClInclude Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelectScreen.h" />
+    <ClInclude Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_CharacterIcon.h" />
+    <ClInclude Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_PlayerChip.h" />
+    <ClInclude Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_PlayerPanel.h" />
     <ClInclude Include="src\SmashBros\Menu\Elements\ActorGrid.h" />
     <ClInclude Include="src\SmashBros\Menu\GroupSmashCharacterSelectMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\MainMenu.h" />

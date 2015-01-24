@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "Base/CharacterSelectScreen.h"
+#include "Base/CharacterSelect/CharacterSelectScreen.h"
 
 namespace SmashBros
 {

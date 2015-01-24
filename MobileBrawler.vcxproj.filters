@@ -106,6 +106,9 @@
     <Filter Include="src\BrawlerLibrary\Game">
       <UniqueIdentifier>{692a2ab6-8df7-4fb6-9acb-e62f48cff3fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\SmashBros\Menu\Base\CharacterSelect">
+      <UniqueIdentifier>{ee55955b-2934-4c4c-b6e4-d890969f2287}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameLibrary\Actor\TextActor.cpp">
@@ -369,9 +372,6 @@
     <ClCompile Include="src\SmashBros\Menu\Base\BaseMenuScreen.cpp">
       <Filter>src\SmashBros\Menu\Base</Filter>
     </ClCompile>
-    <ClCompile Include="src\SmashBros\Menu\Base\CharacterSelectScreen.cpp">
-      <Filter>src\SmashBros\Menu\Base</Filter>
-    </ClCompile>
     <ClCompile Include="src\BrawlerLibrary\Game\Rules.cpp">
       <Filter>src\BrawlerLibrary\Game</Filter>
     </ClCompile>
@@ -383,6 +383,21 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Exception\Utilities\IllegalNumberOperationException.cpp">
       <Filter>src\GameLibrary\Exception\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BrawlerLibrary\Game\PlayerInfo.cpp">
+      <Filter>src\BrawlerLibrary\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_CharacterIcon.cpp">
+      <Filter>src\SmashBros\Menu\Base\CharacterSelect</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_PlayerChip.cpp">
+      <Filter>src\SmashBros\Menu\Base\CharacterSelect</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_PlayerPanel.cpp">
+      <Filter>src\SmashBros\Menu\Base\CharacterSelect</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelectScreen.cpp">
+      <Filter>src\SmashBros\Menu\Base\CharacterSelect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -677,9 +692,6 @@
     <ClInclude Include="src\SmashBros\Menu\Base\BaseMenuScreen.h">
       <Filter>src\SmashBros\Menu\Base</Filter>
     </ClInclude>
-    <ClInclude Include="src\SmashBros\Menu\Base\CharacterSelectScreen.h">
-      <Filter>src\SmashBros\Menu\Base</Filter>
-    </ClInclude>
     <ClInclude Include="src\BrawlerLibrary\Game\Rules.h">
       <Filter>src\BrawlerLibrary\Game</Filter>
     </ClInclude>
@@ -691,6 +703,21 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Exception\Utilities\IllegalNumberOperationException.h">
       <Filter>src\GameLibrary\Exception\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BrawlerLibrary\Game\PlayerInfo.h">
+      <Filter>src\BrawlerLibrary\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_CharacterIcon.h">
+      <Filter>src\SmashBros\Menu\Base\CharacterSelect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_PlayerChip.h">
+      <Filter>src\SmashBros\Menu\Base\CharacterSelect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_PlayerPanel.h">
+      <Filter>src\SmashBros\Menu\Base\CharacterSelect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelectScreen.h">
+      <Filter>src\SmashBros\Menu\Base\CharacterSelect</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
