@@ -11,14 +11,14 @@ namespace GameLibrary
 		void* textinputdata;
 
 	protected:
-		virtual void onRemoveFromWindow(Window*window);
-		virtual void onAddToWindow(Window*window);
+		virtual void onRemoveFromWindow(Window*window) override;
+		virtual void onAddToWindow(Window*window) override;
 
 	public:
 		TextInputElement(const RectangleF&frame);
 		virtual ~TextInputElement();
 
-		virtual void update(ApplicationData appData);
-		virtual void draw(ApplicationData appData, Graphics graphics) const;
+		virtual void update(ApplicationData appData) override;
+		virtual void drawMain(ApplicationData appData, Graphics graphics) const override;
 	};
 }

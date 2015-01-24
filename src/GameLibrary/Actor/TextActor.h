@@ -26,12 +26,12 @@ namespace GameLibrary
 		
 		TextActor& operator=(const TextActor&) = delete;
 		
-		virtual void update(ApplicationData appData);
-		virtual void draw(ApplicationData appData, Graphics graphics) const;
+		virtual void update(ApplicationData appData) override;
+		virtual void draw(ApplicationData appData, Graphics graphics) const override;
 		
-		virtual RectangleF getFrame() const;
+		virtual RectangleF getFrame() const override;
 		
-		virtual void scaleToFit(const RectangleF&container);
+		virtual void scaleToFit(const RectangleF&container) override;
 
 		void setText(const String&);
 		void setFont(Font*);
@@ -47,9 +47,9 @@ namespace GameLibrary
 		const TextAlignment& getAlignment() const;
 		int getLineSpacing() const;
 		
-		virtual void updateSize();
+		virtual void updateSize() override;
 		//NOTE: this function is very inefficient in loops. You should use it for checking single pixels. Do NOT use for pixel level collisions (use PixelIterator)
-		virtual bool checkPointCollision(const Vector2f&point);
+		virtual bool checkPointCollision(const Vector2f&point) override;
 		
 	protected:
 		virtual void drawActor(ApplicationData&appData, Graphics&graphics, float x, float y, float scale) const;

@@ -25,11 +25,11 @@ namespace SmashBros
 		Game();
 		virtual ~Game();
 
-		virtual void initialize();
-		virtual void loadContent(AssetManager*assetManager);
-		virtual void unloadContent(AssetManager*assetManager);
-		virtual void update(AppData appData);
-		virtual void draw(AppData appData, Graphics graphics) const;
+		virtual void initialize() override;
+		virtual void loadContent(AssetManager*assetManager) override;
+		virtual void unloadContent(AssetManager*assetManager) override;
+		virtual void update(AppData appData) override;
+		virtual void draw(AppData appData, Graphics graphics) const override;
 		
 		void loadMenuAssets(AssetManager*assetManager);
 	};

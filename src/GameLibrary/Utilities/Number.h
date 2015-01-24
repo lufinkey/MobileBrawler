@@ -9,6 +9,7 @@ namespace GameLibrary
 	class Number;
 	class _BaseNumberType;
 	
+	//TODO add equality operators
 #define NUMBER_OPERATOR_DECLARE(prefix, type, operatr) \
 	prefix Number operator operatr(const Number&left, const type&right); \
 	prefix type operator operatr(const type&left, const Number&right);

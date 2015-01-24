@@ -29,10 +29,10 @@ namespace GameLibrary
 		
 		Actor& operator=(const Actor&) = delete;
 		
-		virtual void update(ApplicationData appData);
-		virtual void draw(ApplicationData appData, Graphics graphics) const;
+		virtual void update(ApplicationData appData) override;
+		virtual void draw(ApplicationData appData, Graphics graphics) const override;
 		
-		virtual RectangleF getFrame() const;
+		virtual RectangleF getFrame() const override;
 		
 		virtual void scaleToFit(const RectangleF&container);
 		void scaleToFit(const Vector2f&size);
@@ -73,10 +73,10 @@ namespace GameLibrary
 
 		void clearMouseState();
 
-		virtual void onMousePress(Window*window, unsigned int touchID);
-		virtual void onMouseRelease(Window*window, unsigned int touchID);
-		virtual void onMouseEnter(Window*window, unsigned int touchID);
-		virtual void onMouseLeave(Window*window, unsigned int touchID);
+		virtual void onMousePress(ApplicationData appData, unsigned int touchID);
+		virtual void onMouseRelease(ApplicationData appData, unsigned int touchID);
+		virtual void onMouseEnter(ApplicationData appData, unsigned int touchID);
+		virtual void onMouseLeave(ApplicationData appData, unsigned int touchID);
 		
 		virtual void updateSize();
 		virtual bool checkPointCollision(const Vector2f&point);
@@ -121,6 +121,6 @@ namespace GameLibrary
 
 		void updateMouse(ApplicationData&appData);
 		void updateTouch(ApplicationData&appData);
-		void callMouseEvents(Window*window, const ArrayList<Pair<unsigned int, byte> >& eventCallData);
+		void callMouseEvents(ApplicationData&appData, const ArrayList<Pair<unsigned int, byte> >& eventCallData);
 	};
 }

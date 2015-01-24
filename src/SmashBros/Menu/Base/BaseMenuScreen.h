@@ -19,12 +19,12 @@ namespace SmashBros
 			BaseMenuScreen(const SmashData&smashData);
 			virtual ~BaseMenuScreen();
 			
-			virtual void onItemHover(unsigned int index);
-			virtual void onItemHoverFinish(unsigned int index);
-			virtual void onItemPress(unsigned int index);
-			virtual void onItemPressCancel(unsigned int index);
-			virtual void onItemRelease(unsigned int index);
-			virtual void onItemSelect(unsigned int index);
+			virtual void onItemHover(unsigned int index) override;
+			virtual void onItemHoverFinish(unsigned int index) override;
+			virtual void onItemPress(unsigned int index) override;
+			virtual void onItemPressCancel(unsigned int index) override;
+			virtual void onItemRelease(unsigned int index) override;
+			virtual void onItemSelect(unsigned int index) override;
 			
 			ImageElement* getBackgroundElement() const;
 			SpriteActor* getBackButton() const;
@@ -35,8 +35,8 @@ namespace SmashBros
 			void enableHoverPulse(bool);
 			
 		protected:
-			virtual void updateItems(ApplicationData appData);
-			virtual void drawItem(ApplicationData appData, Graphics graphics, unsigned int itemIndex) const;
+			virtual void updateItems(ApplicationData appData) override;
+			virtual void drawItem(ApplicationData appData, Graphics graphics, unsigned int itemIndex) const override;
 			
 		private:
 			float hoverPulseScale;

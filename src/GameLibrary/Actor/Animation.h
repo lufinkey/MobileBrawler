@@ -32,8 +32,8 @@ namespace GameLibrary
 
 		Animation& operator=(const Animation&);
 
-		virtual void update(ApplicationData appData);
-		virtual void draw(ApplicationData appData, Graphics graphics) const;
+		virtual void update(ApplicationData appData) override;
+		virtual void draw(ApplicationData appData, Graphics graphics) const override;
 		
 		void reloadFrames(AssetManager*assetManager);
 
@@ -65,7 +65,7 @@ namespace GameLibrary
 		RectangleI getImageSourceRect(unsigned int frameNum) const;
 		RectangleI getImageSourceRect() const;
 
-		virtual RectangleF getFrame() const;
+		virtual RectangleF getFrame() const override;
 		RectangleF getFrame(unsigned int frameNum) const;
 
 	private:

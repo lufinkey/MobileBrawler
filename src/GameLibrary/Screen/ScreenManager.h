@@ -15,7 +15,7 @@ namespace GameLibrary
 
 		ArrayList<Screen*> screens;
 
-		virtual void setWindow(Window*window);
+		virtual void setWindow(Window*window) override;
 
 	protected:
 		void drawScreens(ApplicationData appData, Graphics graphics) const;
@@ -30,14 +30,14 @@ namespace GameLibrary
 		
 		ScreenManager& operator=(const ScreenManager&) = delete;
 
-		virtual void update(ApplicationData appData);
-		virtual void draw(ApplicationData appData, Graphics graphics) const;
+		virtual void update(ApplicationData appData) override;
+		virtual void draw(ApplicationData appData, Graphics graphics) const override;
 
-		virtual void onWillAppear(const Transition*transition);
-		virtual void onDidAppear(const Transition*transition);
+		virtual void onWillAppear(const Transition*transition) override;
+		virtual void onDidAppear(const Transition*transition) override;
 
-		virtual void onWillDisappear(const Transition*transition);
-		virtual void onDidDisappear(const Transition*transition);
+		virtual void onWillDisappear(const Transition*transition) override;
+		virtual void onDidDisappear(const Transition*transition) override;
 
 		void set(const ArrayList<Screen*>& screens, const Transition*transition=defaultPushTransition, unsigned long long duration=Transition::defaultDuration, CompletionCallback completion=nullptr);
 		void push(Screen*screen, const Transition*transition=defaultPushTransition, unsigned long long duration=Transition::defaultDuration, CompletionCallback completion=nullptr);

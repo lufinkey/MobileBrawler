@@ -293,22 +293,22 @@ namespace GameLibrary
 		return false;
 	}
 	
-	void Actor::onMousePress(Window*window, unsigned int touchID)
+	void Actor::onMousePress(ApplicationData appData, unsigned int touchID)
 	{
 		//Open for implementation
 	}
 
-	void Actor::onMouseRelease(Window*window, unsigned int touchID)
+	void Actor::onMouseRelease(ApplicationData appData, unsigned int touchID)
 	{
 		//Open for implementation
 	}
 
-	void Actor::onMouseEnter(Window*window, unsigned int touchID)
+	void Actor::onMouseEnter(ApplicationData appData, unsigned int touchID)
 	{
 		//Open for implementation
 	}
 
-	void Actor::onMouseLeave(Window*window, unsigned int touchID)
+	void Actor::onMouseLeave(ApplicationData appData, unsigned int touchID)
 	{
 		//Open for implementation
 	}
@@ -512,7 +512,7 @@ namespace GameLibrary
 			}
 		}
 
-		callMouseEvents(window, mouseEventCalls);
+		callMouseEvents(appData, mouseEventCalls);
 	}
 	
 	void Actor::updateTouch(ApplicationData&appData)
@@ -582,10 +582,10 @@ namespace GameLibrary
 			}
 		}
 		
-		callMouseEvents(window, mouseEventCalls);
+		callMouseEvents(appData, mouseEventCalls);
 	}
 
-	void Actor::callMouseEvents(Window*window, const ArrayList<Pair<unsigned int, byte> >& eventCallData)
+	void Actor::callMouseEvents(ApplicationData&appData, const ArrayList<Pair<unsigned int, byte> >& eventCallData)
 	{
 		for(unsigned int i=0; i<eventCallData.size(); i++)
 		{
@@ -593,21 +593,21 @@ namespace GameLibrary
 			switch(eventData.second)
 			{
 				case EVENTCALL_MOUSEENTER:
-				onMouseEnter(window, eventData.first);
+				onMouseEnter(appData, eventData.first);
 				break;
 
 				case EVENTCALL_MOUSELEAVE:
-				onMouseLeave(window, eventData.first);
+				onMouseLeave(appData, eventData.first);
 				break;
 
 				case EVENTCALL_MOUSEPRESS:
 				didpress = true;
-				onMousePress(window, eventData.first);
+				onMousePress(appData, eventData.first);
 				break;
 
 				case EVENTCALL_MOUSERELEASE:
 				didrelease = true;
-				onMouseRelease(window, eventData.first);
+				onMouseRelease(appData, eventData.first);
 				break;
 			}
 		}

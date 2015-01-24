@@ -14,7 +14,7 @@ namespace SmashBros
 			SoloMenu(const SmashData&smashData);
 			virtual ~SoloMenu();
 			
-			virtual void onItemSelect(unsigned int index);
+			virtual void onItemSelect(unsigned int index) override;
 		};
 	}
 }

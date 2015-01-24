@@ -15,6 +15,6 @@ namespace GameLibrary
 		FadeColorTransition(const Color& color, float frozenPortion = 0);
 		virtual ~FadeColorTransition();
 
-		virtual void draw(ApplicationData appData, Graphics graphics, float progress, Drawable*element1, Drawable*element2) const;
+		virtual void draw(ApplicationData appData, Graphics graphics, float progress, Drawable*element1, Drawable*element2) const override;
 	};
 }

@@ -33,7 +33,7 @@ namespace GameLibrary
 		DisplayMode getDisplayMode() const;
 		
 	protected:
-		virtual void drawMain(ApplicationData appData, Graphics graphics) const;
+		virtual void drawMain(ApplicationData appData, Graphics graphics) const override;
 		
 	private:
 		TextureImage* image;

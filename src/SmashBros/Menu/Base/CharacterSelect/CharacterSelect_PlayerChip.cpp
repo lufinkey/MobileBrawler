@@ -18,6 +18,8 @@ namespace SmashBros
 				changeAnimation("default", Animation::FORWARD);
 				dragging = false;
 				dragTouchID = 0;
+				dragOffset.x = 0;
+				dragOffset.y = 0;
 			}
 			
 			PlayerChip::~PlayerChip()
@@ -25,7 +27,7 @@ namespace SmashBros
 				//
 			}
 			
-			void PlayerChip::onMousePress(Window*window, unsigned int touchID)
+			void PlayerChip::onMousePress(ApplicationData appData, unsigned int touchID)
 			{
 				if(!dragging)
 				{
@@ -43,11 +45,7 @@ namespace SmashBros
 					}
 					if(!touch_alreadyBeingUsed)
 					{
-						dragging = true;
-						dragTouchID = touchID;
-						unsigned int index = charSelectScreen->chips.indexOf(this);
-						charSelectScreen->chips.remove(index);
-						charSelectScreen->chips.add(0,this);
+						grabChip(appData, touchID);
 					}
 				}
 			}
@@ -67,9 +65,7 @@ namespace SmashBros
 						}
 						else
 						{
-							dragging = false;
-							dragTouchID = 0;
-							//TODO add event for dragging being stopped
+							releaseChip();
 						}
 					}
 					else
@@ -82,9 +78,7 @@ namespace SmashBros
 						}
 						else
 						{
-							dragging = false;
-							dragTouchID = 0;
-							//TODO add event for dragging being stopped
+							releaseChip();
 						}
 					}
 				}
@@ -114,7 +108,36 @@ namespace SmashBros
 				charSelectScreen->rules->getPlayerInfo(playerNum).setCharacterInfo(overlap_charInfo);
 				if(oldInfo != overlap_charInfo)
 				{
+					//event: whenPlayerCharacterChanges
 					charSelectScreen->whenPlayerCharacterChanges(playerNum, overlap_charInfo);
+				}
+			}
+			
+			void PlayerChip::grabChip(const ApplicationData&appData, unsigned int touchID)
+			{
+				dragging = true;
+				dragTouchID = touchID;
+				Transform mouseTransform = appData.getTransform().getInverse();
+				if(Multitouch::isEnabled())
+				{
+					dragOffset = mouseTransform.transform(Multitouch::getPosition(appData.getWindow(), touchID)) - Vector2f(x,y);
+				}
+				else
+				{
+					dragOffset = mouseTransform.transform(Mouse::getPosition(appData.getWindow(), touchID)) - Vector2f(x,y);
+				}
+				unsigned int index = charSelectScreen->chips.indexOf(this);
+				charSelectScreen->chips.remove(index);
+				charSelectScreen->chips.add(0,this);
+			}
+			
+			void PlayerChip::releaseChip()
+			{
+				if(dragging)
+				{
+					dragging = false;
+					dragTouchID = 0;
+					//event: whenPlayerChipReleased
 				}
 			}
 		}

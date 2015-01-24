@@ -23,7 +23,7 @@ namespace SmashBros
 			GroupMenu(const SmashData&smashData);
 			virtual ~GroupMenu();
 			
-			virtual void onItemSelect(unsigned int index);
+			virtual void onItemSelect(unsigned int index) override;
 		};
 	}
 }

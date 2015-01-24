@@ -39,8 +39,8 @@ namespace SmashBros
 				PlayerPanel(unsigned int playerNum, CharacterSelectScreen*charSelectScreen, float x, float y, const Dictionary&placementDict, AssetManager*assetManager);
 				virtual ~PlayerPanel();
 				
-				virtual void update(ApplicationData appData);
-				virtual void draw(ApplicationData appData, Graphics graphics) const;
+				virtual void update(ApplicationData appData) override;
+				virtual void draw(ApplicationData appData, Graphics graphics) const override;
 				
 				unsigned int getPlayerNum() const;
 				

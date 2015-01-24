@@ -80,10 +80,10 @@ namespace GameLibrary
 		
 		Screen& operator=(const Screen&) = delete;
 
-		virtual void update(ApplicationData appData);
-		virtual void draw(ApplicationData appData, Graphics graphics) const;
+		virtual void update(ApplicationData appData) override;
+		virtual void draw(ApplicationData appData, Graphics graphics) const override;
 		
-		virtual RectangleF getFrame() const;
+		virtual RectangleF getFrame() const override;
 		
 		//TODO add events for navigation from ScreenManager
 		

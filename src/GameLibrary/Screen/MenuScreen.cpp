@@ -40,22 +40,22 @@ namespace GameLibrary
 		//
 	}
 	
-	void MenuScreen::ImageItem::onMousePress(Window*window, unsigned int touchID)
+	void MenuScreen::ImageItem::onMousePress(ApplicationData appData, unsigned int touchID)
 	{
 		menuScreen->setKeyboardEnabled(false);
 	}
 	
-	void MenuScreen::ImageItem::onMouseRelease(Window*window, unsigned int touchID)
+	void MenuScreen::ImageItem::onMouseRelease(ApplicationData appData, unsigned int touchID)
 	{
 		menuScreen->setKeyboardEnabled(false);
 	}
 	
-	void MenuScreen::ImageItem::onMouseEnter(Window*window, unsigned int touchID)
+	void MenuScreen::ImageItem::onMouseEnter(ApplicationData appData, unsigned int touchID)
 	{
 		menuScreen->setKeyboardEnabled(false);
 	}
 	
-	void MenuScreen::ImageItem::onMouseLeave(Window*window, unsigned int touchID)
+	void MenuScreen::ImageItem::onMouseLeave(ApplicationData appData, unsigned int touchID)
 	{
 		menuScreen->setKeyboardEnabled(false);
 	}
@@ -75,22 +75,22 @@ namespace GameLibrary
 		//
 	}
 	
-	void MenuScreen::TextItem::onMousePress(Window*window, unsigned int touchID)
+	void MenuScreen::TextItem::onMousePress(ApplicationData appData, unsigned int touchID)
 	{
 		menuScreen->setKeyboardEnabled(false);
 	}
 	
-	void MenuScreen::TextItem::onMouseRelease(Window*window, unsigned int touchID)
+	void MenuScreen::TextItem::onMouseRelease(ApplicationData appData, unsigned int touchID)
 	{
 		menuScreen->setKeyboardEnabled(false);
 	}
 	
-	void MenuScreen::TextItem::onMouseEnter(Window*window, unsigned int touchID)
+	void MenuScreen::TextItem::onMouseEnter(ApplicationData appData, unsigned int touchID)
 	{
 		menuScreen->setKeyboardEnabled(false);
 	}
 	
-	void MenuScreen::TextItem::onMouseLeave(Window*window, unsigned int touchID)
+	void MenuScreen::TextItem::onMouseLeave(ApplicationData appData, unsigned int touchID)
 	{
 		menuScreen->setKeyboardEnabled(false);
 	}

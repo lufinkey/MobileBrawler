@@ -71,8 +71,8 @@ namespace GameLibrary
 			MainElement(MenuScreen*menuScreen, const RectangleF&frame);
 			virtual ~MainElement();
 			
-			virtual void update(ApplicationData appData);
-			virtual void drawMain(ApplicationData appData, Graphics graphics) const;
+			virtual void update(ApplicationData appData) override;
+			virtual void drawMain(ApplicationData appData, Graphics graphics) const override;
 		};
 
 		class ImageItem : public GameLibrary::SpriteActor
@@ -83,10 +83,10 @@ namespace GameLibrary
 			ImageItem(MenuScreen*menuScreen, float x, float y);
 			virtual ~ImageItem();
 			
-			virtual void onMousePress(Window*window, unsigned int touchID);
-			virtual void onMouseRelease(Window*window, unsigned int touchID);
-			virtual void onMouseEnter(Window*window, unsigned int touchID);
-			virtual void onMouseLeave(Window*window, unsigned int touchID);
+			virtual void onMousePress(ApplicationData appData, unsigned int touchID) override;
+			virtual void onMouseRelease(ApplicationData appData, unsigned int touchID) override;
+			virtual void onMouseEnter(ApplicationData appData, unsigned int touchID) override;
+			virtual void onMouseLeave(ApplicationData appData, unsigned int touchID) override;
 		};
 		
 		class TextItem : public GameLibrary::TextActor
@@ -97,10 +97,10 @@ namespace GameLibrary
 			TextItem(MenuScreen*menuScreen, float x, float y, const String&text, Font*font, const Color&color, unsigned int fontsize, const Font::Style&fontstyle, const TextActor::TextAlignment&alignment);
 			virtual ~TextItem();
 			
-			virtual void onMousePress(Window*window, unsigned int touchID);
-			virtual void onMouseRelease(Window*window, unsigned int touchID);
-			virtual void onMouseEnter(Window*window, unsigned int touchID);
-			virtual void onMouseLeave(Window*window, unsigned int touchID);
+			virtual void onMousePress(ApplicationData appData, unsigned int touchID) override;
+			virtual void onMouseRelease(ApplicationData appData, unsigned int touchID) override;
+			virtual void onMouseEnter(ApplicationData appData, unsigned int touchID) override;
+			virtual void onMouseLeave(ApplicationData appData, unsigned int touchID) override;
 		};
 		
 		ArrayList<Actor*> items;

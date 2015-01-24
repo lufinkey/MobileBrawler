@@ -49,12 +49,12 @@ namespace GameLibrary
 
 		ScreenElement& operator=(const ScreenElement&) = delete;
 
-		virtual void update(ApplicationData appData);
-		virtual void draw(ApplicationData appData, Graphics graphics) const;
+		virtual void update(ApplicationData appData) override;
+		virtual void draw(ApplicationData appData, Graphics graphics) const override;
 
 		virtual void setFrame(const RectangleF&frame);
 
-		virtual RectangleF getFrame() const;
+		virtual RectangleF getFrame() const override;
 		Vector2f getCenter() const;
 
 		void addChildElement(ScreenElement*element);

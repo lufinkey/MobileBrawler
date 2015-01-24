@@ -57,7 +57,7 @@ namespace GameLibrary
 		//
 	}
 
-	void TextInputElement::draw(ApplicationData appData, Graphics graphics) const
+	void TextInputElement::drawMain(ApplicationData appData, Graphics graphics) const
 	{
 		//
 	}
