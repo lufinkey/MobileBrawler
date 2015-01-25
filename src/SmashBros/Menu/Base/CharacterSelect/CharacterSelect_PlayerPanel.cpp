@@ -85,7 +85,7 @@ namespace SmashBros
 				//overlay->addAnimation("blank", new Animation(1, assetManager, "characterselect/panel_overlay_blank.png"));
 				overlay->changeAnimation("na", Animation::FORWARD);
 				
-				namebox = new TextActor(x, y, "", assetManager->getFont("fonts/LemonMilk.ttf"), Color::BLACK, 36, Font::STYLE_PLAIN, TextActor::ALIGN_CENTER);
+				namebox = new TextActor(x, y, "", assetManager->getFont("fonts/default.ttf"), Color::BLACK, 36, Font::STYLE_PLAIN, TextActor::ALIGN_CENTER);
 
 				tapRegion_mode = new PlayerPanel_ModeTapRegion(this, charSelectScreen);
 				tapRegion_mode->setVisible(false);

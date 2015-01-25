@@ -117,7 +117,7 @@ namespace SmashBros
 		batchLoader->addTexture("elements/headerbar_full.png");
 		batchLoader->addTexture("elements/headerbar_small.png");
 		
-		batchLoader->addFont("fonts/LemonMilk.ttf");
+		batchLoader->addFont("fonts/default.ttf");
 		
 		batchLoader->addTexture("titlescreen/logo.png");
 		batchLoader->addTexture("titlescreen/background.png");
