@@ -35,6 +35,9 @@ namespace SmashBros
 				void updateDragging(ApplicationData appData, Graphics graphics);
 				void grabChip(const ApplicationData&appData, unsigned int touchID);
 				void releaseChip();
+				
+				bool isDragging() const;
+				unsigned int getPlayerNum() const;
 			};
 		}
 	}

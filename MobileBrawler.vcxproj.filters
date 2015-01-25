@@ -399,6 +399,9 @@
     <ClCompile Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelectScreen.cpp">
       <Filter>src\SmashBros\Menu\Base\CharacterSelect</Filter>
     </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_ReadyToFightBanner.cpp">
+      <Filter>src\SmashBros\Menu\Base\CharacterSelect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -717,6 +720,9 @@
       <Filter>src\SmashBros\Menu\Base\CharacterSelect</Filter>
     </ClInclude>
     <ClInclude Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelectScreen.h">
+      <Filter>src\SmashBros\Menu\Base\CharacterSelect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_ReadyToFightBanner.h">
       <Filter>src\SmashBros\Menu\Base\CharacterSelect</Filter>
     </ClInclude>
   </ItemGroup>

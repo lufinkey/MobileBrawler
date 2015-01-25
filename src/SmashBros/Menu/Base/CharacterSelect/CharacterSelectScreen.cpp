@@ -4,6 +4,7 @@
 #include "CharacterSelect_CharacterIcon.h"
 #include "CharacterSelect_PlayerChip.h"
 #include "CharacterSelect_PlayerPanel.h"
+#include "CharacterSelect_ReadyToFightBanner.h"
 
 namespace SmashBros
 {
@@ -16,6 +17,8 @@ namespace SmashBros
 			rules = smashData.getRules();
 			characterLoader = smashData.getCharacterLoader();
 			iconGrid = nullptr;
+			Vector2f readyToFightPos = smashData.getScreenCoords(0.5f, 0.6f);
+			readyToFightBanner = new ReadyToFightBanner(this, readyToFightPos.x, readyToFightPos.y, smashData.getMenuData().getAssetManager());
 		}
 		
 		CharacterSelectScreen::~CharacterSelectScreen()
@@ -36,6 +39,41 @@ namespace SmashBros
 			{
 				delete icons.get(i);
 			}
+			delete readyToFightBanner;
+		}
+		
+		bool CharacterSelectScreen::isReadyToFight() const
+		{
+			unsigned int playerCount = rules->getPlayerCount();
+			unsigned int activePlayers = 0;
+			for(unsigned int i=0; i<playerCount; i++)
+			{
+				PlayerChip* chip = chips.get(i);
+				if(chip->isDragging())
+				{
+					return false;
+				}
+				unsigned int playerNum = chip->getPlayerNum();
+				PlayerInfo& playerInfo = rules->getPlayerInfo(playerNum);
+				if(playerInfo.getPlayerMode() != PlayerInfo::MODE_OFF)
+				{
+					activePlayers++;
+					if(playerInfo.getCharacterInfo() == nullptr)
+					{
+						return false;
+					}
+				}
+			}
+			if(activePlayers==0)
+			{
+				return false;
+			}
+			return true;
+		}
+		
+		void CharacterSelectScreen::proceedToFight()
+		{
+			//
 		}
 		
 		Rules* CharacterSelectScreen::getRules() const
@@ -176,6 +214,15 @@ namespace SmashBros
 				panels_list.get(i)->update(appData);
 			}
 			panels_list.clear();
+			if(isReadyToFight())
+			{
+				readyToFightBanner->setVisible(true);
+			}
+			else
+			{
+				readyToFightBanner->setVisible(false);
+			}
+			readyToFightBanner->update(appData);
 		}
 		
 		void CharacterSelectScreen::drawItems(ApplicationData appData, Graphics graphics) const
@@ -203,6 +250,7 @@ namespace SmashBros
 			{
 				chips_list.get(i)->draw(appData, graphics);
 			}
+			readyToFightBanner->draw(appData, graphics);
 		}
 		
 		void CharacterSelectScreen::whenPlayerChipGrabbed(unsigned int playerNum)
@@ -213,12 +261,12 @@ namespace SmashBros
 		
 		void CharacterSelectScreen::whenPlayerChipReleased(unsigned int playerNum)
 		{
-			PlayerInfo& info = rules->getPlayerInfo(playerNum);
+			/*PlayerInfo& info = rules->getPlayerInfo(playerNum);
 			CharacterInfo* characterInfo = info.getCharacterInfo();
 			if(characterInfo == nullptr)
 			{
 				info.turnPlayerModeOff();
-			}
+			}*/
 		}
 		
 		void CharacterSelectScreen::whenPlayerCharacterChanges(unsigned int playerNum, CharacterInfo*characterInfo)

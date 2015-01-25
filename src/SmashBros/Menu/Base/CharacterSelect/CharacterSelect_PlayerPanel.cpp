@@ -116,7 +116,7 @@ namespace SmashBros
 				{
 					const Dictionary&namebox_dict = nameboxDict.as<Dictionary>(false);
 					applyPlacementDict(&namebox_bounds, nameboxDict);
-					const Any& alignment_val = namebox_dict.get("alignment");
+					/*const Any& alignment_val = namebox_dict.get("alignment");
 					if(!alignment_val.empty() && alignment_val.is<String>())
 					{
 						String alignment = alignment_val.as<String>(false);
@@ -140,7 +140,7 @@ namespace SmashBros
 						{
 							namebox->setAlignment(TextActor::ALIGN_TOPRIGHT);
 						}
-					}
+					}*/
 					const Any& color_val = namebox_dict.get("color");
 					if(!color_val.empty() && color_val.is<Dictionary>())
 					{
@@ -248,6 +248,24 @@ namespace SmashBros
 				RectangleF namebox_frame = getPlacementFrame(frame, namebox_bounds);
 				namebox->scaleToFit(namebox_frame);
 				namebox->update(appData);
+				
+				const ArrayList<PlayerChip*>& chips = charSelectScreen->getPlayerChips();
+				for(unsigned int i=0; i<chips.size(); i++)
+				{
+					PlayerChip* chip = chips.get(i);
+					if(chip->getPlayerNum() == playerNum)
+					{
+						if(chip->isDragging())
+						{
+							portrait->setAlpha(0.5f);
+						}
+						else
+						{
+							portrait->setAlpha(1.0f);
+						}
+						i = chips.size();
+					}
+				}
 			}
 			
 			void PlayerPanel::draw(ApplicationData appData, Graphics graphics) const

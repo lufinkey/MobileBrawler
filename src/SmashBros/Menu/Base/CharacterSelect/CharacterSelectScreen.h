@@ -13,6 +13,7 @@ namespace SmashBros
 			class CharacterIcon;
 			class PlayerChip;
 			class PlayerPanel;
+			class ReadyToFightBanner;
 		}
 		
 		class CharacterSelectScreen : public BaseMenuScreen
@@ -21,6 +22,9 @@ namespace SmashBros
 		public:
 			CharacterSelectScreen(const SmashData&smashData);
 			virtual ~CharacterSelectScreen();
+			
+			virtual bool isReadyToFight() const;
+			virtual void proceedToFight();
 			
 			Rules* getRules() const;
 			CharacterLoader* getCharacterLoader() const;
@@ -45,6 +49,7 @@ namespace SmashBros
 			ArrayList<CharacterSelect::CharacterIcon*> icons;
 			ArrayList<CharacterSelect::PlayerPanel*> panels;
 			ArrayList<CharacterSelect::PlayerChip*> chips;
+			CharacterSelect::ReadyToFightBanner* readyToFightBanner;
 		};
 	}
 }

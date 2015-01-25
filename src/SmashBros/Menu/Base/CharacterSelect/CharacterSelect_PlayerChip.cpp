@@ -151,6 +151,16 @@ namespace SmashBros
 					charSelectScreen->whenPlayerChipReleased(playerNum);
 				}
 			}
+			
+			bool PlayerChip::isDragging() const
+			{
+				return dragging;
+			}
+			
+			unsigned int PlayerChip::getPlayerNum() const
+			{
+				return playerNum;
+			}
 		}
 	}
 }
