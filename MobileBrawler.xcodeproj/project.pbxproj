@@ -117,6 +117,7 @@
 		A01658521A714D93007D0BA1 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A01658511A714D93007D0BA1 /* GameKit.framework */; };
 		A01658541A714DB0007D0BA1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A01658531A714DB0007D0BA1 /* MobileCoreServices.framework */; };
 		A01658561A714DD4007D0BA1 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A01658551A714DD4007D0BA1 /* ImageIO.framework */; };
+		A0871C271A746B5200A6F88F /* CharacterSelect_ReadyToFightBanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0871C251A746B4B00A6F88F /* CharacterSelect_ReadyToFightBanner.cpp */; };
 		A0CA52371A74289A00CCF32A /* CharacterSelect_CharacterIcon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0CA522F1A74289A00CCF32A /* CharacterSelect_CharacterIcon.cpp */; };
 		A0CA52381A74289A00CCF32A /* CharacterSelect_PlayerChip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0CA52311A74289A00CCF32A /* CharacterSelect_PlayerChip.cpp */; };
 		A0CA52391A74289A00CCF32A /* CharacterSelect_PlayerPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0CA52331A74289A00CCF32A /* CharacterSelect_PlayerPanel.cpp */; };
@@ -357,6 +358,8 @@
 		A01658511A714D93007D0BA1 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		A01658531A714DB0007D0BA1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		A01658551A714DD4007D0BA1 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		A0871C251A746B4B00A6F88F /* CharacterSelect_ReadyToFightBanner.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CharacterSelect_ReadyToFightBanner.cpp; sourceTree = "<group>"; };
+		A0871C261A746B4B00A6F88F /* CharacterSelect_ReadyToFightBanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CharacterSelect_ReadyToFightBanner.h; sourceTree = "<group>"; };
 		A0CA522C1A7426DE00CCF32A /* PlayerInfo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PlayerInfo.cpp; sourceTree = "<group>"; };
 		A0CA522D1A7426DE00CCF32A /* PlayerInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerInfo.h; sourceTree = "<group>"; };
 		A0CA522F1A74289A00CCF32A /* CharacterSelect_CharacterIcon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CharacterSelect_CharacterIcon.cpp; sourceTree = "<group>"; };
@@ -960,6 +963,8 @@
 				A0CA52311A74289A00CCF32A /* CharacterSelect_PlayerChip.cpp */,
 				A0CA52341A74289A00CCF32A /* CharacterSelect_PlayerPanel.h */,
 				A0CA52331A74289A00CCF32A /* CharacterSelect_PlayerPanel.cpp */,
+				A0871C261A746B4B00A6F88F /* CharacterSelect_ReadyToFightBanner.h */,
+				A0871C251A746B4B00A6F88F /* CharacterSelect_ReadyToFightBanner.cpp */,
 				A0CA52361A74289A00CCF32A /* CharacterSelectScreen.h */,
 				A0CA52351A74289A00CCF32A /* CharacterSelectScreen.cpp */,
 			);
@@ -1170,6 +1175,7 @@
 				A0CA52391A74289A00CCF32A /* CharacterSelect_PlayerPanel.cpp in Sources */,
 				A0CA523A1A74289A00CCF32A /* CharacterSelectScreen.cpp in Sources */,
 				A0CA523B1A7429AF00CCF32A /* PlayerInfo.cpp in Sources */,
+				A0871C271A746B5200A6F88F /* CharacterSelect_ReadyToFightBanner.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
