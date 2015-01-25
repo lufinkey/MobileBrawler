@@ -402,6 +402,18 @@
     <ClCompile Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_ReadyToFightBanner.cpp">
       <Filter>src\SmashBros\Menu\Base\CharacterSelect</Filter>
     </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\Elements\ArrowButton.cpp">
+      <Filter>src\SmashBros\Menu\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\Elements\RulesBar.cpp">
+      <Filter>src\SmashBros\Menu\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\Elements\MenuBar.cpp">
+      <Filter>src\SmashBros\Menu\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\Elements\MenuBarValueAdjust.cpp">
+      <Filter>src\SmashBros\Menu\Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -724,6 +736,18 @@
     </ClInclude>
     <ClInclude Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_ReadyToFightBanner.h">
       <Filter>src\SmashBros\Menu\Base\CharacterSelect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\Elements\ArrowButton.h">
+      <Filter>src\SmashBros\Menu\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\Elements\RulesBar.h">
+      <Filter>src\SmashBros\Menu\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\Elements\MenuBar.h">
+      <Filter>src\SmashBros\Menu\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\Elements\MenuBarValueAdjust.h">
+      <Filter>src\SmashBros\Menu\Elements</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

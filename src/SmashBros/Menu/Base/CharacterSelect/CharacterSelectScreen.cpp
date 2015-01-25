@@ -19,6 +19,11 @@ namespace SmashBros
 			iconGrid = nullptr;
 			Vector2f readyToFightPos = smashData.getScreenCoords(0.5f, 0.6f);
 			readyToFightBanner = new ReadyToFightBanner(this, readyToFightPos.x, readyToFightPos.y, smashData.getMenuData().getAssetManager());
+			Vector2f screenSize = smashData.getScreenCoords(1.0f,1.0f);
+			RectangleF readytofight_constraint(0,readyToFightPos.y, screenSize.x, 1);
+			RectangleF readytofight_frame = readyToFightBanner->getFrame();
+			readytofight_frame.scaleToFill(readytofight_constraint);
+			readyToFightBanner->Actor::scaleToFit(Vector2f(readytofight_frame.width, readytofight_frame.height));
 		}
 		
 		CharacterSelectScreen::~CharacterSelectScreen()
@@ -132,7 +137,7 @@ namespace SmashBros
 			
 			float icon_width = charSelectRect.width/((float)cols);
 			float icon_height = charSelectRect.height/((float)rows);
-			Vector2f icon_size(icon_width-1, icon_height);
+			Vector2f icon_size(icon_width, icon_height);
 			
 			iconGrid = new ActorGrid(Vector2f(charSelectRect.x+(icon_width/2), charSelectRect.y+(icon_height/2)), cols, Vector2f(icon_width, icon_height));
 			

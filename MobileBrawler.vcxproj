@@ -175,6 +175,10 @@
     <ClCompile Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_PlayerPanel.cpp" />
     <ClCompile Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_ReadyToFightBanner.cpp" />
     <ClCompile Include="src\SmashBros\Menu\Elements\ActorGrid.cpp" />
+    <ClCompile Include="src\SmashBros\Menu\Elements\ArrowButton.cpp" />
+    <ClCompile Include="src\SmashBros\Menu\Elements\MenuBar.cpp" />
+    <ClCompile Include="src\SmashBros\Menu\Elements\MenuBarValueAdjust.cpp" />
+    <ClCompile Include="src\SmashBros\Menu\Elements\RulesBar.cpp" />
     <ClCompile Include="src\SmashBros\Menu\GroupSmashCharacterSelectMenu.cpp" />
     <ClCompile Include="src\SmashBros\Menu\MainMenu.cpp" />
     <ClCompile Include="src\SmashBros\Menu\GroupMenu.cpp" />
@@ -284,6 +288,10 @@
     <ClInclude Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_PlayerPanel.h" />
     <ClInclude Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_ReadyToFightBanner.h" />
     <ClInclude Include="src\SmashBros\Menu\Elements\ActorGrid.h" />
+    <ClInclude Include="src\SmashBros\Menu\Elements\ArrowButton.h" />
+    <ClInclude Include="src\SmashBros\Menu\Elements\MenuBar.h" />
+    <ClInclude Include="src\SmashBros\Menu\Elements\MenuBarValueAdjust.h" />
+    <ClInclude Include="src\SmashBros\Menu\Elements\RulesBar.h" />
     <ClInclude Include="src\SmashBros\Menu\GroupSmashCharacterSelectMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\MainMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\GroupMenu.h" />
