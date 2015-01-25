@@ -6,6 +6,8 @@
 #pragma warning(disable : 4800)
 #pragma warning(disable : 4804)
 #pragma warning(disable : 4244)
+#pragma warning(disable : 4805)
+#pragma warning(disable : 4018)
 #endif
 
 namespace GameLibrary
@@ -32,6 +34,18 @@ namespace GameLibrary
 		virtual _BaseNumberType& operator*=(const _BaseNumberType&) = 0;
 		virtual _BaseNumberType& operator/=(const _BaseNumberType&) = 0;
 		virtual _BaseNumberType& operator%=(const _BaseNumberType&) = 0;
+		
+		virtual _BaseNumberType& operator++() = 0;
+		virtual _BaseNumberType& operator--() = 0;
+		
+		virtual bool operator==(const _BaseNumberType&) const = 0;
+		virtual bool operator!=(const _BaseNumberType&) const = 0;
+		virtual bool operator>(const _BaseNumberType&) const = 0;
+		virtual bool operator>=(const _BaseNumberType&) const = 0;
+		virtual bool operator<(const _BaseNumberType&) const = 0;
+		virtual bool operator<=(const _BaseNumberType&) const = 0;
+		
+		virtual std::ostream& streamTo(std::ostream&) const = 0;
 		
 		virtual bool isIntegral() const = 0;
 		
@@ -60,12 +74,12 @@ namespace GameLibrary
 
 		_DerivedNumberType(const T&val, const Number::NumberType&tp) : value(val) {type = tp;}
 		
-		virtual _BaseNumberType* clone() const
+		virtual _BaseNumberType* clone() const override
 		{
 			return (_BaseNumberType*)(new _DerivedNumberType<T>(value, type));
 		}
 		
-		virtual _BaseNumberType& operator+=(const _BaseNumberType&num)
+		virtual _BaseNumberType& operator+=(const _BaseNumberType&num) override
 		{
 			if(type == Number::TYPE_BOOL)
 			{
@@ -137,7 +151,7 @@ namespace GameLibrary
 			return *((_BaseNumberType*)this);
 		}
 		
-		virtual Number operator+(const _BaseNumberType&num) const
+		virtual Number operator+(const _BaseNumberType&num) const override
 		{
 			if(type == Number::TYPE_BOOL)
 			{
@@ -199,7 +213,7 @@ namespace GameLibrary
 			return (T)0;
 		}
 		
-		virtual _BaseNumberType& operator-=(const _BaseNumberType&num)
+		virtual _BaseNumberType& operator-=(const _BaseNumberType&num) override
 		{
 			if(type == Number::TYPE_BOOL)
 			{
@@ -271,7 +285,7 @@ namespace GameLibrary
 			return *((_BaseNumberType*)this);
 		}
 		
-		virtual Number operator-(const _BaseNumberType&num) const
+		virtual Number operator-(const _BaseNumberType&num) const override
 		{
 			if(type == Number::TYPE_BOOL)
 			{
@@ -329,7 +343,7 @@ namespace GameLibrary
 			return (T)0;
 		}
 		
-		virtual _BaseNumberType& operator*=(const _BaseNumberType&num)
+		virtual _BaseNumberType& operator*=(const _BaseNumberType&num) override
 		{
 			if(type == Number::TYPE_BOOL)
 			{
@@ -402,7 +416,7 @@ namespace GameLibrary
 			return *((_BaseNumberType*)this);
 		}
 		
-		virtual Number operator*(const _BaseNumberType&num) const
+		virtual Number operator*(const _BaseNumberType&num) const override
 		{
 			if(type == Number::TYPE_BOOL)
 			{
@@ -460,7 +474,7 @@ namespace GameLibrary
 			return (T)0;
 		}
 		
-		virtual _BaseNumberType& operator/=(const _BaseNumberType&num)
+		virtual _BaseNumberType& operator/=(const _BaseNumberType&num) override
 		{
 			if(type == Number::TYPE_BOOL)
 			{
@@ -533,7 +547,7 @@ namespace GameLibrary
 			return *((_BaseNumberType*)this);
 		}
 		
-		virtual Number operator/(const _BaseNumberType&num) const
+		virtual Number operator/(const _BaseNumberType&num) const override
 		{
 			if(type == Number::TYPE_BOOL)
 			{
@@ -591,7 +605,7 @@ namespace GameLibrary
 			return (T)0;
 		}
 		
-		virtual _BaseNumberType& operator%=(const _BaseNumberType&num)
+		virtual _BaseNumberType& operator%=(const _BaseNumberType&num) override
 		{
 			switch(type)
 			{
@@ -614,7 +628,7 @@ namespace GameLibrary
 			return *((_BaseNumberType*)this);
 		}
 		
-		virtual Number operator%(const _BaseNumberType&num) const
+		virtual Number operator%(const _BaseNumberType&num) const override
 		{
 			switch(type)
 			{
@@ -637,84 +651,212 @@ namespace GameLibrary
 			return (T)0;
 		}
 		
-		virtual bool isIntegral() const
+		virtual _BaseNumberType& operator++() override
+		{
+			if(type == Number::TYPE_BOOL)
+			{
+				throw IllegalNumberOperationException("++", "bool", "left");
+			}
+			return *this;
+		}
+		
+		virtual _BaseNumberType& operator--() override
+		{
+			if(type == Number::TYPE_BOOL)
+			{
+				throw IllegalNumberOperationException("--", "bool", "left");
+			}
+			return *this;
+		}
+		
+#define NUMBER_OPERATOR_BODY(operatr, arg) \
+	switch(arg.type) \
+	{ \
+		default: \
+		return false; \
+		\
+		case Number::TYPE_BOOL: \
+		return value operatr ((_DerivedNumberType<bool>*)&arg)->value; \
+		\
+		case Number::TYPE_CHAR: \
+		return value operatr ((_DerivedNumberType<char>*)&arg)->value; \
+		\
+		case Number::TYPE_UNSIGNEDCHAR: \
+		return value operatr ((_DerivedNumberType<unsigned char>*)&arg)->value; \
+		\
+		case Number::TYPE_SHORT: \
+		return value operatr ((_DerivedNumberType<short>*)&arg)->value; \
+		\
+		case Number::TYPE_UNSIGNEDSHORT: \
+		return value operatr ((_DerivedNumberType<unsigned short>*)&arg)->value; \
+		\
+		case Number::TYPE_INT: \
+		return value operatr ((_DerivedNumberType<int>*)&arg)->value; \
+		\
+		case Number::TYPE_UNSIGNEDINT: \
+		return value operatr ((_DerivedNumberType<unsigned int>*)&arg)->value; \
+		\
+		case Number::TYPE_LONG: \
+		return value operatr ((_DerivedNumberType<long>*)&arg)->value; \
+		\
+		case Number::TYPE_UNSIGNEDLONG: \
+		return value operatr ((_DerivedNumberType<unsigned long>*)&arg)->value; \
+		\
+		case Number::TYPE_LONGLONG: \
+		return value operatr ((_DerivedNumberType<long long>*)&arg)->value; \
+		\
+		case Number::TYPE_UNSIGNEDLONGLONG: \
+		return value operatr ((_DerivedNumberType<unsigned long long>*)&arg)->value; \
+		\
+		case Number::TYPE_FLOAT: \
+		return value operatr ((_DerivedNumberType<float>*)&arg)->value; \
+		\
+		case Number::TYPE_DOUBLE: \
+		return value operatr ((_DerivedNumberType<double>*)&arg)->value; \
+		\
+		case Number::TYPE_LONGDOUBLE: \
+		return value operatr ((_DerivedNumberType<long double>*)&arg)->value; \
+	} \
+	return false;
+		
+		bool operator==(const _BaseNumberType&num) const override
+		{
+			NUMBER_OPERATOR_BODY(==, num)
+		}
+		
+		bool operator!=(const _BaseNumberType&num) const override
+		{
+			NUMBER_OPERATOR_BODY(!=, num)
+		}
+		
+		bool operator>(const _BaseNumberType&num) const override
+		{
+			NUMBER_OPERATOR_BODY(>, num)
+		}
+		
+		bool operator>=(const _BaseNumberType&num) const override
+		{
+			NUMBER_OPERATOR_BODY(>=, num)
+		}
+		
+		bool operator<(const _BaseNumberType&num) const override
+		{
+			NUMBER_OPERATOR_BODY(<, num)
+		}
+		
+		bool operator<=(const _BaseNumberType&num) const override
+		{
+			NUMBER_OPERATOR_BODY(<=, num)
+		}
+		
+		virtual std::ostream& streamTo(std::ostream&stream) const override
+		{
+			stream << value;
+			return stream;
+		}
+		
+		virtual bool isIntegral() const override
 		{
 			return false;
 		}
 		
-		virtual bool asBool() const
+		virtual bool asBool() const override
 		{
-			return static_cast<bool>(value);
+			if(value)
+			{
+				return true;
+			}
+			return false;
 		}
 		
-		virtual char asChar() const
+		virtual char asChar() const override
 		{
 			return static_cast<char>(value);
 		}
 		
-		virtual unsigned char asUnsignedChar() const
+		virtual unsigned char asUnsignedChar() const override
 		{
 			return static_cast<unsigned char>(value);
 		}
 		
-		virtual short asShort() const
+		virtual short asShort() const override
 		{
 			return static_cast<short>(value);
 		}
 		
-		virtual unsigned short asUnsignedShort() const
+		virtual unsigned short asUnsignedShort() const override
 		{
 			return static_cast<unsigned short>(value);
 		}
 		
-		virtual int asInt() const
+		virtual int asInt() const override
 		{
 			return static_cast<int>(value);
 		}
 		
-		virtual unsigned int asUnsignedInt() const
+		virtual unsigned int asUnsignedInt() const override
 		{
 			return static_cast<unsigned int>(value);
 		}
 		
-		virtual long asLong() const
+		virtual long asLong() const override
 		{
 			return static_cast<long>(value);
 		}
 		
-		virtual unsigned long asUnsignedLong() const
+		virtual unsigned long asUnsignedLong() const override
 		{
 			return static_cast<unsigned long>(value);
 		}
 		
-		virtual long long asLongLong() const
+		virtual long long asLongLong() const override
 		{
 			return static_cast<long long>(value);
 		}
 		
-		virtual unsigned long long asUnsignedLongLong() const
+		virtual unsigned long long asUnsignedLongLong() const override
 		{
 			return static_cast<unsigned long long>(value);
 		}
 		
-		virtual float asFloat() const
+		virtual float asFloat() const override
 		{
 			return static_cast<float>(value);
 		}
 		
-		virtual double asDouble() const
+		virtual double asDouble() const override
 		{
 			return static_cast<double>(value);
 		}
 		
-		virtual long double asLongDouble() const
+		virtual long double asLongDouble() const override
 		{
 			return static_cast<long double>(value);
 		}
 		
-		virtual String asString() const
+		virtual String asString() const override
 		{
 			return String("") + value;
+		}
+	};
+
+	template<typename T>
+	class _DerivedNonBoolNumberType : public _DerivedNumberType < T >
+	{
+	public:
+		_DerivedNonBoolNumberType(const T&val, const Number::NumberType&tp) : _DerivedNumberType<T>(val, tp) {}
+		virtual ~_DerivedNonBoolNumberType() {}
+		
+		virtual _BaseNumberType& operator++() override
+		{
+			value++;
+			return *((_BaseNumberType*)this);
+		}
+		
+		virtual _BaseNumberType& operator--() override
+		{
+			value--;
+			return *((_BaseNumberType*)this);
 		}
 	};
 	
@@ -725,12 +867,12 @@ namespace GameLibrary
 		_DerivedIntegralType(const T&val, const Number::NumberType&tp) : _DerivedNumberType<T>(val, tp) {}
 		virtual ~_DerivedIntegralType() {}
 		
-		virtual _BaseNumberType* clone() const
+		virtual _BaseNumberType* clone() const override
 		{
 			return (_BaseNumberType*)(new _DerivedIntegralType<T>(_DerivedNumberType<T>::value, _BaseNumberType::type));
 		}
 		
-		virtual _BaseNumberType& operator%=(const _BaseNumberType&num)
+		virtual _BaseNumberType& operator%=(const _BaseNumberType&num) override
 		{
 			if(_BaseNumberType::type==Number::TYPE_BOOL)
 			{
@@ -805,7 +947,7 @@ namespace GameLibrary
 			return *((_BaseNumberType*)this);
 		}
 		
-		virtual Number operator%(const _BaseNumberType&num) const
+		virtual Number operator%(const _BaseNumberType&num) const override
 		{
 			if(_BaseNumberType::type==Number::TYPE_BOOL)
 			{
@@ -866,9 +1008,29 @@ namespace GameLibrary
 			return (T)0;
 		}
 		
-		virtual bool isIntegral() const
+		virtual bool isIntegral() const override
 		{
 			return true;
+		}
+	};
+	
+	template<typename T>
+	class _DerivedNonBoolIntegralType : public _DerivedIntegralType < T >
+	{
+	public:
+		_DerivedNonBoolIntegralType(const T&val, const Number::NumberType&tp) : _DerivedIntegralType<T>(val, tp) {}
+		virtual ~_DerivedNonBoolIntegralType() {}
+		
+		virtual _BaseNumberType& operator++() override
+		{
+			value++;
+			return *((_BaseNumberType*)this);
+		}
+		
+		virtual _BaseNumberType& operator--() override
+		{
+			value--;
+			return *((_BaseNumberType*)this);
 		}
 	};
 	
@@ -884,67 +1046,67 @@ namespace GameLibrary
 	
 	Number::Number(const char&val)
 	{
-		value = new _DerivedIntegralType<char>(val, TYPE_CHAR);
+		value = new _DerivedNonBoolIntegralType<char>(val, TYPE_CHAR);
 	}
 	
 	Number::Number(const unsigned char&val)
 	{
-		value = new _DerivedIntegralType<unsigned char>(val, TYPE_UNSIGNEDCHAR);
+		value = new _DerivedNonBoolIntegralType<unsigned char>(val, TYPE_UNSIGNEDCHAR);
 	}
 	
 	Number::Number(const short&val)
 	{
-		value = new _DerivedIntegralType<short>(val, TYPE_SHORT);
+		value = new _DerivedNonBoolIntegralType<short>(val, TYPE_SHORT);
 	}
 	
 	Number::Number(const unsigned short&val)
 	{
-		value = new _DerivedIntegralType<unsigned short>(val, TYPE_UNSIGNEDSHORT);
+		value = new _DerivedNonBoolIntegralType<unsigned short>(val, TYPE_UNSIGNEDSHORT);
 	}
 	
 	Number::Number(const int&val)
 	{
-		value = new _DerivedIntegralType<int>(val, TYPE_INT);
+		value = new _DerivedNonBoolIntegralType<int>(val, TYPE_INT);
 	}
 	
 	Number::Number(const unsigned int&val)
 	{
-		value = new _DerivedIntegralType<unsigned int>(val, TYPE_UNSIGNEDINT);
+		value = new _DerivedNonBoolIntegralType<unsigned int>(val, TYPE_UNSIGNEDINT);
 	}
 	
 	Number::Number(const long&val)
 	{
-		value = new _DerivedIntegralType<long>(val, TYPE_LONG);
+		value = new _DerivedNonBoolIntegralType<long>(val, TYPE_LONG);
 	}
 	
 	Number::Number(const unsigned long&val)
 	{
-		value = new _DerivedIntegralType<unsigned long>(val, TYPE_UNSIGNEDLONG);
+		value = new _DerivedNonBoolIntegralType<unsigned long>(val, TYPE_UNSIGNEDLONG);
 	}
 	
 	Number::Number(const long long&val)
 	{
-		value = new _DerivedIntegralType<long long>(val, TYPE_LONGLONG);
+		value = new _DerivedNonBoolIntegralType<long long>(val, TYPE_LONGLONG);
 	}
 	
 	Number::Number(const unsigned long long&val)
 	{
-		value = new _DerivedIntegralType<unsigned long long>(val, TYPE_UNSIGNEDLONGLONG);
+		value = new _DerivedNonBoolIntegralType<unsigned long long>(val, TYPE_UNSIGNEDLONGLONG);
 	}
 	
 	Number::Number(const float&val)
 	{
-		value = new _DerivedNumberType<float>(val, TYPE_FLOAT);
+		value = new _DerivedNonBoolNumberType<float>(val, TYPE_FLOAT);
 	}
 	
 	Number::Number(const double&val)
 	{
-		value = new _DerivedNumberType<double>(val, TYPE_DOUBLE);
+		value = new _DerivedNonBoolNumberType<double>(val, TYPE_DOUBLE);
 	}
 	
 	Number::Number(const long double&val)
 	{
-		value = new _DerivedNumberType<long double>(val, TYPE_LONGDOUBLE);
+		value = new _DerivedNonBoolNumberType<long double>(val, TYPE_LONGDOUBLE);
 	}
 	
 	Number::Number(const Number&num)
@@ -983,31 +1145,67 @@ namespace GameLibrary
 		
 	Number& Number::operator+=(const Number&num)
 	{
+		if(value==nullptr || num.value==nullptr)
+		{
+			//TODO replace with more specific exception type
+			throw Exception("Cannot perform Math operations on an uninitialized Number object");
+		}
 		*value += *num.value;
 		return *this;
 	}
 	
 	Number& Number::operator-=(const Number&num)
 	{
+		if(value==nullptr || num.value==nullptr)
+		{
+			//TODO replace with more specific exception type
+			throw Exception("Cannot perform Math operations on an uninitialized Number object");
+		}
 		*value -= *num.value;
 		return *this;
 	}
 	
 	Number& Number::operator*=(const Number&num)
 	{
+		if(value==nullptr || num.value==nullptr)
+		{
+			//TODO replace with more specific exception type
+			throw Exception("Cannot perform Math operations on an uninitialized Number object");
+		}
 		*value *= *num.value;
 		return *this;
 	}
 	
 	Number& Number::operator/=(const Number&num)
 	{
+		if(value==nullptr || num.value==nullptr)
+		{
+			//TODO replace with more specific exception type
+			throw Exception("Cannot perform Math operations on an uninitialized Number object");
+		}
 		*value /= *num.value;
 		return *this;
 	}
 	
 	Number& Number::operator%=(const Number&num)
 	{
+		if(value==nullptr || num.value==nullptr)
+		{
+			//TODO replace with more specific exception type
+			throw Exception("Cannot perform Math operations on an uninitialized Number object");
+		}
 		*value %= *num.value;
+		return *this;
+	}
+	
+	Number& Number::operator++()
+	{
+		if(value == nullptr)
+		{
+			//TODO replace with more specific exception type
+			throw Exception("Cannot perform Math operations on an uninitialized Number object");
+		}
+		*value++;
 		return *this;
 	}
 	
@@ -1290,121 +1488,155 @@ namespace GameLibrary
 		return value->asString();
 	}
 	
-#define NUMBER_OPERATION_TONUMBER(operatr, type, defaultReturn) \
+	std::ostream& operator<<(std::ostream& stream, const Number& num)
+	{
+		if(num.value == nullptr)
+		{
+			stream << NULL_STRING;
+			return stream;
+		}
+		return num.value->streamTo(stream);
+	}
+	
+#define NUMBER_OPERATION_TONUMBER(operatr, type) \
 	Number operator operatr(const Number&left, const type&right) \
 	{ \
 		if(left.value==nullptr) \
 		{ \
-			return defaultReturn; \
+			/*TODO replace with more specific exception type*/ \
+			throw Exception("Cannot perform Math operations on an uninitialized Number object"); \
 		} \
 		return *left.value operatr *Number(right).value; \
 	}
 	
-#define NUMBER_OPERATION_TOPRIMITIVE(operatr, type, convertFunc, defaultReturn) \
+#define NUMBER_OPERATION_TOPRIMITIVE(operatr, type) \
 	type operator operatr(const type&left, const Number&right) \
 	{ \
 		if(right.value==nullptr) \
 		{ \
-			return defaultReturn; \
+			/*TODO replace with more specific exception type*/ \
+			throw Exception("Cannot perform Math operations on an uninitialized Number object"); \
 		} \
 		return *Number(left).value operatr *right.value; \
 	}
 	
-#define NUMBER_OPERATIONTO_DEFINE(operatr, type, convertFunc, defaultReturn) \
-	type operator operatr(type&left, const Number&right) \
+#define NUMBER_COMPARISON_DEFINE(operatr, type, nullReturn) \
+	bool operator operatr(const type&left, const Number&right) \
 	{ \
 		if(right.value==nullptr) \
 		{ \
-			return defaultReturn; \
+			return nullReturn; \
 		} \
-		left operatr right.value->convertFunc(); \
-		return left; \
+		return *Number(left).value operatr *right.value; \
+	} \
+	bool operator operatr(const Number&left, const type&right) \
+	{ \
+		if(left.value==nullptr) \
+		{ \
+			return nullReturn; \
+		} \
+		return *left.value operatr *Number(right).value; \
 	}
 	
-#define NUMBER_OPERATOR_SET(type, convertFunc) \
-	NUMBER_OPERATION_TONUMBER(+, type, left) \
-	NUMBER_OPERATION_TOPRIMITIVE(+, type, convertFunc, left) \
-	NUMBER_OPERATION_TONUMBER(-, type, left) \
-	NUMBER_OPERATION_TOPRIMITIVE(-, type, convertFunc, left) \
-	NUMBER_OPERATION_TONUMBER(*, type, left) \
-	NUMBER_OPERATION_TOPRIMITIVE(*, type, convertFunc, (type)0) \
-	NUMBER_OPERATION_TONUMBER(/, type, left) \
-	NUMBER_OPERATION_TOPRIMITIVE(/, type, convertFunc, (type)0) \
-	NUMBER_OPERATION_TONUMBER(%, type, left) \
-	NUMBER_OPERATION_TOPRIMITIVE(%, type, convertFunc, (type)0)
+#define NUMBER_COMPARISON_DEFINE_WITHEXCEPTION(operatr, type) \
+	bool operator operatr(const type&left, const Number&right) \
+	{ \
+		if(right.value==nullptr) \
+		{ \
+			/*TODO replace with more specific exception type*/ \
+			throw Exception("Cannot perform Math operations on an uninitialized Number object"); \
+		} \
+		return *Number(left).value operatr *right.value; \
+	} \
+	bool operator operatr(const Number&left, const type&right) \
+	{ \
+		if(left.value==nullptr) \
+		{ \
+			/*TODO replace with more specific exception type*/ \
+			throw Exception("Cannot perform Math operations on an uninitialized Number object"); \
+		} \
+		return *left.value operatr *Number(right).value; \
+	}
 	
-#define NUMBER_OPERATOR_SET_FLOATINGPOINT(type, convertFunc) \
-	NUMBER_OPERATION_TONUMBER(+, type, left) \
-	NUMBER_OPERATION_TOPRIMITIVE(+, type, convertFunc, left) \
-	NUMBER_OPERATION_TONUMBER(-, type, left) \
-	NUMBER_OPERATION_TOPRIMITIVE(-, type, convertFunc, left) \
-	NUMBER_OPERATION_TONUMBER(*, type, left) \
-	NUMBER_OPERATION_TOPRIMITIVE(*, type, convertFunc, (type)0) \
-	NUMBER_OPERATION_TONUMBER(/, type, left) \
-	NUMBER_OPERATION_TOPRIMITIVE(/, type, convertFunc, (type)0) \
-	NUMBER_OPERATION_TOPRIMITIVE(%, type, convertFunc, (type)0)
+#define NUMBER_COMPARISON_SET(type) \
+	NUMBER_COMPARISON_DEFINE(==, type, false) \
+	NUMBER_COMPARISON_DEFINE(!=, type, true) \
+	NUMBER_COMPARISON_DEFINE_WITHEXCEPTION(>, type) \
+	NUMBER_COMPARISON_DEFINE_WITHEXCEPTION(>=, type) \
+	NUMBER_COMPARISON_DEFINE_WITHEXCEPTION(<, type) \
+	NUMBER_COMPARISON_DEFINE_WITHEXCEPTION(<=, type)
+	
+#define NUMBER_OPERATOR_SET(type) \
+	NUMBER_OPERATION_TONUMBER(+, type) \
+	NUMBER_OPERATION_TOPRIMITIVE(+, type) \
+	NUMBER_OPERATION_TONUMBER(-, type) \
+	NUMBER_OPERATION_TOPRIMITIVE(-, type) \
+	NUMBER_OPERATION_TONUMBER(*, type) \
+	NUMBER_OPERATION_TOPRIMITIVE(*, type) \
+	NUMBER_OPERATION_TONUMBER(/, type) \
+	NUMBER_OPERATION_TOPRIMITIVE(/, type) \
+	NUMBER_OPERATION_TONUMBER(%, type) \
+	NUMBER_OPERATION_TOPRIMITIVE(%, type) \
+	NUMBER_COMPARISON_SET(type)
+	
+#define NUMBER_OPERATOR_SET_FLOATINGPOINT(type) \
+	NUMBER_OPERATION_TONUMBER(+, type) \
+	NUMBER_OPERATION_TOPRIMITIVE(+, type) \
+	NUMBER_OPERATION_TONUMBER(-, type) \
+	NUMBER_OPERATION_TOPRIMITIVE(-, type) \
+	NUMBER_OPERATION_TONUMBER(*, type) \
+	NUMBER_OPERATION_TOPRIMITIVE(*, type) \
+	NUMBER_OPERATION_TONUMBER(/, type) \
+	NUMBER_OPERATION_TOPRIMITIVE(/, type) \
+	NUMBER_OPERATION_TOPRIMITIVE(%, type) \
+	NUMBER_COMPARISON_SET(type)
 	
 	Number operator+(const Number&left, const Number&right)
 	{
-		if(left.value == nullptr)
+		if(left.value==nullptr || right.value==nullptr)
 		{
-			return left;
-		}
-		else if(right.value == nullptr)
-		{
-			return left;
+			//TODO replace with more specific exception type
+			throw Exception("Cannot perform Math operations on an uninitialized Number object");
 		}
 		return *left.value + *right.value;
 	}
 	
 	Number operator-(const Number&left, const Number&right)
 	{
-		if(left.value == nullptr)
+		if(left.value==nullptr || right.value==nullptr)
 		{
-			return left;
-		}
-		else if(right.value == nullptr)
-		{
-			return left;
+			//TODO replace with more specific exception type
+			throw Exception("Cannot perform Math operations on an uninitialized Number object");
 		}
 		return *left.value - *right.value;
 	}
 	
 	Number operator*(const Number&left, const Number&right)
 	{
-		if(left.value == nullptr)
+		if(left.value==nullptr || right.value==nullptr)
 		{
-			return left;
-		}
-		else if(right.value == nullptr)
-		{
-			return right;
+			//TODO replace with more specific exception type
+			throw Exception("Cannot perform Math operations on an uninitialized Number object");
 		}
 		return *left.value * *right.value;
 	}
 	
 	Number operator/(const Number&left, const Number&right)
 	{
-		if(left.value == nullptr)
+		if(left.value==nullptr || right.value==nullptr)
 		{
-			return left;
-		}
-		else if(right.value == nullptr)
-		{
-			return right;
+			//TODO replace with more specific exception type
+			throw Exception("Cannot perform Math operations on an uninitialized Number object");
 		}
 		return *left.value / *right.value;
 	}
 	
 	Number operator%(const Number&left, const Number&right)
 	{
-		if(left.value == nullptr)
+		if(left.value==nullptr || right.value==nullptr)
 		{
-			return left;
-		}
-		else if(right.value == nullptr)
-		{
-			return right;
+			//TODO replace with more specific exception type
+			throw Exception("Cannot perform Math operations on an uninitialized Number object");
 		}
 		return *left.value % *right.value;
 	}
@@ -1427,20 +1659,86 @@ namespace GameLibrary
 		return left.value->asString() + right;
 	}
 	
-	//NUMBER_OPERATOR_SET(bool, asBool)
-	NUMBER_OPERATOR_SET(char, asChar)
-	NUMBER_OPERATOR_SET(unsigned char, asUnsignedChar)
-	NUMBER_OPERATOR_SET(short, asShort)
-	NUMBER_OPERATOR_SET(unsigned short, asUnsignedShort)
-	NUMBER_OPERATOR_SET(int, asInt)
-	NUMBER_OPERATOR_SET(unsigned int, asUnsignedInt)
-	NUMBER_OPERATOR_SET(long, asLong)
-	NUMBER_OPERATOR_SET(unsigned long, asUnsignedLong)
-	NUMBER_OPERATOR_SET(long long, asLongLong)
-	NUMBER_OPERATOR_SET(unsigned long long, asUnsignedLongLong)
-	NUMBER_OPERATOR_SET_FLOATINGPOINT(float, asFloat)
-	NUMBER_OPERATOR_SET_FLOATINGPOINT(double, asDouble)
-	NUMBER_OPERATOR_SET_FLOATINGPOINT(long double, asLongDouble)
+	bool operator==(const Number&left, const Number&right)
+	{
+		if(left.value==nullptr)
+		{
+			if(right.value == nullptr)
+			{
+				return true;
+			}
+			return false;
+		}
+		return *left.value == *right.value;
+	}
+	
+	bool operator!=(const Number&left, const Number&right)
+	{
+		if(left.value==nullptr)
+		{
+			if(right.value == nullptr)
+			{
+				return false;
+			}
+			return true;
+		}
+		return *left.value != *right.value;
+	}
+	
+	bool operator>(const Number&left, const Number&right)
+	{
+		if(left.value==nullptr || right.value==nullptr)
+		{
+			//TODO replace with more specific exception type
+			throw Exception("Cannot perform Math operations on an uninitialized Number object");
+		}
+		return *left.value > *right.value;
+	}
+	
+	bool operator>=(const Number&left, const Number&right)
+	{
+		if(left.value==nullptr || right.value==nullptr)
+		{
+			//TODO replace with more specific exception type
+			throw Exception("Cannot perform Math operations on an uninitialized Number object");
+		}
+		return *left.value >= *right.value;
+	}
+	
+	bool operator<(const Number&left, const Number&right)
+	{
+		if(left.value==nullptr || right.value==nullptr)
+		{
+			//TODO replace with more specific exception type
+			throw Exception("Cannot perform Math operations on an uninitialized Number object");
+		}
+		return *left.value < *right.value;
+	}
+	
+	bool operator<=(const Number&left, const Number&right)
+	{
+		if(left.value==nullptr || right.value==nullptr)
+		{
+			//TODO replace with more specific exception type
+			throw Exception("Cannot perform Math operations on an uninitialized Number object");
+		}
+		return *left.value <= *right.value;
+	}
+	
+	NUMBER_COMPARISON_SET(bool)
+	NUMBER_OPERATOR_SET(char)
+	NUMBER_OPERATOR_SET(unsigned char)
+	NUMBER_OPERATOR_SET(short)
+	NUMBER_OPERATOR_SET(unsigned short)
+	NUMBER_OPERATOR_SET(int)
+	NUMBER_OPERATOR_SET(unsigned int)
+	NUMBER_OPERATOR_SET(long)
+	NUMBER_OPERATOR_SET(unsigned long)
+	NUMBER_OPERATOR_SET(long long)
+	NUMBER_OPERATOR_SET(unsigned long long)
+	NUMBER_OPERATOR_SET_FLOATINGPOINT(float)
+	NUMBER_OPERATOR_SET_FLOATINGPOINT(double)
+	NUMBER_OPERATOR_SET_FLOATINGPOINT(long double)
 }
 
 #ifdef _MSC_VER

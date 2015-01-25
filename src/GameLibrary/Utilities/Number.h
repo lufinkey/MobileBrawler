@@ -14,19 +14,33 @@ namespace GameLibrary
 	prefix Number operator operatr(const Number&left, const type&right); \
 	prefix type operator operatr(const type&left, const Number&right);
 	
+#define NUMBER_COMPARISON_DECLARE(prefix, type, operatr) \
+	prefix bool operator operatr(const Number&left, const type&right); \
+	prefix bool operator operatr(const type&left, const Number&right);
+	
+#define NUMBER_COMPARISON_DECLARE_SET(prefix, type) \
+	NUMBER_COMPARISON_DECLARE(prefix, type, ==) \
+	NUMBER_COMPARISON_DECLARE(prefix, type, !=) \
+	NUMBER_COMPARISON_DECLARE(prefix, type, >) \
+	NUMBER_COMPARISON_DECLARE(prefix, type, >=) \
+	NUMBER_COMPARISON_DECLARE(prefix, type, <) \
+	NUMBER_COMPARISON_DECLARE(prefix, type, <=)
+	
 #define NUMBER_OPERATOR_DECLARE_SET(prefix, type) \
 	NUMBER_OPERATOR_DECLARE(prefix, type, +) \
 	NUMBER_OPERATOR_DECLARE(prefix, type, -) \
 	NUMBER_OPERATOR_DECLARE(prefix, type, *) \
 	NUMBER_OPERATOR_DECLARE(prefix, type, /) \
-	NUMBER_OPERATOR_DECLARE(prefix, type, %)
+	NUMBER_OPERATOR_DECLARE(prefix, type, %) \
+	NUMBER_COMPARISON_DECLARE_SET(prefix, type)
 	
 #define NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT(prefix, type) \
 	NUMBER_OPERATOR_DECLARE(prefix, type, +) \
 	NUMBER_OPERATOR_DECLARE(prefix, type, -) \
 	NUMBER_OPERATOR_DECLARE(prefix, type, *) \
 	NUMBER_OPERATOR_DECLARE(prefix, type, /) \
-	prefix type operator%(const type&left, const Number&right);
+	prefix type operator%(const type&left, const Number&right); \
+	NUMBER_COMPARISON_DECLARE_SET(prefix, type)
 	
 	Number operator+(const Number&left, const Number&right);
 	Number operator-(const Number&left, const Number&right);
@@ -35,7 +49,14 @@ namespace GameLibrary
 	Number operator%(const Number&left, const Number&right);
 	String operator+(const Number&left, const String&right);
 	String operator+(const String&left, const Number&right);
+	bool operator==(const Number&left, const Number&right);
+	bool operator!=(const Number&left, const Number&right);
+	bool operator<(const Number&left, const Number&right);
+	bool operator<=(const Number&left, const Number&right);
+	bool operator>(const Number&left, const Number&right);
+	bool operator>=(const Number&left, const Number&right);
 	
+	NUMBER_COMPARISON_DECLARE_SET(, bool)
 	NUMBER_OPERATOR_DECLARE_SET(, char)
 	NUMBER_OPERATOR_DECLARE_SET(, unsigned char)
 	NUMBER_OPERATOR_DECLARE_SET(, short)
@@ -52,6 +73,8 @@ namespace GameLibrary
 	
 	class Number
 	{
+		friend std::ostream& operator<<(std::ostream& stream, const Number& num);
+		NUMBER_COMPARISON_DECLARE_SET(friend, bool)
 		NUMBER_OPERATOR_DECLARE_SET(friend, char)
 		NUMBER_OPERATOR_DECLARE_SET(friend, unsigned char)
 		NUMBER_OPERATOR_DECLARE_SET(friend, short)
@@ -72,6 +95,12 @@ namespace GameLibrary
 		friend Number operator%(const Number&left, const Number&right);
 		friend String operator+(const Number&left, const String&right);
 		friend String operator+(const String&left, const Number&right);
+		friend bool operator==(const Number&left, const Number&right);
+		friend bool operator!=(const Number&left, const Number&right);
+		friend bool operator<(const Number&left, const Number&right);
+		friend bool operator<=(const Number&left, const Number&right);
+		friend bool operator>(const Number&left, const Number&right);
+		friend bool operator>=(const Number&left, const Number&right);
 	public:
 		typedef enum
 		{
@@ -118,6 +147,9 @@ namespace GameLibrary
 		Number& operator/=(const Number&);
 		Number& operator%=(const Number&);
 		
+		Number& operator++();
+		Number& operator--();
+		
 		bool isIntegral() const;
 		Number::NumberType getType() const;
 		
@@ -156,8 +188,10 @@ namespace GameLibrary
 		_BaseNumberType* value;
 	};
 	
+	std::ostream& operator<<(std::ostream& stream, const Number& num);
+	
 	#undef NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT
 	#undef NUMBER_OPERATOR_DECLARE_SET
-	#undef NUMBER_OPERATORTO_DECLARE
+	#undef NUMBER_COMPARISON_DECLARE
 	#undef NUMBER_OPERATOR_DECLARE
 }
