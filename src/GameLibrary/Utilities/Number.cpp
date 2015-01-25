@@ -1209,6 +1209,11 @@ namespace GameLibrary
 		return *this;
 	}
 	
+	Number Number::operator-() const
+	{
+		return *this * -1;
+	}
+	
 	bool Number::isIntegral() const
 	{
 		if(value == nullptr)

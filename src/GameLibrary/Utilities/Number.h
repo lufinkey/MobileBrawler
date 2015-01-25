@@ -150,6 +150,8 @@ namespace GameLibrary
 		Number& operator++();
 		Number& operator--();
 		
+		Number operator-() const;
+		
 		bool isIntegral() const;
 		Number::NumberType getType() const;
 		
