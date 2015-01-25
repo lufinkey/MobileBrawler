@@ -79,6 +79,7 @@ namespace GameLibrary
 			
 			Graphics actorGraphics(graphics);
 			actorGraphics.setColor(color);
+			actorGraphics.setAlpha((byte)(alpha*255));
 
 			if(filled)
 			{

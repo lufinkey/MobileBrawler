@@ -83,6 +83,7 @@ namespace GameLibrary
 			
 			Graphics actorGraphics(graphics);
 			actorGraphics.setColor(color);
+			actorGraphics.setAlpha((byte)(alpha*255));
 			
 			unsigned int size_original = font->getSize();
 			Font::Style style_original = font->getStyle();

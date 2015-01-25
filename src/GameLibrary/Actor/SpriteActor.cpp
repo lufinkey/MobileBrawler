@@ -145,6 +145,7 @@ namespace GameLibrary
 			
 			Graphics actorGraphics(graphics);
 			actorGraphics.compositeTintColor(color);
+			actorGraphics.setAlpha((byte)(alpha*255));
 			
 			animation_current->setCurrentFrame(animation_frame);
 			animation_current->draw(appData, actorGraphics);
