@@ -85,9 +85,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="external\pugixml\src\pugixml.cpp" />
-    <ClCompile Include="src\BrawlerLibrary\Game\PlayerInfo.cpp" />
-    <ClCompile Include="src\BrawlerLibrary\Game\Rules.cpp" />
-    <ClCompile Include="src\BrawlerLibrary\Game\WinCondition.cpp" />
+    <ClCompile Include="src\BrawlerLibrary\Game\Rules\PlayerInfo.cpp" />
+    <ClCompile Include="src\BrawlerLibrary\Game\Rules\Rules.cpp" />
+    <ClCompile Include="src\BrawlerLibrary\Game\Rules\WinCondition\StockWinCondition.cpp" />
+    <ClCompile Include="src\BrawlerLibrary\Game\Rules\WinCondition\TimeLimitWinCondition.cpp" />
+    <ClCompile Include="src\BrawlerLibrary\Game\Rules\WinCondition\WinCondition.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Loader\CharacterInfo.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Loader\CharacterLoader.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\SpriteActor.cpp" />
@@ -182,15 +184,19 @@
     <ClCompile Include="src\SmashBros\Menu\GroupSmashCharacterSelectMenu.cpp" />
     <ClCompile Include="src\SmashBros\Menu\MainMenu.cpp" />
     <ClCompile Include="src\SmashBros\Menu\GroupMenu.cpp" />
+    <ClCompile Include="src\SmashBros\Menu\MenuData\GroupSmashData.cpp" />
+    <ClCompile Include="src\SmashBros\Menu\MenuData\MenuData.cpp" />
+    <ClCompile Include="src\SmashBros\Menu\MenuData\SmashData.cpp" />
     <ClCompile Include="src\SmashBros\Menu\SoloMenu.cpp" />
     <ClCompile Include="src\SmashBros\Menu\TitleScreen.cpp" />
-    <ClCompile Include="src\SmashBros\SmashData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BrawlerLibrary\BrawlerLibrary.h" />
-    <ClInclude Include="src\BrawlerLibrary\Game\PlayerInfo.h" />
-    <ClInclude Include="src\BrawlerLibrary\Game\Rules.h" />
-    <ClInclude Include="src\BrawlerLibrary\Game\WinCondition.h" />
+    <ClInclude Include="src\BrawlerLibrary\Game\Rules\PlayerInfo.h" />
+    <ClInclude Include="src\BrawlerLibrary\Game\Rules\Rules.h" />
+    <ClInclude Include="src\BrawlerLibrary\Game\Rules\WinCondition\StockWinCondition.h" />
+    <ClInclude Include="src\BrawlerLibrary\Game\Rules\WinCondition\TimeLimitWinCondition.h" />
+    <ClInclude Include="src\BrawlerLibrary\Game\Rules\WinCondition\WinCondition.h" />
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterInfo.h" />
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterLoader.h" />
     <ClInclude Include="src\GameLibrary\Actor\SpriteActor.h" />
@@ -295,9 +301,11 @@
     <ClInclude Include="src\SmashBros\Menu\GroupSmashCharacterSelectMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\MainMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\GroupMenu.h" />
+    <ClInclude Include="src\SmashBros\Menu\MenuData\GroupSmashData.h" />
+    <ClInclude Include="src\SmashBros\Menu\MenuData\MenuData.h" />
+    <ClInclude Include="src\SmashBros\Menu\MenuData\SmashData.h" />
     <ClInclude Include="src\SmashBros\Menu\SoloMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\TitleScreen.h" />
-    <ClInclude Include="src\SmashBros\SmashData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

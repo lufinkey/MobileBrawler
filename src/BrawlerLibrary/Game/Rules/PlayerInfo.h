@@ -2,7 +2,7 @@
 #pragma once
 
 #include <GameLibrary/GameLibrary.h>
-#include "../Loader/CharacterInfo.h"
+#include "../../Loader/CharacterInfo.h"
 
 namespace BrawlerLibrary
 {
@@ -29,6 +29,7 @@ namespace BrawlerLibrary
 		const String& getCostume() const;
 		const PlayerInfo::Mode& getPlayerMode() const;
 		const ArrayList<PlayerInfo::Mode>& getPlayerModeCycle() const;
+		unsigned int getStock() const;
 		
 		void setCharacterInfo(CharacterInfo*);
 		void setCostume(const String&);
@@ -37,12 +38,16 @@ namespace BrawlerLibrary
 		void cyclePlayerMode();
 		void turnPlayerModeOn();
 		void turnPlayerModeOff();
+		void setStock(unsigned int stock);
 		
 	private:
 		CharacterInfo* character_info;
 		String character_costume;
+		
 		PlayerInfo::Mode mode;
 		ArrayList<PlayerInfo::Mode> modeCycle;
 		unsigned int modeCycleIndex;
+		
+		unsigned int stock;
 	};
 }

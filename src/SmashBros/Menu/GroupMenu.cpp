@@ -17,15 +17,19 @@ namespace SmashBros
 			smashRules = new Rules();
 			smashRules->setPlayerCount(4);
 			
-			SmashData groupSmashData(smashData);
-			groupSmashData.setRules(smashRules);
-			smashMenu = new GroupSmashCharacterSelectMenu(groupSmashData);
+			SmashData newSmashData(smashData);
+			newSmashData.setRules(smashRules);
+			
+			groupSmashData = new GroupSmashData();
+			
+			smashMenu = new GroupSmashCharacterSelectMenu(newSmashData, *groupSmashData);
 		}
 		
 		GroupMenu::~GroupMenu()
 		{
 			delete smashMenu;
 			delete smashRules;
+			delete groupSmashData;
 		}
 		
 		void GroupMenu::onItemSelect(unsigned int index)

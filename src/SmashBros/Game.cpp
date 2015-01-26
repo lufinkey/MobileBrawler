@@ -1,7 +1,6 @@
 
 #include "Game.h"
 #include "Global.h"
-#include "SmashData.h"
 #include "Menu/TitleScreen.h"
 
 namespace SmashBros
@@ -48,7 +47,8 @@ namespace SmashBros
 		setFPS(60);
 		characterLoader = new CharacterLoader(*getWindow());
 		menuAssetManager = new AssetManager(*getWindow(), "assets/menu");
-		smashData = new SmashData(getWindow(), characterLoader, nullptr, MenuData(menuAssetManager));
+		//TODO fix when implementing placement plists
+		smashData = new SmashData(getWindow(), characterLoader, nullptr, MenuData(menuAssetManager, Dictionary(), Dictionary()));
 	}
 	
 	void Game::loadContent(AssetManager*assetManager)
@@ -113,9 +113,16 @@ namespace SmashBros
 		batchLoader->addTexture("characterselect/panel_overlay_na.png");
 		batchLoader->addTexture("characterselect/panel_overlay_blank.png");
 		batchLoader->addTexture("characterselect/icon_frame.png");
+		batchLoader->addTexture("characterselect/readytofight_banner.png");
 		
+		batchLoader->addTexture("elements/button_arrow_down.png");
+		batchLoader->addTexture("elements/button_arrow_left.png");
+		batchLoader->addTexture("elements/button_arrow_right.png");
+		batchLoader->addTexture("elements/button_arrow_up.png");
 		batchLoader->addTexture("elements/headerbar_full.png");
 		batchLoader->addTexture("elements/headerbar_small.png");
+		batchLoader->addTexture("elements/menu_bar.png");
+		batchLoader->addTexture("elements/rules_bar.png");
 		
 		batchLoader->addFont("fonts/default.ttf");
 		
