@@ -23,7 +23,7 @@ namespace SmashBros
 									groupSmashData.getStockWinCondition(),
 									groupSmashData.getTimeLimitWinCondition(),
 									smashData.getMenuData().getAssetManager(),
-									smashData.getMenuData().getRulesBarPlacement());
+									smashData.getMenuData().getRulesBarProperties());
 			rulesBar->Actor::scaleToFit(Vector2f(rulesBar_frame.width, rulesBar_frame.height));
 		}
 		

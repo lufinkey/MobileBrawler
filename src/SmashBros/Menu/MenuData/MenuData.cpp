@@ -6,15 +6,15 @@ namespace SmashBros
 	MenuData::MenuData(const MenuData&menuData)
 	{
 		assetManager = menuData.assetManager;
-		menuBarPlacement = menuData.menuBarPlacement;
-		rulesBarPlacement = menuData.rulesBarPlacement;
+		menuBarProperties = menuData.menuBarProperties;
+		rulesBarProperties = menuData.rulesBarProperties;
 	}
 	
-	MenuData::MenuData(AssetManager*assetMgr, const Dictionary&menuBarPlace, const Dictionary&rulesBarPlace)
+	MenuData::MenuData(AssetManager*assetMgr, const Dictionary&menuBarProps, const Dictionary&rulesBarProps)
 	{
 		assetManager = assetMgr;
-		menuBarPlacement = menuBarPlace;
-		rulesBarPlacement = rulesBarPlace;
+		menuBarProperties = menuBarProps;
+		rulesBarProperties = rulesBarProps;
 	}
 	
 	MenuData::~MenuData()
@@ -25,8 +25,8 @@ namespace SmashBros
 	MenuData& MenuData::operator=(const MenuData&menuData)
 	{
 		assetManager = menuData.assetManager;
-		menuBarPlacement = menuData.menuBarPlacement;
-		rulesBarPlacement = menuData.rulesBarPlacement;
+		menuBarProperties = menuData.menuBarProperties;
+		rulesBarProperties = menuData.rulesBarProperties;
 		return *this;
 	}
 	
@@ -35,13 +35,13 @@ namespace SmashBros
 		return assetManager;
 	}
 	
-	const Dictionary& MenuData::getMenuBarPlacement() const
+	const Dictionary& MenuData::getMenuBarProperties() const
 	{
-		return menuBarPlacement;
+		return menuBarProperties;
 	}
 	
-	const Dictionary& MenuData::getRulesBarPlacement() const
+	const Dictionary& MenuData::getRulesBarProperties() const
 	{
-		return rulesBarPlacement;
+		return rulesBarProperties;
 	}
 }

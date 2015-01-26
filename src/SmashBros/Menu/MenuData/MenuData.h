@@ -11,18 +11,18 @@ namespace SmashBros
 	{
 	private:
 		AssetManager* assetManager;
-		Dictionary menuBarPlacement;
-		Dictionary rulesBarPlacement;
+		Dictionary menuBarProperties;
+		Dictionary rulesBarProperties;
 		
 	public:
 		MenuData(const MenuData&);
-		MenuData(AssetManager*assetManager, const Dictionary&menuBarPlacement, const Dictionary&rulesBarPlacement);
+		MenuData(AssetManager*assetManager, const Dictionary&menuBarProperties, const Dictionary&rulesBarProperties);
 		~MenuData();
 		
 		MenuData& operator=(const MenuData&);
 		
 		AssetManager* getAssetManager() const;
-		const Dictionary& getMenuBarPlacement() const;
-		const Dictionary& getRulesBarPlacement() const;
+		const Dictionary& getMenuBarProperties() const;
+		const Dictionary& getRulesBarProperties() const;
 	};
 }
