@@ -77,7 +77,10 @@ namespace GameLibrary
 		}
 		if(success)
 		{
-			error->clear();
+			if(error!=nullptr)
+			{
+				error->clear();
+			}
 			textures.add(Pair<String,TextureImage*>(path, texture));
 			return true;
 		}
@@ -112,7 +115,10 @@ namespace GameLibrary
 		}
 		if(success)
 		{
-			error->clear();
+			if(error!=nullptr)
+			{
+				error->clear();
+			}
 			image.applyCompositeMask(compositeMask);
 			TextureImage* texture = new TextureImage();
 			success = texture->loadFromImage(image, *window->getGraphics(), error);
@@ -201,7 +207,10 @@ namespace GameLibrary
 		}
 		if(success)
 		{
-			error->clear();
+			if(error!=nullptr)
+			{
+				error->clear();
+			}
 			fonts.add(Pair<String,Font*>(path, font));
 			return true;
 		}
