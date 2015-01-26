@@ -256,6 +256,42 @@ namespace GameLibrary
 		}
 	}
 	
+	unsigned int AssetManager::reload()
+	{
+		ArrayList<String> texturePaths;
+		texturePaths.resize(textures.size());
+		ArrayList<String> fontPaths;
+		fontPaths.resize(fonts.size());
+		
+		for(unsigned int i=0; i<textures.size(); i++)
+		{
+			texturePaths.set(i, textures.get(i).first);
+		}
+		for(unsigned int i=0; i<fonts.size(); i++)
+		{
+			fontPaths.set(i, fonts.get(i).first);
+		}
+		
+		unload();
+		
+		unsigned int successCounter = 0;
+		for(unsigned int i=0; i<texturePaths.size(); i++)
+		{
+			if(loadTexture(texturePaths.get(i)))
+			{
+				successCounter++;
+			}
+		}
+		for(unsigned int i=0; i<fontPaths.size(); i++)
+		{
+			if(loadFont(fontPaths.get(i)))
+			{
+				successCounter++;
+			}
+		}
+		return successCounter;
+	}
+	
 	void AssetManager::unload()
 	{
 		unloadTextures();

@@ -50,6 +50,7 @@ namespace GameLibrary
 		Font* getFont(const String&path);
 		void addFont(const String&path, Font*font);
 		
+		unsigned int reload();
 		void unload();
 	};
 }
