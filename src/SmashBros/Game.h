@@ -3,6 +3,8 @@
 
 #include <GameLibrary/GameLibrary.h>
 #include "Menu/TitleScreen.h"
+#include "Load/MenuLoad.h"
+#include "Load/ModuleLoad.h"
 
 namespace SmashBros
 {
@@ -12,15 +14,12 @@ namespace SmashBros
 	{
 	private:
 		SmashData* smashData;
-		
-		AssetManager* menuAssetManager;
-		CharacterLoader* characterLoader;
-		
+		MenuLoad* menuLoad;
+		ModuleLoad* moduleLoad;
+
 		Menu::TitleScreen* titleScreen;
 		ScreenManager* menuScreenMgr;
 		
-		Image characterselect_iconmask;
-
 	public:
 		Game();
 		virtual ~Game();
@@ -30,7 +29,5 @@ namespace SmashBros
 		virtual void unloadContent(AssetManager*assetManager) override;
 		virtual void update(AppData appData) override;
 		virtual void draw(AppData appData, Graphics graphics) const override;
-		
-		void loadMenuAssets(AssetManager*assetManager);
 	};
 }

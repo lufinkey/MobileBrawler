@@ -13,7 +13,7 @@ namespace SmashBros
 		
 		BaseMenuScreen::BaseMenuScreen(const SmashData&smashData)
 		{
-			AssetManager* assetManager = smashData.getMenuData().getAssetManager();
+			AssetManager* assetManager = smashData.getMenuData()->getAssetManager();
 			
 			img_headerbar_small = assetManager->getTexture("elements/headerbar_small.png");
 			img_headerbar_full = assetManager->getTexture("elements/headerbar_full.png");

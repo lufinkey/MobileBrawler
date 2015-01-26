@@ -27,5 +27,7 @@ namespace GameLibrary
 
 		static String getCurrentWorkingDirectory();
 		static bool getItemsInDirectory(const String&directory, ArrayList<DirectoryItem>*items, String*error=nullptr);
+		
+		static String combinePathStrings(const String&first, const String&second);
 	};
 }

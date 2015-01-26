@@ -210,7 +210,6 @@ namespace GameLibrary
 			String rootNodeName = rootNode.name();
 			if(rootNodeName.equals(""))
 			{
-				clear();
 				return true;
 			}
 			else if(rootNodeName.equals("dict"))

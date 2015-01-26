@@ -22,8 +22,8 @@ namespace SmashBros
 									smashData.getRules(),
 									groupSmashData.getStockWinCondition(),
 									groupSmashData.getTimeLimitWinCondition(),
-									smashData.getMenuData().getAssetManager(),
-									smashData.getMenuData().getRulesBarProperties());
+									smashData.getMenuData()->getAssetManager(),
+									smashData.getMenuData()->getRulesBarProperties());
 			rulesBar->Actor::scaleToFit(Vector2f(rulesBar_frame.width, rulesBar_frame.height));
 		}
 		

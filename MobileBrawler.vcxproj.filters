@@ -417,9 +417,6 @@
     <ClCompile Include="src\SmashBros\Menu\MenuData\SmashData.cpp">
       <Filter>src\SmashBros\Menu\MenuData</Filter>
     </ClCompile>
-    <ClCompile Include="src\SmashBros\Menu\MenuData\MenuData.cpp">
-      <Filter>src\SmashBros\Menu\MenuData</Filter>
-    </ClCompile>
     <ClCompile Include="src\SmashBros\Menu\MenuData\GroupSmashData.cpp">
       <Filter>src\SmashBros\Menu\MenuData</Filter>
     </ClCompile>
@@ -768,9 +765,6 @@
       <Filter>src\SmashBros\Menu\Elements</Filter>
     </ClInclude>
     <ClInclude Include="src\SmashBros\Menu\MenuData\SmashData.h">
-      <Filter>src\SmashBros\Menu\MenuData</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SmashBros\Menu\MenuData\MenuData.h">
       <Filter>src\SmashBros\Menu\MenuData</Filter>
     </ClInclude>
     <ClInclude Include="src\SmashBros\Menu\MenuData\GroupSmashData.h">

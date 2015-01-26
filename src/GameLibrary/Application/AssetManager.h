@@ -22,8 +22,6 @@ namespace GameLibrary
 		String rootdir;
 		ArrayList<String> secondaryRoots;
 		
-		static String getFullPath(const String&path, const String&rootdir);
-		
 	public:
 		AssetManager(Window&window, const String&root="", const ArrayList<String>&secondaryRoots=ArrayList<String>());
 		~AssetManager();

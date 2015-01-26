@@ -187,7 +187,6 @@
     <ClCompile Include="src\SmashBros\Menu\MainMenu.cpp" />
     <ClCompile Include="src\SmashBros\Menu\GroupMenu.cpp" />
     <ClCompile Include="src\SmashBros\Menu\MenuData\GroupSmashData.cpp" />
-    <ClCompile Include="src\SmashBros\Menu\MenuData\MenuData.cpp" />
     <ClCompile Include="src\SmashBros\Menu\MenuData\SmashData.cpp" />
     <ClCompile Include="src\SmashBros\Menu\SoloMenu.cpp" />
     <ClCompile Include="src\SmashBros\Menu\TitleScreen.cpp" />
@@ -306,7 +305,6 @@
     <ClInclude Include="src\SmashBros\Menu\MainMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\GroupMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\MenuData\GroupSmashData.h" />
-    <ClInclude Include="src\SmashBros\Menu\MenuData\MenuData.h" />
     <ClInclude Include="src\SmashBros\Menu\MenuData\SmashData.h" />
     <ClInclude Include="src\SmashBros\Menu\SoloMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\TitleScreen.h" />

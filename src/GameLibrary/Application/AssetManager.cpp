@@ -1,6 +1,7 @@
 
 #include "AssetManager.h"
 #include "../Window/Window.h"
+#include "../IO/FileTools.h"
 
 namespace GameLibrary
 {
@@ -15,27 +16,6 @@ namespace GameLibrary
 	{
 		unloadTextures();
 		unloadFonts();
-	}
-	
-	String AssetManager::getFullPath(const String&path, const String&rootdir)
-	{
-		String fullpath;
-		if(rootdir.length() == 0)
-		{
-			fullpath = path;
-		}
-		else
-		{
-			if(rootdir.charAt(rootdir.length()-1)=='/')
-			{
-				fullpath = rootdir + path;
-			}
-			else
-			{
-				fullpath = rootdir + '/' + path;
-			}
-		}
-		return fullpath;
 	}
 	
 	void AssetManager::setRootDirectory(const String&root)
@@ -65,13 +45,13 @@ namespace GameLibrary
 		}
 
 		TextureImage* texture = new TextureImage();
-		String fullpath = getFullPath(path, rootdir);
+		String fullpath = FileTools::combinePathStrings(rootdir, path);
 		bool success = texture->loadFromFile(fullpath, *window->getGraphics(), error);
 		unsigned int secondaryIndex = 0;
 		while(!success && secondaryIndex<secondaryRoots.size())
 		{
 			const String& secondaryRoot = secondaryRoots.get(secondaryIndex);
-			fullpath = getFullPath(path, secondaryRoot);
+			fullpath = FileTools::combinePathStrings(secondaryRoot, path);
 			success = texture->loadFromFile(fullpath, *window->getGraphics(), error);
 			secondaryIndex++;
 		}
@@ -103,13 +83,13 @@ namespace GameLibrary
 		}
 		
 		Image image;
-		String fullpath = getFullPath(path, rootdir);
+		String fullpath = FileTools::combinePathStrings(rootdir, path);
 		bool success = image.loadFromFile(fullpath, error);
 		unsigned int secondaryIndex = 0;
 		while(!success && secondaryIndex<secondaryRoots.size())
 		{
 			const String& secondaryRoot = secondaryRoots.get(secondaryIndex);
-			fullpath = getFullPath(path, secondaryRoot);
+			fullpath = FileTools::combinePathStrings(secondaryRoot, path);
 			success = image.loadFromFile(fullpath, error);
 			secondaryIndex++;
 		}
@@ -195,13 +175,13 @@ namespace GameLibrary
 		}
 
 		Font* font = new Font();
-		String fullpath = getFullPath(path, rootdir);
+		String fullpath = FileTools::combinePathStrings(rootdir, path);
 		bool success = font->loadFromFile(fullpath, 24, error);
 		unsigned int secondaryIndex = 0;
 		while(!success && secondaryIndex<secondaryRoots.size())
 		{
 			const String& secondaryRoot = secondaryRoots.get(secondaryIndex);
-			fullpath = getFullPath(path, secondaryRoot);
+			fullpath = FileTools::combinePathStrings(secondaryRoot, path);
 			success = font->loadFromFile(fullpath, 24, error);
 			secondaryIndex++;
 		}

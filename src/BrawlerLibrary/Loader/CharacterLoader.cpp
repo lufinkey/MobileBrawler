@@ -116,6 +116,13 @@ namespace BrawlerLibrary
 		}
 	}
 	
+	void CharacterLoader::reloadAssets(const Image&iconMask)
+	{
+		assetManager->unload();
+		loadIcons(iconMask);
+		loadPortraits();
+	}
+	
 	const ArrayList<String>& CharacterLoader::getPaths() const
 	{
 		return paths;

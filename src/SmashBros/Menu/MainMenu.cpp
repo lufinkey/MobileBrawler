@@ -7,7 +7,7 @@ namespace SmashBros
 	{
 		MainMenu::MainMenu(const SmashData&smashData) : SmashBros::Menu::BaseMenuScreen(smashData)
 		{
-			AssetManager* assetManager = smashData.getMenuData().getAssetManager();
+			AssetManager* assetManager = smashData.getMenuData()->getAssetManager();
 			
 			groupButton = getItem(addItem(smashData.getScreenCoords(0.28f, 0.437f), new Animation(1, assetManager, "buttons/main/group.png")));
 			groupButton->scaleToFit(smashData.getScreenCoords(0.5f,0.5f));

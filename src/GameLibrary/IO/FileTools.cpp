@@ -98,4 +98,25 @@ namespace GameLibrary
 		closedir(dir);
 		return true;
 	}
+	
+	String FileTools::combinePathStrings(const String&first, const String&second)
+	{
+		String fullpath;
+		if(first.length() == 0)
+		{
+			fullpath = second;
+		}
+		else
+		{
+			if(first.charAt(first.length()-1)=='/')
+			{
+				fullpath = first + second;
+			}
+			else
+			{
+				fullpath = first + '/' + second;
+			}
+		}
+		return fullpath;
+	}
 }

@@ -42,7 +42,7 @@ namespace SmashBros
 			arrow_less = new MenuBarValueAdjust_ArrowButton(this, arrow_less_pos.x, arrow_less_pos.y, value, min, max, -incr, ArrowButton::DIRECTION_LEFT, assetManager);
 			arrow_less->Actor::scaleToFit(Vector2f(getWidth(), getHeight()*1.1f));
 			Vector2f arrow_more_pos(x+(getWidth()*0.425f), y);
-			arrow_more = new MenuBarValueAdjust_ArrowButton(this, arrow_more_pos.x, arrow_more_pos.y, value, min, max, -incr, ArrowButton::DIRECTION_RIGHT, assetManager);
+			arrow_more = new MenuBarValueAdjust_ArrowButton(this, arrow_more_pos.x, arrow_more_pos.y, value, min, max, incr, ArrowButton::DIRECTION_RIGHT, assetManager);
 			arrow_more->Actor::scaleToFit(Vector2f(getWidth(), getHeight()*1.1f));
 		}
 		

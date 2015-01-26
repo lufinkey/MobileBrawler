@@ -15,10 +15,10 @@ namespace SmashBros
 		CharacterSelectScreen::CharacterSelectScreen(const SmashData&smashData) : SmashBros::Menu::BaseMenuScreen(smashData)
 		{
 			rules = smashData.getRules();
-			characterLoader = smashData.getCharacterLoader();
+			characterLoader = smashData.getModuleData()->getCharacterLoader();
 			iconGrid = nullptr;
 			Vector2f readyToFightPos = smashData.getScreenCoords(0.5f, 0.6f);
-			readyToFightBanner = new ReadyToFightBanner(this, readyToFightPos.x, readyToFightPos.y, smashData.getMenuData().getAssetManager());
+			readyToFightBanner = new ReadyToFightBanner(this, readyToFightPos.x, readyToFightPos.y, smashData.getMenuData()->getAssetManager());
 			Vector2f screenSize = smashData.getScreenCoords(1.0f,1.0f);
 			RectangleF readytofight_constraint(0,readyToFightPos.y, screenSize.x, 1);
 			RectangleF readytofight_frame = readyToFightBanner->getFrame();
@@ -110,7 +110,7 @@ namespace SmashBros
 			}
 			icons.clear();
 			
-			ArrayList<CharacterInfo>& characters = smashData.getCharacterLoader()->getCharacters();
+			ArrayList<CharacterInfo>& characters = smashData.getModuleData()->getCharacterLoader()->getCharacters();
 			unsigned int total = characters.size();
 			float approx_cols = Math::sqrt((3.0f*((float)total))/2.0f);
 			float approx_rows = approx_cols*(2.0f/3.0f);
@@ -141,7 +141,7 @@ namespace SmashBros
 			
 			iconGrid = new ActorGrid(Vector2f(charSelectRect.x+(icon_width/2), charSelectRect.y+(icon_height/2)), cols, Vector2f(icon_width, icon_height));
 			
-			AssetManager* loaderAssetManager = smashData.getCharacterLoader()->getAssetManager();
+			AssetManager* loaderAssetManager = smashData.getModuleData()->getCharacterLoader()->getAssetManager();
 			for(unsigned int i=0; i<characters.size(); i++)
 			{
 				CharacterInfo& info = characters.get(i);
@@ -180,19 +180,15 @@ namespace SmashBros
 			float offsetX = frame.x + (panelframe_width/2);
 			float offsetY = frame.y + (frame.height/2);
 			
-			String menuAssetsRoot = smashData.getMenuData().getAssetManager()->getRootDirectory();
-			Dictionary placementDict;
-			//TODO change this when implementing themes
-			placementDict.loadFromFile(menuAssetsRoot + "/characterselect/panel.plist");
+			const Dictionary& panelProperties = smashData.getMenuData()->getCharacterSelectPanelProperties();
 			
 			for(unsigned int i = 0; i < playerCount; i++)
 			{
 				unsigned int playerNum = i+1;
-				PlayerPanel* panel = new PlayerPanel(playerNum, this, offsetX + (panelframe_width*(float)i), offsetY, placementDict, smashData.getMenuData().getAssetManager());
+				PlayerPanel* panel = new PlayerPanel(playerNum, this, offsetX + (panelframe_width*(float)i), offsetY, panelProperties, smashData.getMenuData()->getAssetManager());
 				panel->Actor::scaleToFit(Vector2f(panelframe_width, panelframe_height));
-				panel->applyPlacementProperties(placementDict);
 				panels.add(panel);
-				PlayerChip* chip = new PlayerChip(playerNum, this, panel->x-(panel->getWidth()/2), panel->y, smashData.getMenuData().getAssetManager());
+				PlayerChip* chip = new PlayerChip(playerNum, this, panel->x-(panel->getWidth()/2), panel->y, smashData.getMenuData()->getAssetManager());
 				chip->Actor::scaleToFit(Vector2f(panelframe_width/3, panelframe_height/3));
 				chips.add(chip);
 			}

@@ -10,7 +10,7 @@ namespace SmashBros
 		{
 			Vector2f screenSize = smashData.getScreenCoords(1.0f, 1.0f);
 			Vector2f screenCenter = smashData.getScreenCoords(0.5f, 0.5f);
-			AssetManager* assetManager = smashData.getMenuData().getAssetManager();
+			AssetManager* assetManager = smashData.getMenuData()->getAssetManager();
 
 			getBackgroundElement()->setImage(assetManager->getTexture("titlescreen/background.png"));
 			

@@ -3,18 +3,20 @@
 
 namespace SmashBros
 {
-	SmashData::SmashData(Window*win, CharacterLoader*charLoader, Rules*ruls, const MenuData&menuData) : menuData(menuData)
+	SmashData::SmashData(Window*win, Rules*ruls, MenuLoad*menuDat, ModuleLoad*moduleDat)
 	{
 		window = win;
-		characterLoader = charLoader;
 		rules = ruls;
+		menuData = menuDat;
+		moduleData = moduleDat;
 	}
 	
-	SmashData::SmashData(const SmashData&smashData) : menuData(smashData.menuData)
+	SmashData::SmashData(const SmashData&smashData)
 	{
 		window = smashData.window;
-		characterLoader = smashData.characterLoader;
 		rules = smashData.rules;
+		menuData = smashData.menuData;
+		moduleData = smashData.moduleData;
 	}
 	
 	SmashData::~SmashData()
@@ -24,10 +26,10 @@ namespace SmashBros
 	
 	SmashData& SmashData::operator=(const SmashData&smashData)
 	{
-		menuData = smashData.menuData;
 		window = smashData.window;
-		characterLoader = smashData.characterLoader;
 		rules = smashData.rules;
+		menuData = smashData.menuData;
+		moduleData = smashData.moduleData;
 		return *this;
 	}
 	
@@ -51,24 +53,24 @@ namespace SmashBros
 		return Vector2f(rat.x*viewSize.x, rat.y*viewSize.y);
 	}
 	
-	const MenuData& SmashData::getMenuData() const
-	{
-		return menuData;
-	}
-	
 	Window* SmashData::getWindow() const
 	{
 		return window;
 	}
 	
-	CharacterLoader* SmashData::getCharacterLoader() const
-	{
-		return characterLoader;
-	}
-	
 	Rules* SmashData::getRules() const
 	{
 		return rules;
+	}
+	
+	MenuLoad* SmashData::getMenuData() const
+	{
+		return menuData;
+	}
+	
+	ModuleLoad* SmashData::getModuleData() const
+	{
+		return moduleData;
 	}
 	
 	void SmashData::setRules(Rules*ruls)
