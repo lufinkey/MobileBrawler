@@ -169,6 +169,8 @@
     <ClCompile Include="src\GameLibrary\Window\View.cpp" />
     <ClCompile Include="src\GameLibrary\Window\Window.cpp" />
     <ClCompile Include="src\SmashBros\Game.cpp" />
+    <ClCompile Include="src\SmashBros\Load\MenuLoad.cpp" />
+    <ClCompile Include="src\SmashBros\Load\ModuleLoad.cpp" />
     <ClCompile Include="src\SmashBros\main.cpp" />
     <ClCompile Include="src\SmashBros\Menu\Base\BaseMenuScreen.cpp" />
     <ClCompile Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelectScreen.cpp" />
@@ -287,6 +289,8 @@
     <ClInclude Include="src\GameLibrary\Window\Window.h" />
     <ClInclude Include="src\SmashBros\Game.h" />
     <ClInclude Include="src\SmashBros\Global.h" />
+    <ClInclude Include="src\SmashBros\Load\MenuLoad.h" />
+    <ClInclude Include="src\SmashBros\Load\ModuleLoad.h" />
     <ClInclude Include="src\SmashBros\Menu\Base\BaseMenuScreen.h" />
     <ClInclude Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelectScreen.h" />
     <ClInclude Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_CharacterIcon.h" />

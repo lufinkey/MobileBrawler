@@ -118,6 +118,9 @@
     <Filter Include="src\BrawlerLibrary\Game\Rules\WinCondition">
       <UniqueIdentifier>{efca6a30-ccee-4acf-a2e5-8133ffa3e0fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\SmashBros\Load">
+      <UniqueIdentifier>{8e9c97b7-9f55-4eac-a4dc-4413b393398f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameLibrary\Actor\TextActor.cpp">
@@ -434,6 +437,12 @@
     </ClCompile>
     <ClCompile Include="src\BrawlerLibrary\Game\Rules\WinCondition\TimeLimitWinCondition.cpp">
       <Filter>src\BrawlerLibrary\Game\Rules\WinCondition</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Load\MenuLoad.cpp">
+      <Filter>src\SmashBros\Load</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Load\ModuleLoad.cpp">
+      <Filter>src\SmashBros\Load</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -781,6 +790,12 @@
     </ClInclude>
     <ClInclude Include="src\BrawlerLibrary\Game\Rules\WinCondition\StockWinCondition.h">
       <Filter>src\BrawlerLibrary\Game\Rules\WinCondition</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Load\MenuLoad.h">
+      <Filter>src\SmashBros\Load</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Load\ModuleLoad.h">
+      <Filter>src\SmashBros\Load</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
