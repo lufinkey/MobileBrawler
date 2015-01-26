@@ -123,6 +123,8 @@
 		A0CA52391A74289A00CCF32A /* CharacterSelect_PlayerPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0CA52331A74289A00CCF32A /* CharacterSelect_PlayerPanel.cpp */; };
 		A0CA523A1A74289A00CCF32A /* CharacterSelectScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0CA52351A74289A00CCF32A /* CharacterSelectScreen.cpp */; };
 		A0CA523B1A7429AF00CCF32A /* PlayerInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0CA522C1A7426DE00CCF32A /* PlayerInfo.cpp */; };
+		E90B71CF1A76B66400131E28 /* StageLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E90B71CD1A76B66400131E28 /* StageLoader.cpp */; };
+		E90B71D21A76B85B00131E28 /* StageInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E90B71D01A76B85B00131E28 /* StageInfo.cpp */; };
 		E97FD7771A72DA22005AC479 /* Icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7651A72DA22005AC479 /* Icon-60.png */; };
 		E97FD7781A72DA22005AC479 /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7661A72DA22005AC479 /* Icon-60@2x.png */; };
 		E97FD7791A72DA22005AC479 /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7671A72DA22005AC479 /* Icon-60@3x.png */; };
@@ -370,6 +372,10 @@
 		A0CA52341A74289A00CCF32A /* CharacterSelect_PlayerPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterSelect_PlayerPanel.h; sourceTree = "<group>"; };
 		A0CA52351A74289A00CCF32A /* CharacterSelectScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CharacterSelectScreen.cpp; sourceTree = "<group>"; };
 		A0CA52361A74289A00CCF32A /* CharacterSelectScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterSelectScreen.h; sourceTree = "<group>"; };
+		E90B71CD1A76B66400131E28 /* StageLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StageLoader.cpp; sourceTree = "<group>"; };
+		E90B71CE1A76B66400131E28 /* StageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StageLoader.h; sourceTree = "<group>"; };
+		E90B71D01A76B85B00131E28 /* StageInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StageInfo.cpp; sourceTree = "<group>"; };
+		E90B71D11A76B85B00131E28 /* StageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StageInfo.h; sourceTree = "<group>"; };
 		E97FD7651A72DA22005AC479 /* Icon-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60.png"; path = "icons/Icon-60.png"; sourceTree = "<group>"; };
 		E97FD7661A72DA22005AC479 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@2x.png"; path = "icons/Icon-60@2x.png"; sourceTree = "<group>"; };
 		E97FD7671A72DA22005AC479 /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@3x.png"; path = "icons/Icon-60@3x.png"; sourceTree = "<group>"; };
@@ -506,6 +512,10 @@
 				A01656921A70C16B007D0BA1 /* CharacterInfo.cpp */,
 				A01656951A70C16B007D0BA1 /* CharacterLoader.h */,
 				A01656941A70C16B007D0BA1 /* CharacterLoader.cpp */,
+				E90B71CE1A76B66400131E28 /* StageLoader.h */,
+				E90B71CD1A76B66400131E28 /* StageLoader.cpp */,
+				E90B71D11A76B85B00131E28 /* StageInfo.h */,
+				E90B71D01A76B85B00131E28 /* StageInfo.cpp */,
 			);
 			path = Loader;
 			sourceTree = "<group>";
@@ -1091,6 +1101,7 @@
 				A01657721A70C16B007D0BA1 /* Application.cpp in Sources */,
 				A01657731A70C16B007D0BA1 /* ApplicationData.cpp in Sources */,
 				A01657741A70C16B007D0BA1 /* AssetManager.cpp in Sources */,
+				E90B71D21A76B85B00131E28 /* StageInfo.cpp in Sources */,
 				A01657751A70C16B007D0BA1 /* BatchLoader.cpp in Sources */,
 				A01657761A70C16B007D0BA1 /* EventManager.cpp in Sources */,
 				A01657771A70C16B007D0BA1 /* Music.cpp in Sources */,
@@ -1140,6 +1151,7 @@
 				A01657A31A70C16B007D0BA1 /* Transition.cpp in Sources */,
 				A01657A41A70C16B007D0BA1 /* ImageElement.cpp in Sources */,
 				A01657A51A70C16B007D0BA1 /* TextInputElement.cpp in Sources */,
+				E90B71CF1A76B66400131E28 /* StageLoader.cpp in Sources */,
 				A01657A61A70C16B007D0BA1 /* BitList.cpp in Sources */,
 				A01657A71A70C16B007D0BA1 /* BitSet.cpp in Sources */,
 				A01657A81A70C16B007D0BA1 /* DataPacket.cpp in Sources */,
@@ -1262,6 +1274,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1278,6 +1291,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
