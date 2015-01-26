@@ -20,15 +20,20 @@ namespace GameLibrary
 		ArrayList<Pair<String,Font*> > fonts;
 		
 		String rootdir;
+		ArrayList<String> secondaryRoots;
 		
-		String getFullPath(const String&path) const;
+		static String getFullPath(const String&path, const String&rootdir);
 		
 	public:
-		AssetManager(Window&window, const String&root="");
+		AssetManager(Window&window, const String&root="", const ArrayList<String>&secondaryRoots=ArrayList<String>());
 		~AssetManager();
 		
 		void setRootDirectory(const String&);
 		const String& getRootDirectory() const;
+		
+		void addSecondaryRoot(const String&);
+		const ArrayList<String>& getSecondaryRoots() const;
+		void removeSecondaryRoot(const String&);
 		
 		Window* getWindow() const;
 		

@@ -4,10 +4,11 @@
 
 namespace GameLibrary
 {
-	AssetManager::AssetManager(Window&win, const String&root)
+	AssetManager::AssetManager(Window&win, const String&root, const ArrayList<String>&secondaryRootList)
 	{
 		window = &win;
 		rootdir = root;
+		secondaryRoots = secondaryRootList;
 	}
 
 	AssetManager::~AssetManager()
@@ -16,7 +17,7 @@ namespace GameLibrary
 		unloadFonts();
 	}
 	
-	String AssetManager::getFullPath(const String&path) const
+	String AssetManager::getFullPath(const String&path, const String&rootdir)
 	{
 		String fullpath;
 		if(rootdir.length() == 0)
@@ -64,10 +65,19 @@ namespace GameLibrary
 		}
 
 		TextureImage* texture = new TextureImage();
-		String fullpath = getFullPath(path);
+		String fullpath = getFullPath(path, rootdir);
 		bool success = texture->loadFromFile(fullpath, *window->getGraphics(), error);
+		unsigned int secondaryIndex = 0;
+		while(!success && secondaryIndex<secondaryRoots.size())
+		{
+			const String& secondaryRoot = secondaryRoots.get(secondaryIndex);
+			fullpath = getFullPath(path, secondaryRoot);
+			success = texture->loadFromFile(fullpath, *window->getGraphics(), error);
+			secondaryIndex++;
+		}
 		if(success)
 		{
+			error->clear();
 			textures.add(Pair<String,TextureImage*>(path, texture));
 			return true;
 		}
@@ -90,10 +100,19 @@ namespace GameLibrary
 		}
 		
 		Image image;
-		String fullpath = getFullPath(path);
+		String fullpath = getFullPath(path, rootdir);
 		bool success = image.loadFromFile(fullpath, error);
+		unsigned int secondaryIndex = 0;
+		while(!success && secondaryIndex<secondaryRoots.size())
+		{
+			const String& secondaryRoot = secondaryRoots.get(secondaryIndex);
+			fullpath = getFullPath(path, secondaryRoot);
+			success = image.loadFromFile(fullpath, error);
+			secondaryIndex++;
+		}
 		if(success)
 		{
+			error->clear();
 			image.applyCompositeMask(compositeMask);
 			TextureImage* texture = new TextureImage();
 			success = texture->loadFromImage(image, *window->getGraphics(), error);
@@ -170,10 +189,19 @@ namespace GameLibrary
 		}
 
 		Font* font = new Font();
-		String fullpath = getFullPath(path);
+		String fullpath = getFullPath(path, rootdir);
 		bool success = font->loadFromFile(fullpath, 24, error);
+		unsigned int secondaryIndex = 0;
+		while(!success && secondaryIndex<secondaryRoots.size())
+		{
+			const String& secondaryRoot = secondaryRoots.get(secondaryIndex);
+			fullpath = getFullPath(path, secondaryRoot);
+			success = font->loadFromFile(fullpath, 24, error);
+			secondaryIndex++;
+		}
 		if(success)
 		{
+			error->clear();
 			fonts.add(Pair<String,Font*>(path, font));
 			return true;
 		}
