@@ -14,7 +14,6 @@ namespace BrawlerLibrary
 		String name;
 		String creator;
 		String version;
-		String minsmashversion;
 		
 	public:
 		CharacterInfo();
@@ -34,5 +33,7 @@ namespace BrawlerLibrary
 		void setName(const String&name);
 		void setCreator(const String&creator);
 		void setMinimumSmashVersion(const String&minsmashversion);
+        
+        String minsmashversion;
 	};
 }

@@ -40,6 +40,14 @@ namespace BrawlerLibrary
 				CharacterInfo info;
 				bool success = info.loadFromPath(path + "/" + diritem.name);
 				//TODO see if minsmashversion is compatible
+                //TODO compare minsmashversion to current application
+                if (info.minsmashversion == "1.0") {
+                    // check if minsmashversion is compatible
+                    GameLibrary::Console::writeLine("Minsmashversion is compatible");
+                }
+                else {
+                    GameLibrary::Console::writeLine("Minsmashversion is NOT compatible");
+                }
 				if(success)
 				{
 					bool alreadyAdded = false;
