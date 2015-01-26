@@ -1,25 +1,29 @@
 
 #pragma once
 
-#include "ArrowButton.h"
+#include "MenuBarValueAdjust.h"
+#include <BrawlerLibrary/BrawlerLibrary.h>
+#include "../MenuData/GroupSmashData.h"
 
 namespace SmashBros
 {
+	using namespace BrawlerLibrary;
+	
 	namespace Menu
 	{
-		class RulesBar : public SpriteActor
+		class RulesBar : public MenuBarValueAdjust
 		{
-		private:
-			ArrowButton* less_button;
-			ArrowButton* more_button;
-			Number*value;
-			Number min;
-			Number max;
-			Number incr;
-			
 		public:
-			RulesBar(float x, float y, Number*value, const Number&min, const Number&max, const Number&increment, AssetManager*assetManager, const Color&hoverColor=Color::LIGHTBLUE, const Color&pressColor=Color::BLUE);
+			RulesBar(float x, float y, Rules*rules, StockWinCondition*stockWinCondition, TimeLimitWinCondition*timeLimitWinCondition, AssetManager*assetManager, const Dictionary&placement);
 			virtual ~RulesBar();
+			
+			virtual void onValueChange();
+			
+		private:
+			Rules*rules;
+			Number value;
+			StockWinCondition* stock;
+			TimeLimitWinCondition* timeLimit;
 		};
 	}
 }

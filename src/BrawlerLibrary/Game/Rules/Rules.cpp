@@ -28,6 +28,11 @@ namespace BrawlerLibrary
 		return players.get(playerNum-1);
 	}
 	
+	WinCondition* Rules::getWinCondition() const
+	{
+		return winCondition;
+	}
+	
 	void Rules::setPlayerCount(unsigned int count)
 	{
 		players.resize(count);

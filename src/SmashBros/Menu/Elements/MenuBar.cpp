@@ -5,7 +5,7 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-		MenuBar::MenuBar(float x, float y, const String&label_text, AssetManager*assetManager) : SpriteActor(x, y)
+		MenuBar::MenuBar(float x, float y, const String&label_text, AssetManager*assetManager, const Dictionary&properties) : SpriteActor(x, y)
 		{
 			label_bounds = RectF(0.05f,0.05f,0.95f,0.95f);
 			addAnimation("MenuBar", new Animation(1, assetManager, "elements/menu_bar.png"));

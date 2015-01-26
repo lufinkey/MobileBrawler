@@ -3,12 +3,14 @@
 
 namespace GameLibrary
 {
-	TextActor::TextActor() : TextActor(0,0, "", Graphics::getDefaultFont(), Color::BLACK)
+	TextActor::TextActor()
+		: TextActor(0,0, "", Graphics::getDefaultFont(), Color::BLACK)
 	{
 		//
 	}
 	
-	TextActor::TextActor(const String&text, Font*font, const Color&color, unsigned int fontSize, const Font::Style&fontStyle, const TextActor::TextAlignment&align) : TextActor(0,0, "", Graphics::getDefaultFont(), Color::BLACK, fontSize, fontStyle, align)
+	TextActor::TextActor(const String&text, Font*font, const Color&color, unsigned int fontSize, const Font::Style&fontStyle, const TextActor::TextAlignment&align)
+		: TextActor(0,0, text, font, color, fontSize, fontStyle, align)
 	{
 		//
 	}

@@ -3,6 +3,7 @@
 
 #include "Base/BaseMenuScreen.h"
 #include "GroupSmashCharacterSelectMenu.h"
+#include "MenuData/GroupSmashData.h"
 
 namespace SmashBros
 {
@@ -16,6 +17,7 @@ namespace SmashBros
 			Actor* rulesButton;
 			
 			Rules* smashRules;
+			GroupSmashData* groupSmashData;
 			
 			GroupSmashCharacterSelectMenu* smashMenu;
 			

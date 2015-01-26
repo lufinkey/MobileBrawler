@@ -3,27 +3,6 @@
 
 namespace SmashBros
 {
-	MenuData::MenuData(AssetManager*assetMgr)
-	{
-		assetManager = assetMgr;
-	}
-	
-	MenuData::~MenuData()
-	{
-		//
-	}
-	
-	MenuData& MenuData::operator=(const MenuData&menuData)
-	{
-		assetManager = menuData.assetManager;
-		return *this;
-	}
-	
-	AssetManager* MenuData::getAssetManager() const
-	{
-		return assetManager;
-	}
-	
 	SmashData::SmashData(Window*win, CharacterLoader*charLoader, Rules*ruls, const MenuData&menuData) : menuData(menuData)
 	{
 		window = win;

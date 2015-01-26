@@ -19,7 +19,7 @@ namespace SmashBros
 			RectangleF getLabelFrame(const RectF&bounds) const;
 			
 		public:
-			MenuBar(float x, float y, const String&label, AssetManager*assetManager);
+			MenuBar(float x, float y, const String&label, AssetManager*assetManager, const Dictionary&properties);
 			virtual ~MenuBar();
 			
 			virtual void update(ApplicationData appData) override;

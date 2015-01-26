@@ -109,6 +109,15 @@
     <Filter Include="src\SmashBros\Menu\Base\CharacterSelect">
       <UniqueIdentifier>{ee55955b-2934-4c4c-b6e4-d890969f2287}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\SmashBros\Menu\MenuData">
+      <UniqueIdentifier>{bc429a34-9daa-4a8a-ad54-d9ddf852c74b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BrawlerLibrary\Game\Rules">
+      <UniqueIdentifier>{62f72fdd-6011-4067-8f4a-ba0c3b749616}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BrawlerLibrary\Game\Rules\WinCondition">
+      <UniqueIdentifier>{efca6a30-ccee-4acf-a2e5-8133ffa3e0fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameLibrary\Actor\TextActor.cpp">
@@ -363,29 +372,17 @@
     <ClCompile Include="src\GameLibrary\IO\FileTools.cpp">
       <Filter>src\GameLibrary\IO</Filter>
     </ClCompile>
-    <ClCompile Include="src\SmashBros\SmashData.cpp">
-      <Filter>src\SmashBros</Filter>
-    </ClCompile>
     <ClCompile Include="src\SmashBros\Menu\GroupSmashCharacterSelectMenu.cpp">
       <Filter>src\SmashBros\Menu</Filter>
     </ClCompile>
     <ClCompile Include="src\SmashBros\Menu\Base\BaseMenuScreen.cpp">
       <Filter>src\SmashBros\Menu\Base</Filter>
     </ClCompile>
-    <ClCompile Include="src\BrawlerLibrary\Game\Rules.cpp">
-      <Filter>src\BrawlerLibrary\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="src\BrawlerLibrary\Game\WinCondition.cpp">
-      <Filter>src\BrawlerLibrary\Game</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameLibrary\Utilities\Number.cpp">
       <Filter>src\GameLibrary\Utilities</Filter>
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Exception\Utilities\IllegalNumberOperationException.cpp">
       <Filter>src\GameLibrary\Exception\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="src\BrawlerLibrary\Game\PlayerInfo.cpp">
-      <Filter>src\BrawlerLibrary\Game</Filter>
     </ClCompile>
     <ClCompile Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_CharacterIcon.cpp">
       <Filter>src\SmashBros\Menu\Base\CharacterSelect</Filter>
@@ -413,6 +410,30 @@
     </ClCompile>
     <ClCompile Include="src\SmashBros\Menu\Elements\MenuBarValueAdjust.cpp">
       <Filter>src\SmashBros\Menu\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\MenuData\SmashData.cpp">
+      <Filter>src\SmashBros\Menu\MenuData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\MenuData\MenuData.cpp">
+      <Filter>src\SmashBros\Menu\MenuData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\MenuData\GroupSmashData.cpp">
+      <Filter>src\SmashBros\Menu\MenuData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BrawlerLibrary\Game\Rules\PlayerInfo.cpp">
+      <Filter>src\BrawlerLibrary\Game\Rules</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BrawlerLibrary\Game\Rules\Rules.cpp">
+      <Filter>src\BrawlerLibrary\Game\Rules</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BrawlerLibrary\Game\Rules\WinCondition\WinCondition.cpp">
+      <Filter>src\BrawlerLibrary\Game\Rules\WinCondition</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BrawlerLibrary\Game\Rules\WinCondition\StockWinCondition.cpp">
+      <Filter>src\BrawlerLibrary\Game\Rules\WinCondition</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BrawlerLibrary\Game\Rules\WinCondition\TimeLimitWinCondition.cpp">
+      <Filter>src\BrawlerLibrary\Game\Rules\WinCondition</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -692,9 +713,6 @@
     <ClInclude Include="src\GameLibrary\IO\FileTools.h">
       <Filter>src\GameLibrary\IO</Filter>
     </ClInclude>
-    <ClInclude Include="src\SmashBros\SmashData.h">
-      <Filter>src\SmashBros</Filter>
-    </ClInclude>
     <ClInclude Include="src\SmashBros\Global.h">
       <Filter>src\SmashBros</Filter>
     </ClInclude>
@@ -707,20 +725,11 @@
     <ClInclude Include="src\SmashBros\Menu\Base\BaseMenuScreen.h">
       <Filter>src\SmashBros\Menu\Base</Filter>
     </ClInclude>
-    <ClInclude Include="src\BrawlerLibrary\Game\Rules.h">
-      <Filter>src\BrawlerLibrary\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="src\BrawlerLibrary\Game\WinCondition.h">
-      <Filter>src\BrawlerLibrary\Game</Filter>
-    </ClInclude>
     <ClInclude Include="src\GameLibrary\Utilities\Number.h">
       <Filter>src\GameLibrary\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Exception\Utilities\IllegalNumberOperationException.h">
       <Filter>src\GameLibrary\Exception\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="src\BrawlerLibrary\Game\PlayerInfo.h">
-      <Filter>src\BrawlerLibrary\Game</Filter>
     </ClInclude>
     <ClInclude Include="src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_CharacterIcon.h">
       <Filter>src\SmashBros\Menu\Base\CharacterSelect</Filter>
@@ -748,6 +757,30 @@
     </ClInclude>
     <ClInclude Include="src\SmashBros\Menu\Elements\MenuBarValueAdjust.h">
       <Filter>src\SmashBros\Menu\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\MenuData\SmashData.h">
+      <Filter>src\SmashBros\Menu\MenuData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\MenuData\MenuData.h">
+      <Filter>src\SmashBros\Menu\MenuData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\MenuData\GroupSmashData.h">
+      <Filter>src\SmashBros\Menu\MenuData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BrawlerLibrary\Game\Rules\PlayerInfo.h">
+      <Filter>src\BrawlerLibrary\Game\Rules</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BrawlerLibrary\Game\Rules\Rules.h">
+      <Filter>src\BrawlerLibrary\Game\Rules</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BrawlerLibrary\Game\Rules\WinCondition\WinCondition.h">
+      <Filter>src\BrawlerLibrary\Game\Rules\WinCondition</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BrawlerLibrary\Game\Rules\WinCondition\TimeLimitWinCondition.h">
+      <Filter>src\BrawlerLibrary\Game\Rules\WinCondition</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BrawlerLibrary\Game\Rules\WinCondition\StockWinCondition.h">
+      <Filter>src\BrawlerLibrary\Game\Rules\WinCondition</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

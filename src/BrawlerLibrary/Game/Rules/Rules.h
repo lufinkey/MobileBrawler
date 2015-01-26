@@ -2,7 +2,7 @@
 #pragma once
 
 #include "PlayerInfo.h"
-#include "WinCondition.h"
+#include "WinCondition/WinCondition.h"
 
 namespace BrawlerLibrary
 {
@@ -15,6 +15,7 @@ namespace BrawlerLibrary
 		unsigned int getPlayerCount() const;
 		PlayerInfo& getPlayerInfo(unsigned int playerNum);
 		const PlayerInfo& getPlayerInfo(unsigned int playerNum) const;
+		WinCondition* getWinCondition() const;
 
 		void setPlayerCount(unsigned int count);
 		

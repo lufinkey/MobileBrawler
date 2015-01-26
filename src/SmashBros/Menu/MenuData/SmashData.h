@@ -1,27 +1,12 @@
 
 #pragma once
 
-#include <GameLibrary/GameLibrary.h>
+#include "MenuData.h"
 #include <BrawlerLibrary/BrawlerLibrary.h>
 
 namespace SmashBros
 {
-	using namespace GameLibrary;
 	using namespace BrawlerLibrary;
-	
-	class MenuData
-	{
-	private:
-		AssetManager* assetManager;
-		
-	public:
-		MenuData(AssetManager*assetManager);
-		~MenuData();
-		
-		MenuData& operator=(const MenuData&);
-		
-		AssetManager* getAssetManager() const;
-	};
 	
 	class SmashData
 	{

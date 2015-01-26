@@ -3,6 +3,8 @@
 
 #include "Base/CharacterSelect/CharacterSelectScreen.h"
 #include "Elements/ArrowButton.h"
+#include "Elements/RulesBar.h"
+#include "MenuData/GroupSmashData.h"
 
 namespace SmashBros
 {
@@ -10,8 +12,11 @@ namespace SmashBros
 	{
 		class GroupSmashCharacterSelectMenu : public CharacterSelectScreen
 		{
+		private:
+			RulesBar* rulesBar;
+			
 		public:
-			GroupSmashCharacterSelectMenu(const SmashData&smashData);
+			GroupSmashCharacterSelectMenu(const SmashData&smashData, const GroupSmashData&groupSmashData);
 			virtual ~GroupSmashCharacterSelectMenu();
 			
 			virtual void updateItems(ApplicationData appData) override;

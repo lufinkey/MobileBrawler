@@ -11,7 +11,7 @@ namespace SmashBros
 		class MenuBarValueAdjust : public MenuBar
 		{
 		public:
-			MenuBarValueAdjust(float x, float y, const String&label, const String&valueLabel, Number*value, const Number&min, const Number&max, const Number&increment, AssetManager*assetManager);
+			MenuBarValueAdjust(float x, float y, const String&label, const String&valueLabel, Number*value, const Number&min, const Number&max, const Number&increment, AssetManager*assetManager, const Dictionary&properties);
 			virtual ~MenuBarValueAdjust();
 			
 			virtual void update(ApplicationData appData) override;
