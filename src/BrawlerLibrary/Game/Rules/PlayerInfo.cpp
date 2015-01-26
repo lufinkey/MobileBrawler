@@ -3,8 +3,6 @@
 
 namespace BrawlerLibrary
 {
-#define STOCK_DEFAULT 3
-	
 	PlayerInfo::PlayerInfo()
 	{
 		character_info = nullptr;
@@ -14,8 +12,6 @@ namespace BrawlerLibrary
 		modeCycle.add(PlayerInfo::MODE_HUMAN);
 		modeCycle.add(PlayerInfo::MODE_CPU);
 		modeCycleIndex = 0;
-		
-		stock = STOCK_DEFAULT;
 	}
 	
 	PlayerInfo::PlayerInfo(const PlayerInfo&info)
@@ -26,8 +22,6 @@ namespace BrawlerLibrary
 		mode = info.mode;
 		modeCycle = info.modeCycle;
 		modeCycleIndex = info.modeCycleIndex;
-		
-		stock = info.stock;
 	}
 	
 	PlayerInfo::PlayerInfo(CharacterInfo*character, const String&costume, const ArrayList<PlayerInfo::Mode>& modecycle)
@@ -44,7 +38,6 @@ namespace BrawlerLibrary
 		{
 			mode = PlayerInfo::MODE_OFF;
 		}
-		stock = STOCK_DEFAULT;
 	}
 	
 	PlayerInfo::~PlayerInfo()
@@ -60,8 +53,6 @@ namespace BrawlerLibrary
 		mode = info.mode;
 		modeCycle = info.modeCycle;
 		modeCycleIndex = info.modeCycleIndex;
-		
-		stock = info.stock;
 
 		return *this;
 	}
@@ -84,11 +75,6 @@ namespace BrawlerLibrary
 	const ArrayList<PlayerInfo::Mode>& PlayerInfo::getPlayerModeCycle() const
 	{
 		return modeCycle;
-	}
-	
-	unsigned int PlayerInfo::getStock() const
-	{
-		return stock;
 	}
 	
 	void PlayerInfo::setCharacterInfo(CharacterInfo*info)
@@ -160,10 +146,5 @@ namespace BrawlerLibrary
 		{
 			mode = PlayerInfo::MODE_OFF;
 		}
-	}
-	
-	void PlayerInfo::setStock(unsigned int stockNum)
-	{
-		stock = stockNum;
 	}
 }

@@ -29,7 +29,6 @@ namespace BrawlerLibrary
 		const String& getCostume() const;
 		const PlayerInfo::Mode& getPlayerMode() const;
 		const ArrayList<PlayerInfo::Mode>& getPlayerModeCycle() const;
-		unsigned int getStock() const;
 		
 		void setCharacterInfo(CharacterInfo*);
 		void setCostume(const String&);
@@ -38,7 +37,6 @@ namespace BrawlerLibrary
 		void cyclePlayerMode();
 		void turnPlayerModeOn();
 		void turnPlayerModeOff();
-		void setStock(unsigned int stock);
 		
 	private:
 		CharacterInfo* character_info;
@@ -47,7 +45,5 @@ namespace BrawlerLibrary
 		PlayerInfo::Mode mode;
 		ArrayList<PlayerInfo::Mode> modeCycle;
 		unsigned int modeCycleIndex;
-		
-		unsigned int stock;
 	};
 }
