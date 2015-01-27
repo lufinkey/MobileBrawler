@@ -30,6 +30,9 @@ namespace SmashBros
 			
 			virtual void onValueChange();
 			
+			void setDirection(const ArrowButton::Direction&dir);
+			const ArrowButton::Direction& getDirection() const;
+			
 		private:
 			Direction dir;
 			bool selecting;

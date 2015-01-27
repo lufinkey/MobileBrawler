@@ -5,11 +5,11 @@
 	<key>label_bounds</key>
 	<dict>
 		<key>left</key>
-		<real>0.050</real>
+		<real>0.425</real>
 		<key>top</key>
 		<real>0.050</real>
 		<key>right</key>
-		<real>0.575</real>
+		<real>0.950</real>
 		<key>bottom</key>
 		<real>0.950</real>
 	</dict>
@@ -25,11 +25,11 @@
 	<key>value_label_bounds</key>
 	<dict>
 		<key>left</key>
-		<real>0.650</real>
+		<real>0.100</real>
 		<key>top</key>
 		<real>0.050</real>
 		<key>right</key>
-		<real>0.900</real>
+		<real>0.350</real>
 		<key>bottom</key>
 		<real>0.950</real>
 	</dict>
@@ -45,11 +45,11 @@
 	<key>arrow_less_bounds</key>
 	<dict>
 		<key>left</key>
-		<real>0.600</real>
+		<real>0.050</real>
 		<key>top</key>
 		<real>0.050</real>
 		<key>right</key>
-		<real>0.650</real>
+		<real>0.100</real>
 		<key>bottom</key>
 		<real>0.950</real>
 	</dict>
@@ -58,11 +58,11 @@
 	<key>arrow_more_bounds</key>
 	<dict>
 		<key>left</key>
-		<real>0.900</real>
+		<real>0.350</real>
 		<key>top</key>
 		<real>0.050</real>
 		<key>right</key>
-		<real>0.950</real>
+		<real>0.40</real>
 		<key>bottom</key>
 		<real>0.950</real>
 	</dict>

@@ -35,10 +35,10 @@ namespace SmashBros
 				static void applyPlacementDict(RectF*bounds, const Dictionary&dict);
 				static RectangleF getPlacementFrame(const RectangleF&container, const RectF&bounds);
 				
-				void applyPanelProperties(const Dictionary&panelProperties);
+				void applyProperties(const Dictionary&properties);
 				
 			public:
-				PlayerPanel(unsigned int playerNum, CharacterSelectScreen*charSelectScreen, float x, float y, const Dictionary&placementDict, AssetManager*assetManager);
+				PlayerPanel(unsigned int playerNum, CharacterSelectScreen*charSelectScreen, float x, float y, const Dictionary&properties, AssetManager*assetManager);
 				virtual ~PlayerPanel();
 				
 				virtual void update(ApplicationData appData) override;

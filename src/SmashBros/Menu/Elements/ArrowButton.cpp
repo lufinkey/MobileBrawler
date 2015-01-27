@@ -20,25 +20,7 @@ namespace SmashBros
 			addAnimation("down", new Animation(1, assetManager, "elements/button_arrow_down.png"));
 			addAnimation("left", new Animation(1, assetManager, "elements/button_arrow_left.png"));
 			addAnimation("right", new Animation(1, assetManager, "elements/button_arrow_right.png"));
-			
-			switch(dir)
-			{
-				case DIRECTION_UP:
-				changeAnimation("up", Animation::FORWARD);
-				break;
-				
-				case DIRECTION_DOWN:
-				changeAnimation("down", Animation::FORWARD);
-				break;
-				
-				case DIRECTION_LEFT:
-				changeAnimation("left", Animation::FORWARD);
-				break;
-				
-				case DIRECTION_RIGHT:
-				changeAnimation("right", Animation::FORWARD);
-				break;
-			}
+			setDirection(direction);
 		}
 		
 		ArrowButton::~ArrowButton()
@@ -98,6 +80,34 @@ namespace SmashBros
 		void ArrowButton::onValueChange()
 		{
 			//Open for implementation
+		}
+		
+		void ArrowButton::setDirection(const ArrowButton::Direction&direction)
+		{
+			dir = direction;
+			switch(direction)
+			{
+				case DIRECTION_UP:
+				changeAnimation("up", Animation::FORWARD);
+				break;
+				
+				case DIRECTION_DOWN:
+				changeAnimation("down", Animation::FORWARD);
+				break;
+				
+				case DIRECTION_LEFT:
+				changeAnimation("left", Animation::FORWARD);
+				break;
+				
+				case DIRECTION_RIGHT:
+				changeAnimation("right", Animation::FORWARD);
+				break;
+			}
+		}
+		
+		const ArrowButton::Direction& ArrowButton::getDirection() const
+		{
+			return dir;
 		}
 	}
 }

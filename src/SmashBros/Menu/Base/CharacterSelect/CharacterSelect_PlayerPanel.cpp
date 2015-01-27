@@ -62,7 +62,7 @@ namespace SmashBros
 				}
 			};
 			
-			PlayerPanel::PlayerPanel(unsigned int pNum, CharacterSelectScreen*screen, float x, float y, const Dictionary&panelProperties, AssetManager*assetManager)
+			PlayerPanel::PlayerPanel(unsigned int pNum, CharacterSelectScreen*screen, float x, float y, const Dictionary&properties, AssetManager*assetManager)
 				: SpriteActor(x, y)
 			{
 				playerNum = pNum;
@@ -91,7 +91,7 @@ namespace SmashBros
 				tapRegion_mode = new PlayerPanel_ModeTapRegion(this, charSelectScreen);
 				tapRegion_mode->setVisible(false);
 
-				applyPanelProperties(panelProperties);
+				applyProperties(properties);
 			}
 			
 			PlayerPanel::~PlayerPanel()
@@ -102,19 +102,19 @@ namespace SmashBros
 				delete tapRegion_mode;
 			}
 			
-			void PlayerPanel::applyPanelProperties(const Dictionary&panelProperties)
+			void PlayerPanel::applyProperties(const Dictionary&properties)
 			{
-				const Any& portraitDict = panelProperties.get("portrait");
+				const Any& portraitDict = properties.get("portrait");
 				if(!portraitDict.empty() && portraitDict.is<Dictionary>())
 				{
 					applyPlacementDict(&portrait_bounds, portraitDict.as<Dictionary>(false));
 				}
-				const Any& overlayDict = panelProperties.get("overlay");
+				const Any& overlayDict = properties.get("overlay");
 				if(!overlayDict.empty() && overlayDict.is<Dictionary>())
 				{
 					applyPlacementDict(&overlay_bounds, overlayDict.as<Dictionary>(false));
 				}
-				const Any& nameboxDict = panelProperties.get("namebox");
+				const Any& nameboxDict = properties.get("namebox");
 				if(!nameboxDict.empty() && nameboxDict.is<Dictionary>())
 				{
 					const Dictionary&namebox_dict = nameboxDict.as<Dictionary>(false);

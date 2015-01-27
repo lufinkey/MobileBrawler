@@ -14,9 +14,14 @@ namespace SmashBros
 		private:
 			TextActor* label_actor;
 			RectF label_bounds;
+			Color label_color;
+			
+			void applyProperties(const Dictionary&properties);
 			
 		protected:
 			RectangleF getLabelFrame(const RectF&bounds) const;
+			void applyPropertiesDict(RectF*bounds, const Dictionary&properties);
+			void applyPropertiesDict(Color*color, const Dictionary&properties);
 			
 		public:
 			MenuBar(float x, float y, const String&label, AssetManager*assetManager, const Dictionary&properties);
