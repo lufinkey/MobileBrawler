@@ -52,18 +52,18 @@ namespace BrawlerLibrary
 				if(success)
 				{
 					bool alreadyAdded = false;
-					for(unsigned int j=0; j<characters.size(); j++)
+					for(unsigned int j=0; j<stages.size(); j++)
 					{
-						StageInfo&cmp = characters.get(j);
+						StageInfo&cmp = stages.get(j);
 						if(info.getName().equals(cmp.getName()) && info.getCreator().equals(cmp.getCreator()))
 						{
 							alreadyAdded = true;
-							j = characters.size();
+							j = stages.size();
 						}
 					}
 					if(!alreadyAdded)
 					{
-						characters.add(info);
+						stages.add(info);
 					}
 				}
 			}
@@ -72,14 +72,29 @@ namespace BrawlerLibrary
 	
 	void StageLoader::loadIcons(const Image&compositeMask)
 	{
-		for(unsigned int i=0; i<characters.size(); i++)
+		for(unsigned int i=0; i<stages.size(); i++)
 		{
-			String iconPath = characters.get(i).getPath() + "/preview.png";
+			String iconPath = stages.get(i).getPath() + "/preview.png";
 			assetManager->unloadTexture(iconPath);
 			assetManager->loadTexture(iconPath, compositeMask);
 		}
 	}
 	
+    void StageLoader::loadAssets(const Image&compositeMask)
+    {
+        for(unsigned int i=0; i<stages.size(); i++)
+        {
+            String basePath = stages.get(i).getPath() + "/assets/base.png";
+            String backgroundPath = stages.get(i).getPath() + "/assets/background.png";
+            // unload textures
+            assetManager->unloadTexture(basePath);
+            assetManager->unloadTexture(backgroundPath);
+            // load textures
+            assetManager->loadTexture(basePath, compositeMask);
+            assetManager->loadTexture(backgroundPath, compositeMask);
+        }
+    }
+    
 	const ArrayList<String>& StageLoader::getPaths() const
 	{
 		return paths;
@@ -87,11 +102,11 @@ namespace BrawlerLibrary
 	
 	const ArrayList<StageInfo>& StageLoader::getStages() const
 	{
-		return characters;
+		return stages;
 	}
 	
 	ArrayList<StageInfo>& StageLoader::getStages()
 	{
-		return characters;
+		return stages;
 	}
 }
