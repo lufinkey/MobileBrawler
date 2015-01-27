@@ -460,6 +460,7 @@
 				A01656651A70A6F6007D0BA1 /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		A01656651A70A6F6007D0BA1 /* Products */ = {
 			isa = PBXGroup;
