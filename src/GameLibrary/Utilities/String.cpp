@@ -3329,15 +3329,15 @@ namespace GameLibrary
 		}
 		return STRING_NOTFOUND;
 	}
-
+	
 	unsigned int String::lastIndexOf(char c) const
 	{
 		if(total == 0)
 		{
 			return STRING_NOTFOUND;
 		}
-
-		for(unsigned int i=(total-1); i>=0; i--)
+		
+		for(unsigned int i=(total-1); i!=UINT_MAX; i--)
 		{
 			if(characters[i] == c)
 			{
@@ -3349,10 +3349,10 @@ namespace GameLibrary
 				return STRING_NOTFOUND;
 			}
 		}
-
+		
 		return STRING_NOTFOUND;
 	}
-
+	
 	unsigned int String::lastIndexOf(const String&str) const
 	{
 		if(str.total==0 || str.total>total)

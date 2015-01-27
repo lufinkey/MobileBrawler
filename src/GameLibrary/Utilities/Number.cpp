@@ -1209,7 +1209,18 @@ namespace GameLibrary
 			//TODO replace with more specific exception type
 			throw Exception("Cannot perform Math operations on an uninitialized Number object");
 		}
-		*value++;
+		value->operator++();
+		return *this;
+	}
+	
+	Number& Number::operator--()
+	{
+		if(value == nullptr)
+		{
+			//TODO replace with more specific exception type
+			throw Exception("Cannot perform Math operations on an uninitialized Number object");
+		}
+		value->operator--();
 		return *this;
 	}
 	
