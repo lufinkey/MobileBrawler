@@ -74,25 +74,25 @@ namespace BrawlerLibrary
 	{
 		for(unsigned int i=0; i<stages.size(); i++)
 		{
-			String iconPath = stages.get(i).getPath() + "/preview.png";
-			assetManager->unloadTexture(iconPath);
+			String iconPath = stages.get(i).getPath() + "/icon.png";
 			assetManager->loadTexture(iconPath, compositeMask);
 		}
 	}
 	
-    void StageLoader::loadAssets(const Image&compositeMask)
+	void StageLoader::loadPreviews(const Image&compositeMask)
+	{
+		for(unsigned int i=0; i<stages.size(); i++)
+		{
+			String iconPath = stages.get(i).getPath() + "/preview.png";
+			assetManager->loadTexture(iconPath, compositeMask);
+		}
+	}
+	
+    void StageLoader::reloadAssets(const Image&iconMask, const Image&previewMask)
     {
-        for(unsigned int i=0; i<stages.size(); i++)
-        {
-            String basePath = stages.get(i).getPath() + "/assets/base.png";
-            String backgroundPath = stages.get(i).getPath() + "/assets/background.png";
-            // unload textures
-            assetManager->unloadTexture(basePath);
-            assetManager->unloadTexture(backgroundPath);
-            // load textures
-            assetManager->loadTexture(basePath, compositeMask);
-            assetManager->loadTexture(backgroundPath, compositeMask);
-        }
+        assetManager->unload();
+		loadIcons(iconMask);
+		loadPreviews(previewMask);
     }
     
 	const ArrayList<String>& StageLoader::getPaths() const

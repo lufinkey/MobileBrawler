@@ -101,7 +101,6 @@ namespace BrawlerLibrary
 		for(unsigned int i=0; i<characters.size(); i++)
 		{
 			String iconPath = characters.get(i).getPath() + "/icon.png";
-			assetManager->unloadTexture(iconPath);
 			assetManager->loadTexture(iconPath, compositeMask);
 		}
 	}
@@ -111,7 +110,6 @@ namespace BrawlerLibrary
 		for(unsigned int i = 0; i < characters.size(); i++)
 		{
 			String portraitPath = characters.get(i).getPath() + "/portrait.png";
-			assetManager->unloadTexture(portraitPath);
 			assetManager->loadTexture(portraitPath);
 		}
 	}
