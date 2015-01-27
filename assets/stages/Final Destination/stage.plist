@@ -8,7 +8,7 @@
 	<string>Keeton Feavel</string>
 	<key>version</key>
 	<string>1.0</string>
-	<key>minsmash</key>
+	<key>minsmashversion</key>
 	<string>1.0</string>
 </dict>
 </plist>
