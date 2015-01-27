@@ -420,7 +420,7 @@ namespace GameLibrary
 			
 			float ratX = pointFixed.x/width;
 			float ratY = pointFixed.y/height;
-			if(ratX < 0 || ratY < 0 || ratX>1 || ratY>1)
+			if(ratX < 0 || ratY < 0 || ratX>=1 || ratY>=1)
 			{
 				return false;
 			}
