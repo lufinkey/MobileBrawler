@@ -441,6 +441,15 @@
     <ClCompile Include="src\SmashBros\Load\ModuleLoad.cpp">
       <Filter>src\SmashBros\Load</Filter>
     </ClCompile>
+    <ClCompile Include="src\BrawlerLibrary\Loader\StageInfo.cpp">
+      <Filter>src\BrawlerLibrary\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BrawlerLibrary\Loader\StageLoader.cpp">
+      <Filter>src\BrawlerLibrary\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\GroupRulesMenu.cpp">
+      <Filter>src\SmashBros\Menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -790,6 +799,15 @@
     </ClInclude>
     <ClInclude Include="src\SmashBros\Load\ModuleLoad.h">
       <Filter>src\SmashBros\Load</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BrawlerLibrary\Loader\StageInfo.h">
+      <Filter>src\BrawlerLibrary\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BrawlerLibrary\Loader\StageLoader.h">
+      <Filter>src\BrawlerLibrary\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\GroupRulesMenu.h">
+      <Filter>src\SmashBros\Menu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

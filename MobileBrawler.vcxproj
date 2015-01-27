@@ -92,6 +92,8 @@
     <ClCompile Include="src\BrawlerLibrary\Game\Rules\WinCondition\WinCondition.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Loader\CharacterInfo.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Loader\CharacterLoader.cpp" />
+    <ClCompile Include="src\BrawlerLibrary\Loader\StageInfo.cpp" />
+    <ClCompile Include="src\BrawlerLibrary\Loader\StageLoader.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\SpriteActor.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\Animation.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\Actor.cpp" />
@@ -183,6 +185,7 @@
     <ClCompile Include="src\SmashBros\Menu\Elements\MenuBar.cpp" />
     <ClCompile Include="src\SmashBros\Menu\Elements\MenuBarValueAdjust.cpp" />
     <ClCompile Include="src\SmashBros\Menu\Elements\RulesBar.cpp" />
+    <ClCompile Include="src\SmashBros\Menu\GroupRulesMenu.cpp" />
     <ClCompile Include="src\SmashBros\Menu\GroupSmashCharacterSelectMenu.cpp" />
     <ClCompile Include="src\SmashBros\Menu\MainMenu.cpp" />
     <ClCompile Include="src\SmashBros\Menu\GroupMenu.cpp" />
@@ -200,6 +203,8 @@
     <ClInclude Include="src\BrawlerLibrary\Game\Rules\WinCondition\WinCondition.h" />
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterInfo.h" />
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterLoader.h" />
+    <ClInclude Include="src\BrawlerLibrary\Loader\StageInfo.h" />
+    <ClInclude Include="src\BrawlerLibrary\Loader\StageLoader.h" />
     <ClInclude Include="src\GameLibrary\Actor\SpriteActor.h" />
     <ClInclude Include="src\GameLibrary\Actor\Animation.h" />
     <ClInclude Include="src\GameLibrary\Actor\Actor.h" />
@@ -301,6 +306,7 @@
     <ClInclude Include="src\SmashBros\Menu\Elements\MenuBar.h" />
     <ClInclude Include="src\SmashBros\Menu\Elements\MenuBarValueAdjust.h" />
     <ClInclude Include="src\SmashBros\Menu\Elements\RulesBar.h" />
+    <ClInclude Include="src\SmashBros\Menu\GroupRulesMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\GroupSmashCharacterSelectMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\MainMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\GroupMenu.h" />
