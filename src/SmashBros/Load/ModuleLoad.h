@@ -13,10 +13,11 @@ namespace SmashBros
 	{
 	private:
 		CharacterLoader* characterLoader;
-		//StageLoader* stageLoader;
+		StageLoader* stageLoader;
 		
 		Image const* characterselect_iconmask;
 		Image const* stageselect_iconmask;
+		Image const* stageselect_previewmask;
 		
 	public:
 		ModuleLoad(Window&window, const String&charactersRoot, const String&stagesRoot);
@@ -27,9 +28,10 @@ namespace SmashBros
 		
 		void setCharacterSelectIconMask(Image const* mask);
 		void setStageSelectIconMask(Image const* mask);
+		void setStageSelectPreviewMask(Image const* mask);
 		
 		CharacterLoader* getCharacterLoader() const;
-		//StageLoader* getStageLoader() const;
+		StageLoader* getStageLoader() const;
 		
 		void load();
 		void reload();

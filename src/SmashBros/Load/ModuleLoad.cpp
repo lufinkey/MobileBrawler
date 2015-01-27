@@ -7,17 +7,18 @@ namespace SmashBros
 	{
 		characterselect_iconmask = nullptr;
 		stageselect_iconmask = nullptr;
+		stageselect_previewmask = nullptr;
 		
 		characterLoader = new CharacterLoader(window);
 		characterLoader->addPath(charactersRoot);
-		//stageLoader = new StageLoader(window);
-		//stageLoader->addPath(stagesRoot);
+		stageLoader = new StageLoader(window);
+		stageLoader->addPath(stagesRoot);
 	}
 	
 	ModuleLoad::~ModuleLoad()
 	{
 		delete characterLoader;
-		//delete stageLoader;
+		delete stageLoader;
 	}
 	
 	void ModuleLoad::addCharactersPath(const String&path)
@@ -27,7 +28,7 @@ namespace SmashBros
 	
 	void ModuleLoad::addStagesPath(const String&path)
 	{
-		//stageLoader->addPath(path);
+		stageLoader->addPath(path);
 	}
 	
 	void ModuleLoad::setCharacterSelectIconMask(Image const* mask)
@@ -40,15 +41,20 @@ namespace SmashBros
 		stageselect_iconmask = mask;
 	}
 	
+	void ModuleLoad::setStageSelectPreviewMask(Image const* mask)
+	{
+		stageselect_previewmask = mask;
+	}
+	
 	CharacterLoader* ModuleLoad::getCharacterLoader() const
 	{
 		return characterLoader;
 	}
 	
-	/*StageLoader* ModuleLoad::getStageLoader() const
+	StageLoader* ModuleLoad::getStageLoader() const
 	{
 		return stageLoader;
-	}*/
+	}
 	
 	void ModuleLoad::load()
 	{
@@ -64,7 +70,7 @@ namespace SmashBros
 		characterLoader->loadPortraits();
 		
 		//load stage data
-		/*if(stageselect_iconmask!=nullptr)
+		if(stageselect_iconmask!=nullptr)
 		{
 			stageLoader->loadIcons(*stageselect_iconmask);
 		}
@@ -72,7 +78,14 @@ namespace SmashBros
 		{
 			stageLoader->loadIcons();
 		}
-		stageLoader->loadThumbnails();*/
+		if(stageselect_previewmask!=nullptr)
+		{
+			stageLoader->loadPreviews(*stageselect_previewmask);
+		}
+		else
+		{
+			stageLoader->loadPreviews();
+		}
 	}
 	
 	void ModuleLoad::reload()
@@ -86,19 +99,33 @@ namespace SmashBros
 			characterLoader->reloadAssets();
 		}
 		
-		/*if(stageselect_iconmask!=nullptr)
+		if(stageselect_iconmask!=nullptr)
 		{
-			stageLoader->reloadAssets(*stageselect_iconmask);
+			if(stageselect_previewmask != nullptr)
+			{
+				stageLoader->reloadAssets(*stageselect_iconmask, *stageselect_previewmask);
+			}
+			else
+			{
+				stageLoader->reloadAssets(*stageselect_iconmask);
+			}
 		}
 		else
 		{
-			stageLoader->reloadAssets();
-		}*/
+			if(stageselect_previewmask != nullptr)
+			{
+				stageLoader->reloadAssets(Image(), *stageselect_previewmask);
+			}
+			else
+			{
+				stageLoader->reloadAssets();
+			}
+		}
 	}
 	
 	void ModuleLoad::unload()
 	{
 		characterLoader->getAssetManager()->unload();
-		//stageLoader->getAssetManager()->unload();
+		stageLoader->getAssetManager()->unload();
 	}
 }

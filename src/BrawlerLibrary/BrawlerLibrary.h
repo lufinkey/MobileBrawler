@@ -9,3 +9,6 @@
 
 #include "Loader/CharacterInfo.h"
 #include "Loader/CharacterLoader.h"
+#include "Loader/StageInfo.h"
+#include "Loader/StageLoader.h"
+
