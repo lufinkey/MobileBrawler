@@ -92,6 +92,8 @@
     <ClCompile Include="src\BrawlerLibrary\Game\Rules\WinCondition\WinCondition.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Loader\CharacterInfo.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Loader\CharacterLoader.cpp" />
+    <ClCompile Include="src\BrawlerLibrary\Loader\StageInfo.cpp" />
+    <ClCompile Include="src\BrawlerLibrary\Loader\StageLoader.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\SpriteActor.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\Animation.cpp" />
     <ClCompile Include="src\GameLibrary\Actor\Actor.cpp" />
@@ -200,6 +202,8 @@
     <ClInclude Include="src\BrawlerLibrary\Game\Rules\WinCondition\WinCondition.h" />
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterInfo.h" />
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterLoader.h" />
+    <ClInclude Include="src\BrawlerLibrary\Loader\StageInfo.h" />
+    <ClInclude Include="src\BrawlerLibrary\Loader\StageLoader.h" />
     <ClInclude Include="src\GameLibrary\Actor\SpriteActor.h" />
     <ClInclude Include="src\GameLibrary\Actor\Animation.h" />
     <ClInclude Include="src\GameLibrary\Actor\Actor.h" />

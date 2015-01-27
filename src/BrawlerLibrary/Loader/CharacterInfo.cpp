@@ -126,7 +126,7 @@ namespace BrawlerLibrary
 		}
 		if(error != nullptr)
 		{
-			*error = (String)"Unable to load Info.plist: " + *error;
+			*error = (String)"Unable to load character.plist: " + *error;
 		}
 		return false;
 	}
