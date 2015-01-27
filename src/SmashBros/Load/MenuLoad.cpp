@@ -5,6 +5,7 @@ namespace SmashBros
 {
 	MenuLoad::MenuLoad(Window&window, const String&primaryDir)
 	{
+		loadListener = nullptr;
 		assetManager = new AssetManager(window, primaryDir);
 		primaryDirectory = primaryDir;
 		secondaryDirectory = "";
@@ -12,6 +13,7 @@ namespace SmashBros
 	
 	MenuLoad::MenuLoad(Window&window, const String&primaryDir, const String&secondaryDir)
 	{
+		loadListener = nullptr;
 		ArrayList<String> secondaryDirs;
 		secondaryDirs.add(secondaryDir);
 		assetManager = new AssetManager(window, primaryDir, secondaryDirs);
@@ -22,6 +24,11 @@ namespace SmashBros
 	MenuLoad::~MenuLoad()
 	{
 		delete assetManager;
+	}
+	
+	void MenuLoad::setLoadListener(BatchLoaderEventListener*listener)
+	{
+		loadListener = listener;
 	}
 	
 	AssetManager* MenuLoad::getAssetManager() const
@@ -120,6 +127,7 @@ namespace SmashBros
 	void MenuLoad::loadAssets()
 	{
 		BatchLoader* batchLoader = new BatchLoader(assetManager);
+		batchLoader->addEventListener(loadListener);
 		
 		batchLoader->addTexture("backgrounds/main.png");
 		

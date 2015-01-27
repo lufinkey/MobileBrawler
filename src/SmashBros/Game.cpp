@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Global.h"
 #include "Menu/TitleScreen.h"
+#include "Load/InitialLoadListener.h"
 
 namespace SmashBros
 {
@@ -52,11 +53,16 @@ namespace SmashBros
 	
 	void Game::loadContent(AssetManager*assetManager)
 	{
+		InitialLoadListener* loadListener = new InitialLoadListener(getWindow());
+		menuLoad->setLoadListener(loadListener);
+		
 		menuLoad->load();
 		
 		moduleLoad->setCharacterSelectIconMask(&menuLoad->getCharacterSelectIconMask());
 		moduleLoad->setStageSelectIconMask(&menuLoad->getStageSelectIconMask());
 		moduleLoad->load();
+		
+		delete loadListener;
 
 		titleScreen = new Menu::TitleScreen(*smashData);
 		menuScreenMgr = new ScreenManager(getWindow(), titleScreen);

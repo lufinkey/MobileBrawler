@@ -14,6 +14,7 @@ namespace SmashBros
 		String secondaryDirectory;
 
 		AssetManager* assetManager;
+		BatchLoaderEventListener* loadListener;
 		
 		Dictionary properties_menuBar;
 		Dictionary properties_rulesBar;
@@ -30,6 +31,8 @@ namespace SmashBros
 		MenuLoad(Window&window, const String& primaryDirectory);
 		MenuLoad(Window&window, const String& primaryDirectory, const String&secondaryDirectory);
 		~MenuLoad();
+		
+		void setLoadListener(BatchLoaderEventListener*listener);
 		
 		AssetManager* getAssetManager() const;
 		const Dictionary& getMenuBarProperties() const;

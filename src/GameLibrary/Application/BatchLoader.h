@@ -42,6 +42,9 @@ namespace GameLibrary
 		BatchLoader(AssetManager*assetManager);
 		BatchLoader(const BatchLoader&);
 		~BatchLoader();
+		
+		void addEventListener(BatchLoaderEventListener*eventListener);
+		void removeEventListener(BatchLoaderEventListener*eventListener);
 
 		void addTexture(const String&path, unsigned int value=1);
 		void addFont(const String&path, unsigned int value=1);

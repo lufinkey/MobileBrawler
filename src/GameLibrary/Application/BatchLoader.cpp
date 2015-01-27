@@ -28,6 +28,20 @@ namespace GameLibrary
 	{
 		//
 	}
+	
+	void BatchLoader::addEventListener(BatchLoaderEventListener*eventListener)
+	{
+		eventListeners.add(eventListener);
+	}
+	
+	void BatchLoader::removeEventListener(BatchLoaderEventListener*eventListener)
+	{
+		unsigned int index = eventListeners.indexOf(eventListener);
+		if(index != ARRAYLIST_NOTFOUND)
+		{
+			eventListeners.remove(index);
+		}
+	}
 
 	void BatchLoader::addTexture(const String&path, unsigned int value)
 	{
