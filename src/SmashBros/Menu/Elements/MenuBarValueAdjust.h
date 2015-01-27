@@ -8,6 +8,8 @@ namespace SmashBros
 {
 	namespace Menu
 	{
+		class MenuBarValueAdjustEventListener;
+		
 		class MenuBarValueAdjust : public MenuBar
 		{
 		private:
@@ -27,6 +29,8 @@ namespace SmashBros
 			Number max;
 			Number incr;
 			
+			MenuBarValueAdjustEventListener* listener;
+			
 			void applyProperties(const Dictionary&properties);
 			
 		public:
@@ -38,9 +42,21 @@ namespace SmashBros
 			
 			virtual void onValueChange();
 			
+			void setEventListener(MenuBarValueAdjustEventListener* listener);
 			void setValueLabel(const String&);
-			
+			MenuBarValueAdjustEventListener* getEventListener() const;
 			const String& getValueLabel() const;
+			
+			void setValueProperties(Number*value, const Number&min, const Number&max, const Number&incr);
+		};
+		
+		class MenuBarValueAdjustEventListener
+		{
+		public:
+			MenuBarValueAdjustEventListener(){}
+			virtual ~MenuBarValueAdjustEventListener(){}
+			
+			virtual void onMenuBarValueAdjustValueChanged(MenuBarValueAdjust*menuBarValueAdjust) = 0;
 		};
 	}
 }

@@ -6,7 +6,7 @@ namespace SmashBros
 	namespace Menu
 	{
 		RulesBar::RulesBar(float x, float y, Rules*ruleData, StockWinCondition*stockWinCondition, TimeLimitWinCondition*timeLimitWinCondition, AssetManager*assetManager, const Dictionary&placement)
-			: MenuBarValueAdjust(x, y, "Man Survival Test!", "3", &value, 1, 25, 1, assetManager, placement)
+			: MenuBarValueAdjust(x, y, "Stock", "3", &value, 1, 25, 1, assetManager, placement)
 		{
 			rules = ruleData;
 			stock = stockWinCondition;
@@ -22,6 +22,23 @@ namespace SmashBros
 			//
 		}
 		
+		void RulesBar::update(ApplicationData appData)
+		{
+			MenuBarValueAdjust::update(appData);
+			if(rules->getWinCondition() == stock)
+			{
+				value = stock->getStock();
+				setValueProperties(&value, 1, 25, 1);
+				setValueLabel(value.asString() + valueLabelSuffix);
+			}
+			else if(rules->getWinCondition() == timeLimit)
+			{
+				value = timeLimit->getTimeLimit();
+				setValueProperties(&value, 1, 45, 1);
+				setValueLabel(value.asString() + valueLabelSuffix);
+			}
+		}
+		
 		void RulesBar::onValueChange()
 		{
 			setValueLabel(value.asString());
@@ -31,8 +48,13 @@ namespace SmashBros
 			}
 			else if(rules->getWinCondition() == timeLimit)
 			{
-				//TODO change time limit
+				timeLimit->setTimeLimit(value.asUnsignedInt());
 			}
+		}
+		
+		void RulesBar::setValueLabelSuffix(const String&suffix)
+		{
+			valueLabelSuffix = suffix;
 		}
 	}
 }

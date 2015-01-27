@@ -15,6 +15,7 @@ namespace SmashBros
 			dir = direction;
 			hoverColor = hover;
 			pressColor = press;
+			listener = nullptr;
 			
 			addAnimation("up", new Animation(1, assetManager, "elements/button_arrow_up.png"));
 			addAnimation("down", new Animation(1, assetManager, "elements/button_arrow_down.png"));
@@ -72,6 +73,10 @@ namespace SmashBros
 					{
 						*value = max;
 					}
+					if(listener != nullptr)
+					{
+						listener->onArrowButtonValueChange(this);
+					}
 					onValueChange();
 				}
 			}
@@ -80,6 +85,11 @@ namespace SmashBros
 		void ArrowButton::onValueChange()
 		{
 			//Open for implementation
+		}
+		
+		void ArrowButton::setEventListener(ArrowButtonEventListener*eventListener)
+		{
+			listener = eventListener;
 		}
 		
 		void ArrowButton::setDirection(const ArrowButton::Direction&direction)
@@ -103,6 +113,19 @@ namespace SmashBros
 				changeAnimation("right", Animation::FORWARD);
 				break;
 			}
+		}
+		
+		void ArrowButton::setValueProperties(Number*value_arg, const Number&minimum, const Number&maximum, const Number&increment)
+		{
+			value = value_arg;
+			min = minimum;
+			max = maximum;
+			incr = increment;
+		}
+		
+		ArrowButtonEventListener* ArrowButton::getEventListener() const
+		{
+			return listener;
 		}
 		
 		const ArrowButton::Direction& ArrowButton::getDirection() const

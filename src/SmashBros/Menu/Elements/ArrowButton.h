@@ -9,6 +9,8 @@ namespace SmashBros
 	
 	namespace Menu
 	{
+		class ArrowButtonEventListener;
+		
 		class ArrowButton : public SpriteActor
 		{
 		public:
@@ -30,7 +32,11 @@ namespace SmashBros
 			
 			virtual void onValueChange();
 			
+			void setEventListener(ArrowButtonEventListener*listener);
 			void setDirection(const ArrowButton::Direction&dir);
+			void setValueProperties(Number*value, const Number&min, const Number&max, const Number&incr);
+			
+			ArrowButtonEventListener* getEventListener() const;
 			const ArrowButton::Direction& getDirection() const;
 			
 		private:
@@ -42,6 +48,17 @@ namespace SmashBros
 			Number incr;
 			Color hoverColor;
 			Color pressColor;
+			
+			ArrowButtonEventListener* listener;
+		};
+		
+		class ArrowButtonEventListener
+		{
+		public:
+			ArrowButtonEventListener(){}
+			virtual ~ArrowButtonEventListener(){}
+			
+			virtual void onArrowButtonValueChange(ArrowButton*button) = 0;
 		};
 	}
 }

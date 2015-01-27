@@ -19,6 +19,11 @@ namespace SmashBros
 			
 			virtual void onValueChange() override
 			{
+				MenuBarValueAdjustEventListener* listener = menuBar->getEventListener();
+				if(listener != nullptr)
+				{
+					listener->onMenuBarValueAdjustValueChanged(menuBar);
+				}
 				menuBar->onValueChange();
 			}
 		};
@@ -30,6 +35,7 @@ namespace SmashBros
 			min = minimum;
 			max = maximum;
 			incr = increment;
+			listener = nullptr;
 			
 			value_label_bounds = RectF(0.65f, 0.05f, 0.9f, 0.95f);
 			value_label_color = Color::BLACK;
@@ -164,14 +170,34 @@ namespace SmashBros
 			//Open for implementation
 		}
 		
+		void MenuBarValueAdjust::setEventListener(MenuBarValueAdjustEventListener*eventListener)
+		{
+			listener = eventListener;
+		}
+		
 		void MenuBarValueAdjust::setValueLabel(const String&label)
 		{
 			value_label_actor->setText(label);
 		}
 		
+		MenuBarValueAdjustEventListener* MenuBarValueAdjust::getEventListener() const
+		{
+			return listener;
+		}
+		
 		const String& MenuBarValueAdjust::getValueLabel() const
 		{
 			return value_label_actor->getText();
+		}
+		
+		void MenuBarValueAdjust::setValueProperties(Number*value_arg, const Number&minimum, const Number&maximum, const Number&increment)
+		{
+			value = value_arg;
+			min = minimum;
+			max = maximum;
+			incr = increment;
+			arrow_less->setValueProperties(value_arg, minimum, maximum, -increment);
+			arrow_more->setValueProperties(value_arg, minimum, maximum, increment);
 		}
 	}
 }

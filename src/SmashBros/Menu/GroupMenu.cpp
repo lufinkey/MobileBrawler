@@ -16,6 +16,7 @@ namespace SmashBros
 			
 			groupSmashData = new GroupSmashData();
 			smashMenu = new GroupSmashCharacterSelectMenu(smashData, *groupSmashData);
+			rulesMenu = new GroupRulesMenu(smashData, *groupSmashData);
 		}
 		
 		GroupMenu::~GroupMenu()
@@ -41,7 +42,7 @@ namespace SmashBros
 				}
 				else if(item == rulesButton)
 				{
-					//
+					screenMgr->push(rulesMenu);
 				}
 			}
 		}

@@ -2,8 +2,9 @@
 #pragma once
 
 #include "Base/BaseMenuScreen.h"
-#include "GroupSmashCharacterSelectMenu.h"
 #include "MenuData/GroupSmashData.h"
+#include "GroupSmashCharacterSelectMenu.h"
+#include "GroupRulesMenu.h"
 
 namespace SmashBros
 {
@@ -19,6 +20,7 @@ namespace SmashBros
 			GroupSmashData* groupSmashData;
 			
 			GroupSmashCharacterSelectMenu* smashMenu;
+			GroupRulesMenu* rulesMenu;
 			
 		public:
 			GroupMenu(const SmashData&smashData);

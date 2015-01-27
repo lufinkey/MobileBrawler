@@ -7,6 +7,9 @@ namespace SmashBros
 	{
 		GroupSmashCharacterSelectMenu::GroupSmashCharacterSelectMenu(const SmashData&smashData, const GroupSmashData&groupSmashData) : CharacterSelectScreen(smashData, groupSmashData.getRules())
 		{
+			stockWinCondition = groupSmashData.getStockWinCondition();
+			timeLimitWinCondition = groupSmashData.getTimeLimitWinCondition();
+			
 			setHeaderbarMode(HEADERBAR_SMALL);
 			reloadIcons(smashData);
 			reloadPlayerPanels(smashData);
@@ -30,6 +33,19 @@ namespace SmashBros
 		GroupSmashCharacterSelectMenu::~GroupSmashCharacterSelectMenu()
 		{
 			delete rulesBar;
+		}
+		
+		void GroupSmashCharacterSelectMenu::onWillAppear(const Transition*transition)
+		{
+			Rules* rules = getRules();
+			if(rules->getWinCondition() == stockWinCondition)
+			{
+				rulesBar->setLabel("Man Survival Test!");
+			}
+			else if(rules->getWinCondition() == timeLimitWinCondition)
+			{
+				rulesBar->setLabel("Minute Survival Test!");
+			}
 		}
 		
 		void GroupSmashCharacterSelectMenu::updateItems(ApplicationData appData)
