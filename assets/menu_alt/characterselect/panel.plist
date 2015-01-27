@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>portrait</key>
+	<dict>
+		<key>left</key>
+		<real>0</real>
+		<key>top</key>
+		<real>0</real>
+		<key>right</key>
+		<real>1</real>
+		<key>bottom</key>
+		<real>1</real>
+	</dict>
+	<key>overlay</key>
+	<dict>
+		<key>left</key>
+		<real>0</real>
+		<key>top</key>
+		<real>0</real>
+		<key>right</key>
+		<real>1</real>
+		<key>bottom</key>
+		<real>1</real>
+	</dict>
+	<key>namebox</key>
+	<dict>
+		<key>color</key>
+		<dict>
+			<key>r</key>
+			<integer>0</integer>
+			<key>g</key>
+			<integer>0</integer>
+			<key>b</key>
+			<integer>0</integer>
+		</dict>
+		<key>left</key>
+		<real>0.320</real>
+		<key>top</key>
+		<real>0.870</real>
+		<key>right</key>
+		<real>0.910</real>
+		<key>bottom</key>
+		<real>0.981</real>
+	</dict>
+</dict>
+</plist>
