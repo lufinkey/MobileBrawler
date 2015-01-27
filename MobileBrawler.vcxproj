@@ -185,6 +185,7 @@
     <ClCompile Include="src\SmashBros\Menu\Elements\MenuBar.cpp" />
     <ClCompile Include="src\SmashBros\Menu\Elements\MenuBarValueAdjust.cpp" />
     <ClCompile Include="src\SmashBros\Menu\Elements\RulesBar.cpp" />
+    <ClCompile Include="src\SmashBros\Menu\GroupRulesMenu.cpp" />
     <ClCompile Include="src\SmashBros\Menu\GroupSmashCharacterSelectMenu.cpp" />
     <ClCompile Include="src\SmashBros\Menu\MainMenu.cpp" />
     <ClCompile Include="src\SmashBros\Menu\GroupMenu.cpp" />
@@ -305,6 +306,7 @@
     <ClInclude Include="src\SmashBros\Menu\Elements\MenuBar.h" />
     <ClInclude Include="src\SmashBros\Menu\Elements\MenuBarValueAdjust.h" />
     <ClInclude Include="src\SmashBros\Menu\Elements\RulesBar.h" />
+    <ClInclude Include="src\SmashBros\Menu\GroupRulesMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\GroupSmashCharacterSelectMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\MainMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\GroupMenu.h" />
