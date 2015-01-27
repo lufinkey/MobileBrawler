@@ -12,9 +12,9 @@ namespace SmashBros
 	{
 		using namespace CharacterSelect;
 		
-		CharacterSelectScreen::CharacterSelectScreen(const SmashData&smashData) : SmashBros::Menu::BaseMenuScreen(smashData)
+		CharacterSelectScreen::CharacterSelectScreen(const SmashData&smashData, Rules*ruleData) : SmashBros::Menu::BaseMenuScreen(smashData)
 		{
-			rules = smashData.getRules();
+			rules = ruleData;
 			characterLoader = smashData.getModuleData()->getCharacterLoader();
 			iconGrid = nullptr;
 			Vector2f readyToFightPos = smashData.getScreenCoords(0.5f, 0.6f);

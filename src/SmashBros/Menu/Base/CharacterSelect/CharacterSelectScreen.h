@@ -20,7 +20,7 @@ namespace SmashBros
 		{
 			friend class CharacterSelect::PlayerChip;
 		public:
-			CharacterSelectScreen(const SmashData&smashData);
+			CharacterSelectScreen(const SmashData&smashData, Rules*rules);
 			virtual ~CharacterSelectScreen();
 			
 			virtual bool isReadyToFight() const;

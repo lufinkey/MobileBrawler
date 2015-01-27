@@ -37,4 +37,9 @@ namespace BrawlerLibrary
 	{
 		players.resize(count);
 	}
+	
+	void Rules::setWinCondition(WinCondition*condition)
+	{
+		winCondition = condition;
+	}
 }

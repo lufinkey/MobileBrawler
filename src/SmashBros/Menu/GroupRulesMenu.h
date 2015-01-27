@@ -2,6 +2,7 @@
 #pragma once
 
 #include "Base/BaseMenuScreen.h"
+#include "Elements/MenuBarValueAdjust.h"
 
 namespace SmashBros
 {

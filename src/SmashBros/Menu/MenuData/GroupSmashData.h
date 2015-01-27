@@ -10,6 +10,7 @@ namespace SmashBros
 	class GroupSmashData
 	{
 	private:
+		Rules* rules;
 		StockWinCondition* stockWinCondition;
 		TimeLimitWinCondition* timeLimitWinCondition;
 		
@@ -17,6 +18,7 @@ namespace SmashBros
 		GroupSmashData();
 		~GroupSmashData();
 		
+		Rules* getRules() const;
 		StockWinCondition* getStockWinCondition() const;
 		TimeLimitWinCondition* getTimeLimitWinCondition() const;
 	};

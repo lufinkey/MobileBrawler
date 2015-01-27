@@ -18,6 +18,7 @@ namespace BrawlerLibrary
 		WinCondition* getWinCondition() const;
 
 		void setPlayerCount(unsigned int count);
+		void setWinCondition(WinCondition*);
 		
 	private:
 		ArrayList<PlayerInfo> players;

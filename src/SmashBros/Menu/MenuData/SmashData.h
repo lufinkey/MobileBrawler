@@ -15,10 +15,9 @@ namespace SmashBros
 		Window* window;
 		MenuLoad* menuData;
 		ModuleLoad* moduleData;
-		Rules* rules;
 		
 	public:
-		SmashData(Window*window, Rules*rules, MenuLoad*menuData, ModuleLoad*moduleData);
+		SmashData(Window*window, MenuLoad*menuData, ModuleLoad*moduleData);
 		SmashData(const SmashData&);
 		~SmashData();
 		
@@ -28,7 +27,6 @@ namespace SmashBros
 		Vector2f getScreenCoords(const Vector2f&rat) const;
 		
 		Window* getWindow() const;
-		Rules* getRules() const;
 		MenuLoad* getMenuData() const;
 		ModuleLoad* getModuleData() const;
 		

@@ -5,7 +5,7 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-		GroupSmashCharacterSelectMenu::GroupSmashCharacterSelectMenu(const SmashData&smashData, const GroupSmashData&groupSmashData) : CharacterSelectScreen(smashData)
+		GroupSmashCharacterSelectMenu::GroupSmashCharacterSelectMenu(const SmashData&smashData, const GroupSmashData&groupSmashData) : CharacterSelectScreen(smashData, groupSmashData.getRules())
 		{
 			setHeaderbarMode(HEADERBAR_SMALL);
 			reloadIcons(smashData);
@@ -19,7 +19,7 @@ namespace SmashBros
 													getHeaderbarElement()->getFrame().height); //height
 			rulesBar = new RulesBar(rulesBar_frame.x+(rulesBar_frame.width/2),
 									rulesBar_frame.y+(rulesBar_frame.height/2),
-									smashData.getRules(),
+									groupSmashData.getRules(),
 									groupSmashData.getStockWinCondition(),
 									groupSmashData.getTimeLimitWinCondition(),
 									smashData.getMenuData()->getAssetManager(),

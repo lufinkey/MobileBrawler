@@ -25,14 +25,14 @@ namespace SmashBros
 		void RulesBar::onValueChange()
 		{
 			setValueLabel(value.asString());
-			/*if(rules->getWinCondition() == stock)
+			if(rules->getWinCondition() == stock)
 			{
-				//TODO change stock value
+				stock->setStock(value.asUnsignedInt());
 			}
 			else if(rules->getWinCondition() == timeLimit)
 			{
 				//TODO change time limit
-			}*/
+			}
 		}
 	}
 }

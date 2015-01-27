@@ -3,10 +3,9 @@
 
 namespace SmashBros
 {
-	SmashData::SmashData(Window*win, Rules*ruls, MenuLoad*menuDat, ModuleLoad*moduleDat)
+	SmashData::SmashData(Window*win, MenuLoad*menuDat, ModuleLoad*moduleDat)
 	{
 		window = win;
-		rules = ruls;
 		menuData = menuDat;
 		moduleData = moduleDat;
 	}
@@ -14,7 +13,6 @@ namespace SmashBros
 	SmashData::SmashData(const SmashData&smashData)
 	{
 		window = smashData.window;
-		rules = smashData.rules;
 		menuData = smashData.menuData;
 		moduleData = smashData.moduleData;
 	}
@@ -27,7 +25,6 @@ namespace SmashBros
 	SmashData& SmashData::operator=(const SmashData&smashData)
 	{
 		window = smashData.window;
-		rules = smashData.rules;
 		menuData = smashData.menuData;
 		moduleData = smashData.moduleData;
 		return *this;
@@ -58,11 +55,6 @@ namespace SmashBros
 		return window;
 	}
 	
-	Rules* SmashData::getRules() const
-	{
-		return rules;
-	}
-	
 	MenuLoad* SmashData::getMenuData() const
 	{
 		return menuData;
@@ -71,10 +63,5 @@ namespace SmashBros
 	ModuleLoad* SmashData::getModuleData() const
 	{
 		return moduleData;
-	}
-	
-	void SmashData::setRules(Rules*ruls)
-	{
-		rules = ruls;
 	}
 }
