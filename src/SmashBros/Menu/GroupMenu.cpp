@@ -15,6 +15,8 @@ namespace SmashBros
 			rulesButton->scaleToFit(smashData.getScreenCoords(0.45f, 0.3f));
 			
 			groupSmashData = new GroupSmashData();
+			//TODO make the character select screen be loaded when the screen fades to black
+			//(create an intermediate screen for while it's loading)
 			smashMenu = new GroupSmashCharacterSelectMenu(smashData, *groupSmashData);
 			rulesMenu = new GroupRulesMenu(smashData, *groupSmashData);
 		}
