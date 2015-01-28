@@ -24,7 +24,11 @@ namespace GameLibrary
 		
 		MenuScreen& operator=(const MenuScreen&) = delete;
 		
+		//this object's deallocation will be handled by the menu screen if added
+		unsigned int addItem(SpriteActor*actor);
 		unsigned int addItem(const Vector2f&position, Animation*animation, const Animation::Direction&direction=Animation::FORWARD, bool destructAnimation=true);
+		//this object's deallocation will be handled by the menu screen if added
+		unsigned int addItem(TextActor*actor);
 		unsigned int addItem(const Vector2f&position, const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontsize=18, const Font::Style&fontstyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_CENTER);
 		void removeItem(unsigned int index);
 		unsigned int getTotalItems();
@@ -73,34 +77,6 @@ namespace GameLibrary
 			
 			virtual void update(ApplicationData appData) override;
 			virtual void drawMain(ApplicationData appData, Graphics graphics) const override;
-		};
-
-		class ImageItem : public GameLibrary::SpriteActor
-		{
-		private:
-			MenuScreen*menuScreen;
-		public:
-			ImageItem(MenuScreen*menuScreen, float x, float y);
-			virtual ~ImageItem();
-			
-			virtual void onMousePress(ApplicationData appData, unsigned int touchID) override;
-			virtual void onMouseRelease(ApplicationData appData, unsigned int touchID) override;
-			virtual void onMouseEnter(ApplicationData appData, unsigned int touchID) override;
-			virtual void onMouseLeave(ApplicationData appData, unsigned int touchID) override;
-		};
-		
-		class TextItem : public GameLibrary::TextActor
-		{
-		private:
-			MenuScreen*menuScreen;
-		public:
-			TextItem(MenuScreen*menuScreen, float x, float y, const String&text, Font*font, const Color&color, unsigned int fontsize, const Font::Style&fontstyle, const TextActor::TextAlignment&alignment);
-			virtual ~TextItem();
-			
-			virtual void onMousePress(ApplicationData appData, unsigned int touchID) override;
-			virtual void onMouseRelease(ApplicationData appData, unsigned int touchID) override;
-			virtual void onMouseEnter(ApplicationData appData, unsigned int touchID) override;
-			virtual void onMouseLeave(ApplicationData appData, unsigned int touchID) override;
 		};
 		
 		ArrayList<Actor*> items;

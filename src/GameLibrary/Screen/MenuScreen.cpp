@@ -28,74 +28,8 @@ namespace GameLibrary
 		menuScreen->drawItems(appData, graphics);
 	}
 	
-//MenuScreen::ImageItem
-	
-	MenuScreen::ImageItem::ImageItem(MenuScreen*screen, float x, float y) : SpriteActor(x,y)
-	{
-		menuScreen = screen;
-	}
-
-	MenuScreen::ImageItem::~ImageItem()
-	{
-		//
-	}
-	
-	void MenuScreen::ImageItem::onMousePress(ApplicationData appData, unsigned int touchID)
-	{
-		menuScreen->setKeyboardEnabled(false);
-	}
-	
-	void MenuScreen::ImageItem::onMouseRelease(ApplicationData appData, unsigned int touchID)
-	{
-		menuScreen->setKeyboardEnabled(false);
-	}
-	
-	void MenuScreen::ImageItem::onMouseEnter(ApplicationData appData, unsigned int touchID)
-	{
-		menuScreen->setKeyboardEnabled(false);
-	}
-	
-	void MenuScreen::ImageItem::onMouseLeave(ApplicationData appData, unsigned int touchID)
-	{
-		menuScreen->setKeyboardEnabled(false);
-	}
-	
-//MenuScreen::TextItem
-	
-	MenuScreen::TextItem::TextItem(MenuScreen*menuScreen, float x, float y, const String&text, Font*font, const Color&color, unsigned int fontsize, const Font::Style&fontstyle, const TextActor::TextAlignment&alignment)
-		: TextActor(x,y,text,font,color)
-	{
-		setFontSize(fontsize);
-		setFontStyle(fontstyle);
-		setAlignment(alignment);
-	}
-	
-	MenuScreen::TextItem::~TextItem()
-	{
-		//
-	}
-	
-	void MenuScreen::TextItem::onMousePress(ApplicationData appData, unsigned int touchID)
-	{
-		menuScreen->setKeyboardEnabled(false);
-	}
-	
-	void MenuScreen::TextItem::onMouseRelease(ApplicationData appData, unsigned int touchID)
-	{
-		menuScreen->setKeyboardEnabled(false);
-	}
-	
-	void MenuScreen::TextItem::onMouseEnter(ApplicationData appData, unsigned int touchID)
-	{
-		menuScreen->setKeyboardEnabled(false);
-	}
-	
-	void MenuScreen::TextItem::onMouseLeave(ApplicationData appData, unsigned int touchID)
-	{
-		menuScreen->setKeyboardEnabled(false);
-	}
-	
 //MenuScreen
+	
 	MenuScreen::MenuScreen() : MenuScreen(nullptr)
 	{
 		//
@@ -173,7 +107,40 @@ namespace GameLibrary
 			}
 		}
 
-		if(!keyboardEnabled)
+		if(keyboardEnabled)
+		{
+			unsigned int lastSelectedIndex = selectedIndex;
+			if(lastSelectedIndex != MENUSCREEN_NOSELECTION)
+			{
+				Actor* actor = items.get(lastSelectedIndex);
+				actor->update(appData);
+				if(actor->isMouseOver() && !actor->wasMouseOver())
+				{
+					setKeyboardEnabled(false);
+				}
+				else if(actor->isMousePressed() && !actor->wasMousePressed())
+				{
+					setKeyboardEnabled(false);
+				}
+			}
+			for(unsigned int i = 0; i < items.size(); i++)
+			{
+				if(i != lastSelectedIndex)
+				{
+					Actor* actor = items.get(i);
+					actor->update(appData);
+					if(actor->isMouseOver() && !actor->wasMouseOver())
+					{
+						setKeyboardEnabled(false);
+					}
+					else if(actor->isMousePressed() && !actor->wasMousePressed())
+					{
+						setKeyboardEnabled(false);
+					}
+				}
+			}
+		}
+		else
 		{
 			unsigned int lastSelectedIndex = selectedIndex;
 			//test/update currently hovered actor
@@ -364,6 +331,16 @@ namespace GameLibrary
 		}
 	}
 	
+	unsigned int MenuScreen::addItem(SpriteActor*actor)
+	{
+		if(actor == nullptr)
+		{
+			throw IllegalArgumentException("Cannot add a null SpriteActor to a GameLibrary::MenuScreen object");
+		}
+		items.add(actor);
+		return items.size()-1;
+	}
+	
 	unsigned int MenuScreen::addItem(const Vector2f&position, Animation*animation, const Animation::Direction&direction, bool destructAnimation)
 	{
 		if(animation == nullptr)
@@ -374,9 +351,19 @@ namespace GameLibrary
 		{
 			throw IllegalArgumentException((String)"Invalid value " + direction + "for \"direction\" argument");
 		}
-		ImageItem* actor = new ImageItem(this, position.x, position.y);
+		SpriteActor* actor = new SpriteActor(position.x, position.y);
 		actor->addAnimation("default", animation, destructAnimation);
 		actor->changeAnimation("default", direction);
+		items.add(actor);
+		return items.size()-1;
+	}
+	
+	unsigned int MenuScreen::addItem(TextActor*actor)
+	{
+		if(actor == nullptr)
+		{
+			throw IllegalArgumentException("Cannot add a null TextActor to a GameLibrary::MenuScreen object");
+		}
 		items.add(actor);
 		return items.size()-1;
 	}
@@ -387,7 +374,7 @@ namespace GameLibrary
 		{
 			throw IllegalArgumentException("Cannot add an item with a null Font to a GameLibrary::MenuScreen object");
 		}
-		TextItem* textActor = new TextItem(this, position.x, position.y, text, font, color, fontsize, fontstyle, alignment);
+		TextActor* textActor = new TextActor(position.x, position.y, text, font, color, fontsize, fontstyle, alignment);
 		items.add(textActor);
 		return items.size()-1;
 	}
