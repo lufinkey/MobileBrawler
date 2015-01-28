@@ -143,6 +143,7 @@ namespace SmashBros
 		batchLoader->addTexture("characterselect/chip_p2.png");
 		batchLoader->addTexture("characterselect/chip_p3.png");
 		batchLoader->addTexture("characterselect/chip_p4.png");
+		batchLoader->addTexture("characterselect/icon_frame.png");
 		batchLoader->addTexture("characterselect/panel_background_p1.png");
 		batchLoader->addTexture("characterselect/panel_background_p2.png");
 		batchLoader->addTexture("characterselect/panel_background_p3.png");
@@ -157,7 +158,6 @@ namespace SmashBros
 		batchLoader->addTexture("characterselect/panel_overlay_cpu.png");
 		batchLoader->addTexture("characterselect/panel_overlay_na.png");
 		batchLoader->addTexture("characterselect/panel_overlay_blank.png");
-		batchLoader->addTexture("characterselect/icon_frame.png");
 		batchLoader->addTexture("characterselect/readytofight_banner.png");
 		
 		batchLoader->addTexture("elements/button_arrow_down.png");
@@ -170,6 +170,8 @@ namespace SmashBros
 		batchLoader->addTexture("elements/rules_bar.png");
 		
 		batchLoader->addFont("fonts/default.ttf");
+		
+		batchLoader->addTexture("stageselect/icon_frame.png");
 		
 		batchLoader->addTexture("titlescreen/logo.png");
 		batchLoader->addTexture("titlescreen/background.png");

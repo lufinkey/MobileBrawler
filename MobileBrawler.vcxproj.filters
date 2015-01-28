@@ -465,6 +465,9 @@
     <ClCompile Include="src\SmashBros\Load\InitialLoadListener.cpp">
       <Filter>src\SmashBros\Load</Filter>
     </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\GroupSmashStageSelectMenu.cpp">
+      <Filter>src\SmashBros\Menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -835,6 +838,9 @@
     </ClInclude>
     <ClInclude Include="src\SmashBros\Load\InitialLoadListener.h">
       <Filter>src\SmashBros\Load</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\GroupSmashStageSelectMenu.h">
+      <Filter>src\SmashBros\Menu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

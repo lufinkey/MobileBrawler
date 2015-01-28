@@ -28,11 +28,14 @@ namespace SmashBros
 									smashData.getMenuData()->getAssetManager(),
 									smashData.getMenuData()->getRulesBarProperties());
 			rulesBar->Actor::scaleToFit(Vector2f(rulesBar_frame.width, rulesBar_frame.height));
+			
+			groupSmashStageSelectMenu = new GroupSmashStageSelectMenu(smashData, groupSmashData);
 		}
 		
 		GroupSmashCharacterSelectMenu::~GroupSmashCharacterSelectMenu()
 		{
 			delete rulesBar;
+			delete groupSmashStageSelectMenu;
 		}
 		
 		void GroupSmashCharacterSelectMenu::onWillAppear(const Transition*transition)
@@ -48,6 +51,11 @@ namespace SmashBros
 				rulesBar->setValueLabel((String)"" + timeLimitWinCondition->getTimeLimit());
 				rulesBar->setLabel("Minute Survival Test!");
 			}
+		}
+		
+		void GroupSmashCharacterSelectMenu::proceedToFight()
+		{
+			getScreenManager()->push(groupSmashStageSelectMenu);
 		}
 		
 		void GroupSmashCharacterSelectMenu::onUpdate(ApplicationData appData)

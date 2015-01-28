@@ -133,7 +133,7 @@ namespace SmashBros
 			ImageElement* headerbar = getHeaderbarElement();
 			RectangleF headerbarFrame = headerbar->getFrame();
 			Vector2f screenSize = smashData.getScreenCoords(Vector2f(1.0f,1.0f));
-			float frameoffset_y = headerbarFrame.height / screenSize.y;
+			float frameoffset_y = (headerbarFrame.height / screenSize.y)*1.1f;
 			
 			Vector2f topLeft = smashData.getScreenCoords(0.1f, frameoffset_y);
 			Vector2f bottomRight = smashData.getScreenCoords(0.9f, 0.6f);

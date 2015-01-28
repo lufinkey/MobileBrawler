@@ -2,9 +2,10 @@
 #pragma once
 
 #include "Base/CharacterSelect/CharacterSelectScreen.h"
+#include "GroupSmashStageSelectMenu.h"
+#include "MenuData/GroupSmashData.h"
 #include "Elements/ArrowButton.h"
 #include "Elements/RulesBar.h"
-#include "MenuData/GroupSmashData.h"
 
 namespace SmashBros
 {
@@ -17,11 +18,15 @@ namespace SmashBros
 			StockWinCondition* stockWinCondition;
 			TimeLimitWinCondition* timeLimitWinCondition;
 			
+			GroupSmashStageSelectMenu* groupSmashStageSelectMenu;
+			
 		public:
 			GroupSmashCharacterSelectMenu(const SmashData&smashData, const GroupSmashData&groupSmashData);
 			virtual ~GroupSmashCharacterSelectMenu();
 			
 			virtual void onWillAppear(const Transition*transition) override;
+			
+			virtual void proceedToFight() override;
 			
 			virtual void onUpdate(ApplicationData appData) override;
 			virtual void onDraw(ApplicationData appData, Graphics graphics) const override;

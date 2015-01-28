@@ -38,6 +38,7 @@ namespace SmashBros
 			RectangleF iconGridFrame;
 			ActorGrid*iconGrid;
 			ArrayList<StageSelect::StageIcon*> icons;
+			ArrayList<StageSelect::StagePreview*> previews;
 		};
 	}
 }
