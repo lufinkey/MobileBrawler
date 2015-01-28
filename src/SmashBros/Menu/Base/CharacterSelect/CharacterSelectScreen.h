@@ -29,6 +29,7 @@ namespace SmashBros
 			Rules* getRules() const;
 			CharacterLoader* getCharacterLoader() const;
 			const ArrayList<CharacterSelect::PlayerChip*>& getPlayerChips() const;
+			const ArrayList<CharacterSelect::CharacterIcon*>& getCharacterIcons() const;
 			
 		protected:
 			void reloadIcons(const SmashData&smashData);

@@ -96,6 +96,11 @@ namespace SmashBros
 			return chips;
 		}
 		
+		const ArrayList<CharacterSelect::CharacterIcon*>& CharacterSelectScreen::getCharacterIcons() const
+		{
+			return icons;
+		}
+		
 		void CharacterSelectScreen::reloadIcons(const SmashData&smashData)
 		{
 			if(iconGrid != nullptr)

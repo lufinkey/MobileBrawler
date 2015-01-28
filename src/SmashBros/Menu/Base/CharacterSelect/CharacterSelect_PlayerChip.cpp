@@ -32,9 +32,10 @@ namespace SmashBros
 				if(!dragging)
 				{
 					bool touch_alreadyBeingUsed = false;
-					for(unsigned int i=0; i<charSelectScreen->chips.size(); i++)
+					const ArrayList<PlayerChip*>& chips = charSelectScreen->getPlayerChips();
+					for(unsigned int i=0; i<chips.size(); i++)
 					{
-						PlayerChip*chip = charSelectScreen->chips.get(i);
+						PlayerChip*chip = chips.get(i);
 						if(chip != this)
 						{
 							if(chip->dragging && chip->dragTouchID == touchID)
@@ -88,7 +89,7 @@ namespace SmashBros
 				//check if overlapping with any character icons;
 				CharacterInfo* overlap_charInfo = nullptr;
 				float overlap_area = 0;
-				ArrayList<CharacterIcon*>& icons = charSelectScreen->icons;
+				const ArrayList<CharacterIcon*>& icons = charSelectScreen->getCharacterIcons();
 				RectangleF frame = getFrame();
 				for(unsigned int i=0; i<icons.size(); i++)
 				{
