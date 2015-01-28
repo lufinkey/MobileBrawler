@@ -1,6 +1,7 @@
 
 #include "StageSelectScreen.h"
 #include "StageSelect_StageIcon.h"
+#include "StageSelect_StagePreview.h"
 
 namespace SmashBros
 {
@@ -23,12 +24,6 @@ namespace SmashBros
 			{
 				delete iconGrid;
 			}
-			
-			for(unsigned int i=0; i<icons.size(); i++)
-			{
-				delete icons.get(i);
-			}
-			icons.clear();
 			
 			for(unsigned int i=0; i<previews.size(); i++)
 			{
@@ -92,6 +87,7 @@ namespace SmashBros
 				icon->Actor::scaleToFit(icon_size);
 				icons.add(icon);
 				iconGrid->add(icon);
+				addItem(icon);
 			}
 		}
 		
@@ -103,21 +99,11 @@ namespace SmashBros
 		void StageSelectScreen::onUpdate(ApplicationData appData)
 		{
 			BaseMenuScreen::onUpdate(appData);
-			
-			for(unsigned int i=0; i<icons.size(); i++)
-			{
-				icons.get(i)->update(appData);
-			}
 		}
 		
 		void StageSelectScreen::onDraw(ApplicationData appData, Graphics graphics) const
 		{
 			BaseMenuScreen::onDraw(appData, graphics);
-			
-			for(unsigned int i=0; i<icons.size(); i++)
-			{
-				icons.get(i)->draw(appData, graphics);
-			}
 		}
 	}
 }
