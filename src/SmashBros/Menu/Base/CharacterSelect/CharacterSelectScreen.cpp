@@ -199,9 +199,9 @@ namespace SmashBros
 			}
 		}
 		
-		void CharacterSelectScreen::updateItems(ApplicationData appData)
+		void CharacterSelectScreen::onUpdate(ApplicationData appData)
 		{
-			BaseMenuScreen::updateItems(appData);
+			BaseMenuScreen::onUpdate(appData);
 			ArrayList<CharacterIcon*> icons_list = icons;
 			for(unsigned int i=0; i<icons_list.size(); i++)
 			{
@@ -231,9 +231,9 @@ namespace SmashBros
 			readyToFightBanner->update(appData);
 		}
 		
-		void CharacterSelectScreen::drawItems(ApplicationData appData, Graphics graphics) const
+		void CharacterSelectScreen::onDraw(ApplicationData appData, Graphics graphics) const
 		{
-			BaseMenuScreen::drawItems(appData, graphics);
+			BaseMenuScreen::onDraw(appData, graphics);
 			for(unsigned int i=0; i<icons.size(); i++)
 			{
 				CharacterIcon* icon = icons.get(i);

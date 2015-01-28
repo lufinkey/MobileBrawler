@@ -18,8 +18,8 @@ namespace SmashBros
 			
 			virtual void onWillAppear(const Transition*transition) override;
 			
-			virtual void update(ApplicationData appData) override;
-			virtual void draw(ApplicationData appData, Graphics graphics) const override;
+			virtual void onUpdate(ApplicationData appData) override;
+			virtual void onDraw(ApplicationData appData, Graphics graphics) const override;
 			
 		private:
 			class MenuBarListener : public MenuBarValueAdjustEventListener

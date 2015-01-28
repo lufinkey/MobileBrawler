@@ -40,23 +40,25 @@ namespace SmashBros
 			Rules* rules = getRules();
 			if(rules->getWinCondition() == stockWinCondition)
 			{
+				rulesBar->setValueLabel((String)"" + stockWinCondition->getStock());
 				rulesBar->setLabel("Man Survival Test!");
 			}
 			else if(rules->getWinCondition() == timeLimitWinCondition)
 			{
+				rulesBar->setValueLabel((String)"" + timeLimitWinCondition->getTimeLimit());
 				rulesBar->setLabel("Minute Survival Test!");
 			}
 		}
 		
-		void GroupSmashCharacterSelectMenu::updateItems(ApplicationData appData)
+		void GroupSmashCharacterSelectMenu::onUpdate(ApplicationData appData)
 		{
-			CharacterSelectScreen::updateItems(appData);
+			CharacterSelectScreen::onUpdate(appData);
 			rulesBar->update(appData);
 		}
 		
-		void GroupSmashCharacterSelectMenu::drawItems(ApplicationData appData, Graphics graphics) const
+		void GroupSmashCharacterSelectMenu::onDraw(ApplicationData appData, Graphics graphics) const
 		{
-			CharacterSelectScreen::drawItems(appData, graphics);
+			CharacterSelectScreen::onDraw(appData, graphics);
 			rulesBar->draw(appData, graphics);
 		}
 	}

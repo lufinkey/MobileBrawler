@@ -35,8 +35,8 @@ namespace SmashBros
 			void reloadIcons(const SmashData&smashData);
 			void reloadPlayerPanels(const SmashData&smashData);
 
-			virtual void updateItems(ApplicationData appData) override;
-			virtual void drawItems(ApplicationData appData, Graphics graphics) const override;
+			virtual void onUpdate(ApplicationData appData) override;
+			virtual void onDraw(ApplicationData appData, Graphics graphics) const override;
 			
 		private:
 			void whenPlayerChipGrabbed(unsigned int playerNum);

@@ -81,7 +81,9 @@ namespace GameLibrary
 		Screen& operator=(const Screen&) = delete;
 
 		virtual void update(ApplicationData appData) override;
+		virtual void onUpdate(ApplicationData appData);
 		virtual void draw(ApplicationData appData, Graphics graphics) const override;
+		virtual void onDraw(ApplicationData appData, Graphics graphics) const;
 		
 		virtual RectangleF getFrame() const override;
 		

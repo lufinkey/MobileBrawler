@@ -29,8 +29,8 @@ namespace SmashBros
 			void reloadIcons(const SmashData&smashData);
 			void reloadPreviews(const SmashData&smashData);
 			
-			virtual void updateItems(ApplicationData appData) override;
-			virtual void drawItems(ApplicationData appData, Graphics graphics) const override;
+			virtual void onUpdate(ApplicationData appData) override;
+			virtual void onDraw(ApplicationData appData, Graphics graphics) const override;
 			
 		private:
 			Rules*rules;

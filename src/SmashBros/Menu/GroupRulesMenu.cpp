@@ -43,18 +43,29 @@ namespace SmashBros
 		void GroupRulesMenu::onWillAppear(const Transition*transition)
 		{
 			gameModeBar->setValueLabel(getGameModeString(rules));
+			gameModeValueBar->setLabel(getGameModeLabelString(rules));
+			if(rules->getWinCondition() == stockWinCondition)
+			{
+				gameModeValueBar->setValueLabel((String)"" + stockWinCondition->getStock());
+				gameModeValueBar->setValueLabelSuffix("");
+			}
+			else if(rules->getWinCondition() == timeLimitWinCondition)
+			{
+				gameModeValueBar->setValueLabel((String)"" + timeLimitWinCondition->getTimeLimit());
+				gameModeValueBar->setValueLabelSuffix(":00");
+			}
 		}
 		
-		void GroupRulesMenu::update(ApplicationData appData)
+		void GroupRulesMenu::onUpdate(ApplicationData appData)
 		{
-			BaseMenuScreen::update(appData);
+			BaseMenuScreen::onUpdate(appData);
 			gameModeBar->update(appData);
 			gameModeValueBar->update(appData);
 		}
 		
-		void GroupRulesMenu::draw(ApplicationData appData, Graphics graphics) const
+		void GroupRulesMenu::onDraw(ApplicationData appData, Graphics graphics) const
 		{
-			BaseMenuScreen::draw(appData, graphics);
+			BaseMenuScreen::onDraw(appData, graphics);
 			gameModeBar->draw(appData, graphics);
 			gameModeValueBar->draw(appData, graphics);
 		}

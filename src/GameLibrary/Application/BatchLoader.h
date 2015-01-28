@@ -62,12 +62,13 @@ namespace GameLibrary
 	class BatchLoaderEventListener
 	{
 	public:
-		virtual ~BatchLoaderEventListener();
-
-		virtual void onBatchLoaderLoadTexture(BatchLoader*batchLoader, const String&path, unsigned int value);
-		virtual void onBatchLoaderLoadFont(BatchLoader*batchLoader, const String&path, unsigned int value);
-		virtual void onBatchLoaderErrorTexture(BatchLoader*batchLoader, const String&path, unsigned int value, const String&error);
-		virtual void onBatchLoaderErrorFont(BatchLoader*batchLoader, const String&path, unsigned int value, const String&error);
-		virtual void onBatchLoaderFinish(BatchLoader*batchLoader);
+		virtual ~BatchLoaderEventListener(){}
+		
+		virtual void onBatchLoaderStart(BatchLoader*batchLoader){}
+		virtual void onBatchLoaderLoadTexture(BatchLoader*batchLoader, const String&path, unsigned int value){}
+		virtual void onBatchLoaderLoadFont(BatchLoader*batchLoader, const String&path, unsigned int value){}
+		virtual void onBatchLoaderErrorTexture(BatchLoader*batchLoader, const String&path, unsigned int value, const String&error){}
+		virtual void onBatchLoaderErrorFont(BatchLoader*batchLoader, const String&path, unsigned int value, const String&error){}
+		virtual void onBatchLoaderFinish(BatchLoader*batchLoader){}
 	};
 }

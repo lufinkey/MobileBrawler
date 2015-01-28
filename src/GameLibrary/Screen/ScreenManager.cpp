@@ -127,7 +127,7 @@ namespace GameLibrary
 		{
 			updateCaller->update(appData);
 		}
-
+		
 		Screen::update(appData);
 
 		TransitionData_checkInitialization(appData, pushpopData);

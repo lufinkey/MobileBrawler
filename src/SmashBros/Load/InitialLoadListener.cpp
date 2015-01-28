@@ -8,6 +8,11 @@ namespace SmashBros
 		window = win;
 	}
 	
+	void InitialLoadListener::onBatchLoaderStart(BatchLoader*batchLoader)
+	{
+		//
+	}
+	
 	void InitialLoadListener::onBatchLoaderLoadTexture(BatchLoader*batchLoader, const String&path, unsigned int value)
 	{
 		//

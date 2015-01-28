@@ -77,6 +77,15 @@ namespace GameLibrary
 	{
 		if(!loading)
 		{
+			if(eventListeners.size()>0)
+			{
+				ArrayList<BatchLoaderEventListener*> listeners = eventListeners;
+				for(unsigned int i = 0; i < listeners.size(); i++)
+				{
+					BatchLoaderEventListener*listener = listeners.get(i);
+					listener->onBatchLoaderStart(this);
+				}
+			}
 			loading = true;
 			while(loadindex<loadlist.size() && loading)
 			{
@@ -164,35 +173,5 @@ namespace GameLibrary
 		loadindex = 0;
 		loadcurrent = 0;
 		loadtotal = 0;
-	}
-
-	BatchLoaderEventListener::~BatchLoaderEventListener()
-	{
-		//
-	}
-
-	void BatchLoaderEventListener::onBatchLoaderLoadTexture(BatchLoader*batchLoader, const String&path, unsigned int value)
-	{
-		//
-	}
-
-	void BatchLoaderEventListener::onBatchLoaderLoadFont(BatchLoader*batchLoader, const String&path, unsigned int value)
-	{
-		//
-	}
-
-	void BatchLoaderEventListener::onBatchLoaderErrorTexture(BatchLoader*batchLoader, const String&path, unsigned int value, const String&error)
-	{
-		//
-	}
-
-	void BatchLoaderEventListener::onBatchLoaderErrorFont(BatchLoader*batchLoader, const String&path, unsigned int value, const String&error)
-	{
-		//
-	}
-
-	void BatchLoaderEventListener::onBatchLoaderFinish(BatchLoader*batchLoader)
-	{
-		//
 	}
 }

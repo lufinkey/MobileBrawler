@@ -251,19 +251,22 @@ namespace GameLibrary
 		}
 		else
 		{
-			//TODO possibly add updating capabilities from ScreenElement
-			//ScreenElement::update(appData);
+			if(element == nullptr)
+			{
+				getElement();
+			}
+			element->update(appData);
+			onUpdate(appData);
 		}
-		
-		if(element == nullptr)
-		{
-			getElement();
-		}
-		element->update(appData);
 		
 		TransitionData_checkInitialization(appData, overlayData);
 		
 		updateFrame(window);
+	}
+	
+	void Screen::onUpdate(ApplicationData appData)
+	{
+		//Open for implementation
 	}
 	
 	void Screen::drawBackground(ApplicationData appData, Graphics graphics) const
@@ -289,6 +292,7 @@ namespace GameLibrary
 				element->draw(appData, graphics);
 			}
 			//ScreenElement::drawElements(appData, graphics);
+			onDraw(appData, graphics);
 		}
 	}
 	
@@ -340,6 +344,11 @@ namespace GameLibrary
 			drawOverlay(appData, graphics);
 			drawingOverlayTransition = false;
 		}
+	}
+	
+	void Screen::onDraw(ApplicationData appData, Graphics graphics) const
+	{
+		//Open for implementation
 	}
 	
 	RectangleF Screen::getFrame() const
