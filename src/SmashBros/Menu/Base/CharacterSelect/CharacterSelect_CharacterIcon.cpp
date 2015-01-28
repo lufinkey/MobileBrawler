@@ -20,6 +20,13 @@ namespace SmashBros
 				//
 			}
 			
+			void CharacterIcon::draw(ApplicationData appData, Graphics graphics) const
+			{
+				SpriteActor::draw(appData, graphics);
+				TextureImage* icon_frame = appData.getAssetManager()->getTexture("characterselect/icon_frame.png");
+				graphics.drawImage(icon_frame, getFrame());
+			}
+			
 			bool CharacterIcon::equals(const CharacterIcon&icon) const
 			{
 				if(info->getName().equals(icon.info->getName()) && info->getCreator().equals(icon.info->getCreator()))

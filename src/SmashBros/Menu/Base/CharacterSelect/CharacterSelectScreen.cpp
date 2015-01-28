@@ -228,14 +228,11 @@ namespace SmashBros
 		
 		void CharacterSelectScreen::drawItems(ApplicationData appData, Graphics graphics) const
 		{
-			TextureImage* icon_frame = appData.getAssetManager()->getTexture("characterselect/icon_frame.png");
 			BaseMenuScreen::drawItems(appData, graphics);
 			for(unsigned int i=0; i<icons.size(); i++)
 			{
 				CharacterIcon* icon = icons.get(i);
 				icon->draw(appData, graphics);
-				RectangleF frame = icon->getFrame();
-				graphics.drawImage(icon_frame, frame);
 			}
 			for(unsigned int i=0; i<panels.size(); i++)
 			{

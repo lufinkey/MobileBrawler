@@ -22,6 +22,8 @@ namespace SmashBros
 				CharacterIcon(CharacterInfo&info, float x, float y, AssetManager*assetManager);
 				virtual ~CharacterIcon();
 				
+				virtual void draw(ApplicationData appData, Graphics graphics) const override;
+				
 				bool equals(const CharacterIcon&) const;
 				
 				const String& getName() const;
