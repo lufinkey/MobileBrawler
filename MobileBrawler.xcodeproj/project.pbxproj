@@ -154,6 +154,9 @@
 		E97FD7881A72DA22005AC479 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7761A72DA22005AC479 /* Icon@2x.png */; };
 		E9946E481A7AA6F60054F2C8 /* InitialLoadListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9946E471A7AA6F60054F2C8 /* InitialLoadListener.cpp */; };
 		E9946E4B1A7AA7840054F2C8 /* ActorMenuElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9946E4A1A7AA7840054F2C8 /* ActorMenuElement.cpp */; };
+		E9D306CF1A7AAD5800C4E7F5 /* StageSelect_StageIcon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D306C91A7AAD5800C4E7F5 /* StageSelect_StageIcon.cpp */; };
+		E9D306D01A7AAD5800C4E7F5 /* StageSelect_StagePreview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D306CB1A7AAD5800C4E7F5 /* StageSelect_StagePreview.cpp */; };
+		E9D306D11A7AAD5800C4E7F5 /* StageSelectScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D306CD1A7AAD5800C4E7F5 /* StageSelectScreen.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -427,6 +430,12 @@
 		E9946E471A7AA6F60054F2C8 /* InitialLoadListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InitialLoadListener.cpp; sourceTree = "<group>"; };
 		E9946E491A7AA7840054F2C8 /* ActorMenuElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActorMenuElement.h; sourceTree = "<group>"; };
 		E9946E4A1A7AA7840054F2C8 /* ActorMenuElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActorMenuElement.cpp; sourceTree = "<group>"; };
+		E9D306C91A7AAD5800C4E7F5 /* StageSelect_StageIcon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StageSelect_StageIcon.cpp; sourceTree = "<group>"; };
+		E9D306CA1A7AAD5800C4E7F5 /* StageSelect_StageIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StageSelect_StageIcon.h; sourceTree = "<group>"; };
+		E9D306CB1A7AAD5800C4E7F5 /* StageSelect_StagePreview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StageSelect_StagePreview.cpp; sourceTree = "<group>"; };
+		E9D306CC1A7AAD5800C4E7F5 /* StageSelect_StagePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StageSelect_StagePreview.h; sourceTree = "<group>"; };
+		E9D306CD1A7AAD5800C4E7F5 /* StageSelectScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StageSelectScreen.cpp; sourceTree = "<group>"; };
+		E9D306CE1A7AAD5800C4E7F5 /* StageSelectScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StageSelectScreen.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1017,6 +1026,7 @@
 		A03063F81A7710EA0090DD6E /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				E9D306C81A7AAD5800C4E7F5 /* StageSelect */,
 				A03063FB1A7710EA0090DD6E /* CharacterSelect */,
 				A03063FA1A7710EA0090DD6E /* BaseMenuScreen.h */,
 				A03063F91A7710EA0090DD6E /* BaseMenuScreen.cpp */,
@@ -1093,6 +1103,20 @@
 			);
 			name = icons;
 			sourceTree = "<group>";
+		};
+		E9D306C81A7AAD5800C4E7F5 /* StageSelect */ = {
+			isa = PBXGroup;
+			children = (
+				E9D306C91A7AAD5800C4E7F5 /* StageSelect_StageIcon.cpp */,
+				E9D306CA1A7AAD5800C4E7F5 /* StageSelect_StageIcon.h */,
+				E9D306CB1A7AAD5800C4E7F5 /* StageSelect_StagePreview.cpp */,
+				E9D306CC1A7AAD5800C4E7F5 /* StageSelect_StagePreview.h */,
+				E9D306CD1A7AAD5800C4E7F5 /* StageSelectScreen.cpp */,
+				E9D306CE1A7AAD5800C4E7F5 /* StageSelectScreen.h */,
+			);
+			name = StageSelect;
+			path = src/SmashBros/Menu/Base/StageSelect;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -1183,6 +1207,7 @@
 				A03064221A7710EA0090DD6E /* StockWinCondition.cpp in Sources */,
 				A03064231A7710EA0090DD6E /* TimeLimitWinCondition.cpp in Sources */,
 				A03064241A7710EA0090DD6E /* WinCondition.cpp in Sources */,
+				E9D306D01A7AAD5800C4E7F5 /* StageSelect_StagePreview.cpp in Sources */,
 				A03064251A7710EA0090DD6E /* CharacterInfo.cpp in Sources */,
 				A03064261A7710EA0090DD6E /* CharacterLoader.cpp in Sources */,
 				A03064271A7710EA0090DD6E /* StageInfo.cpp in Sources */,
@@ -1269,10 +1294,12 @@
 				A03064761A7710EA0090DD6E /* MenuLoad.cpp in Sources */,
 				A03064771A7710EA0090DD6E /* ModuleLoad.cpp in Sources */,
 				A03064781A7710EA0090DD6E /* main.cpp in Sources */,
+				E9D306CF1A7AAD5800C4E7F5 /* StageSelect_StageIcon.cpp in Sources */,
 				A03064791A7710EA0090DD6E /* BaseMenuScreen.cpp in Sources */,
 				A030647A1A7710EA0090DD6E /* CharacterSelect_CharacterIcon.cpp in Sources */,
 				A030647B1A7710EA0090DD6E /* CharacterSelect_PlayerChip.cpp in Sources */,
 				A030647C1A7710EA0090DD6E /* CharacterSelect_PlayerPanel.cpp in Sources */,
+				E9D306D11A7AAD5800C4E7F5 /* StageSelectScreen.cpp in Sources */,
 				A030647D1A7710EA0090DD6E /* CharacterSelect_ReadyToFightBanner.cpp in Sources */,
 				A030647E1A7710EA0090DD6E /* CharacterSelectScreen.cpp in Sources */,
 				A030647F1A7710EA0090DD6E /* ActorGrid.cpp in Sources */,
