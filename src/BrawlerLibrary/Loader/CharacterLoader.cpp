@@ -3,6 +3,8 @@
 
 namespace BrawlerLibrary
 {
+	using namespace GameLibrary;
+	
 	CharacterLoader::CharacterLoader(Window&window)
 	{
 		assetManager = new AssetManager(window);

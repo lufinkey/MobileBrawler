@@ -5,12 +5,10 @@
 
 namespace BrawlerLibrary
 {
-	using namespace GameLibrary;
-	
 	class WinCondition
 	{
 	protected:
-		Dictionary properties;
+		GameLibrary::Dictionary properties;
 	public:
 		WinCondition();
 		virtual ~WinCondition();

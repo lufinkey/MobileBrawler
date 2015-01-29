@@ -8,27 +8,27 @@ namespace BrawlerLibrary
 	class CharacterLoader
 	{
 	private:
-		ArrayList<CharacterInfo> characters;
-		ArrayList<String> paths;
+		GameLibrary::ArrayList<CharacterInfo> characters;
+		GameLibrary::ArrayList<GameLibrary::String> paths;
 		
-		AssetManager* assetManager;
+		GameLibrary::AssetManager* assetManager;
 		
 	public:
-		CharacterLoader(Window& window);
+		CharacterLoader(GameLibrary::Window& window);
 		~CharacterLoader();
 		
-		AssetManager* getAssetManager() const;
+		GameLibrary::AssetManager* getAssetManager() const;
 		
-		void addPath(const String&path);
+		void addPath(const GameLibrary::String&path);
 		void reloadPaths();
 		
-		void loadIcons(const Image&compositeMask=Image());
+		void loadIcons(const GameLibrary::Image&compositeMask=GameLibrary::Image());
 		void loadPortraits();
 		
-		void reloadAssets(const Image&iconMask=Image());
+		void reloadAssets(const GameLibrary::Image&iconMask=GameLibrary::Image());
 		
-		const ArrayList<String>& getPaths() const;
-		const ArrayList<CharacterInfo>& getCharacters() const;
-		ArrayList<CharacterInfo>& getCharacters();
+		const GameLibrary::ArrayList<GameLibrary::String>& getPaths() const;
+		const GameLibrary::ArrayList<CharacterInfo>& getCharacters() const;
+		GameLibrary::ArrayList<CharacterInfo>& getCharacters();
 	};
 }
