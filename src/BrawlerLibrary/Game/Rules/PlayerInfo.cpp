@@ -3,6 +3,8 @@
 
 namespace BrawlerLibrary
 {
+	using namespace GameLibrary;
+	
 	PlayerInfo::PlayerInfo()
 	{
 		character_info = nullptr;

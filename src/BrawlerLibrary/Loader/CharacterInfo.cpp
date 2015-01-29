@@ -3,6 +3,8 @@
 
 namespace BrawlerLibrary
 {
+	using namespace GameLibrary;
+	
 	CharacterInfo::CharacterInfo()
 	{
 		//
@@ -114,7 +116,7 @@ namespace BrawlerLibrary
 			FileTools::getItemsInDirectory(folderpath + "/costumes", &items);
 			for(unsigned int i = 0; i < items.size(); i++)
 			{
-
+				//TODO do something with the costumes
 			}
 			
 			name = val_name.as<String>(false);

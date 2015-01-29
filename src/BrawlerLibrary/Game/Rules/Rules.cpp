@@ -3,6 +3,8 @@
 
 namespace BrawlerLibrary
 {
+	using namespace GameLibrary;
+	
 	Rules::Rules()
 	{
 		//

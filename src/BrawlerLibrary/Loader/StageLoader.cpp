@@ -3,6 +3,8 @@
 
 namespace BrawlerLibrary
 {
+	using namespace GameLibrary;
+	
 	StageLoader::StageLoader(Window&window)
 	{
 		assetManager = new AssetManager(window);
