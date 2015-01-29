@@ -152,6 +152,8 @@
 		E97FD7861A72DA22005AC479 /* Icon-Spotlight-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7741A72DA22005AC479 /* Icon-Spotlight-40@3x.png */; };
 		E97FD7871A72DA22005AC479 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7751A72DA22005AC479 /* Icon.png */; };
 		E97FD7881A72DA22005AC479 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7761A72DA22005AC479 /* Icon@2x.png */; };
+		E9946E481A7AA6F60054F2C8 /* InitialLoadListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9946E471A7AA6F60054F2C8 /* InitialLoadListener.cpp */; };
+		E9946E4B1A7AA7840054F2C8 /* ActorMenuElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9946E4A1A7AA7840054F2C8 /* ActorMenuElement.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -421,6 +423,10 @@
 		E97FD7741A72DA22005AC479 /* Icon-Spotlight-40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Spotlight-40@3x.png"; path = "icons/Icon-Spotlight-40@3x.png"; sourceTree = "<group>"; };
 		E97FD7751A72DA22005AC479 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = icons/Icon.png; sourceTree = "<group>"; };
 		E97FD7761A72DA22005AC479 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "icons/Icon@2x.png"; sourceTree = "<group>"; };
+		E9946E461A7AA6F60054F2C8 /* InitialLoadListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialLoadListener.h; sourceTree = "<group>"; };
+		E9946E471A7AA6F60054F2C8 /* InitialLoadListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InitialLoadListener.cpp; sourceTree = "<group>"; };
+		E9946E491A7AA7840054F2C8 /* ActorMenuElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActorMenuElement.h; sourceTree = "<group>"; };
+		E9946E4A1A7AA7840054F2C8 /* ActorMenuElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActorMenuElement.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -864,6 +870,8 @@
 				A03063B51A7710E90090DD6E /* ImageElement.h */,
 				A03063B61A7710E90090DD6E /* TextInputElement.cpp */,
 				A03063B71A7710E90090DD6E /* TextInputElement.h */,
+				E9946E491A7AA7840054F2C8 /* ActorMenuElement.h */,
+				E9946E4A1A7AA7840054F2C8 /* ActorMenuElement.cpp */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -980,6 +988,8 @@
 				A03063F21A7710EA0090DD6E /* MenuLoad.cpp */,
 				A03063F51A7710EA0090DD6E /* ModuleLoad.h */,
 				A03063F41A7710EA0090DD6E /* ModuleLoad.cpp */,
+				E9946E461A7AA6F60054F2C8 /* InitialLoadListener.h */,
+				E9946E471A7AA6F60054F2C8 /* InitialLoadListener.cpp */,
 			);
 			path = Load;
 			sourceTree = "<group>";
@@ -1184,6 +1194,7 @@
 				A030642D1A7710EA0090DD6E /* WireframeActor.cpp in Sources */,
 				A030642E1A7710EA0090DD6E /* Application.cpp in Sources */,
 				A030642F1A7710EA0090DD6E /* ApplicationData.cpp in Sources */,
+				E9946E4B1A7AA7840054F2C8 /* ActorMenuElement.cpp in Sources */,
 				A03064301A7710EA0090DD6E /* AssetManager.cpp in Sources */,
 				A03064311A7710EA0090DD6E /* BatchLoader.cpp in Sources */,
 				A03064321A7710EA0090DD6E /* EventManager.cpp in Sources */,
@@ -1240,6 +1251,7 @@
 				A03064651A7710EA0090DD6E /* Dictionary.cpp in Sources */,
 				A03064661A7710EA0090DD6E /* Font.cpp in Sources */,
 				A03064671A7710EA0090DD6E /* RenderedGlyphContainer.cpp in Sources */,
+				E9946E481A7AA6F60054F2C8 /* InitialLoadListener.cpp in Sources */,
 				A03064681A7710EA0090DD6E /* Circle.cpp in Sources */,
 				A03064691A7710EA0090DD6E /* Polygon.cpp in Sources */,
 				A030646A1A7710EA0090DD6E /* Transform.cpp in Sources */,
