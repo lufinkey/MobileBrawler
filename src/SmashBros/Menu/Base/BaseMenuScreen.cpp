@@ -54,7 +54,7 @@ namespace SmashBros
 			delete headerbarElement;
 		}
 		
-		void BaseMenuScreen::updateItems(ApplicationData appData)
+		void BaseMenuScreen::onUpdate(ApplicationData appData)
 		{
 			if(getSelectedIndex() != MENUSCREEN_NOSELECTION)
 			{
@@ -81,18 +81,18 @@ namespace SmashBros
 					}
 				}
 			}
-			MenuScreen::updateItems(appData);
+			MenuScreen::onUpdate(appData);
 		}
 		
-		void BaseMenuScreen::drawItem(ApplicationData appData, Graphics graphics, unsigned int itemIndex) const
+		void BaseMenuScreen::drawItem(ApplicationData appData, Graphics graphics, Actor*item) const
 		{
-			if(itemIndex == getSelectedIndex())
+			unsigned int selectedIndex = getSelectedIndex();
+			if(selectedIndex!=MENUSCREEN_NOSELECTION && item == getItem(selectedIndex))
 			{
-				Actor* actor = getItem(itemIndex);
 				//RectangleF frame = actor->getFrame();
 				if(hoverPulseEnabled)
 				{
-					graphics.scale(hoverPulseScale, hoverPulseScale, actor->x, actor->y);
+					graphics.scale(hoverPulseScale, hoverPulseScale, item->x, item->y);
 				}
 				if(hoverPressed)
 				{
@@ -103,7 +103,7 @@ namespace SmashBros
 					graphics.compositeTintColor(PULSE_HOVERCOLOR);
 				}
 			}
-			MenuScreen::drawItem(appData, graphics, itemIndex);
+			MenuScreen::drawItem(appData, graphics, item);
 		}
 		
 		void BaseMenuScreen::onItemHover(unsigned int index)

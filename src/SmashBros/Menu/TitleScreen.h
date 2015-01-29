@@ -16,13 +16,11 @@ namespace SmashBros
 			ImageElement* logo;
 			WireframeActor* tapRegion;
 			
-		protected:
-			virtual void updateItems(ApplicationData appData) override;
-			
 		public:
 			TitleScreen(const SmashData&smashData);
 			virtual ~TitleScreen();
 			
+			virtual void onUpdate(ApplicationData appData) override;
 			virtual void onItemSelect(unsigned int index) override;
 		};
 	}

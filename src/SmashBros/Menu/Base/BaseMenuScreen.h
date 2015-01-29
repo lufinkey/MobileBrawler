@@ -19,6 +19,8 @@ namespace SmashBros
 			BaseMenuScreen(const SmashData&smashData);
 			virtual ~BaseMenuScreen();
 			
+			virtual void onUpdate(ApplicationData appData) override;
+			
 			virtual void onItemHover(unsigned int index) override;
 			virtual void onItemHoverFinish(unsigned int index) override;
 			virtual void onItemPress(unsigned int index) override;
@@ -35,8 +37,7 @@ namespace SmashBros
 			void enableHoverPulse(bool);
 			
 		protected:
-			virtual void updateItems(ApplicationData appData) override;
-			virtual void drawItem(ApplicationData appData, Graphics graphics, unsigned int itemIndex) const override;
+			virtual void drawItem(ApplicationData appData, Graphics graphics, Actor*item) const override;
 			
 		private:
 			float hoverPulseScale;

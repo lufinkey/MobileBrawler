@@ -6,7 +6,7 @@ namespace GameLibrary
 {
 //MenuScreen::MainElement
 	
-	MenuScreen::MainElement::MainElement(MenuScreen*screen, const RectangleF&frame) : ScreenElement(frame)
+	MenuScreen::MainElement::MainElement(MenuScreen*screen, const RectangleF&frame) : ActorMenuElement(frame)
 	{
 		menuScreen = screen;
 	}
@@ -16,17 +16,41 @@ namespace GameLibrary
 		//
 	}
 	
-	void MenuScreen::MainElement::update(ApplicationData appData)
+	void MenuScreen::MainElement::drawActor(ApplicationData appData, Graphics graphics, Actor*actor) const
 	{
-		setFrame(getParentElement()->getFrame());
-		ScreenElement::update(appData);
-		menuScreen->updateItems(appData);
+		menuScreen->drawItem(appData, graphics, actor);
 	}
 	
-	void MenuScreen::MainElement::drawMain(ApplicationData appData, Graphics graphics) const
+	void MenuScreen::MainElement::onActorHover(unsigned int index)
 	{
-		menuScreen->drawItems(appData, graphics);
+		menuScreen->onItemHover(index);
 	}
+	
+	void MenuScreen::MainElement::onActorHoverFinish(unsigned int index)
+	{
+		menuScreen->onItemHoverFinish(index);
+	}
+	
+	void MenuScreen::MainElement::onActorPress(unsigned int index)
+	{
+		menuScreen->onItemPress(index);
+	}
+	
+	void MenuScreen::MainElement::onActorPressCancel(unsigned int index)
+	{
+		menuScreen->onItemPressCancel(index);
+	}
+	
+	void MenuScreen::MainElement::onActorRelease(unsigned int index)
+	{
+		menuScreen->onItemRelease(index);
+	}
+	
+	void MenuScreen::MainElement::onActorSelect(unsigned int index)
+	{
+		menuScreen->onItemSelect(index);
+	}
+	
 	
 //MenuScreen
 	
@@ -37,9 +61,6 @@ namespace GameLibrary
 	
 	MenuScreen::MenuScreen(Window*window) : Screen(window)
 	{
-		selectedIndex = MENUSCREEN_NOSELECTION;
-		keyboardEnabled = false;
-		pressingItem = false;
 		GameLibrary::ScreenElement* element = getElement();
 		mainElement = new MainElement(this, element->getFrame());
 		element->addChildElement(mainElement);
@@ -47,298 +68,24 @@ namespace GameLibrary
 
 	MenuScreen::~MenuScreen()
 	{
+		ArrayList<Actor*> items = mainElement->getActors();
 		mainElement->removeFromParentElement();
 		delete mainElement;
 		mainElement = nullptr;
-		
-		for(unsigned int i = 0; i < items.size(); i++)
+		for(unsigned int i=0; i<items.size(); i++)
 		{
 			delete items.get(i);
 		}
-		items.clear();
 	}
 	
-	void MenuScreen::updateItems(ApplicationData appData)
+	void MenuScreen::drawItem(ApplicationData appData, Graphics graphics, Actor*item) const
 	{
-		ArrayList<Pair<Keyboard::Key, KeyDirection> > keyList = keys;
-		for(unsigned int i=0; i<keyList.size(); i++)
-		{
-			Pair<Keyboard::Key, KeyDirection>& keypair = keyList.get(i);
-			if(Keyboard::isKeyPressed(keypair.first) && !Keyboard::wasKeyPressed(keypair.first))
-			{
-				//on key press
-				switch(keypair.second)
-				{
-					case KEYDIR_UP:
-					moveHoverUp();
-					break;
-					
-					case KEYDIR_DOWN:
-					moveHoverDown();
-					break;
-					
-					case KEYDIR_LEFT:
-					moveHoverLeft();
-					break;
-					
-					case KEYDIR_RIGHT:
-					moveHoverRight();
-					break;
-					
-					case KEYDIR_SELECT:
-					if(keyboardEnabled && selectedIndex!=MENUSCREEN_NOSELECTION)
-					{
-						pressingItem = true;
-						onItemPress(selectedIndex);
-					}
-					break;
-				}
-			}
-			else if(Keyboard::wasKeyPressed(keypair.first) && !Keyboard::isKeyPressed(keypair.first))
-			{
-				if(keypair.second==KEYDIR_SELECT)
-				{
-					if(keyboardEnabled && pressingItem)
-					{
-						onItemRelease(selectedIndex);
-						selectCurrentIndex();
-					}
-				}
-			}
-		}
-
-		if(keyboardEnabled)
-		{
-			unsigned int lastSelectedIndex = selectedIndex;
-			if(lastSelectedIndex != MENUSCREEN_NOSELECTION)
-			{
-				Actor* actor = items.get(lastSelectedIndex);
-				actor->update(appData);
-				if(actor->isMouseOver() && !actor->wasMouseOver())
-				{
-					setKeyboardEnabled(false);
-				}
-				else if(actor->isMousePressed() && !actor->wasMousePressed())
-				{
-					setKeyboardEnabled(false);
-				}
-			}
-			for(unsigned int i = 0; i < items.size(); i++)
-			{
-				if(i != lastSelectedIndex)
-				{
-					Actor* actor = items.get(i);
-					actor->update(appData);
-					if(actor->isMouseOver() && !actor->wasMouseOver())
-					{
-						setKeyboardEnabled(false);
-					}
-					else if(actor->isMousePressed() && !actor->wasMousePressed())
-					{
-						setKeyboardEnabled(false);
-					}
-				}
-			}
-		}
-		else
-		{
-			unsigned int lastSelectedIndex = selectedIndex;
-			//test/update currently hovered actor
-			if(lastSelectedIndex != MENUSCREEN_NOSELECTION)
-			{
-				Actor* actor = items.get(lastSelectedIndex);
-				actor->update(appData);
-				if(actor->isMouseOver())
-				{
-					if(pressingItem)
-					{
-						if(!actor->isMousePressed())
-						{
-							pressingItem = false;
-							actor->clearMouseState();
-							onItemRelease(lastSelectedIndex);
-							onItemHoverFinish(lastSelectedIndex);
-							onItemSelect(lastSelectedIndex);
-						}
-					}
-					else
-					{
-						if(actor->isMousePressed())
-						{
-							pressingItem = true;
-							onItemPress(lastSelectedIndex);
-						}
-					}
-				}
-				else
-				{
-					selectedIndex = MENUSCREEN_NOSELECTION;
-					if(pressingItem)
-					{
-						pressingItem = false;
-						if(actor->didMouseRelease())
-						{
-							//TODO have mouse state clearing be called from menuscreen subclass
-							actor->clearMouseState();
-							onItemRelease(lastSelectedIndex);
-							onItemHoverFinish(lastSelectedIndex);
-							onItemSelect(lastSelectedIndex);
-						}
-						else
-						{
-							onItemPressCancel(lastSelectedIndex);
-							onItemHoverFinish(lastSelectedIndex);
-						}
-					}
-					else
-					{
-						onItemHoverFinish(lastSelectedIndex);
-					}
-				}
-				/*if(actor->isMouseOver())
-				{
-					//actor->wasMouseOver() is implied to be true, since we're testing for the currently hovered object
-					if(actor->isMousePressed() && !actor->wasMousePressed())
-					{
-						pressingItem = true;
-						onItemPress(lastSelectedIndex);
-					}
-					else if(pressingItem && !actor->isMousePressed())
-					{
-						pressingItem = false;
-						actor->clearMouseState();
-						onItemRelease(lastSelectedIndex);
-						onItemHoverFinish(lastSelectedIndex);
-						onItemSelect(lastSelectedIndex);
-					}
-				}
-				else
-				{
-					selectedIndex = MENUSCREEN_NOSELECTION;
-					if(pressingItem)
-					{
-						pressingItem = false;
-						onItemPressCancel(lastSelectedIndex);
-					}
-					onItemHoverFinish(lastSelectedIndex);
-				}*/
-			}
-
-			ArrayList<Actor*> menuItems = items;
-
-			//test/update other actors
-			for(unsigned int i=0; i<menuItems.size(); i++)
-			{
-				if(i != lastSelectedIndex)
-				{
-					Actor* actor = menuItems.get(i);
-
-					//make sure actor wasn't added or removed from the screen during an event
-					unsigned int actorIndex = ARRAYLIST_NOTFOUND;
-					if(i<items.size() && items.get(i)==actor)
-					{
-						actorIndex = i;
-					}
-					else
-					{
-						actorIndex = items.indexOf(actor);
-					}
-					
-					//if the actor is still in the screen
-					if(actorIndex!=ARRAYLIST_NOTFOUND)
-					{
-						actor->update(appData);
-						
-						//checking selection by mouse
-						if(!keyboardEnabled)
-						{
-							if(selectedIndex == MENUSCREEN_NOSELECTION)
-							{
-								if(actor->isMouseOver())
-								{
-									//actor->wasMouseOver() is implied to be false, since we're testing for objects that are not the current value of MenuScreen::selectedIndex
-									
-									//make sure actor wasn't added or removed from the screen during an event
-									if(actorIndex<items.size() && items.get(actorIndex)==actor)
-									{
-										selectedIndex = actorIndex;
-									}
-									else
-									{
-										actorIndex = items.indexOf(actor);
-									}
-									
-									//check item's mouse hover/press state
-									if(actorIndex != MENUSCREEN_NOSELECTION)
-									{
-										selectedIndex = actorIndex;
-										onItemHover(selectedIndex);
-										
-										//make sure actor wasn't added or removed from the screen during an event
-										if(actorIndex<items.size() && items.get(actorIndex)==actor)
-										{
-											selectedIndex = actorIndex;
-										}
-										else
-										{
-											actorIndex = items.indexOf(actor);
-										}
-										
-										//check item's mouse press state
-										if(actorIndex!=ARRAYLIST_NOTFOUND && selectedIndex==actorIndex && !keyboardEnabled)
-										{
-											/*if(actor->isMousePressed() && !actor->wasMousePressed())
-											{
-												pressingItem = true;
-												onItemPress(selectedIndex);
-											}*/
-											if(actor->didMousePress() && !actor->wasMousePressed())
-											{
-												pressingItem = true;
-												onItemPress(selectedIndex);
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	void MenuScreen::drawItem(ApplicationData appData, Graphics graphics, unsigned int itemIndex) const
-	{
-		Actor* actor = items.get(itemIndex);
-		actor->draw(appData, graphics);
-	}
-	
-	void MenuScreen::drawItems(ApplicationData appData, Graphics graphics) const
-	{
-		unsigned int hoveredIndex = selectedIndex;
-		for(unsigned int i=0; i<items.size(); i++)
-		{
-			if(i!=hoveredIndex)
-			{
-				drawItem(appData, graphics, i);
-			}
-		}
-		
-		if(hoveredIndex != MENUSCREEN_NOSELECTION)
-		{
-			drawItem(appData, graphics, hoveredIndex);
-		}
+		item->draw(appData, graphics);
 	}
 	
 	unsigned int MenuScreen::addItem(SpriteActor*actor)
 	{
-		if(actor == nullptr)
-		{
-			throw IllegalArgumentException("Cannot add a null SpriteActor to a GameLibrary::MenuScreen object");
-		}
-		items.add(actor);
-		return items.size()-1;
+		return mainElement->addActor(actor);
 	}
 	
 	unsigned int MenuScreen::addItem(const Vector2f&position, Animation*animation, const Animation::Direction&direction, bool destructAnimation)
@@ -354,61 +101,32 @@ namespace GameLibrary
 		SpriteActor* actor = new SpriteActor(position.x, position.y);
 		actor->addAnimation("default", animation, destructAnimation);
 		actor->changeAnimation("default", direction);
-		items.add(actor);
-		return items.size()-1;
+		return mainElement->addActor(actor);
 	}
 	
 	unsigned int MenuScreen::addItem(TextActor*actor)
 	{
-		if(actor == nullptr)
-		{
-			throw IllegalArgumentException("Cannot add a null TextActor to a GameLibrary::MenuScreen object");
-		}
-		items.add(actor);
-		return items.size()-1;
+		return mainElement->addActor(actor);
 	}
 	
 	unsigned int MenuScreen::addItem(const Vector2f&position, const String&text, Font*font, const Color&color, unsigned int fontsize, const Font::Style&fontstyle, const TextActor::TextAlignment&alignment)
 	{
-		if(font == nullptr)
-		{
-			throw IllegalArgumentException("Cannot add an item with a null Font to a GameLibrary::MenuScreen object");
-		}
-		TextActor* textActor = new TextActor(position.x, position.y, text, font, color, fontsize, fontstyle, alignment);
-		items.add(textActor);
-		return items.size()-1;
+		return mainElement->addActor(new TextActor(position.x, position.y, text, font, color, fontsize, fontstyle, alignment));
 	}
 	
 	void MenuScreen::removeItem(unsigned int index)
 	{
-		Actor* actor = items.get(index);
-		items.remove(index);
-		delete actor;
-		if(selectedIndex == index)
-		{
-			selectedIndex = MENUSCREEN_NOSELECTION;
-		}
-		else if(selectedIndex > index)
-		{
-			if(items.size()>0)
-			{
-				selectedIndex--;
-			}
-			else
-			{
-				selectedIndex = MENUSCREEN_NOSELECTION;
-			}
-		}
+		mainElement->removeActor(index);
 	}
 	
 	unsigned int MenuScreen::getTotalItems()
 	{
-		return items.size();
+		return mainElement->getTotalActors();
 	}
 	
 	Actor* MenuScreen::getItem(unsigned int index) const
 	{
-		return items.get(index);
+		return mainElement->getActor(index);
 	}
 	
 	void MenuScreen::onItemHover(unsigned int index)
@@ -443,241 +161,76 @@ namespace GameLibrary
 	
 	void MenuScreen::moveHoverUp()
 	{
-		unsigned int index = getSelectedIndex();
-		unsigned int totalItems = getTotalItems();
-		if(index == MENUSCREEN_NOSELECTION)
-		{
-			if(totalItems>0)
-			{
-				index = totalItems-1;
-				setSelectedIndex(index);
-			}
-		}
-		else
-		{
-			if(index==0)
-			{
-				if(totalItems>0)
-				{
-					index = totalItems-1;
-				}
-				else
-				{
-					index = MENUSCREEN_NOSELECTION;
-				}
-			}
-			else
-			{
-				index--;
-			}
-
-			setSelectedIndex(index);
-		}
+		mainElement->moveHoverUp();
 	}
 	
 	void MenuScreen::moveHoverDown()
 	{
-		unsigned int index = getSelectedIndex();
-		unsigned int totalItems = getTotalItems();
-		if(index == MENUSCREEN_NOSELECTION)
-		{
-			if(totalItems>0)
-			{
-				index = 0;
-				setSelectedIndex(index);
-			}
-		}
-		else
-		{
-			index++;
-			if(index>totalItems)
-			{
-				if(totalItems>0)
-				{
-					index = 0;
-				}
-				else
-				{
-					index = MENUSCREEN_NOSELECTION;
-				}
-			}
-
-			setSelectedIndex(index);
-		}
+		mainElement->moveHoverDown();
 	}
 	
 	void MenuScreen::moveHoverLeft()
 	{
-		moveHoverUp();
+		mainElement->moveHoverLeft();
 	}
 	
 	void MenuScreen::moveHoverRight()
 	{
-		moveHoverDown();
+		mainElement->moveHoverRight();
 	}
 	
 	bool MenuScreen::selectCurrentIndex()
 	{
-		if(selectedIndex!=MENUSCREEN_NOSELECTION && selectedIndex < items.size())
-		{
-			onItemSelect(selectedIndex);
-			return true;
-		}
-		return false;
+		return mainElement->selectCurrentIndex();
 	}
 	
-	void MenuScreen::addUpKey(Keyboard::Key key)
+	void MenuScreen::addUpKey(const Keyboard::Key&key)
 	{
-		for(unsigned int i=0; i<keys.size(); i++)
-		{
-			Pair<Keyboard::Key, KeyDirection>& cmp = keys.get(i);
-			if(cmp.first == key)
-			{
-				keys.remove(i);
-				i = keys.size();
-			}
-		}
-		
-		keys.add(Pair<Keyboard::Key, KeyDirection>(key, KEYDIR_UP));
+		mainElement->addUpKey(key);
 	}
 	
-	void MenuScreen::addDownKey(Keyboard::Key key)
+	void MenuScreen::addDownKey(const Keyboard::Key&key)
 	{
-		for(unsigned int i=0; i<keys.size(); i++)
-		{
-			Pair<Keyboard::Key, KeyDirection>& cmp = keys.get(i);
-			if(cmp.first == key)
-			{
-				keys.remove(i);
-				i = keys.size();
-			}
-		}
-		
-		keys.add(Pair<Keyboard::Key, KeyDirection>(key, KEYDIR_DOWN));
+		mainElement->addDownKey(key);
 	}
 	
-	void MenuScreen::addLeftKey(Keyboard::Key key)
+	void MenuScreen::addLeftKey(const Keyboard::Key&key)
 	{
-		for(unsigned int i=0; i<keys.size(); i++)
-		{
-			Pair<Keyboard::Key, KeyDirection>& cmp = keys.get(i);
-			if(cmp.first == key)
-			{
-				keys.remove(i);
-				i = keys.size();
-			}
-		}
-		
-		keys.add(Pair<Keyboard::Key, KeyDirection>(key, KEYDIR_LEFT));
+		mainElement->addLeftKey(key);
 	}
 	
-	void MenuScreen::addRightKey(Keyboard::Key key)
+	void MenuScreen::addRightKey(const Keyboard::Key&key)
 	{
-		for(unsigned int i=0; i<keys.size(); i++)
-		{
-			Pair<Keyboard::Key, KeyDirection>& cmp = keys.get(i);
-			if(cmp.first == key)
-			{
-				keys.remove(i);
-				i = keys.size();
-			}
-		}
-		
-		keys.add(Pair<Keyboard::Key, KeyDirection>(key, KEYDIR_RIGHT));
+		mainElement->addRightKey(key);
 	}
 
-	void MenuScreen::addSelectKey(Keyboard::Key key)
+	void MenuScreen::addSelectKey(const Keyboard::Key&key)
 	{
-		for(unsigned int i=0; i<keys.size(); i++)
-		{
-			Pair<Keyboard::Key, KeyDirection>& cmp = keys.get(i);
-			if(cmp.first == key)
-			{
-				keys.remove(i);
-				i = keys.size();
-			}
-		}
-		
-		keys.add(Pair<Keyboard::Key, KeyDirection>(key, KEYDIR_SELECT));
+		mainElement->addSelectKey(key);
 	}
 	
 	void MenuScreen::clearKeys()
 	{
-		keys.clear();
+		mainElement->clearKeys();
 	}
 
 	void MenuScreen::setKeyboardEnabled(bool toggle)
 	{
-		if((toggle && !keyboardEnabled) || (keyboardEnabled && selectedIndex==MENUSCREEN_NOSELECTION))
-		{
-			//enable keyboard
-			keyboardEnabled = true;
-			if(pressingItem)
-			{
-				pressingItem = false;
-				onItemPressCancel(selectedIndex);
-			}
-		}
-		else if(!toggle && keyboardEnabled)
-		{
-			//disable keyboard
-			keyboardEnabled = false;
-			if(pressingItem)
-			{
-				pressingItem = false;
-				onItemPressCancel(selectedIndex);
-			}
-			if(selectedIndex != MENUSCREEN_NOSELECTION)
-			{
-				Actor* actor = items.get(selectedIndex);
-				if(!actor->isMouseOver())
-				{
-					onItemHoverFinish(selectedIndex);
-				}
-			}
-		}
+		mainElement->setKeyboardEnabled(toggle);
 	}
 	
 	void MenuScreen::setSelectedIndex(unsigned int index)
 	{
-		bool keyboardWasEnabled = keyboardEnabled;
-		setKeyboardEnabled(true);
-		if(index != selectedIndex)
-		{
-			unsigned int oldSelectedIndex = selectedIndex;
-			bool wasPressingItem = pressingItem;
-			pressingItem = false;
-			
-			if(oldSelectedIndex != MENUSCREEN_NOSELECTION)
-			{
-				if(wasPressingItem)
-				{
-					onItemPressCancel(oldSelectedIndex);
-				}
-				selectedIndex = MENUSCREEN_NOSELECTION;
-				onItemHoverFinish(oldSelectedIndex);
-			}
-			
-			if(index != MENUSCREEN_NOSELECTION && index<items.size())
-			{
-				selectedIndex = index;
-				onItemHover(index);
-				if(wasPressingItem && keyboardWasEnabled)
-				{
-					pressingItem = true;
-					onItemPress(index);
-				}
-			}
-		}
+		mainElement->setSelectedIndex(index);
 	}
 	
 	bool MenuScreen::isKeyboardEnabled() const
 	{
-		return keyboardEnabled;
+		return mainElement->isKeyboardEnabled();
 	}
 	
 	unsigned int MenuScreen::getSelectedIndex() const
 	{
-		return selectedIndex;
+		return mainElement->getSelectedIndex();
 	}
 }

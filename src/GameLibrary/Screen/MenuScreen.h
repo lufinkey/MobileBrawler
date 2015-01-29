@@ -2,7 +2,7 @@
 #pragma once
 
 #include "Screen.h"
-#include "ScreenElement.h"
+#include "UI/ActorMenuElement.h"
 #include "../Actor/Actor.h"
 #include "../Actor/SpriteActor.h"
 #include "../Actor/Animation.h"
@@ -13,7 +13,7 @@
 
 namespace GameLibrary
 {
-#define MENUSCREEN_NOSELECTION UINT_MAX
+#define MENUSCREEN_NOSELECTION ACTORMENU_NOSELECTION
 	class MenuScreen : public Screen
 	{
 	public:
@@ -48,11 +48,11 @@ namespace GameLibrary
 		virtual void moveHoverRight();
 		virtual bool selectCurrentIndex();
 		
-		void addUpKey(Keyboard::Key key);
-		void addDownKey(Keyboard::Key key);
-		void addLeftKey(Keyboard::Key key);
-		void addRightKey(Keyboard::Key key);
-		void addSelectKey(Keyboard::Key key);
+		void addUpKey(const Keyboard::Key&key);
+		void addDownKey(const Keyboard::Key&key);
+		void addLeftKey(const Keyboard::Key&key);
+		void addRightKey(const Keyboard::Key&key);
+		void addSelectKey(const Keyboard::Key&key);
 		void clearKeys();
 
 		void setKeyboardEnabled(bool);
@@ -62,53 +62,29 @@ namespace GameLibrary
 		unsigned int getSelectedIndex() const;
 		
 	protected:
-		virtual void updateItems(ApplicationData appData);
-		virtual void drawItem(ApplicationData appData, Graphics graphics, unsigned int itemIndex) const;
-		virtual void drawItems(ApplicationData appData, Graphics graphics) const;
+		virtual void drawItem(ApplicationData appData, Graphics graphics, Actor*item) const;
 		
 	private:
-		class MainElement : public GameLibrary::ScreenElement
+		class MainElement : public ActorMenuElement
 		{
 		private:
 			MenuScreen*menuScreen;
+			
+		protected:
+			virtual void drawActor(ApplicationData appData, Graphics graphics, Actor*actor) const override;
+			
 		public:
 			MainElement(MenuScreen*menuScreen, const RectangleF&frame);
 			virtual ~MainElement();
 			
-			virtual void update(ApplicationData appData) override;
-			virtual void drawMain(ApplicationData appData, Graphics graphics) const override;
+			virtual void onActorHover(unsigned int index) override;
+			virtual void onActorHoverFinish(unsigned int index) override;
+			virtual void onActorPress(unsigned int index) override;
+			virtual void onActorPressCancel(unsigned int index) override;
+			virtual void onActorRelease(unsigned int index) override;
+			virtual void onActorSelect(unsigned int index) override;
 		};
 		
-		ArrayList<Actor*> items;
-		unsigned int selectedIndex;
 		MainElement* mainElement;
-		bool keyboardEnabled;
-		bool pressingItem;
-		
-		typedef enum
-		{
-			KEYDIR_UP,
-			KEYDIR_DOWN,
-			KEYDIR_LEFT,
-			KEYDIR_RIGHT,
-			KEYDIR_SELECT
-		} KeyDirection;
-		
-		ArrayList<Pair<Keyboard::Key, KeyDirection> > keys;
 	};
-	
-	//TODO make moveHoverUp, moveHoverDown, moveHoverLeft, and moveHoverRight look for the nearest box in the specified direction
-	// ex: moveHoverDown()
-	//     _________
-	//     |       |
-	//     |_______|
-	//    /         \
-	//   /           \
-	// _____
-	// |___|
-	//
-	// that box at the bottom left will get selected, because it's within the range of "down" for the current item.
-	// the "technical" x and y values will get stored in order to keep a straight line going down (ie. if there's a "fork")
-	// if there are no items within the direction's range, it will look for all items with a center that is below it's center (or left of for left, right of for right, etc)
-	// if there are no items there, it will look for the furthest most item within the opposite range
 }

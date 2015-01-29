@@ -44,9 +44,9 @@ namespace SmashBros
 			delete tapRegion;
 		}
 		
-		void TitleScreen::updateItems(ApplicationData appData)
+		void TitleScreen::onUpdate(ApplicationData appData)
 		{
-			BaseMenuScreen::updateItems(appData);
+			BaseMenuScreen::onUpdate(appData);
 			tapRegion->update(appData);
 			if(tapRegion->didMouseRelease())
 			{
