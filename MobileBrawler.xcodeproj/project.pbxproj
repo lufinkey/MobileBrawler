@@ -134,6 +134,8 @@
 		A03064881A7710EA0090DD6E /* SmashData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A030641A1A7710EA0090DD6E /* SmashData.cpp */; };
 		A03064891A7710EA0090DD6E /* SoloMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A030641C1A7710EA0090DD6E /* SoloMenu.cpp */; };
 		A030648A1A7710EA0090DD6E /* TitleScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A030641E1A7710EA0090DD6E /* TitleScreen.cpp */; };
+		A0C344481A7BD4E800676A36 /* GroupRulesMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0C344461A7BD4B900676A36 /* GroupRulesMenu.cpp */; };
+		A0C3444B1A7BD51900676A36 /* GroupSmashStageSelectMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0C344491A7BD50F00676A36 /* GroupSmashStageSelectMenu.cpp */; };
 		E97FD7771A72DA22005AC479 /* Icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7651A72DA22005AC479 /* Icon-60.png */; };
 		E97FD7781A72DA22005AC479 /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7661A72DA22005AC479 /* Icon-60@2x.png */; };
 		E97FD7791A72DA22005AC479 /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7671A72DA22005AC479 /* Icon-60@3x.png */; };
@@ -408,6 +410,10 @@
 		A030641D1A7710EA0090DD6E /* SoloMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoloMenu.h; sourceTree = "<group>"; };
 		A030641E1A7710EA0090DD6E /* TitleScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TitleScreen.cpp; sourceTree = "<group>"; };
 		A030641F1A7710EA0090DD6E /* TitleScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleScreen.h; sourceTree = "<group>"; };
+		A0C344461A7BD4B900676A36 /* GroupRulesMenu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GroupRulesMenu.cpp; sourceTree = "<group>"; };
+		A0C344471A7BD4B900676A36 /* GroupRulesMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupRulesMenu.h; sourceTree = "<group>"; };
+		A0C344491A7BD50F00676A36 /* GroupSmashStageSelectMenu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GroupSmashStageSelectMenu.cpp; sourceTree = "<group>"; };
+		A0C3444A1A7BD50F00676A36 /* GroupSmashStageSelectMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupSmashStageSelectMenu.h; sourceTree = "<group>"; };
 		E97FD7651A72DA22005AC479 /* Icon-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60.png"; path = "icons/Icon-60.png"; sourceTree = "<group>"; };
 		E97FD7661A72DA22005AC479 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@2x.png"; path = "icons/Icon-60@2x.png"; sourceTree = "<group>"; };
 		E97FD7671A72DA22005AC479 /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@3x.png"; path = "icons/Icon-60@3x.png"; sourceTree = "<group>"; };
@@ -1011,8 +1017,12 @@
 				A03064171A7710EA0090DD6E /* MenuData */,
 				A03064121A7710EA0090DD6E /* GroupMenu.h */,
 				A03064111A7710EA0090DD6E /* GroupMenu.cpp */,
+				A0C344471A7BD4B900676A36 /* GroupRulesMenu.h */,
+				A0C344461A7BD4B900676A36 /* GroupRulesMenu.cpp */,
 				A03064141A7710EA0090DD6E /* GroupSmashCharacterSelectMenu.h */,
 				A03064131A7710EA0090DD6E /* GroupSmashCharacterSelectMenu.cpp */,
+				A0C3444A1A7BD50F00676A36 /* GroupSmashStageSelectMenu.h */,
+				A0C344491A7BD50F00676A36 /* GroupSmashStageSelectMenu.cpp */,
 				A03064161A7710EA0090DD6E /* MainMenu.h */,
 				A03064151A7710EA0090DD6E /* MainMenu.cpp */,
 				A030641D1A7710EA0090DD6E /* SoloMenu.h */,
@@ -1107,12 +1117,12 @@
 		E9D306C81A7AAD5800C4E7F5 /* StageSelect */ = {
 			isa = PBXGroup;
 			children = (
-				E9D306C91A7AAD5800C4E7F5 /* StageSelect_StageIcon.cpp */,
 				E9D306CA1A7AAD5800C4E7F5 /* StageSelect_StageIcon.h */,
-				E9D306CB1A7AAD5800C4E7F5 /* StageSelect_StagePreview.cpp */,
+				E9D306C91A7AAD5800C4E7F5 /* StageSelect_StageIcon.cpp */,
 				E9D306CC1A7AAD5800C4E7F5 /* StageSelect_StagePreview.h */,
-				E9D306CD1A7AAD5800C4E7F5 /* StageSelectScreen.cpp */,
+				E9D306CB1A7AAD5800C4E7F5 /* StageSelect_StagePreview.cpp */,
 				E9D306CE1A7AAD5800C4E7F5 /* StageSelectScreen.h */,
+				E9D306CD1A7AAD5800C4E7F5 /* StageSelectScreen.cpp */,
 			);
 			name = StageSelect;
 			path = src/SmashBros/Menu/Base/StageSelect;
@@ -1314,6 +1324,8 @@
 				A03064881A7710EA0090DD6E /* SmashData.cpp in Sources */,
 				A03064891A7710EA0090DD6E /* SoloMenu.cpp in Sources */,
 				A030648A1A7710EA0090DD6E /* TitleScreen.cpp in Sources */,
+				A0C344481A7BD4E800676A36 /* GroupRulesMenu.cpp in Sources */,
+				A0C3444B1A7BD51900676A36 /* GroupSmashStageSelectMenu.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
