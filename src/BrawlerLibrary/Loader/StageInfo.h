@@ -9,15 +9,18 @@ namespace BrawlerLibrary
 	{
 	private:
 		GameLibrary::String path;
-		GameLibrary::String name;
+		//GameLibrary::String name;
 		GameLibrary::String creator;
 		GameLibrary::String version;
-		GameLibrary::String minsmashversion;
+		//GameLibrary::String minsmashversion; //TODO uncomment and remove public variable
 		
 	public:
 		StageInfo();
 		StageInfo(const StageInfo&);
 		~StageInfo();
+		
+		GameLibrary::String name;	//TODO Remove this line and the following
+		GameLibrary::String minsmashversion;
 		
 		StageInfo& operator=(const StageInfo&);
 		
