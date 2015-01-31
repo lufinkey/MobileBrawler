@@ -127,15 +127,15 @@
 		A03064811A7710EA0090DD6E /* MenuBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A030640B1A7710EA0090DD6E /* MenuBar.cpp */; };
 		A03064821A7710EA0090DD6E /* MenuBarValueAdjust.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A030640D1A7710EA0090DD6E /* MenuBarValueAdjust.cpp */; };
 		A03064831A7710EA0090DD6E /* RulesBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A030640F1A7710EA0090DD6E /* RulesBar.cpp */; };
-		A03064841A7710EA0090DD6E /* GroupMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03064111A7710EA0090DD6E /* GroupMenu.cpp */; };
-		A03064851A7710EA0090DD6E /* GroupSmashCharacterSelectMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03064131A7710EA0090DD6E /* GroupSmashCharacterSelectMenu.cpp */; };
 		A03064861A7710EA0090DD6E /* MainMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03064151A7710EA0090DD6E /* MainMenu.cpp */; };
 		A03064871A7710EA0090DD6E /* GroupSmashData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03064181A7710EA0090DD6E /* GroupSmashData.cpp */; };
 		A03064881A7710EA0090DD6E /* SmashData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A030641A1A7710EA0090DD6E /* SmashData.cpp */; };
 		A03064891A7710EA0090DD6E /* SoloMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A030641C1A7710EA0090DD6E /* SoloMenu.cpp */; };
 		A030648A1A7710EA0090DD6E /* TitleScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A030641E1A7710EA0090DD6E /* TitleScreen.cpp */; };
-		A0C344481A7BD4E800676A36 /* GroupRulesMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0C344461A7BD4B900676A36 /* GroupRulesMenu.cpp */; };
-		A0C3444B1A7BD51900676A36 /* GroupSmashStageSelectMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0C344491A7BD50F00676A36 /* GroupSmashStageSelectMenu.cpp */; };
+		E95440CF1A7C869700F70736 /* GroupMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E95440CB1A7C869700F70736 /* GroupMenu.cpp */; };
+		E95440D01A7C869700F70736 /* GroupRulesMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E95440CC1A7C869700F70736 /* GroupRulesMenu.cpp */; };
+		E95440D11A7C869700F70736 /* GroupSmashCharacterSelectMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E95440CD1A7C869700F70736 /* GroupSmashCharacterSelectMenu.cpp */; };
+		E95440D21A7C869700F70736 /* GroupSmashStageSelectMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E95440CE1A7C869700F70736 /* GroupSmashStageSelectMenu.cpp */; };
 		E97FD7771A72DA22005AC479 /* Icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7651A72DA22005AC479 /* Icon-60.png */; };
 		E97FD7781A72DA22005AC479 /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7661A72DA22005AC479 /* Icon-60@2x.png */; };
 		E97FD7791A72DA22005AC479 /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7671A72DA22005AC479 /* Icon-60@3x.png */; };
@@ -396,10 +396,6 @@
 		A030640E1A7710EA0090DD6E /* MenuBarValueAdjust.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuBarValueAdjust.h; sourceTree = "<group>"; };
 		A030640F1A7710EA0090DD6E /* RulesBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RulesBar.cpp; sourceTree = "<group>"; };
 		A03064101A7710EA0090DD6E /* RulesBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RulesBar.h; sourceTree = "<group>"; };
-		A03064111A7710EA0090DD6E /* GroupMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroupMenu.cpp; sourceTree = "<group>"; };
-		A03064121A7710EA0090DD6E /* GroupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupMenu.h; sourceTree = "<group>"; };
-		A03064131A7710EA0090DD6E /* GroupSmashCharacterSelectMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroupSmashCharacterSelectMenu.cpp; sourceTree = "<group>"; };
-		A03064141A7710EA0090DD6E /* GroupSmashCharacterSelectMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSmashCharacterSelectMenu.h; sourceTree = "<group>"; };
 		A03064151A7710EA0090DD6E /* MainMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainMenu.cpp; sourceTree = "<group>"; };
 		A03064161A7710EA0090DD6E /* MainMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenu.h; sourceTree = "<group>"; };
 		A03064181A7710EA0090DD6E /* GroupSmashData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroupSmashData.cpp; sourceTree = "<group>"; };
@@ -410,10 +406,14 @@
 		A030641D1A7710EA0090DD6E /* SoloMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoloMenu.h; sourceTree = "<group>"; };
 		A030641E1A7710EA0090DD6E /* TitleScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TitleScreen.cpp; sourceTree = "<group>"; };
 		A030641F1A7710EA0090DD6E /* TitleScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleScreen.h; sourceTree = "<group>"; };
-		A0C344461A7BD4B900676A36 /* GroupRulesMenu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GroupRulesMenu.cpp; sourceTree = "<group>"; };
-		A0C344471A7BD4B900676A36 /* GroupRulesMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupRulesMenu.h; sourceTree = "<group>"; };
-		A0C344491A7BD50F00676A36 /* GroupSmashStageSelectMenu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GroupSmashStageSelectMenu.cpp; sourceTree = "<group>"; };
-		A0C3444A1A7BD50F00676A36 /* GroupSmashStageSelectMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupSmashStageSelectMenu.h; sourceTree = "<group>"; };
+		E95440C71A7C869700F70736 /* GroupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupMenu.h; sourceTree = "<group>"; };
+		E95440C81A7C869700F70736 /* GroupRulesMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupRulesMenu.h; sourceTree = "<group>"; };
+		E95440C91A7C869700F70736 /* GroupSmashCharacterSelectMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSmashCharacterSelectMenu.h; sourceTree = "<group>"; };
+		E95440CA1A7C869700F70736 /* GroupSmashStageSelectMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSmashStageSelectMenu.h; sourceTree = "<group>"; };
+		E95440CB1A7C869700F70736 /* GroupMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroupMenu.cpp; sourceTree = "<group>"; };
+		E95440CC1A7C869700F70736 /* GroupRulesMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroupRulesMenu.cpp; sourceTree = "<group>"; };
+		E95440CD1A7C869700F70736 /* GroupSmashCharacterSelectMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroupSmashCharacterSelectMenu.cpp; sourceTree = "<group>"; };
+		E95440CE1A7C869700F70736 /* GroupSmashStageSelectMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroupSmashStageSelectMenu.cpp; sourceTree = "<group>"; };
 		E97FD7651A72DA22005AC479 /* Icon-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60.png"; path = "icons/Icon-60.png"; sourceTree = "<group>"; };
 		E97FD7661A72DA22005AC479 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@2x.png"; path = "icons/Icon-60@2x.png"; sourceTree = "<group>"; };
 		E97FD7671A72DA22005AC479 /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@3x.png"; path = "icons/Icon-60@3x.png"; sourceTree = "<group>"; };
@@ -1015,14 +1015,7 @@
 				A03063F81A7710EA0090DD6E /* Base */,
 				A03064061A7710EA0090DD6E /* Elements */,
 				A03064171A7710EA0090DD6E /* MenuData */,
-				A03064121A7710EA0090DD6E /* GroupMenu.h */,
-				A03064111A7710EA0090DD6E /* GroupMenu.cpp */,
-				A0C344471A7BD4B900676A36 /* GroupRulesMenu.h */,
-				A0C344461A7BD4B900676A36 /* GroupRulesMenu.cpp */,
-				A03064141A7710EA0090DD6E /* GroupSmashCharacterSelectMenu.h */,
-				A03064131A7710EA0090DD6E /* GroupSmashCharacterSelectMenu.cpp */,
-				A0C3444A1A7BD50F00676A36 /* GroupSmashStageSelectMenu.h */,
-				A0C344491A7BD50F00676A36 /* GroupSmashStageSelectMenu.cpp */,
+				E95440D31A7C86CE00F70736 /* GroupMenu */,
 				A03064161A7710EA0090DD6E /* MainMenu.h */,
 				A03064151A7710EA0090DD6E /* MainMenu.cpp */,
 				A030641D1A7710EA0090DD6E /* SoloMenu.h */,
@@ -1088,6 +1081,22 @@
 			);
 			path = MenuData;
 			sourceTree = "<group>";
+		};
+		E95440D31A7C86CE00F70736 /* GroupMenu */ = {
+			isa = PBXGroup;
+			children = (
+				E95440C71A7C869700F70736 /* GroupMenu.h */,
+				E95440CB1A7C869700F70736 /* GroupMenu.cpp */,
+				E95440C81A7C869700F70736 /* GroupRulesMenu.h */,
+				E95440CC1A7C869700F70736 /* GroupRulesMenu.cpp */,
+				E95440C91A7C869700F70736 /* GroupSmashCharacterSelectMenu.h */,
+				E95440CD1A7C869700F70736 /* GroupSmashCharacterSelectMenu.cpp */,
+				E95440CA1A7C869700F70736 /* GroupSmashStageSelectMenu.h */,
+				E95440CE1A7C869700F70736 /* GroupSmashStageSelectMenu.cpp */,
+			);
+			name = GroupMenu;
+			path = /Users/keeton/Documents/Projects/MobileBrawler/src/SmashBros/Menu;
+			sourceTree = "<absolute>";
 		};
 		E97FD7401A72D834005AC479 /* icons */ = {
 			isa = PBXGroup;
@@ -1211,6 +1220,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E95440CF1A7C869700F70736 /* GroupMenu.cpp in Sources */,
 				A01658361A70C291007D0BA1 /* pugixml.cpp in Sources */,
 				A03064201A7710EA0090DD6E /* PlayerInfo.cpp in Sources */,
 				A03064211A7710EA0090DD6E /* Rules.cpp in Sources */,
@@ -1245,6 +1255,7 @@
 				A030643C1A7710EA0090DD6E /* IllegalFormatException.cpp in Sources */,
 				A030643D1A7710EA0090DD6E /* IllegalStateException.cpp in Sources */,
 				A030643E1A7710EA0090DD6E /* InitializeLibraryException.cpp in Sources */,
+				E95440D11A7C869700F70736 /* GroupSmashCharacterSelectMenu.cpp in Sources */,
 				A030643F1A7710EA0090DD6E /* NumberFormatException.cpp in Sources */,
 				A03064401A7710EA0090DD6E /* OutOfBoundsException.cpp in Sources */,
 				A03064411A7710EA0090DD6E /* ScreenNavigationException.cpp in Sources */,
@@ -1254,6 +1265,7 @@
 				A03064451A7710EA0090DD6E /* BitSetOutOfBoundsException.cpp in Sources */,
 				A03064461A7710EA0090DD6E /* DataPacketOutOfBoundsException.cpp in Sources */,
 				A03064471A7710EA0090DD6E /* RenderGlyphException.cpp in Sources */,
+				E95440D01A7C869700F70736 /* GroupRulesMenu.cpp in Sources */,
 				A03064481A7710EA0090DD6E /* IllegalNumberOperationException.cpp in Sources */,
 				A03064491A7710EA0090DD6E /* StringOutOfBoundsException.cpp in Sources */,
 				A030644A1A7710EA0090DD6E /* IllegalDateTimeFormatException.cpp in Sources */,
@@ -1274,6 +1286,7 @@
 				A03064591A7710EA0090DD6E /* ScreenElement.cpp in Sources */,
 				A030645A1A7710EA0090DD6E /* ScreenManager.cpp in Sources */,
 				A030645B1A7710EA0090DD6E /* FadeColorTransition.cpp in Sources */,
+				E95440D21A7C869700F70736 /* GroupSmashStageSelectMenu.cpp in Sources */,
 				A030645C1A7710EA0090DD6E /* FadeZoomTransition.cpp in Sources */,
 				A030645D1A7710EA0090DD6E /* PopoverTransition.cpp in Sources */,
 				A030645E1A7710EA0090DD6E /* SlideTransition.cpp in Sources */,
@@ -1317,15 +1330,11 @@
 				A03064811A7710EA0090DD6E /* MenuBar.cpp in Sources */,
 				A03064821A7710EA0090DD6E /* MenuBarValueAdjust.cpp in Sources */,
 				A03064831A7710EA0090DD6E /* RulesBar.cpp in Sources */,
-				A03064841A7710EA0090DD6E /* GroupMenu.cpp in Sources */,
-				A03064851A7710EA0090DD6E /* GroupSmashCharacterSelectMenu.cpp in Sources */,
 				A03064861A7710EA0090DD6E /* MainMenu.cpp in Sources */,
 				A03064871A7710EA0090DD6E /* GroupSmashData.cpp in Sources */,
 				A03064881A7710EA0090DD6E /* SmashData.cpp in Sources */,
 				A03064891A7710EA0090DD6E /* SoloMenu.cpp in Sources */,
 				A030648A1A7710EA0090DD6E /* TitleScreen.cpp in Sources */,
-				A0C344481A7BD4E800676A36 /* GroupRulesMenu.cpp in Sources */,
-				A0C3444B1A7BD51900676A36 /* GroupSmashStageSelectMenu.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
