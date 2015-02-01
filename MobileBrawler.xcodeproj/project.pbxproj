@@ -136,6 +136,21 @@
 		E95440D01A7C869700F70736 /* GroupRulesMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E95440CC1A7C869700F70736 /* GroupRulesMenu.cpp */; };
 		E95440D11A7C869700F70736 /* GroupSmashCharacterSelectMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E95440CD1A7C869700F70736 /* GroupSmashCharacterSelectMenu.cpp */; };
 		E95440D21A7C869700F70736 /* GroupSmashStageSelectMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E95440CE1A7C869700F70736 /* GroupSmashStageSelectMenu.cpp */; };
+		E9581EEE1A7ECF900002CBC5 /* adler32.c in Sources */ = {isa = PBXBuildFile; fileRef = E9581ED41A7ECF900002CBC5 /* adler32.c */; };
+		E9581EEF1A7ECF900002CBC5 /* compress.c in Sources */ = {isa = PBXBuildFile; fileRef = E9581ED51A7ECF900002CBC5 /* compress.c */; };
+		E9581EF01A7ECF900002CBC5 /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = E9581ED61A7ECF900002CBC5 /* crc32.c */; };
+		E9581EF11A7ECF900002CBC5 /* deflate.c in Sources */ = {isa = PBXBuildFile; fileRef = E9581ED81A7ECF900002CBC5 /* deflate.c */; };
+		E9581EF21A7ECF900002CBC5 /* gzclose.c in Sources */ = {isa = PBXBuildFile; fileRef = E9581EDA1A7ECF900002CBC5 /* gzclose.c */; };
+		E9581EF31A7ECF900002CBC5 /* gzlib.c in Sources */ = {isa = PBXBuildFile; fileRef = E9581EDC1A7ECF900002CBC5 /* gzlib.c */; };
+		E9581EF41A7ECF900002CBC5 /* gzread.c in Sources */ = {isa = PBXBuildFile; fileRef = E9581EDD1A7ECF900002CBC5 /* gzread.c */; };
+		E9581EF51A7ECF900002CBC5 /* gzwrite.c in Sources */ = {isa = PBXBuildFile; fileRef = E9581EDE1A7ECF900002CBC5 /* gzwrite.c */; };
+		E9581EF61A7ECF900002CBC5 /* infback.c in Sources */ = {isa = PBXBuildFile; fileRef = E9581EDF1A7ECF900002CBC5 /* infback.c */; };
+		E9581EF71A7ECF900002CBC5 /* inffast.c in Sources */ = {isa = PBXBuildFile; fileRef = E9581EE01A7ECF900002CBC5 /* inffast.c */; };
+		E9581EF81A7ECF900002CBC5 /* inflate.c in Sources */ = {isa = PBXBuildFile; fileRef = E9581EE31A7ECF900002CBC5 /* inflate.c */; };
+		E9581EF91A7ECF900002CBC5 /* inftrees.c in Sources */ = {isa = PBXBuildFile; fileRef = E9581EE51A7ECF900002CBC5 /* inftrees.c */; };
+		E9581EFA1A7ECF900002CBC5 /* trees.c in Sources */ = {isa = PBXBuildFile; fileRef = E9581EE71A7ECF900002CBC5 /* trees.c */; };
+		E9581EFB1A7ECF900002CBC5 /* uncompr.c in Sources */ = {isa = PBXBuildFile; fileRef = E9581EE91A7ECF900002CBC5 /* uncompr.c */; };
+		E9581EFC1A7ECF900002CBC5 /* zutil.c in Sources */ = {isa = PBXBuildFile; fileRef = E9581EEC1A7ECF900002CBC5 /* zutil.c */; };
 		E97FD7771A72DA22005AC479 /* Icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7651A72DA22005AC479 /* Icon-60.png */; };
 		E97FD7781A72DA22005AC479 /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7661A72DA22005AC479 /* Icon-60@2x.png */; };
 		E97FD7791A72DA22005AC479 /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7671A72DA22005AC479 /* Icon-60@3x.png */; };
@@ -414,6 +429,32 @@
 		E95440CC1A7C869700F70736 /* GroupRulesMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroupRulesMenu.cpp; sourceTree = "<group>"; };
 		E95440CD1A7C869700F70736 /* GroupSmashCharacterSelectMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroupSmashCharacterSelectMenu.cpp; sourceTree = "<group>"; };
 		E95440CE1A7C869700F70736 /* GroupSmashStageSelectMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroupSmashStageSelectMenu.cpp; sourceTree = "<group>"; };
+		E9581ED41A7ECF900002CBC5 /* adler32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = adler32.c; sourceTree = "<group>"; };
+		E9581ED51A7ECF900002CBC5 /* compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = compress.c; sourceTree = "<group>"; };
+		E9581ED61A7ECF900002CBC5 /* crc32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crc32.c; sourceTree = "<group>"; };
+		E9581ED71A7ECF900002CBC5 /* crc32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crc32.h; sourceTree = "<group>"; };
+		E9581ED81A7ECF900002CBC5 /* deflate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = deflate.c; sourceTree = "<group>"; };
+		E9581ED91A7ECF900002CBC5 /* deflate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = deflate.h; sourceTree = "<group>"; };
+		E9581EDA1A7ECF900002CBC5 /* gzclose.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gzclose.c; sourceTree = "<group>"; };
+		E9581EDB1A7ECF900002CBC5 /* gzguts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gzguts.h; sourceTree = "<group>"; };
+		E9581EDC1A7ECF900002CBC5 /* gzlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gzlib.c; sourceTree = "<group>"; };
+		E9581EDD1A7ECF900002CBC5 /* gzread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gzread.c; sourceTree = "<group>"; };
+		E9581EDE1A7ECF900002CBC5 /* gzwrite.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gzwrite.c; sourceTree = "<group>"; };
+		E9581EDF1A7ECF900002CBC5 /* infback.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = infback.c; sourceTree = "<group>"; };
+		E9581EE01A7ECF900002CBC5 /* inffast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inffast.c; sourceTree = "<group>"; };
+		E9581EE11A7ECF900002CBC5 /* inffast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inffast.h; sourceTree = "<group>"; };
+		E9581EE21A7ECF900002CBC5 /* inffixed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inffixed.h; sourceTree = "<group>"; };
+		E9581EE31A7ECF900002CBC5 /* inflate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inflate.c; sourceTree = "<group>"; };
+		E9581EE41A7ECF900002CBC5 /* inflate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inflate.h; sourceTree = "<group>"; };
+		E9581EE51A7ECF900002CBC5 /* inftrees.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inftrees.c; sourceTree = "<group>"; };
+		E9581EE61A7ECF900002CBC5 /* inftrees.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inftrees.h; sourceTree = "<group>"; };
+		E9581EE71A7ECF900002CBC5 /* trees.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = trees.c; sourceTree = "<group>"; };
+		E9581EE81A7ECF900002CBC5 /* trees.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = trees.h; sourceTree = "<group>"; };
+		E9581EE91A7ECF900002CBC5 /* uncompr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = uncompr.c; sourceTree = "<group>"; };
+		E9581EEA1A7ECF900002CBC5 /* zconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zconf.h; sourceTree = "<group>"; };
+		E9581EEB1A7ECF900002CBC5 /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
+		E9581EEC1A7ECF900002CBC5 /* zutil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zutil.c; sourceTree = "<group>"; };
+		E9581EED1A7ECF900002CBC5 /* zutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zutil.h; sourceTree = "<group>"; };
 		E97FD7651A72DA22005AC479 /* Icon-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60.png"; path = "icons/Icon-60.png"; sourceTree = "<group>"; };
 		E97FD7661A72DA22005AC479 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@2x.png"; path = "icons/Icon-60@2x.png"; sourceTree = "<group>"; };
 		E97FD7671A72DA22005AC479 /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@3x.png"; path = "icons/Icon-60@3x.png"; sourceTree = "<group>"; };
@@ -571,6 +612,7 @@
 		A030631B1A7710E90090DD6E /* src */ = {
 			isa = PBXGroup;
 			children = (
+				E9581ED31A7ECF900002CBC5 /* zlib */,
 				A03063341A7710E90090DD6E /* GameLibrary */,
 				A030631C1A7710E90090DD6E /* BrawlerLibrary */,
 				A03063ED1A7710EA0090DD6E /* SmashBros */,
@@ -1098,6 +1140,39 @@
 			path = /Users/keeton/Documents/Projects/MobileBrawler/src/SmashBros/Menu;
 			sourceTree = "<absolute>";
 		};
+		E9581ED31A7ECF900002CBC5 /* zlib */ = {
+			isa = PBXGroup;
+			children = (
+				E9581ED41A7ECF900002CBC5 /* adler32.c */,
+				E9581ED51A7ECF900002CBC5 /* compress.c */,
+				E9581ED61A7ECF900002CBC5 /* crc32.c */,
+				E9581ED71A7ECF900002CBC5 /* crc32.h */,
+				E9581ED81A7ECF900002CBC5 /* deflate.c */,
+				E9581ED91A7ECF900002CBC5 /* deflate.h */,
+				E9581EDA1A7ECF900002CBC5 /* gzclose.c */,
+				E9581EDB1A7ECF900002CBC5 /* gzguts.h */,
+				E9581EDC1A7ECF900002CBC5 /* gzlib.c */,
+				E9581EDD1A7ECF900002CBC5 /* gzread.c */,
+				E9581EDE1A7ECF900002CBC5 /* gzwrite.c */,
+				E9581EDF1A7ECF900002CBC5 /* infback.c */,
+				E9581EE01A7ECF900002CBC5 /* inffast.c */,
+				E9581EE11A7ECF900002CBC5 /* inffast.h */,
+				E9581EE21A7ECF900002CBC5 /* inffixed.h */,
+				E9581EE31A7ECF900002CBC5 /* inflate.c */,
+				E9581EE41A7ECF900002CBC5 /* inflate.h */,
+				E9581EE51A7ECF900002CBC5 /* inftrees.c */,
+				E9581EE61A7ECF900002CBC5 /* inftrees.h */,
+				E9581EE71A7ECF900002CBC5 /* trees.c */,
+				E9581EE81A7ECF900002CBC5 /* trees.h */,
+				E9581EE91A7ECF900002CBC5 /* uncompr.c */,
+				E9581EEA1A7ECF900002CBC5 /* zconf.h */,
+				E9581EEB1A7ECF900002CBC5 /* zlib.h */,
+				E9581EEC1A7ECF900002CBC5 /* zutil.c */,
+				E9581EED1A7ECF900002CBC5 /* zutil.h */,
+			);
+			path = zlib;
+			sourceTree = "<group>";
+		};
 		E97FD7401A72D834005AC479 /* icons */ = {
 			isa = PBXGroup;
 			children = (
@@ -1227,6 +1302,7 @@
 				A03064221A7710EA0090DD6E /* StockWinCondition.cpp in Sources */,
 				A03064231A7710EA0090DD6E /* TimeLimitWinCondition.cpp in Sources */,
 				A03064241A7710EA0090DD6E /* WinCondition.cpp in Sources */,
+				E9581EF31A7ECF900002CBC5 /* gzlib.c in Sources */,
 				E9D306D01A7AAD5800C4E7F5 /* StageSelect_StagePreview.cpp in Sources */,
 				A03064251A7710EA0090DD6E /* CharacterInfo.cpp in Sources */,
 				A03064261A7710EA0090DD6E /* CharacterLoader.cpp in Sources */,
@@ -1234,6 +1310,7 @@
 				A03064281A7710EA0090DD6E /* StageLoader.cpp in Sources */,
 				A03064291A7710EA0090DD6E /* Actor.cpp in Sources */,
 				A030642A1A7710EA0090DD6E /* Animation.cpp in Sources */,
+				E9581EF91A7ECF900002CBC5 /* inftrees.c in Sources */,
 				A030642B1A7710EA0090DD6E /* SpriteActor.cpp in Sources */,
 				A030642C1A7710EA0090DD6E /* TextActor.cpp in Sources */,
 				A030642D1A7710EA0090DD6E /* WireframeActor.cpp in Sources */,
@@ -1251,8 +1328,11 @@
 				A03064381A7710EA0090DD6E /* TextureImageCreateException.cpp in Sources */,
 				A03064391A7710EA0090DD6E /* TextureImageUpdateException.cpp in Sources */,
 				A030643A1A7710EA0090DD6E /* UnsupportedImageFormatException.cpp in Sources */,
+				E9581EF61A7ECF900002CBC5 /* infback.c in Sources */,
 				A030643B1A7710EA0090DD6E /* IllegalArgumentException.cpp in Sources */,
 				A030643C1A7710EA0090DD6E /* IllegalFormatException.cpp in Sources */,
+				E9581EF81A7ECF900002CBC5 /* inflate.c in Sources */,
+				E9581EF21A7ECF900002CBC5 /* gzclose.c in Sources */,
 				A030643D1A7710EA0090DD6E /* IllegalStateException.cpp in Sources */,
 				A030643E1A7710EA0090DD6E /* InitializeLibraryException.cpp in Sources */,
 				E95440D11A7C869700F70736 /* GroupSmashCharacterSelectMenu.cpp in Sources */,
@@ -1274,9 +1354,12 @@
 				A030644D1A7710EA0090DD6E /* Graphics.cpp in Sources */,
 				A030644E1A7710EA0090DD6E /* Image.cpp in Sources */,
 				A030644F1A7710EA0090DD6E /* PixelIterator.cpp in Sources */,
+				E9581EFA1A7ECF900002CBC5 /* trees.c in Sources */,
 				A03064501A7710EA0090DD6E /* TextureImage.cpp in Sources */,
+				E9581EEF1A7ECF900002CBC5 /* compress.c in Sources */,
 				A03064511A7710EA0090DD6E /* Keyboard.cpp in Sources */,
 				A03064521A7710EA0090DD6E /* Mouse.cpp in Sources */,
+				E9581EFC1A7ECF900002CBC5 /* zutil.c in Sources */,
 				A03064531A7710EA0090DD6E /* Multitouch.cpp in Sources */,
 				A03064541A7710EA0090DD6E /* Console.cpp in Sources */,
 				A03064551A7710EA0090DD6E /* FileTools.cpp in Sources */,
@@ -1298,6 +1381,8 @@
 				A03064641A7710EA0090DD6E /* DataPacket.cpp in Sources */,
 				A03064651A7710EA0090DD6E /* Dictionary.cpp in Sources */,
 				A03064661A7710EA0090DD6E /* Font.cpp in Sources */,
+				E9581EF11A7ECF900002CBC5 /* deflate.c in Sources */,
+				E9581EF41A7ECF900002CBC5 /* gzread.c in Sources */,
 				A03064671A7710EA0090DD6E /* RenderedGlyphContainer.cpp in Sources */,
 				E9946E481A7AA6F60054F2C8 /* InitialLoadListener.cpp in Sources */,
 				A03064681A7710EA0090DD6E /* Circle.cpp in Sources */,
@@ -1308,6 +1393,8 @@
 				A030646D1A7710EA0090DD6E /* String.cpp in Sources */,
 				A030646E1A7710EA0090DD6E /* Thread.cpp in Sources */,
 				A030646F1A7710EA0090DD6E /* DateTime.cpp in Sources */,
+				E9581EF51A7ECF900002CBC5 /* gzwrite.c in Sources */,
+				E9581EF71A7ECF900002CBC5 /* inffast.c in Sources */,
 				A03064701A7710EA0090DD6E /* posixtime.cpp in Sources */,
 				A03064711A7710EA0090DD6E /* time64.c in Sources */,
 				A03064721A7710EA0090DD6E /* TimeInterval.cpp in Sources */,
@@ -1318,11 +1405,13 @@
 				A03064771A7710EA0090DD6E /* ModuleLoad.cpp in Sources */,
 				A03064781A7710EA0090DD6E /* main.cpp in Sources */,
 				E9D306CF1A7AAD5800C4E7F5 /* StageSelect_StageIcon.cpp in Sources */,
+				E9581EF01A7ECF900002CBC5 /* crc32.c in Sources */,
 				A03064791A7710EA0090DD6E /* BaseMenuScreen.cpp in Sources */,
 				A030647A1A7710EA0090DD6E /* CharacterSelect_CharacterIcon.cpp in Sources */,
 				A030647B1A7710EA0090DD6E /* CharacterSelect_PlayerChip.cpp in Sources */,
 				A030647C1A7710EA0090DD6E /* CharacterSelect_PlayerPanel.cpp in Sources */,
 				E9D306D11A7AAD5800C4E7F5 /* StageSelectScreen.cpp in Sources */,
+				E9581EEE1A7ECF900002CBC5 /* adler32.c in Sources */,
 				A030647D1A7710EA0090DD6E /* CharacterSelect_ReadyToFightBanner.cpp in Sources */,
 				A030647E1A7710EA0090DD6E /* CharacterSelectScreen.cpp in Sources */,
 				A030647F1A7710EA0090DD6E /* ActorGrid.cpp in Sources */,
@@ -1333,6 +1422,7 @@
 				A03064861A7710EA0090DD6E /* MainMenu.cpp in Sources */,
 				A03064871A7710EA0090DD6E /* GroupSmashData.cpp in Sources */,
 				A03064881A7710EA0090DD6E /* SmashData.cpp in Sources */,
+				E9581EFB1A7ECF900002CBC5 /* uncompr.c in Sources */,
 				A03064891A7710EA0090DD6E /* SoloMenu.cpp in Sources */,
 				A030648A1A7710EA0090DD6E /* TitleScreen.cpp in Sources */,
 			);
