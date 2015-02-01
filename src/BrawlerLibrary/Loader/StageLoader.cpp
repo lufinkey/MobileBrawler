@@ -43,13 +43,13 @@ namespace BrawlerLibrary
 				bool success = info.loadFromPath(path + "/" + diritem.name);
 				//TODO see if minsmashversion is compatible using a list of compatible versions
                 //TODO compare minsmashversion to current application and handle accordingly
-                /*if (info.minsmashversion == "1.0") {
+                if (info.minsmashversion == "1.0") {
                     // check if minsmashversion is compatible
-                    GameLibrary::Console::writeLine("Minsmashversion is compatible");
+                    GameLibrary::Console::writeLine("Minsmashversion is compatible with stage: "+info.name);
                 }
                 else {
-                    GameLibrary::Console::writeLine("Minsmashversion is NOT compatible");
-                }*/ //COMMENTED because it doesn't account for failure to load for other reasons, or handles the incorrect smash version
+                    GameLibrary::Console::writeLine("Minsmashversion is NOT compatible with stage: "+info.name);
+                } //COMMENTED because it doesn't account for failure to load for other reasons, or handles the incorrect smash version
 				//This will be handled later, as we don't yet have a plan for this.
 				if(success)
 				{
