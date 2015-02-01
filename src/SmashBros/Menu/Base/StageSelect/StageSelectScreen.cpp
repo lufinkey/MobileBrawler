@@ -93,7 +93,42 @@ namespace SmashBros
 		
 		void StageSelectScreen::reloadPreviews(const SmashData&smashData)
 		{
-			//
+			//TODO: what are previews and why do we need them? Anyways, we need to finish implimentation
+			if(previewGrid != nullptr)
+			{
+				delete previewGrid;
+				previewGrid = nullptr;
+			}
+			
+			for(unsigned int i=0; i<previews.size(); i++)
+			{
+				delete previews.get(i);
+			}
+			previews.clear();
+			
+			ArrayList<StageInfo>& previews = smashData.getModuleData()->getStageLoader()->getStages();
+			
+			Vector2f topleft = smashData.getScreenCoords(0.3f, 0.2f);
+			Vector2f bottomright = smashData.getScreenCoords(0.9f, 0.9f);
+			RectangleF stageSelectRect(topleft.x, topleft.y, bottomright.x-topleft.x, bottomright.y-topleft.y);
+			unsigned int cols = 6;
+			unsigned int rows = 6;
+			float preview_width = stageSelectRect.width / (float)cols;
+			float preview_height = stageSelectRect.height / (float)rows;
+			Vector2f preview_size(preview_width, preview_height);
+			
+			previewGrid = new ActorGrid(Vector2f(stageSelectRect.x+(preview_width/2), stageSelectRect.y+(preview_height/2)), cols, Vector2f(preview_width, preview_height));
+			
+			AssetManager* loaderAssetManager = smashData.getModuleData()->getStageLoader()->getAssetManager();
+			for(unsigned int i=0; i<previews.size(); i++)
+			{
+				StageInfo& info = previews.get(i);
+				StagePreview* preview = new StagePreview(info, 0, 0, loaderAssetManager);
+				preview->Actor::scaleToFit(preview_size);
+				//previews.add(preview); //TODO Why is there an error here? I can't seem to fix it...
+				iconGrid->add(preview);
+				addItem(preview);
+			}
 		}
 		
 		void StageSelectScreen::onUpdate(ApplicationData appData)

@@ -15,7 +15,15 @@ namespace SmashBros
 		{
 			class StagePreview : public SpriteActor
 			{
-				//
+			private:
+				StageInfo* info;
+				
+			public:
+				StagePreview(StageInfo&info, float x, float y, AssetManager*assetManager);
+				virtual ~StagePreview();
+				
+				virtual void draw(ApplicationData appData, Graphics graphics) const override;
+
 			};
 		}
 	}
