@@ -151,6 +151,7 @@
     <ClCompile Include="src\GameLibrary\Screen\Transition\Transition.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\UI\ActorMenuElement.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\UI\ImageElement.cpp" />
+    <ClCompile Include="src\GameLibrary\Screen\UI\ScrollElement.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\UI\TextInputElement.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\BitList.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\BitSet.cpp" />
@@ -269,6 +270,7 @@
     <ClInclude Include="src\GameLibrary\Screen\Transition\Transition.h" />
     <ClInclude Include="src\GameLibrary\Screen\UI\ActorMenuElement.h" />
     <ClInclude Include="src\GameLibrary\Screen\UI\ImageElement.h" />
+    <ClInclude Include="src\GameLibrary\Screen\UI\ScrollElement.h" />
     <ClInclude Include="src\GameLibrary\Screen\UI\TextInputElement.h" />
     <ClInclude Include="src\GameLibrary\Types.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Any.h" />

@@ -471,6 +471,9 @@
     <ClCompile Include="src\GameLibrary\Screen\UI\ActorMenuElement.cpp">
       <Filter>src\GameLibrary\Screen\UI</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Screen\UI\ScrollElement.cpp">
+      <Filter>src\GameLibrary\Screen\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -846,6 +849,9 @@
       <Filter>src\SmashBros\Menu</Filter>
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Screen\UI\ActorMenuElement.h">
+      <Filter>src\GameLibrary\Screen\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Screen\UI\ScrollElement.h">
       <Filter>src\GameLibrary\Screen\UI</Filter>
     </ClInclude>
   </ItemGroup>
