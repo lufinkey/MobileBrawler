@@ -129,6 +129,8 @@ namespace SmashBros
 		BatchLoader* batchLoader = new BatchLoader(assetManager);
 		batchLoader->addEventListener(loadListener);
 		
+		//LOAD MENU ASSETS HERE:
+		
 		batchLoader->addTexture("backgrounds/main.png");
 		
 		batchLoader->addTexture("buttons/back.png");
@@ -170,6 +172,7 @@ namespace SmashBros
 		batchLoader->addTexture("elements/rules_bar.png");
 		
 		batchLoader->addFont("fonts/default.ttf");
+		//batchLoader->addFont("fonts/"BorisBlackBloxx.ttf");
 		
 		batchLoader->addTexture("stageselect/icon_frame.png");
 		
