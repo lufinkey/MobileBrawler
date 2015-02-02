@@ -37,7 +37,7 @@ namespace SmashBros
 			StageLoader* stageLoader;
 			RectangleF iconGridFrame;
 			ActorGrid*iconGrid;
-			ActorGrid*previewGrid;
+			ImageElement*preview;
 			ArrayList<StageSelect::StageIcon*> icons;
 			ArrayList<StageSelect::StagePreview*> previews;
 		};
