@@ -61,6 +61,11 @@ namespace SmashBros
 		return stageselect_iconmask;
 	}
 	
+	const Image& MenuLoad::getStageSelectPreviewMask() const
+	{
+		return stageselect_previewmask;
+	}
+	
 	void MenuLoad::load()
 	{
 		loadIconMasks();
@@ -97,6 +102,13 @@ namespace SmashBros
 		if(!success)
 		{
 			stageselect_iconmask.loadFromFile(FileTools::combinePathStrings(secondaryDirectory, "stageselect/icon_mask.png"));
+		}
+		
+		//load stage select preview mask
+		success = stageselect_previewmask.loadFromFile(FileTools::combinePathStrings(primaryDirectory,"stageselect/preview_mask.png"));
+		if(!success)
+		{
+			stageselect_previewmask.loadFromFile(FileTools::combinePathStrings(secondaryDirectory, "stageselect/preview_mask.png"));
 		}
 	}
 	

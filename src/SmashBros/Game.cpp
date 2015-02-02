@@ -60,6 +60,7 @@ namespace SmashBros
 		
 		moduleLoad->setCharacterSelectIconMask(&menuLoad->getCharacterSelectIconMask());
 		moduleLoad->setStageSelectIconMask(&menuLoad->getStageSelectIconMask());
+		moduleLoad->setStageSelectPreviewMask(&menuLoad->getStageSelectPreviewMask());
 		moduleLoad->load();
 		
 		delete loadListener;

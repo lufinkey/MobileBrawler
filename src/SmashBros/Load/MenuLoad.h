@@ -22,6 +22,7 @@ namespace SmashBros
 		
 		Image characterselect_iconmask;
 		Image stageselect_iconmask;
+		Image stageselect_previewmask;
 		
 		void loadIconMasks();
 		void loadProperties();
@@ -41,6 +42,7 @@ namespace SmashBros
 		
 		const Image& getCharacterSelectIconMask() const;
 		const Image& getStageSelectIconMask() const;
+		const Image& getStageSelectPreviewMask() const;
 		
 		void load();
 		void reload();
