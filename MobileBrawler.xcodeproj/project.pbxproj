@@ -154,6 +154,7 @@
 		E97FD7861A72DA22005AC479 /* Icon-Spotlight-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7741A72DA22005AC479 /* Icon-Spotlight-40@3x.png */; };
 		E97FD7871A72DA22005AC479 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7751A72DA22005AC479 /* Icon.png */; };
 		E97FD7881A72DA22005AC479 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7761A72DA22005AC479 /* Icon@2x.png */; };
+		E98D32EF1A7FC4FD0031FCFD /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E98D32EE1A7FC4FD0031FCFD /* libz.a */; };
 		E9946E481A7AA6F60054F2C8 /* InitialLoadListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9946E471A7AA6F60054F2C8 /* InitialLoadListener.cpp */; };
 		E9946E4B1A7AA7840054F2C8 /* ActorMenuElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9946E4A1A7AA7840054F2C8 /* ActorMenuElement.cpp */; };
 		E9D306CF1A7AAD5800C4E7F5 /* StageSelect_StageIcon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D306C91A7AAD5800C4E7F5 /* StageSelect_StageIcon.cpp */; };
@@ -432,6 +433,7 @@
 		E97FD7741A72DA22005AC479 /* Icon-Spotlight-40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Spotlight-40@3x.png"; path = "icons/Icon-Spotlight-40@3x.png"; sourceTree = "<group>"; };
 		E97FD7751A72DA22005AC479 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = icons/Icon.png; sourceTree = "<group>"; };
 		E97FD7761A72DA22005AC479 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "icons/Icon@2x.png"; sourceTree = "<group>"; };
+		E98D32EE1A7FC4FD0031FCFD /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libz.a; path = external/zlib/lib/libz.a; sourceTree = "<group>"; };
 		E9946E461A7AA6F60054F2C8 /* InitialLoadListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialLoadListener.h; sourceTree = "<group>"; };
 		E9946E471A7AA6F60054F2C8 /* InitialLoadListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InitialLoadListener.cpp; sourceTree = "<group>"; };
 		E9946E491A7AA7840054F2C8 /* ActorMenuElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActorMenuElement.h; sourceTree = "<group>"; };
@@ -464,6 +466,7 @@
 				A01658391A70C291007D0BA1 /* libSDL_mixer.a in Frameworks */,
 				A016583A1A70C291007D0BA1 /* libSDL_p2p.a in Frameworks */,
 				A016583B1A70C291007D0BA1 /* libSDL_ttf.a in Frameworks */,
+				E98D32EF1A7FC4FD0031FCFD /* libz.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,6 +497,7 @@
 		A01656661A70A6F6007D0BA1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E98D32EE1A7FC4FD0031FCFD /* libz.a */,
 				A01658491A714C69007D0BA1 /* AudioToolbox.framework */,
 				A016584B1A714D01007D0BA1 /* CoreAudio.framework */,
 				A016566B1A70A6F6007D0BA1 /* CoreGraphics.framework */,
@@ -1414,10 +1418,18 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobileBrawler-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/external/SDL/include",
+					"$(SRCROOT)/external/base64/include",
+					"$(SRCROOT)/external/pugixml/include",
+					"$(SRCROOT)/external/zlib/include",
+					"$(SRCROOT)/src",
+				);
 				INFOPLIST_FILE = "MobileBrawler-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/external/SDL/lib\"",
+					"$(SRCROOT)/external/zlib/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1431,10 +1443,18 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobileBrawler-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/external/SDL/include",
+					"$(SRCROOT)/external/base64/include",
+					"$(SRCROOT)/external/pugixml/include",
+					"$(SRCROOT)/external/zlib/include",
+					"$(SRCROOT)/src",
+				);
 				INFOPLIST_FILE = "MobileBrawler-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/external/SDL/lib\"",
+					"$(SRCROOT)/external/zlib/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
