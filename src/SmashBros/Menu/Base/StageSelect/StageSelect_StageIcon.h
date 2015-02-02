@@ -23,6 +23,8 @@ namespace SmashBros
 				virtual ~StageIcon();
 				
 				virtual void draw(ApplicationData appData, Graphics graphics) const override;
+				
+				StageInfo* getStageInfo() const;
 			};
 		}
 	}

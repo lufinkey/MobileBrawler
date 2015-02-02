@@ -84,8 +84,6 @@
 #include "Window/Window.h"
 #include "Window/View.h"
 
-#include "zlib.h"
-
 #ifndef main
 	#define main GameLibrary_main
 #endif

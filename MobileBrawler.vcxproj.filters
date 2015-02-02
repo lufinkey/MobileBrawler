@@ -453,15 +453,6 @@
     <ClCompile Include="src\SmashBros\Menu\GroupRulesMenu.cpp">
       <Filter>src\SmashBros\Menu</Filter>
     </ClCompile>
-    <ClCompile Include="src\SmashBros\Menu\Base\StageSelect\StageSelect_StageIcon.cpp">
-      <Filter>src\SmashBros\Menu\Base\StageSelect</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SmashBros\Menu\Base\StageSelect\StageSelectScreen.cpp">
-      <Filter>src\SmashBros\Menu\Base\StageSelect</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SmashBros\Menu\Base\StageSelect\StageSelect_StagePreview.cpp">
-      <Filter>src\SmashBros\Menu\Base\StageSelect</Filter>
-    </ClCompile>
     <ClCompile Include="src\SmashBros\Load\InitialLoadListener.cpp">
       <Filter>src\SmashBros\Load</Filter>
     </ClCompile>
@@ -473,6 +464,15 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Screen\UI\ScrollElement.cpp">
       <Filter>src\GameLibrary\Screen\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\Base\StageSelect\StageSelect_StageIcon.cpp">
+      <Filter>src\SmashBros\Menu\Base\StageSelect</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\Base\StageSelect\StageSelect_StagePreview.cpp">
+      <Filter>src\SmashBros\Menu\Base\StageSelect</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\Base\StageSelect\StageSelectScreen.cpp">
+      <Filter>src\SmashBros\Menu\Base\StageSelect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -833,15 +833,6 @@
     <ClInclude Include="src\SmashBros\Menu\GroupRulesMenu.h">
       <Filter>src\SmashBros\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="src\SmashBros\Menu\Base\StageSelect\StageSelect_StageIcon.h">
-      <Filter>src\SmashBros\Menu\Base\StageSelect</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SmashBros\Menu\Base\StageSelect\StageSelectScreen.h">
-      <Filter>src\SmashBros\Menu\Base\StageSelect</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SmashBros\Menu\Base\StageSelect\StageSelect_StagePreview.h">
-      <Filter>src\SmashBros\Menu\Base\StageSelect</Filter>
-    </ClInclude>
     <ClInclude Include="src\SmashBros\Load\InitialLoadListener.h">
       <Filter>src\SmashBros\Load</Filter>
     </ClInclude>
@@ -853,6 +844,15 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Screen\UI\ScrollElement.h">
       <Filter>src\GameLibrary\Screen\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\Base\StageSelect\StageSelect_StageIcon.h">
+      <Filter>src\SmashBros\Menu\Base\StageSelect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\Base\StageSelect\StageSelect_StagePreview.h">
+      <Filter>src\SmashBros\Menu\Base\StageSelect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\Base\StageSelect\StageSelectScreen.h">
+      <Filter>src\SmashBros\Menu\Base\StageSelect</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

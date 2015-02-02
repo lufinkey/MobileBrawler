@@ -7,12 +7,11 @@ namespace SmashBros
 	{
 		namespace StageSelect
 		{
-			StagePreview::StagePreview(StageInfo&stageInfo, float x, float y, AssetManager*assetManager)
+			StagePreview::StagePreview(const RectangleF& frame, AssetManager*assetMgr) : ImageElement(frame)
 			{
-				info = &stageInfo;
-				String icon_path = stageInfo.getPath() + "/preview.png";
-				addAnimation("default", new Animation(1, assetManager, icon_path));
-				changeAnimation("default", Animation::FORWARD);
+				assetManager = assetMgr;
+				info = nullptr;
+				setDisplayMode(DISPLAY_FIT);
 			}
 			
 			StagePreview::~StagePreview()
@@ -20,11 +19,23 @@ namespace SmashBros
 				//
 			}
 			
-			void StagePreview::draw(ApplicationData appData, Graphics graphics) const
+			void StagePreview::setStageInfo(StageInfo*stageInfo)
 			{
-				SpriteActor::draw(appData, graphics);
-				TextureImage* icon_frame = appData.getAssetManager()->getTexture("stageselect/icon_frame.png");
-				graphics.drawImage(icon_frame, getFrame());
+				info = stageInfo;
+				if(info == nullptr)
+				{
+					setImage(nullptr);
+				}
+				else
+				{
+					TextureImage* previewImage = assetManager->getTexture(info->getPath() + "/preview.png");
+					setImage(previewImage);
+				}
+			}
+			
+			StageInfo* StagePreview::getStageInfo() const
+			{
+				return info;
 			}
 		}
 	}

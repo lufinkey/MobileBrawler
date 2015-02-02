@@ -16,6 +16,7 @@ namespace SmashBros
 			
 			rules = ruleData;
 			iconGrid = nullptr;
+			preview = nullptr;
 		}
 		
 		StageSelectScreen::~StageSelectScreen()
@@ -24,12 +25,6 @@ namespace SmashBros
 			{
 				delete iconGrid;
 			}
-			
-			for(unsigned int i=0; i<previews.size(); i++)
-			{
-				delete previews.get(i);
-			}
-			icons.clear();
 		}
 		
 		Rules* StageSelectScreen::getRules() const
@@ -42,9 +37,9 @@ namespace SmashBros
 			return stageLoader;
 		}
 		
-		const ArrayList<StageSelect::StagePreview*>& StageSelectScreen::getStagePreviews() const
+		StageSelect::StagePreview* StageSelectScreen::getStagePreview() const
 		{
-			return previews;
+			return preview;
 		}
 		
 		const ArrayList<StageSelect::StageIcon*>& StageSelectScreen::getStageIcons() const
@@ -91,34 +86,20 @@ namespace SmashBros
 			}
 		}
 		
-		void StageSelectScreen::reloadPreviews(const SmashData&smashData)
+		void StageSelectScreen::reloadPreview(const SmashData&smashData)
 		{
-			//TODO: what are previews and why do we need them? Anyways, we need to finish implimentation
 			if(preview != nullptr)
 			{
-				//delete preview;
+				preview->removeFromParentElement();
+				delete preview;
 				preview = nullptr;
 			}
 			
-			for(unsigned int i=0; i<previews.size(); i++)
-			{
-				delete previews.get(i);
-			}
-			previews.clear();
-			
-			ArrayList<StageInfo>& previews = smashData.getModuleData()->getStageLoader()->getStages();
-			
-			Vector2f topleft = smashData.getScreenCoords(0.3f, 0.2f);
-			Vector2f bottomright = smashData.getScreenCoords(0.9f, 0.9f);
-			RectangleF stageSelectRect(topleft.x, topleft.y, bottomright.x-topleft.x, bottomright.y-topleft.y);
-			
-			AssetManager* loaderAssetManager = smashData.getModuleData()->getStageLoader()->getAssetManager();
-			for(unsigned int i=0; i<previews.size(); i++)
-			{
-				StageInfo& info = previews.get(i);
-				StagePreview* preview = new StagePreview(info, 0, 0, loaderAssetManager);
-				addItem(preview);
-			}
+			Vector2f topleft = smashData.getScreenCoords(0.05f, 0.2f);
+			Vector2f bottomright = smashData.getScreenCoords(0.25f, 0.9f);
+			RectangleF previewRect(topleft.x, topleft.y, bottomright.x-topleft.x, bottomright.y-topleft.y);
+			preview = new StagePreview(previewRect, smashData.getModuleData()->getStageLoader()->getAssetManager());
+			getElement()->addChildElement(preview);
 		}
 		
 		void StageSelectScreen::onUpdate(ApplicationData appData)
@@ -129,6 +110,44 @@ namespace SmashBros
 		void StageSelectScreen::onDraw(ApplicationData appData, Graphics graphics) const
 		{
 			BaseMenuScreen::onDraw(appData, graphics);
+		}
+		
+		void StageSelectScreen::onItemHover(unsigned int index)
+		{
+			Actor* item = getItem(index);
+			for(unsigned int i=0; i<icons.size(); i++)
+			{
+				StageSelect::StageIcon* icon = icons.get(i);
+				if(item == icon)
+				{
+					onStageIconHover(icon);
+					return;
+				}
+			}
+		}
+		
+		void StageSelectScreen::onItemHoverFinish(unsigned int index)
+		{
+			Actor* item = getItem(index);
+			for(unsigned int i=0; i<icons.size(); i++)
+			{
+				StageSelect::StageIcon* icon = icons.get(i);
+				if(item == icon)
+				{
+					onStageIconHoverFinish(icon);
+					return;
+				}
+			}
+		}
+		
+		void StageSelectScreen::onStageIconHover(StageIcon*icon)
+		{
+			preview->setStageInfo(icon->getStageInfo());
+		}
+		
+		void StageSelectScreen::onStageIconHoverFinish(StageIcon*icon)
+		{
+			preview->setStageInfo(nullptr);
 		}
 	}
 }

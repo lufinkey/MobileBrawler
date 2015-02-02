@@ -26,6 +26,11 @@ namespace SmashBros
 				TextureImage* icon_frame = appData.getAssetManager()->getTexture("stageselect/icon_frame.png");
 				graphics.drawImage(icon_frame, getFrame());
 			}
+			
+			StageInfo* StageIcon::getStageInfo() const
+			{
+				return info;
+			}
 		}
 	}
 }

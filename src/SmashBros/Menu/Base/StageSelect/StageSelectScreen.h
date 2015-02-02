@@ -22,24 +22,29 @@ namespace SmashBros
 			
 			Rules* getRules() const;
 			StageLoader* getStageLoader() const;
-			const ArrayList<StageSelect::StagePreview*>& getStagePreviews() const;
+			StageSelect::StagePreview* getStagePreview() const;
 			const ArrayList<StageSelect::StageIcon*>& getStageIcons() const;
 			
 		protected:
 			void reloadIcons(const SmashData&smashData);
-			void reloadPreviews(const SmashData&smashData);
+			void reloadPreview(const SmashData&smashData);
 			
 			virtual void onUpdate(ApplicationData appData) override;
 			virtual void onDraw(ApplicationData appData, Graphics graphics) const override;
+			
+			virtual void onItemHover(unsigned int index) override;
+			virtual void onItemHoverFinish(unsigned int index) override;
+			
+			virtual void onStageIconHover(StageSelect::StageIcon*icon);
+			virtual void onStageIconHoverFinish(StageSelect::StageIcon*icon);
 			
 		private:
 			Rules*rules;
 			StageLoader* stageLoader;
 			RectangleF iconGridFrame;
 			ActorGrid*iconGrid;
-			ImageElement*preview;
 			ArrayList<StageSelect::StageIcon*> icons;
-			ArrayList<StageSelect::StagePreview*> previews;
+			StageSelect::StagePreview* preview;
 		};
 	}
 }

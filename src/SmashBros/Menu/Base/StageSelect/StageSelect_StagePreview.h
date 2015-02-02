@@ -13,17 +13,18 @@ namespace SmashBros
 	{
 		namespace StageSelect
 		{
-			class StagePreview : public SpriteActor
+			class StagePreview : public ImageElement
 			{
 			private:
 				StageInfo* info;
+				AssetManager* assetManager;
 				
 			public:
-				StagePreview(StageInfo&info, float x, float y, AssetManager*assetManager);
+				StagePreview(const RectangleF&frame, AssetManager*assetManager);
 				virtual ~StagePreview();
 				
-				virtual void draw(ApplicationData appData, Graphics graphics) const override;
-
+				void setStageInfo(StageInfo*);
+				StageInfo* getStageInfo() const;
 			};
 		}
 	}
