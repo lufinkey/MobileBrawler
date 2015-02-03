@@ -27,7 +27,7 @@ namespace SmashBros
 		virtual void initialize() override;
 		virtual void loadContent(AssetManager*assetManager) override;
 		virtual void unloadContent(AssetManager*assetManager) override;
-		virtual void update(AppData appData) override;
-		virtual void draw(AppData appData, Graphics graphics) const override;
+		virtual void update(ApplicationData appData) override;
+		virtual void draw(ApplicationData appData, Graphics graphics) const override;
 	};
 }

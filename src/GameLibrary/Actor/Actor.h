@@ -11,15 +11,6 @@ namespace GameLibrary
 		friend class TextActor;
 		friend class WireframeActor;
 	public:
-		enum ActorType
-		{
-			ACTORTYPE_BASE,
-			ACTORTYPE_NORMAL,
-			ACTORTYPE_WIREFRAME,
-			ACTORTYPE_TEXT
-		};
-		typedef enum ActorType ActorType;
-		
 		float x;
 		float y;
 		
@@ -37,7 +28,6 @@ namespace GameLibrary
 		virtual void scaleToFit(const RectangleF&container);
 		void scaleToFit(const Vector2f&size);
 		
-		ActorType getActorType() const;
 		float getWidth() const;
 		float getHeight() const;
 		
@@ -85,7 +75,6 @@ namespace GameLibrary
 		float width;
 		float height;
 		
-		ActorType actorType;
 		bool clicked;
 		bool prevclicked;
 		bool mouseover;

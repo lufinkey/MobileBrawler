@@ -8,7 +8,6 @@ namespace GameLibrary
 {
 	Actor::Actor()
 	{
-		actorType = ACTORTYPE_BASE;
 		x = 0;
 		y = 0;
 		width = 0;
@@ -93,11 +92,6 @@ namespace GameLibrary
 		currentFrame.scaleToFit(container);
 		float ratio = currentFrame.width/oldFrame.width;
 		setScale(getScale()*ratio);
-	}
-	
-	Actor::ActorType Actor::getActorType() const
-	{
-		return actorType;
 	}
 	
 	float Actor::getWidth() const

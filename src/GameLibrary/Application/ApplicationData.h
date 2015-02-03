@@ -42,6 +42,4 @@ namespace GameLibrary
 		void setTime(const TimeInterval&time);
 		void setTransform(const Transform&transform);
 	};
-
-	typedef ApplicationData AppData;
 }

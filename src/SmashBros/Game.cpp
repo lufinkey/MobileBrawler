@@ -75,13 +75,13 @@ namespace SmashBros
 		menuLoad->unload();
 	}
 	
-	void Game::update(AppData appData)
+	void Game::update(ApplicationData appData)
 	{
 		appData.setAssetManager(menuLoad->getAssetManager());
 		menuScreenMgr->update(appData);
 	}
 	
-	void Game::draw(AppData appData, Graphics graphics) const
+	void Game::draw(ApplicationData appData, Graphics graphics) const
 	{
 		appData.setAssetManager(menuLoad->getAssetManager());
 		menuScreenMgr->draw(appData, graphics);

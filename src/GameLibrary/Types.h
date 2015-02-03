@@ -29,6 +29,7 @@ namespace GameLibrary
 			class IllegalFormatException;
 				class IllegalDateTimeFormatException;
 			class NumberFormatException;
+		class IllegalNumberOperationException;
 		class IllegalStateException;
 		class InitializeLibraryException;
 		class OutOfBoundsException;
@@ -70,9 +71,14 @@ namespace GameLibrary
 			class PopoverTransition;
 			class SlideTransition;
 	class ScreenElement;
-		class Screen;
-			class MenuScreen;
-			class ScreenManager;
+		//UI
+		class ActorMenuElement;
+		class ImageElement;
+		class ScrollElement;
+		class TextInputElement;
+	class Screen;
+		class MenuScreen;
+		class ScreenManager;
 	
 	//Utilities
 		//Font
@@ -85,11 +91,12 @@ namespace GameLibrary
 		class DateTime;
 		class TimeInterval;
 	class Any;
-	class BitSet;
 	class BitList;
+	class BitSet;
 	class DataPacket;
 	class Dictionary;
 	class Math;
+	class Number;
 	class String;
 	class Thread;
 	
