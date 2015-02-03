@@ -537,6 +537,8 @@ namespace GameLibrary
 	{
 		if(selectedIndex != ACTORMENU_NOSELECTION)
 		{
+			Actor*actor = actors.get(selectedIndex);
+			actor->clearMouseState();
 			unsigned int oldSelectedIndex = selectedIndex;
 			if(pressingActor)
 			{
