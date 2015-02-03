@@ -115,7 +115,7 @@ namespace GameLibrary
 							pressingActor = false;
 							//actor->clearMouseState();
 							onActorRelease(lastSelectedIndex);
-							onActorHoverFinish(lastSelectedIndex);
+							//onActorHoverFinish(lastSelectedIndex);
 							onActorSelect(lastSelectedIndex);
 						}
 					}
@@ -533,6 +533,20 @@ namespace GameLibrary
 		}
 	}
 	
+	void ActorMenuElement::clearMouseStates()
+	{
+		if(selectedIndex != ACTORMENU_NOSELECTION)
+		{
+			unsigned int oldSelectedIndex = selectedIndex;
+			if(pressingActor)
+			{
+				onActorPressCancel(oldSelectedIndex);
+			}
+			selectedIndex = ACTORMENU_NOSELECTION;
+			onActorHoverFinish(oldSelectedIndex);
+		}
+	}
+	
 	void ActorMenuElement::setSelectedIndex(unsigned int index)
 	{
 		bool keyboardWasEnabled = keyboardEnabled;
@@ -540,12 +554,12 @@ namespace GameLibrary
 		if(index != selectedIndex)
 		{
 			unsigned int oldSelectedIndex = selectedIndex;
-			bool wasPressingItem = pressingActor;
+			bool wasPressingActor = pressingActor;
 			pressingActor = false;
 			
 			if(oldSelectedIndex != ACTORMENU_NOSELECTION)
 			{
-				if(wasPressingItem)
+				if(wasPressingActor)
 				{
 					onActorPressCancel(oldSelectedIndex);
 				}
@@ -557,7 +571,7 @@ namespace GameLibrary
 			{
 				selectedIndex = index;
 				onActorHover(index);
-				if(wasPressingItem && keyboardWasEnabled)
+				if(wasPressingActor && keyboardWasEnabled)
 				{
 					pressingActor = true;
 					onActorPress(index);

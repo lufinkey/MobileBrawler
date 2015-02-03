@@ -45,6 +45,7 @@ namespace GameLibrary
 		void clearKeys();
 		
 		void setKeyboardEnabled(bool);
+		void clearMouseStates();
 		void setSelectedIndex(unsigned int);
 		
 		bool isKeyboardEnabled() const;

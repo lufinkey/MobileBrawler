@@ -19,6 +19,8 @@ namespace SmashBros
 			BaseMenuScreen(const SmashData&smashData);
 			virtual ~BaseMenuScreen();
 			
+			virtual void onWillDisappear(const Transition*transition) override;
+			
 			virtual void onUpdate(ApplicationData appData) override;
 			
 			virtual void onItemHover(unsigned int index) override;

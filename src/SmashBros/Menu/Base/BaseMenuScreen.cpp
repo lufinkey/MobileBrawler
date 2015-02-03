@@ -54,6 +54,12 @@ namespace SmashBros
 			delete headerbarElement;
 		}
 		
+		void BaseMenuScreen::onWillDisappear(const Transition*transition)
+		{
+			MenuScreen::onWillDisappear(transition);
+			clearMouseStates();
+		}
+		
 		void BaseMenuScreen::onUpdate(ApplicationData appData)
 		{
 			if(getSelectedIndex() != MENUSCREEN_NOSELECTION)

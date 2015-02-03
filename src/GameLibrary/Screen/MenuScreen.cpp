@@ -219,6 +219,11 @@ namespace GameLibrary
 		mainElement->setKeyboardEnabled(toggle);
 	}
 	
+	void MenuScreen::clearMouseStates()
+	{
+		mainElement->clearMouseStates();
+	}
+	
 	void MenuScreen::setSelectedIndex(unsigned int index)
 	{
 		mainElement->setSelectedIndex(index);
