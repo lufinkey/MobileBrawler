@@ -62,7 +62,7 @@ namespace GameLibrary
 		currentFrame = animation.currentFrame;
 		frames = animation.frames;
 		fps = animation.fps;
-		mirrored = animation.mirrored;
+		mirroredHorizontal = animation.mirroredHorizontal;
 		mirroredVertical = animation.mirroredVertical;
 	}
 	
@@ -71,7 +71,7 @@ namespace GameLibrary
 		currentFrame = animation.currentFrame;
 		frames = animation.frames;
 		fps = animation.fps;
-		mirrored = animation.mirrored;
+		mirroredHorizontal = animation.mirroredHorizontal;
 		mirroredVertical = animation.mirroredVertical;
 
 		return *this;
@@ -81,7 +81,7 @@ namespace GameLibrary
 	{
 		fps = fps_arg;
 		currentFrame = 0;
-		mirrored = false;
+		mirroredHorizontal = false;
 		mirroredVertical = false;
 	}
 
@@ -127,9 +127,9 @@ namespace GameLibrary
 		frames.clear();
 	}
 
-	void Animation::setMirrored(bool toggle)
+	void Animation::setMirroredHorizontal(bool toggle)
 	{
-		mirrored = toggle;
+		mirroredHorizontal = toggle;
 	}
 
 	void Animation::setMirroredVertical(bool toggle)
@@ -137,9 +137,9 @@ namespace GameLibrary
 		mirroredVertical = toggle;
 	}
 
-	bool Animation::isMirrored() const
+	bool Animation::isMirroredHorizontal() const
 	{
-		return mirrored;
+		return mirroredHorizontal;
 	}
 
 	bool Animation::isMirroredVertical() const
@@ -353,7 +353,7 @@ namespace GameLibrary
 	
 	void Animation::update(ApplicationData appData)
 	{
-		unsigned int updateFrame = currentFrame;
+		/*unsigned int updateFrame = currentFrame;
 		unsigned int totalFrames = frames.size();
 		if(updateFrame > totalFrames)
 		{
@@ -366,9 +366,9 @@ namespace GameLibrary
 				updateFrame = 0;
 			}
 		}
-		//AnimationFrame& animFrame = frames.get(updateFrame);
-		//TextureImage* img = appData.getAssetManager()->getTexture(animFrame.file);
-		//animFrame.img = img;
+		AnimationFrame& animFrame = frames.get(updateFrame);
+		TextureImage* img = appData.getAssetManager()->getTexture(animFrame.file);
+		animFrame.img = img;*/
 	}
 
 	void Animation::draw(ApplicationData appData, Graphics graphics) const
@@ -406,7 +406,7 @@ namespace GameLibrary
 		unsigned int src_right = (unsigned int)(src_left + srcRect.width);
 		unsigned int src_bottom = (unsigned int)(src_top + srcRect.height);
 
-		if(mirrored)
+		if(mirroredHorizontal)
 		{
 			if(mirroredVertical)
 			{

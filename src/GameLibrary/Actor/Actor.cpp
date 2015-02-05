@@ -20,7 +20,7 @@ namespace GameLibrary
 		didpress = false;
 		didrelease = false;
 		visible = true;
-		mirrored = false;
+		mirroredHorizontal = false;
 		mirroredVertical = false;
 		frame_visible = false;
 		color = Color::WHITE;
@@ -161,9 +161,9 @@ namespace GameLibrary
 		frame_color = color;
 	}
 	
-	void Actor::setMirrored(bool toggle)
+	void Actor::setMirroredHorizontal(bool toggle)
 	{
-		mirrored = toggle;
+		mirroredHorizontal = toggle;
 		updateSize();
 	}
 	
@@ -208,19 +208,14 @@ namespace GameLibrary
 		return frame_color;
 	}
 	
-	bool Actor::isMirrored() const
+	bool Actor::isMirroredHorizontal() const
 	{
-		return mirrored;
+		return mirroredHorizontal;
 	}
 	
 	bool Actor::isMirroredVertical() const
 	{
 		return mirroredVertical;
-	}
-	
-	bool Actor::isOnScreen(View*view) const
-	{
-		return true;
 	}
 	
 	bool Actor::isMouseOver() const
@@ -593,7 +588,7 @@ namespace GameLibrary
 		didpress = didmousepress;
 		didrelease = didmouserelease;
 		
-		unsigned int pressedTouches = 0;
+		/*unsigned int pressedTouches = 0;
 		for(unsigned int i=0; i<currentTouches.size(); i++)
 		{
 			if(currentTouches.get(i).pressed)
@@ -608,7 +603,7 @@ namespace GameLibrary
 		else
 		{
 			didrelease = false;
-		}
+		}*/
 	}
 	
 	#undef EVENTCALL_MOUSEENTER

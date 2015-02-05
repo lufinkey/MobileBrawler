@@ -99,6 +99,11 @@ namespace GameLibrary
 					}
 				}
 			}
+
+			if(animation_current != nullptr)
+			{
+				animation_current->update(appData);
+			}
 		}
 	}
 
@@ -118,7 +123,7 @@ namespace GameLibrary
 				graphics.rotate(rotation);
 			}
 			Graphics frameGraphics(graphics);
-			if(mirrored)
+			if(mirroredHorizontal)
 			{
 				if(mirroredVertical)
 				{
@@ -409,7 +414,7 @@ namespace GameLibrary
 			pointFixed.x += width/2;
 			pointFixed.y += height/2;
 			
-			if((mirrored && !animation_current->isMirrored()) || (!mirrored && animation_current->isMirrored()))
+			if((mirroredHorizontal && !animation_current->isMirroredHorizontal()) || (!mirroredHorizontal && animation_current->isMirroredHorizontal()))
 			{
 				pointFixed.x = width - pointFixed.x;
 			}
@@ -477,10 +482,10 @@ namespace GameLibrary
 			RectangleI actor_srcRect = actor->animation_current->getImageSourceRect(actor->animation_frame);
 			RectangleU actor_srcRectU = RectangleU((unsigned int)actor_srcRect.x, (unsigned int)actor_srcRect.y, (unsigned int)actor_srcRect.width, (unsigned int)actor_srcRect.height);
 			
-			bool mirror = false;
-			if(mirrored != animation_current->isMirrored())
+			bool mirrorHorizontal = false;
+			if(mirroredHorizontal != animation_current->isMirroredHorizontal())
 			{
-				mirror = true;
+				mirrorHorizontal = true;
 			}
 			bool mirrorVertical = false;
 			if(mirroredVertical != animation_current->isMirroredVertical())
@@ -488,10 +493,10 @@ namespace GameLibrary
 				mirrorVertical = true;
 			}
 			
-			bool actor_mirror = false;
-			if(actor->mirrored != actor->animation_current->isMirrored())
+			bool actor_mirrorHorizontal = false;
+			if(actor->mirroredHorizontal != actor->animation_current->isMirroredHorizontal())
 			{
-				actor_mirror = true;
+				actor_mirrorHorizontal = true;
 			}
 			bool actor_mirrorVertical = false;
 			if(actor->mirroredVertical != actor->animation_current->isMirroredVertical())
@@ -503,7 +508,7 @@ namespace GameLibrary
 			if(rotation == 0)
 			{
 				Vector2u dimensions(img->getWidth(), img->getHeight());
-				pxlIter = new PixelIterator(dimensions, srcRectU, frame, overlap, incr, incr, mirror, mirrorVertical);
+				pxlIter = new PixelIterator(dimensions, srcRectU, frame, overlap, incr, incr, mirrorHorizontal, mirrorVertical);
 			}
 			else
 			{
@@ -512,7 +517,7 @@ namespace GameLibrary
 				float ratiox = ((float)srcRect.width)/width;
 				float ratioy = ((float)srcRect.height)/height;
 				Vector2u dimensions(img->getWidth(), img->getHeight());
-				pxlIter = new PixelIterator(dimensions, srcRectU, frame, overlap, incr, incr, transform, Vector2f(ratiox, ratioy), mirror, mirrorVertical);
+				pxlIter = new PixelIterator(dimensions, srcRectU, frame, overlap, incr, incr, transform, Vector2f(ratiox, ratioy), mirrorHorizontal, mirrorVertical);
 			}
 			PixelIterator& pxlIterRef = *pxlIter;
 			
@@ -520,7 +525,7 @@ namespace GameLibrary
 			if(actor->rotation == 0)
 			{
 				Vector2u dimensions(actor_img->getWidth(), actor_img->getHeight());
-				actor_pxlIter = new PixelIterator(dimensions, actor_srcRectU, actor_frame, overlap, incr, incr, actor_mirror, actor_mirrorVertical);
+				actor_pxlIter = new PixelIterator(dimensions, actor_srcRectU, actor_frame, overlap, incr, incr, actor_mirrorHorizontal, actor_mirrorVertical);
 			}
 			else
 			{
@@ -529,7 +534,7 @@ namespace GameLibrary
 				float ratiox = ((float)actor_srcRect.width)/actor->width;
 				float ratioy = ((float)actor_srcRect.height)/actor->height;
 				Vector2u dimensions(actor_img->getWidth(), actor_img->getHeight());
-				actor_pxlIter = new PixelIterator(dimensions, actor_srcRectU, actor_frame, overlap, incr, incr, transform, Vector2f(ratiox, ratioy), actor_mirror, actor_mirrorVertical);
+				actor_pxlIter = new PixelIterator(dimensions, actor_srcRectU, actor_frame, overlap, incr, incr, transform, Vector2f(ratiox, ratioy), actor_mirrorHorizontal, actor_mirrorVertical);
 			}
 			PixelIterator& actor_pxlIterRef = *actor_pxlIter;
 

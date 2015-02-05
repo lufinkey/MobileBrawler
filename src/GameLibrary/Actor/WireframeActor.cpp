@@ -52,7 +52,7 @@ namespace GameLibrary
 				graphics.rotate(rotation);
 			}
 			Graphics frameGraphics(graphics);
-			if(mirrored)
+			if(mirroredHorizontal)
 			{
 				if(mirroredVertical)
 				{
