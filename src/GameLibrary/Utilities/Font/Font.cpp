@@ -240,8 +240,9 @@ namespace GameLibrary
 		}
 		TTF_Font* font = (TTF_Font*)getFontPtr(size);
 		TTF_SetFontStyle(font, styleToTTFStyle(style));
-		int totalwidth = 0;
-		int totalheight = 0;
+		int descent = TTF_FontDescent(font);
+		int totalWidth = 0;
+		int totalHeight = 0;
 		for(unsigned int i=0; i<text.length(); i++)
 		{
 			int w = 0;
@@ -255,14 +256,19 @@ namespace GameLibrary
 				//TODO replace with more specific exception type
 				throw Exception(TTF_GetError());
 			}
-			if(h > totalheight)
+			if(h > totalHeight)
 			{
-				totalheight = h;
+				totalHeight = h;
 			}
-			totalwidth += w;
+			totalWidth += w;
+		}
+		int fixedHeight = totalHeight - descent;
+		if(fixedHeight < 0)
+		{
+			fixedHeight = 0;
 		}
 		mlock.unlock();
-		return Vector2u((unsigned int)totalwidth, (unsigned int)totalheight);
+		return Vector2u((unsigned int)totalWidth, (unsigned int)fixedHeight);
 	}
 
 	void Font::setStyle(const Font::Style&s)
