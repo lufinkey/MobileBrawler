@@ -29,7 +29,7 @@ namespace GameLibrary
 		virtual void update(ApplicationData appData) override;
 		/*! Draws the Actor to the screen using the specified Graphics object
 			\param appData specifies information about the Application drawing the Actor, such as the Window object, the View transform, etc. \see GameLibrary::ApplicationData
-			\param graphics the graphics object used to draw the Actor*/
+			\param graphics the Graphics object used to draw the Actor*/
 		virtual void draw(ApplicationData appData, Graphics graphics) const override;
 		
 		
@@ -90,7 +90,7 @@ namespace GameLibrary
 			\param visible true makes the frame and border visible, false makes the frame and border invisible*/
 		void setFrameVisible(bool visible);
 		/*! Sets the color of the frame (bounding box) and the border of the Actor. Frame and border color are green {r=0; g=255; b=0; a=255} by default.
-			\see GameLibrary::Actor::setFrameVisible
+			\see GameLibrary::Actor::setFrameVisible(bool)
 			\param color the color to draw the frame and border*/
 		void setFrameColor(const Color&color);
 		/*! Sets whether the Actor is mirrored horizontally or not. If the Actor is mirrored, it will be drawn inverted horizontally. This does affect mouse states. Horizontal mirroring is false by default.
@@ -102,65 +102,65 @@ namespace GameLibrary
 		
 		
 		/*! Tells whether the Actor has been set visible. Visibility is true by default.
-			\see GameLibrary::Actor::setVisible
+			\see GameLibrary::Actor::setVisible(bool)
 			\returns true means the Actor has been set visible, false means the Actor has been set invisible*/
 		bool isVisible() const;
 		/*! Gets the color of the Actor.  Color is white {r=255; g=255; b=255; a=255} by default.
-			\see GameLibrary::Actor::setColor
+			\see GameLibrary::Actor::setColor(const Color&)
 			\returns a const reference to a Color object representing the Actor's color*/
 		const Color& getColor() const;
 		/*! Gets the Actor's rotation, in degrees, on its (x,y) origin. Rotation is 0 by default.
-			\see GameLibrary::Actor::setRotation
+			\see GameLibrary::Actor::setRotation(float)
 			\returns a float value representing the Actor's rotation in degrees*/
 		float getRotation() const;
 		/*! Gets the Actor's alpha value. Alpha is 1 by default (fully visible).
-			\see GameLibrary::Actor::setAlpha
+			\see GameLibrary::Actor::setAlpha(float)
 			\returns a float representing the alpha level, from 0 (fully invisible) to 1 (fully visible)*/
 		float getAlpha() const;
 		/*! Gets the Actor's scale ratio. Scale is 1 by default.
-			\see GameLibrary::Actor::setScale
+			\see GameLibrary::Actor::setScale(float)
 			\returns a float representing the ratio the Actor has been scaled*/
 		float getScale() const;
 		/*! Tells whether the Actor's frame (bounding box) and border have been set visible. Frame and border visibility is false by default.
-			\see GameLibrary::Actor::setFrameVisible
+			\see GameLibrary::Actor::setFrameVisible(bool)
 			\returns true if the Actor's frame and border are visible, and false if the frame and border are invisible*/
 		bool isFrameVisible() const;
 		/*! Gets the color of the Actor's frame (bounding box) and border. Frame and border color are green {r=0; g=255; b=0; a=255} by default.
-			\see GameLibrary::Actor::setFrameColor
+			\see GameLibrary::Actor::setFrameColor(const Color&)
 			\returns a const reference to a Color object representing the Actor's frame and border color*/
 		const Color& getFrameColor() const;
 		/*! Tells whether the Actor is drawn horizontally inverted. Horizontal mirroring is false by default.
-			\see GameLibrary::Actor::setMirroredHorizontal
+			\see GameLibrary::Actor::setMirroredHorizontal(bool)
 			\returns true if the Actor is mirrored horizontally, false if otherwise.*/
 		bool isMirroredHorizontal() const;
 		/*! Tells whether the Actor is drawn vertically inverted. Vertical mirroring is false by default.
-			\see GameLibrary::Actor::setMirroredVertical
+			\see GameLibrary::Actor::setMirroredVertical(bool)
 			\returns true if the Actor is mirrored vertically, false if otherwise.*/
 		bool isMirroredVertical() const;
 		
 		
 		/*! Tells whether the Mouse or a Multitouch input was hovering over the Actor in the most recent update call. This function does not recheck the mouse. The Actor's mouse state gets updated every time GameLibrary::Actor::update is called.
-			\see GameLibrary::Actor::update
+			\see GameLibrary::Actor::update(ApplicationData)
 			\returns true if a Mouse or Multitouch input was hovering over the Actor in the most recent update call, and false if otherwise.*/
 		bool isMouseOver() const;
 		/*! Tells whether the Mouse or a Multitouch input was hovering over the Actor in the previous (before the most recent) update call. This function does not recheck the mouse. The Actor's mouse state gets updated every time GameLibrary::Actor::update is called.
-			\see GameLibrary::Actor::update
+			\see GameLibrary::Actor::update(ApplicationData)
 			\returns true if a Mouse or Multitouch input was hovering over the Actor in the previous update call, and false if otherwise.*/
 		bool wasMouseOver() const;
 		/*! Tells whether the Mouse or a Multitouch input was pressing the Actor in the most recent update call. This function does not recheck the mouse. The Actor's mouse state gets updated every time GameLibrary::Actor::update is called.
-			\see GameLibrary::Actor::update
+			\see GameLibrary::Actor::update(ApplicationData)
 			\returns true if a Mouse or Multitouch input was pressing the Actor in the most recent update call, and false if otherwise.*/
 		bool isMousePressed() const;
 		/*! Tells whether the Mouse or a Multitouch input was pressing the Actor in the previous (before the most recent) call. This function does not recheck the mouse. The Actor's mouse state gets updated every time GameLibrary::Actor::update is called.
-			\see GameLibrary::Actor::update
+			\see GameLibrary::Actor::update(ApplicationData)
 			\returns true if a Mouse or Multitouch input was pressing the Actor in the previous update call, and false if otherwise.*/
 		bool wasMousePressed() const;
 		/*! Tells whether the Actor was just pressed in the most recent update call. This function does not recheck the mouse. The Actor's mouse state gets updated every time GameLibrary::Actor::update is called.
-			\see GameLibrary::Actor::update
+			\see GameLibrary::Actor::update(ApplicationData)
 			\returns true if a Mouse or Multitouch input just pressed the Actor in the most recent update call, and false if otherwise.*/
 		bool didMousePress() const;
 		/*! Tells whether the Actor was just released in the most recent update call. This function does not recheck the mouse. The Actor's mouse state gets updated every time GameLibrary::Actor::update is called.
-			\see GameLibrary::Actor::update
+			\see GameLibrary::Actor::update(ApplicationData)
 			\returns true if a Mouse or Multitouch input just released the Actor in the most recent update call, and false if otherwise.
 			\note the Actor may still be pressed. This function just checks to see if any touchID or mouseIndex released the Actor.*/
 		bool didMouseRelease() const;
@@ -171,19 +171,19 @@ namespace GameLibrary
 		void clearMouseState();
 		
 		
-		/*! Called when a Mouse or Multitouch input presses the Actor. This function is called within the Actor's update function. \see GameLibrary::Actor::update
+		/*! Called when a Mouse or Multitouch input presses the Actor. This function is called within the Actor's update function. \see GameLibrary::Actor::update(ApplicationData)
 			\param appData specifies information about the Application updating the Actor, such as the Window object, the View transform, etc. \see GameLibrary::ApplicationData
 			\param touchID the touchID or mouseIndex of the input. If Multitouch::isEnabled() returns true, touchID represents a multitouch id. Otherwise, touchID represents a mouse index. \see GameLibrary::Mouse \see GameLibrary::Multitouch*/
 		virtual void onMousePress(ApplicationData appData, unsigned int touchID);
-		/*! Called when a Mouse or Multitouch input releases the Actor. This function is called within the Actor's update function. \see GameLibrary::Actor::update
+		/*! Called when a Mouse or Multitouch input releases the Actor. This function is called within the Actor's update function. \see GameLibrary::Actor::update(ApplicationData)
 			\param appData specifies information about the Application updating the Actor, such as the Window object, the View transform, etc. \see GameLibrary::ApplicationData
 			\param touchID the touchID or mouseIndex of the input. If Multitouch::isEnabled() returns true, touchID represents a multitouch id. Otherwise, touchID represents a mouse index. \see GameLibrary::Mouse \see GameLibrary::Multitouch*/
 		virtual void onMouseRelease(ApplicationData appData, unsigned int touchID);
-		/*! Called when a Mouse or Multitouch input enters (hovers over) the Actor. This function is called within the Actor's update function. \see GameLibrary::Actor::update
+		/*! Called when a Mouse or Multitouch input enters (hovers over) the Actor. This function is called within the Actor's update function. \see GameLibrary::Actor::update(ApplicationData)
 			\param appData specifies information about the Application updating the Actor, such as the Window object, the View transform, etc. \see GameLibrary::ApplicationData
 			\param touchID the touchID or mouseIndex of the input. If Multitouch::isEnabled() returns true, touchID represents a multitouch id. Otherwise, touchID represents a mouse index. \see GameLibrary::Mouse \see GameLibrary::Multitouch*/
 		virtual void onMouseEnter(ApplicationData appData, unsigned int touchID);
-		/*! Called when a Mouse or Multitouch input leaves (stops hovering over) the Actor. This function is called within the Actor's update function. \see GameLibrary::Actor::update
+		/*! Called when a Mouse or Multitouch input leaves (stops hovering over) the Actor. This function is called within the Actor's update function. \see GameLibrary::Actor::update(ApplicationData)
 			\param appData specifies information about the Application updating the Actor, such as the Window object, the View transform, etc. \see GameLibrary::ApplicationData
 			\param touchID the touchID or mouseIndex of the input. If Multitouch::isEnabled() returns true, touchID represents a multitouch id. Otherwise, touchID represents a mouse index. \see GameLibrary::Mouse \see GameLibrary::Multitouch*/
 		virtual void onMouseLeave(ApplicationData appData, unsigned int touchID);

@@ -15,7 +15,7 @@ namespace GameLibrary
 	{
 	public:
 		/*! The direction the Animation should move in when animating.
-			\see GameLibrary::SpriteActor::changeAnimation*/
+			\see GameLibrary::SpriteActor::changeAnimation(const GameLibrary::String&,const GameLibrary::Animation::Direction&)*/
 		typedef enum
 		{
 			/*! Animation direction stays the same as its previous value, which may be Direction::FORWARD, Direction::BACKWARD, or Direction::STOPPED*/
@@ -86,11 +86,11 @@ namespace GameLibrary
 			\param mirror true to make the Animation draw vertically mirrored, and false to make the Animation draw normal vertically*/
 		void setMirroredVertical(bool mirror);
 		/*! Tells whether the Animation is mirrored horizontally.
-			\see GameLibrary::Animation::setMirroredHorizontal
+			\see GameLibrary::Animation::setMirroredHorizontal(bool)
 			\returns true if the Animation is mirrored horizontally, false if otherwise*/
 		bool isMirroredHorizontal() const;
 		/*! Tells whether the Animation is mirrored vertically.
-			\see GameLibrary::Animation::setMirroredVertical
+			\see GameLibrary::Animation::setMirroredVertical(bool)
 			\returns true if the Animation is mirrored vertically, false if otherwise*/
 		bool isMirroredVertical() const;
 		

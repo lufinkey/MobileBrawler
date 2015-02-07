@@ -84,7 +84,7 @@ namespace GameLibrary
 	protected:
 		/*! Special draw function to draw the SpriteActor with specific properties. These properties are not stored into the SpriteActor. This function is called from SpriteActor::draw
 			\param appData specifies information about the Application drawing the SpriteActor, such as the Window object, the View transform, etc. \see GameLibrary::ApplicationData
-			\param graphics the graphics object used to draw the SpriteActor
+			\param graphics the Graphics object used to draw the SpriteActor
 			\param x the x coordinate
 			\param y the y coordinate
 			\param scale the ratio to size the SpriteActor from its default size*/

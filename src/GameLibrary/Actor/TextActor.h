@@ -110,7 +110,7 @@ namespace GameLibrary
 	protected:
 		/*! Special draw function to draw the TextActor with specific properties. These properties are not stored into the TextActor. This function is called from TextActor::draw
 			\param appData specifies information about the Application drawing the TextActor, such as the Window object, the View transform, etc. \see GameLibrary::ApplicationData
-			\param graphics the graphics object used to draw the SpriteActor
+			\param graphics the Graphics object used to draw the SpriteActor
 			\param x the x coordinate
 			\param y the y coordinate
 			\param scale the ratio to size the SpriteActor from its default size*/

@@ -8,6 +8,8 @@ namespace GameLibrary
 {
 	class Application;
 	
+	
+	/*! Manages Application and Window events. Automatically called in the Application loop.*/
 	class EventManager
 	{
 		friend class Keyboard;
@@ -24,6 +26,8 @@ namespace GameLibrary
 		static void removeWindow(Window*window);
 		
 	public:
+		/*! Polls all the queued events of the current Application.
+			\param application the current Application*/
 		static void update(Application*application);
 	};
 }

@@ -69,7 +69,7 @@ namespace GameLibrary
 	protected:
 		/*! Special draw function to draw the WireframeActor with specific properties. These properties are not stored into the WireframeActor. This function is called from WireframeActor::draw
 			\param appData specifies information about the Application drawing the WireframeActor, such as the Window object, the View transform, etc. \see GameLibrary::ApplicationData
-			\param graphics the graphics object used to draw the WireframeActor
+			\param Graphics the graphics object used to draw the WireframeActor
 			\param x the x coordinate
 			\param y the y coordinate
 			\param scale the ratio to size the WireframeActor from its default size*/

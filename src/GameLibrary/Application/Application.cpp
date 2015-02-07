@@ -127,8 +127,7 @@ namespace GameLibrary
 		#if defined(TARGETPLATFORM_MOBILE)
 			settings.setPosition(Vector2i(0,0));
 			if(((orientations & ORIENTATION_PORTRAIT) == ORIENTATION_PORTRAIT)
-			|| ((orientations & ORIENTATION_PORTRAITUPSIDEDOWN) == ORIENTATION_PORTRAITUPSIDEDOWN)
-			|| (orientations == ORIENTATION_ALL))
+			|| ((orientations & ORIENTATION_PORTRAITUPSIDEDOWN) == ORIENTATION_PORTRAITUPSIDEDOWN))
 			{
 				settings.setSize(Vector2u(smaller,bigger));
 			}

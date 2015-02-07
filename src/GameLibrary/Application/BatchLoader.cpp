@@ -29,6 +29,16 @@ namespace GameLibrary
 		//
 	}
 	
+	AssetManager* BatchLoader::getAssetManager() const
+	{
+		return assetManager;
+	}
+	
+	void BatchLoader::setAssetManager(AssetManager*assetMgr)
+	{
+		assetManager = assetMgr;
+	}
+	
 	void BatchLoader::addEventListener(BatchLoaderEventListener*eventListener)
 	{
 		eventListeners.add(eventListener);
@@ -112,6 +122,10 @@ namespace GameLibrary
 			LoadInfo info = loadlist.get(loadindex);
 			if(info.type == LOADTYPE_TEXTURE)
 			{
+				if(assetManager == nullptr)
+				{
+					throw IllegalStateException("AssetManager cannot be null while loading a BatchLoader");
+				}
 				String error;
 				bool success = assetManager->loadTexture(info.path, &error);
 				loadcurrent+=info.value;
@@ -136,6 +150,10 @@ namespace GameLibrary
 			}
 			else if(info.type == LOADTYPE_FONT)
 			{
+				if(assetManager == nullptr)
+				{
+					throw IllegalStateException("AssetManager cannot be null while loading a BatchLoader");
+				}
 				String error;
 				bool success = assetManager->loadFont(info.path, &error);
 				loadcurrent+=info.value;

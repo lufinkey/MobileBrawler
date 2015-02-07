@@ -157,10 +157,21 @@ namespace GameLibrary
 	
 	void AssetManager::addTexture(const String&path, TextureImage*image)
 	{
-		if(image!=nullptr)
+		if(image==nullptr)
 		{
-			textures.add(Pair<String, TextureImage*>(path, image));
+			throw IllegalArgumentException("TextureImage cannot be null");
 		}
+		for(unsigned int i=0; i<textures.size(); i++)
+		{
+			Pair<String,TextureImage*>& pair = textures.get(i);
+			if(pair.first.equals(path))
+			{
+				delete pair.second;
+				textures.remove(i);
+				i = textures.size();
+			}
+		}
+		textures.add(Pair<String, TextureImage*>(path, image));
 	}
 
 	bool AssetManager::loadFont(const String&path, String*error)
