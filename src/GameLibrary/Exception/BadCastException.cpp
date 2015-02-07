@@ -19,4 +19,12 @@ namespace GameLibrary
 	{
 		//
 	}
+	
+	BadCastException& BadCastException::operator=(const BadCastException&exception)
+	{
+		Exception::operator=(exception);
+		originalType = exception.originalType;
+		castedType = exception.castedType;
+		return *this;
+	}
 }

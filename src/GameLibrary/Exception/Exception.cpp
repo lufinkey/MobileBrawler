@@ -25,6 +25,12 @@ namespace GameLibrary
 	{
 		//
 	}
+	
+	Exception& Exception::operator=(const Exception&exception)
+	{
+		message = exception.message;
+		return *this;
+	}
 
 	const char* Exception::what() const _NOEXCEPT
 	{

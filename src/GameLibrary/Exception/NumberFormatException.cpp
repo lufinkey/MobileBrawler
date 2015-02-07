@@ -19,4 +19,12 @@ namespace GameLibrary
 	{
 		//
 	}
+	
+	NumberFormatException& NumberFormatException::operator=(const NumberFormatException&exception)
+	{
+		IllegalArgumentException::operator=(exception);
+		type = exception.type;
+		reason = exception.reason;
+		return *this;
+	}
 }

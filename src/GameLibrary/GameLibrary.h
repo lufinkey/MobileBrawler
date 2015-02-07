@@ -34,7 +34,6 @@
 #include "Exception/Utilities/DataPacketOutOfBoundsException.h"
 #include "Exception/Utilities/StringOutOfBoundsException.h"
 #include "Exception/Utilities/Font/RenderGlyphException.h"
-#include "Exception/Utilities/Time/IllegalDateTimeFormatException.h"
 
 #include "Graphics/Color.h"
 #include "Graphics/Graphics.h"

@@ -25,9 +25,6 @@
     <Filter Include="src\GameLibrary\Exception\Utilities">
       <UniqueIdentifier>{535df61d-43e0-4710-9f0d-7430f84e7fe6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\GameLibrary\Exception\Utilities\Time">
-      <UniqueIdentifier>{75155c3c-15dd-4a16-ad9a-56ea7b2a3a1f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\GameLibrary\Graphics">
       <UniqueIdentifier>{7e577488-97fa-4cd3-b4db-72f537648ad2}</UniqueIdentifier>
     </Filter>
@@ -167,9 +164,6 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Exception\Utilities\StringOutOfBoundsException.cpp">
       <Filter>src\GameLibrary\Exception\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameLibrary\Exception\Utilities\Time\IllegalDateTimeFormatException.cpp">
-      <Filter>src\GameLibrary\Exception\Utilities\Time</Filter>
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Exception\BadCastException.cpp">
       <Filter>src\GameLibrary\Exception</Filter>
@@ -580,9 +574,6 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Exception\Graphics\ImageOutOfBoundsException.h">
       <Filter>src\GameLibrary\Exception\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameLibrary\Exception\Utilities\Time\IllegalDateTimeFormatException.h">
-      <Filter>src\GameLibrary\Exception\Utilities\Time</Filter>
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Exception\Utilities\ArrayListOutOfBoundsException.h">
       <Filter>src\GameLibrary\Exception\Utilities</Filter>

@@ -5,12 +5,18 @@
 
 namespace GameLibrary
 {
-	/* Thrown to indicate failed Any::as cast of an Any value. */
+	/*! Thrown to indicate that casting an Any object failed*/
 	class BadAnyCastException : public BadCastException
 	{
 	public:
+		/*! copy constructor*/
 		BadAnyCastException(const BadAnyCastException&);
+		/*! Constructs an exception with a casted type string.
+			\param casttype the type that the Any object was cast as*/
 		BadAnyCastException(const String&casttype);
+		/*! virtual destructor*/
 		virtual ~BadAnyCastException();
+		/*! assignment operator*/
+		BadAnyCastException& operator=(const BadAnyCastException&);
 	};
 }

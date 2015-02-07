@@ -17,4 +17,10 @@ namespace GameLibrary
 	{
 		//
 	}
+	
+	InitializeLibraryException& InitializeLibraryException::operator=(const InitializeLibraryException&exception)
+	{
+		Exception::operator=(exception);
+		return *this;
+	}
 }

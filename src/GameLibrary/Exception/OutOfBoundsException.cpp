@@ -17,4 +17,10 @@ namespace GameLibrary
 	{
 		//
 	}
+	
+	OutOfBoundsException& OutOfBoundsException::operator=(const OutOfBoundsException&exception)
+	{
+		Exception::operator=(exception);
+		return *this;
+	}
 }

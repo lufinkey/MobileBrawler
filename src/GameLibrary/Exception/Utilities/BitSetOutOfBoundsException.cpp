@@ -17,4 +17,11 @@ namespace GameLibrary
 	{
 		//
 	}
+	
+	BitSetOutOfBoundsException& BitSetOutOfBoundsException::operator=(const BitSetOutOfBoundsException&exception)
+	{
+		OutOfBoundsException::operator=(exception);
+		index = exception.index;
+		return *this;
+	}
 }

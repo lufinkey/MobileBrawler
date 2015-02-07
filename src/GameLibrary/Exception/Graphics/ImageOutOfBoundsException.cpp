@@ -37,4 +37,16 @@ namespace GameLibrary
 	{
 		//
 	}
+	
+	ImageOutOfBoundsException& ImageOutOfBoundsException::operator=(const ImageOutOfBoundsException&exception)
+	{
+		OutOfBoundsException::operator=(exception);
+		index = exception.index;
+		x = exception.x;
+		y = exception.y;
+		size = exception.size;
+		width = exception.width;
+		height = exception.height;
+		return *this;
+	}
 }

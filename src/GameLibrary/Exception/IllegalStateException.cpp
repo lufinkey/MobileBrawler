@@ -17,4 +17,10 @@ namespace GameLibrary
 	{
 		//
 	}
+	
+	IllegalStateException& IllegalStateException::operator=(const IllegalStateException&exception)
+	{
+		Exception::operator=(exception);
+		return *this;
+	}
 }

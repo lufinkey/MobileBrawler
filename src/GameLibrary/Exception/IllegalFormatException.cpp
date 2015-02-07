@@ -17,4 +17,10 @@ namespace GameLibrary
 	{
 		//
 	}
+
+	IllegalFormatException& IllegalFormatException::operator=(const IllegalFormatException&exception)
+	{
+		Exception::operator=(exception);
+		return *this;
+	}
 }

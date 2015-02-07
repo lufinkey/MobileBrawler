@@ -3,7 +3,7 @@
 
 namespace GameLibrary
 {
-	IllegalArgumentException::IllegalArgumentException()
+	IllegalArgumentException::IllegalArgumentException() : Exception("An illegal argument was used on a function")
 	{
 		//
 	}
@@ -21,5 +21,11 @@ namespace GameLibrary
 	IllegalArgumentException::~IllegalArgumentException()
 	{
 		//
+	}
+	
+	IllegalArgumentException& IllegalArgumentException::operator=(const IllegalArgumentException&exception)
+	{
+		Exception::operator=(exception);
+		return *this;
 	}
 }

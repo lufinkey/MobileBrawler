@@ -17,4 +17,10 @@ namespace GameLibrary
 	{
 		//
 	}
+	
+	ScreenNavigationException& ScreenNavigationException::operator=(const ScreenNavigationException&exception)
+	{
+		Exception::operator=(exception);
+		return *this;
+	}
 }

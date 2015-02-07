@@ -17,4 +17,11 @@ namespace GameLibrary
 	{
 		//
 	}
+	
+	UnsupportedImageFormatException& UnsupportedImageFormatException::operator=(const UnsupportedImageFormatException&exception)
+	{
+		Exception::operator=(exception);
+		format = exception.format;
+		return *this;
+	}
 }

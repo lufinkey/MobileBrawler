@@ -31,4 +31,14 @@ namespace GameLibrary
 	{
 		//
 	}
+	
+	BitListOutOfBoundsException& BitListOutOfBoundsException::operator=(const BitListOutOfBoundsException&exception)
+	{
+		OutOfBoundsException::operator=(exception);
+		index = exception.index;
+		byteIndex = exception.byteIndex;
+		bitIndex = exception.bitIndex;
+		size = exception.size;
+		return *this;
+	}
 }

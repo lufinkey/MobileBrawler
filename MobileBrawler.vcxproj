@@ -127,7 +127,6 @@
     <ClCompile Include="src\GameLibrary\Exception\Utilities\Font\RenderGlyphException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\Utilities\IllegalNumberOperationException.cpp" />
     <ClCompile Include="src\GameLibrary\Exception\Utilities\StringOutOfBoundsException.cpp" />
-    <ClCompile Include="src\GameLibrary\Exception\Utilities\Time\IllegalDateTimeFormatException.cpp" />
     <ClCompile Include="src\GameLibrary\GameLibrary.cpp" />
     <ClCompile Include="src\GameLibrary\Graphics\PixelIterator.cpp" />
     <ClCompile Include="src\GameLibrary\Graphics\TextureImage.cpp" />
@@ -245,7 +244,6 @@
     <ClInclude Include="src\GameLibrary\Exception\Utilities\Font\RenderGlyphException.h" />
     <ClInclude Include="src\GameLibrary\Exception\Utilities\IllegalNumberOperationException.h" />
     <ClInclude Include="src\GameLibrary\Exception\Utilities\StringOutOfBoundsException.h" />
-    <ClInclude Include="src\GameLibrary\Exception\Utilities\Time\IllegalDateTimeFormatException.h" />
     <ClInclude Include="src\GameLibrary\GameLibrary.h" />
     <ClInclude Include="src\GameLibrary\Graphics\PixelIterator.h" />
     <ClInclude Include="src\GameLibrary\Graphics\TextureImage.h" />

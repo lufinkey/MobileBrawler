@@ -19,4 +19,12 @@ namespace GameLibrary
 	{
 		//
 	}
+	
+	DataPacketOutOfBoundsException& DataPacketOutOfBoundsException::operator=(const DataPacketOutOfBoundsException&exception)
+	{
+		OutOfBoundsException::operator=(exception);
+		index = exception.index;
+		size = exception.size;
+		return *this;
+	}
 }

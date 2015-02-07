@@ -17,4 +17,10 @@ namespace GameLibrary
 	{
 		//
 	}
+	
+	RenderGlyphException& RenderGlyphException::operator=(const RenderGlyphException&exception)
+	{
+		Exception::operator=(exception);
+		return *this;
+	}
 }

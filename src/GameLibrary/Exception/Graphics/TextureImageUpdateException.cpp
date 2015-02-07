@@ -17,4 +17,10 @@ namespace GameLibrary
 	{
 		//
 	}
+	
+	TextureImageUpdateException& TextureImageUpdateException::operator=(const TextureImageUpdateException&exception)
+	{
+		Exception::operator=(exception);
+		return *this;
+	}
 }
