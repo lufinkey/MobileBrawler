@@ -334,7 +334,7 @@ namespace GameLibrary
 		alpha = (byte)(((float)alpha)*mult);
 	}
 
-	byte Graphics::getAlpha()
+	byte Graphics::getAlpha() const
 	{
 		return alpha;
 	}
@@ -349,7 +349,7 @@ namespace GameLibrary
 		color = color.composite(c);
 	}
 
-	const Color& Graphics::getColor()
+	const Color& Graphics::getColor() const
 	{
 		return color;
 	}
@@ -364,7 +364,7 @@ namespace GameLibrary
 		tintColor = tintColor.composite(c);
 	}
 
-	const Color& Graphics::getTintColor()
+	const Color& Graphics::getTintColor() const
 	{
 		return color;
 	}
@@ -374,7 +374,7 @@ namespace GameLibrary
 		font = f;
 	}
 
-	Font*Graphics::getFont()
+	Font* Graphics::getFont() const
 	{
 		return font;
 	}

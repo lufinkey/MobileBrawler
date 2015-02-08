@@ -24,11 +24,6 @@ namespace GameLibrary
 		width = img.width;
 		height = img.height;
 	}
-
-	Image::~Image()
-	{
-		pixels.clear();
-	}
 	
 	Image& Image::operator=(const Image&img)
 	{

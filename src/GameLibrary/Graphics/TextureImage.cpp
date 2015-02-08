@@ -384,7 +384,7 @@ namespace GameLibrary
 		throw ImageOutOfBoundsException(x, y, width, height);
 	}
 
-	const std::vector<bool>& TextureImage::getPixelBooleans() const
+	const std::vector<bool>& TextureImage::getPixelBools() const
 	{
 		return pixels;
 	}

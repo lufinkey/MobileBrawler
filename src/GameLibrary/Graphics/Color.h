@@ -7,11 +7,13 @@ namespace GameLibrary
 {
 #define RGBA(r,g,b,a) (a | (b<<8) | (g<<16) | (r<<24))
 #define RGBX(r,g,b) RGBA(r,g,b,255)
-
+	
+	/*! Contains an RGBA color value*/
 	class Color
 	{
 	public:
-		enum RGBA32
+		/*! 32 bit RGBA constants*/
+		typedef enum
 		{
 			BLACK = RGBX(0, 0, 0),
 			BLUE = RGBX(0, 0, 255),
@@ -181,30 +183,69 @@ namespace GameLibrary
 			WHEAT = RGBX(245, 222, 179),
 			WHITESMOKE = RGBX(245, 245, 245),
 			YELLOWGREEN = RGBX(154, 205, 50),
-		};
-		typedef enum RGBA32 RGBA32;
+		} RGBA32;
 		
-		byte r,g,b,a;
+		/*! alpha value. default value is 255*/
+		byte a;
+		/*! blue value. default value is 255*/
+		byte b;
+		/*! green value. default value is 255*/
+		byte g;
+		/*! red value. default value is 255*/
+		byte r;
 		
+		/*! default constructor*/
 		Color();
+		/*! copy constructor*/
 		Color(const Color&);
+		/*! Constructs a Color object from an RGBA32 constant
+			\param rgba an RGBA 32 bit constant constant*/
 		Color(const GameLibrary::Color::RGBA32&rgba);
+		/*! Constructs a Color object with an rgba value
+			\param r the red value
+			\param g the green value
+			\param b the blue value
+			\param a the alpha value*/
 		Color(byte r, byte g, byte b, byte a=255);
-		~Color();
 		
+		
+		/*! assignment operator*/
 		Color&operator=(const Color&);
+		/*! assignment operator*/
 		Color&operator=(const GameLibrary::Color::RGBA32&rgba);
+		/*! equality operator*/
 		bool operator==(const Color&) const;
+		/*! inequality operator*/
+		bool operator!=(const Color&) const;
 		
+		
+		/*! Creates a 32 bit RGBA integer
+			\returns an unsigned 32 bit integer*/
 		GameLibrary::Uint32 getRGBA() const;
+		/*! Creates a 32 bit ARGB integer
+			\returns an unsigned 32 bit integer*/
 		GameLibrary::Uint32 getARGB() const;
+		/*! Creates a 32 bit ABGR integer
+			\returns an unsigned 32 bit integer*/
 		GameLibrary::Uint32 getABGR() const;
+		/*! Creates a 32 bit BGRA integer
+			\returns an unsigned 32 bit integer*/
 		GameLibrary::Uint32 getBGRA() const;
 		
-		bool equals(const Color&) const;
-
-		Color composite(const Color&) const;
 		
+		/*! Compares another Color to check equality.
+			\param color the color to compare
+			\returns true if the Color objects are equal, and false if they are not equal*/
+		bool equals(const Color&color) const;
+		
+		/*! Creates a Color object by compositing a Color on top of the current Color. this->r *= (color.r/255);
+			\param comp the Color to composite on top of the current Color
+			\returns a Color object with the given color composited on top of it.*/
+		Color composite(const Color&comp) const;
+		
+		/*! Generates a random Color value.
+			\param alpha true to randomize the alpha value, false to only randomize the RGB values
+			\returns a random Color value*/
 		static Color random(bool alpha=false);
 	};
 }

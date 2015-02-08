@@ -4,7 +4,7 @@
 
 namespace GameLibrary
 {
-	PixelIterator::PixelIterator(const Vector2u&dims, const RectangleU&srcrect, const RectangleF&dstrect, const RectangleF&looprect, float xincrement, float yincrement, bool mirror_arg, bool mirrorVertical_arg)
+	PixelIterator::PixelIterator(const Vector2u&dims, const RectangleU&srcrect, const RectangleF&dstrect, const RectangleF&looprect, float xincrement, float yincrement, bool mirrorHorizontal_arg, bool mirrorVertical_arg)
 	{
 		if(!dstRect.contains(loopRect))
 		{
@@ -34,7 +34,7 @@ namespace GameLibrary
 		incr.y = yincrement;
 		incrpxl.x = incr.x*ratio.x;
 		incrpxl.y = incr.y*ratio.y;
-		mirror = mirror_arg;
+		mirrorHorizontal = mirrorHorizontal_arg;
 		mirrorVertical = mirrorVertical_arg;
 		currentPoint.x = loopRect.x - dstRect.x;
 		currentPoint.y = loopRect.y - dstRect.y;
@@ -44,7 +44,7 @@ namespace GameLibrary
 		lastRowStartIndex = currentPixelIndex;
 	}
 	
-	PixelIterator::PixelIterator(const Vector2u&dims, const RectangleU&srcrect, const RectangleF&dstrect, const RectangleF&looprect, float xincrement, float yincrement, const Transform&transform, const Vector2f&rat, bool mirror_arg, bool mirrorVertical_arg)
+	PixelIterator::PixelIterator(const Vector2u&dims, const RectangleU&srcrect, const RectangleF&dstrect, const RectangleF&looprect, float xincrement, float yincrement, const Transform&transform, const Vector2f&rat, bool mirrorHorizontal_arg, bool mirrorVertical_arg)
 	{
 		if(!dstRect.contains(loopRect))
 		{
@@ -75,7 +75,7 @@ namespace GameLibrary
 		incrpxl.x = incr.x*ratio.x;
 		incrpxl.y = incr.y*ratio.y;
 		inverseTransform = transform.getInverse();
-		mirror = mirror_arg;
+		mirrorHorizontal = mirrorHorizontal_arg;
 		mirrorVertical = mirrorVertical_arg;
 		currentPoint.x = loopRect.x - dstRect.x;
 		currentPoint.y = loopRect.y - dstRect.y;
@@ -97,7 +97,7 @@ namespace GameLibrary
 		loopRectRel = iterator.loopRectRel;
 		inverseTransform = iterator.inverseTransform;
 		usesTransform = iterator.usesTransform;
-		mirror = iterator.mirror;
+		mirrorHorizontal = iterator.mirrorHorizontal;
 		mirrorVertical = iterator.mirrorVertical;
 		started = iterator.started;
 		currentPoint = iterator.currentPoint;
@@ -107,11 +107,6 @@ namespace GameLibrary
 		incr = iterator.incr;
 		incrpxl = iterator.incrpxl;
 		ratio = iterator.ratio;
-	}
-	
-	PixelIterator::~PixelIterator()
-	{
-		//
 	}
 	
 	PixelIterator& PixelIterator::operator=(const PixelIterator&iterator)
@@ -126,7 +121,7 @@ namespace GameLibrary
 		loopRectRel = iterator.loopRectRel;
 		inverseTransform = iterator.inverseTransform;
 		usesTransform = iterator.usesTransform;
-		mirror = iterator.mirror;
+		mirrorHorizontal = iterator.mirrorHorizontal;
 		mirrorVertical = iterator.mirrorVertical;
 		started = iterator.started;
 		currentPoint = iterator.currentPoint;
@@ -147,7 +142,7 @@ namespace GameLibrary
 			Vector2f pixelPoint = inverseTransform.transform(currentPoint);
 			pixelPoint.x *= ratio.x;
 			pixelPoint.y *= ratio.y;
-			if(mirror)
+			if(mirrorHorizontal)
 			{
 				pixelPoint.x = srcRectF.x + (srcRectF.width - (pixelPoint.x-srcRectF.x));
 			}
@@ -175,7 +170,7 @@ namespace GameLibrary
 		else
 		{
 			Vector2f pixelPoint(currentPoint.x*ratio.x, currentPoint.y*ratio.y);
-			if(mirror)
+			if(mirrorHorizontal)
 			{
 				pixelPoint.x = srcRectF.x + (srcRectF.width - (pixelPoint.x-srcRectF.x));
 			}
@@ -228,7 +223,7 @@ namespace GameLibrary
 			if(started)
 			{
 				currentPoint.x += incr.x;
-				if(mirror)
+				if(mirrorHorizontal)
 				{
 					currentPixelIndex -= incrpxl.x;
 				}

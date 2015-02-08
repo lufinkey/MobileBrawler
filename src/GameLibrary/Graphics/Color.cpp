@@ -37,11 +37,6 @@ namespace GameLibrary
 		a = color.a;
 	}
 	
-	Color::~Color()
-	{
-		//
-	}
-	
 	Color& Color::operator=(const Color&color)
 	{
 		r = color.r;
@@ -64,6 +59,11 @@ namespace GameLibrary
 	bool Color::operator==(const Color&color) const
 	{
 		return equals(color);
+	}
+	
+	bool Color::operator!=(const Color&color) const
+	{
+		return !equals(color);
 	}
 	
 	Uint32 Color::getRGBA() const
