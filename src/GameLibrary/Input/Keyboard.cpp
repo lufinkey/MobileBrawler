@@ -301,6 +301,7 @@ namespace GameLibrary
 			case HOME: return "home";
 			case INSERT: return "insert";
 			case DELETE: return "delete";
+			case PAUSE: return "pause";
 			case ADD: return "+";
 			case SUBTRACT: return "-";
 			case MULTIPLY: return "*";
@@ -334,7 +335,6 @@ namespace GameLibrary
 			case F13: return "f13";
 			case F14: return "f14";
 			case F15: return "f15";
-			case PAUSE: return "pause";
 		}
 		return "";
 	}

@@ -16,10 +16,14 @@ namespace GameLibrary
 		/*! Constant that represents a Mouse Button*/
 		typedef enum
 		{
+			/*! Unknown or unsupported mouse button*/
 			UNKNOWN_BUTTON,
+			/*! Left mouse button*/
 			BUTTON_LEFT,
-			BUTTON_MIDDLE,
-			BUTTON_RIGHT
+			/*! Right mouse button*/
+			BUTTON_RIGHT,
+			/*! Middle mouse button*/
+			BUTTON_MIDDLE
 		} Button;
 		
 		

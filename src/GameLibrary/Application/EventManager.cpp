@@ -293,6 +293,7 @@ namespace GameLibrary
 			case SDLK_HOME: return Keyboard::HOME;
 			case SDLK_INSERT: return Keyboard::INSERT;
 			case SDLK_DELETE: return Keyboard::DELETE;
+			case SDLK_PAUSE: return Keyboard::PAUSE;
 			case SDLK_KP_PLUS: return Keyboard::ADD;
 			case SDLK_KP_MINUS: return Keyboard::SUBTRACT;
 			case SDLK_KP_MULTIPLY: return Keyboard::MULTIPLY;
@@ -326,7 +327,6 @@ namespace GameLibrary
 			case SDLK_F13: return Keyboard::F13;
 			case SDLK_F14: return Keyboard::F14;
 			case SDLK_F15: return Keyboard::F15;
-			case SDLK_PAUSE: return Keyboard::PAUSE;
 		}
 		return Keyboard::UNKNOWN_KEY;
 	}
