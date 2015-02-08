@@ -31,16 +31,16 @@ namespace BrawlerLibrary
 			}
 		}
 		
-		ArrayList<FileTools::DirectoryItem> diritems;
-		FileTools::getItemsInDirectory(path, &diritems);
+		ArrayList<FileTools::DirectoryEntry> dirEntries;
+		FileTools::readEntriesFromDirectory(path, &dirEntries);
 		
-		for(unsigned int i=0; i<diritems.size(); i++)
+		for(unsigned int i=0; i<dirEntries.size(); i++)
 		{
-			FileTools::DirectoryItem& diritem = diritems.get(i);
-			if(diritem.type==FileTools::ITEMTYPE_FOLDER || diritem.type==FileTools::ITEMTYPE_LINK_FOLDER)
+			FileTools::DirectoryEntry& dirEntry = dirEntries.get(i);
+			if(dirEntry.type==FileTools::ENTRYTYPE_FOLDER || dirEntry.type==FileTools::ENTRYTYPE_LINK_FOLDER)
 			{
 				CharacterInfo info;
-				bool success = info.loadFromPath(path + "/" + diritem.name);
+				bool success = info.loadFromPath(path + "/" + dirEntry.name);
 				//TODO see if minsmashversion is compatible using a list of compatible versions
                 //TODO compare minsmashversion to current application and handle accordingly
                 /*if (info.minsmashversion == "1.0") {
@@ -79,16 +79,16 @@ namespace BrawlerLibrary
 		{
 			String path = paths.get(i);
 			
-			ArrayList<FileTools::DirectoryItem> diritems;
-			FileTools::getItemsInDirectory(path, &diritems);
+			ArrayList<FileTools::DirectoryEntry> dirEntries;
+			FileTools::readEntriesFromDirectory(path, &dirEntries);
 			
-			for(unsigned int j=0; j<diritems.size(); j++)
+			for(unsigned int j=0; j<dirEntries.size(); j++)
 			{
-				FileTools::DirectoryItem& diritem = diritems.get(j);
-				if(diritem.type==FileTools::ITEMTYPE_FOLDER || diritem.type==FileTools::ITEMTYPE_LINK_FOLDER)
+				FileTools::DirectoryEntry& dirEntry = dirEntries.get(j);
+				if(dirEntry.type==FileTools::ENTRYTYPE_FOLDER || dirEntry.type==FileTools::ENTRYTYPE_LINK_FOLDER)
 				{
 					CharacterInfo info;
-					bool success = info.loadFromPath(path + "/" + diritem.name);
+					bool success = info.loadFromPath(path + "/" + dirEntry.name);
 					if(success)
 					{
 						characters.add(info);

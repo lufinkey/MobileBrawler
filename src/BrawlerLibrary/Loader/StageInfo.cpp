@@ -112,11 +112,11 @@ namespace BrawlerLibrary
 				return false;
 			}
 			
-			ArrayList<FileTools::DirectoryItem> items;
-			FileTools::getItemsInDirectory(folderpath + "/costumes", &items);
-			for(unsigned int i = 0; i < items.size(); i++)
+			ArrayList<FileTools::DirectoryEntry> entries;
+			FileTools::readEntriesFromDirectory(folderpath + "/costumes", &entries);
+			for(unsigned int i = 0; i < entries.size(); i++)
 			{
-
+				//TODO read through costumes
 			}
 			
 			name = val_name.as<String>(false);

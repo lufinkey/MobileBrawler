@@ -40,13 +40,13 @@ namespace GameLibrary
 			\param path the path to the image file
 			\param graphics the graphics object to create the texture on the video card memory
 			\param error an optional String pointer to store the error message if the function fails
-			\returns true if the load succeeds, and false if an error is encountered*/
+			\returns true if the load succeeds, or false if an error is encountered*/
 		bool loadFromFile(const String&path, Graphics&graphics, String*error=nullptr);
 		/*! Loads the image data from an Image object and writes it to the video card memory.
 			\param image the Image to load from
 			\param graphics the graphics object to create the texture on the video card memory
 			\param error an optional String pointer to store the error message if the function fails
-			\returns true if the load succeeds, and false if an error is encountered*/
+			\returns true if the load succeeds, or false if an error is encountered*/
 		bool loadFromImage(const Image&image, Graphics&graphics, String*error=nullptr);
 		//Image copyToImage() const;
 		

@@ -31,11 +31,11 @@ namespace GameLibrary
 		return buffer;
 	}
 	
-	bool FileTools::getItemsInDirectory(const String&directory, ArrayList<DirectoryItem>*items, String*error)
+	bool FileTools::readEntriesFromDirectory(const String&directory, ArrayList<DirectoryEntry>*entries, String*error)
 	{
-		if(items == nullptr)
+		if(entries == nullptr)
 		{
-			throw IllegalArgumentException("items argument in FileManager::getItemsInDirectory cannot be null");
+			throw IllegalArgumentException("entries argument cannot be null");
 		}
 		DIR*dir = opendir(directory);
 		if(dir==NULL)
@@ -47,20 +47,20 @@ namespace GameLibrary
 			}
 			return false;
 		}
-		items->clear();
+		entries->clear();
 		struct dirent *entry = readdir(dir);
 		while (entry != NULL)
 		{
-			DirectoryItem item;
+			DirectoryEntry item;
 			item.name = entry->d_name;
 			switch(entry->d_type)
 			{
 				case DT_REG:
-				item.type = ITEMTYPE_FILE;
+				item.type = ENTRYTYPE_FILE;
 				break;
 					
 				case DT_DIR:
-				item.type = ITEMTYPE_FOLDER;
+				item.type = ENTRYTYPE_FOLDER;
 				break;
 					
 				case DT_LNK:
@@ -71,27 +71,31 @@ namespace GameLibrary
 					{
 						if((s.st_mode&S_IFMT) == S_IFDIR)
 						{
-							item.type = ITEMTYPE_LINK_FOLDER;
+							item.type = ENTRYTYPE_LINK_FOLDER;
+						}
+						else if((s.st_mode&S_IFMT) == S_IFREG)
+						{
+							item.type = ENTRYTYPE_LINK_FILE;
 						}
 						else
 						{
-							item.type = ITEMTYPE_LINK_FILE;
+							item.type = ENTRYTYPE_LINK;
 						}
 					}
 					else
 					{
-						item.type = ITEMTYPE_LINK_FILE;
+						item.type = ENTRYTYPE_LINK;
 					}
 				}
 				break;
 					
 				default:
-				item.type = ITEMTYPE_UNKNOWN;
+				item.type = ENTRYTYPE_UNKNOWN;
 				break;
 			}
 			if(!(item.name.equals(".") || item.name.equals("..")))
 			{
-				items->add(item);
+				entries->add(item);
 			}
 			entry = readdir(dir);
 		}
