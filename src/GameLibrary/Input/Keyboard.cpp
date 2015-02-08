@@ -338,19 +338,4 @@ namespace GameLibrary
 		}
 		return "";
 	}
-
-	void KeyboardEventListener::onKeyPress(Keyboard::Key key)
-	{
-		//
-	}
-
-	void KeyboardEventListener::onKeyRelease(Keyboard::Key key)
-	{
-		//
-	}
-
-	KeyboardEventListener::~KeyboardEventListener()
-	{
-		//Keyboard::removeEventListener(this);
-	}
 }

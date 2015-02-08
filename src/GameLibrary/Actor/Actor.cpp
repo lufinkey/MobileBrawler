@@ -42,7 +42,7 @@ namespace GameLibrary
 		prevclicked = clicked;
 		prevmouseover = mouseover;
 
-		if(Multitouch::isEnabled())
+		if(Multitouch::isAvailable())
 		{
 			updateTouch(appData);
 		}

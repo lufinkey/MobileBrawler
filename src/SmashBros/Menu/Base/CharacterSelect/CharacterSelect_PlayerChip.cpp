@@ -57,7 +57,7 @@ namespace SmashBros
 				bool stopDragging = false;
 				if(dragging)
 				{
-					if(Multitouch::isEnabled())
+					if(Multitouch::isAvailable())
 					{
 						if(Multitouch::isTouchActive(appData.getWindow(), dragTouchID))
 						{
@@ -125,7 +125,7 @@ namespace SmashBros
 				dragging = true;
 				dragTouchID = touchID;
 				Transform mouseTransform = appData.getTransform().getInverse();
-				if(Multitouch::isEnabled())
+				if(Multitouch::isAvailable())
 				{
 					dragOffset = Vector2f(x,y) - mouseTransform.transform(Multitouch::getPosition(appData.getWindow(), touchID));
 				}

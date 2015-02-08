@@ -525,24 +525,4 @@ namespace GameLibrary
 		Mouse_currentStates = Mouse_states;
 		Mouse_state_mutex.unlock();
 	}
-	
-	void MouseEventListener::onMouseButtonPress(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2f&mousepos)
-	{
-		//
-	}
-	
-	void MouseEventListener::onMouseButtonRelease(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2f&mousepos)
-	{
-		//
-	}
-	
-	void MouseEventListener::onMouseMove(Window*window, unsigned int mouseIndex, const Vector2f&mousepos, const Vector2f&mousedif)
-	{
-		//
-	}
-	
-	MouseEventListener::~MouseEventListener()
-	{
-		//Mouse::removeEventListener(this);
-	}
 }

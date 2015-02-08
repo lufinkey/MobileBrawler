@@ -535,32 +535,12 @@ namespace GameLibrary
 		Multitouch_state_mutex.unlock();
 	}
 	
-	bool Multitouch::isEnabled()
+	bool Multitouch::isAvailable()
 	{
 		#if defined(TARGETPLATFORM_MOBILE)
 			return true;
 		#else
 			return false;
 		#endif
-	}
-	
-	void MultitouchEventListener::onMultitouchDown(Window*window, unsigned int touchID, const Vector2f&touchpos)
-	{
-		//
-	}
-	
-	void MultitouchEventListener::onMultitouchUp(Window*window, unsigned int touchID, const Vector2f&touchpos)
-	{
-		//
-	}
-	
-	void MultitouchEventListener::onMultitouchMove(Window*window, unsigned int touchID, const Vector2f&touchpos, const Vector2f&touchdif)
-	{
-		//
-	}
-	
-	MultitouchEventListener::~MultitouchEventListener()
-	{
-		//
 	}
 }

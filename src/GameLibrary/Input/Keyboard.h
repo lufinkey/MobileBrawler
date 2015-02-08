@@ -8,13 +8,13 @@ namespace GameLibrary
 {
 	class KeyboardEventListener;
 
-	/*Represents the Keyboard and all key states on the Keyboard*/
+	/*! Represents the Keyboard and all key states on the Keyboard*/
 	class Keyboard
 	{
 		friend class EventManager;
 	public:
-		/*Constant that represents a Key*/
-		enum Key
+		/*! Constant that represents a Key*/
+		typedef enum
 		{
 			UNKNOWN_KEY,
 			A,
@@ -117,54 +117,67 @@ namespace GameLibrary
 			F14,
 			F15,
 			PAUSE
-		};
-		typedef enum Key Key;
-
-		/*Returns a String representing the specified Key*/
+		} Key;
+		
+		/*! Gets a String that represents the specified Key.
+			\returns a String value*/
 		static String getKeyText(Key key);
-
-		/*Returns true if Key is currently in a pressed state*/
+		
+		
+		/*! Checks if a key on the keyboard is currently being pressed.
+			\returns true if Key is currently in a pressed state, or false if otherwise*/
 		static bool isKeyPressed(Key key);
-		/*Returns true if Key is currently in a released state*/
+		/*! Checks if a key on the keyboard is currently not being pressed.
+			\returns true if Key is currently in a released state, or false if otherwise*/
 		static bool isKeyReleased(Key key);
-
-		/*Returns true if Key was in a pressed state in the previous frame*/
+		
+		
+		/*! Checks if a key on the keyboard was being pressed in the previous frame.
+			\returns true if Key was in a pressed state in the previous frame, or false if otherwise*/
 		static bool wasKeyPressed(Key key);
-		/*Returns true if Key was in a released state in the previous frame*/
+		/*! Checks if a key on the keyboard was not being pressed in the previous frame.
+			\returns true if Key was in a released state in the previous frame, or false if otherwise*/
 		static bool wasKeyReleased(Key key);
-
-		/*Returns true if Key was just pressed (released state in the previous frame, pressed state in the current frame)*/
+		
+		
+		/*! Checks if a key on the keyboard was just pressed.
+			\returns true if Key was just pressed (released state in the previous frame, pressed state in the current frame), or false if otherwise*/
 		static bool didKeyPress(Key key);
-		/*Returns true if Key was just released (pressed state in the previous frame, released state in the current frame)*/
+		/*! Checks if a key on the keyboard was just released.
+			\returns true if Key was just released (pressed state in the previous frame, released state in the current frame), or false if otherwise*/
 		static bool didKeyRelease(Key key);
 
-		/*Adds a KeyboardEventListener to handle Keyboard events*/
-		static void addEventListener(KeyboardEventListener*);
-		/*Removes a previously added KeyboardEventListener*/
-		static void removeEventListener(KeyboardEventListener*);
+		/*! Adds a KeyboardEventListener to handle Keyboard events.
+			\param eventListener the listener pointer*/
+		static void addEventListener(KeyboardEventListener*eventListener);
+		/*! Removes a previously added KeyboardEventListener.
+			\param eventListener the listener pointer*/
+		static void removeEventListener(KeyboardEventListener*eventListener);
 
 	private:
-		/*Handles key press events sent from EventManager*/
+		/*! Handles key press events sent from EventManager.
+			\param key the key that was pressed*/
 		static void handleKeyPress(Keyboard::Key key);
-		/*Handles key release events sent from EventManager*/
+		/*! Handles key release events sent from EventManager.
+			\param key the key that was released*/
 		static void handleKeyRelease(Keyboard::Key key);
-
-		/*Updates all key states. Called once per frame from the main thread.*/
+		
+		/*! Updates all key states. Called once per frame by EventManager from the Application in main thread.*/
 		static void update();
 	};
-
-	/*Event listener that handles Keyboard events*/
+	
+	
+	/*! Event listener that handles Keyboard events*/
 	class KeyboardEventListener
 	{
 	public:
-		/*Event called when a Key state changes to pressed
-		key: the constant that represents the pressed key*/
-		virtual void onKeyPress(Keyboard::Key key);
-		/*Event called when a Key state changes to released
-		key: the constant that represents the released key*/
-		virtual void onKeyRelease(Keyboard::Key key);
-
-		/*destructor*/
-		virtual ~KeyboardEventListener();
+		/*! virtual destructor*/
+		virtual ~KeyboardEventListener(){}
+		/*! Called when a Key state changes to pressed.
+			\param key a constant that represents the pressed key*/
+		virtual void onKeyPress(Keyboard::Key key){}
+		/*! Called when a Key state changes to released.
+			\param key a constant that represents the released key*/
+		virtual void onKeyRelease(Keyboard::Key key){}
 	};
 }

@@ -8,109 +8,157 @@ namespace GameLibrary
 {
 	class MouseEventListener;
 	
-	/*Represents the Mouse and all Mouse Button states on the Mouse*/
+	/*! Represents the Mouse and all Mouse button states on the Mouse*/
 	class Mouse
 	{
 		friend class EventManager;
 	public:
-		/*Constant that represents a Mouse Button*/
-		enum Button
+		/*! Constant that represents a Mouse Button*/
+		typedef enum
 		{
 			UNKNOWN_BUTTON,
 			BUTTON_LEFT,
 			BUTTON_MIDDLE,
 			BUTTON_RIGHT
-		};
-		typedef enum Button Button;
-
-		/*Returns the total number of Mouse instances for a specified Window*/
+		} Button;
+		
+		
+		/*! Gets the total number of mouse instances in a given Window.
+			\returns an unsigned int representing the total number of mouse instances*/
 		static unsigned int getTotalMouseInstances(Window*window);
 		
-		/*Returns true if Button is currently in a pressed state.
-		window: the window containing the mouse instance, or null for the currently mouse-focused window
-		mouseIndex: the mouse index
-		button: the Mouse Button to check*/
+		
+		/*! Checks if a given button on a given mouse instance is pressed.
+			\param window the window containing the mouse instance, or null for the currently mouse-focused window
+			\param mouseIndex the mouse instance index
+			\param button a constant representing the mouse button to check
+			\param returns true if the mouse button is currently in a pressed state, or false if otherwise*/
 		static bool isButtonPressed(Window*window, unsigned int mouseIndex, Button button);
-		/*returns the current frame's Mouse coordinates (relative to the specified Window).
-		window: the window containing the mouse instance, or null for the currently mouse-focused window
-		mouseIndex: the mouse index*/
+		/*! Gets the current position of a mouse instance inside of a given window.
+			\param window the window containing the mouse instance, or null for the currently mouse-focused window
+			\param mouseIndex the mouse instance index
+			\returns the current frame's mouse coordinates, relative to the given Window*/
 		static Vector2f getPosition(Window*window, unsigned int mouseIndex);
-		/*returns the current frame's Mouse x coordinate (relative to the specified Window).
-		window: the window containing the mouse instance, or null for the currently mouse-focused window
-		mouseIndex: the mouse index*/
+		/*! Gets the current x position of a mouse instance inside of a given window.
+			\param window the window containing the mouse instance, or null for the currently mouse-focused window
+			\param mouseIndex the mouse instance index
+			\returns the current frame's mouse x coordinate, relative to the givem Window*/
 		static float getX(Window*window, unsigned int mouseIndex);
-		/*returns the current frame's Mouse y coordinate (relative to the specified Window).
-		window: the window containing the mouse instance, or null for the currently mouse-focused window
-		mouseIndex: the mouse index*/
+		/*! Gets the current y position of a mouse instance inside of a given window.
+			\param window the window containing the mouse instance, or null for the currently mouse-focused window
+			\param mouseIndex the mouse instance index
+			\returns the current frame's mouse y coordinate, relative to the givem Window*/
 		static float getY(Window*window, unsigned int mouseIndex);
-		/*sets the position of the Mouse, relative to the specified window.
-		window: the window to move the mouse in, or null for the currently mouse-focused window
-		mouseIndex: the mouse index
-		pos: the coordinates to move the mouse pointer to*/
+		/*! Sets the position of the mouse instance, relative to the given window
+			\param window the window to move the mouse in, or null for the currently mouse-focused window
+			\param mouseIndex the mouse instance index
+			\param pos the coordinates to move the mouse pointer to*/
 		static void setPosition(Window*window, unsigned int mouseIndex, const Vector2f&pos);
-		/*[NOTE: currently not implemented] sets the position of the Mouse, relative to the entire screen.
-		mouseIndex: the mouse index
-		pos: the coordinates to move the mouse pointer to*/
+		/*! Sets the position of the mouse instance, relative to the entire screen.
+			\note this function currently has no implementation
+			\param mouseIndex the mouse instance index
+			\param pos the coordinates to move the mouse pointer*/
 		static void setPosition(unsigned int mouseIndex, const Vector2f&pos);
 		
-		/*Returns true if Button was in a pressed state in the previous frame*/
+		
+		/*! Checks if a given button on a given mouse instance was in a pressed state in the previous frame
+			\param window the window containing the mouse instance, or null for the currently mouse-focused window
+			\param mouseIndex the mouse instance index
+			\param button a constant representing the mouse button to check
+			\param returns true if the mouse button was in a pressed state in the previous frame, or false if otherwise*/
 		static bool wasButtonPressed(Window*window, unsigned int mouseIndex, Button button);
-		/*returns the previous frame's Mouse coordinates (relative to the specified Window)*/
+		/*! Gets the previous frame's position of a mouse instance inside of a given window.
+			\param window the window containing the mouse instance, or null for the currently mouse-focused window
+			\param mouseIndex the mouse instance index
+			\returns the previous frame's mouse coordinates, relative to the given Window*/
 		static Vector2f getPreviousPosition(Window*window, unsigned int mouseIndex);
-		/*returns the previous frame's Mouse x coordinate (relative to the specified Window)*/
+		/*! Gets the previous frame's x position of a mouse instance inside of a given window.
+			\param window the window containing the mouse instance, or null for the currently mouse-focused window
+			\param mouseIndex the mouse instance index
+			\returns the previous frame's mouse x coordinate, relative to the givem Window*/
 		static float getPreviousX(Window*window, unsigned int mouseIndex);
-		/*returns the previous frame's Mouse y coordinate (relative to the specified Window)*/
+		/*! Gets the previous frame's y position of a mouse instance inside of a given window.
+			\param window the window containing the mouse instance, or null for the currently mouse-focused window
+			\param mouseIndex the mouse instance index
+			\returns the previous frame's mouse y coordinate, relative to the givem Window*/
 		static float getPreviousY(Window*window, unsigned int mouseIndex);
 		
-		/*Returns true if Button was just pressed (released state in the previous frame, pressed state in the current frame)*/
+		
+		/*! Checks if a mouse button was just pressed.
+			\param window the window containing the mouse instance, or null for the currently mouse-focused window
+			\param mouseIndex the mouse instance index
+			\param button a constant representing a mouse button to check
+			\returns true if Button was just pressed (released state in the previous frame, pressed state in the current frame), or false if otherwise*/
 		static bool didButtonPress(Window*window, unsigned int mouseIndex, Button button);
-		/*Returns true if Button was just released (pressed state in the previous frame, released state in the current frame)*/
+		/*! Checks if a mouse button was just released.
+			\param window the window containing the mouse instance, or null for the currently mouse-focused window
+			\param mouseIndex the mouse instance index
+			\param button a constant representing a mouse button to check
+			\returns true if Button was just released (pressed state in the previous frame, released state in the current frame), or false if otherwise*/
 		static bool didButtonRelease(Window*window, unsigned int mouseIndex, Button button);
 		
-		/*Adds a MouseEventListener to handle Mouse events*/
-		static void addEventListener(MouseEventListener*);
-		/*Removes a previously added MouseEventListener*/
-		static void removeEventListener(MouseEventListener*);
+		
+		/*! Adds a MouseEventListener to handle Mouse events.
+			\param eventListener the listener pointer*/
+		static void addEventListener(MouseEventListener*eventListener);
+		/*! Removes a previously added MouseEventListener.
+			\param eventListener the listener pointer*/
+		static void removeEventListener(MouseEventListener*eventListener);
 		
 	private:
-		/*Handles Mouse movement events sent from EventManager*/
+		/*! Handles Mouse movement events sent from EventManager.
+			\param window the window inside which the mouse event occurred
+			\param mouseIndex the mouse instance index
+			\param pos the current position of the mouse instance, relative to the window
+			\param dif the change in the position of the mouse from the previous position*/
 		static void handleMouseMovement(Window*window, unsigned int mouseIndex, const Vector2f&pos, const Vector2f&dif);
-		/*Handles button press events sent from EventManager*/
+		/*! Handles button press events sent from EventManager.
+			\param window the window inside which the mouse event occurred
+			\param mouseIndex the mouse instance index
+			\param button a constant representing the mouse button that was pressed
+			\param pos the current position of the mouse instance, relative to the window*/
 		static void handleButtonPress(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2f&pos);
-		/*Handles button release events sent from EventManager*/
+		/*! Handles button release events sent from EventManager.
+			\param window the window inside which the mouse event occurred
+			\param mouseIndex the mouse instance index
+			\param button a constant representing the mouse button that was released
+			\param pos the current position of the mouse instance, relative to the window*/
 		static void handleButtonRelease(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2f&pos);
 		
-		/*Removes a Window from the Window list stored in Mouse*/
+		
+		/*! Removes a Window from the Window list stored in Mouse
+			\param window the window pointer*/
 		static void removeWindow(Window*window);
 		
-		/*Updates all button states. Called once per frame from the main thread.*/
+		
+		/*! Updates all button states. Called once per frame by EventManager from the Application in the main thread.*/
 		static void update();
 	};
 	
-	/*Event listener that handles Mouse events*/
+	
+	/*! Event listener that handles Mouse events*/
 	class MouseEventListener
 	{
 	public:
-		/*Event called when a Mouse::Button state changes to pressed.
-		window: the window that has mouse focus. May or may not be null
-		mouseIndex: the mouse index
-		button: the constant that represents the mouse button
-		mousepos: the mouse coordinates relative to the window. If window is null, these coordinates will be invalid.*/
-		virtual void onMouseButtonPress(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2f&mousepos);
-		/*Event called when a Mouse::Button state changes to released.
-		window: the window that has mouse focus. May or may not be null
-		mouseIndex: the mouse index
-		button: the constant that represents the mouse button
-		mousepos: the mouse coordinates relative to the window. If window is null, these coordinates will be invalid.*/
-		virtual void onMouseButtonRelease(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2f&mousepos);
-		/*Event called when the Mouse moves.
-		window: the window that has mouse focus. May or may not be null
-		mouseIndex: the mouse index
-		mousepos: the mouse coordinates relative to the window. If window is null, these coordinates will be invalid.
-		mousedif: the change in mouse coordinates*/
-		virtual void onMouseMove(Window*window, unsigned int mouseIndex, const Vector2f&mousepos, const Vector2f&mousedif);
-		
-		/*destructor*/
-		virtual ~MouseEventListener();
+		/*! virtual destructor*/
+		virtual ~MouseEventListener(){}
+		/*! Called when a Mouse::Button state changes to pressed.
+			\param window the window that has mouse focus; May be null if no window has mouse focus
+			\param mouseIndex the mouse instance index
+			\param button a constant that represents the pressed mouse button
+			\param mousepos the mouse instance coordinates, relative to the window*/
+		virtual void onMouseButtonPress(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2f&mousepos){}
+		/*! Called when a Mouse::Button state changes to released.
+			\param window the window that has mouse focus; May be null if no window has mouse focus
+			\param mouseIndex the mouse instance index
+			\param button the constant that represents the mouse button
+			\param mousepos the mouse instance coordinates, relative to the window*/
+		virtual void onMouseButtonRelease(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2f&mousepos){}
+		/*! Called when a Mouse instance changes position.
+			\param window the window that has mouse focus; May be null if no window has mouse focus
+			\param mouseIndex the mouse instance index
+			\param mousepos the mouse instance coordinates, relative to the window
+			\param mousedif the change in the position of the mouse from the previous position*/
+		virtual void onMouseMove(Window*window, unsigned int mouseIndex, const Vector2f&mousepos, const Vector2f&mousedif){}
 	};
 }

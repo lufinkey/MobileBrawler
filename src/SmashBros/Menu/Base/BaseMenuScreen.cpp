@@ -114,7 +114,7 @@ namespace SmashBros
 		
 		void BaseMenuScreen::onItemHover(unsigned int index)
 		{
-			if(!Multitouch::isEnabled())
+			if(!Multitouch::isAvailable())
 			{
 				enableHoverPulse(true);
 			}
@@ -122,7 +122,7 @@ namespace SmashBros
 		
 		void BaseMenuScreen::onItemHoverFinish(unsigned int index)
 		{
-			if(!Multitouch::isEnabled())
+			if(!Multitouch::isAvailable())
 			{
 				enableHoverPulse(false);
 			}

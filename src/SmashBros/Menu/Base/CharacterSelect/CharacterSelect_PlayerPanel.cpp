@@ -32,7 +32,7 @@ namespace SmashBros
 				{
 					Vector2f touchpos;
 					Transform mouseTransform = appData.getTransform().getInverse();
-					if(Multitouch::isEnabled())
+					if(Multitouch::isAvailable())
 					{
 						touchpos = mouseTransform.transform(Multitouch::getPreviousPosition(appData.getWindow(), touchID));
 					}
