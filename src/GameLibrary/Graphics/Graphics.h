@@ -16,7 +16,7 @@ namespace GameLibrary
 		friend class TextureImage;
 		friend class Window;
 	public:
-		/*! copy constructor*/
+		/*! copy constructor; When a Graphics object is copied, all transformations are cloned, and the new Graphics object can be transformed independently*/
 		Graphics(const Graphics&);
 		/*! virtual destructor*/
 		virtual ~Graphics();

@@ -282,9 +282,6 @@
     <ClCompile Include="src\GameLibrary\Screen\ScreenElement.cpp">
       <Filter>src\GameLibrary\Screen</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameLibrary\Screen\Transition\Transition.cpp">
-      <Filter>src\GameLibrary\Screen\Transition</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameLibrary\Screen\ScreenManager.cpp">
       <Filter>src\GameLibrary\Screen</Filter>
     </ClCompile>

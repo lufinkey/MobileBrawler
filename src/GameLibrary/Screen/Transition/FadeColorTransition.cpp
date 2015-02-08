@@ -5,6 +5,10 @@ namespace GameLibrary
 {
 	FadeColorTransition::FadeColorTransition(const Color&c, float frozenPortn)
 	{
+		if(frozenPortn < 0 || frozenPortn > 1)
+		{
+			throw IllegalArgumentException("frozenPortion must be a value between 0 and 1");
+		}
 		color = c;
 		frozenPortion = frozenPortn;
 	}

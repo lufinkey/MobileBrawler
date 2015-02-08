@@ -3,10 +3,10 @@
 
 namespace GameLibrary
 {
-	FadeZoomTransition::FadeZoomTransition(float start)
+	FadeZoomTransition::FadeZoomTransition(float start, float end)
 	{
 		startZoom = start;
-		endZoom = 1.0f;
+		endZoom = end;
 	}
 
 	FadeZoomTransition::~FadeZoomTransition()
