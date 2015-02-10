@@ -63,7 +63,7 @@ namespace GameLibrary
 	{
 		GameLibrary::ScreenElement* element = getElement();
 		mainElement = new MainElement(this, element->getFrame());
-		element->addChildElement(mainElement);
+		element->addChildElement(RectF(0,0,1,1), mainElement);
 	}
 
 	MenuScreen::~MenuScreen()

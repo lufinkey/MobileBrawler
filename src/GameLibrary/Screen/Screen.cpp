@@ -20,6 +20,7 @@ namespace GameLibrary
 					framesize = size; //setFrame(RectangleF(frame.x, frame.y, size.x, size.y));
 					ScreenElement* mainElement = getElement();
 					mainElement->setFrame(RectangleF(0,0,size.x,size.y));
+					onFrameChange();
 				}
 			}
 		}
@@ -196,24 +197,29 @@ namespace GameLibrary
 		}
 	}
 	
+	void Screen::onFrameChange()
+	{
+		//Open for implementation
+	}
+	
 	void Screen::onWillAppear(const Transition*transition)
 	{
-		//
+		//Open for implementation
 	}
 	
 	void Screen::onDidAppear(const Transition*transition)
 	{
-		//
+		//Open for implementation
 	}
 	
 	void Screen::onWillDisappear(const Transition*transition)
 	{
-		//
+		//Open for implementation
 	}
 	
 	void Screen::onDidDisappear(const Transition*transition)
 	{
-		//
+		//Open for implementation
 	}
 	
 	void Screen::update(ApplicationData appData)

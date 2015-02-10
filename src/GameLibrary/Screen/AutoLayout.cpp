@@ -36,6 +36,16 @@ namespace GameLibrary
 		{
 			throw IllegalArgumentException("actor argument cannot be null");
 		}
+		for(unsigned int i=0; i<actors.size(); i++)
+		{
+			ActorContainer& container = actors.get(i);
+			if(container.actor == actor)
+			{
+				container.bounds = bounds;
+				layout(container.bounds, container.actor);
+				return;
+			}
+		}
 		ActorContainer container;
 		container.bounds = bounds;
 		container.actor = actor;
@@ -49,11 +59,119 @@ namespace GameLibrary
 		{
 			throw IllegalArgumentException("element argument cannot be null");
 		}
+		for(unsigned int i=0; i<elements.size(); i++)
+		{
+			ElementContainer& container = elements.get(i);
+			if(container.element == element)
+			{
+				container.bounds = bounds;
+				layout(container.bounds, container.element);
+				return;
+			}
+		}
 		ElementContainer container;
 		container.bounds = bounds;
 		container.element = element;
 		layout(bounds, element);
 		elements.add(container);
+	}
+	
+	void AutoLayout::set(Actor*actor, const RectF&bounds)
+	{
+		if(actor == nullptr)
+		{
+			throw IllegalArgumentException("actor argument cannot be null");
+		}
+		for(unsigned int i=0; i<actors.size(); i++)
+		{
+			ActorContainer& container = actors.get(i);
+			if(container.actor == actor)
+			{
+				container.bounds = bounds;
+				layout(container.bounds, container.actor);
+				return;
+			}
+		}
+		throw IllegalArgumentException("the given Actor is not stored in this AutoLayout");
+	}
+	
+	void AutoLayout::set(ScreenElement*element, const RectF&bounds)
+	{
+		if(element == nullptr)
+		{
+			throw IllegalArgumentException("element argument cannot be null");
+		}
+		for(unsigned int i=0; i<elements.size(); i++)
+		{
+			ElementContainer& container = elements.get(i);
+			if(container.element == element)
+			{
+				container.bounds = bounds;
+				layout(container.bounds, container.element);
+				return;
+			}
+		}
+		throw IllegalArgumentException("the given ScreenElement is not stored in this AutoLayout");
+	}
+	
+	const RectF& AutoLayout::get(Actor*actor) const
+	{
+		if(actor == nullptr)
+		{
+			throw IllegalArgumentException("element argument cannot be null");
+		}
+		for(unsigned int i=0; i<actors.size(); i++)
+		{
+			const ActorContainer& container = actors.get(i);
+			if(container.actor == actor)
+			{
+				return container.bounds;
+			}
+		}
+		throw IllegalArgumentException("the given Actor is not stored in this AutoLayout");
+	}
+	
+	const RectF& AutoLayout::get(ScreenElement*element) const
+	{
+		if(element == nullptr)
+		{
+			throw IllegalArgumentException("element argument cannot be null");
+		}
+		for(unsigned int i=0; i<elements.size(); i++)
+		{
+			const ElementContainer& container = elements.get(i);
+			if(container.element == element)
+			{
+				return container.bounds;
+			}
+		}
+		throw IllegalArgumentException("the given ScreenElement is not stored in this AutoLayout");
+	}
+	
+	bool AutoLayout::contains(Actor*actor) const
+	{
+		for(unsigned int i=0; i<actors.size(); i++)
+		{
+			const ActorContainer& container = actors.get(i);
+			if(container.actor == actor)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	bool AutoLayout::contains(ScreenElement*element) const
+	{
+		for(unsigned int i=0; i<elements.size(); i++)
+		{
+			const ElementContainer& container = elements.get(i);
+			if(container.element == element)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	void AutoLayout::remove(Actor*actor)
@@ -68,6 +186,7 @@ namespace GameLibrary
 			if(container.actor == actor)
 			{
 				actors.remove(i);
+				return;
 			}
 		}
 	}
@@ -84,6 +203,7 @@ namespace GameLibrary
 			if(container.element == element)
 			{
 				elements.remove(i);
+				return;
 			}
 		}
 	}
@@ -106,7 +226,8 @@ namespace GameLibrary
 	void AutoLayout::layout(const RectF&bounds, Actor*actor) const
 	{
 		actor->setScale(1);
-		actor->scaleToFit(convertFrame(frame,bounds));
+		RectangleF rect = convertFrame(frame, bounds);
+		actor->scaleToFit(rect);
 	}
 	
 	void AutoLayout::layout(const RectF&bounds, ScreenElement*element) const

@@ -30,10 +30,7 @@ namespace GameLibrary
 					screens.get(i)->setWindow(win);
 				}
 				window = win; //ScreenElement::setWindow(win);
-				if(childScreen!=nullptr)
-				{
-					childScreen->setWindow(nullptr);
-				}
+				childScreen->setWindow(win);
 			}
 		}
 	}

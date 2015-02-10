@@ -53,13 +53,16 @@ namespace GameLibrary
 		//TODO add events for navigation from ScreenManager
 		
 		
+		/*! Called when the Screen's frame has changed, possibly due to frame resizing, or window resizing, or a mobile device orientation change.*/
+		virtual void onFrameChange();
+		
+		
 		/*! Called when the Screen is about to appear at the top level of the Screen stack.
 			\param transition the Transition used to display the Screen, or null if no Transition was used*/
 		virtual void onWillAppear(const Transition*transition);
 		/*! Called when the Screen has just appeared at the top level of the Screen stack.
 			\param transition the Transition used to display the Screen, or null if no Transition was used*/
 		virtual void onDidAppear(const Transition*transition);
-		
 		/*! Called when the Screen is about to disappear off the top level of the Screen stack.
 			\param transition the Transition used to hide the Screen, or null if no Transition was used*/
 		virtual void onWillDisappear(const Transition*transition);
