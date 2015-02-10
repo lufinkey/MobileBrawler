@@ -55,10 +55,10 @@ namespace GameLibrary
 			\throws GameLibrary::IllegalArgumentException if element is null, or if the element is already a child of another ScreenElement*/
 		void addChildElement(ScreenElement*element);
 		/*! Adds a child element to this element that will be automatically resized by an AutoLayout.
-			\param element a ScreenElement pointer
 			\param bounds the ratio in the frame where the element will be laid out
+			\param element a ScreenElement pointer
 			\throws GameLibrary::IllegalArgumentException if element is null, or if the element is already a child of another ScreenElement*/
-		void addChildElement(ScreenElement*element, const RectF&bounds);
+		void addChildElement(const RectF&bounds, ScreenElement*element);
 		/*! Removes this element from its parent element, or returns if it has no parent element.
 			\throws GameLibrary::IllegalStateException if this element is not stored within its parent element*/
 		void removeFromParentElement();

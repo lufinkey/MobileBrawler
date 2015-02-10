@@ -179,7 +179,7 @@ namespace GameLibrary
 		childElements.add(element);
 	}
 	
-	void ScreenElement::addChildElement(ScreenElement*element, const RectF&bounds)
+	void ScreenElement::addChildElement(const RectF&bounds, ScreenElement*element)
 	{
 		if(element == nullptr)
 		{
@@ -191,7 +191,7 @@ namespace GameLibrary
 		}
 		element->parentElement = this;
 		childElements.add(element);
-		autoLayout.add(element, bounds);
+		autoLayout.add(bounds, element);
 	}
 
 	void ScreenElement::removeFromParentElement()

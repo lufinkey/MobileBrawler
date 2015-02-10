@@ -272,14 +272,14 @@ namespace GameLibrary
 		return actors.size()-1;
 	}
 	
-	unsigned int ActorMenuElement::addActor(Actor*actor, const RectF&bounds)
+	unsigned int ActorMenuElement::addActor(const RectF&bounds, Actor*actor)
 	{
 		if(actor == nullptr)
 		{
 			throw IllegalArgumentException("Cannot add a null Actor to an ActorMenuElement object");
 		}
 		actors.add(actor);
-		autoActorLayout.add(actor, bounds);
+		autoActorLayout.add(bounds, actor);
 		return actors.size()-1;
 	}
 	

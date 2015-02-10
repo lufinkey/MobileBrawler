@@ -13,10 +13,15 @@ namespace GameLibrary
 		//
 	}
 	
-	ImageElement::ImageElement(const RectangleF&frame, TextureImage*img) : ScreenElement(frame)
+	ImageElement::ImageElement(const RectangleF&frame, TextureImage*img, const ImageElement::DisplayMode&displayMd) : ScreenElement(frame)
 	{
 		image = img;
-		displayMode = DISPLAY_STRETCH;
+		displayMode = displayMd;
+	}
+	
+	ImageElement::ImageElement(TextureImage*img, const ImageElement::DisplayMode&displayMode) : ImageElement(RectangleF(0, 0, 0, 0), img, displayMode)
+	{
+		//
 	}
 	
 	ImageElement::~ImageElement()

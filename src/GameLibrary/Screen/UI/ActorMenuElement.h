@@ -1,4 +1,6 @@
 
+#pragma once
+
 #include "../ScreenElement.h"
 #include "../../Actor/Actor.h"
 #include "../../Actor/SpriteActor.h"
@@ -31,10 +33,10 @@ namespace GameLibrary
 			\returns the index of the Actor inside the menu*/
 		virtual unsigned int addActor(Actor*actor);
 		/*! Adds an actor to the menu that will be automatically resized by the AutoLayout
-			\param actor an Actor pointer
 			\param bounds the ratio in the frame where the Actor will be laid out
+			\param actor an Actor pointer
 			\returns the index of the Actor inside the menu*/
-		virtual unsigned int addActor(Actor*actor, const RectF&bounds);
+		virtual unsigned int addActor(const RectF&bounds, Actor*actor);
 		/*! Gets an actor at a given index inside the menu.
 			\param index the index of the Actor inside the menu
 			\returns an Actor pointer*/

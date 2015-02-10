@@ -25,13 +25,13 @@ namespace GameLibrary
 		
 		
 		/*! Adds an Actor to be laid out.
-			\param actor an Actor pointer
-			\param bounds the ratio in the frame where the Actor will be laid out*/
-		void add(Actor*actor, const RectF&bounds);
+			\param bounds the ratio in the frame where the Actor will be laid out
+			\param actor an Actor pointer*/
+		void add(const RectF&bounds, Actor*actor);
 		/*! Adds a ScreenElement to be laid out.
-			\param element a ScreenElement pointer
-			\param bounds the ratio in the frame where the ScreenElement will be laid out*/
-		void add(ScreenElement*element, const RectF&bounds);
+			\param bounds the ratio in the frame where the ScreenElement will be laid out
+			\param element a ScreenElement pointer*/
+		void add(const RectF&bounds, ScreenElement*element);
 		
 		
 		/*! Removes a previously added Actor.
@@ -48,29 +48,29 @@ namespace GameLibrary
 		
 		
 		/*! Automatically resizes and places the given Actor.
-			\param actor an Actor pointer
-			\param bounds the ratio in the frame where the Actor will be laid out*/
-		void layout(Actor*actor, const RectF&bounds) const;
+			\param bounds the ratio in the frame where the Actor will be laid out
+			\param actor an Actor pointer*/
+		void layout(const RectF&bounds, Actor*actor) const;
 		
 		
 		/*! Automatically resizes and places the given ScreenElement.
-			\param element a ScreenElement pointer
-			\param bounds the ratio in the frame where the ScreenElement will be laid out*/
-		void layout(ScreenElement*actor, const RectF&bounds) const;
+			\param bounds the ratio in the frame where the ScreenElement will be laid out
+			\param element a ScreenElement pointer*/
+		void layout(const RectF&bounds, ScreenElement*actor) const;
 		
 	private:
 		static RectangleF convertFrame(const RectangleF&frame, const RectF&bounds);
 		
 		typedef struct
 		{
-			Actor* actor;
 			RectF bounds;
+			Actor* actor;
 		} ActorContainer;
 		
 		typedef struct
 		{
-			ScreenElement* element;
 			RectF bounds;
+			ScreenElement* element;
 		} ElementContainer;
 		
 		RectangleF frame;

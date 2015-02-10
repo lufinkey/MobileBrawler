@@ -1,6 +1,6 @@
 
 #include "MenuScreen.h"
-#include "../Input/Multitouch.h"
+#include "../../Input/Multitouch.h"
 
 namespace GameLibrary
 {
@@ -88,6 +88,11 @@ namespace GameLibrary
 		return mainElement->addActor(actor);
 	}
 	
+	unsigned int MenuScreen::addItem(const RectF&bounds, SpriteActor*actor)
+	{
+		return mainElement->addActor(bounds, actor);
+	}
+	
 	unsigned int MenuScreen::addItem(const Vector2f&position, Animation*animation, const Animation::Direction&direction, bool destructAnimation)
 	{
 		if(animation == nullptr)
@@ -104,14 +109,40 @@ namespace GameLibrary
 		return mainElement->addActor(actor);
 	}
 	
+	unsigned int MenuScreen::addItem(const RectF&bounds, Animation*animation, const Animation::Direction&direction, bool destructAnimation)
+	{
+		if(animation == nullptr)
+		{
+			throw IllegalArgumentException("Cannot add an item with a null Animation to a GameLibrary::MenuScreen object");
+		}
+		else if(!(direction==Animation::FORWARD || direction==Animation::BACKWARD || direction==Animation::STOPPED || direction==Animation::NO_CHANGE))
+		{
+			throw IllegalArgumentException((String)"Invalid value " + direction + "for \"direction\" argument");
+		}
+		SpriteActor* actor = new SpriteActor();
+		actor->addAnimation("default", animation, destructAnimation);
+		actor->changeAnimation("default", direction);
+		return mainElement->addActor(bounds, actor);
+	}
+	
 	unsigned int MenuScreen::addItem(TextActor*actor)
 	{
 		return mainElement->addActor(actor);
 	}
 	
+	unsigned int MenuScreen::addItem(const RectF&bounds, TextActor*actor)
+	{
+		return mainElement->addActor(bounds, actor);
+	}
+	
 	unsigned int MenuScreen::addItem(const Vector2f&position, const String&text, Font*font, const Color&color, unsigned int fontsize, const Font::Style&fontstyle, const TextActor::TextAlignment&alignment)
 	{
 		return mainElement->addActor(new TextActor(position.x, position.y, text, font, color, fontsize, fontstyle, alignment));
+	}
+	
+	unsigned int MenuScreen::addItem(const RectF&bounds, const String&text, Font*font, const Color&color, unsigned int fontsize, const Font::Style&fontstyle, const TextActor::TextAlignment&alignment)
+	{
+		return mainElement->addActor(bounds, new TextActor(text, font, color, fontsize, fontstyle, alignment));
 	}
 	
 	void MenuScreen::removeItem(unsigned int index)

@@ -30,29 +30,29 @@ namespace GameLibrary
 		return *this;
 	}
 	
-	void AutoLayout::add(Actor*actor, const RectF&bounds)
+	void AutoLayout::add(const RectF&bounds, Actor*actor)
 	{
 		if(actor == nullptr)
 		{
 			throw IllegalArgumentException("actor argument cannot be null");
 		}
 		ActorContainer container;
-		container.actor = actor;
 		container.bounds = bounds;
-		layout(actor,bounds);
+		container.actor = actor;
+		layout(bounds,actor);
 		actors.add(container);
 	}
 	
-	void AutoLayout::add(ScreenElement*element, const RectF&bounds)
+	void AutoLayout::add(const RectF&bounds, ScreenElement*element)
 	{
 		if(element == nullptr)
 		{
 			throw IllegalArgumentException("element argument cannot be null");
 		}
 		ElementContainer container;
-		container.element = element;
 		container.bounds = bounds;
-		layout(element,bounds);
+		container.element = element;
+		layout(bounds, element);
 		elements.add(container);
 	}
 	
@@ -94,22 +94,22 @@ namespace GameLibrary
 		for(unsigned int i=0; i<actors.size(); i++)
 		{
 			ActorContainer& container = actors.get(i);
-			layout(container.actor, container.bounds);
+			layout(container.bounds, container.actor);
 		}
 		for(unsigned int i=0; i<elements.size(); i++)
 		{
 			ElementContainer& container = elements.get(i);
-			layout(container.element, container.bounds);
+			layout(container.bounds, container.element);
 		}
 	}
 	
-	void AutoLayout::layout(Actor*actor, const RectF&bounds) const
+	void AutoLayout::layout(const RectF&bounds, Actor*actor) const
 	{
 		actor->setScale(1);
 		actor->scaleToFit(convertFrame(frame,bounds));
 	}
 	
-	void AutoLayout::layout(ScreenElement*element, const RectF&bounds) const
+	void AutoLayout::layout(const RectF&bounds, ScreenElement*element) const
 	{
 		element->setFrame(convertFrame(frame, bounds));
 	}

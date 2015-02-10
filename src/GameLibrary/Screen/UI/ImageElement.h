@@ -24,10 +24,15 @@ namespace GameLibrary
 		ImageElement();
 		/*! \copydoc GameLibrary::ScreenElement::ScreenElement(const RectangleF&frame)*/
 		ImageElement(const RectangleF&frame);
-		/*! Constructs a screen element with a frame and an image to draw.
+		/*! Constructs a screen element with a frame and an image to display with a given display mode
 			\param frame the frame (bounding box) of the element
-			\param image the image to draw inside the element*/
-		ImageElement(const RectangleF&frame, TextureImage*image);
+			\param image the image to display inside the element
+			\param displayMode the method to use for displaying the image; Default value is DISPLAY_STRETCH*/
+		ImageElement(const RectangleF&frame, TextureImage*image, const ImageElement::DisplayMode&displayMode = DISPLAY_STRETCH);
+		/*! Constructs a screen element with an image to display with a given display mode
+			\param image the image to display inside the element
+			\param displayMode the method to use for displaying the image; Default value is DISPLAY_STRETCH*/
+		ImageElement(TextureImage*image, const ImageElement::DisplayMode&displayMode = DISPLAY_STRETCH);
 		/*! virtual destructor*/
 		virtual ~ImageElement();
 		

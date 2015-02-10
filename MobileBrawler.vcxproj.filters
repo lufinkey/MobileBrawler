@@ -324,9 +324,6 @@
     <ClCompile Include="src\GameLibrary\Graphics\PixelIterator.cpp">
       <Filter>src\GameLibrary\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameLibrary\Screen\MenuScreen.cpp">
-      <Filter>src\GameLibrary\Screen</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameLibrary\Screen\UI\ImageElement.cpp">
       <Filter>src\GameLibrary\Screen\UI</Filter>
     </ClCompile>
@@ -467,6 +464,9 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Screen\AutoLayout.cpp">
       <Filter>src\GameLibrary\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Screen\UI\MenuScreen.cpp">
+      <Filter>src\GameLibrary\Screen\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -704,9 +704,6 @@
     <ClInclude Include="src\GameLibrary\Graphics\PixelIterator.h">
       <Filter>src\GameLibrary\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameLibrary\Screen\MenuScreen.h">
-      <Filter>src\GameLibrary\Screen</Filter>
-    </ClInclude>
     <ClInclude Include="src\GameLibrary\Screen\UI\ImageElement.h">
       <Filter>src\GameLibrary\Screen\UI</Filter>
     </ClInclude>
@@ -847,6 +844,9 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Screen\AutoLayout.h">
       <Filter>src\GameLibrary\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Screen\UI\MenuScreen.h">
+      <Filter>src\GameLibrary\Screen\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

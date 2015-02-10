@@ -140,7 +140,6 @@
     <ClCompile Include="src\GameLibrary\IO\FileTools.cpp" />
     <ClCompile Include="src\GameLibrary\Network\NetworkProtocol.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\AutoLayout.cpp" />
-    <ClCompile Include="src\GameLibrary\Screen\MenuScreen.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\Screen.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\ScreenElement.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\ScreenManager.cpp" />
@@ -150,6 +149,7 @@
     <ClCompile Include="src\GameLibrary\Screen\Transition\SlideTransition.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\UI\ActorMenuElement.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\UI\ImageElement.cpp" />
+    <ClCompile Include="src\GameLibrary\Screen\UI\MenuScreen.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\UI\ScrollElement.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\UI\TextInputElement.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\BitList.cpp" />
@@ -258,7 +258,6 @@
     <ClInclude Include="src\GameLibrary\Network\NetworkProtocol.h" />
     <ClInclude Include="src\GameLibrary\Screen\AutoLayout.h" />
     <ClInclude Include="src\GameLibrary\Screen\Drawable.h" />
-    <ClInclude Include="src\GameLibrary\Screen\MenuScreen.h" />
     <ClInclude Include="src\GameLibrary\Screen\Screen.h" />
     <ClInclude Include="src\GameLibrary\Screen\ScreenElement.h" />
     <ClInclude Include="src\GameLibrary\Screen\ScreenManager.h" />
@@ -269,6 +268,7 @@
     <ClInclude Include="src\GameLibrary\Screen\Transition\Transition.h" />
     <ClInclude Include="src\GameLibrary\Screen\UI\ActorMenuElement.h" />
     <ClInclude Include="src\GameLibrary\Screen\UI\ImageElement.h" />
+    <ClInclude Include="src\GameLibrary\Screen\UI\MenuScreen.h" />
     <ClInclude Include="src\GameLibrary\Screen\UI\ScrollElement.h" />
     <ClInclude Include="src\GameLibrary\Screen\UI\TextInputElement.h" />
     <ClInclude Include="src\GameLibrary\Types.h" />
