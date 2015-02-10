@@ -50,7 +50,7 @@ namespace GameLibrary
 		//
 	}
 
-	ScreenElement::ScreenElement(const RectangleF&frame_arg)
+	ScreenElement::ScreenElement(const RectangleF&frame_arg) : autoLayout(frame_arg)
 	{
 		frame = frame_arg;
 		window = nullptr;
@@ -151,6 +151,7 @@ namespace GameLibrary
 	void ScreenElement::setFrame(const RectangleF&frame_arg)
 	{
 		frame = frame_arg;
+		autoLayout.setFrame(frame);
 	}
 
 	RectangleF ScreenElement::getFrame() const
@@ -177,11 +178,27 @@ namespace GameLibrary
 		element->parentElement = this;
 		childElements.add(element);
 	}
+	
+	void ScreenElement::addChildElement(ScreenElement*element, const RectF&bounds)
+	{
+		if(element == nullptr)
+		{
+			throw IllegalArgumentException("Cannot add a null ScreenElement to a ScreenElement");
+		}
+		else if(element->parentElement != nullptr)
+		{
+			throw IllegalArgumentException("Cannot add a ScreenElement that is already added to another ScreenElement");
+		}
+		element->parentElement = this;
+		childElements.add(element);
+		autoLayout.add(element, bounds);
+	}
 
 	void ScreenElement::removeFromParentElement()
 	{
 		if(parentElement != nullptr)
 		{
+			parentElement->autoLayout.remove(this);
 			if(parentElement->updatingElements)
 			{
 				parentElement->removedChildElements.add(this);
@@ -264,6 +281,11 @@ namespace GameLibrary
 	const Color& ScreenElement::getBackgroundColor() const
 	{
 		return backgroundColor;
+	}
+	
+	const AutoLayout& ScreenElement::getAutoLayout() const
+	{
+		return autoLayout;
 	}
 	
 	void ScreenElement::setVisible(bool toggle, bool applyToChildren)

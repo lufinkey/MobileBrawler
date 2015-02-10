@@ -3,7 +3,7 @@
 
 namespace GameLibrary
 {
-	ActorMenuElement::ActorMenuElement(const RectangleF&frame) : ScreenElement(frame)
+	ActorMenuElement::ActorMenuElement(const RectangleF&frame) : ScreenElement(frame), autoActorLayout(frame)
 	{
 		selectedIndex = ACTORMENU_NOSELECTION;
 		keyboardEnabled = false;
@@ -234,6 +234,12 @@ namespace GameLibrary
 		}
 	}
 	
+	void ActorMenuElement::setFrame(const RectangleF&frame)
+	{
+		ScreenElement::setFrame(frame);
+		autoActorLayout.setFrame(frame);
+	}
+	
 	void ActorMenuElement::drawActor(ApplicationData appData, Graphics graphics, Actor*actor) const
 	{
 		actor->draw(appData, graphics);
@@ -266,6 +272,17 @@ namespace GameLibrary
 		return actors.size()-1;
 	}
 	
+	unsigned int ActorMenuElement::addActor(Actor*actor, const RectF&bounds)
+	{
+		if(actor == nullptr)
+		{
+			throw IllegalArgumentException("Cannot add a null Actor to an ActorMenuElement object");
+		}
+		actors.add(actor);
+		autoActorLayout.add(actor, bounds);
+		return actors.size()-1;
+	}
+	
 	Actor* ActorMenuElement::getActor(unsigned int index) const
 	{
 		return actors.get(index);
@@ -287,7 +304,9 @@ namespace GameLibrary
 	
 	void ActorMenuElement::removeActor(unsigned int index)
 	{
+		Actor* actor = actors.get(index);
 		actors.remove(index);
+		autoActorLayout.remove(actor);
 		if(selectedIndex == index)
 		{
 			selectedIndex = ACTORMENU_NOSELECTION;
@@ -592,4 +611,8 @@ namespace GameLibrary
 		return selectedIndex;
 	}
 	
+	const AutoLayout& ActorMenuElement::getAutoActorLayout() const
+	{
+		return autoActorLayout;
+	}
 }

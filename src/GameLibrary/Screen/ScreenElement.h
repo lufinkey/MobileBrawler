@@ -2,6 +2,7 @@
 #pragma once
 
 #include "Drawable.h"
+#include "AutoLayout.h"
 #include "../Exception/IllegalArgumentException.h"
 #include "../Exception/IllegalStateException.h"
 #include "../Utilities/ArrayList.h"
@@ -53,6 +54,11 @@ namespace GameLibrary
 			\param element a ScreenElement pointer
 			\throws GameLibrary::IllegalArgumentException if element is null, or if the element is already a child of another ScreenElement*/
 		void addChildElement(ScreenElement*element);
+		/*! Adds a child element to this element that will be automatically resized by an AutoLayout.
+			\param element a ScreenElement pointer
+			\param bounds the ratio in the frame where the element will be laid out
+			\throws GameLibrary::IllegalArgumentException if element is null, or if the element is already a child of another ScreenElement*/
+		void addChildElement(ScreenElement*element, const RectF&bounds);
 		/*! Removes this element from its parent element, or returns if it has no parent element.
 			\throws GameLibrary::IllegalStateException if this element is not stored within its parent element*/
 		void removeFromParentElement();
@@ -82,6 +88,11 @@ namespace GameLibrary
 		/*! Gets the background of this element.
 			\returns a const Color value reference*/
 		const Color& getBackgroundColor() const;
+		
+		
+		/*! Gets the automatic layout manager for this element.
+			\returns a const AutoLayout reference*/
+		const AutoLayout& getAutoLayout() const;
 		
 		
 		/*! Sets this element's visibility, and optionally sets all its children's visibility.
@@ -123,6 +134,8 @@ namespace GameLibrary
 		ScreenElement* parentElement;
 		ArrayList<ScreenElement*> childElements;
 		ArrayList<ScreenElement*> removedChildElements;
+		
+		AutoLayout autoLayout;
 
 		mutable bool updatingElements;
 

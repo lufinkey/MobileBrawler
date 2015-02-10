@@ -7,7 +7,7 @@
 
 namespace GameLibrary
 {
-	/*! The selected index when an ActorMenuElement has not selected an element*/
+	/*! The selected index when an ActorMenuElement has not selected an actor*/
 #define ACTORMENU_NOSELECTION UINT_MAX
 	
 	/*! Holds and updates a list of Actors, finds the currently hovered or selected actor in the list, and calls events ActorMenuElement events for it. This class is non-copyable.*/
@@ -22,12 +22,19 @@ namespace GameLibrary
 		
 		/*! \copydoc GameLibrary::ScreenElement::update(ApplicationData)*/
 		virtual void update(ApplicationData appData) override;
+		/*! \copydoc GameLibrary::ScreenElement::setFrame(const GameLibrary::RectangleF&)*/
+		virtual void setFrame(const RectangleF&frame) override;
 		
 		
 		/*! Adds an actor to the menu.
 			\param actor an Actor pointer
 			\returns the index of the Actor inside the menu*/
 		virtual unsigned int addActor(Actor*actor);
+		/*! Adds an actor to the menu that will be automatically resized by the AutoLayout
+			\param actor an Actor pointer
+			\param bounds the ratio in the frame where the Actor will be laid out
+			\returns the index of the Actor inside the menu*/
+		virtual unsigned int addActor(Actor*actor, const RectF&bounds);
 		/*! Gets an actor at a given index inside the menu.
 			\param index the index of the Actor inside the menu
 			\returns an Actor pointer*/
@@ -120,6 +127,11 @@ namespace GameLibrary
 			\returns an index for an Actor in the menu, or ACTORMENU_NOSELECTION if no index is selected*/
 		unsigned int getSelectedIndex() const;
 		
+		
+		/*! Gets the automatic layout manager for the contained actors.
+			\returns a const AutoLayout reference*/
+		const AutoLayout& getAutoActorLayout() const;
+		
 	protected:
 		/*! \copydoc GameLibrary::ScreenElement::drawMain(ApplicationData)const*/
 		virtual void drawMain(ApplicationData appData, Graphics graphics) const override;
@@ -131,6 +143,7 @@ namespace GameLibrary
 		
 	private:
 		ArrayList<Actor*> actors;
+		AutoLayout autoActorLayout;
 		
 		unsigned int selectedIndex;
 		bool keyboardEnabled;
