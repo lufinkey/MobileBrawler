@@ -200,7 +200,11 @@ namespace GameLibrary
 
 	void ScreenElement::bringChildElementToFront(ScreenElement*element)
 	{
-		if(element->parentElement != this)
+		if(element == nullptr)
+		{
+			throw IllegalArgumentException("element argument cannot be null");
+		}
+		else if(element->parentElement != this)
 		{
 			throw IllegalArgumentException("Specified ScreenElement is not a child of this ScreenElement");
 		}
@@ -220,7 +224,11 @@ namespace GameLibrary
 	
 	void ScreenElement::sendChildElementToBack(ScreenElement*element)
 	{
-		if(element->parentElement != this)
+		if(element == nullptr)
+		{
+			throw IllegalArgumentException("element argument cannot be null");
+		}
+		else if(element->parentElement != this)
 		{
 			throw IllegalArgumentException("Specified ScreenElement is not a child of this ScreenElement");
 		}

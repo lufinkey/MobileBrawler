@@ -18,6 +18,7 @@ namespace SmashBros
 			
 			virtual void onWillAppear(const Transition*transition) override;
 			
+		protected:
 			virtual void onUpdate(ApplicationData appData) override;
 			virtual void onDraw(ApplicationData appData, Graphics graphics) const override;
 			

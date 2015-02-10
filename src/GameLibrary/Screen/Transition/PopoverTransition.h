@@ -9,7 +9,7 @@ namespace GameLibrary
 	class PopoverTransition : public Transition
 	{
 	public:
-		/*! Constant representing the direction of the popover*/
+		/*! The direction of the popover*/
 		typedef enum
 		{
 			/*! The second Drawable slides upward*/

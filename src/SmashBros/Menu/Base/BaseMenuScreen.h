@@ -21,8 +21,6 @@ namespace SmashBros
 			
 			virtual void onWillDisappear(const Transition*transition) override;
 			
-			virtual void onUpdate(ApplicationData appData) override;
-			
 			virtual void onItemHover(unsigned int index) override;
 			virtual void onItemHoverFinish(unsigned int index) override;
 			virtual void onItemPress(unsigned int index) override;
@@ -39,6 +37,8 @@ namespace SmashBros
 			void enableHoverPulse(bool);
 			
 		protected:
+			virtual void onUpdate(ApplicationData appData) override;
+			
 			virtual void drawItem(ApplicationData appData, Graphics graphics, Actor*item) const override;
 			
 		private:

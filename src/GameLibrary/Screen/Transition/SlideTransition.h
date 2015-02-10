@@ -10,7 +10,7 @@ namespace GameLibrary
 	class SlideTransition : public Transition
 	{
 	public:
-		/*! Constant representing the direction to slide*/
+		/*! The direction to slide*/
 		typedef enum
 		{
 			/*! The Drawable objects slide upward*/

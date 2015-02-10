@@ -13,7 +13,7 @@ namespace GameLibrary
 	{
 		friend class EventManager;
 	public:
-		/*! Constant that represents a Mouse Button*/
+		/*! Mouse button on a Mouse*/
 		typedef enum
 		{
 			/*! Unknown or unsupported mouse button*/

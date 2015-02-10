@@ -13,7 +13,7 @@ namespace GameLibrary
 	{
 		friend class EventManager;
 	public:
-		/*! Constant that represents a Key*/
+		/*! Key value on the Keyboard*/
 		typedef enum
 		{
 			/*! Unknown or unsupported key*/

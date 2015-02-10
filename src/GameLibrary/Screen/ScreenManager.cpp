@@ -44,6 +44,18 @@ namespace GameLibrary
 		{
 			throw IllegalArgumentException("Cannot construct a ScreenManager with a null root Screen");
 		}
+		else if(rootScreen->screenManager != nullptr)
+		{
+			throw IllegalArgumentException("Cannot construct a ScreenManager with a Screen that is already a part of another ScreenManager");
+		}
+		else if(rootScreen->parentScreen != nullptr)
+		{
+			throw IllegalArgumentException("Cannot push a Screen that is already presented on another Screen");
+		}
+		else if(rootScreen->window != nullptr)
+		{
+			throw IllegalArgumentException("Cannot set a ScreenManager with a Screen that already belongs to another Window");
+		}
 		TransitionData_clear(pushpopData);
 		rootScreen->setWindow(window);
 		rootScreen->screenManager = this;

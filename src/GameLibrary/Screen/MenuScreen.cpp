@@ -116,6 +116,7 @@ namespace GameLibrary
 	
 	void MenuScreen::removeItem(unsigned int index)
 	{
+		delete mainElement->getActor(index);
 		mainElement->removeActor(index);
 	}
 	

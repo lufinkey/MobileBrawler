@@ -15,9 +15,9 @@ namespace SmashBros
 		CharacterLoader* characterLoader;
 		StageLoader* stageLoader;
 		
-		Image const* characterselect_iconmask;
-		Image const* stageselect_iconmask;
-		Image const* stageselect_previewmask;
+		const Image* characterselect_iconmask;
+		const Image* stageselect_iconmask;
+		const Image* stageselect_previewmask;
 		
 	public:
 		ModuleLoad(Window&window, const String&charactersRoot, const String&stagesRoot);
@@ -26,9 +26,9 @@ namespace SmashBros
 		void addCharactersPath(const String&);
 		void addStagesPath(const String&);
 		
-		void setCharacterSelectIconMask(Image const* mask);
-		void setStageSelectIconMask(Image const* mask);
-		void setStageSelectPreviewMask(Image const* mask);
+		void setCharacterSelectIconMask(const Image* mask);
+		void setStageSelectIconMask(const Image* mask);
+		void setStageSelectPreviewMask(const Image* mask);
 		
 		CharacterLoader* getCharacterLoader() const;
 		StageLoader* getStageLoader() const;

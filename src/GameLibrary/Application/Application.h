@@ -20,7 +20,7 @@ namespace GameLibrary
 	{
 		friend void ApplicationEventHandler(void*, unsigned int);
 	public:
-		/*! Represents the orientation the screen is be allowed to rotate on a mobile device.*/
+		/*! The orientation the screen is be allowed to rotate on a mobile device.*/
 		enum Orientation
 		{
 			/*! A bitmask value representing a mobile device rotated to the left.*/

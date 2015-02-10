@@ -20,8 +20,10 @@ namespace SmashBros
 			TitleScreen(const SmashData&smashData);
 			virtual ~TitleScreen();
 			
-			virtual void onUpdate(ApplicationData appData) override;
 			virtual void onItemSelect(unsigned int index) override;
+			
+		protected:
+			virtual void onUpdate(ApplicationData appData) override;
 		};
 	}
 }

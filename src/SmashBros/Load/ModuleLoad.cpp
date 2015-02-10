@@ -31,17 +31,17 @@ namespace SmashBros
 		stageLoader->addPath(path);
 	}
 	
-	void ModuleLoad::setCharacterSelectIconMask(Image const* mask)
+	void ModuleLoad::setCharacterSelectIconMask(const Image* mask)
 	{
 		characterselect_iconmask = mask;
 	}
 	
-	void ModuleLoad::setStageSelectIconMask(Image const* mask)
+	void ModuleLoad::setStageSelectIconMask(const Image* mask)
 	{
 		stageselect_iconmask = mask;
 	}
 	
-	void ModuleLoad::setStageSelectPreviewMask(Image const* mask)
+	void ModuleLoad::setStageSelectPreviewMask(const Image* mask)
 	{
 		stageselect_previewmask = mask;
 	}

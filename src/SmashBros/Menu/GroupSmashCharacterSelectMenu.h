@@ -28,6 +28,7 @@ namespace SmashBros
 			
 			virtual void proceedToFight() override;
 			
+		protected:
 			virtual void onUpdate(ApplicationData appData) override;
 			virtual void onDraw(ApplicationData appData, Graphics graphics) const override;
 		};

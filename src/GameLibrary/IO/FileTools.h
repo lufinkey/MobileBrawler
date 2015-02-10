@@ -11,7 +11,7 @@ namespace GameLibrary
 	class FileTools
 	{
 	public:
-		/*! Constant representing a type of directory item in a directory*/
+		/*! A type of directory item in a directory*/
 		typedef enum
 		{
 			/*! A regular file*/

@@ -649,6 +649,24 @@ namespace GameLibrary
 		}
 	}
 	
+	bool Screen::isPresenting() const
+	{
+		if(overlayData.action == TRANSITION_SHOW)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	bool Screen::isDismissing() const
+	{
+		if(overlayData.action == TRANSITION_HIDE)
+		{
+			return true;
+		}
+		return false;
+	}
+	
 	void Screen::setBackgroundColor(const Color&color)
 	{
 		backgroundColor = color; //ScreenElement::setBackgroundColor(color);
