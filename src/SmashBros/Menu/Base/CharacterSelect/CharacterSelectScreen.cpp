@@ -15,7 +15,8 @@ namespace SmashBros
 		CharacterSelectScreen::CharacterSelectScreen(const SmashData&smashData, Rules*ruleData) : SmashBros::Menu::BaseMenuScreen(smashData)
 		{
 			RectangleF frame = getFrame();
-			autoIconLayout.setFrame(frame);
+			autoIconLayout.setFrame(RectangleF(0,0,frame.width,frame.height));
+			autoPanelLayout.setFrame(RectangleF(0,0,frame.width,frame.height));
 			
 			rules = ruleData;
 			characterLoader = smashData.getModuleData()->getCharacterLoader();
