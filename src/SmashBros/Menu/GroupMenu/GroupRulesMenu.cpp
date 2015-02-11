@@ -64,8 +64,6 @@ namespace SmashBros
 				gameModeValueBar->setValueLabel((String)"" + timeLimitWinCondition->getTimeLimit());
 				gameModeValueBar->setValueLabelSuffix(":00");
 			}
-			
-			RectangleF frame = getFrame();
 		}
 		
 		void GroupRulesMenu::onUpdate(ApplicationData appData)

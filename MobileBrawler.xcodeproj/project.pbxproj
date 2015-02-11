@@ -69,7 +69,6 @@
 		A03064471A7710EA0090DD6E /* RenderGlyphException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063791A7710E90090DD6E /* RenderGlyphException.cpp */; };
 		A03064481A7710EA0090DD6E /* IllegalNumberOperationException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A030637B1A7710E90090DD6E /* IllegalNumberOperationException.cpp */; };
 		A03064491A7710EA0090DD6E /* StringOutOfBoundsException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A030637D1A7710E90090DD6E /* StringOutOfBoundsException.cpp */; };
-		A030644A1A7710EA0090DD6E /* IllegalDateTimeFormatException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063801A7710E90090DD6E /* IllegalDateTimeFormatException.cpp */; };
 		A030644B1A7710EA0090DD6E /* GameLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063821A7710E90090DD6E /* GameLibrary.cpp */; };
 		A030644C1A7710EA0090DD6E /* Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063851A7710E90090DD6E /* Color.cpp */; };
 		A030644D1A7710EA0090DD6E /* Graphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063871A7710E90090DD6E /* Graphics.cpp */; };
@@ -82,7 +81,6 @@
 		A03064541A7710EA0090DD6E /* Console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063971A7710E90090DD6E /* Console.cpp */; };
 		A03064551A7710EA0090DD6E /* FileTools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063991A7710E90090DD6E /* FileTools.cpp */; };
 		A03064561A7710EA0090DD6E /* NetworkProtocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A030639C1A7710E90090DD6E /* NetworkProtocol.cpp */; };
-		A03064571A7710EA0090DD6E /* MenuScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063A01A7710E90090DD6E /* MenuScreen.cpp */; };
 		A03064581A7710EA0090DD6E /* Screen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063A21A7710E90090DD6E /* Screen.cpp */; };
 		A03064591A7710EA0090DD6E /* ScreenElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063A41A7710E90090DD6E /* ScreenElement.cpp */; };
 		A030645A1A7710EA0090DD6E /* ScreenManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063A61A7710E90090DD6E /* ScreenManager.cpp */; };
@@ -90,7 +88,6 @@
 		A030645C1A7710EA0090DD6E /* FadeZoomTransition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063AB1A7710E90090DD6E /* FadeZoomTransition.cpp */; };
 		A030645D1A7710EA0090DD6E /* PopoverTransition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063AD1A7710E90090DD6E /* PopoverTransition.cpp */; };
 		A030645E1A7710EA0090DD6E /* SlideTransition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063AF1A7710E90090DD6E /* SlideTransition.cpp */; };
-		A030645F1A7710EA0090DD6E /* Transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063B11A7710E90090DD6E /* Transition.cpp */; };
 		A03064601A7710EA0090DD6E /* ImageElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063B41A7710E90090DD6E /* ImageElement.cpp */; };
 		A03064611A7710EA0090DD6E /* TextInputElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063B61A7710E90090DD6E /* TextInputElement.cpp */; };
 		A03064621A7710EA0090DD6E /* BitList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063BC1A7710E90090DD6E /* BitList.cpp */; };
@@ -130,12 +127,15 @@
 		A03064861A7710EA0090DD6E /* MainMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03064151A7710EA0090DD6E /* MainMenu.cpp */; };
 		A03064871A7710EA0090DD6E /* GroupSmashData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03064181A7710EA0090DD6E /* GroupSmashData.cpp */; };
 		A03064881A7710EA0090DD6E /* SmashData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A030641A1A7710EA0090DD6E /* SmashData.cpp */; };
-		A03064891A7710EA0090DD6E /* SoloMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A030641C1A7710EA0090DD6E /* SoloMenu.cpp */; };
 		A030648A1A7710EA0090DD6E /* TitleScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A030641E1A7710EA0090DD6E /* TitleScreen.cpp */; };
-		E95440CF1A7C869700F70736 /* GroupMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E95440CB1A7C869700F70736 /* GroupMenu.cpp */; };
-		E95440D01A7C869700F70736 /* GroupRulesMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E95440CC1A7C869700F70736 /* GroupRulesMenu.cpp */; };
-		E95440D11A7C869700F70736 /* GroupSmashCharacterSelectMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E95440CD1A7C869700F70736 /* GroupSmashCharacterSelectMenu.cpp */; };
-		E95440D21A7C869700F70736 /* GroupSmashStageSelectMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E95440CE1A7C869700F70736 /* GroupSmashStageSelectMenu.cpp */; };
+		A0A92D8F1A8B1FB00059623D /* GroupMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0A92D871A8B1FB00059623D /* GroupMenu.cpp */; };
+		A0A92D901A8B1FB00059623D /* GroupRulesMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0A92D891A8B1FB00059623D /* GroupRulesMenu.cpp */; };
+		A0A92D911A8B1FB00059623D /* GroupSmashCharacterSelectMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0A92D8B1A8B1FB00059623D /* GroupSmashCharacterSelectMenu.cpp */; };
+		A0A92D921A8B1FB00059623D /* GroupSmashStageSelectMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0A92D8D1A8B1FB00059623D /* GroupSmashStageSelectMenu.cpp */; };
+		A0A92D961A8B1FB70059623D /* SoloMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0A92D941A8B1FB70059623D /* SoloMenu.cpp */; };
+		A0A92D9E1A8B217B0059623D /* AutoLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0A92D9C1A8B207F0059623D /* AutoLayout.cpp */; };
+		A0A92D9F1A8B21850059623D /* ScrollElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0A92D9A1A8B20690059623D /* ScrollElement.cpp */; };
+		A0A92DA01A8B21890059623D /* MenuScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0A92D981A8B205F0059623D /* MenuScreen.cpp */; };
 		E97FD7771A72DA22005AC479 /* Icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7651A72DA22005AC479 /* Icon-60.png */; };
 		E97FD7781A72DA22005AC479 /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7661A72DA22005AC479 /* Icon-60@2x.png */; };
 		E97FD7791A72DA22005AC479 /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7671A72DA22005AC479 /* Icon-60@3x.png */; };
@@ -271,8 +271,6 @@
 		A030637C1A7710E90090DD6E /* IllegalNumberOperationException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IllegalNumberOperationException.h; sourceTree = "<group>"; };
 		A030637D1A7710E90090DD6E /* StringOutOfBoundsException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StringOutOfBoundsException.cpp; sourceTree = "<group>"; };
 		A030637E1A7710E90090DD6E /* StringOutOfBoundsException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringOutOfBoundsException.h; sourceTree = "<group>"; };
-		A03063801A7710E90090DD6E /* IllegalDateTimeFormatException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IllegalDateTimeFormatException.cpp; sourceTree = "<group>"; };
-		A03063811A7710E90090DD6E /* IllegalDateTimeFormatException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IllegalDateTimeFormatException.h; sourceTree = "<group>"; };
 		A03063821A7710E90090DD6E /* GameLibrary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameLibrary.cpp; sourceTree = "<group>"; };
 		A03063831A7710E90090DD6E /* GameLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLibrary.h; sourceTree = "<group>"; };
 		A03063851A7710E90090DD6E /* Color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Color.cpp; sourceTree = "<group>"; };
@@ -298,8 +296,6 @@
 		A030639C1A7710E90090DD6E /* NetworkProtocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkProtocol.cpp; sourceTree = "<group>"; };
 		A030639D1A7710E90090DD6E /* NetworkProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkProtocol.h; sourceTree = "<group>"; };
 		A030639F1A7710E90090DD6E /* Drawable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Drawable.h; sourceTree = "<group>"; };
-		A03063A01A7710E90090DD6E /* MenuScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuScreen.cpp; sourceTree = "<group>"; };
-		A03063A11A7710E90090DD6E /* MenuScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScreen.h; sourceTree = "<group>"; };
 		A03063A21A7710E90090DD6E /* Screen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Screen.cpp; sourceTree = "<group>"; };
 		A03063A31A7710E90090DD6E /* Screen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Screen.h; sourceTree = "<group>"; };
 		A03063A41A7710E90090DD6E /* ScreenElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenElement.cpp; sourceTree = "<group>"; };
@@ -314,8 +310,6 @@
 		A03063AE1A7710E90090DD6E /* PopoverTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopoverTransition.h; sourceTree = "<group>"; };
 		A03063AF1A7710E90090DD6E /* SlideTransition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SlideTransition.cpp; sourceTree = "<group>"; };
 		A03063B01A7710E90090DD6E /* SlideTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideTransition.h; sourceTree = "<group>"; };
-		A03063B11A7710E90090DD6E /* Transition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Transition.cpp; sourceTree = "<group>"; };
-		A03063B21A7710E90090DD6E /* Transition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transition.h; sourceTree = "<group>"; };
 		A03063B41A7710E90090DD6E /* ImageElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageElement.cpp; sourceTree = "<group>"; };
 		A03063B51A7710E90090DD6E /* ImageElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageElement.h; sourceTree = "<group>"; };
 		A03063B61A7710E90090DD6E /* TextInputElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextInputElement.cpp; sourceTree = "<group>"; };
@@ -403,18 +397,25 @@
 		A03064191A7710EA0090DD6E /* GroupSmashData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSmashData.h; sourceTree = "<group>"; };
 		A030641A1A7710EA0090DD6E /* SmashData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SmashData.cpp; sourceTree = "<group>"; };
 		A030641B1A7710EA0090DD6E /* SmashData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmashData.h; sourceTree = "<group>"; };
-		A030641C1A7710EA0090DD6E /* SoloMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoloMenu.cpp; sourceTree = "<group>"; };
-		A030641D1A7710EA0090DD6E /* SoloMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoloMenu.h; sourceTree = "<group>"; };
 		A030641E1A7710EA0090DD6E /* TitleScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TitleScreen.cpp; sourceTree = "<group>"; };
 		A030641F1A7710EA0090DD6E /* TitleScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleScreen.h; sourceTree = "<group>"; };
-		E95440C71A7C869700F70736 /* GroupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupMenu.h; sourceTree = "<group>"; };
-		E95440C81A7C869700F70736 /* GroupRulesMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupRulesMenu.h; sourceTree = "<group>"; };
-		E95440C91A7C869700F70736 /* GroupSmashCharacterSelectMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSmashCharacterSelectMenu.h; sourceTree = "<group>"; };
-		E95440CA1A7C869700F70736 /* GroupSmashStageSelectMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSmashStageSelectMenu.h; sourceTree = "<group>"; };
-		E95440CB1A7C869700F70736 /* GroupMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroupMenu.cpp; sourceTree = "<group>"; };
-		E95440CC1A7C869700F70736 /* GroupRulesMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroupRulesMenu.cpp; sourceTree = "<group>"; };
-		E95440CD1A7C869700F70736 /* GroupSmashCharacterSelectMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroupSmashCharacterSelectMenu.cpp; sourceTree = "<group>"; };
-		E95440CE1A7C869700F70736 /* GroupSmashStageSelectMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroupSmashStageSelectMenu.cpp; sourceTree = "<group>"; };
+		A0A92D871A8B1FB00059623D /* GroupMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroupMenu.cpp; sourceTree = "<group>"; };
+		A0A92D881A8B1FB00059623D /* GroupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupMenu.h; sourceTree = "<group>"; };
+		A0A92D891A8B1FB00059623D /* GroupRulesMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroupRulesMenu.cpp; sourceTree = "<group>"; };
+		A0A92D8A1A8B1FB00059623D /* GroupRulesMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupRulesMenu.h; sourceTree = "<group>"; };
+		A0A92D8B1A8B1FB00059623D /* GroupSmashCharacterSelectMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroupSmashCharacterSelectMenu.cpp; sourceTree = "<group>"; };
+		A0A92D8C1A8B1FB00059623D /* GroupSmashCharacterSelectMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSmashCharacterSelectMenu.h; sourceTree = "<group>"; };
+		A0A92D8D1A8B1FB00059623D /* GroupSmashStageSelectMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroupSmashStageSelectMenu.cpp; sourceTree = "<group>"; };
+		A0A92D8E1A8B1FB00059623D /* GroupSmashStageSelectMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSmashStageSelectMenu.h; sourceTree = "<group>"; };
+		A0A92D941A8B1FB70059623D /* SoloMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoloMenu.cpp; sourceTree = "<group>"; };
+		A0A92D951A8B1FB70059623D /* SoloMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoloMenu.h; sourceTree = "<group>"; };
+		A0A92D971A8B20450059623D /* Transition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Transition.h; sourceTree = "<group>"; };
+		A0A92D981A8B205F0059623D /* MenuScreen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MenuScreen.cpp; sourceTree = "<group>"; };
+		A0A92D991A8B205F0059623D /* MenuScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuScreen.h; sourceTree = "<group>"; };
+		A0A92D9A1A8B20690059623D /* ScrollElement.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ScrollElement.cpp; sourceTree = "<group>"; };
+		A0A92D9B1A8B206A0059623D /* ScrollElement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrollElement.h; sourceTree = "<group>"; };
+		A0A92D9C1A8B207F0059623D /* AutoLayout.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AutoLayout.cpp; sourceTree = "<group>"; };
+		A0A92D9D1A8B207F0059623D /* AutoLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AutoLayout.h; sourceTree = "<group>"; };
 		E97FD7651A72DA22005AC479 /* Icon-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60.png"; path = "icons/Icon-60.png"; sourceTree = "<group>"; };
 		E97FD7661A72DA22005AC479 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@2x.png"; path = "icons/Icon-60@2x.png"; sourceTree = "<group>"; };
 		E97FD7671A72DA22005AC479 /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@3x.png"; path = "icons/Icon-60@3x.png"; sourceTree = "<group>"; };
@@ -760,7 +761,6 @@
 			isa = PBXGroup;
 			children = (
 				A03063781A7710E90090DD6E /* Font */,
-				A030637F1A7710E90090DD6E /* Time */,
 				A030636F1A7710E90090DD6E /* ArrayListOutOfBoundsException.h */,
 				A030636E1A7710E90090DD6E /* ArrayListOutOfBoundsException.cpp */,
 				A03063711A7710E90090DD6E /* BadAnyCastException.h */,
@@ -786,15 +786,6 @@
 				A03063791A7710E90090DD6E /* RenderGlyphException.cpp */,
 			);
 			path = Font;
-			sourceTree = "<group>";
-		};
-		A030637F1A7710E90090DD6E /* Time */ = {
-			isa = PBXGroup;
-			children = (
-				A03063811A7710E90090DD6E /* IllegalDateTimeFormatException.h */,
-				A03063801A7710E90090DD6E /* IllegalDateTimeFormatException.cpp */,
-			);
-			path = Time;
 			sourceTree = "<group>";
 		};
 		A03063841A7710E90090DD6E /* Graphics */ = {
@@ -850,17 +841,17 @@
 		A030639E1A7710E90090DD6E /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				A03063A81A7710E90090DD6E /* Transition */,
+				A03063B31A7710E90090DD6E /* UI */,
+				A0A92D9D1A8B207F0059623D /* AutoLayout.h */,
+				A0A92D9C1A8B207F0059623D /* AutoLayout.cpp */,
 				A030639F1A7710E90090DD6E /* Drawable.h */,
-				A03063A11A7710E90090DD6E /* MenuScreen.h */,
-				A03063A01A7710E90090DD6E /* MenuScreen.cpp */,
 				A03063A31A7710E90090DD6E /* Screen.h */,
 				A03063A21A7710E90090DD6E /* Screen.cpp */,
 				A03063A51A7710E90090DD6E /* ScreenElement.h */,
 				A03063A41A7710E90090DD6E /* ScreenElement.cpp */,
 				A03063A71A7710E90090DD6E /* ScreenManager.h */,
 				A03063A61A7710E90090DD6E /* ScreenManager.cpp */,
-				A03063A81A7710E90090DD6E /* Transition */,
-				A03063B31A7710E90090DD6E /* UI */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
@@ -876,8 +867,7 @@
 				A03063AE1A7710E90090DD6E /* PopoverTransition.h */,
 				A03063AF1A7710E90090DD6E /* SlideTransition.cpp */,
 				A03063B01A7710E90090DD6E /* SlideTransition.h */,
-				A03063B11A7710E90090DD6E /* Transition.cpp */,
-				A03063B21A7710E90090DD6E /* Transition.h */,
+				A0A92D971A8B20450059623D /* Transition.h */,
 			);
 			path = Transition;
 			sourceTree = "<group>";
@@ -885,12 +875,16 @@
 		A03063B31A7710E90090DD6E /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				A03063B41A7710E90090DD6E /* ImageElement.cpp */,
-				A03063B51A7710E90090DD6E /* ImageElement.h */,
-				A03063B61A7710E90090DD6E /* TextInputElement.cpp */,
-				A03063B71A7710E90090DD6E /* TextInputElement.h */,
 				E9946E491A7AA7840054F2C8 /* ActorMenuElement.h */,
 				E9946E4A1A7AA7840054F2C8 /* ActorMenuElement.cpp */,
+				A03063B51A7710E90090DD6E /* ImageElement.h */,
+				A03063B41A7710E90090DD6E /* ImageElement.cpp */,
+				A0A92D991A8B205F0059623D /* MenuScreen.h */,
+				A0A92D981A8B205F0059623D /* MenuScreen.cpp */,
+				A0A92D9B1A8B206A0059623D /* ScrollElement.h */,
+				A0A92D9A1A8B20690059623D /* ScrollElement.cpp */,
+				A03063B71A7710E90090DD6E /* TextInputElement.h */,
+				A03063B61A7710E90090DD6E /* TextInputElement.cpp */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1018,12 +1012,11 @@
 			children = (
 				A03063F81A7710EA0090DD6E /* Base */,
 				A03064061A7710EA0090DD6E /* Elements */,
+				A0A92D861A8B1FB00059623D /* GroupMenu */,
 				A03064171A7710EA0090DD6E /* MenuData */,
-				E95440D31A7C86CE00F70736 /* GroupMenu */,
+				A0A92D931A8B1FB70059623D /* SoloMenu */,
 				A03064161A7710EA0090DD6E /* MainMenu.h */,
 				A03064151A7710EA0090DD6E /* MainMenu.cpp */,
-				A030641D1A7710EA0090DD6E /* SoloMenu.h */,
-				A030641C1A7710EA0090DD6E /* SoloMenu.cpp */,
 				A030641F1A7710EA0090DD6E /* TitleScreen.h */,
 				A030641E1A7710EA0090DD6E /* TitleScreen.cpp */,
 			);
@@ -1086,21 +1079,29 @@
 			path = MenuData;
 			sourceTree = "<group>";
 		};
-		E95440D31A7C86CE00F70736 /* GroupMenu */ = {
+		A0A92D861A8B1FB00059623D /* GroupMenu */ = {
 			isa = PBXGroup;
 			children = (
-				E95440C71A7C869700F70736 /* GroupMenu.h */,
-				E95440CB1A7C869700F70736 /* GroupMenu.cpp */,
-				E95440C81A7C869700F70736 /* GroupRulesMenu.h */,
-				E95440CC1A7C869700F70736 /* GroupRulesMenu.cpp */,
-				E95440C91A7C869700F70736 /* GroupSmashCharacterSelectMenu.h */,
-				E95440CD1A7C869700F70736 /* GroupSmashCharacterSelectMenu.cpp */,
-				E95440CA1A7C869700F70736 /* GroupSmashStageSelectMenu.h */,
-				E95440CE1A7C869700F70736 /* GroupSmashStageSelectMenu.cpp */,
+				A0A92D881A8B1FB00059623D /* GroupMenu.h */,
+				A0A92D871A8B1FB00059623D /* GroupMenu.cpp */,
+				A0A92D8A1A8B1FB00059623D /* GroupRulesMenu.h */,
+				A0A92D891A8B1FB00059623D /* GroupRulesMenu.cpp */,
+				A0A92D8C1A8B1FB00059623D /* GroupSmashCharacterSelectMenu.h */,
+				A0A92D8B1A8B1FB00059623D /* GroupSmashCharacterSelectMenu.cpp */,
+				A0A92D8E1A8B1FB00059623D /* GroupSmashStageSelectMenu.h */,
+				A0A92D8D1A8B1FB00059623D /* GroupSmashStageSelectMenu.cpp */,
 			);
-			name = GroupMenu;
-			path = /Users/keeton/Documents/Projects/MobileBrawler/src/SmashBros/Menu;
-			sourceTree = "<absolute>";
+			path = GroupMenu;
+			sourceTree = "<group>";
+		};
+		A0A92D931A8B1FB70059623D /* SoloMenu */ = {
+			isa = PBXGroup;
+			children = (
+				A0A92D951A8B1FB70059623D /* SoloMenu.h */,
+				A0A92D941A8B1FB70059623D /* SoloMenu.cpp */,
+			);
+			path = SoloMenu;
+			sourceTree = "<group>";
 		};
 		E97FD7401A72D834005AC479 /* icons */ = {
 			isa = PBXGroup;
@@ -1224,7 +1225,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E95440CF1A7C869700F70736 /* GroupMenu.cpp in Sources */,
 				A01658361A70C291007D0BA1 /* pugixml.cpp in Sources */,
 				A03064201A7710EA0090DD6E /* PlayerInfo.cpp in Sources */,
 				A03064211A7710EA0090DD6E /* Rules.cpp in Sources */,
@@ -1259,7 +1259,6 @@
 				A030643C1A7710EA0090DD6E /* IllegalFormatException.cpp in Sources */,
 				A030643D1A7710EA0090DD6E /* IllegalStateException.cpp in Sources */,
 				A030643E1A7710EA0090DD6E /* InitializeLibraryException.cpp in Sources */,
-				E95440D11A7C869700F70736 /* GroupSmashCharacterSelectMenu.cpp in Sources */,
 				A030643F1A7710EA0090DD6E /* NumberFormatException.cpp in Sources */,
 				A03064401A7710EA0090DD6E /* OutOfBoundsException.cpp in Sources */,
 				A03064411A7710EA0090DD6E /* ScreenNavigationException.cpp in Sources */,
@@ -1269,10 +1268,8 @@
 				A03064451A7710EA0090DD6E /* BitSetOutOfBoundsException.cpp in Sources */,
 				A03064461A7710EA0090DD6E /* DataPacketOutOfBoundsException.cpp in Sources */,
 				A03064471A7710EA0090DD6E /* RenderGlyphException.cpp in Sources */,
-				E95440D01A7C869700F70736 /* GroupRulesMenu.cpp in Sources */,
 				A03064481A7710EA0090DD6E /* IllegalNumberOperationException.cpp in Sources */,
 				A03064491A7710EA0090DD6E /* StringOutOfBoundsException.cpp in Sources */,
-				A030644A1A7710EA0090DD6E /* IllegalDateTimeFormatException.cpp in Sources */,
 				A030644B1A7710EA0090DD6E /* GameLibrary.cpp in Sources */,
 				A030644C1A7710EA0090DD6E /* Color.cpp in Sources */,
 				A030644D1A7710EA0090DD6E /* Graphics.cpp in Sources */,
@@ -1285,16 +1282,13 @@
 				A03064541A7710EA0090DD6E /* Console.cpp in Sources */,
 				A03064551A7710EA0090DD6E /* FileTools.cpp in Sources */,
 				A03064561A7710EA0090DD6E /* NetworkProtocol.cpp in Sources */,
-				A03064571A7710EA0090DD6E /* MenuScreen.cpp in Sources */,
 				A03064581A7710EA0090DD6E /* Screen.cpp in Sources */,
 				A03064591A7710EA0090DD6E /* ScreenElement.cpp in Sources */,
 				A030645A1A7710EA0090DD6E /* ScreenManager.cpp in Sources */,
 				A030645B1A7710EA0090DD6E /* FadeColorTransition.cpp in Sources */,
-				E95440D21A7C869700F70736 /* GroupSmashStageSelectMenu.cpp in Sources */,
 				A030645C1A7710EA0090DD6E /* FadeZoomTransition.cpp in Sources */,
 				A030645D1A7710EA0090DD6E /* PopoverTransition.cpp in Sources */,
 				A030645E1A7710EA0090DD6E /* SlideTransition.cpp in Sources */,
-				A030645F1A7710EA0090DD6E /* Transition.cpp in Sources */,
 				A03064601A7710EA0090DD6E /* ImageElement.cpp in Sources */,
 				A03064611A7710EA0090DD6E /* TextInputElement.cpp in Sources */,
 				A03064621A7710EA0090DD6E /* BitList.cpp in Sources */,
@@ -1337,8 +1331,15 @@
 				A03064861A7710EA0090DD6E /* MainMenu.cpp in Sources */,
 				A03064871A7710EA0090DD6E /* GroupSmashData.cpp in Sources */,
 				A03064881A7710EA0090DD6E /* SmashData.cpp in Sources */,
-				A03064891A7710EA0090DD6E /* SoloMenu.cpp in Sources */,
 				A030648A1A7710EA0090DD6E /* TitleScreen.cpp in Sources */,
+				A0A92D8F1A8B1FB00059623D /* GroupMenu.cpp in Sources */,
+				A0A92D901A8B1FB00059623D /* GroupRulesMenu.cpp in Sources */,
+				A0A92D911A8B1FB00059623D /* GroupSmashCharacterSelectMenu.cpp in Sources */,
+				A0A92D921A8B1FB00059623D /* GroupSmashStageSelectMenu.cpp in Sources */,
+				A0A92D961A8B1FB70059623D /* SoloMenu.cpp in Sources */,
+				A0A92D9E1A8B217B0059623D /* AutoLayout.cpp in Sources */,
+				A0A92D9F1A8B21850059623D /* ScrollElement.cpp in Sources */,
+				A0A92DA01A8B21890059623D /* MenuScreen.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include "Base/BaseMenuScreen.h"
-#include "MenuData/GroupSmashData.h"
+#include "../Base/BaseMenuScreen.h"
+#include "../MenuData/GroupSmashData.h"
 #include "GroupSmashCharacterSelectMenu.h"
 #include "GroupRulesMenu.h"
 

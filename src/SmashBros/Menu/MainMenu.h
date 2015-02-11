@@ -2,8 +2,8 @@
 #pragma once
 
 #include "Base/BaseMenuScreen.h"
-#include "GroupMenu.h"
-#include "SoloMenu.h"
+#include "GroupMenu/GroupMenu.h"
+#include "SoloMenu/SoloMenu.h"
 
 namespace SmashBros
 {

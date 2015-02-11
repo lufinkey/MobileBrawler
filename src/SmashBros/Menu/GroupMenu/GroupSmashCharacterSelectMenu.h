@@ -1,11 +1,11 @@
 
 #pragma once
 
-#include "Base/CharacterSelect/CharacterSelectScreen.h"
+#include "../Base/CharacterSelect/CharacterSelectScreen.h"
 #include "GroupSmashStageSelectMenu.h"
-#include "MenuData/GroupSmashData.h"
-#include "Elements/ArrowButton.h"
-#include "Elements/RulesBar.h"
+#include "../MenuData/GroupSmashData.h"
+#include "../Elements/ArrowButton.h"
+#include "../Elements/RulesBar.h"
 
 namespace SmashBros
 {

@@ -98,8 +98,6 @@ namespace SmashBros
 				preview = nullptr;
 			}
 			
-			Vector2f topleft = smashData.getScreenCoords(0.05f, 0.2f);
-			Vector2f bottomright = smashData.getScreenCoords(0.25f, 0.9f);
 			preview = new StagePreview(smashData.getModuleData()->getStageLoader()->getAssetManager());
 			getElement()->addChildElement(RectF(0.05f, 0.2f, 0.25f, 0.9f), preview);
 		}

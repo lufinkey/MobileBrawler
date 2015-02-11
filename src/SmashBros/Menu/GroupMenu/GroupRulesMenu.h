@@ -1,10 +1,10 @@
 
 #pragma once
 
-#include "Base/BaseMenuScreen.h"
-#include "Elements/MenuBarValueAdjust.h"
-#include "Elements/RulesBar.h"
-#include "MenuData/GroupSmashData.h"
+#include "../Base/BaseMenuScreen.h"
+#include "../Elements/MenuBarValueAdjust.h"
+#include "../Elements/RulesBar.h"
+#include "../MenuData/GroupSmashData.h"
 
 namespace SmashBros
 {

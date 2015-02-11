@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include "Base/StageSelect/StageSelectScreen.h"
-#include "MenuData/GroupSmashData.h"
+#include "../Base/StageSelect/StageSelectScreen.h"
+#include "../MenuData/GroupSmashData.h"
 
 namespace SmashBros
 {

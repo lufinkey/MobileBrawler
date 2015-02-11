@@ -132,9 +132,6 @@ namespace SmashBros
 				}
 			}
 			
-			ImageElement* headerbar = getHeaderbarElement();
-			RectangleF headerbarFrame = headerbar->getFrame();
-			Vector2f screenSize = smashData.getScreenCoords(Vector2f(1.0f,1.0f));
 			float frameoffset_y = getElement()->getAutoLayout().get(getHeaderbarElement()).bottom*1.1f;
 			
 			RectF bounds(0.1f, frameoffset_y, 0.9f, 0.6f);
@@ -185,7 +182,7 @@ namespace SmashBros
 			float panelBounds_h = panelBounds.bottom - panelBounds.top;
 
 			float panel_width = panelBounds_w/(float)playerCount;
-			float panel_height = panelBounds.bottom - panelBounds.top;
+			float panel_height = panelBounds_h;
 			Vector2f screenSize = smashData.getScreenCoords(1.0f,1.0f);
 			Vector2f chipSize((panel_width*screenSize.x)/3, (panel_height*screenSize.y)/3);
 			
