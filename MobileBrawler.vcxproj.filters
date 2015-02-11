@@ -121,6 +121,12 @@
     <Filter Include="src\SmashBros\Menu\Base\StageSelect">
       <UniqueIdentifier>{b76510c0-60c3-4164-b0b8-92308c1d803c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\SmashBros\Menu\GroupMenu">
+      <UniqueIdentifier>{f884af25-e652-400a-85a4-adfb94300e13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\SmashBros\Menu\SoloMenu">
+      <UniqueIdentifier>{73d50b91-b1c4-4d02-9a44-606cf014dca4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameLibrary\Actor\TextActor.cpp">
@@ -345,12 +351,6 @@
     <ClCompile Include="src\GameLibrary\Actor\SpriteActor.cpp">
       <Filter>src\GameLibrary\Actor</Filter>
     </ClCompile>
-    <ClCompile Include="src\SmashBros\Menu\GroupMenu.cpp">
-      <Filter>src\SmashBros\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SmashBros\Menu\SoloMenu.cpp">
-      <Filter>src\SmashBros\Menu</Filter>
-    </ClCompile>
     <ClCompile Include="src\SmashBros\Menu\Elements\ActorGrid.cpp">
       <Filter>src\SmashBros\Menu\Elements</Filter>
     </ClCompile>
@@ -365,9 +365,6 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\IO\FileTools.cpp">
       <Filter>src\GameLibrary\IO</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SmashBros\Menu\GroupSmashCharacterSelectMenu.cpp">
-      <Filter>src\SmashBros\Menu</Filter>
     </ClCompile>
     <ClCompile Include="src\SmashBros\Menu\Base\BaseMenuScreen.cpp">
       <Filter>src\SmashBros\Menu\Base</Filter>
@@ -438,14 +435,8 @@
     <ClCompile Include="src\BrawlerLibrary\Loader\StageLoader.cpp">
       <Filter>src\BrawlerLibrary\Loader</Filter>
     </ClCompile>
-    <ClCompile Include="src\SmashBros\Menu\GroupRulesMenu.cpp">
-      <Filter>src\SmashBros\Menu</Filter>
-    </ClCompile>
     <ClCompile Include="src\SmashBros\Load\InitialLoadListener.cpp">
       <Filter>src\SmashBros\Load</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SmashBros\Menu\GroupSmashStageSelectMenu.cpp">
-      <Filter>src\SmashBros\Menu</Filter>
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Screen\UI\ActorMenuElement.cpp">
       <Filter>src\GameLibrary\Screen\UI</Filter>
@@ -467,6 +458,21 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Screen\UI\MenuScreen.cpp">
       <Filter>src\GameLibrary\Screen\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\GroupMenu\GroupMenu.cpp">
+      <Filter>src\SmashBros\Menu\GroupMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\GroupMenu\GroupRulesMenu.cpp">
+      <Filter>src\SmashBros\Menu\GroupMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\GroupMenu\GroupSmashCharacterSelectMenu.cpp">
+      <Filter>src\SmashBros\Menu\GroupMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\GroupMenu\GroupSmashStageSelectMenu.cpp">
+      <Filter>src\SmashBros\Menu\GroupMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmashBros\Menu\SoloMenu\SoloMenu.cpp">
+      <Filter>src\SmashBros\Menu\SoloMenu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -722,12 +728,6 @@
     <ClInclude Include="src\GameLibrary\Actor\SpriteActor.h">
       <Filter>src\GameLibrary\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="src\SmashBros\Menu\GroupMenu.h">
-      <Filter>src\SmashBros\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SmashBros\Menu\SoloMenu.h">
-      <Filter>src\SmashBros\Menu</Filter>
-    </ClInclude>
     <ClInclude Include="src\SmashBros\Menu\Elements\ActorGrid.h">
       <Filter>src\SmashBros\Menu\Elements</Filter>
     </ClInclude>
@@ -745,9 +745,6 @@
     </ClInclude>
     <ClInclude Include="src\BrawlerLibrary\BrawlerLibrary.h">
       <Filter>src\BrawlerLibrary</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SmashBros\Menu\GroupSmashCharacterSelectMenu.h">
-      <Filter>src\SmashBros\Menu</Filter>
     </ClInclude>
     <ClInclude Include="src\SmashBros\Menu\Base\BaseMenuScreen.h">
       <Filter>src\SmashBros\Menu\Base</Filter>
@@ -818,14 +815,8 @@
     <ClInclude Include="src\BrawlerLibrary\Loader\StageLoader.h">
       <Filter>src\BrawlerLibrary\Loader</Filter>
     </ClInclude>
-    <ClInclude Include="src\SmashBros\Menu\GroupRulesMenu.h">
-      <Filter>src\SmashBros\Menu</Filter>
-    </ClInclude>
     <ClInclude Include="src\SmashBros\Load\InitialLoadListener.h">
       <Filter>src\SmashBros\Load</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SmashBros\Menu\GroupSmashStageSelectMenu.h">
-      <Filter>src\SmashBros\Menu</Filter>
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Screen\UI\ActorMenuElement.h">
       <Filter>src\GameLibrary\Screen\UI</Filter>
@@ -847,6 +838,21 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Screen\UI\MenuScreen.h">
       <Filter>src\GameLibrary\Screen\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\GroupMenu\GroupMenu.h">
+      <Filter>src\SmashBros\Menu\GroupMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\GroupMenu\GroupRulesMenu.h">
+      <Filter>src\SmashBros\Menu\GroupMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\GroupMenu\GroupSmashCharacterSelectMenu.h">
+      <Filter>src\SmashBros\Menu\GroupMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\GroupMenu\GroupSmashStageSelectMenu.h">
+      <Filter>src\SmashBros\Menu\GroupMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SmashBros\Menu\SoloMenu\SoloMenu.h">
+      <Filter>src\SmashBros\Menu\SoloMenu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
