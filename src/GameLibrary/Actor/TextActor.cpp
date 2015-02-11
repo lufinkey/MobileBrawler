@@ -323,6 +323,7 @@ namespace GameLibrary
 			y = container.y + ((container.height-newFrame.height)/2);
 			break;
 		}
+		updateSize();
 	}
 	
 	void TextActor::setText(const String&str)

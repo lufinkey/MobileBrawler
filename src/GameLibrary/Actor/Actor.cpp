@@ -10,6 +10,8 @@ namespace GameLibrary
 	{
 		x = 0;
 		y = 0;
+		prevx = 0;
+		prevy = 0;
 		width = 0;
 		height = 0;
 		
@@ -37,6 +39,9 @@ namespace GameLibrary
 	
 	void Actor::update(ApplicationData appData)
 	{
+		prevx = x;
+		prevy = y;
+		
 		didpress = false;
 		didrelease = false;
 		prevclicked = clicked;
@@ -102,6 +107,16 @@ namespace GameLibrary
 	float Actor::getHeight() const
 	{
 		return height;
+	}
+	
+	float Actor::getPreviousX() const
+	{
+		return prevx;
+	}
+	
+	float Actor::getPreviousY() const
+	{
+		return prevy;
 	}
 	
 	void Actor::setVisible(bool toggle)

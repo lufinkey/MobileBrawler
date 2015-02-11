@@ -19,7 +19,8 @@ namespace SmashBros
 		public:
 			TitleScreen(const SmashData&smashData);
 			virtual ~TitleScreen();
-			
+
+			virtual void onFrameChange() override;
 			virtual void onItemSelect(unsigned int index) override;
 			
 		protected:

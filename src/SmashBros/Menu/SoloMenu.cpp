@@ -7,8 +7,7 @@ namespace SmashBros
 	{
 		SoloMenu::SoloMenu(const SmashData&smashData) : SmashBros::Menu::BaseMenuScreen(smashData)
 		{
-			trainingButton = getItem(addItem(smashData.getScreenCoords(0.5f, 0.5f), new Animation(1, smashData.getMenuData()->getAssetManager(), "buttons/solo/training.png")));
-			trainingButton->scaleToFit(smashData.getScreenCoords(0.8f,0.6f));
+			trainingButton = getItem(addItem(RectF(0.1f, 0.2f, 0.9f, 0.8f), new Animation(1, smashData.getMenuData()->getAssetManager(), "buttons/solo/training.png")));
 		}
 		
 		SoloMenu::~SoloMenu()

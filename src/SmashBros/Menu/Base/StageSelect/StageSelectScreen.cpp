@@ -15,16 +15,22 @@ namespace SmashBros
 			headerbarElement->setVisible(false);
 			
 			rules = ruleData;
-			iconGrid = nullptr;
 			preview = nullptr;
+			
+			RectangleF frame = getFrame();
+			autoIconLayout.setFrame(RectangleF(0,0,frame.width,frame.height));
 		}
 		
 		StageSelectScreen::~StageSelectScreen()
 		{
-			if(iconGrid != nullptr)
-			{
-				delete iconGrid;
-			}
+			//items are deleted through the MenuScreen already, since they were added to it
+		}
+		
+		void StageSelectScreen::onFrameChange()
+		{
+			BaseMenuScreen::onFrameChange();
+			RectangleF frame = getFrame();
+			autoIconLayout.setFrame(RectangleF(0,0,frame.width,frame.height));
 		}
 		
 		Rules* StageSelectScreen::getRules() const
@@ -49,11 +55,7 @@ namespace SmashBros
 		
 		void StageSelectScreen::reloadIcons(const SmashData&smashData)
 		{
-			if(iconGrid != nullptr)
-			{
-				delete iconGrid;
-				iconGrid = nullptr;
-			}
+			autoIconLayout.clear();
 			
 			for(unsigned int i=0; i<icons.size(); i++)
 			{
@@ -63,25 +65,26 @@ namespace SmashBros
 			
 			ArrayList<StageInfo>& stages = smashData.getModuleData()->getStageLoader()->getStages();
 			
-			Vector2f topleft = smashData.getScreenCoords(0.3f, 0.2f);
-			Vector2f bottomright = smashData.getScreenCoords(0.9f, 0.9f);
-			RectangleF stageSelectRect(topleft.x, topleft.y, bottomright.x-topleft.x, bottomright.y-topleft.y);
+			RectF bounds(0.3f, 0.2f, 0.9f, 0.9f);
+			float bounds_w = bounds.right - bounds.left;
+			float bounds_h = bounds.bottom - bounds.top;
+			
 			unsigned int cols = 6;
 			unsigned int rows = 6;
-			float icon_width = stageSelectRect.width / (float)cols;
-			float icon_height = stageSelectRect.height / (float)rows;
-			Vector2f icon_size(icon_width, icon_height);
-			
-			iconGrid = new ActorGrid(Vector2f(stageSelectRect.x+(icon_width/2), stageSelectRect.y+(icon_height/2)), cols, Vector2f(icon_width, icon_height));
+			float icon_width = bounds_w / (float)cols;
+			float icon_height = bounds_h / (float)rows;
 			
 			AssetManager* loaderAssetManager = smashData.getModuleData()->getStageLoader()->getAssetManager();
 			for(unsigned int i=0; i<stages.size(); i++)
 			{
 				StageInfo& info = stages.get(i);
 				StageIcon* icon = new StageIcon(info, 0, 0, loaderAssetManager);
-				icon->Actor::scaleToFit(icon_size);
+				unsigned int col = i%cols;
+				unsigned int row = i/cols;
+				float icon_left = bounds.left+(((float)col)*icon_width);
+				float icon_top = bounds.top+(((float)row)*icon_height);
+				autoIconLayout.add(RectF(icon_left, icon_top, icon_left+icon_width, icon_top+icon_height), icon);
 				icons.add(icon);
-				iconGrid->add(icon);
 				addItem(icon);
 			}
 		}
@@ -97,9 +100,8 @@ namespace SmashBros
 			
 			Vector2f topleft = smashData.getScreenCoords(0.05f, 0.2f);
 			Vector2f bottomright = smashData.getScreenCoords(0.25f, 0.9f);
-			RectangleF previewRect(topleft.x, topleft.y, bottomright.x-topleft.x, bottomright.y-topleft.y);
-			preview = new StagePreview(previewRect, smashData.getModuleData()->getStageLoader()->getAssetManager());
-			getElement()->addChildElement(preview);
+			preview = new StagePreview(smashData.getModuleData()->getStageLoader()->getAssetManager());
+			getElement()->addChildElement(RectF(0.05f, 0.2f, 0.25f, 0.9f), preview);
 		}
 		
 		void StageSelectScreen::onUpdate(ApplicationData appData)

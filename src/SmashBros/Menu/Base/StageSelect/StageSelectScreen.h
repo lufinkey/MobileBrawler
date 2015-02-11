@@ -20,6 +20,8 @@ namespace SmashBros
 			StageSelectScreen(const SmashData&smashData, Rules*rules);
 			virtual ~StageSelectScreen();
 			
+			virtual void onFrameChange() override;
+			
 			Rules* getRules() const;
 			StageLoader* getStageLoader() const;
 			StageSelect::StagePreview* getStagePreview() const;
@@ -38,11 +40,11 @@ namespace SmashBros
 			virtual void onStageIconHover(StageSelect::StageIcon*icon);
 			virtual void onStageIconHoverFinish(StageSelect::StageIcon*icon);
 			
+			AutoLayout autoIconLayout;
+			
 		private:
 			Rules*rules;
 			StageLoader* stageLoader;
-			RectangleF iconGridFrame;
-			ActorGrid*iconGrid;
 			ArrayList<StageSelect::StageIcon*> icons;
 			StageSelect::StagePreview* preview;
 		};

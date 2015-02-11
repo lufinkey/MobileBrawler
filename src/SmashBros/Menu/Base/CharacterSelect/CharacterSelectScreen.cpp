@@ -14,9 +14,11 @@ namespace SmashBros
 		
 		CharacterSelectScreen::CharacterSelectScreen(const SmashData&smashData, Rules*ruleData) : SmashBros::Menu::BaseMenuScreen(smashData)
 		{
+			RectangleF frame = getFrame();
+			autoIconLayout.setFrame(frame);
+			
 			rules = ruleData;
 			characterLoader = smashData.getModuleData()->getCharacterLoader();
-			iconGrid = nullptr;
 			Vector2f readyToFightPos = smashData.getScreenCoords(0.5f, 0.6f);
 			readyToFightBanner = new ReadyToFightBanner(this, readyToFightPos.x, readyToFightPos.y, smashData.getMenuData()->getAssetManager());
 			Vector2f screenSize = smashData.getScreenCoords(1.0f,1.0f);
@@ -28,10 +30,6 @@ namespace SmashBros
 		
 		CharacterSelectScreen::~CharacterSelectScreen()
 		{
-			if(iconGrid != nullptr)
-			{
-				delete iconGrid;
-			}
 			for(unsigned int i=0; i<panels.size(); i++)
 			{
 				delete panels.get(i);
@@ -45,6 +43,14 @@ namespace SmashBros
 				delete icons.get(i);
 			}
 			delete readyToFightBanner;
+		}
+		
+		void CharacterSelectScreen::onFrameChange()
+		{
+			BaseMenuScreen::onFrameChange();
+			RectangleF frame = getFrame();
+			autoIconLayout.setFrame(RectangleF(0,0,frame.width,frame.height));
+			autoPanelLayout.setFrame(RectangleF(0,0,frame.width,frame.height));
 		}
 		
 		bool CharacterSelectScreen::isReadyToFight() const
@@ -103,11 +109,7 @@ namespace SmashBros
 		
 		void CharacterSelectScreen::reloadIcons(const SmashData&smashData)
 		{
-			if(iconGrid != nullptr)
-			{
-				delete iconGrid;
-				iconGrid = nullptr;
-			}
+			autoIconLayout.clear();
 			
 			for(unsigned int i=0; i<icons.size(); i++)
 			{
@@ -133,32 +135,33 @@ namespace SmashBros
 			ImageElement* headerbar = getHeaderbarElement();
 			RectangleF headerbarFrame = headerbar->getFrame();
 			Vector2f screenSize = smashData.getScreenCoords(Vector2f(1.0f,1.0f));
-			float frameoffset_y = (headerbarFrame.height / screenSize.y)*1.1f;
+			float frameoffset_y = getElement()->getAutoLayout().get(getHeaderbarElement()).bottom*1.1f;
 			
-			Vector2f topLeft = smashData.getScreenCoords(0.1f, frameoffset_y);
-			Vector2f bottomRight = smashData.getScreenCoords(0.9f, 0.6f);
-			RectangleF charSelectRect(topLeft.x, topLeft.y, bottomRight.x-topLeft.x, bottomRight.y-topLeft.y);
-			iconGridFrame = charSelectRect;
+			RectF bounds(0.1f, frameoffset_y, 0.9f, 0.6f);
+			float bounds_w = bounds.right - bounds.left;
+			float bounds_h = bounds.bottom - bounds.top;
 			
-			float icon_width = charSelectRect.width/((float)cols);
-			float icon_height = charSelectRect.height/((float)rows);
-			Vector2f icon_size(icon_width, icon_height);
-			
-			iconGrid = new ActorGrid(Vector2f(charSelectRect.x+(icon_width/2), charSelectRect.y+(icon_height/2)), cols, Vector2f(icon_width, icon_height));
+			float icon_width = bounds_w/((float)cols);
+			float icon_height = bounds_h/((float)rows);
 			
 			AssetManager* loaderAssetManager = smashData.getModuleData()->getCharacterLoader()->getAssetManager();
 			for(unsigned int i=0; i<characters.size(); i++)
 			{
 				CharacterInfo& info = characters.get(i);
 				CharacterIcon* icon = new CharacterIcon(info, 0, 0, loaderAssetManager);
-				icon->Actor::scaleToFit(icon_size);
+				unsigned int col = i%cols;
+				unsigned int row = i/cols;
+				float icon_left = bounds.left+(((float)col)*icon_width);
+				float icon_top = bounds.top+(((float)row)*icon_height);
+				autoIconLayout.add(RectF(icon_left, icon_top, icon_left+icon_width, icon_top+icon_height), icon);
 				icons.add(icon);
-				iconGrid->add(icon);
 			}
 		}
 		
 		void CharacterSelectScreen::reloadPlayerPanels(const SmashData&smashData)
 		{
+			autoPanelLayout.clear();
+			
 			for(unsigned int i=0; i<panels.size(); i++)
 			{
 				delete panels.get(i);
@@ -176,25 +179,33 @@ namespace SmashBros
 				return;
 			}
 			
-			Vector2f topLeft = smashData.getScreenCoords(0.0f, 0.6f);
-			Vector2f bottomRight = smashData.getScreenCoords(1.0f, 1.0f);
-			RectangleF frame(topLeft.x, topLeft.y, bottomRight.x-topLeft.x, bottomRight.y-topLeft.y);
+			RectF panelBounds(0.0f, 0.6f, 1.0f, 1.0f);
 			
-			float panelframe_width = frame.width/(float)playerCount;
-			float panelframe_height = frame.height*(5.0f/6.0f);
-			float offsetX = frame.x + (panelframe_width/2);
-			float offsetY = frame.y + (frame.height/2);
+			float panelBounds_w = panelBounds.right - panelBounds.left;
+			float panelBounds_h = panelBounds.bottom - panelBounds.top;
+
+			float panel_width = panelBounds_w/(float)playerCount;
+			float panel_height = panelBounds.bottom - panelBounds.top;
+			Vector2f screenSize = smashData.getScreenCoords(1.0f,1.0f);
+			Vector2f chipSize((panel_width*screenSize.x)/3, (panel_height*screenSize.y)/3);
 			
 			const Dictionary& panelProperties = smashData.getMenuData()->getCharacterSelectPanelProperties();
 			
 			for(unsigned int i = 0; i < playerCount; i++)
 			{
 				unsigned int playerNum = i+1;
-				PlayerPanel* panel = new PlayerPanel(playerNum, this, offsetX + (panelframe_width*(float)i), offsetY, panelProperties, smashData.getMenuData()->getAssetManager());
-				panel->Actor::scaleToFit(Vector2f(panelframe_width, panelframe_height));
+				
+				PlayerPanel* panel = new PlayerPanel(playerNum, this, 0, 0, panelProperties, smashData.getMenuData()->getAssetManager());
+				float panel_left = panelBounds.left + (panel_width*((float)i));
+				float panel_top = panelBounds.top;
+				autoPanelLayout.add(RectF(panel_left, panel_top, panel_left+panel_width, panelBounds.bottom), panel);
 				panels.add(panel);
-				PlayerChip* chip = new PlayerChip(playerNum, this, panel->x-(panel->getWidth()/2), panel->y, smashData.getMenuData()->getAssetManager());
-				chip->Actor::scaleToFit(Vector2f(panelframe_width/3, panelframe_height/3));
+
+				float chipX = (panel_left*screenSize.x)+(chipSize.x/2);
+				float chipY = (panel_top+(panel_height/2))*screenSize.y;
+				
+				PlayerChip* chip = new PlayerChip(playerNum, this, chipX, chipY, smashData.getMenuData()->getAssetManager());
+				chip->Actor::scaleToFit(chipSize);
 				chips.add(chip);
 			}
 		}

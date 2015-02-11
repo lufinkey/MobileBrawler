@@ -135,6 +135,7 @@ namespace GameLibrary
 		RectangleF newFrame = getFrame();
 		x = container.x + ((container.width-newFrame.width)/2);
 		y = container.y + ((container.height-newFrame.height)/2);
+		updateSize();
 	}
 
 	void WireframeActor::setSize(const Vector2f&sz)

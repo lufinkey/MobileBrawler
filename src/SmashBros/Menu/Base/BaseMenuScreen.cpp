@@ -25,25 +25,16 @@ namespace SmashBros
 			
 			ScreenElement* element = getElement();
 			
-			Vector2f screenSize = smashData.getScreenCoords(1.0f, 1.0f);
+			backgroundElement = new ImageElement(assetManager->getTexture("backgrounds/main.png"), ImageElement::DISPLAY_ZOOM);
+			element->addChildElement(RectF(0,0,1,1), backgroundElement);
 			
-			backgroundElement = new ImageElement(RectangleF(0,0,screenSize.x,screenSize.y), assetManager->getTexture("backgrounds/main.png"));
-			backgroundElement->setDisplayMode(ImageElement::DISPLAY_ZOOM);
-			element->addChildElement(backgroundElement);
-			
-			float headerbarImgWidth = (float)img_headerbar_full->getWidth();
-			float headerbarImgHeight = (float)img_headerbar_full->getHeight();
-			float ratX = screenSize.x/headerbarImgWidth;
-			
-			headerbarElement = new ImageElement(RectangleF(0,0,screenSize.x, headerbarImgHeight*ratX), img_headerbar_full);
-			headerbarElement->setDisplayMode(ImageElement::DISPLAY_ZOOM);
-			element->addChildElement(headerbarElement);
+			headerbarElement = new ImageElement(img_headerbar_full, ImageElement::DISPLAY_ZOOM);
+			element->addChildElement(RectF(0,0,1.0f,0.134f), headerbarElement);
 			
 			element->sendChildElementToBack(headerbarElement);
 			element->sendChildElementToBack(backgroundElement);
 			
-			backButton = (SpriteActor*)getItem(addItem(smashData.getScreenCoords(0.07f,0.08f), new Animation(1, assetManager, "buttons/back.png")));
-			backButton->Actor::scaleToFit(smashData.getScreenCoords(0.175f,0.175f));
+			backButton = (SpriteActor*)getItem(addItem(RectF(0,0,0.145f,0.145f), new Animation(1, assetManager, "buttons/back.png")));
 		}
 		
 		BaseMenuScreen::~BaseMenuScreen()

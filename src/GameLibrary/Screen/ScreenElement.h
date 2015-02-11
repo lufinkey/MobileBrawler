@@ -92,6 +92,9 @@ namespace GameLibrary
 		
 		/*! Gets the automatic layout manager for this element.
 			\returns a const AutoLayout reference*/
+		AutoLayout& getAutoLayout();
+		/*! Gets the automatic layout manager for this element.
+			\returns a const AutoLayout reference*/
 		const AutoLayout& getAutoLayout() const;
 		
 		

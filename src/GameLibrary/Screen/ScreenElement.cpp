@@ -283,6 +283,11 @@ namespace GameLibrary
 		return backgroundColor;
 	}
 	
+	AutoLayout& ScreenElement::getAutoLayout()
+	{
+		return autoLayout;
+	}
+	
 	const AutoLayout& ScreenElement::getAutoLayout() const
 	{
 		return autoLayout;

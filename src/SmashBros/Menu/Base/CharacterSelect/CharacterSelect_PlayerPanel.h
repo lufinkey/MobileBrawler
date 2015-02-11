@@ -28,18 +28,18 @@ namespace SmashBros
 				
 				CharacterSelectScreen*charSelectScreen;
 				
-				RectF portrait_bounds;
-				RectF overlay_bounds;
-				RectF namebox_bounds;
+				void applyProperties(const Dictionary&properties);
+				
+			protected:
+				AutoLayout autoLayout;
 				
 				static void applyPlacementDict(RectF*bounds, const Dictionary&dict);
-				static RectangleF getPlacementFrame(const RectangleF&container, const RectF&bounds);
-				
-				void applyProperties(const Dictionary&properties);
 				
 			public:
 				PlayerPanel(unsigned int playerNum, CharacterSelectScreen*charSelectScreen, float x, float y, const Dictionary&properties, AssetManager*assetManager);
 				virtual ~PlayerPanel();
+				
+				virtual void updateSize() override;
 				
 				virtual void update(ApplicationData appData) override;
 				virtual void draw(ApplicationData appData, Graphics graphics) const override;

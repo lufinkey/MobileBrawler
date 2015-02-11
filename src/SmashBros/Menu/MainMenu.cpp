@@ -9,10 +9,8 @@ namespace SmashBros
 		{
 			AssetManager* assetManager = smashData.getMenuData()->getAssetManager();
 			
-			groupButton = getItem(addItem(smashData.getScreenCoords(0.28f, 0.437f), new Animation(1, assetManager, "buttons/main/group.png")));
-			groupButton->scaleToFit(smashData.getScreenCoords(0.5f,0.5f));
-			soloButton = getItem(addItem(smashData.getScreenCoords(0.72f, 0.516f), new Animation(1, assetManager, "buttons/main/solo.png")));
-			soloButton->scaleToFit(smashData.getScreenCoords(0.5f,0.5f));
+			groupButton = getItem(addItem(RectF(0.03f, 0.187f, 0.53f, 0.687f), new Animation(1, assetManager, "buttons/main/group.png")));
+			soloButton = getItem(addItem(RectF(0.47f, 0.266f, 0.97f, 0.766f), new Animation(1, assetManager, "buttons/main/solo.png")));
 			
 			backTransition = new FadeColorTransition(Color::BLACK, 0.6f);
 			

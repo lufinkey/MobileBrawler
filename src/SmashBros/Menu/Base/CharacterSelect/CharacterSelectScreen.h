@@ -23,6 +23,8 @@ namespace SmashBros
 			CharacterSelectScreen(const SmashData&smashData, Rules*rules);
 			virtual ~CharacterSelectScreen();
 			
+			virtual void onFrameChange() override;
+			
 			virtual bool isReadyToFight() const;
 			virtual void proceedToFight();
 			
@@ -45,8 +47,8 @@ namespace SmashBros
 
 			Rules*rules;
 			CharacterLoader* characterLoader;
-			RectangleF iconGridFrame;
-			ActorGrid*iconGrid;
+			AutoLayout autoIconLayout;
+			AutoLayout autoPanelLayout;
 			ArrayList<CharacterSelect::CharacterIcon*> icons;
 			ArrayList<CharacterSelect::PlayerPanel*> panels;
 			ArrayList<CharacterSelect::PlayerChip*> chips;

@@ -76,6 +76,10 @@ namespace GameLibrary
 		void remove(ScreenElement*element);
 		
 		
+		/*! Removes all previously added Actors and ScreenElements.*/
+		void clear();
+		
+		
 		/*! Automatically lays out all stored Actor and ScreenElement objects based on the given frame.
 			\param frame a RectangleF frame*/
 		void setFrame(const RectangleF&frame);

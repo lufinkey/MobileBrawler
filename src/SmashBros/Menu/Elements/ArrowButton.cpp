@@ -5,6 +5,12 @@ namespace SmashBros
 {
 	namespace Menu
 	{
+		ArrowButton::ArrowButton(Number*val, const Number&minimum, const Number&maximum, const Number&increment, const ArrowButton::Direction&direction, AssetManager*assetManager, const Color&hover, const Color&press)
+			: ArrowButton(0, 0, val, minimum, maximum, increment, direction, assetManager, hover, press)
+		{
+			//
+		}
+		
 		ArrowButton::ArrowButton(float x, float y, Number*val, const Number&minimum, const Number&maximum, const Number&increment, const ArrowButton::Direction&direction, AssetManager*assetManager, const Color&hover, const Color&press) : SpriteActor(x, y)
 		{
 			selecting = false;

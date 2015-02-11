@@ -20,6 +20,7 @@ namespace SmashBros
 				AssetManager* assetManager;
 				
 			public:
+				StagePreview(AssetManager*assetManager);
 				StagePreview(const RectangleF&frame, AssetManager*assetManager);
 				virtual ~StagePreview();
 				

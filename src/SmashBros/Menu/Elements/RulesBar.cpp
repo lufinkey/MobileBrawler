@@ -5,8 +5,14 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-		RulesBar::RulesBar(float x, float y, Rules*ruleData, StockWinCondition*stockWinCondition, TimeLimitWinCondition*timeLimitWinCondition, AssetManager*assetManager, const Dictionary&placement)
-			: MenuBarValueAdjust(x, y, "Stock", "3", &value, 1, 25, 1, assetManager, placement)
+		RulesBar::RulesBar(Rules*ruleData, StockWinCondition*stockWinCondition, TimeLimitWinCondition*timeLimitWinCondition, AssetManager*assetManager, const Dictionary&properties)
+			: RulesBar(0, 0, ruleData, stockWinCondition, timeLimitWinCondition, assetManager, properties)
+		{
+			//
+		}
+		
+		RulesBar::RulesBar(float x, float y, Rules*ruleData, StockWinCondition*stockWinCondition, TimeLimitWinCondition*timeLimitWinCondition, AssetManager*assetManager, const Dictionary&properties)
+			: MenuBarValueAdjust(x, y, "Stock", "3", &value, 1, 25, 1, assetManager, properties)
 		{
 			rules = ruleData;
 			stock = stockWinCondition;

@@ -22,6 +22,7 @@ namespace SmashBros
 				DIRECTION_RIGHT
 			} Direction;
 			
+			ArrowButton(Number*value, const Number&min, const Number&max, const Number&increment, const ArrowButton::Direction&direction, AssetManager*assetManager, const Color&hoverColor=Color::LIGHTBLUE, const Color&pressColor=Color::BLUE);
 			ArrowButton(float x, float y, Number*value, const Number&min, const Number&max, const Number&increment, const ArrowButton::Direction&direction, AssetManager*assetManager, const Color&hoverColor=Color::LIGHTBLUE, const Color&pressColor=Color::BLUE);
 			virtual ~ArrowButton();
 			

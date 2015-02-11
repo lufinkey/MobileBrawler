@@ -13,17 +13,19 @@ namespace SmashBros
 		{
 		private:
 			TextActor* label_actor;
-			RectF label_bounds;
 			Color label_color;
 			
 			void applyProperties(const Dictionary&properties);
 			
 		protected:
+			AutoLayout autoLayout;
+			
 			RectangleF getLabelFrame(const RectF&bounds) const;
 			void applyPropertiesDict(RectF*bounds, const Dictionary&properties);
 			void applyPropertiesDict(Color*color, const Dictionary&properties);
 			
 		public:
+			MenuBar(const String&label, AssetManager*assetManager, const Dictionary&properties);
 			MenuBar(float x, float y, const String&label, AssetManager*assetManager, const Dictionary&properties);
 			virtual ~MenuBar();
 			
@@ -33,10 +35,12 @@ namespace SmashBros
 			void setLabel(const String&);
 			void setLabelBounds(const RectF&bounds);
 			void setLabelAlignment(const TextActor::TextAlignment&);
-
+			
 			const String& getLabel() const;
 			const RectF& getLabelBounds() const;
 			const TextActor::TextAlignment& getLabelAlignment() const;
+			
+			virtual void updateSize() override;
 		};
 	}
 }

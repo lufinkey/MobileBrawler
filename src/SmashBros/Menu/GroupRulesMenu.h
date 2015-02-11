@@ -16,6 +16,8 @@ namespace SmashBros
 			GroupRulesMenu(const SmashData&smashData, const GroupSmashData&groupSmashData);
 			virtual ~GroupRulesMenu();
 			
+			virtual void onFrameChange() override;
+			
 			virtual void onWillAppear(const Transition*transition) override;
 			
 		protected:
@@ -41,6 +43,8 @@ namespace SmashBros
 			Rules* rules;
 			StockWinCondition* stockWinCondition;
 			TimeLimitWinCondition* timeLimitWinCondition;
+
+			AutoLayout autoOptionsLayout;
 			
 			MenuBarValueAdjust* gameModeBar;
 			Number gameMode;

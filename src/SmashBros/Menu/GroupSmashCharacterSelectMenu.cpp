@@ -14,20 +14,14 @@ namespace SmashBros
 			reloadIcons(smashData);
 			reloadPlayerPanels(smashData);
 			
-			Vector2f rulesBar_topleft = smashData.getScreenCoords(0.36f, 0);
-			Vector2f rulesBar_bottomright = smashData.getScreenCoords(1.0f, 0.162f);
-			RectangleF rulesBar_frame = RectangleF(rulesBar_topleft.x, //x
-													rulesBar_topleft.y, //y
-													rulesBar_bottomright.x-rulesBar_topleft.x, //width
-													getHeaderbarElement()->getFrame().height); //height
-			rulesBar = new RulesBar(rulesBar_frame.x+(rulesBar_frame.width/2),
-									rulesBar_frame.y+(rulesBar_frame.height/2),
-									groupSmashData.getRules(),
+			float headerbarBottom = getElement()->getAutoLayout().get(getHeaderbarElement()).bottom;
+			
+			rulesBar = new RulesBar(groupSmashData.getRules(),
 									groupSmashData.getStockWinCondition(),
 									groupSmashData.getTimeLimitWinCondition(),
 									smashData.getMenuData()->getAssetManager(),
 									smashData.getMenuData()->getRulesBarProperties());
-			rulesBar->Actor::scaleToFit(Vector2f(rulesBar_frame.width, rulesBar_frame.height));
+			getElement()->getAutoLayout().add(RectF(0.36f,0,1.0f,headerbarBottom), rulesBar);
 			
 			groupSmashStageSelectMenu = new GroupSmashStageSelectMenu(smashData, groupSmashData);
 		}

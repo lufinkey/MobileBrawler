@@ -74,10 +74,13 @@ namespace SmashBros
 				//addAnimation("blank", new Animation(1, assetManager, (String)"characterselect/panel_background_blank.png"));
 				changeAnimation("na", Animation::FORWARD);
 				
+				autoLayout.setFrame(getFrame());
+				
 				portrait = new SpriteActor(x,y);
 				portrait_anim = new Animation(1);
 				portrait->addAnimation("default", portrait_anim);
 				portrait->changeAnimation("default", Animation::FORWARD);
+				autoLayout.add(RectF(0,0,1,1), portrait);
 				
 				overlay = new SpriteActor(x,y);
 				overlay->addAnimation("human", new Animation(1, assetManager, (String)"characterselect/panel_overlay_p" + playerNum + ".png"));
@@ -85,12 +88,14 @@ namespace SmashBros
 				overlay->addAnimation("na", new Animation(1, assetManager, "characterselect/panel_overlay_na.png"));
 				//overlay->addAnimation("blank", new Animation(1, assetManager, "characterselect/panel_overlay_blank.png"));
 				overlay->changeAnimation("na", Animation::FORWARD);
+				autoLayout.add(RectF(0,0,1,1), overlay);
 				
 				namebox = new TextActor(x, y, "", assetManager->getFont("fonts/default.ttf"), Color::BLACK, 36, Font::STYLE_PLAIN, TextActor::ALIGN_CENTER);
-
+				autoLayout.add(RectF(0.32f, 0.87f, 0.91f, 0.981f), namebox);
+				
 				tapRegion_mode = new PlayerPanel_ModeTapRegion(this, charSelectScreen);
 				tapRegion_mode->setVisible(false);
-
+				
 				applyProperties(properties);
 			}
 			
@@ -102,23 +107,44 @@ namespace SmashBros
 				delete tapRegion_mode;
 			}
 			
+			void PlayerPanel::updateSize()
+			{
+				SpriteActor::updateSize();
+				
+				RectangleF frame = getFrame();
+				autoLayout.setFrame(frame);
+				if(tapRegion_mode!=nullptr)
+				{
+					tapRegion_mode->x = frame.x;
+					tapRegion_mode->y = frame.y;
+					tapRegion_mode->setSize(frame.width, frame.height);
+				}
+			}
+			
 			void PlayerPanel::applyProperties(const Dictionary&properties)
 			{
 				const Any& portraitDict = properties.get("portrait");
 				if(!portraitDict.empty() && portraitDict.is<Dictionary>())
 				{
+					RectF portrait_bounds = autoLayout.get(portrait);
 					applyPlacementDict(&portrait_bounds, portraitDict.as<Dictionary>(false));
+					autoLayout.set(portrait, portrait_bounds);
 				}
 				const Any& overlayDict = properties.get("overlay");
 				if(!overlayDict.empty() && overlayDict.is<Dictionary>())
 				{
+					RectF overlay_bounds = autoLayout.get(overlay);
 					applyPlacementDict(&overlay_bounds, overlayDict.as<Dictionary>(false));
+					autoLayout.set(overlay, overlay_bounds);
 				}
 				const Any& nameboxDict = properties.get("namebox");
 				if(!nameboxDict.empty() && nameboxDict.is<Dictionary>())
 				{
+					RectF namebox_bounds = autoLayout.get(namebox);
 					const Dictionary&namebox_dict = nameboxDict.as<Dictionary>(false);
 					applyPlacementDict(&namebox_bounds, nameboxDict);
+					autoLayout.set(namebox, namebox_bounds);
+					
 					/*const Any& alignment_val = namebox_dict.get("alignment");
 					if(!alignment_val.empty() && alignment_val.is<String>())
 					{
@@ -144,6 +170,7 @@ namespace SmashBros
 							namebox->setAlignment(TextActor::ALIGN_TOPRIGHT);
 						}
 					}*/
+					
 					const Any& color_val = namebox_dict.get("color");
 					if(!color_val.empty() && color_val.is<Dictionary>())
 					{
@@ -203,22 +230,10 @@ namespace SmashBros
 				}
 			}
 			
-			RectangleF PlayerPanel::getPlacementFrame(const RectangleF&container, const RectF&bounds)
-			{
-				Vector2f overlay_topleft(bounds.left*container.width, bounds.top*container.height);
-				Vector2f overlay_bottomright(bounds.right*container.width, bounds.bottom*container.height);
-				return RectangleF(container.x+overlay_topleft.x, container.y+overlay_topleft.y, overlay_bottomright.x-overlay_topleft.x, overlay_bottomright.y-overlay_topleft.y);
-			}
-			
 			void PlayerPanel::update(ApplicationData appData)
 			{
 				SpriteActor::update(appData);
 				
-				RectangleF frame = getFrame();
-				
-				tapRegion_mode->x = frame.x;
-				tapRegion_mode->y = frame.y;
-				tapRegion_mode->setSize(frame.width, frame.height);
 				tapRegion_mode->update(appData);
 				
 				PlayerInfo& playerInfo = charSelectScreen->getRules()->getPlayerInfo(playerNum);
@@ -240,16 +255,8 @@ namespace SmashBros
 					break;
 				}
 				
-				RectangleF portrait_frame = getPlacementFrame(frame, portrait_bounds);
-				portrait->scaleToFit(portrait_frame);
 				portrait->update(appData);
-				
-				RectangleF overlay_frame = getPlacementFrame(frame, overlay_bounds);
-				overlay->scaleToFit(overlay_frame);
 				overlay->update(appData);
-				
-				RectangleF namebox_frame = getPlacementFrame(frame, namebox_bounds);
-				namebox->scaleToFit(namebox_frame);
 				namebox->update(appData);
 				
 				const ArrayList<PlayerChip*>& chips = charSelectScreen->getPlayerChips();
@@ -274,24 +281,9 @@ namespace SmashBros
 			void PlayerPanel::draw(ApplicationData appData, Graphics graphics) const
 			{
 				SpriteActor::draw(appData, graphics);
-				
-				RectangleF frame = getFrame();
-				
-				RectangleF portrait_frame = getPlacementFrame(frame, portrait_bounds);
-				portrait->scaleToFit(portrait_frame);
 				portrait->draw(appData, graphics);
-				
-				RectangleF overlay_frame = getPlacementFrame(frame, overlay_bounds);
-				overlay->scaleToFit(overlay_frame);
 				overlay->draw(appData, graphics);
-				
-				RectangleF namebox_frame = getPlacementFrame(frame, namebox_bounds);
-				namebox->scaleToFit(namebox_frame);
 				namebox->draw(appData, graphics);
-				
-				tapRegion_mode->x = frame.x;
-				tapRegion_mode->y = frame.y;
-				tapRegion_mode->setSize(frame.width, frame.height);
 				tapRegion_mode->draw(appData, graphics);
 			}
 			
@@ -318,6 +310,7 @@ namespace SmashBros
 					portrait_anim->addFrame(characterAssetMgr, portraitPath);
 					portrait->updateSize();
 				}
+				updateSize();
 			}
 		}
 	}

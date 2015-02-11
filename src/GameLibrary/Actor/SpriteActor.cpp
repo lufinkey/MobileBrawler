@@ -182,9 +182,9 @@ namespace GameLibrary
 		RectangleF oldFrame = currentFrame;
 		currentFrame.scaleToFit(container);
 		float ratio = currentFrame.width/oldFrame.width;
-		setScale(getScale()*ratio);
 		x = container.x + (container.width/2);
 		y = container.y + (container.height/2);
+		setScale(getScale()*ratio);
 	}
 	
 	void SpriteActor::onAnimationFinish(Animation*animation)

@@ -208,6 +208,12 @@ namespace GameLibrary
 		}
 	}
 	
+	void AutoLayout::clear()
+	{
+		actors.clear();
+		elements.clear();
+	}
+	
 	void AutoLayout::setFrame(const RectangleF&frame_arg)
 	{
 		frame = frame_arg;

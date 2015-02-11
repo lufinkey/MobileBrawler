@@ -5,15 +5,23 @@ namespace SmashBros
 {
 	namespace Menu
 	{
+		MenuBar::MenuBar(const String&label_text, AssetManager*assetManager, const Dictionary&properties)
+			: MenuBar(0,0,label_text,assetManager,properties)
+		{
+			//
+		}
+		
 		MenuBar::MenuBar(float x, float y, const String&label_text, AssetManager*assetManager, const Dictionary&properties) : SpriteActor(x, y)
 		{
-			label_bounds = RectF(0.05f, 0.05f, 0.575f, 0.95f);//RectF(0.05f,0.05f,0.95f,0.95f);
-			label_color = Color::BLACK;
 			addAnimation("MenuBar", new Animation(1, assetManager, "elements/menu_bar.png"));
 			changeAnimation("MenuBar", Animation::FORWARD);
 			
+			autoLayout.setFrame(getFrame());
+			
 			Font* font = assetManager->getFont("fonts/default.ttf");
+			label_color = Color::BLACK;
 			label_actor = new TextActor(label_text, font, label_color, 24, Font::STYLE_PLAIN, TextActor::ALIGN_BOTTOMLEFT);
+			autoLayout.add(RectF(0.05f, 0.05f, 0.575f, 0.95f), label_actor);
 			
 			applyProperties(properties);
 		}
@@ -23,19 +31,28 @@ namespace SmashBros
 			delete label_actor;
 		}
 		
+		void MenuBar::updateSize()
+		{
+			SpriteActor::updateSize();
+			autoLayout.setFrame(getFrame());
+		}
+		
 		void MenuBar::applyProperties(const Dictionary&properties)
 		{
 			Any label_bounds_any = properties.get("label_bounds");
 			if(!label_bounds_any.empty() && label_bounds_any.is<Dictionary>())
 			{
+				RectF label_bounds = autoLayout.get(label_actor);
 				const Dictionary& label_bounds_dict = label_bounds_any.as<Dictionary>(false);
 				applyPropertiesDict(&label_bounds, label_bounds_dict);
+				autoLayout.set(label_actor, label_bounds);
 			}
 			Any label_color_any = properties.get("label_color");
 			if(!label_color_any.empty() && label_color_any.is<Dictionary>())
 			{
 				const Dictionary& label_color_dict = label_color_any.as<Dictionary>(false);
 				applyPropertiesDict(&label_color, label_color_dict);
+				label_actor->setColor(label_color);
 			}
 		}
 		
@@ -106,36 +123,30 @@ namespace SmashBros
 		void MenuBar::update(ApplicationData appData)
 		{
 			SpriteActor::update(appData);
-			
-			label_actor->setColor(label_color);
-			label_actor->scaleToFit(getLabelFrame(label_bounds));
 			label_actor->update(appData);
 		}
 		
 		void MenuBar::draw(ApplicationData appData, Graphics graphics) const
 		{
 			SpriteActor::draw(appData, graphics);
-			
-			label_actor->setColor(label_color);
-			label_actor->scaleToFit(getLabelFrame(label_bounds));
 			label_actor->draw(appData, graphics);
 		}
 		
 		void MenuBar::setLabel(const String&text)
 		{
 			label_actor->setText(text);
+			autoLayout.setFrame(getFrame());
 		}
 		
 		void MenuBar::setLabelBounds(const RectF&bounds)
 		{
-			label_bounds = bounds;
-			label_actor->scaleToFit(getLabelFrame(label_bounds));
+			autoLayout.set(label_actor, bounds);
 		}
 		
 		void MenuBar::setLabelAlignment(const TextActor::TextAlignment&alignment)
 		{
 			label_actor->setAlignment(alignment);
-			label_actor->scaleToFit(getLabelFrame(label_bounds));
+			autoLayout.setFrame(getFrame());
 		}
 		
 		const String& MenuBar::getLabel() const
@@ -145,7 +156,7 @@ namespace SmashBros
 		
 		const RectF& MenuBar::getLabelBounds() const
 		{
-			return label_bounds;
+			return autoLayout.get(label_actor);
 		}
 		
 		const TextActor::TextAlignment& MenuBar::getLabelAlignment() const

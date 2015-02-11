@@ -58,6 +58,15 @@ namespace GameLibrary
 		float getHeight() const;
 		
 		
+		/*! Gets the x value of the Actor in the previous frame.
+			\returns a float value*/
+		float getPreviousX() const;
+		/*! Gets the y value of the Actor in the previous frame.
+			\returns a float value*/
+		float getPreviousY() const;
+
+		
+		
 		/*! Sets whether the Actor is visible when drawn or not. This does not affect whether the mouse can detect the Actor. Actor is visible by default.
 			\param visible true makes the actor visible, false makes the actor invisible*/
 		void setVisible(bool visible);
@@ -201,6 +210,8 @@ namespace GameLibrary
 		float width;
 		float height;
 		
+		float prevx;
+		float prevy;
 		bool clicked;
 		bool prevclicked;
 		bool mouseover;

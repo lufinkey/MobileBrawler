@@ -11,33 +11,43 @@ namespace SmashBros
 
 		GroupRulesMenu::GroupRulesMenu(const SmashData&smashData, const GroupSmashData&groupSmashData) : BaseMenuScreen(smashData)
 		{
+			RectangleF frame = getFrame();
+			autoOptionsLayout.setFrame(RectangleF(0,0,frame.width,frame.height));
+			
 			listener = new MenuBarListener(this);
 			rules = groupSmashData.getRules();
 			stockWinCondition = groupSmashData.getStockWinCondition();
 			timeLimitWinCondition = groupSmashData.getTimeLimitWinCondition();
 			
-			Vector2f gameTypePos = smashData.getScreenCoords(0.5f, 0.2f);
 			gameMode = getGameModeValue(rules);
-			gameModeBar = new MenuBarValueAdjust(gameTypePos.x, gameTypePos.y, "Rules",
+			gameModeBar = new MenuBarValueAdjust("Rules",
 													getGameModeString(rules),
 													&gameMode,
 													GAMEMODE_STOCK, GAMEMODE_TIME, 1,
 													smashData.getMenuData()->getAssetManager(),
 													smashData.getMenuData()->getMenuBarProperties());
 			gameModeBar->setEventListener(listener);
+			autoOptionsLayout.add(RectF(0.14f, 0.12f, 0.86f, 0.28f), gameModeBar);
 			
-			Vector2f gameModeValBarPos = smashData.getScreenCoords(0.5f, 0.4f);
-			gameModeValueBar = new RulesBar(gameModeValBarPos.x, gameModeValBarPos.y, rules, stockWinCondition, timeLimitWinCondition,
+			gameModeValueBar = new RulesBar(rules, stockWinCondition, timeLimitWinCondition,
 											smashData.getMenuData()->getAssetManager(),
 											smashData.getMenuData()->getMenuBarProperties());
 			gameModeValueBar->changeAnimation("MenuBar", Animation::FORWARD);
 			gameModeValueBar->setLabel(getGameModeLabelString(rules));
+			autoOptionsLayout.add(RectF(0.14f, 0.32f, 0.86f, 0.48f), gameModeValueBar);
 		}
 		
 		GroupRulesMenu::~GroupRulesMenu()
 		{
 			delete gameModeBar;
 			delete listener;
+		}
+		
+		void GroupRulesMenu::onFrameChange()
+		{
+			BaseMenuScreen::onFrameChange();
+			RectangleF frame = getFrame();
+			autoOptionsLayout.setFrame(RectangleF(0,0,frame.width,frame.height));
 		}
 		
 		void GroupRulesMenu::onWillAppear(const Transition*transition)
@@ -54,6 +64,8 @@ namespace SmashBros
 				gameModeValueBar->setValueLabel((String)"" + timeLimitWinCondition->getTimeLimit());
 				gameModeValueBar->setValueLabelSuffix(":00");
 			}
+			
+			RectangleF frame = getFrame();
 		}
 		
 		void GroupRulesMenu::onUpdate(ApplicationData appData)
