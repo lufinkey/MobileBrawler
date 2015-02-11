@@ -33,7 +33,7 @@ namespace GameLibrary
 			\param fontSize the glyph size of the font
 			\param fontStyle the style (plain, bold italic, etc.) of the font \see GameLibrary::Font::Style
 			\param alignment the alignment of the text, relative the origin \see GameLibrary::TextActor::TextAlignment*/
-		TextActor(const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontSize=24, const Font::Style&fontStyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_BOTTOMLEFT);
+		TextActor(const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontSize=24, int fontStyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_BOTTOMLEFT);
 		/*! Constructs a TextActor with a specified position, string, font, color, font size, font style, and alignment.
 			\param x the x coordinate
 			\param y the y coordinate
@@ -43,7 +43,7 @@ namespace GameLibrary
 			\param fontSize the glyph size of the font
 			\param fontStyle the style (plain, bold italic, etc.) of the font \see GameLibrary::Font::Style
 			\param alignment the alignment of the text, relative the origin \see GameLibrary::TextActor::TextAlignment*/
-		TextActor(float x, float y, const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontSize=24, const Font::Style&fontStyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_BOTTOMLEFT);
+		TextActor(float x, float y, const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontSize=24, int fontStyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_BOTTOMLEFT);
 		/*virtual destructor*/
 		virtual ~TextActor();
 		
@@ -73,7 +73,7 @@ namespace GameLibrary
 		void setFontSize(unsigned int fontSize);
 		/*! Sets the style (plain, bold, italic, etc.) of the font.
 			\param fontStyle a bitmask of the font styles to use \see GameLibrary::Font::Style*/
-		void setFontStyle(const Font::Style&fontStyle);
+		void setFontStyle(int fontStyle);
 		/*! Sets the alignment to display the text, relative to the origin.
 			\param alignment the alignment of the text, relative the origin \see GameLibrary::TextActor::TextAlignment*/
 		void setAlignment(const TextAlignment&alignment);
@@ -93,7 +93,7 @@ namespace GameLibrary
 		unsigned int getFontSize() const;
 		/*! Gets the font style (plain, bold, italic, etc.) being used to display the string.
 			\returns a bitmask of the font styles being used. \see GameLibrary::Font::Style*/
-		const Font::Style& getFontStyle() const;
+		int getFontStyle() const;
 		/*! Gets the alignment of the text, relative to the origin.
 			\returns a TextAlignment constant \see GameLibrary::TextActor::TextAlignment*/
 		const TextAlignment& getAlignment() const;
@@ -122,7 +122,7 @@ namespace GameLibrary
 		TextAlignment alignment;
 		int lineSpacing;
 		
-		Font::Style fontstyle;
+		int fontstyle;
 		unsigned int fontsize;
 
 		RectangleF framerect;

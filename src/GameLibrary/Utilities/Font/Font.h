@@ -13,20 +13,22 @@
 
 namespace GameLibrary
 {
+	/*! Holds data for a typeface, or font. It also holds a RenderedGlyphContainer for containing previously rendered glyphs.*/
 	class Font
 	{
 		friend class Graphics;
 		friend class RenderedGlyphContainer;
 	public:
+		/*Bitmask values for Font styles*/
 		enum Style
 		{
+			/*! Plain font. No */
 			STYLE_PLAIN         = 0x00000000,
 			STYLE_BOLD          = 0x00000001,
 			STYLE_ITALIC        = 0x00000002,
 			STYLE_UNDERLINE     = 0x00000004,
 			STYLE_STRIKETHROUGH = 0x00000008
 		};
-		typedef enum Style Style;
 
 		Font();
 		Font(const Font&);
@@ -36,11 +38,11 @@ namespace GameLibrary
 
 		Vector2u measureString(const String&text);
 
-		void setStyle(const Font::Style&);
-		void setSize(unsigned int);
-		void setAntialiasing(bool);
+		void setStyle(int style);
+		void setSize(unsigned int size);
+		void setAntialiasing(bool antialiasing);
 
-		const Font::Style& getStyle();
+		int getStyle();
 		unsigned int getSize();
 		bool getAntialiasing();
 
@@ -52,7 +54,7 @@ namespace GameLibrary
 		ArrayList<Pair<RenderedGlyphContainer*, void*> > glyphs;
 
 		unsigned int size;
-		Font::Style style;
+		int style;
 		bool antialiasing;
 
 		mutable std::mutex mlock;
@@ -65,6 +67,4 @@ namespace GameLibrary
 
 		static int styleToTTFStyle(int fontstyle);
 	};
-
-	typedef Font::Style FontStyle;
 }

@@ -9,13 +9,13 @@ namespace GameLibrary
 		//
 	}
 	
-	TextActor::TextActor(const String&text, Font*font, const Color&color, unsigned int fontSize, const Font::Style&fontStyle, const TextActor::TextAlignment&align)
+	TextActor::TextActor(const String&text, Font*font, const Color&color, unsigned int fontSize, int fontStyle, const TextActor::TextAlignment&align)
 		: TextActor(0,0, text, font, color, fontSize, fontStyle, align)
 	{
 		//
 	}
 	
-	TextActor::TextActor(float x1, float y1, const String&txt, Font*fnt, const Color&colr, unsigned int fontSize, const Font::Style&fontStyle, const TextActor::TextAlignment&align)
+	TextActor::TextActor(float x1, float y1, const String&txt, Font*fnt, const Color&colr, unsigned int fontSize, int fontStyle, const TextActor::TextAlignment&align)
 	{
 		x = x1;
 		y = y1;
@@ -88,7 +88,7 @@ namespace GameLibrary
 			actorGraphics.setAlpha((byte)(alpha*255));
 			
 			unsigned int size_original = font->getSize();
-			Font::Style style_original = font->getStyle();
+			int style_original = font->getStyle();
 			
 			font->setSize(fontsize);
 			font->setStyle(fontstyle);
@@ -175,7 +175,7 @@ namespace GameLibrary
 		else
 		{
 			unsigned int size_original = font->getSize();
-			Font::Style style_original = font->getStyle();
+			int style_original = font->getStyle();
 
 			font->setSize(fontsize);
 			font->setStyle(fontstyle);
@@ -344,7 +344,7 @@ namespace GameLibrary
 		updateSize();
 	}
 	
-	void TextActor::setFontStyle(const Font::Style& style)
+	void TextActor::setFontStyle(int style)
 	{
 		fontstyle = style;
 		updateSize();
@@ -377,7 +377,7 @@ namespace GameLibrary
 		return fontsize;
 	}
 	
-	const Font::Style& TextActor::getFontStyle() const
+	int TextActor::getFontStyle() const
 	{
 		return fontstyle;
 	}

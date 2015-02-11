@@ -271,7 +271,7 @@ namespace GameLibrary
 		return Vector2u((unsigned int)totalWidth, (unsigned int)fixedHeight);
 	}
 
-	void Font::setStyle(const Font::Style&s)
+	void Font::setStyle(int s)
 	{
 		mlock.lock();
 		style = s;
@@ -292,7 +292,7 @@ namespace GameLibrary
 		mlock.unlock();
 	}
 
-	const Font::Style& Font::getStyle()
+	int Font::getStyle()
 	{
 		return style;
 	}

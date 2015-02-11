@@ -135,12 +135,12 @@ namespace GameLibrary
 		return mainElement->addActor(bounds, actor);
 	}
 	
-	unsigned int MenuScreen::addItem(const Vector2f&position, const String&text, Font*font, const Color&color, unsigned int fontsize, const Font::Style&fontstyle, const TextActor::TextAlignment&alignment)
+	unsigned int MenuScreen::addItem(const Vector2f&position, const String&text, Font*font, const Color&color, unsigned int fontsize, int fontstyle, const TextActor::TextAlignment&alignment)
 	{
 		return mainElement->addActor(new TextActor(position.x, position.y, text, font, color, fontsize, fontstyle, alignment));
 	}
 	
-	unsigned int MenuScreen::addItem(const RectF&bounds, const String&text, Font*font, const Color&color, unsigned int fontsize, const Font::Style&fontstyle, const TextActor::TextAlignment&alignment)
+	unsigned int MenuScreen::addItem(const RectF&bounds, const String&text, Font*font, const Color&color, unsigned int fontsize, int fontstyle, const TextActor::TextAlignment&alignment)
 	{
 		return mainElement->addActor(bounds, new TextActor(text, font, color, fontsize, fontstyle, alignment));
 	}

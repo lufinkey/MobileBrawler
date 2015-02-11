@@ -21,12 +21,8 @@ namespace SmashBros
 			rules = ruleData;
 			characterLoader = smashData.getModuleData()->getCharacterLoader();
 			Vector2f readyToFightPos = smashData.getScreenCoords(0.5f, 0.6f);
-			readyToFightBanner = new ReadyToFightBanner(this, readyToFightPos.x, readyToFightPos.y, smashData.getMenuData()->getAssetManager());
-			Vector2f screenSize = smashData.getScreenCoords(1.0f,1.0f);
-			RectangleF readytofight_constraint(0,readyToFightPos.y, screenSize.x, 1);
-			RectangleF readytofight_frame = readyToFightBanner->getFrame();
-			readytofight_frame.scaleToFill(readytofight_constraint);
-			readyToFightBanner->Actor::scaleToFit(Vector2f(readytofight_frame.width, readytofight_frame.height));
+			readyToFightBanner = new ReadyToFightBanner(this, 0, 0, smashData.getMenuData()->getAssetManager());
+			getElement()->getAutoLayout().add(RectF(0, 0.5f, 1.0f, 0.7f), readyToFightBanner);
 		}
 		
 		CharacterSelectScreen::~CharacterSelectScreen()
