@@ -124,6 +124,29 @@ namespace GameLibrary
 		}
 		glyphs.clear();
 	}
+	
+	Font& Font::operator=(const Font&font)
+	{
+		mlock.lock();
+		
+		clearFontSizes();
+		for(unsigned int i=0; i<glyphs.size(); i++)
+		{
+			delete glyphs.get(i).first;
+		}
+		glyphs.clear();
+
+		font.mlock.lock();
+		size = font.size;
+		style = font.style;
+		antialiasing = font.antialiasing;
+		fontdata = font.fontdata;
+		fontsizes = font.fontsizes;
+		font.mlock.unlock();
+		mlock.unlock();
+		
+		return *this;
+	}
 
 	bool Font::loadFromFile(const String&path, unsigned int defaultsize, String*error)
 	{
