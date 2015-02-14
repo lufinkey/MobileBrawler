@@ -25,12 +25,12 @@
 		message = reason;
 	}
 
-	virtual ~StringException()
+	StringException::~StringException()
 	{
 		//
 	}
 
-	virtual const char* what() const
+	const char* StringException::what() const _NOEXCEPT
 	{
 		return message.c_str();
 	}
@@ -101,7 +101,7 @@ namespace GameLibrary
 		bool hasNum = false;
 		bool hasDecimal = false;
 
-		for(unsigned int i=0; i<str.length(); i++)
+		for(size_t i=0; i<str.length(); i++)
 		{
 			char c = str.charAt(i);
 			if(!(c>='0' && c<='9'))
@@ -207,7 +207,7 @@ namespace GameLibrary
 #endif
 		}
 
-		for(unsigned int i=0; i<str.total; i++)
+		for(size_t i=0; i<str.total; i++)
 		{
 			char c = str.charAt(i);
 			if(!((c>='0' && c<='9') || (c=='-' && i==0) || (c=='+' && i==0)))
@@ -215,13 +215,13 @@ namespace GameLibrary
 #ifdef STRING_USES_GAMELIBRARY
 				throw NumberFormatException("int", (String)"Unexpected character \'" + c + '\'');
 #else
-				throw StringException((std::string)"Unable to convert to type int: Unexpected character  + c + '\'');
+				throw StringException((std::string)"Unable to convert to type int: Unexpected character"  + c + '\'');
 #endif
 			}
 		}
 
 		int mult = 1;
-		unsigned int startIndex = 0;
+		size_t startIndex = 0;
 		if(str.charAt(0)=='-')
 		{
 			mult = -1;
@@ -236,7 +236,7 @@ namespace GameLibrary
 		int counter = 0;
 		int totalVal = 0;
 
-		for(unsigned int i=(str.total-1); i>=startIndex; i--)
+		for(size_t i=(str.total-1); i>=startIndex; i--)
 		{
 			char c = str.charAt(i);
 			int value = (int)(c - '0');
@@ -270,7 +270,7 @@ namespace GameLibrary
 #endif
 		}
 
-		for(unsigned int i=0; i<str.total; i++)
+		for(size_t i=0; i<str.total; i++)
 		{
 			char c = str.charAt(i);
 			if(!((c>='0' && c<='9') || (c=='-' && i==0) || (c=='+' && i==0)))
@@ -284,7 +284,7 @@ namespace GameLibrary
 		}
 
 		int mult = 1;
-		unsigned int startIndex = 0;
+		size_t startIndex = 0;
 		if(str.charAt(0)=='-')
 		{
 			mult = -1;
@@ -299,7 +299,7 @@ namespace GameLibrary
 		int counter = 0;
 		long totalVal = 0;
 
-		for(unsigned int i=(str.total-1); i>=startIndex; i--)
+		for(size_t i=(str.total-1); i>=startIndex; i--)
 		{
 			char c = str.charAt(i);
 			int value = (int)(c - '0');
@@ -333,7 +333,7 @@ namespace GameLibrary
 #endif
 		}
 
-		for(unsigned int i=0; i<str.total; i++)
+		for(size_t i=0; i<str.total; i++)
 		{
 			char c = str.charAt(i);
 			if(!((c>='0' && c<='9') || (c=='-' && i==0) || (c=='+' && i==0)))
@@ -347,7 +347,7 @@ namespace GameLibrary
 		}
 		
 		int mult = 1;
-		unsigned int startIndex = 0;
+		size_t startIndex = 0;
 		if(str.charAt(0)=='-')
 		{
 			mult = -1;
@@ -362,7 +362,7 @@ namespace GameLibrary
 		int counter = 0;
 		short totalVal = 0;
 		
-		for(unsigned int i=(str.total-1); i>=startIndex; i--)
+		for(size_t i=(str.total-1); i>=startIndex; i--)
 		{
 			char c = str.charAt(i);
 			int value = (short)(c - '0');
@@ -397,9 +397,9 @@ namespace GameLibrary
 		}
 
 		bool hasDecimal = false;
-		unsigned int decimalIndex = str.total;
+		size_t decimalIndex = str.total;
 
-		for(unsigned int i=0; i<str.total; i++)
+		for(size_t i=0; i<str.total; i++)
 		{
 			char c = str.charAt(i);
 			if(!((c>='0' && c<='9') || (c=='-' && i==0) || (c=='+' && i==0)))
@@ -429,7 +429,7 @@ namespace GameLibrary
 		}
 
 		int mult = 1;
-		unsigned int startIndex = 0;
+		size_t startIndex = 0;
 		if(str.charAt(0)=='-')
 		{
 			mult = -1;
@@ -444,7 +444,7 @@ namespace GameLibrary
 		int counter = -1;
 		float totalVal = 0;
 
-		for(unsigned int i=(decimalIndex+1); i<str.total; i++)
+		for(size_t i=(decimalIndex+1); i<str.total; i++)
 		{
 			char c = str.charAt(i);
 			int value = (int)(c - '0');
@@ -454,7 +454,7 @@ namespace GameLibrary
 
 		counter = 0;
 
-		for(unsigned int i=(decimalIndex-1); i>=startIndex; i--)
+		for(size_t i=(decimalIndex-1); i>=startIndex; i--)
 		{
 			char c = str.charAt(i);
 			int value = (int)(c - '0');
@@ -489,9 +489,9 @@ namespace GameLibrary
 		}
 
 		bool hasDecimal = false;
-		unsigned int decimalIndex = str.total;
+		size_t decimalIndex = str.total;
 
-		for(unsigned int i=0; i<str.total; i++)
+		for(size_t i=0; i<str.total; i++)
 		{
 			char c = str.charAt(i);
 			if(!((c>='0' && c<='9') || (c=='-' && i==0) || (c=='+' && i==0)))
@@ -524,7 +524,7 @@ namespace GameLibrary
 		}
 
 		int mult = 1;
-		unsigned int startIndex = 0;
+		size_t startIndex = 0;
 		if(str.charAt(0)=='-')
 		{
 			mult = -1;
@@ -539,7 +539,7 @@ namespace GameLibrary
 		int counter = -1;
 		double totalVal = 0;
 
-		for(unsigned int i=(decimalIndex+1); i<str.total; i++)
+		for(size_t i=(decimalIndex+1); i<str.total; i++)
 		{
 			char c = str.charAt(i);
 			int value = (int)(c - '0');
@@ -549,7 +549,7 @@ namespace GameLibrary
 
 		counter = 0;
 
-		for(unsigned int i=(decimalIndex-1); i>=startIndex; i--)
+		for(size_t i=(decimalIndex-1); i>=startIndex; i--)
 		{
 			char c = str.charAt(i);
 			int value = (int)(c - '0');
@@ -583,7 +583,7 @@ namespace GameLibrary
 #endif
 		}
 
-		for(unsigned int i=0; i<str.total; i++)
+		for(size_t i=0; i<str.total; i++)
 		{
 			char c = str.charAt(i);
 			if(!((c>='0' && c<='9') || (c=='-' && i==0) || (c=='+' && i==0)))
@@ -597,7 +597,7 @@ namespace GameLibrary
 		}
 		
 		int mult = 1;
-		unsigned int startIndex = 0;
+		size_t startIndex = 0;
 		if(str.charAt(0)=='-')
 		{
 			mult = -1;
@@ -612,7 +612,7 @@ namespace GameLibrary
 		int counter = 0;
 		long long totalVal = 0;
 		
-		for(unsigned int i=(str.total-1); i>=startIndex; i--)
+		for(size_t i=(str.total-1); i>=startIndex; i--)
 		{
 			char c = str.charAt(i);
 			int value = (int)(c - '0');
@@ -647,9 +647,9 @@ namespace GameLibrary
 		}
 		
 		bool hasDecimal = false;
-		unsigned int decimalIndex = str.total;
+		size_t decimalIndex = str.total;
 		
-		for(unsigned int i=0; i<str.total; i++)
+		for(size_t i=0; i<str.total; i++)
 		{
 			char c = str.charAt(i);
 			if(!((c>='0' && c<='9') || (c=='-' && i==0) || (c=='+' && i==0)))
@@ -682,7 +682,7 @@ namespace GameLibrary
 		}
 		
 		int mult = 1;
-		unsigned int startIndex = 0;
+		size_t startIndex = 0;
 		if(str.charAt(0)=='-')
 		{
 			mult = -1;
@@ -697,7 +697,7 @@ namespace GameLibrary
 		int counter = -1;
 		long double totalVal = 0;
 		
-		for(unsigned int i=(decimalIndex+1); i<str.total; i++)
+		for(size_t i=(decimalIndex+1); i<str.total; i++)
 		{
 			char c = str.charAt(i);
 			int value = (int)(c - '0');
@@ -707,7 +707,7 @@ namespace GameLibrary
 		
 		counter = 0;
 		
-		for(unsigned int i=(decimalIndex-1); i>=startIndex; i--)
+		for(size_t i=(decimalIndex-1); i>=startIndex; i--)
 		{
 			char c = str.charAt(i);
 			int value = (int)(c - '0');
@@ -741,7 +741,7 @@ namespace GameLibrary
 #endif
 		}
 
-		for(unsigned int i=0; i<str.total; i++)
+		for(size_t i=0; i<str.total; i++)
 		{
 			char c = str.charAt(i);
 			if(!(c>='0' && c<='9'))
@@ -754,12 +754,12 @@ namespace GameLibrary
 			}
 		}
 		
-		unsigned int startIndex = 0;
+		size_t startIndex = 0;
 		
 		int counter = 0;
 		unsigned int totalVal = 0;
 		
-		for(unsigned int i=(str.total-1); i>=startIndex; i--)
+		for(size_t i=(str.total-1); i>=startIndex; i--)
 		{
 			char c = str.charAt(i);
 			unsigned int value = (unsigned int)(c - '0');
@@ -793,7 +793,7 @@ namespace GameLibrary
 #endif
 		}
 
-		for(unsigned int i=0; i<str.total; i++)
+		for(size_t i=0; i<str.total; i++)
 		{
 			char c = str.charAt(i);
 			if(!(c>='0' && c<='9'))
@@ -806,12 +806,12 @@ namespace GameLibrary
 			}
 		}
 		
-		unsigned int startIndex = 0;
+		size_t startIndex = 0;
 		
 		int counter = 0;
 		unsigned char totalVal = 0;
 		
-		for(unsigned int i=(str.total-1); i>=startIndex; i--)
+		for(size_t i=(str.total-1); i>=startIndex; i--)
 		{
 			char c = str.charAt(i);
 			unsigned char value = (unsigned char)(c - '0');
@@ -845,7 +845,7 @@ namespace GameLibrary
 #endif
 		}
 
-		for(unsigned int i=0; i<str.total; i++)
+		for(size_t i=0; i<str.total; i++)
 		{
 			char c = str.charAt(i);
 			if(!(c>='0' && c<='9'))
@@ -858,15 +858,15 @@ namespace GameLibrary
 			}
 		}
 		
-		unsigned int startIndex = 0;
+		size_t startIndex = 0;
 		
 		int counter = 0;
 		unsigned long totalVal = 0;
 		
-		for(unsigned int i=(str.total-1); i>=startIndex; i--)
+		for(size_t i=(str.total-1); i>=startIndex; i--)
 		{
 			char c = str.charAt(i);
-			unsigned int value = (unsigned int)(c - '0');
+			unsigned long value = (unsigned long)(c - '0');
 			if(counter==0)
 			{
 				totalVal += value;
@@ -897,7 +897,7 @@ namespace GameLibrary
 #endif
 		}
 
-		for(unsigned int i=0; i<str.total; i++)
+		for(size_t i=0; i<str.total; i++)
 		{
 			char c = str.charAt(i);
 			if(!(c>='0' && c<='9'))
@@ -910,12 +910,12 @@ namespace GameLibrary
 			}
 		}
 		
-		unsigned int startIndex = 0;
+		size_t startIndex = 0;
 		
 		int counter = 0;
 		unsigned short totalVal = 0;
 		
-		for(unsigned int i=(str.total-1); i>=startIndex; i--)
+		for(size_t i=(str.total-1); i>=startIndex; i--)
 		{
 			char c = str.charAt(i);
 			unsigned short value = (unsigned short)(c - '0');
@@ -949,7 +949,7 @@ namespace GameLibrary
 #endif
 		}
 
-		for(unsigned int i=0; i<str.total; i++)
+		for(size_t i=0; i<str.total; i++)
 		{
 			char c = str.charAt(i);
 			if(!(c>='0' && c<='9'))
@@ -962,15 +962,15 @@ namespace GameLibrary
 			}
 		}
 		
-		unsigned int startIndex = 0;
+		size_t startIndex = 0;
 		
 		int counter = 0;
 		unsigned long long totalVal = 0;
 		
-		for(unsigned int i=(str.total-1); i>=startIndex; i--)
+		for(size_t i=(str.total-1); i>=startIndex; i--)
 		{
 			char c = str.charAt(i);
-			unsigned int value = (unsigned int)(c - '0');
+			unsigned long long value = (unsigned long long)(c - '0');
 			if(counter==0)
 			{
 				totalVal += value;
@@ -1041,7 +1041,7 @@ namespace GameLibrary
 	{
 		total = str.length();
 		characters = (char*)std::calloc(total+1,1);
-		for(unsigned int i=0; i<total; i++)
+		for(size_t i=0; i<total; i++)
 		{
 			characters[i] = str.characters[i];
 		}
@@ -1053,7 +1053,7 @@ namespace GameLibrary
 	{
 		total = str.length();
 		characters = (char*)std::calloc(total+1,1);
-		for(unsigned int i=0; i<total; i++)
+		for(size_t i=0; i<total; i++)
 		{
 			characters[i] = str.at(i);
 		}
@@ -1077,11 +1077,11 @@ namespace GameLibrary
 		//
 	}
 
-	String::String(const char*str, unsigned int size)
+	String::String(const char*str, size_t size)
 	{
 		total = size;
 		characters = (char*)std::calloc(total+1,1);
-		for(unsigned int i=0; i<total; i++)
+		for(size_t i=0; i<total; i++)
 		{
 			characters[i] = str[i];
 		}
@@ -1094,7 +1094,7 @@ namespace GameLibrary
 		//
 	}
 
-	String::String(const wchar_t*str, unsigned int size)
+	String::String(const wchar_t*str, size_t size)
 	{
 		total = (size*4);
 		characters = (char*)std::calloc(total+1,1);
@@ -1164,7 +1164,7 @@ namespace GameLibrary
 		total = str.length();
 		characters = (char*)std::calloc(total+1,1);
 
-		for(unsigned int i=0; i<total; i++)
+		for(size_t i=0; i<total; i++)
 		{
 			characters[i] = str.at(i);
 		}
@@ -1178,7 +1178,7 @@ namespace GameLibrary
 		total = str.length();
 		characters = (char*)std::calloc(total+1,1);
 
-		for(unsigned int i=0; i<total; i++)
+		for(size_t i=0; i<total; i++)
 		{
 			characters[i] = str.at(i);
 		}
@@ -1192,7 +1192,7 @@ namespace GameLibrary
 		total = str.length();
 		characters = (char*)std::calloc(total+1,1);
 
-		for(unsigned int i=0; i<total; i++)
+		for(size_t i=0; i<total; i++)
 		{
 			characters[i] = str.at(i);
 		}
@@ -1206,7 +1206,7 @@ namespace GameLibrary
 		total = str.length();
 		characters = (char*)std::calloc(total+1,1);
 
-		for(unsigned int i=0; i<total; i++)
+		for(size_t i=0; i<total; i++)
 		{
 			characters[i] = str.at(i);
 		}
@@ -1220,7 +1220,7 @@ namespace GameLibrary
 		total = str.length();
 		characters = (char*)std::calloc(total+1,1);
 
-		for(unsigned int i=0; i<total; i++)
+		for(size_t i=0; i<total; i++)
 		{
 			characters[i] = str.at(i);
 		}
@@ -1234,7 +1234,7 @@ namespace GameLibrary
 		total = str.length();
 		characters = (char*)std::calloc(total+1,1);
 
-		for(unsigned int i=0; i<total; i++)
+		for(size_t i=0; i<total; i++)
 		{
 			characters[i] = str.at(i);
 		}
@@ -1308,15 +1308,15 @@ namespace GameLibrary
 	String operator+(const String& left, const String&right)
 	{
 		String newStr;
-		unsigned int newTotal = left.total + right.total;
+		size_t newTotal = left.total + right.total;
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left.total; i++)
+		for(size_t i=0; i<left.total; i++)
 		{
 			newStr.characters[i] = left.characters[i];
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left.total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left.total; i<newTotal; i++)
 		{
 			newStr.characters[i] = right.characters[counter];
 			counter++;
@@ -1328,15 +1328,15 @@ namespace GameLibrary
 	String operator+(const String&left, const std::string& right)
 	{
 		String newStr;
-		unsigned int newTotal = left.total + right.length();
+		size_t newTotal = left.total + right.length();
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left.total; i++)
+		for(size_t i=0; i<left.total; i++)
 		{
 			newStr.characters[i] = left.characters[i];
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left.total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left.total; i<newTotal; i++)
 		{
 			newStr.characters[i] = right.at(counter);
 			counter++;
@@ -1348,15 +1348,15 @@ namespace GameLibrary
 	String operator+(const std::string& left, const String&right)
 	{
 		String newStr;
-		unsigned int newTotal = left.length() + right.total;
+		size_t newTotal = left.length() + right.total;
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left.length(); i++)
+		for(size_t i=0; i<left.length(); i++)
 		{
 			newStr.characters[i] = left.at(i);
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left.length(); i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left.length(); i<newTotal; i++)
 		{
 			newStr.characters[i] = right.characters[counter];
 			counter++;
@@ -1371,15 +1371,15 @@ namespace GameLibrary
 
 		String rightStr(right);
 
-		unsigned int newTotal = left.total + rightStr.total;
+		size_t newTotal = left.total + rightStr.total;
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left.total; i++)
+		for(size_t i=0; i<left.total; i++)
 		{
 			newStr.characters[i] = left.characters[i];
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left.total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left.total; i<newTotal; i++)
 		{
 			newStr.characters[i] = rightStr.characters[i];
 			counter++;
@@ -1392,15 +1392,15 @@ namespace GameLibrary
 	{
 		String newStr;
 		String leftStr(left);
-		unsigned int newTotal = leftStr.total + right.total;
+		size_t newTotal = leftStr.total + right.total;
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<leftStr.total; i++)
+		for(size_t i=0; i<leftStr.total; i++)
 		{
 			newStr.characters[i] = leftStr.characters[i];
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=leftStr.total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=leftStr.total; i<newTotal; i++)
 		{
 			newStr.characters[i] = right.characters[i];
 			counter++;
@@ -1412,15 +1412,15 @@ namespace GameLibrary
 	String operator+(const String&left, const char*right)
 	{
 		String newStr;
-		unsigned int newTotal = left.total + strlen(right);
+		size_t newTotal = left.total + strlen(right);
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left.total; i++)
+		for(size_t i=0; i<left.total; i++)
 		{
 			newStr.characters[i] = left.characters[i];
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left.total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left.total; i<newTotal; i++)
 		{
 			newStr.characters[i] = right[counter];
 			counter++;
@@ -1432,16 +1432,16 @@ namespace GameLibrary
 	String operator+(const char*left, const String&right)
 	{
 		String newStr;
-		unsigned int left_total = strlen(left);
-		unsigned int newTotal = left_total + right.total;
+		size_t left_total = strlen(left);
+		size_t newTotal = left_total + right.total;
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left_total; i++)
+		for(size_t i=0; i<left_total; i++)
 		{
 			newStr.characters[i] = left[i];
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left_total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left_total; i<newTotal; i++)
 		{
 			newStr.characters[i] = right.characters[counter];
 			counter++;
@@ -1454,15 +1454,15 @@ namespace GameLibrary
 	{
 		String newStr;
 		String rightStr(right);
-		unsigned int newTotal = left.total + rightStr.total;
+		size_t newTotal = left.total + rightStr.total;
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left.total; i++)
+		for(size_t i=0; i<left.total; i++)
 		{
 			newStr.characters[i] = left.characters[i];
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left.total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left.total; i<newTotal; i++)
 		{
 			newStr.characters[i] = rightStr.characters[counter];
 			counter++;
@@ -1475,15 +1475,15 @@ namespace GameLibrary
 	{
 		String newStr;
 		String leftStr(left);
-		unsigned int newTotal = leftStr.total + right.total;
+		size_t newTotal = leftStr.total + right.total;
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<leftStr.total; i++)
+		for(size_t i=0; i<leftStr.total; i++)
 		{
 			newStr.characters[i] = leftStr.characters[i];
 		}
-		unsigned int counter=0;
-		for(unsigned int i=leftStr.total; i<newTotal; i++)
+		size_t counter=0;
+		for(size_t i=leftStr.total; i<newTotal; i++)
 		{
 			newStr.characters[i] = right.characters[counter];
 			counter++;
@@ -1497,10 +1497,10 @@ namespace GameLibrary
 		String newStr;
 		if(right)
 		{
-			unsigned int newTotal = left.total + 4;
+			size_t newTotal = left.total + 4;
 			newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 			newStr.total = newTotal;
-			for(unsigned int i=0; i<left.total; i++)
+			for(size_t i=0; i<left.total; i++)
 			{
 				newStr.characters[i] = left.characters[i];
 			}
@@ -1512,10 +1512,10 @@ namespace GameLibrary
 		}
 		else
 		{
-			unsigned int newTotal = left.total + 5;
+			size_t newTotal = left.total + 5;
 			newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 			newStr.total = newTotal;
-			for(unsigned int i=0; i<left.total; i++)
+			for(size_t i=0; i<left.total; i++)
 			{
 				newStr.characters[i] = left.characters[i];
 			}
@@ -1534,15 +1534,15 @@ namespace GameLibrary
 		String newStr;
 		if(left)
 		{
-			unsigned int newTotal = 4 + right.total;
+			size_t newTotal = 4 + right.total;
 			newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 			newStr.total = newTotal;
 			newStr.characters[0] = 't';
 			newStr.characters[1] = 'r';
 			newStr.characters[2] = 'u';
 			newStr.characters[3] = 'e';
-			unsigned int counter=0;
-			for(unsigned int i=4; i<newTotal; i++)
+			size_t counter=0;
+			for(size_t i=4; i<newTotal; i++)
 			{
 				newStr.characters[i] = right.characters[counter];
 				counter++;
@@ -1551,7 +1551,7 @@ namespace GameLibrary
 		}
 		else
 		{
-			unsigned int newTotal = 5 + right.total;
+			size_t newTotal = 5 + right.total;
 			newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 			newStr.total = newTotal;
 			newStr.characters[0] = 'f';
@@ -1559,8 +1559,8 @@ namespace GameLibrary
 			newStr.characters[2] = 'l';
 			newStr.characters[3] = 's';
 			newStr.characters[4] = 'e';
-			unsigned int counter=0;
-			for(unsigned int i=5; i<newTotal; i++)
+			size_t counter=0;
+			for(size_t i=5; i<newTotal; i++)
 			{
 				newStr.characters[i] = right.characters[counter];
 				counter++;
@@ -1573,10 +1573,10 @@ namespace GameLibrary
 	String operator+(const String&left, const char&right)
 	{
 		String newStr;
-		unsigned int newTotal = left.total+1;
+		size_t newTotal = left.total+1;
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left.total; i++)
+		for(size_t i=0; i<left.total; i++)
 		{
 			newStr.characters[i] = left.characters[i];
 		}
@@ -1588,12 +1588,12 @@ namespace GameLibrary
 	String operator+(const char&left, const String&right)
 	{
 		String newStr;
-		unsigned int newTotal = 1+right.total;
+		size_t newTotal = 1+right.total;
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
 		newStr.characters[0] = left;
-		unsigned int counter=0;
-		for(unsigned int i=1; i<newTotal; i++)
+		size_t counter=0;
+		for(size_t i=1; i<newTotal; i++)
 		{
 			newStr.characters[i] = right.characters[counter];
 			counter++;
@@ -1606,15 +1606,15 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string rightStr = String_convert_fromintegral((unsigned short)right);
-		unsigned int newTotal = left.total + rightStr.length();
+		size_t newTotal = left.total + rightStr.length();
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left.total; i++)
+		for(size_t i=0; i<left.total; i++)
 		{
 			newStr.characters[i] = left.characters[i];
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left.total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left.total; i<newTotal; i++)
 		{
 			newStr.characters[i] = rightStr.at(counter);
 			counter++;
@@ -1627,16 +1627,16 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string leftStr = String_convert_fromintegral((unsigned short)left);
-		unsigned int left_total = leftStr.length();
-		unsigned int newTotal = left_total + right.total;
+		size_t left_total = leftStr.length();
+		size_t newTotal = left_total + right.total;
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left_total; i++)
+		for(size_t i=0; i<left_total; i++)
 		{
 			newStr.characters[i] = leftStr.at(i);
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left_total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left_total; i<newTotal; i++)
 		{
 			newStr.characters[i] = right.characters[counter];
 			counter++;
@@ -1649,15 +1649,15 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string rightStr = String_convert_fromintegral(right);
-		unsigned int newTotal = left.total + rightStr.length();
+		size_t newTotal = left.total + rightStr.length();
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left.total; i++)
+		for(size_t i=0; i<left.total; i++)
 		{
 			newStr.characters[i] = left.characters[i];
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left.total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left.total; i<newTotal; i++)
 		{
 			newStr.characters[i] = rightStr.at(counter);
 			counter++;
@@ -1670,16 +1670,16 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string leftStr = String_convert_fromintegral(left);
-		unsigned int left_total = leftStr.length();
-		unsigned int newTotal = left_total + right.total;
+		size_t left_total = leftStr.length();
+		size_t newTotal = left_total + right.total;
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left_total; i++)
+		for(size_t i=0; i<left_total; i++)
 		{
 			newStr.characters[i] = leftStr.at(i);
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left_total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left_total; i<newTotal; i++)
 		{
 			newStr.characters[i] = right.characters[counter];
 			counter++;
@@ -1692,15 +1692,15 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string rightStr = String_convert_fromintegral(right);
-		unsigned int newTotal = left.total + rightStr.length();
+		size_t newTotal = left.total + rightStr.length();
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left.total; i++)
+		for(size_t i=0; i<left.total; i++)
 		{
 			newStr.characters[i] = left.characters[i];
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left.total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left.total; i<newTotal; i++)
 		{
 			newStr.characters[i] = rightStr.at(counter);
 			counter++;
@@ -1713,16 +1713,16 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string leftStr = String_convert_fromintegral(left);
-		unsigned int left_total = leftStr.length();
-		unsigned int newTotal = left_total + right.total;
+		size_t left_total = leftStr.length();
+		size_t newTotal = left_total + right.total;
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left_total; i++)
+		for(size_t i=0; i<left_total; i++)
 		{
 			newStr.characters[i] = leftStr.at(i);
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left_total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left_total; i<newTotal; i++)
 		{
 			newStr.characters[i] = right.characters[counter];
 			counter++;
@@ -1735,15 +1735,15 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string rightStr = String_convert_fromintegral(right);
-		unsigned int newTotal = left.total + rightStr.length();
+		size_t newTotal = left.total + rightStr.length();
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left.total; i++)
+		for(size_t i=0; i<left.total; i++)
 		{
 			newStr.characters[i] = left.characters[i];
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left.total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left.total; i<newTotal; i++)
 		{
 			newStr.characters[i] = rightStr.at(counter);
 			counter++;
@@ -1756,16 +1756,16 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string leftStr = String_convert_fromintegral(left);
-		unsigned int left_total = leftStr.length();
-		unsigned int newTotal = left_total + right.total;
+		size_t left_total = leftStr.length();
+		size_t newTotal = left_total + right.total;
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left_total; i++)
+		for(size_t i=0; i<left_total; i++)
 		{
 			newStr.characters[i] = leftStr.at(i);
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left_total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left_total; i<newTotal; i++)
 		{
 			newStr.characters[i] = right.characters[counter];
 			counter++;
@@ -1778,15 +1778,15 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string rightStr = String_convert_fromintegral(right);
-		unsigned int newTotal = left.total + rightStr.length();
+		size_t newTotal = left.total + rightStr.length();
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left.total; i++)
+		for(size_t i=0; i<left.total; i++)
 		{
 			newStr.characters[i] = left.characters[i];
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left.total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left.total; i<newTotal; i++)
 		{
 			newStr.characters[i] = rightStr.at(counter);
 			counter++;
@@ -1799,16 +1799,16 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string leftStr = String_convert_fromintegral(left);
-		unsigned int left_total = leftStr.length();
-		unsigned int newTotal = left_total + right.total;
+		size_t left_total = leftStr.length();
+		size_t newTotal = left_total + right.total;
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left_total; i++)
+		for(size_t i=0; i<left_total; i++)
 		{
 			newStr.characters[i] = leftStr.at(i);
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left_total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left_total; i<newTotal; i++)
 		{
 			newStr.characters[i] = right.characters[counter];
 			counter++;
@@ -1821,15 +1821,15 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string rightStr = String_convert_fromintegral(right);
-		unsigned int newTotal = left.total + rightStr.length();
+		size_t newTotal = left.total + rightStr.length();
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left.total; i++)
+		for(size_t i=0; i<left.total; i++)
 		{
 			newStr.characters[i] = left.characters[i];
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left.total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left.total; i<newTotal; i++)
 		{
 			newStr.characters[i] = rightStr.at(counter);
 			counter++;
@@ -1842,16 +1842,16 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string leftStr = String_convert_fromintegral(left);
-		unsigned int left_total = leftStr.length();
-		unsigned int newTotal = left_total + right.total;
+		size_t left_total = leftStr.length();
+		size_t newTotal = left_total + right.total;
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left_total; i++)
+		for(size_t i=0; i<left_total; i++)
 		{
 			newStr.characters[i] = leftStr.at(i);
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left_total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left_total; i<newTotal; i++)
 		{
 			newStr.characters[i] = right.characters[counter];
 			counter++;
@@ -1864,15 +1864,15 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string rightStr = String_convert_fromintegral(right);
-		unsigned int newTotal = left.total + rightStr.length();
+		size_t newTotal = left.total + rightStr.length();
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left.total; i++)
+		for(size_t i=0; i<left.total; i++)
 		{
 			newStr.characters[i] = left.characters[i];
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left.total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left.total; i<newTotal; i++)
 		{
 			newStr.characters[i] = rightStr.at(counter);
 			counter++;
@@ -1885,16 +1885,16 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string leftStr = String_convert_fromintegral(left);
-		unsigned int left_total = leftStr.length();
-		unsigned int newTotal = left_total + right.total;
+		size_t left_total = leftStr.length();
+		size_t newTotal = left_total + right.total;
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left_total; i++)
+		for(size_t i=0; i<left_total; i++)
 		{
 			newStr.characters[i] = leftStr.at(i);
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left_total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left_total; i<newTotal; i++)
 		{
 			newStr.characters[i] = right.characters[counter];
 			counter++;
@@ -1907,15 +1907,15 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string rightStr = String_convert_fromintegral(right);
-		unsigned int newTotal = left.total + rightStr.length();
+		size_t newTotal = left.total + rightStr.length();
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left.total; i++)
+		for(size_t i=0; i<left.total; i++)
 		{
 			newStr.characters[i] = left.characters[i];
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left.total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left.total; i<newTotal; i++)
 		{
 			newStr.characters[i] = rightStr.at(counter);
 			counter++;
@@ -1928,16 +1928,16 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string leftStr = String_convert_fromintegral(left);
-		unsigned int left_total = leftStr.length();
-		unsigned int newTotal = left_total + right.total;
+		size_t left_total = leftStr.length();
+		size_t newTotal = left_total + right.total;
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left_total; i++)
+		for(size_t i=0; i<left_total; i++)
 		{
 			newStr.characters[i] = leftStr.at(i);
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left_total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left_total; i<newTotal; i++)
 		{
 			newStr.characters[i] = right.characters[counter];
 			counter++;
@@ -1950,15 +1950,15 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string rightStr = String_convert_fromintegral(right);
-		unsigned int newTotal = left.total + rightStr.length();
+		size_t newTotal = left.total + rightStr.length();
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left.total; i++)
+		for(size_t i=0; i<left.total; i++)
 		{
 			newStr.characters[i] = left.characters[i];
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left.total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left.total; i<newTotal; i++)
 		{
 			newStr.characters[i] = rightStr.at(counter);
 			counter++;
@@ -1971,16 +1971,16 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string leftStr = String_convert_fromintegral(left);
-		unsigned int left_total = leftStr.length();
-		unsigned int newTotal = left_total + right.total;
+		size_t left_total = leftStr.length();
+		size_t newTotal = left_total + right.total;
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left_total; i++)
+		for(size_t i=0; i<left_total; i++)
 		{
 			newStr.characters[i] = leftStr.at(i);
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left_total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left_total; i<newTotal; i++)
 		{
 			newStr.characters[i] = right.characters[counter];
 			counter++;
@@ -1993,15 +1993,15 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string rightStr = String_convert_fromdecimal(right);
-		unsigned int newTotal = left.total + rightStr.length();
+		size_t newTotal = left.total + rightStr.length();
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left.total; i++)
+		for(size_t i=0; i<left.total; i++)
 		{
 			newStr.characters[i] = left.characters[i];
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left.total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left.total; i<newTotal; i++)
 		{
 			newStr.characters[i] = rightStr.at(counter);
 			counter++;
@@ -2014,16 +2014,16 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string leftStr = String_convert_fromdecimal(left);
-		unsigned int left_total = leftStr.length();
-		unsigned int newTotal = left_total + right.total;
+		size_t left_total = leftStr.length();
+		size_t newTotal = left_total + right.total;
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left_total; i++)
+		for(size_t i=0; i<left_total; i++)
 		{
 			newStr.characters[i] = leftStr.at(i);
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left_total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left_total; i<newTotal; i++)
 		{
 			newStr.characters[i] = right.characters[counter];
 			counter++;
@@ -2036,15 +2036,15 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string rightStr = String_convert_fromdecimal(right);
-		unsigned int newTotal = left.total + rightStr.length();
+		size_t newTotal = left.total + rightStr.length();
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left.total; i++)
+		for(size_t i=0; i<left.total; i++)
 		{
 			newStr.characters[i] = left.characters[i];
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left.total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left.total; i<newTotal; i++)
 		{
 			newStr.characters[i] = rightStr.at(counter);
 			counter++;
@@ -2057,16 +2057,16 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string leftStr = String_convert_fromdecimal(left);
-		unsigned int left_total = leftStr.length();
-		unsigned int newTotal = left_total + right.total;
+		size_t left_total = leftStr.length();
+		size_t newTotal = left_total + right.total;
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left_total; i++)
+		for(size_t i=0; i<left_total; i++)
 		{
 			newStr.characters[i] = leftStr.at(i);
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left_total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left_total; i<newTotal; i++)
 		{
 			newStr.characters[i] = right.characters[counter];
 			counter++;
@@ -2079,15 +2079,15 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string rightStr = String_convert_fromdecimal(right);
-		unsigned int newTotal = left.total + rightStr.length();
+		size_t newTotal = left.total + rightStr.length();
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left.total; i++)
+		for(size_t i=0; i<left.total; i++)
 		{
 			newStr.characters[i] = left.characters[i];
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left.total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left.total; i<newTotal; i++)
 		{
 			newStr.characters[i] = rightStr.at(counter);
 			counter++;
@@ -2100,16 +2100,16 @@ namespace GameLibrary
 	{
 		String newStr;
 		std::string leftStr = String_convert_fromdecimal(left);
-		unsigned int left_total = leftStr.length();
-		unsigned int newTotal = left_total + right.total;
+		size_t left_total = leftStr.length();
+		size_t newTotal = left_total + right.total;
 		newStr.characters = (char*)std::realloc(newStr.characters, newTotal+1);
 		newStr.total = newTotal;
-		for(unsigned int i=0; i<left_total; i++)
+		for(size_t i=0; i<left_total; i++)
 		{
 			newStr.characters[i] = leftStr.at(i);
 		}
-		unsigned int counter = 0;
-		for(unsigned int i=left_total; i<newTotal; i++)
+		size_t counter = 0;
+		for(size_t i=left_total; i<newTotal; i++)
 		{
 			newStr.characters[i] = right.characters[counter];
 			counter++;
@@ -2120,10 +2120,10 @@ namespace GameLibrary
 
 	String& String::operator+=(const String& str)
 	{
-		unsigned int total2 = total + str.length();
+		size_t total2 = total + str.length();
 		characters = (char*)std::realloc(characters, total2+1);
-		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		size_t counter = 0;
+		for(size_t i=total; i<total2; i++)
 		{
 			characters[i] = str.characters[counter];
 			counter++;
@@ -2135,10 +2135,10 @@ namespace GameLibrary
 
 	String& String::operator+=(const std::string& str)
 	{
-		unsigned int total2 = total + str.length();
+		size_t total2 = total + str.length();
 		characters = (char*)std::realloc(characters, total2+1);
-		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		size_t counter = 0;
+		for(size_t i=total; i<total2; i++)
 		{
 			characters[i] = str.at(counter);
 			counter++;
@@ -2151,10 +2151,10 @@ namespace GameLibrary
 	String& String::operator+=(const std::wstring& str)
 	{
 		String str2(str);
-		unsigned int total2 = total + str2.length();
+		size_t total2 = total + str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
-		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		size_t counter = 0;
+		for(size_t i=total; i<total2; i++)
 		{
 			characters[i] = str2.characters[counter];
 			counter++;
@@ -2166,10 +2166,10 @@ namespace GameLibrary
 
 	String& String::operator+=(const char*str)
 	{
-		unsigned int total2 = total + strlen(str);
+		size_t total2 = total + strlen(str);
 		characters = (char*)std::realloc(characters, total2+1);
-		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		size_t counter = 0;
+		for(size_t i=total; i<total2; i++)
 		{
 			characters[i] = str[counter];
 			counter++;
@@ -2182,10 +2182,10 @@ namespace GameLibrary
 	String& String::operator+=(const wchar_t*str)
 	{
 		String str2(str);
-		unsigned int total2 = total + str2.length();
+		size_t total2 = total + str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
-		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		size_t counter = 0;
+		for(size_t i=total; i<total2; i++)
 		{
 			characters[i] = str2.characters[counter];
 			counter++;
@@ -2223,7 +2223,7 @@ namespace GameLibrary
 
 	String& String::operator+=(char c)
 	{
-		unsigned int total2 = total+1;
+		size_t total2 = total+1;
 		characters = (char*)std::realloc(characters, total2+1);
 		characters[total]=c;
 		characters[total2]='\0';
@@ -2234,10 +2234,10 @@ namespace GameLibrary
 	String& String::operator+=(unsigned char num)
 	{
 		std::string str2 = String_convert_fromintegral((unsigned short)num);
-		unsigned int total2 = total + str2.length();
+		size_t total2 = total + str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
-		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		size_t counter = 0;
+		for(size_t i=total; i<total2; i++)
 		{
 			characters[i] = str2.at(counter);
 			counter++;
@@ -2250,10 +2250,10 @@ namespace GameLibrary
 	String& String::operator+=(short num)
 	{
 		std::string str2 = String_convert_fromintegral(num);
-		unsigned int total2 = total + str2.length();
+		size_t total2 = total + str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
-		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		size_t counter = 0;
+		for(size_t i=total; i<total2; i++)
 		{
 			characters[i] = str2.at(counter);
 			counter++;
@@ -2266,10 +2266,10 @@ namespace GameLibrary
 	String& String::operator+=(unsigned short num)
 	{
 		std::string str2 = String_convert_fromintegral(num);
-		unsigned int total2 = total + str2.length();
+		size_t total2 = total + str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
-		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		size_t counter = 0;
+		for(size_t i=total; i<total2; i++)
 		{
 			characters[i] = str2.at(counter);
 			counter++;
@@ -2282,10 +2282,10 @@ namespace GameLibrary
 	String& String::operator+=(int num)
 	{
 		std::string str2 = String_convert_fromintegral(num);
-		unsigned int total2 = total + str2.length();
+		size_t total2 = total + str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
-		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		size_t counter = 0;
+		for(size_t i=total; i<total2; i++)
 		{
 			characters[i] = str2.at(counter);
 			counter++;
@@ -2298,10 +2298,10 @@ namespace GameLibrary
 	String& String::operator+=(unsigned int num)
 	{
 		std::string str2 = String_convert_fromintegral(num);
-		unsigned int total2 = total + str2.length();
+		size_t total2 = total + str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
-		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		size_t counter = 0;
+		for(size_t i=total; i<total2; i++)
 		{
 			characters[i] = str2.at(counter);
 			counter++;
@@ -2314,10 +2314,10 @@ namespace GameLibrary
 	String& String::operator+=(long num)
 	{
 		std::string str2 = String_convert_fromintegral(num);
-		unsigned int total2 = total + str2.length();
+		size_t total2 = total + str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
-		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		size_t counter = 0;
+		for(size_t i=total; i<total2; i++)
 		{
 			characters[i] = str2.at(counter);
 			counter++;
@@ -2330,10 +2330,10 @@ namespace GameLibrary
 	String& String::operator+=(unsigned long num)
 	{
 		std::string str2 = String_convert_fromintegral(num);
-		unsigned int total2 = total + str2.length();
+		size_t total2 = total + str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
-		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		size_t counter = 0;
+		for(size_t i=total; i<total2; i++)
 		{
 			characters[i] = str2.at(counter);
 			counter++;
@@ -2346,10 +2346,10 @@ namespace GameLibrary
 	String& String::operator+=(long long num)
 	{
 		std::string str2 = String_convert_fromintegral(num);
-		unsigned int total2 = total + str2.length();
+		size_t total2 = total + str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
-		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		size_t counter = 0;
+		for(size_t i=total; i<total2; i++)
 		{
 			characters[i] = str2.at(counter);
 			counter++;
@@ -2362,10 +2362,10 @@ namespace GameLibrary
 	String& String::operator+=(unsigned long long num)
 	{
 		std::string str2 = String_convert_fromintegral(num);
-		unsigned int total2 = total + str2.length();
+		size_t total2 = total + str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
-		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		size_t counter = 0;
+		for(size_t i=total; i<total2; i++)
 		{
 			characters[i] = str2.at(counter);
 			counter++;
@@ -2378,10 +2378,10 @@ namespace GameLibrary
 	String& String::operator+=(float num)
 	{
 		std::string str2 = String_convert_fromdecimal(num);
-		unsigned int total2 = total + str2.length();
+		size_t total2 = total + str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
-		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		size_t counter = 0;
+		for(size_t i=total; i<total2; i++)
 		{
 			characters[i] = str2.at(counter);
 			counter++;
@@ -2394,10 +2394,10 @@ namespace GameLibrary
 	String& String::operator+=(double num)
 	{
 		std::string str2 = String_convert_fromdecimal(num);
-		unsigned int total2 = total + str2.length();
+		size_t total2 = total + str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
-		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		size_t counter = 0;
+		for(size_t i=total; i<total2; i++)
 		{
 			characters[i] = str2.at(counter);
 			counter++;
@@ -2410,10 +2410,10 @@ namespace GameLibrary
 	String& String::operator+=(long double num)
 	{
 		std::string str2 = String_convert_fromdecimal(num);
-		unsigned int total2 = total + str2.length();
+		size_t total2 = total + str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
-		unsigned int counter = 0;
-		for(unsigned int i=total; i<total2; i++)
+		size_t counter = 0;
+		for(size_t i=total; i<total2; i++)
 		{
 			characters[i] = str2.at(counter);
 			counter++;
@@ -2422,13 +2422,27 @@ namespace GameLibrary
 		characters[total2] = '\0';
 		return *this;
 	}
-
+	
+	void String::append(const char *str, size_t length)
+	{
+		size_t total2 = total + length;
+		characters = (char*)std::realloc(characters, total2+1);
+		size_t counter = 0;
+		for(size_t i=total; i<total2; i++)
+		{
+			characters[i] = str[counter];
+			counter++;
+		}
+		total = total2;
+		characters[total2] = '\0';
+	}
+	
 	String& String::operator=(const String& str)
 	{
-		unsigned int total2 = str.length();
+		size_t total2 = str.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		total = total2;
-		for(unsigned int i=0; i<total2; i++)
+		for(size_t i=0; i<total2; i++)
 		{
 			characters[i] = str.characters[i];
 		}
@@ -2438,10 +2452,10 @@ namespace GameLibrary
 
 	String& String::operator=(const std::string& str)
 	{
-		unsigned int total2 = str.length();
+		size_t total2 = str.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		total = total2;
-		for(unsigned int i=0; i<total2; i++)
+		for(size_t i=0; i<total2; i++)
 		{
 			characters[i] = str.at(i);
 		}
@@ -2452,10 +2466,10 @@ namespace GameLibrary
 	String& String::operator=(const std::wstring& str)
 	{
 		String str2(str);
-		unsigned int total2 = str2.length();
+		size_t total2 = str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		total = total2;
-		for(unsigned int i=0; i<total2; i++)
+		for(size_t i=0; i<total2; i++)
 		{
 			characters[i] = str2.characters[i];
 		}
@@ -2465,10 +2479,10 @@ namespace GameLibrary
 
 	String& String::operator=(const char*str)
 	{
-		unsigned int total2 = strlen(str);
+		size_t total2 = strlen(str);
 		characters = (char*)std::realloc(characters, total2+1);
 		total = total2;
-		for(unsigned int i=0; i<total2; i++)
+		for(size_t i=0; i<total2; i++)
 		{
 			characters[i] = str[i];
 		}
@@ -2479,10 +2493,10 @@ namespace GameLibrary
 	String& String::operator=(const wchar_t*str)
 	{
 		String str2(str);
-		unsigned int total2 = str2.length();
+		size_t total2 = str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		total = total2;
-		for(unsigned int i=0; i<total2; i++)
+		for(size_t i=0; i<total2; i++)
 		{
 			characters[i] = str2.characters[i];
 		}
@@ -2518,7 +2532,7 @@ namespace GameLibrary
 
 	String& String::operator=(char c)
 	{
-		unsigned int total2 = 1;
+		size_t total2 = 1;
 		characters = (char*)std::realloc(characters, total2+1);
 		total = total2;
 		characters[0] = c;
@@ -2529,10 +2543,10 @@ namespace GameLibrary
 	String& String::operator=(unsigned char num)
 	{
 		std::string str2 = String_convert_fromintegral((unsigned short)num);
-		unsigned int total2 = str2.length();
+		size_t total2 = str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		total = total2;
-		for(unsigned int i=0; i<total2; i++)
+		for(size_t i=0; i<total2; i++)
 		{
 			characters[i] = str2.at(i);
 		}
@@ -2543,10 +2557,10 @@ namespace GameLibrary
 	String& String::operator=(short num)
 	{
 		std::string str2 = String_convert_fromintegral(num);
-		unsigned int total2 = str2.length();
+		size_t total2 = str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		total = total2;
-		for(unsigned int i=0; i<total2; i++)
+		for(size_t i=0; i<total2; i++)
 		{
 			characters[i] = str2.at(i);
 		}
@@ -2557,10 +2571,10 @@ namespace GameLibrary
 	String& String::operator=(unsigned short num)
 	{
 		std::string str2 = String_convert_fromintegral(num);
-		unsigned int total2 = str2.length();
+		size_t total2 = str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		total = total2;
-		for(unsigned int i=0; i<total2; i++)
+		for(size_t i=0; i<total2; i++)
 		{
 			characters[i] = str2.at(i);
 		}
@@ -2571,10 +2585,10 @@ namespace GameLibrary
 	String& String::operator=(int num)
 	{
 		std::string str2 = String_convert_fromintegral(num);
-		unsigned int total2 = str2.length();
+		size_t total2 = str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		total = total2;
-		for(unsigned int i=0; i<total2; i++)
+		for(size_t i=0; i<total2; i++)
 		{
 			characters[i] = str2.at(i);
 		}
@@ -2585,10 +2599,10 @@ namespace GameLibrary
 	String& String::operator=(unsigned int num)
 	{
 		std::string str2 = String_convert_fromintegral(num);
-		unsigned int total2 = str2.length();
+		size_t total2 = str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		total = total2;
-		for(unsigned int i=0; i<total2; i++)
+		for(size_t i=0; i<total2; i++)
 		{
 			characters[i] = str2.at(i);
 		}
@@ -2599,10 +2613,10 @@ namespace GameLibrary
 	String& String::operator=(long num)
 	{
 		std::string str2 = String_convert_fromintegral(num);
-		unsigned int total2 = str2.length();
+		size_t total2 = str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		total = total2;
-		for(unsigned int i=0; i<total2; i++)
+		for(size_t i=0; i<total2; i++)
 		{
 			characters[i] = str2.at(i);
 		}
@@ -2613,10 +2627,10 @@ namespace GameLibrary
 	String& String::operator=(unsigned long num)
 	{
 		std::string str2 = String_convert_fromintegral(num);
-		unsigned int total2 = str2.length();
+		size_t total2 = str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		total = total2;
-		for(unsigned int i=0; i<total2; i++)
+		for(size_t i=0; i<total2; i++)
 		{
 			characters[i] = str2.at(i);
 		}
@@ -2627,10 +2641,10 @@ namespace GameLibrary
 	String& String::operator=(long long num)
 	{
 		std::string str2 = String_convert_fromintegral(num);
-		unsigned int total2 = str2.length();
+		size_t total2 = str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		total = total2;
-		for(unsigned int i=0; i<total2; i++)
+		for(size_t i=0; i<total2; i++)
 		{
 			characters[i] = str2.at(i);
 		}
@@ -2641,10 +2655,10 @@ namespace GameLibrary
 	String& String::operator=(unsigned long long num)
 	{
 		std::string str2 = String_convert_fromintegral(num);
-		unsigned int total2 = str2.length();
+		size_t total2 = str2.length();
 		characters = (char*)std::realloc(characters, total2+1);
 		total = total2;
-		for(unsigned int i=0; i<total2; i++)
+		for(size_t i=0; i<total2; i++)
 		{
 			characters[i] = str2.at(i);
 		}
@@ -2671,7 +2685,7 @@ namespace GameLibrary
 	{
 		if(cmp.total==total)
 		{
-			for(unsigned int i=0; i<total; i++)
+			for(size_t i=0; i<total; i++)
 			{
 				if(characters[i] != cmp.characters[i])
 				{
@@ -2687,10 +2701,10 @@ namespace GameLibrary
 	{
 		if(cmp!=nullptr)
 		{
-			int cmpLength = std::strlen(cmp);
+			size_t cmpLength = std::strlen(cmp);
 			if(cmpLength==total)
 			{
-				for(unsigned int i=0; i<total; i++)
+				for(size_t i=0; i<total; i++)
 				{
 					if(characters[i] != cmp[i])
 					{
@@ -2733,7 +2747,7 @@ namespace GameLibrary
 
 	int String::compare(const String&cmp) const
 	{
-		unsigned int amount = 0;
+		size_t amount = 0;
 		if(cmp.total>total)
 		{
 			amount = total;
@@ -2746,7 +2760,7 @@ namespace GameLibrary
 		bool hasCap1 = false;
 		bool hasCap2 = false;
 		
-		for(unsigned int i=0; i<amount; i++)
+		for(size_t i=0; i<amount; i++)
 		{
 			char c1 = characters[i];
 			char c2 = cmp.characters[i];
@@ -2892,19 +2906,19 @@ namespace GameLibrary
 		total = 0;
 	}
 	
-	unsigned int String::length() const
+	size_t String::length() const
 	{
 		return total;
 	}
 	
-	char String::charAt(unsigned int index) const
+	char String::charAt(size_t index) const
 	{
 		if(index >= total)
 		{
 #ifdef STRING_USES_GAMELIBRARY
 			throw StringOutOfBoundsException(index, total);
 #else
-			throw StringException("index " + index + " is out of bounds in String with a length of " + total);
+			throw StringException("index " + std::to_string(index) + " is out of bounds in String with a length of " + std::to_string(total));
 #endif
 		}
 		return characters[index];
@@ -2913,7 +2927,7 @@ namespace GameLibrary
 	String String::replace(char find, char replace) const
 	{
 		String replacedStr(*this);
-		for(unsigned int i=0; i<total; i++)
+		for(size_t i=0; i<total; i++)
 		{
 			if(replacedStr.characters[i] == find)
 			{
@@ -2934,17 +2948,17 @@ namespace GameLibrary
 			return *this;
 		}
 		
-		std::vector<unsigned int> indexes;
-		unsigned int indexTotal = 0;
+		std::vector<size_t> indexes;
+		size_t indexTotal = 0;
 		
-		unsigned int finish = total - find.total;
+		size_t finish = total - find.total;
 		
-		for(unsigned int i=0; i<=finish; i++)
+		for(size_t i=0; i<=finish; i++)
 		{
 			if(characters[i]==find.characters[0])
 			{
 				bool match = true;
-				for(unsigned int j=1; j<find.total; j++)
+				for(size_t j=1; j<find.total; j++)
 				{
 					if(characters[i+j] != find.characters[j])
 					{
@@ -2968,7 +2982,7 @@ namespace GameLibrary
 			String newStr(*this);
 
 			bool posDif = false;
-			unsigned int dif;
+			size_t dif;
 			if(rep.total >= find.total)
 			{
 				posDif = true;
@@ -2980,7 +2994,7 @@ namespace GameLibrary
 				dif = find.total - rep.total;
 			}
 
-			unsigned int totalSize = 0;
+			size_t totalSize = 0;
 			if(posDif)
 			{
 				totalSize = newStr.total + (indexes.size()*dif);
@@ -2995,12 +3009,12 @@ namespace GameLibrary
 				newStr.characters = (char*)std::realloc(newStr.characters, totalSize+1);
 				newStr.characters[totalSize] = '\0';
 				
-				unsigned int counterNew = totalSize;
-				unsigned int counterOld = newStr.total;
-				unsigned int lastIndex = newStr.total;
+				size_t counterNew = totalSize;
+				size_t counterOld = newStr.total;
+				size_t lastIndex = newStr.total;
 
 				bool firstLoop = true;
-				unsigned int i=(indexes.size()-1);
+				size_t i=(indexes.size()-1);
 				while(i > 0 || (firstLoop && i == 0))
 				{
 					if(!firstLoop)
@@ -3009,8 +3023,8 @@ namespace GameLibrary
 					}
 
 					bool posOffset = false;
-					unsigned int offset = 0;
-					unsigned int lastIndexEnd = (indexes[i]+find.total);
+					size_t offset = 0;
+					size_t lastIndexEnd = (indexes[i]+find.total);
 					if(lastIndex >= lastIndexEnd)
 					{
 						posOffset = true;
@@ -3025,7 +3039,7 @@ namespace GameLibrary
 					lastIndex = indexes[i];
 					if(posOffset)
 					{
-						for(unsigned int j=0; j<offset; j++)
+						for(size_t j=0; j<offset; j++)
 						{
 							newStr.characters[counterNew] = newStr.characters[counterOld];
 							counterNew--;
@@ -3060,14 +3074,14 @@ namespace GameLibrary
 			}
 			else if(rep.total<find.total)
 			{
-				unsigned int counterNew = 0;
-				unsigned int counterOld = 0;
-				unsigned int lastIndex = 0;
+				size_t counterNew = 0;
+				size_t counterOld = 0;
+				size_t lastIndex = 0;
 
-				for(unsigned int i=0; i<indexes.size(); i++)
+				for(size_t i=0; i<indexes.size(); i++)
 				{
 					bool posOffset = false;
-					unsigned int offset = 0;
+					size_t offset = 0;
 					if(indexes[i]>=lastIndex)
 					{
 						posOffset = true;
@@ -3083,7 +3097,7 @@ namespace GameLibrary
 
 					if(posOffset)
 					{
-						for(unsigned int j=0; j<offset; j++)
+						for(size_t j=0; j<offset; j++)
 						{
 							newStr.characters[counterNew] = newStr.characters[counterOld];
 							counterNew++;
@@ -3110,11 +3124,11 @@ namespace GameLibrary
 				newStr.total = totalSize;
 			}
 			
-			unsigned int difCounter = 0;
+			size_t difCounter = 0;
 
-			for(unsigned int i=0; i<indexes.size(); i++)
+			for(size_t i=0; i<indexes.size(); i++)
 			{
-				unsigned int offset = 0;
+				size_t offset = 0;
 				if(posDif)
 				{
 					offset = indexes[i] + difCounter;
@@ -3124,7 +3138,7 @@ namespace GameLibrary
 					offset = indexes[i] - difCounter;
 				}
 
-				for(unsigned int j=0; j<rep.total; j++)
+				for(size_t j=0; j<rep.total; j++)
 				{
 					newStr.characters[offset+j] = rep.characters[j];
 				}
@@ -3136,21 +3150,21 @@ namespace GameLibrary
 		return *this;
 	}
 	
-	String String::substring(unsigned int beginIndex) const
+	String String::substring(size_t beginIndex) const
 	{
 		if(beginIndex>total)
 		{
 #ifdef STRING_USES_GAMELIBRARY
 			throw StringOutOfBoundsException(beginIndex, total);
 #else
-			throw StringException("index " + beginIndex + " is out of bounds in String with a length of " + total);
+			throw StringException("index " + std::to_string(beginIndex) + " is out of bounds in String with a length of " + std::to_string(total));
 #endif
 		}
 
 		String newStr;
 		newStr.characters = (char*)std::realloc(newStr.characters, (total-beginIndex)+1);
-		unsigned int counter = 0;
-		for(unsigned int i=beginIndex; i<total; i++)
+		size_t counter = 0;
+		for(size_t i=beginIndex; i<total; i++)
 		{
 			newStr.characters[counter] = characters[i];
 			counter++;
@@ -3160,14 +3174,14 @@ namespace GameLibrary
 		return newStr;
 	}
 
-	String String::substring(unsigned int beginIndex, unsigned int endIndex) const
+	String String::substring(size_t beginIndex, size_t endIndex) const
 	{
 		if(beginIndex > total)
 		{
 #ifdef STRING_USES_GAMELIBRARY
 			throw StringOutOfBoundsException(beginIndex, total);
 #else
-			throw StringException("index " + beginIndex + " is out of bounds in String with a length of " + total);
+			throw StringException("index " + std::to_string(beginIndex) + " is out of bounds in String with a length of " + std::to_string(total));
 #endif
 		}
 		else if(endIndex > total)
@@ -3175,11 +3189,11 @@ namespace GameLibrary
 #ifdef STRING_USES_GAMELIBRARY
 			throw StringOutOfBoundsException(endIndex, total);
 #else
-			throw StringException("index " + endIndex + " is out of bounds in String with a length of " + total);
+			throw StringException("index " + std::to_string(endIndex) + " is out of bounds in String with a length of " + std::to_string(total));
 #endif
 		}
 
-		unsigned int dif = 0;
+		size_t dif = 0;
 		bool goUp = true;
 		if(beginIndex <= endIndex)
 		{
@@ -3193,10 +3207,10 @@ namespace GameLibrary
 
 		String newStr;
 		newStr.characters = (char*)std::realloc(newStr.characters, dif+1);
-		unsigned int counter = 0;
+		size_t counter = 0;
 		if(goUp)
 		{
-			for(unsigned int i=beginIndex; i<endIndex; i++)
+			for(size_t i=beginIndex; i<endIndex; i++)
 			{
 				newStr.characters[counter] = characters[i];
 				counter++;
@@ -3205,7 +3219,7 @@ namespace GameLibrary
 		else
 		{
 			bool firstLoop = true;
-			unsigned int i = endIndex;
+			size_t i = endIndex;
 			while(i > beginIndex || (firstLoop && i==beginIndex))
 			{
 				if(!firstLoop)
@@ -3229,9 +3243,9 @@ namespace GameLibrary
 			return *this;
 		}
 
-		unsigned int i=0;
+		size_t i=0;
 		
-		unsigned int startIndex = 0;
+		size_t startIndex = 0;
 		
 		bool hitLetter = false;
 		
@@ -3256,7 +3270,7 @@ namespace GameLibrary
 		hitLetter = false;
 		i = total-1;
 		
-		unsigned int endIndex = 0;
+		size_t endIndex = 0;
 		
 		bool firstLoop = true;
 		while(!hitLetter && (i>0 || (firstLoop && i==0)))
@@ -3280,14 +3294,14 @@ namespace GameLibrary
 		return substring(startIndex, endIndex);
 	}
 
-	unsigned int String::indexOf(char c) const
+	size_t String::indexOf(char c) const
 	{
 		if(total == 0)
 		{
 			return STRING_NOTFOUND;
 		}
 
-		for(unsigned int i=0; i<total; i++)
+		for(size_t i=0; i<total; i++)
 		{
 			if(characters[i] == c)
 			{
@@ -3298,21 +3312,21 @@ namespace GameLibrary
 		return STRING_NOTFOUND;
 	}
 
-	unsigned int String::indexOf(const String&str) const
+	size_t String::indexOf(const String&str) const
 	{
 		if(str.total==0 || str.total>total)
 		{
 			return STRING_NOTFOUND;
 		}
 		
-		unsigned int finish = total - str.total;
+		size_t finish = total - str.total;
 		
-		for(unsigned int i=0; i<=finish; i++)
+		for(size_t i=0; i<=finish; i++)
 		{
 			if(characters[i]==str.characters[0])
 			{
 				bool match = true;
-				for(unsigned int j=1; j<str.total; j++)
+				for(size_t j=1; j<str.total; j++)
 				{
 					if(characters[i+j] != str.characters[j])
 					{
@@ -3330,14 +3344,14 @@ namespace GameLibrary
 		return STRING_NOTFOUND;
 	}
 	
-	unsigned int String::lastIndexOf(char c) const
+	size_t String::lastIndexOf(char c) const
 	{
 		if(total == 0)
 		{
 			return STRING_NOTFOUND;
 		}
 		
-		for(unsigned int i=(total-1); i!=UINT_MAX; i--)
+		for(size_t i=(total-1); i!=UINT_MAX; i--)
 		{
 			if(characters[i] == c)
 			{
@@ -3353,23 +3367,23 @@ namespace GameLibrary
 		return STRING_NOTFOUND;
 	}
 	
-	unsigned int String::lastIndexOf(const String&str) const
+	size_t String::lastIndexOf(const String&str) const
 	{
 		if(str.total==0 || str.total>total)
 		{
 			return STRING_NOTFOUND;
 		}
 		
-		unsigned int finish = (str.total-1);
+		size_t finish = (str.total-1);
 		
 		if(total>0)
 		{
-			for(unsigned int i=(total-1); i>=finish; i--)
+			for(size_t i=(total-1); i>=finish; i--)
 			{
 				if(characters[i]==str.characters[str.total-1])
 				{
 					bool match = true;
-					for(unsigned int j=1; j<str.total; j++)
+					for(size_t j=1; j<str.total; j++)
 					{
 						if(characters[i-j] != str.characters[(str.total-1)-j])
 						{
@@ -3397,7 +3411,7 @@ namespace GameLibrary
 	{
 		String newStr(*this);
 		
-		for(unsigned int i=0; i<total; i++)
+		for(size_t i=0; i<total; i++)
 		{
 			char c = newStr.characters[i];
 			if(c>='A' && c<='Z')
@@ -3414,7 +3428,7 @@ namespace GameLibrary
 	{
 		String newStr(*this);
 		
-		for(unsigned int i=0; i<total; i++)
+		for(size_t i=0; i<total; i++)
 		{
 			char c = newStr.characters[i];
 			if(c>='a' && c<='z')

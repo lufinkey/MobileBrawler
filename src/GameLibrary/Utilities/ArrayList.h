@@ -13,6 +13,7 @@ namespace GameLibrary
 {
 #else
 	#include <exception>
+	#include <string>
 	
 	class ArrayListOutOfBoundsException : public std::exception
 	{
@@ -25,9 +26,9 @@ namespace GameLibrary
 			message = exception.message;
 		}
 
-		ArrayListOutOfBoundsException(unsigned int index, unsigned int size)
+		ArrayListOutOfBoundsException(size_t index, size_t size)
 		{
-			message = (std::string)"index " + index + " is out of bounds in ArrayList with a size of " + size);
+			message = (std::string)"index " + std::to_string(index) + " is out of bounds in ArrayList with a size of " + std::to_string(size);
 		}
 
 		virtual ~ArrayListOutOfBoundsException()
@@ -35,7 +36,7 @@ namespace GameLibrary
 			//
 		}
 
-		virtual const char* what() const
+		virtual const char* what() const _NOEXCEPT
 		{
 			return message.c_str();
 		}
@@ -58,9 +59,9 @@ namespace GameLibrary
 		
 		ArrayList(const ArrayList<T>& arr)
 		{
-			unsigned int length = arr.objects.size();
+			size_t length = arr.objects.size();
 			objects.resize(length);
-			for(unsigned int i=0; i<length; i++)
+			for(size_t i=0; i<length; i++)
 			{
 				objects[i] = arr[i];
 			}
@@ -75,7 +76,7 @@ namespace GameLibrary
 			}
 		}*/
 		
-		ArrayList(unsigned int size)
+		ArrayList(size_t size)
 		{
 			objects.resize(size);
 		}
@@ -87,10 +88,10 @@ namespace GameLibrary
 
 		ArrayList<T>& operator=(const ArrayList<T>& arr)
 		{
-			unsigned int length = arr.objects.size();
+			size_t length = arr.objects.size();
 			objects.resize(length);
 			objects.shrink_to_fit();
-			for(unsigned int i=0; i<length; i++)
+			for(size_t i=0; i<length; i++)
 			{
 				objects[i] = arr.objects[i];
 			}
@@ -98,7 +99,7 @@ namespace GameLibrary
 			return *this;
 		}
 
-		T& operator[] (unsigned int index)
+		T& operator[] (size_t index)
 		{
 			if(index<objects.size())
 			{
@@ -107,7 +108,7 @@ namespace GameLibrary
 			throw ArrayListOutOfBoundsException(index, objects.size());
 		}
 		
-		const T& operator[] (unsigned int index) const
+		const T& operator[] (size_t index) const
 		{
 			if(index<objects.size())
 			{
@@ -116,7 +117,7 @@ namespace GameLibrary
 			throw ArrayListOutOfBoundsException(index, objects.size());
 		}
 		
-		T& get(unsigned int index)
+		T& get(size_t index)
 		{
 			if(index < objects.size())
 			{
@@ -125,7 +126,7 @@ namespace GameLibrary
 			throw ArrayListOutOfBoundsException(index, objects.size());
 		}
 		
-		const T& get(unsigned int index) const
+		const T& get(size_t index) const
 		{
 			if(index<objects.size())
 			{
@@ -144,7 +145,7 @@ namespace GameLibrary
 			return objects.data();
 		}
 		
-		void set(unsigned int index, const T&obj)
+		void set(size_t index, const T&obj)
 		{
 			if(index<objects.size())
 			{
@@ -158,20 +159,20 @@ namespace GameLibrary
 		
 		void add(const T&obj)
 		{
-			unsigned int length = objects.size();
+			size_t length = objects.size();
 			objects.resize(length+1);
 			objects[length] = obj;
 		}
 		
-		void add(unsigned int index, const T&obj)
+		void add(size_t index, const T&obj)
 		{
 			if(index>objects.size())
 			{
 				throw ArrayListOutOfBoundsException(index, objects.size());
 			}
-			unsigned int length = objects.size();
+			size_t length = objects.size();
 			objects.resize(length+1);
-			for(unsigned int i=length; i>index; i--)
+			for(size_t i=length; i>index; i--)
 			{
 				objects[i] = objects[i-1];
 				if(i==index)
@@ -183,13 +184,13 @@ namespace GameLibrary
 			objects[index] = obj;
 		}
 		
-		void remove(unsigned int index)
+		void remove(size_t index)
 		{
 			if(index > objects.size())
 			{
 				throw ArrayListOutOfBoundsException(index, objects.size());
 			}
-			unsigned int length = objects.size();
+			size_t length = objects.size();
 			if(length==1)
 			{
 				if(index==0)
@@ -203,7 +204,7 @@ namespace GameLibrary
 			}
 			else if(index<length)
 			{
-				for(unsigned int i=(index+1); i<length; i++)
+				for(size_t i=(index+1); i<length; i++)
 				{
 					objects[i-1] = objects[i];
 				}
@@ -221,12 +222,12 @@ namespace GameLibrary
 			objects.shrink_to_fit();
 		}
 		
-		unsigned int size() const
+		size_t size() const
 		{
 			return objects.size();
 		}
 
-		void resize(unsigned int size)
+		void resize(size_t size)
 		{
 			objects.resize(size);
 			objects.shrink_to_fit();
@@ -234,8 +235,8 @@ namespace GameLibrary
 		
 		bool contains(const T& obj) const
 		{
-			unsigned int length = objects.size();
-			for(unsigned int i=0; i<length; i++)
+			size_t length = objects.size();
+			for(size_t i=0; i<length; i++)
 			{
 				const T& cmp = (const T&)objects[i];
 				if((const T&)obj==(const T&)cmp)
@@ -246,10 +247,10 @@ namespace GameLibrary
 			return false;
 		}
 
-		unsigned int indexOf(const T& obj) const
+		size_t indexOf(const T& obj) const
 		{
-			unsigned int length = objects.size();
-			for(unsigned int i=0; i<length; i++)
+			size_t length = objects.size();
+			for(size_t i=0; i<length; i++)
 			{
 				const T& cmp = (const T&)objects[i];
 				if((const T&)obj==(const T&)cmp)
@@ -260,4 +261,6 @@ namespace GameLibrary
 			return ARRAYLIST_NOTFOUND;
 		}
 	};
+#ifdef ARRAYLIST_USES_GAMELIBRARY
 }
+#endif

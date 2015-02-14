@@ -21,7 +21,7 @@ namespace GameLibrary
 		StringException(const StringException&);
 		StringException(const std::string&reason);
 		virtual ~StringException();
-		virtual const char* what() const;
+		virtual const char* what() const _NOEXCEPT;
 	};
 #endif
 
@@ -88,7 +88,7 @@ namespace GameLibrary
 		friend String operator+(const long double&left, const String&right);
 	private:
 		char*characters;
-		unsigned int total;
+		size_t total;
 		
 	public:
 		static bool asBool(const String&);
@@ -113,9 +113,9 @@ namespace GameLibrary
 		String(const std::string&);
 		String(const std::wstring&);
 		String(const char*);
-		String(const char*str, unsigned int size);
+		String(const char*str, size_t size);
 		String(const wchar_t*);
-		String(const wchar_t*str, unsigned int size);
+		String(const wchar_t*str, size_t size);
 		String(const char&);
 		virtual ~String();
 
@@ -149,6 +149,7 @@ namespace GameLibrary
 		String& operator+=(float);
 		String& operator+=(double);
 		String& operator+=(long double);
+		void append(const char*str, size_t length);
 		
 		String& operator=(const String&);
 		String& operator=(const std::string&);
@@ -184,17 +185,17 @@ namespace GameLibrary
 		int compare(const String&) const;
 		
 		void clear();
-		unsigned int length() const;
-		char charAt(unsigned int index) const;
+		size_t length() const;
+		char charAt(size_t index) const;
 		String replace(char find, char replace) const;
 		String replace(const String&find, const String&rep) const;
-		String substring(unsigned int beginIndex) const;
-		String substring(unsigned int beginIndex, unsigned int endIndex) const;
+		String substring(size_t beginIndex) const;
+		String substring(size_t beginIndex, size_t endIndex) const;
 		String trim() const;
-		unsigned int indexOf(char) const;
-		unsigned int indexOf(const String&) const;
-		unsigned int lastIndexOf(char) const;
-		unsigned int lastIndexOf(const String&) const;
+		size_t indexOf(char) const;
+		size_t indexOf(const String&) const;
+		size_t lastIndexOf(char) const;
+		size_t lastIndexOf(const String&) const;
 		String toLowerCase() const;
 		String toUpperCase() const;
 	};
