@@ -20,7 +20,6 @@ namespace SmashBros
 			
 			rules = ruleData;
 			characterLoader = smashData.getModuleData()->getCharacterLoader();
-			Vector2f readyToFightPos = smashData.getScreenCoords(0.5f, 0.6f);
 			readyToFightBanner = new ReadyToFightBanner(this, 0, 0, smashData.getMenuData()->getAssetManager());
 			getElement()->getAutoLayout().add(RectF(0, 0.5f, 1.0f, 0.7f), readyToFightBanner);
 		}

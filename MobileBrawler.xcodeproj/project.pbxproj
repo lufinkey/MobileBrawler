@@ -96,7 +96,6 @@
 		A03064651A7710EA0090DD6E /* Dictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063C21A7710E90090DD6E /* Dictionary.cpp */; };
 		A03064661A7710EA0090DD6E /* Font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063C51A7710E90090DD6E /* Font.cpp */; };
 		A03064671A7710EA0090DD6E /* RenderedGlyphContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063C71A7710E90090DD6E /* RenderedGlyphContainer.cpp */; };
-		A03064681A7710EA0090DD6E /* Circle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063CA1A7710EA0090DD6E /* Circle.cpp */; };
 		A03064691A7710EA0090DD6E /* Polygon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063CC1A7710EA0090DD6E /* Polygon.cpp */; };
 		A030646A1A7710EA0090DD6E /* Transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063CF1A7710EA0090DD6E /* Transform.cpp */; };
 		A030646B1A7710EA0090DD6E /* Math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03063D21A7710EA0090DD6E /* Math.cpp */; };
@@ -136,6 +135,7 @@
 		A0A92D9E1A8B217B0059623D /* AutoLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0A92D9C1A8B207F0059623D /* AutoLayout.cpp */; };
 		A0A92D9F1A8B21850059623D /* ScrollElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0A92D9A1A8B20690059623D /* ScrollElement.cpp */; };
 		A0A92DA01A8B21890059623D /* MenuScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0A92D981A8B205F0059623D /* MenuScreen.cpp */; };
+		A0FFC3D31A8ED16000EC16B2 /* String.mm in Sources */ = {isa = PBXBuildFile; fileRef = A0FFC3D21A8ED16000EC16B2 /* String.mm */; };
 		E97FD7771A72DA22005AC479 /* Icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7651A72DA22005AC479 /* Icon-60.png */; };
 		E97FD7781A72DA22005AC479 /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7661A72DA22005AC479 /* Icon-60@2x.png */; };
 		E97FD7791A72DA22005AC479 /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E97FD7671A72DA22005AC479 /* Icon-60@3x.png */; };
@@ -329,7 +329,6 @@
 		A03063C61A7710E90090DD6E /* Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
 		A03063C71A7710E90090DD6E /* RenderedGlyphContainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderedGlyphContainer.cpp; sourceTree = "<group>"; };
 		A03063C81A7710E90090DD6E /* RenderedGlyphContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderedGlyphContainer.h; sourceTree = "<group>"; };
-		A03063CA1A7710EA0090DD6E /* Circle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Circle.cpp; sourceTree = "<group>"; };
 		A03063CB1A7710EA0090DD6E /* Circle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Circle.h; sourceTree = "<group>"; };
 		A03063CC1A7710EA0090DD6E /* Polygon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Polygon.cpp; sourceTree = "<group>"; };
 		A03063CD1A7710EA0090DD6E /* Polygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Polygon.h; sourceTree = "<group>"; };
@@ -416,6 +415,7 @@
 		A0A92D9B1A8B206A0059623D /* ScrollElement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrollElement.h; sourceTree = "<group>"; };
 		A0A92D9C1A8B207F0059623D /* AutoLayout.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AutoLayout.cpp; sourceTree = "<group>"; };
 		A0A92D9D1A8B207F0059623D /* AutoLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AutoLayout.h; sourceTree = "<group>"; };
+		A0FFC3D21A8ED16000EC16B2 /* String.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = String.mm; sourceTree = "<group>"; };
 		E97FD7651A72DA22005AC479 /* Icon-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60.png"; path = "icons/Icon-60.png"; sourceTree = "<group>"; };
 		E97FD7661A72DA22005AC479 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@2x.png"; path = "icons/Icon-60@2x.png"; sourceTree = "<group>"; };
 		E97FD7671A72DA22005AC479 /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@3x.png"; path = "icons/Icon-60@3x.png"; sourceTree = "<group>"; };
@@ -913,6 +913,7 @@
 				A03063D71A7710EA0090DD6E /* PlatformChecks.h */,
 				A03063D91A7710EA0090DD6E /* String.h */,
 				A03063D81A7710EA0090DD6E /* String.cpp */,
+				A0FFC3D21A8ED16000EC16B2 /* String.mm */,
 				A03063DB1A7710EA0090DD6E /* Thread.h */,
 				A03063DA1A7710EA0090DD6E /* Thread.cpp */,
 			);
@@ -934,7 +935,6 @@
 			isa = PBXGroup;
 			children = (
 				A03063CB1A7710EA0090DD6E /* Circle.h */,
-				A03063CA1A7710EA0090DD6E /* Circle.cpp */,
 				A03063CD1A7710EA0090DD6E /* Polygon.h */,
 				A03063CC1A7710EA0090DD6E /* Polygon.cpp */,
 				A03063CE1A7710EA0090DD6E /* Rectangle.h */,
@@ -1298,7 +1298,6 @@
 				A03064661A7710EA0090DD6E /* Font.cpp in Sources */,
 				A03064671A7710EA0090DD6E /* RenderedGlyphContainer.cpp in Sources */,
 				E9946E481A7AA6F60054F2C8 /* InitialLoadListener.cpp in Sources */,
-				A03064681A7710EA0090DD6E /* Circle.cpp in Sources */,
 				A03064691A7710EA0090DD6E /* Polygon.cpp in Sources */,
 				A030646A1A7710EA0090DD6E /* Transform.cpp in Sources */,
 				A030646B1A7710EA0090DD6E /* Math.cpp in Sources */,
@@ -1340,6 +1339,7 @@
 				A0A92D9E1A8B217B0059623D /* AutoLayout.cpp in Sources */,
 				A0A92D9F1A8B21850059623D /* ScrollElement.cpp in Sources */,
 				A0A92DA01A8B21890059623D /* MenuScreen.cpp in Sources */,
+				A0FFC3D31A8ED16000EC16B2 /* String.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

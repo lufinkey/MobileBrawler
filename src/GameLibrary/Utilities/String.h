@@ -3,6 +3,9 @@
 
 #include <climits>
 #include <string>
+#ifdef __OBJC__
+	#import <Foundation/Foundation.h>
+#endif
 
 #define STRING_USES_GAMELIBRARY
 
@@ -24,8 +27,8 @@ namespace GameLibrary
 		virtual const char* what() const _NOEXCEPT;
 	};
 #endif
-
-#define STRING_NOTFOUND UINT_MAX
+	
+#define STRING_NOTFOUND SIZE_T_MAX
 	
 	class String
 	{
@@ -86,6 +89,13 @@ namespace GameLibrary
 		//long double
 		friend String operator+(const String&left, const long double&right);
 		friend String operator+(const long double&left, const String&right);
+#ifdef __OBJC__
+		//NSString
+		friend String operator+(const String&left, const NSString*&right);
+		friend String operator+(const NSString*&left, const String&right);
+#endif
+		
+		
 	private:
 		char*characters;
 		size_t total;
@@ -117,6 +127,9 @@ namespace GameLibrary
 		String(const wchar_t*);
 		String(const wchar_t*str, size_t size);
 		String(const char&);
+#ifdef __OBJC__
+		String(const NSString*&);
+#endif
 		virtual ~String();
 
 		std::wstring wstring() const;
@@ -129,6 +142,9 @@ namespace GameLibrary
 		operator const char*() const;
 		operator std::string() const;
 		operator std::wstring() const;
+#ifdef __OBJC__
+		operator NSString*() const;
+#endif
 		
 		String& operator+=(const String&);
 		String& operator+=(const std::string&);
@@ -149,6 +165,9 @@ namespace GameLibrary
 		String& operator+=(float);
 		String& operator+=(double);
 		String& operator+=(long double);
+#ifdef __OBJC__
+		String& operator+=(const NSString*&);
+#endif
 		void append(const char*str, size_t length);
 		
 		String& operator=(const String&);
@@ -170,6 +189,9 @@ namespace GameLibrary
 		String& operator=(float);
 		String& operator=(double);
 		String& operator=(long double);
+#ifdef __OBJC__
+		String& operator=(const NSString*&);
+#endif
 
 		bool operator<(const String&) const;
 		bool operator<=(const String&) const;
@@ -199,7 +221,6 @@ namespace GameLibrary
 		String toLowerCase() const;
 		String toUpperCase() const;
 	};
-#ifdef STRING_USES_GAMELIBRARY
 
 	//String
 	String operator+(const String&left, const String&right);
@@ -257,6 +278,12 @@ namespace GameLibrary
 	//long double
 	String operator+(const String&left, const long double&right);
 	String operator+(const long double&left, const String&right);
+#ifdef __OBJC__
+	//NSString
+	String operator+(const String&left, const NSString*&right);
+	String operator+(const NSString*&left, const String&right);
+#endif
+#ifdef STRING_USES_GAMELIBRARY
 }
 #endif
 

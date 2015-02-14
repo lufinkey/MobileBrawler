@@ -5,6 +5,7 @@
 //#include <initializer_list>
 #include <vector>
 
+
 #define ARRAYLIST_USES_GAMELIBRARY
 
 #ifdef ARRAYLIST_USES_GAMELIBRARY
@@ -43,7 +44,7 @@ namespace GameLibrary
 	};
 #endif
 
-#define ARRAYLIST_NOTFOUND UINT_MAX
+#define ARRAYLIST_NOTFOUND SIZE_T_MAX
 	
 	template <typename T>
 	class ArrayList
@@ -67,6 +68,16 @@ namespace GameLibrary
 			}
 		}
 		
+		ArrayList(const std::vector<T>& vect)
+		{
+			size_t length = vect.size();
+			objects.resize(length);
+			for(size_t i=0; i<length; i++)
+			{
+				objects[i] = vect[i];
+			}
+		}
+		
 		/*ArrayList(const std::initializer_list<T>&list)
 		{
 			objects.resize(list.size())
@@ -79,6 +90,15 @@ namespace GameLibrary
 		ArrayList(size_t size)
 		{
 			objects.resize(size);
+		}
+		
+		ArrayList(const T*data, size_t size)
+		{
+			objects.resize(size);
+			for(size_t i=0; i<size; i++)
+			{
+				objects[i] = data[i];
+			}
 		}
 		
 		~ArrayList()
@@ -95,7 +115,17 @@ namespace GameLibrary
 			{
 				objects[i] = arr.objects[i];
 			}
-			
+			return *this;
+		}
+		
+		ArrayList<T>& operator=(const std::vector<T>& vect)
+		{
+			size_t length = vect.size();
+			objects.resize(length);
+			for(size_t i=0; i<length; i++)
+			{
+				objects[i] = vect[i];
+			}
 			return *this;
 		}
 

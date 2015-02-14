@@ -41,7 +41,7 @@ namespace GameLibrary
 
 		bool loadFromFile(const String&path, String*error=nullptr);
 		bool loadFromData(const DataPacket&data, String*error=nullptr);
-		bool loadFromPointer(const void*ptr, unsigned int size, String*error=nullptr);
+		bool loadFromPointer(const void*ptr, size_t size, String*error=nullptr);
 		bool loadFromString(const String&string, String*error=nullptr);
 		bool saveToFile(const String&path, bool binary=false, String*error=nullptr);
 	};
