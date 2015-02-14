@@ -84,7 +84,6 @@ namespace GameLibrary
 		//Font
 		class Font;
 		//Geometry
-		class Circle;
 		class Polygon;
 		class Transform;
 		//Time

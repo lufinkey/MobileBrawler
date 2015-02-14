@@ -240,9 +240,6 @@
     <ClCompile Include="src\GameLibrary\Utilities\Font\RenderedGlyphContainer.cpp">
       <Filter>src\GameLibrary\Utilities\Font</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameLibrary\Utilities\Geometry\Circle.cpp">
-      <Filter>src\GameLibrary\Utilities\Geometry</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameLibrary\Utilities\Geometry\Polygon.cpp">
       <Filter>src\GameLibrary\Utilities\Geometry</Filter>
     </ClCompile>

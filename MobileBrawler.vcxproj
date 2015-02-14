@@ -158,7 +158,6 @@
     <ClCompile Include="src\GameLibrary\Utilities\Dictionary.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Font\Font.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Font\RenderedGlyphContainer.cpp" />
-    <ClCompile Include="src\GameLibrary\Utilities\Geometry\Circle.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Geometry\Polygon.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Geometry\Transform.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Math.cpp" />
