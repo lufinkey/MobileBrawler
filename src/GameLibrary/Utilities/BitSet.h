@@ -34,8 +34,8 @@ namespace GameLibrary
 		BitSet& operator=(const BitSet&bitset);
 		bool operator==(const BitSet&) const;
 		
-		bool get(unsigned int index) const;
-		void set(unsigned int index, bool toggle);
+		bool get(size_t index) const;
+		void set(size_t index, bool toggle);
 		
 		const byte& getByte() const;
 	};

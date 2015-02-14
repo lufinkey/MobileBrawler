@@ -11,8 +11,8 @@ namespace GameLibrary
 	{
 	private:
 		ArrayList<BitSet> bytes;
-		unsigned int total;
-		unsigned int bitTotal;
+		size_t total;
+		size_t bitTotal;
 
 	public:
 		class BitAlias
@@ -22,7 +22,7 @@ namespace GameLibrary
 			BitSet* bitset;
 			byte bitIndex;
 
-			BitAlias(BitSet*bitset, unsigned int bitIndex);
+			BitAlias(BitSet*bitset, size_t bitIndex);
 
 		public:
 			BitAlias(const BitAlias&);
@@ -38,31 +38,31 @@ namespace GameLibrary
 		//TODO implement if std::initializer_list is available
 		//BitList(const std::initializer_list<T>&);
 		
-		BitList(unsigned int size);
+		BitList(size_t size);
 		~BitList();
 
 		BitList& operator=(const BitList&);
-		BitAlias operator[](unsigned int index);
-		const BitAlias operator[](unsigned int index) const;
+		BitAlias operator[](size_t index);
+		const BitAlias operator[](size_t index) const;
 
-		bool get(unsigned int index) const;
-		bool get(unsigned int byteIndex, unsigned int bitIndex) const;
-		void set(unsigned int index, bool value);
-		void set(unsigned int byteIndex, unsigned int bitIndex, bool value);
+		bool get(size_t index) const;
+		bool get(size_t byteIndex, size_t bitIndex) const;
+		void set(size_t index, bool value);
+		void set(size_t byteIndex, size_t bitIndex, bool value);
 
 		byte* getData();
 		const byte* getData() const;
 
 		void add(bool value);
-		void add(unsigned int index, bool value);
-		void add(unsigned int byteIndex, unsigned int bitIndex, bool value);
+		void add(size_t index, bool value);
+		void add(size_t byteIndex, size_t bitIndex, bool value);
 
-		void remove(unsigned int index);
-		void remove(unsigned int byteIndex, unsigned int bitIndex);
+		void remove(size_t index);
+		void remove(size_t byteIndex, size_t bitIndex);
 
 		void clear();
-		unsigned int size() const;
-		unsigned int sizeBytes() const;
-		void resize(unsigned int size);
+		size_t size() const;
+		size_t sizeBytes() const;
+		void resize(size_t size);
 	};
 }

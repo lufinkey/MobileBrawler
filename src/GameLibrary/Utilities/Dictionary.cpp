@@ -18,7 +18,7 @@ namespace GameLibrary
 	
 	Dictionary::Dictionary(const ArrayList<String>& keys, const ArrayList<Any>& values)
 	{
-		for(unsigned int i=0; i<keys.size() && i<values.size(); i++)
+		for(size_t i=0; i<keys.size() && i<values.size(); i++)
 		{
 			contents.add(Pair<String,Any>(keys.get(i), values.get(i)));
 		}
@@ -31,7 +31,7 @@ namespace GameLibrary
 	
 	Any& Dictionary::set(const String& key, const Any& value)
 	{
-		for(unsigned int i=0; i<contents.size(); i++)
+		for(size_t i=0; i<contents.size(); i++)
 		{
 			Pair<String, Any>& pair = contents.get(i);
 			if(pair.first.equals(key))
@@ -46,7 +46,7 @@ namespace GameLibrary
 	
 	Any& Dictionary::get(const String& key)
 	{
-		for(unsigned int i=0; i<contents.size(); i++)
+		for(size_t i=0; i<contents.size(); i++)
 		{
 			Pair<String, Any>& pair = contents.get(i);
 			if(pair.first.equals(key))
@@ -60,7 +60,7 @@ namespace GameLibrary
 	
 	const Any& Dictionary::get(const String& key) const
 	{
-		for(unsigned int i=0; i<contents.size(); i++)
+		for(size_t i=0; i<contents.size(); i++)
 		{
 			const Pair<String, Any>& pair = contents.get(i);
 			if(pair.first.equals(key))
@@ -74,7 +74,7 @@ namespace GameLibrary
 	
 	bool Dictionary::has(const String& key) const
 	{
-		for(unsigned int i=0; i<contents.size(); i++)
+		for(size_t i=0; i<contents.size(); i++)
 		{
 			const Pair<String, Any>& pair = contents.get(i);
 			if(pair.first.equals(key))
@@ -88,7 +88,7 @@ namespace GameLibrary
 	ArrayList<String> Dictionary::getKeys() const
 	{
 		ArrayList<String> keys(contents.size());
-		for(unsigned int i=0; i<contents.size(); i++)
+		for(size_t i=0; i<contents.size(); i++)
 		{
 			keys.set(i, contents.get(i).first);
 		}
@@ -98,7 +98,7 @@ namespace GameLibrary
 	ArrayList<Any> Dictionary::getValues() const
 	{
 		ArrayList<Any> keys(contents.size());
-		for(unsigned int i=0; i<contents.size(); i++)
+		for(size_t i=0; i<contents.size(); i++)
 		{
 			keys.set(i, contents.get(i).second);
 		}
@@ -115,7 +115,12 @@ namespace GameLibrary
 		contents.clear();
 	}
 	
-	Pair<unsigned int, unsigned int> Dictionary_getParsePosition(const void*ptr, unsigned int offset);
+	size_t Dictionary::size() const
+	{
+		return contents.size();
+	}
+	
+	Pair<size_t, size_t> Dictionary_getParsePosition(const void*ptr, size_t offset);
 	bool Dictionary_parse(const void*ptr, pugi::xml_node, const String&type, String*error);
 	bool Dictionary_parseDictionary(const void*ptr, pugi::xml_node&node, Dictionary&dictionary, String*error);
 	bool Dictionary_parseArray(const void*ptr, pugi::xml_node&node, ArrayList<Any>&arraylist, String*error);
@@ -160,7 +165,7 @@ namespace GameLibrary
 		return loadFromPointer((const void*)data.getData(), data.size(), error);
 	}
 	
-	bool Dictionary::loadFromPointer(const void*ptr, unsigned int size, String*error)
+	bool Dictionary::loadFromPointer(const void*ptr, size_t size, String*error)
 	{
 		if(ptr == nullptr)
 		{
@@ -282,13 +287,13 @@ namespace GameLibrary
 		#endif
 	}
 	
-	Pair<unsigned int, unsigned int> Dictionary_getParsePosition(const void*ptr, unsigned int offset)
+	Pair<size_t, size_t> Dictionary_getParsePosition(const void*ptr, size_t offset)
 	{
-		unsigned int currentLine = 1;
-		unsigned int currentOffset = 0;
+		size_t currentLine = 1;
+		size_t currentOffset = 0;
 		char*str = (char*)ptr;
 		bool didNewline = false;
-		for(unsigned int i = 0; i < offset; i++)
+		for(size_t i = 0; i < offset; i++)
 		{
 			if(str[i]=='\n')
 			{
@@ -314,7 +319,7 @@ namespace GameLibrary
 				didNewline = false;
 			}
 		}
-		return Pair<unsigned int, unsigned int>(currentLine, currentOffset);
+		return Pair<size_t, size_t>(currentLine, currentOffset);
 	}
 	
 	bool Dictionary_parse(const void*ptr, pugi::xml_node&node, Any&any, String*error)
@@ -364,8 +369,8 @@ namespace GameLibrary
 			}
 			catch(const NumberFormatException&e)
 			{
-				unsigned int offset = node.offset_debug();
-				Pair<unsigned int, unsigned int> doc_pos = Dictionary_getParsePosition(ptr, offset);
+				size_t offset = node.offset_debug();
+				Pair<size_t, size_t> doc_pos = Dictionary_getParsePosition(ptr, offset);
 				if(error!=nullptr)
 				{
 					*error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": " + e.message;
@@ -390,8 +395,8 @@ namespace GameLibrary
 			}
 			catch(const NumberFormatException&e)
 			{
-				unsigned int offset = node.offset_debug();
-				Pair<unsigned int, unsigned int> doc_pos = Dictionary_getParsePosition(ptr, offset);
+				size_t offset = node.offset_debug();
+				Pair<size_t, size_t> doc_pos = Dictionary_getParsePosition(ptr, offset);
 				if(error!=nullptr)
 				{
 					*error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": " + e.message;
@@ -414,8 +419,8 @@ namespace GameLibrary
 			}
 			else
 			{
-				unsigned int offset = node.offset_debug();
-				Pair<unsigned int, unsigned int> doc_pos = Dictionary_getParsePosition(ptr, offset);
+				size_t offset = node.offset_debug();
+				Pair<size_t, size_t> doc_pos = Dictionary_getParsePosition(ptr, offset);
 				if(error!=nullptr)
 				{
 					*error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": Invalid boolean value";
@@ -437,8 +442,8 @@ namespace GameLibrary
 		}
 		else
 		{
-			unsigned int offset = node.offset_debug();
-			Pair<unsigned int, unsigned int> doc_pos = Dictionary_getParsePosition(ptr, offset);
+			size_t offset = node.offset_debug();
+			Pair<size_t, size_t> doc_pos = Dictionary_getParsePosition(ptr, offset);
 			if(error!=nullptr)
 			{
 				*error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": Invalid tag";
@@ -453,8 +458,8 @@ namespace GameLibrary
 		{
 			if(!String("key").equals(it->name()))
 			{
-				unsigned int offset = node.offset_debug();
-				Pair<unsigned int, unsigned int> doc_pos = Dictionary_getParsePosition(ptr, offset);
+				size_t offset = node.offset_debug();
+				Pair<size_t, size_t> doc_pos = Dictionary_getParsePosition(ptr, offset);
 				if(error!=nullptr)
 				{
 					*error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": XML dictionary key expected but not found";
@@ -467,8 +472,8 @@ namespace GameLibrary
 			
 			if(it == node.end())
 			{
-				unsigned int offset = node.offset_debug();
-				Pair<unsigned int, unsigned int> doc_pos = Dictionary_getParsePosition(ptr, offset);
+				size_t offset = node.offset_debug();
+				Pair<size_t, size_t> doc_pos = Dictionary_getParsePosition(ptr, offset);
 				if(error!=nullptr)
 				{
 					*error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": XML dictionary value expected for key " + key + "but not found";
@@ -477,8 +482,8 @@ namespace GameLibrary
 			}
 			else if(String("key").equals(it->name()))
 			{
-				unsigned int offset = node.offset_debug();
-				Pair<unsigned int, unsigned int> doc_pos = Dictionary_getParsePosition(ptr, offset);
+				size_t offset = node.offset_debug();
+				Pair<size_t, size_t> doc_pos = Dictionary_getParsePosition(ptr, offset);
 				if(error!=nullptr)
 				{
 					*error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": XML dictionary value expected for key " + key + "but found another key node";
@@ -500,7 +505,7 @@ namespace GameLibrary
 	{
 		for(pugi::xml_node_iterator it = node.begin(); it != node.end(); ++it)
 		{
-			unsigned int index = arraylist.size();
+			size_t index = arraylist.size();
 			arraylist.add(Any());
 			bool result = Dictionary_parse(ptr, node, arraylist.get(index), error);
 			if(!result)
@@ -545,7 +550,7 @@ namespace GameLibrary
 			_time = mktime(&tmTime);
 			if(_time < -1)
 			{
-				Pair<unsigned int, unsigned int> doc_pos = Dictionary_getParsePosition(ptr, node.offset_debug());
+				Pair<size_t, size_t> doc_pos = Dictionary_getParsePosition(ptr, node.offset_debug());
 				if(error!=nullptr)
 				{
 					*error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": Invalid date format";
@@ -572,7 +577,7 @@ namespace GameLibrary
 			_time = mktime(&tmTime);
 			if(_time < -1)
 			{
-				Pair<unsigned int, unsigned int> doc_pos = Dictionary_getParsePosition(ptr, node.offset_debug());
+				Pair<size_t, size_t> doc_pos = Dictionary_getParsePosition(ptr, node.offset_debug());
 				if(error!=nullptr)
 				{
 					*error = (String)"" + doc_pos.first + ":" + doc_pos.second + ": Invalid date format";
@@ -742,7 +747,7 @@ namespace GameLibrary
 	{
 		pugi::xml_node newNode = node.append_child("dict");
 		const ArrayList<Pair<String, Any> >& contents = dictionary.getContents();
-		for(unsigned int i=0; i<contents.size(); i++)
+		for(size_t i=0; i<contents.size(); i++)
 		{
 			const Pair<String, Any>& pair = contents.get(i);
 			pugi::xml_node keyNode = newNode.append_child("key");
@@ -759,7 +764,7 @@ namespace GameLibrary
 	bool Dictionary_writeArray(pugi::xml_node&node, const ArrayList<Any>&arraylist, String*error)
 	{
 		pugi::xml_node newNode = node.append_child("array");
-		for(unsigned int i=0; i<arraylist.size(); i++)
+		for(size_t i=0; i<arraylist.size(); i++)
 		{
 			bool result = Dictionary_write(newNode, arraylist.get(i), error);
 			if(!result)

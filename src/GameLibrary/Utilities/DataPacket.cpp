@@ -53,7 +53,7 @@ namespace GameLibrary
 		else
 		{
 			data = (byte*)std::malloc(dataPacket.total);
-			for(unsigned int i=0; i<dataPacket.total; i++)
+			for(size_t i=0; i<dataPacket.total; i++)
 			{
 				data[i] = dataPacket.data[i];
 			}
@@ -71,7 +71,7 @@ namespace GameLibrary
 		{
 			data = (byte*)std::malloc(str.length());
 			const byte* cpyBytes = (const byte*)((const char*)str);
-			for(unsigned int i = 0; i < str.length(); i++)
+			for(size_t i = 0; i < str.length(); i++)
 			{
 				data[i] = cpyBytes[i];
 			}
@@ -79,28 +79,28 @@ namespace GameLibrary
 		}
 	}
 	
-	DataPacket::DataPacket(unsigned int size)
+	DataPacket::DataPacket(size_t size)
 	{
 		data = (byte*)std::malloc(size);
-		for(unsigned int i=0; i<size; i++)
+		for(size_t i=0; i<size; i++)
 		{
 			data[i] = 0;
 		}
 		total = size;
 	}
 	
-	DataPacket::DataPacket(const void*data1, unsigned int size)
+	DataPacket::DataPacket(const void*data1, size_t size)
 	{
 		if(size>0)
 		{
 			if(data1 == nullptr)
 			{
-				throw IllegalArgumentException("data argument in DataPacket(const void*data,unsigned int size) cannot be nullptr if size>0");
+				throw IllegalArgumentException("data argument in DataPacket(const void*data,size_t size) cannot be nullptr if size>0");
 			}
 
 			data = (byte*)std::malloc(size);
 			const byte*copyBytes = (const byte*)data1;
-			for(unsigned int i=0; i<size; i++)
+			for(size_t i=0; i<size; i++)
 			{
 				data[i] = copyBytes[i];
 			}
@@ -159,7 +159,7 @@ namespace GameLibrary
 		
 		std::fclose(file);
 
-		total = (unsigned int)fileSize;
+		total = (size_t)fileSize;
 
 		return true;
 	}
@@ -210,13 +210,13 @@ namespace GameLibrary
 		return (const void*)data;
 	}
 
-	void DataPacket::setData(const void*data1, unsigned int size)
+	void DataPacket::setData(const void*data1, size_t size)
 	{
 		if(size > 0)
 		{
 			if(data1==nullptr)
 			{
-				throw IllegalArgumentException("data argument in DataPacket::setData(const void*data,unsigned int size) cannot be nullptr if size>0");
+				throw IllegalArgumentException("data argument in DataPacket::setData(const void*data,size_t size) cannot be nullptr if size>0");
 			}
 
 			if(data==nullptr)
@@ -229,7 +229,7 @@ namespace GameLibrary
 			}
 
 			const byte*copyBytes = (const byte*)data1;
-			for(unsigned int i=0; i<size; i++)
+			for(size_t i=0; i<size; i++)
 			{
 				data[i] = copyBytes[i];
 			}
@@ -259,7 +259,7 @@ namespace GameLibrary
 				data = (byte*)std::realloc(data, dataPacket.total);
 			}
 
-			for(unsigned int i=0; i<dataPacket.total; i++)
+			for(size_t i=0; i<dataPacket.total; i++)
 			{
 				data[i] = dataPacket.data[i];
 			}
@@ -276,19 +276,19 @@ namespace GameLibrary
 		}
 	}
 	
-	unsigned int DataPacket::size() const
+	size_t DataPacket::size() const
 	{
 		return total;
 	}
 	
-	void DataPacket::resize(unsigned int size)
+	void DataPacket::resize(size_t size)
 	{
 		if(size > 0)
 		{
 			if(data==nullptr)
 			{
 				data = (byte*)std::malloc(size);
-				for(unsigned int i=0; i<size; i++)
+				for(size_t i=0; i<size; i++)
 				{
 					data[i] = 0;
 				}
@@ -299,7 +299,7 @@ namespace GameLibrary
 				data = (byte*)std::realloc(data, size);
 				if(size>total)
 				{
-					for(unsigned int i=total; i<size; i++)
+					for(size_t i=total; i<size; i++)
 					{
 						data[i] = 0;
 					}
@@ -328,20 +328,20 @@ namespace GameLibrary
 		}
 	}
 	
-	void DataPacket::add(const void*data1, unsigned int size)
+	void DataPacket::add(const void*data1, size_t size)
 	{
 		if(size>0)
 		{
 			if(data1 == nullptr)
 			{
-				throw IllegalArgumentException("data argument in DataPacket::add(const void*data,unsigned int size) cannot be nullptr if size>0");
+				throw IllegalArgumentException("data argument in DataPacket::add(const void*data,size_t size) cannot be nullptr if size>0");
 			}
 
 			if(data == nullptr)
 			{
 				data = (byte*)std::malloc(size);
 				const byte*copyBytes = (const byte*)data1;
-				for(unsigned int i=0; i<size; i++)
+				for(size_t i=0; i<size; i++)
 				{
 					data[i] = copyBytes[i];
 				}
@@ -349,11 +349,11 @@ namespace GameLibrary
 			}
 			else
 			{
-				unsigned int newTotal = total + size;
+				size_t newTotal = total + size;
 				data = (byte*)std::realloc(data, newTotal);
 				const byte*copyBytes = (const byte*)data1;
-				unsigned int counter = 0;
-				for(unsigned int i=total; i<newTotal; i++)
+				size_t counter = 0;
+				for(size_t i=total; i<newTotal; i++)
 				{
 					data[i] = copyBytes[counter];
 					counter++;
@@ -363,7 +363,7 @@ namespace GameLibrary
 		}
 	}
 	
-	void DataPacket::add(unsigned int byteIndex, const void*data1, unsigned int size)
+	void DataPacket::add(size_t byteIndex, const void*data1, size_t size)
 	{
 		if(byteIndex > total)
 		{
@@ -373,14 +373,14 @@ namespace GameLibrary
 		{
 			if(data1 == nullptr)
 			{
-				throw IllegalArgumentException("data argument in DataPacket::add(unsigned int byteIndex,const void*data,unsigned int size) cannot be nullptr if size>0");
+				throw IllegalArgumentException("data argument in DataPacket::add(size_t byteIndex,const void*data,size_t size) cannot be nullptr if size>0");
 			}
 
 			if(data == nullptr)
 			{
 				data = (byte*)std::malloc(size);
 				const byte*copyBytes = (const byte*)data1;
-				for(unsigned int i=0; i<size; i++)
+				for(size_t i=0; i<size; i++)
 				{
 					data[i] = copyBytes[i];
 				}
@@ -388,18 +388,18 @@ namespace GameLibrary
 			}
 			else
 			{
-				unsigned int newTotal = total+size;
+				size_t newTotal = total+size;
 				data = (byte*)std::realloc(data, newTotal);
 				const byte*copyBytes = (const byte*)data1;
-				unsigned int counter = (total-1);
-				unsigned int endIndex = byteIndex + size;
-				for(unsigned int i=(newTotal-1); i>endIndex; i--)
+				size_t counter = (total-1);
+				size_t endIndex = byteIndex + size;
+				for(size_t i=(newTotal-1); i>endIndex; i--)
 				{
 					data[i] = data[counter];
 					counter--;
 				}
 				counter = byteIndex;
-				for(unsigned int i=0; i<size; i++)
+				for(size_t i=0; i<size; i++)
 				{
 					data[counter] = copyBytes[i];
 					counter++;
@@ -416,7 +416,7 @@ namespace GameLibrary
 			if(data == nullptr)
 			{
 				data = (byte*)std::malloc(dataPacket.total);
-				for(unsigned int i=0; i<dataPacket.total; i++)
+				for(size_t i=0; i<dataPacket.total; i++)
 				{
 					data[i] = dataPacket.data[i];
 				}
@@ -424,10 +424,10 @@ namespace GameLibrary
 			}
 			else
 			{
-				unsigned int newTotal = total + dataPacket.total;
+				size_t newTotal = total + dataPacket.total;
 				data = (byte*)std::realloc(data, newTotal);
-				unsigned int counter = 0;
-				for(unsigned int i=total; i<newTotal; i++)
+				size_t counter = 0;
+				for(size_t i=total; i<newTotal; i++)
 				{
 					data[i] = dataPacket.data[counter];
 					counter++;
@@ -437,7 +437,7 @@ namespace GameLibrary
 		}
 	}
 	
-	void DataPacket::add(unsigned int byteIndex, const DataPacket&dataPacket)
+	void DataPacket::add(size_t byteIndex, const DataPacket&dataPacket)
 	{
 		if(byteIndex > total)
 		{
@@ -448,7 +448,7 @@ namespace GameLibrary
 			if(data == nullptr)
 			{
 				data = (byte*)std::malloc(dataPacket.total);
-				for(unsigned int i=0; i<dataPacket.total; i++)
+				for(size_t i=0; i<dataPacket.total; i++)
 				{
 					data[i] = dataPacket.data[i];
 				}
@@ -456,17 +456,17 @@ namespace GameLibrary
 			}
 			else
 			{
-				unsigned int newTotal = total+dataPacket.total;
+				size_t newTotal = total+dataPacket.total;
 				data = (byte*)std::realloc(data, newTotal);
-				unsigned int counter = (total-1);
-				unsigned int endIndex = byteIndex + dataPacket.total;
-				for(unsigned int i=(newTotal-1); i>endIndex; i--)
+				size_t counter = (total-1);
+				size_t endIndex = byteIndex + dataPacket.total;
+				for(size_t i=(newTotal-1); i>endIndex; i--)
 				{
 					data[i] = data[counter];
 					counter--;
 				}
 				counter = byteIndex;
-				for(unsigned int i=0; i<dataPacket.total; i++)
+				for(size_t i=0; i<dataPacket.total; i++)
 				{
 					data[counter] = dataPacket.data[i];
 					counter++;
@@ -492,7 +492,7 @@ namespace GameLibrary
 		}
 	}
 	
-	void DataPacket::add(unsigned int byteIndex, byte dataByte)
+	void DataPacket::add(size_t byteIndex, byte dataByte)
 	{
 		if(byteIndex > total)
 		{
@@ -508,9 +508,9 @@ namespace GameLibrary
 			}
 			else
 			{
-				unsigned int newTotal = total+1;
+				size_t newTotal = total+1;
 				data = (byte*)std::realloc(data, newTotal);
-				for(unsigned int i=(newTotal-1); i>byteIndex; i--)
+				for(size_t i=(newTotal-1); i>byteIndex; i--)
 				{
 					data[i] = data[i-1];
 				}
@@ -520,7 +520,7 @@ namespace GameLibrary
 		}
 	}
 	
-	void DataPacket::remove(unsigned int byteIndex, unsigned int size)
+	void DataPacket::remove(size_t byteIndex, size_t size)
 	{
 		if(byteIndex >= total)
 		{
@@ -528,14 +528,14 @@ namespace GameLibrary
 		}
 		else if(size>0)
 		{
-			unsigned int endOfRemove = byteIndex+size;
-			unsigned int counter = byteIndex;
-			for(unsigned int i=endOfRemove; i<total; i++)
+			size_t endOfRemove = byteIndex+size;
+			size_t counter = byteIndex;
+			for(size_t i=endOfRemove; i<total; i++)
 			{
 				data[counter] = data[i];
 				counter++;
 			}
-			unsigned int newTotal = total - size;
+			size_t newTotal = total - size;
 			if(newTotal == 0)
 			{
 				std::free(data);
@@ -550,7 +550,7 @@ namespace GameLibrary
 		}
 	}
 	
-	void DataPacket::remove(unsigned int byteIndex)
+	void DataPacket::remove(size_t byteIndex)
 	{
 		if(byteIndex >= total)
 		{
@@ -558,22 +558,22 @@ namespace GameLibrary
 		}
 		else
 		{
-			unsigned int endOfRemove = byteIndex+1;
-			unsigned int counter = byteIndex;
-			for(unsigned int i=endOfRemove; i<total; i++)
+			size_t endOfRemove = byteIndex+1;
+			size_t counter = byteIndex;
+			for(size_t i=endOfRemove; i<total; i++)
 			{
 				data[counter] = data[i];
 				counter++;
 			}
-			unsigned int newTotal = total - 1;
+			size_t newTotal = total - 1;
 			data = (byte*)std::realloc(data, newTotal);
 			total = newTotal;
 		}
 	}
 	
-	void DataPacket::set(unsigned int byteIndex, const void*data1, unsigned int size)
+	void DataPacket::set(size_t byteIndex, const void*data1, size_t size)
 	{
-		unsigned int endIndex = byteIndex + size;
+		size_t endIndex = byteIndex + size;
 		if(endIndex>total)
 		{
 			throw DataPacketOutOfBoundsException(byteIndex, total);
@@ -582,36 +582,36 @@ namespace GameLibrary
 		{
 			if(data1 == nullptr)
 			{
-				throw IllegalArgumentException("data argument in DataPacket::set(unsigned int byteIndex,const void*data,unsigned int size) cannot be nullptr if size>0");
+				throw IllegalArgumentException("data argument in DataPacket::set(size_t byteIndex,const void*data,size_t size) cannot be nullptr if size>0");
 			}
 
 			const byte*copyBytes = (const byte*)data1;
-			unsigned int counter = byteIndex;
-			for(unsigned int i=0; i<size; i++)
+			size_t counter = byteIndex;
+			for(size_t i=0; i<size; i++)
 			{
 				data[counter] = copyBytes[i];
 			}
 		}
 	}
 	
-	void DataPacket::set(unsigned int byteIndex, const DataPacket&dataPacket)
+	void DataPacket::set(size_t byteIndex, const DataPacket&dataPacket)
 	{
-		unsigned int endIndex = byteIndex + dataPacket.total;
+		size_t endIndex = byteIndex + dataPacket.total;
 		if(endIndex>total)
 		{
 			throw DataPacketOutOfBoundsException(byteIndex, total);
 		}
 		else if(dataPacket.total>0)
 		{
-			unsigned int counter = byteIndex;
-			for(unsigned int i=0; i<dataPacket.total; i++)
+			size_t counter = byteIndex;
+			for(size_t i=0; i<dataPacket.total; i++)
 			{
 				data[counter] = dataPacket.data[i];
 			}
 		}
 	}
 	
-	void DataPacket::set(unsigned int byteIndex, byte dataByte)
+	void DataPacket::set(size_t byteIndex, byte dataByte)
 	{
 		if(byteIndex >= total)
 		{
@@ -623,7 +623,7 @@ namespace GameLibrary
 		}
 	}
 	
-	void*DataPacket::get(unsigned int byteIndex)
+	void*DataPacket::get(size_t byteIndex)
 	{
 		if(byteIndex >= total)
 		{
@@ -635,7 +635,7 @@ namespace GameLibrary
 		}
 	}
 
-	const void*DataPacket::get(unsigned int byteIndex) const
+	const void*DataPacket::get(size_t byteIndex) const
 	{
 		if(byteIndex >= total)
 		{
@@ -647,7 +647,7 @@ namespace GameLibrary
 		}
 	}
 	
-	byte DataPacket::getByte(unsigned int byteIndex) const
+	byte DataPacket::getByte(size_t byteIndex) const
 	{
 		if(byteIndex >= total)
 		{

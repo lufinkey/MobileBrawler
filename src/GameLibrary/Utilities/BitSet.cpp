@@ -62,12 +62,12 @@ namespace GameLibrary
 		return false;
 	}
 	
-	bool BitSet::get(unsigned int index) const
+	bool BitSet::get(size_t index) const
 	{
 		return ((b & (1 << index))!=0);
 	}
 	
-	void BitSet::set(unsigned int index, bool toggle)
+	void BitSet::set(size_t index, bool toggle)
 	{
 		if(toggle)
 		{

@@ -9,7 +9,7 @@ namespace GameLibrary
 		bitIndex = bitalias.bitIndex;
 	}
 
-	BitList::BitAlias::BitAlias(BitSet*bs, unsigned int bi)
+	BitList::BitAlias::BitAlias(BitSet*bs, size_t bi)
 	{
 		bitset = bs;
 		bitIndex = (byte)bi;
@@ -17,13 +17,13 @@ namespace GameLibrary
 
 	BitList::BitAlias& BitList::BitAlias::operator=(bool value)
 	{
-		bitset->set((unsigned int)bitIndex, value);
+		bitset->set((size_t)bitIndex, value);
 		return *this;
 	}
 
 	BitList::BitAlias::operator bool() const
 	{
-		return bitset->get((unsigned int)bitIndex);
+		return bitset->get((size_t)bitIndex);
 	}
 
 	BitList::BitList()
@@ -43,7 +43,7 @@ namespace GameLibrary
 	{
 		bitTotal = 0;
 		total = 0;
-		for(unsigned int i = 0; i < boolvect.size(); i++)
+		for(size_t i = 0; i < boolvect.size(); i++)
 		{
 			total++;
 			if(bitTotal==8 || bitTotal==0)
@@ -60,9 +60,9 @@ namespace GameLibrary
 		}
 	}
 
-	BitList::BitList(unsigned int size)
+	BitList::BitList(size_t size)
 	{
-		unsigned int byteTotal = size/8;
+		size_t byteTotal = size/8;
 		bitTotal = size % 8;
 		if(bitTotal == 0)
 		{
@@ -92,22 +92,22 @@ namespace GameLibrary
 		return *this;
 	}
 
-	BitList::BitAlias BitList::operator[](unsigned int index)
+	BitList::BitAlias BitList::operator[](size_t index)
 	{
 		return BitAlias(&bytes.get(index/8), index%8);
 	}
 
-	const BitList::BitAlias BitList::operator[](unsigned int index) const
+	const BitList::BitAlias BitList::operator[](size_t index) const
 	{
 		return BitAlias((BitSet*)(&bytes.get(index/8)), index%8);
 	}
 
-	bool BitList::get(unsigned int index) const
+	bool BitList::get(size_t index) const
 	{
 		return BitList::get(index/8, index%8);
 	}
 
-	bool BitList::get(unsigned int byteIndex, unsigned int bitIndex) const
+	bool BitList::get(size_t byteIndex, size_t bitIndex) const
 	{
 		if(bitIndex > 7)
 		{
@@ -127,12 +127,12 @@ namespace GameLibrary
 		}
 	}
 
-	void BitList::set(unsigned int index, bool value)
+	void BitList::set(size_t index, bool value)
 	{
 		BitList::set(index/8, index%8, value);
 	}
 
-	void BitList::set(unsigned int byteIndex, unsigned int bitIndex, bool value)
+	void BitList::set(size_t byteIndex, size_t bitIndex, bool value)
 	{
 		if(bitIndex > 7)
 		{
@@ -178,12 +178,12 @@ namespace GameLibrary
 		}
 	}
 
-	void BitList::add(unsigned int index, bool value)
+	void BitList::add(size_t index, bool value)
 	{
 		BitList::add(index/8, index%8, value);
 	}
 
-	void BitList::add(unsigned int byteIndex, unsigned int bitIndex, bool value)
+	void BitList::add(size_t byteIndex, size_t bitIndex, bool value)
 	{
 		if(bitIndex > 7)
 		{
@@ -219,17 +219,17 @@ namespace GameLibrary
 
 			total++;
 		
-			unsigned int byteIndexCounter = bytes.size()-1;
-			unsigned int bitIndexCounter = 7;
+			size_t byteIndexCounter = bytes.size()-1;
+			size_t bitIndexCounter = 7;
 			if(byteIndexCounter>0 || bitIndexCounter>0)
 			{
-				for(unsigned int i=(bytes.size()-1); i!=UINT_MAX; i--)
+				for(size_t i=(bytes.size()-1); i!=UINT_MAX; i--)
 				{
 					bitIndexCounter = 7;
 					BitSet& bitset = bytes.get(i);
 					if(byteIndexCounter==byteIndex)
 					{
-						for(unsigned int j=8; j>=1; j--)
+						for(size_t j=8; j>=1; j--)
 						{
 							if(bitIndexCounter==bitIndex)
 							{
@@ -251,7 +251,7 @@ namespace GameLibrary
 					}
 					else
 					{
-						for(unsigned int j=8; j>=1; j--)
+						for(size_t j=8; j>=1; j--)
 						{
 							if(j==1)
 							{
@@ -279,12 +279,12 @@ namespace GameLibrary
 		}
 	}
 
-	void BitList::remove(unsigned int index)
+	void BitList::remove(size_t index)
 	{
 		BitList::remove(index/8, index%8);
 	}
 
-	void BitList::remove(unsigned int byteIndex, unsigned int bitIndex)
+	void BitList::remove(size_t byteIndex, size_t bitIndex)
 	{
 		if(bitIndex > 7)
 		{
@@ -292,7 +292,7 @@ namespace GameLibrary
 		}
 		try
 		{
-			unsigned int lastByteIndex = bytes.size()-1;
+			size_t lastByteIndex = bytes.size()-1;
 			if(byteIndex >= bytes.size())
 			{
 				throw BitListOutOfBoundsException(byteIndex, bitIndex, total);
@@ -308,11 +308,11 @@ namespace GameLibrary
 			total--;
 			bitTotal--;
 
-			for(unsigned int i=byteIndex; i<bytes.size(); i++)
+			for(size_t i=byteIndex; i<bytes.size(); i++)
 			{
 				BitSet& bitset = bytes.get(i);
 
-				unsigned int startBitIndex = 0;
+				size_t startBitIndex = 0;
 				if(i==byteIndex)
 				{
 					startBitIndex = bitIndex;
@@ -320,7 +320,7 @@ namespace GameLibrary
 
 				if(i==lastByteIndex)
 				{
-					for(unsigned int j=startBitIndex; j<8; j++)
+					for(size_t j=startBitIndex; j<8; j++)
 					{
 						if(j != 7)
 						{
@@ -330,7 +330,7 @@ namespace GameLibrary
 				}
 				else
 				{
-					for(unsigned int j=startBitIndex; j<8; j++)
+					for(size_t j=startBitIndex; j<8; j++)
 					{
 						if(j == 7)
 						{
@@ -364,22 +364,22 @@ namespace GameLibrary
 		bitTotal = 0;
 	}
 
-	unsigned int BitList::size() const
+	size_t BitList::size() const
 	{
 		return total;
 	}
 
-	unsigned int BitList::sizeBytes() const
+	size_t BitList::sizeBytes() const
 	{
 		return bytes.size();
 	}
 
-	void BitList::resize(unsigned int size)
+	void BitList::resize(size_t size)
 	{
-		unsigned int oldByteTotal = bytes.size();
-		unsigned int oldBitTotal = bitTotal;
+		size_t oldByteTotal = bytes.size();
+		size_t oldBitTotal = bitTotal;
 
-		unsigned int byteTotal = size/8;
+		size_t byteTotal = size/8;
 		bitTotal = size % 8;
 		if(bitTotal == 0)
 		{
@@ -399,22 +399,22 @@ namespace GameLibrary
 		{
 			if((byteTotal==oldByteTotal && bitTotal>oldBitTotal) || byteTotal>oldByteTotal)
 			{
-				unsigned int byteStartIndex = oldByteTotal-1;
-				unsigned int bitStartIndex = oldBitTotal;
+				size_t byteStartIndex = oldByteTotal-1;
+				size_t bitStartIndex = oldBitTotal;
 				if(bitStartIndex == 8)
 				{
 					bitStartIndex = 0;
 					byteStartIndex++;
 				}
-				for(unsigned int i=byteStartIndex; i<byteTotal; i++)
+				for(size_t i=byteStartIndex; i<byteTotal; i++)
 				{
 					BitSet& bitset = bytes.get(i);
-					unsigned int startIndex = 0;
+					size_t startIndex = 0;
 					if(i==byteStartIndex)
 					{
 						startIndex = bitStartIndex;
 					}
-					for(unsigned int j=startIndex; j<8; j++)
+					for(size_t j=startIndex; j<8; j++)
 					{
 						bitset.set(j, false);
 					}

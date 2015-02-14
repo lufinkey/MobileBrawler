@@ -11,7 +11,7 @@ namespace GameLibrary
 	{
 	private:
 		byte*data;
-		unsigned int total;
+		size_t total;
 
 	public:
 		static int toInt(const void*data);
@@ -23,8 +23,8 @@ namespace GameLibrary
 		DataPacket();
 		DataPacket(const DataPacket&);
 		DataPacket(const String&);
-		DataPacket(unsigned int size);
-		DataPacket(const void*data, unsigned int size);
+		DataPacket(size_t size);
+		DataPacket(const void*data, size_t size);
 		~DataPacket();
 
 		DataPacket& operator=(const DataPacket&);
@@ -34,28 +34,28 @@ namespace GameLibrary
 
 		void*getData();
 		const void*getData() const;
-		void setData(const void*data, unsigned int size);
+		void setData(const void*data, size_t size);
 		void setData(const DataPacket&data);
-		unsigned int size() const;
+		size_t size() const;
 
-		void resize(unsigned int size);
+		void resize(size_t size);
 		void clear();
 
-		void add(const void*data, unsigned int size);
-		void add(unsigned int byteIndex, const void*data, unsigned int size);
-		void remove(unsigned int byteIndex, unsigned int size);
-		void set(unsigned int byteIndex, const void*data, unsigned int size);
-		void*get(unsigned int byteIndex);
-		const void*get(unsigned int byteIndex) const;
+		void add(const void*data, size_t size);
+		void add(size_t byteIndex, const void*data, size_t size);
+		void remove(size_t byteIndex, size_t size);
+		void set(size_t byteIndex, const void*data, size_t size);
+		void*get(size_t byteIndex);
+		const void*get(size_t byteIndex) const;
 
 		void add(const DataPacket&data);
-		void add(unsigned int byteIndex, const DataPacket&data);
-		void set(unsigned int byteIndex, const DataPacket&data);
+		void add(size_t byteIndex, const DataPacket&data);
+		void set(size_t byteIndex, const DataPacket&data);
 
 		void add(byte dataByte);
-		void add(unsigned int byteIndex, byte dataByte);
-		void remove(unsigned int byteIndex);
-		void set(unsigned int byteIndex, byte dataByte);
-		byte getByte(unsigned int byteIndex) const;
+		void add(size_t byteIndex, byte dataByte);
+		void remove(size_t byteIndex);
+		void set(size_t byteIndex, byte dataByte);
+		byte getByte(size_t byteIndex) const;
 	};
 }

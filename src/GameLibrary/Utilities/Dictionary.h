@@ -37,6 +37,7 @@ namespace GameLibrary
 		const ArrayList<Pair<String, Any> >& getContents() const;
 
 		void clear();
+		size_t size() const;
 
 		bool loadFromFile(const String&path, String*error=nullptr);
 		bool loadFromData(const DataPacket&data, String*error=nullptr);
