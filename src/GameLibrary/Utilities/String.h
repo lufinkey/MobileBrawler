@@ -28,7 +28,7 @@ namespace GameLibrary
 	};
 #endif
 	
-#define STRING_NOTFOUND SIZE_T_MAX
+#define STRING_NOTFOUND SIZE_MAX
 	
 	class String
 	{

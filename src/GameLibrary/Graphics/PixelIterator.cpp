@@ -44,7 +44,7 @@ namespace GameLibrary
 		lastRowStartIndex = currentPixelIndex;
 	}
 	
-	PixelIterator::PixelIterator(const Vector2u&dims, const RectangleU&srcrect, const RectangleF&dstrect, const RectangleF&looprect, float xincrement, float yincrement, const Transform&transform, const Vector2f&rat, bool mirrorHorizontal_arg, bool mirrorVertical_arg)
+	PixelIterator::PixelIterator(const Vector2u&dims, const RectangleU&srcrect, const RectangleF&dstrect, const RectangleF&looprect, float xincrement, float yincrement, const TransformF&transform, const Vector2f&rat, bool mirrorHorizontal_arg, bool mirrorVertical_arg)
 	{
 		if(!dstRect.contains(loopRect))
 		{

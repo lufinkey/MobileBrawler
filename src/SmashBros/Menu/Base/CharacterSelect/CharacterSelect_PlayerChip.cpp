@@ -124,7 +124,7 @@ namespace SmashBros
 			{
 				dragging = true;
 				dragTouchID = touchID;
-				Transform mouseTransform = appData.getTransform().getInverse();
+				TransformF mouseTransform = appData.getTransform().getInverse();
 				if(Multitouch::isAvailable())
 				{
 					dragOffset = Vector2f(x,y) - mouseTransform.transform(Multitouch::getPosition(appData.getWindow(), touchID));

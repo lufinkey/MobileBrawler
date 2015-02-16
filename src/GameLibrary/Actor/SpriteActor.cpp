@@ -512,7 +512,7 @@ namespace GameLibrary
 			}
 			else
 			{
-				Transform transform = rotationMatrix;
+				TransformF transform = rotationMatrix;
 				transform.translate(-(width/2), -(height/2));
 				float ratiox = ((float)srcRect.width)/width;
 				float ratioy = ((float)srcRect.height)/height;
@@ -529,7 +529,7 @@ namespace GameLibrary
 			}
 			else
 			{
-				Transform transform = actor->rotationMatrix;
+				TransformF transform = actor->rotationMatrix;
 				transform.translate(-(actor->width/2), -(actor->height/2));
 				float ratiox = ((float)actor_srcRect.width)/actor->width;
 				float ratioy = ((float)actor_srcRect.height)/actor->height;

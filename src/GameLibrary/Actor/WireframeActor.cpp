@@ -169,7 +169,7 @@ namespace GameLibrary
 
 	bool WireframeActor::checkPointCollision(const Vector2f&point)
 	{
-		Polygon polygon = Polygon();
+		PolygonF polygon;
 		polygon.addPoint(Vector2f(0,0));
 		polygon.addPoint(Vector2f(width,0));
 		polygon.addPoint(Vector2f(width,height));

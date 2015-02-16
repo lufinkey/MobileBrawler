@@ -44,7 +44,7 @@ namespace GameLibrary
 	};
 #endif
 
-#define ARRAYLIST_NOTFOUND SIZE_T_MAX
+#define ARRAYLIST_NOTFOUND SIZE_MAX
 	
 	template <typename T>
 	class ArrayList

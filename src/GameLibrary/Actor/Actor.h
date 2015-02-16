@@ -228,8 +228,8 @@ namespace GameLibrary
 		float alpha;
 		float scale;
 		
-		Transform rotationMatrix;
-		Transform inverseRotationMatrix;
+		TransformF rotationMatrix;
+		TransformF inverseRotationMatrix;
 		
 		typedef struct
 		{

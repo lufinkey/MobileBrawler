@@ -7,24 +7,38 @@
 namespace GameLibrary
 {
 	template<typename T>
+	/*! Contains data about a rectangle*/
 	class RectangleType
 	{
 	public:
+		/*! The x coordinate of the top left of the rectangle*/
 		T x;
+		/*! The y coordinate of the top left of the rectangle*/
 		T y;
+		/*! The width of the rectangle*/
 		T width;
+		/*! The height of the rectangle*/
 		T height;
-
+		
+		/*! default constructor*/
 		RectangleType() : x(0), y(0), width(0), height(0)
 		{
 			//
 		}
-	
-		RectangleType(const T&X, const T&Y, const T&W, const T&H) : x(X), y(Y), width(W), height(H)
+		
+		/*! Constructs a rectangle with a given top left coordinate and size.
+			\param x the x coordinate of the top left of the rectangle
+			\param y the y coordinate of the top left of the rectangle
+			\param width the width of the rectangle
+			\param height the height of the rectangle*/
+		RectangleType(const T&x, const T&t, const T&width, const T&height) : x(x), y(y), width(width), height(height)
 		{
 			//
 		}
-
+		
+		/*! Calculates whether a given point is inside the bounds of the rectangle.
+			\param point the point to check
+			\returns true if the given point is inside the rectangle's bounds, or false if otherwise*/
 		bool contains(const Vector2<T>&point) const
 		{
 			if(point.x>=x && point.y>=y && point.x<=(x+width) && point.y<=(y+height))
@@ -34,6 +48,9 @@ namespace GameLibrary
 			return false;
 		}
 		
+		/*! Calculates whether a given rectangle is inside the bounds of this rectangle.
+			\param rect the rectangle to check
+			\returns true if the given rectangle is inside this rectangle's bounds, or false if otherwise*/
 		bool contains(const RectangleType<T>&rect) const
 		{
 			if(x <= rect.x &&y <= rect.y && x >= (rect.x+rect.width) && y >= (rect.y+rect.height))
@@ -42,14 +59,17 @@ namespace GameLibrary
 			}
 			return false;
 		}
-	
+		
+		/*! Calculates whether a given rectangle is intersecting the bounds of this rectangle.
+			\param rect the rectangle to check
+			\param true if the given rectangle is intersecting this rectangle's bounds, or false if otherwise*/
 		bool intersects(const RectangleType<T>&rect) const
 		{
 			T left1, left2;
 			T right1, right2;
 			T top1, top2;
 			T bottom1, bottom2;
-		
+			
 			left1 = x;
 			left2 = rect.x;
 			right1 = x+width;
@@ -58,7 +78,7 @@ namespace GameLibrary
 			top2 = rect.y;
 			bottom1 = y+height;
 			bottom2 = rect.y+rect.height;
-		
+			
 			if (bottom1 < top2)
 			{
 				return false;
@@ -67,7 +87,7 @@ namespace GameLibrary
 			{
 				return false;
 			}
-		
+			
 			if (right1 < left2)
 			{
 				return false;
@@ -76,15 +96,20 @@ namespace GameLibrary
 			{
 				return false;
 			}
-		
+			
 			return true;
 		}
 		
+		/*! Calculates the area of the rectangle (width*height).
+			\returns a value representing the width multiplied by the height*/
 		T getArea() const
 		{
 			return width*height;
 		}
 		
+		/*! Gets a rectangle of the overlap between this rectangle and a given rectangle.
+			\param rect the rectangle to check the overlap with
+			\returns a rectangle representing the overlap, or a Rectangle containing a width and height of 0 if the rectangle is not overlapping*/
 		RectangleType getIntersect(const RectangleType<T>&rect) const
 		{
 			T overlapLeft = 0;
@@ -197,7 +222,9 @@ namespace GameLibrary
 			width = right-left;
 			height = bottom-top;
 		}
-	
+		
+		/*! Resizes and moves this rectangle, maintaining its aspect ratio, to fit within a given containing rectangle.
+			\param container a containing rectangle*/
 		void scaleToFit(const RectangleType<T>&container)
 		{
 			T fixedHeight = height;
@@ -222,7 +249,9 @@ namespace GameLibrary
 			x = container.x + ((container.width - width)/2);
 			y = container.y + ((container.height - height)/2);
 		}
-	
+		
+		/*! Resizes and moves this rectangle, maintaining its aspect ratio, to exactly fill a given containing rectangle.
+			\param container a containing rectangle*/
 		void scaleToFill(const RectangleType<T>&container)
 		{
 			T fixedHeight = height;
@@ -260,13 +289,16 @@ namespace GameLibrary
 			height = (T)(polygon.getPoints().get(2).y - polygon.getPoints().get(0).y);
 		}*/
 		
-		Polygon toPolygon() const
+		/*! Creates a polygon with the coordinates of the 4 corners of this rectangle.
+			\returns a Polygon object*/
+		PolygonType<T> toPolygon() const
 		{
-			Polygon polygon;
+			PolygonType<T> polygon;
 			polygon.addPoint((float)x, (float)y);
 			polygon.addPoint((float)(x+width), (float)y);
 			polygon.addPoint((float)(x+width), (float)(y+height));
 			polygon.addPoint((float)x, (float)(y+height));
+			return polygon;
 		}
 	};
 	
@@ -276,6 +308,7 @@ namespace GameLibrary
 	typedef RectangleType<double> RectangleD;
 	
 	template<typename T>
+	/*! */
 	class RectType
 	{
 	public:

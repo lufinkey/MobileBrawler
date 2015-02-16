@@ -34,7 +34,7 @@ namespace GameLibrary
 			\param mirrorHorizontal true if the destination image or canvas is mirrored horizontally, and false if otherwise
 			\param mirrorVertical true if the destination image or canvas is mirrored vertically, and false if otherwise
 			\throws GameLibrary::IllegalArgumentException if loopRect is not contained within dstRect or if srcRect is stretches larger than dimensions*/
-		PixelIterator(const Vector2u&dimensions, const RectangleU&srcRect, const RectangleF&dstRect, const RectangleF&loopRect, float xincrement, float yincrement, const Transform&transform, const Vector2f&ratio, bool mirrorHorizontal=false, bool mirrorVertical=false);
+		PixelIterator(const Vector2u&dimensions, const RectangleU&srcRect, const RectangleF&dstRect, const RectangleF&loopRect, float xincrement, float yincrement, const TransformF&transform, const Vector2f&ratio, bool mirrorHorizontal=false, bool mirrorVertical=false);
 		/*! copy constructor*/
 		PixelIterator(const PixelIterator&);
 		/*! assignment operator*/
@@ -61,7 +61,7 @@ namespace GameLibrary
 		RectangleF loopRect;
 		RectF loopRectRel; //relative to dstRect
 
-		Transform inverseTransform;
+		TransformF inverseTransform;
 		bool usesTransform;
 		bool mirrorHorizontal;
 		bool mirrorVertical;

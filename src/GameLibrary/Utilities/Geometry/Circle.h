@@ -4,7 +4,7 @@
 namespace GameLibrary
 {
 	template<typename T>
-	/*! Contains data about a circle value*/
+	/*! Contains data about a circle*/
 	class CircleType
 	{
 	public:

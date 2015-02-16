@@ -158,8 +158,6 @@
     <ClCompile Include="src\GameLibrary\Utilities\Dictionary.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Font\Font.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Font\RenderedGlyphContainer.cpp" />
-    <ClCompile Include="src\GameLibrary\Utilities\Geometry\Polygon.cpp" />
-    <ClCompile Include="src\GameLibrary\Utilities\Geometry\Transform.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Math.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Number.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\String.cpp" />
@@ -326,6 +324,11 @@
     <ClInclude Include="src\SmashBros\Menu\MenuData\SmashData.h" />
     <ClInclude Include="src\SmashBros\Menu\SoloMenu\SoloMenu.h" />
     <ClInclude Include="src\SmashBros\Menu\TitleScreen.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\GameLibrary\Utilities\String.mm">
+      <FileType>Document</FileType>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

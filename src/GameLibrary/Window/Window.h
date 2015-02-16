@@ -144,7 +144,7 @@ namespace GameLibrary
 		void addEventListener(WindowEventListener*);
 		void removeEventListener(WindowEventListener*);
 
-		Transform getViewTransform();
+		TransformF getViewTransform();
 
 		void getHandlePtr(void*ptr) const;
 	};

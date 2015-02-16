@@ -240,12 +240,6 @@
     <ClCompile Include="src\GameLibrary\Utilities\Font\RenderedGlyphContainer.cpp">
       <Filter>src\GameLibrary\Utilities\Font</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameLibrary\Utilities\Geometry\Polygon.cpp">
-      <Filter>src\GameLibrary\Utilities\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameLibrary\Utilities\Geometry\Transform.cpp">
-      <Filter>src\GameLibrary\Utilities\Geometry</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameLibrary\Utilities\Time\DateTime.cpp">
       <Filter>src\GameLibrary\Utilities\Time</Filter>
     </ClCompile>
@@ -470,6 +464,9 @@
     </ClCompile>
     <ClCompile Include="src\SmashBros\Menu\SoloMenu\SoloMenu.cpp">
       <Filter>src\SmashBros\Menu\SoloMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Utilities\String.mm">
+      <Filter>src\GameLibrary\Utilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

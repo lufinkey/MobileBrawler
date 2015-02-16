@@ -162,7 +162,7 @@ namespace GameLibrary
 		}
 		clipoffset = Vector2f(0,0);
 		
-		transform = Transform();
+		transform = TransformF();
 		rotation = 0;
 		scaling.x = 1;
 		scaling.y = 1;
@@ -318,7 +318,7 @@ namespace GameLibrary
 		translate(delta.x, delta.y);
 	}
 	
-	Transform Graphics::getTransform() const
+	TransformF Graphics::getTransform() const
 	{
 		return transform;
 	}
@@ -558,9 +558,9 @@ namespace GameLibrary
 		fillOval(rect.x, rect.y, rect.width, rect.height);
 	}*/
 	
-	void Graphics::drawPolygon(const Polygon& polygon)
+	void Graphics::drawPolygon(const PolygonF& polygon)
 	{
-		Polygon transformedPolygon = transform.transform(polygon);
+		PolygonF transformedPolygon = transform.transform(polygon);
 		
 		const ArrayList<Vector2f>& points = transformedPolygon.getPoints();
 		if(points.size() > 0)

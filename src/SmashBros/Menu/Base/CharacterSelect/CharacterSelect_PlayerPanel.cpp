@@ -31,7 +31,7 @@ namespace SmashBros
 				virtual void onMouseRelease(ApplicationData appData, unsigned int touchID) override
 				{
 					Vector2f touchpos;
-					Transform mouseTransform = appData.getTransform().getInverse();
+					TransformF mouseTransform = appData.getTransform().getInverse();
 					if(Multitouch::isAvailable())
 					{
 						touchpos = mouseTransform.transform(Multitouch::getPreviousPosition(appData.getWindow(), touchID));

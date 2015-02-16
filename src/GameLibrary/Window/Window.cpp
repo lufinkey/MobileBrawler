@@ -733,9 +733,9 @@ namespace GameLibrary
 		}
 	}
 
-	Transform Window::getViewTransform()
+	TransformF Window::getViewTransform()
 	{
-		Transform transform;
+		TransformF transform;
 
 		if(windowdata == nullptr)
 		{

@@ -74,8 +74,8 @@ namespace GameLibrary
 		
 		
 		/*! Gets the current transformation of the Graphics
-			\returns a Transform object*/
-		virtual Transform getTransform() const;
+			\returns a TransformF object*/
+		virtual TransformF getTransform() const;
 		
 		
 		/*! Sets the alpha (transparency) of the Graphics.
@@ -188,8 +188,8 @@ namespace GameLibrary
 		//void fillOval(float x1,float y1,float w,float h);
 		//void fillOval(const RectangleF& rect);
 		
-		void drawPolygon(const Polygon&polygon);
-		//void fillPolygon(const Polygon&polygon);
+		void drawPolygon(const PolygonF&polygon);
+		//void fillPolygon(const PolygonF&polygon);
 		
 		
 		/*! Draws a TextureImage to the Window.
@@ -261,7 +261,7 @@ namespace GameLibrary
 		float rotation;
 		Vector2f scaling;
 		
-		Transform transform;
+		TransformF transform;
 
 		bool derived;
 	};
