@@ -38,7 +38,7 @@ namespace GameLibrary
 		return *this;
 	}
 	
-	String operator+(const String&left, const NSString*&right)
+	String String::operator+(const String&left, const NSString*&right)
 	{
 		String str;
 		size_t total2 = left.total + (size_t)[right length];
@@ -59,7 +59,7 @@ namespace GameLibrary
 		return str;
 	}
 	
-	String operator+(const NSString*&left, const String&right)
+	String String::operator+(const NSString*&left, const String&right)
 	{
 		String str;
 		size_t left_total = (size_t)[left length];
