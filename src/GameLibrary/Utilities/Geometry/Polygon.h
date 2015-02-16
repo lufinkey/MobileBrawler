@@ -49,7 +49,8 @@ namespace GameLibrary
 		{
 			for(unsigned int i=0; i<numpoints; i++)
 			{
-				points.add(pnts[i]);
+#pragma warning Error here
+				//points.add(pnts[i]);
 			}
 		}
 		

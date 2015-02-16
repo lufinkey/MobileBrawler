@@ -2,6 +2,7 @@
 #pragma once
 
 #include <GameLibrary/GameLibrary.h>
+#include "SmashData.h"
 
 namespace SmashBros
 {
