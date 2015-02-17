@@ -15,13 +15,10 @@ namespace SmashBros
 	
 	void InitialLoadListener::onBatchLoaderLoadTexture(BatchLoader*batchLoader, const String&path, unsigned int value)
 	{
-		ImageElement* logo;
 		AssetManager* assetManager = batchLoader->getAssetManager();
 		
-		TextureImage* loadingImage = assetManager->getTexture("backgrounds/loading.png");
+		loadingImage = assetManager->getTexture("backgrounds/loading.png");
 		Vector2f loadingImageSize(800,450);
-		logo = new ImageElement(loadingImage, ImageElement::DISPLAY_FIT);
-		
 		Graphics* graphics = window->getGraphics();
 		graphics->drawImage(loadingImage, 0, 0);
 		window->refresh();
@@ -44,6 +41,6 @@ namespace SmashBros
 	
 	void InitialLoadListener::onBatchLoaderFinish(BatchLoader*batchLoader)
 	{
-		//
+		delete loadingImage;
 	}
 }
