@@ -182,7 +182,7 @@ namespace GameLibrary
 					for(unsigned int i = 0; i < listeners.size(); i++)
 					{
 						BatchLoaderEventListener*listener = listeners.get(i);
-						listener->onBatchLoaderErrorStage(this, info.path, info.value, error);
+						listener->onBatchLoaderErrorFont(this, info.path, info.value, error);
 					}
 				}
 			}
@@ -211,7 +211,7 @@ namespace GameLibrary
 					for(unsigned int i = 0; i < listeners.size(); i++)
 					{
 						BatchLoaderEventListener*listener = listeners.get(i);
-						listener->onBatchLoaderErrorFont(this, info.path, info.value, error);
+						listener->onBatchLoaderErrorStage(this, info.path, info.value, error);
 					}
 				}
 			}
