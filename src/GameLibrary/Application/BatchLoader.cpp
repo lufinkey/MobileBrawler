@@ -72,7 +72,17 @@ namespace GameLibrary
 		loadlist.add(info);
 		loadtotal += value;
 	}
-
+	/*
+	void BatchLoader::addStage(const String&path, unsigned int value)
+	{
+		LoadInfo info;
+		info.path = path;
+		info.type = LOADTYPE_STAGE;
+		info.value = value;
+		loadlist.add(info);
+		loadtotal += value;
+	}
+	 */
 	unsigned int BatchLoader::getLoadCurrent()
 	{
 		return loadcurrent;
@@ -172,10 +182,40 @@ namespace GameLibrary
 					for(unsigned int i = 0; i < listeners.size(); i++)
 					{
 						BatchLoaderEventListener*listener = listeners.get(i);
+						listener->onBatchLoaderErrorStage(this, info.path, info.value, error);
+					}
+				}
+			}
+			/*
+			if(info.type == LOADTYPE_STAGE)
+			{
+				if(assetManager == nullptr)
+				{
+					throw IllegalStateException("AssetManager cannot be null while loading a BatchLoader");
+				}
+				String error;
+				bool success = assetManager->loadFont(info.path, &error);
+				loadcurrent+=info.value;
+				if(success)
+				{
+					ArrayList<BatchLoaderEventListener*> listeners = eventListeners;
+					for(unsigned int i = 0; i < listeners.size(); i++)
+					{
+						BatchLoaderEventListener*listener = listeners.get(i);
+						listener->onBatchLoaderLoadStage(this, info.path, info.value);
+					}
+				}
+				else
+				{
+					ArrayList<BatchLoaderEventListener*> listeners = eventListeners;
+					for(unsigned int i = 0; i < listeners.size(); i++)
+					{
+						BatchLoaderEventListener*listener = listeners.get(i);
 						listener->onBatchLoaderErrorFont(this, info.path, info.value, error);
 					}
 				}
 			}
+			*/
 		}
 	}
 

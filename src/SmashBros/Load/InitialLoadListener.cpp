@@ -23,7 +23,12 @@ namespace SmashBros
 		graphics->drawImage(loadingImage, 0, 0);
 		window->refresh();
 	}
-	
+	/*
+	void InitialLoadListener::onBatchLoaderLoadStage(BatchLoader*batchLoader, const String&path, unsigned int value)
+	{
+		//
+	}
+	*/
 	void InitialLoadListener::onBatchLoaderLoadFont(BatchLoader*batchLoader, const String&path, unsigned int value)
 	{
 		//
@@ -38,9 +43,14 @@ namespace SmashBros
 	{
 		//
 	}
-	
+	/*
+	void InitialLoadListener::onBatchLoaderErrorStage(BatchLoader*batchLoader, const String&path, unsigned int value, const String&error)
+	{
+		
+	}
+	*/
 	void InitialLoadListener::onBatchLoaderFinish(BatchLoader*batchLoader)
 	{
-		delete loadingImage;
+		//
 	}
 }

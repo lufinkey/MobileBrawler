@@ -48,6 +48,10 @@ namespace GameLibrary
 			\param path a path to a font file
 			\param value the "load" value of the font, which gets added to the current load value \see GameLibrary::BatchLoader::getLoadCurrent()*/
 		void addFont(const String&path, unsigned int value=1);
+		/*! Adds a path to a stage to load.
+			\param path a path to a font file
+			\param value the "load" value of the stage, which gets added to the current load value \see GameLibrary::BatchLoader::getLoadCurrent()*/
+		//void addStage(const String&path, unsigned int value);
 		
 		
 		/*! Gets the current load value. Each time an asset tries to load, this value is incremented by the asset's given value.
@@ -73,7 +77,8 @@ namespace GameLibrary
 		typedef enum
 		{
 			LOADTYPE_TEXTURE,
-			LOADTYPE_FONT
+			LOADTYPE_FONT,
+			LOADTYPE_STAGE
 		} LoadType;
 
 		typedef struct
@@ -116,6 +121,11 @@ namespace GameLibrary
 			\param path the path to the loaded asset
 			\param value the load value of the asset*/
 		virtual void onBatchLoaderLoadFont(BatchLoader*batchLoader, const String&path, unsigned int value){}
+		/*! Called when the BatchLoader successfully loads a Stage
+			\param batchLoader the current BatchLoader
+			\param path the path to the loaded asset
+			\param value the load value of the asset*/
+		virtual void onBatchLoaderLoadStage(BatchLoader*batchLoader, const String&path, unsigned int value){}
 		/*! Called when the BatchLoader fails to load a TextureImage
 			\param batchLoader the current BatchLoader
 			\param path the path to the loaded asset
@@ -128,6 +138,12 @@ namespace GameLibrary
 			\param value the load value of the asset
 			\param error the error message*/
 		virtual void onBatchLoaderErrorFont(BatchLoader*batchLoader, const String&path, unsigned int value, const String&error){}
+		/*! Called when the BatchLoader fails to load a Stage
+			\param batchLoader the current BatchLoader
+			\param path the path to the loaded asset
+			\param value the load value of the asset
+			\param error the error message*/
+		virtual void onBatchLoaderErrorStage(BatchLoader*batchLoader, const String&path, unsigned int value, const String&error){}
 		/*! Called when the BatchLoader finishes running loadAll
 			\param batchLoader the current BatchLoader*/
 		virtual void onBatchLoaderFinish(BatchLoader*batchLoader){}
