@@ -49,7 +49,7 @@ namespace GameLibrary
 		{
 			for(unsigned int i=0; i<numpoints; i++)
 			{
-#pragma warning Error here
+				/*ERROR HERE*/
 				//points.add(pnts[i]);
 			}
 		}

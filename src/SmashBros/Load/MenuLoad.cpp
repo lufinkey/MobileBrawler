@@ -144,6 +144,7 @@ namespace SmashBros
 		//LOAD MENU ASSETS HERE:
 		
 		batchLoader->addTexture("backgrounds/main.png");
+		batchLoader->addTexture("backgrounds/loading.png");
 		
 		batchLoader->addTexture("buttons/back.png");
 		batchLoader->addTexture("buttons/main/group.png");
