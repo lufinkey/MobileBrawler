@@ -78,7 +78,7 @@ namespace GameLibrary
 		{
 			LOADTYPE_TEXTURE,
 			LOADTYPE_FONT,
-			LOADTYPE_STAGE
+			//LOADTYPE_STAGE
 		} LoadType;
 
 		typedef struct
@@ -125,7 +125,7 @@ namespace GameLibrary
 			\param batchLoader the current BatchLoader
 			\param path the path to the loaded asset
 			\param value the load value of the asset*/
-		virtual void onBatchLoaderLoadStage(BatchLoader*batchLoader, const String&path, unsigned int value){}
+		//virtual void onBatchLoaderLoadStage(BatchLoader*batchLoader, const String&path, unsigned int value){}
 		/*! Called when the BatchLoader fails to load a TextureImage
 			\param batchLoader the current BatchLoader
 			\param path the path to the loaded asset
@@ -143,7 +143,7 @@ namespace GameLibrary
 			\param path the path to the loaded asset
 			\param value the load value of the asset
 			\param error the error message*/
-		virtual void onBatchLoaderErrorStage(BatchLoader*batchLoader, const String&path, unsigned int value, const String&error){}
+		//virtual void onBatchLoaderErrorStage(BatchLoader*batchLoader, const String&path, unsigned int value, const String&error){}
 		/*! Called when the BatchLoader finishes running loadAll
 			\param batchLoader the current BatchLoader*/
 		virtual void onBatchLoaderFinish(BatchLoader*batchLoader){}
