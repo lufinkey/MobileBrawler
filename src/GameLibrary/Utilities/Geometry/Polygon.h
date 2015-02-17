@@ -49,7 +49,7 @@ namespace GameLibrary
 		{
 			for(unsigned int i=0; i<numpoints; i++)
 			{
-				points.add(pnts[i]);
+				PolygonType::points.add(points[i]);
 			}
 		}
 		
