@@ -15,7 +15,13 @@ namespace SmashBros
 	
 	void InitialLoadListener::onBatchLoaderLoadTexture(BatchLoader*batchLoader, const String&path, unsigned int value)
 	{
-		//
+		AssetManager* assetManager = batchLoader->getAssetManager();
+		
+		loadingImage = assetManager->getTexture("backgrounds/loading.png");
+		Vector2f loadingImageSize(800,450);
+		Graphics* graphics = window->getGraphics();
+		graphics->drawImage(loadingImage, 0, 0);
+		window->refresh();
 	}
 	
 	void InitialLoadListener::onBatchLoaderLoadFont(BatchLoader*batchLoader, const String&path, unsigned int value)
@@ -35,6 +41,6 @@ namespace SmashBros
 	
 	void InitialLoadListener::onBatchLoaderFinish(BatchLoader*batchLoader)
 	{
-		//
+		delete loadingImage;
 	}
 }
