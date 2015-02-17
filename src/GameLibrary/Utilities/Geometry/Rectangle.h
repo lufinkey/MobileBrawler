@@ -31,7 +31,7 @@ namespace GameLibrary
 			\param y the y coordinate of the top left of the rectangle
 			\param width the width of the rectangle
 			\param height the height of the rectangle*/
-		RectangleType(const T&x, const T&t, const T&width, const T&height) : x(x), y(y), width(width), height(height)
+		RectangleType(const T&x, const T&y, const T&width, const T&height) : x(x), y(y), width(width), height(height)
 		{
 			//
 		}
