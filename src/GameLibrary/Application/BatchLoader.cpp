@@ -72,7 +72,6 @@ namespace GameLibrary
 		loadlist.add(info);
 		loadtotal += value;
 	}
-
 	unsigned int BatchLoader::getLoadCurrent()
 	{
 		return loadcurrent;

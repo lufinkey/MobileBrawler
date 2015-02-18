@@ -63,10 +63,11 @@ namespace SmashBros
 		moduleLoad->setStageSelectPreviewMask(&menuLoad->getStageSelectPreviewMask());
 		moduleLoad->load();
 		
-		delete loadListener;
-
+		// MOVED
 		titleScreen = new Menu::TitleScreen(*smashData);
 		menuScreenMgr = new ScreenManager(getWindow(), titleScreen);
+		
+		delete loadListener;
 	}
 	
 	void Game::unloadContent(AssetManager*assetManager)

@@ -116,6 +116,11 @@ namespace GameLibrary
 			\param path the path to the loaded asset
 			\param value the load value of the asset*/
 		virtual void onBatchLoaderLoadFont(BatchLoader*batchLoader, const String&path, unsigned int value){}
+		/*! Called when the BatchLoader successfully loads a Stage
+			\param batchLoader the current BatchLoader
+			\param path the path to the loaded asset
+			\param value the load value of the asset*/
+		//virtual void onBatchLoaderLoadStage(BatchLoader*batchLoader, const String&path, unsigned int value){}
 		/*! Called when the BatchLoader fails to load a TextureImage
 			\param batchLoader the current BatchLoader
 			\param path the path to the loaded asset
