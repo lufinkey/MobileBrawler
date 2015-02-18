@@ -15,20 +15,19 @@ namespace SmashBros
 	
 	void InitialLoadListener::onBatchLoaderLoadTexture(BatchLoader*batchLoader, const String&path, unsigned int value)
 	{
-		GameLibrary::Console::writeLine("Batch loader is loading textures...");
+		GameLibrary::Console::writeLine("Batch loader loaded a texture.");
 		AssetManager* assetManager = batchLoader->getAssetManager();
 		loadingImage = assetManager->getTexture("backgrounds/loading.png");
 		
-		Vector2f loadingImageSize(800,450);
+		Vector2f loadingImageSize(600,900);
 		Graphics* graphics = window->getGraphics();
 		graphics->drawImage(loadingImage, 0, 0);
-		GameLibrary::Console::writeLine("Drawing loading image and refreshing window");
 		window->refresh();
 	}
 	
 	void InitialLoadListener::onBatchLoaderLoadFont(BatchLoader*batchLoader, const String&path, unsigned int value)
 	{
-		GameLibrary::Console::writeLine("Batch loader is loading fonts...");
+		GameLibrary::Console::writeLine("Batch loader loaded a font.");
 	}
 	
 	void InitialLoadListener::onBatchLoaderErrorTexture(BatchLoader*batchLoader, const String&path, unsigned int value, const String&error)

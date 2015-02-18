@@ -115,7 +115,8 @@ namespace SmashBros
 				autoLayout.setFrame(frame);
 				if(tapRegion_mode!=nullptr)
 				{
-					tapRegion_mode->x = frame.x;
+					//EXC_BAD_ACCESS (code=EXC_ARM_DA_ALIGN, address=0x70795477
+					tapRegion_mode->x = frame.x;// <--------
 					tapRegion_mode->y = frame.y;
 					tapRegion_mode->setSize(frame.width, frame.height);
 				}
