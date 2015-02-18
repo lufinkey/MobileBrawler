@@ -23,15 +23,7 @@ namespace SmashBros
 		graphics->drawImage(loadingImage, 0, 0);
 		window->refresh();
 	}
-	/*
-	 // Eventually we may want to load stage assets at game launch instead of when a character is selected.
-	 // This system could be implimented here but in the meantime, until we wonk on loading stage assets, this
-	 // will remain commented out of the code.
-	void InitialLoadListener::onBatchLoaderLoadStage(BatchLoader*batchLoader, const String&path, unsigned int value)
-	{
-		//
-	}
-	*/
+	
 	void InitialLoadListener::onBatchLoaderLoadFont(BatchLoader*batchLoader, const String&path, unsigned int value)
 	{
 		//
@@ -46,12 +38,7 @@ namespace SmashBros
 	{
 		//
 	}
-	/*
-	void InitialLoadListener::onBatchLoaderErrorStage(BatchLoader*batchLoader, const String&path, unsigned int value, const String&error)
-	{
-		
-	}
-	*/
+	
 	void InitialLoadListener::onBatchLoaderFinish(BatchLoader*batchLoader)
 	{
 		//
