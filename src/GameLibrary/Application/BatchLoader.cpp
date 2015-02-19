@@ -73,6 +73,21 @@ namespace GameLibrary
 		loadtotal += value;
 	}
 
+	void BatchLoader::addFunction(BatchLoaderFunction function, void*data, unsigned int value)
+	{
+		if(function == nullptr)
+		{
+			throw IllegalArgumentException("function argument cannot be null");
+		}
+		LoadInfo info;
+		info.type = LOADTYPE_FUNCTION;
+		info.data1 = (void*)function;
+		info.data2 = data;
+		info.value = value;
+		loadlist.add(info);
+		loadtotal += value;
+	}
+
 	unsigned int BatchLoader::getLoadCurrent()
 	{
 		return loadcurrent;
@@ -120,61 +135,94 @@ namespace GameLibrary
 		if(loadindex < loadlist.size())
 		{
 			LoadInfo info = loadlist.get(loadindex);
-			if(info.type == LOADTYPE_TEXTURE)
+			switch(info.type)
 			{
-				if(assetManager == nullptr)
+				case LOADTYPE_TEXTURE:
 				{
-					throw IllegalStateException("AssetManager cannot be null while loading a BatchLoader");
-				}
-				String error;
-				bool success = assetManager->loadTexture(info.path, &error);
-				loadcurrent+=info.value;
-				if(success)
-				{
-					ArrayList<BatchLoaderEventListener*> listeners = eventListeners;
-					for(unsigned int i = 0; i < listeners.size(); i++)
+					if(assetManager == nullptr)
 					{
-						BatchLoaderEventListener*listener = listeners.get(i);
-						listener->onBatchLoaderLoadTexture(this, info.path, info.value);
+						throw IllegalStateException("AssetManager cannot be null while loading a texture");
+					}
+					String error;
+					bool success = assetManager->loadTexture(info.path, &error);
+					loadcurrent += info.value;
+					if(success)
+					{
+						ArrayList<BatchLoaderEventListener*> listeners = eventListeners;
+						for(unsigned int i=0; i<listeners.size(); i++)
+						{
+							BatchLoaderEventListener*listener = listeners.get(i);
+							listener->onBatchLoaderLoadTexture(this, info.path, info.value);
+						}
+					}
+					else
+					{
+						ArrayList<BatchLoaderEventListener*> listeners = eventListeners;
+						for(unsigned int i=0; i<listeners.size(); i++)
+						{
+							BatchLoaderEventListener*listener = listeners.get(i);
+							listener->onBatchLoaderErrorTexture(this, info.path, info.value, error);
+						}
 					}
 				}
-				else
+				break;
+				
+				case LOADTYPE_FONT:
 				{
-					ArrayList<BatchLoaderEventListener*> listeners = eventListeners;
-					for(unsigned int i = 0; i < listeners.size(); i++)
+					if(assetManager == nullptr)
 					{
-						BatchLoaderEventListener*listener = listeners.get(i);
-						listener->onBatchLoaderErrorTexture(this, info.path, info.value, error);
+						throw IllegalStateException("AssetManager cannot be null while loading a font");
+					}
+					String error;
+					bool success = assetManager->loadFont(info.path, &error);
+					loadcurrent += info.value;
+					if(success)
+					{
+						ArrayList<BatchLoaderEventListener*> listeners = eventListeners;
+						for(unsigned int i=0; i<listeners.size(); i++)
+						{
+							BatchLoaderEventListener*listener = listeners.get(i);
+							listener->onBatchLoaderLoadFont(this, info.path, info.value);
+						}
+					}
+					else
+					{
+						ArrayList<BatchLoaderEventListener*> listeners = eventListeners;
+						for(unsigned int i=0; i<listeners.size(); i++)
+						{
+							BatchLoaderEventListener*listener = listeners.get(i);
+							listener->onBatchLoaderErrorFont(this, info.path, info.value, error);
+						}
 					}
 				}
-			}
-			else if(info.type == LOADTYPE_FONT)
-			{
-				if(assetManager == nullptr)
+				break;
+
+				case LOADTYPE_FUNCTION:
 				{
-					throw IllegalStateException("AssetManager cannot be null while loading a BatchLoader");
-				}
-				String error;
-				bool success = assetManager->loadFont(info.path, &error);
-				loadcurrent+=info.value;
-				if(success)
-				{
-					ArrayList<BatchLoaderEventListener*> listeners = eventListeners;
-					for(unsigned int i = 0; i < listeners.size(); i++)
+					String error;
+					BatchLoaderFunction function = (BatchLoaderFunction)info.data1;
+					bool success = function(assetManager, info.data2, &error);
+					loadcurrent += info.value;
+					if(success)
 					{
-						BatchLoaderEventListener*listener = listeners.get(i);
-						listener->onBatchLoaderLoadFont(this, info.path, info.value);
+						ArrayList<BatchLoaderEventListener*> listeners = eventListeners;
+						for(unsigned int i=0; i<listeners.size(); i++)
+						{
+							BatchLoaderEventListener*listener = listeners.get(i);
+							listener->onBatchLoaderLoadFunction(this, function, info.data2, info.value);
+						}
+					}
+					else
+					{
+						ArrayList<BatchLoaderEventListener*> listeners = eventListeners;
+						for(unsigned int i=0; i<listeners.size(); i++)
+						{
+							BatchLoaderEventListener*listener = listeners.get(i);
+							listener->onBatchLoaderErrorFunction(this, function, info.data2, info.value, error);
+						}
 					}
 				}
-				else
-				{
-					ArrayList<BatchLoaderEventListener*> listeners = eventListeners;
-					for(unsigned int i = 0; i < listeners.size(); i++)
-					{
-						BatchLoaderEventListener*listener = listeners.get(i);
-						listener->onBatchLoaderErrorFont(this, info.path, info.value, error);
-					}
-				}
+				break;
 			}
 		}
 	}

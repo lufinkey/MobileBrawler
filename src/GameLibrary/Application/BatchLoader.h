@@ -5,12 +5,21 @@
 #include "../Utilities/ArrayList.h"
 #include "../Utilities/Pair.h"
 #include "../Utilities/Time/TimeInterval.h"
+#include "../Exception/IllegalArgumentException.h"
 #include "../Exception/IllegalStateException.h"
 
 namespace GameLibrary
 {
 	class BatchLoaderEventListener;
 	
+	/*! A callback that handles loading a single thing.\n
+		\tFirst argument is the AssetManager of the calling BatchLoader\n
+		\tSecond argument is a pointer to data specified when added to the BatchLoader\n
+		\tThird argument is an error string, that can be set if an error occurs\n
+		\n
+		\tThis returns true on success, or false on failure*/
+	typedef bool(*BatchLoaderFunction)(AssetManager*,void*,String*);
+
 	/*! Stores and loads a list of assets.*/
 	class BatchLoader
 	{
@@ -48,6 +57,12 @@ namespace GameLibrary
 			\param path a path to a font file
 			\param value the "load" value of the font, which gets added to the current load value \see GameLibrary::BatchLoader::getLoadCurrent()*/
 		void addFont(const String&path, unsigned int value=1);
+		/*! Adds a callback function to load something.
+			\param callback a callback function to call
+			\param data a pointer to be passed to the callback
+			\param value the "load" value of the function, which gets added to the current load value \see GameLibrary::BatchLoader::getLoadCurrent()
+			\throws GameLibrary::IllegalArgumentException if callback is null*/
+		void addFunction(BatchLoaderFunction callback, void*data, unsigned int value=1);
 		
 		
 		/*! Gets the current load value. Each time an asset tries to load, this value is incremented by the asset's given value.
@@ -73,7 +88,8 @@ namespace GameLibrary
 		typedef enum
 		{
 			LOADTYPE_TEXTURE,
-			LOADTYPE_FONT
+			LOADTYPE_FONT,
+			LOADTYPE_FUNCTION
 		} LoadType;
 
 		typedef struct
@@ -81,6 +97,8 @@ namespace GameLibrary
 			String path;
 			LoadType type;
 			unsigned int value;
+			void*data1;
+			void*data2;
 		} LoadInfo;
 
 		AssetManager*assetManager;
@@ -116,6 +134,12 @@ namespace GameLibrary
 			\param path the path to the loaded asset
 			\param value the load value of the asset*/
 		virtual void onBatchLoaderLoadFont(BatchLoader*batchLoader, const String&path, unsigned int value){}
+		/*! Called when the BatchLoader runs a load function that returns success.
+			\param batchLoader the current BatchLoader
+			\param function the callback function that was called
+			\param data the data that was passed to the callback function
+			\param value the load value of the asset*/
+		virtual void onBatchLoaderLoadFunction(BatchLoader*batchLoader, BatchLoaderFunction function, void*data, unsigned int value){}
 		/*! Called when the BatchLoader fails to load a TextureImage
 			\param batchLoader the current BatchLoader
 			\param path the path to the loaded asset
@@ -128,6 +152,13 @@ namespace GameLibrary
 			\param value the load value of the asset
 			\param error the error message*/
 		virtual void onBatchLoaderErrorFont(BatchLoader*batchLoader, const String&path, unsigned int value, const String&error){}
+		/*! Called when the BatchLoader runs a load function that returns failure.
+			\param batchLoader the current BatchLoader
+			\param function the callback function that was called
+			\param data the data that was passed to the callback function
+			\param value the load value of the asset
+			\param error the error message*/
+		virtual void onBatchLoaderErrorFunction(BatchLoader*batchLoader, BatchLoaderFunction function, void*data, unsigned int value, const String&error){}
 		/*! Called when the BatchLoader finishes running loadAll
 			\param batchLoader the current BatchLoader*/
 		virtual void onBatchLoaderFinish(BatchLoader*batchLoader){}
