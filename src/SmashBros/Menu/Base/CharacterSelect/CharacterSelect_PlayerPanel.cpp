@@ -65,6 +65,8 @@ namespace SmashBros
 			PlayerPanel::PlayerPanel(unsigned int pNum, CharacterSelectScreen*screen, double x, double y, const Dictionary&properties, AssetManager*assetManager)
 				: SpriteActor(x, y)
 			{
+				tapRegion_mode = nullptr;
+				
 				playerNum = pNum;
 				charSelectScreen = screen;
 				
