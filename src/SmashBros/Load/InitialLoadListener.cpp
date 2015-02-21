@@ -15,26 +15,35 @@ namespace SmashBros
 	
 	void InitialLoadListener::onBatchLoaderLoadTexture(BatchLoader*batchLoader, const String&path, unsigned int value)
 	{
-		//
+		draw(batchLoader, *window->getGraphics());
 	}
 	
 	void InitialLoadListener::onBatchLoaderLoadFont(BatchLoader*batchLoader, const String&path, unsigned int value)
 	{
-		//
+		draw(batchLoader, *window->getGraphics());
 	}
 	
 	void InitialLoadListener::onBatchLoaderErrorTexture(BatchLoader*batchLoader, const String&path, unsigned int value, const String&error)
 	{
-		//
+		draw(batchLoader, *window->getGraphics());
 	}
 	
 	void InitialLoadListener::onBatchLoaderErrorFont(BatchLoader*batchLoader, const String&path, unsigned int value, const String&error)
 	{
-		//
+		draw(batchLoader, *window->getGraphics());
 	}
 	
 	void InitialLoadListener::onBatchLoaderFinish(BatchLoader*batchLoader)
 	{
 		//
+	}
+
+	void InitialLoadListener::draw(BatchLoader*batchLoader, Graphics graphics) const
+	{
+		TextureImage*loadingImage = batchLoader->getAssetManager()->getTexture("backgrounds/loading.png");
+		
+		Vector2f viewSize = window->getView()->getSize();
+		graphics.drawImage(loadingImage, 0, 0, viewSize.x, viewSize.y);
+		window->refresh();
 	}
 }

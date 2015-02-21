@@ -11,6 +11,7 @@ namespace SmashBros
 	{
 	private:
 		Window* window;
+		
 	public:
 		InitialLoadListener(Window*window);
 		virtual void onBatchLoaderStart(BatchLoader*batchLoader);
@@ -19,5 +20,7 @@ namespace SmashBros
 		virtual void onBatchLoaderErrorTexture(BatchLoader*batchLoader, const String&path, unsigned int value, const String&error);
 		virtual void onBatchLoaderErrorFont(BatchLoader*batchLoader, const String&path, unsigned int value, const String&error);
 		virtual void onBatchLoaderFinish(BatchLoader*batchLoader);
+
+		virtual void draw(BatchLoader*batchLoader, Graphics graphics) const;
 	};
 }

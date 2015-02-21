@@ -308,15 +308,21 @@ namespace GameLibrary
 	typedef RectangleType<double> RectangleD;
 	
 	template<typename T>
-	/*! */
+	/*! Contains data about a rectangle.
+	Similar to GameLibrary::Rectangle, but rather than having a width and a height, it contains coordinates for top left and bottom right.*/
 	class RectType
 	{
 	public:
+		/*! the x coordinate of the left side of the rectangle*/
 		T left;
+		/*! the y coordinate of the top side of the rectangle*/
 		T top;
+		/*! the x coordinate of the right side of the rectangle*/
 		T right;
+		/*! the y coordinate of the bottom side of the rectangle*/
 		T bottom;
 		
+		/*! */
 		RectType() : left(0), top(0), right(0), bottom(0)
 		{
 			//
