@@ -37,7 +37,7 @@ namespace BrawlerLibrary
 	bool CharacterInfo::loadFromPath(const String&folderpath, String*error)
 	{
 		Dictionary dict;
-		bool success = dict.loadFromFile(folderpath + "/character.plist", error);
+		bool success = dict.loadFromFile(folderpath + "/Info.plist", error);
 		if(success)
 		{
 			Any val_name = dict.get("name");
@@ -128,7 +128,7 @@ namespace BrawlerLibrary
 		}
 		if(error != nullptr)
 		{
-			*error = (String)"Unable to load character.plist: " + *error;
+			*error = (String)"Unable to load Info.plist: " + *error;
 		}
 		return false;
 	}

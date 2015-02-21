@@ -37,7 +37,7 @@ namespace BrawlerLibrary
 	bool StageInfo::loadFromPath(const String&folderpath, String*error)
 	{
 		Dictionary dict;
-		bool success = dict.loadFromFile(folderpath + "/stage.plist", error);
+		bool success = dict.loadFromFile(folderpath + "/Info.plist", error);
 		if(success)
 		{
 			Any val_name = dict.get("name");
@@ -112,13 +112,6 @@ namespace BrawlerLibrary
 				return false;
 			}
 			
-			ArrayList<FileTools::DirectoryEntry> entries;
-			FileTools::readEntriesFromDirectory(folderpath + "/costumes", &entries);
-			for(unsigned int i = 0; i < entries.size(); i++)
-			{
-				//TODO read through costumes
-			}
-			
 			name = val_name.as<String>(false);
 			creator = val_creator.as<String>(false);
 			version = val_version.as<String>(false);
@@ -128,7 +121,7 @@ namespace BrawlerLibrary
 		}
 		if(error != nullptr)
 		{
-			*error = (String)"Unable to load stage.plist: " + *error;
+			*error = (String)"Unable to load Info.plist: " + *error;
 		}
 		return false;
 	}
