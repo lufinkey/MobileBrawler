@@ -21,16 +21,16 @@ namespace GameLibrary
 		//
 	}
 	
-	void PopoverTransition::draw(ApplicationData appData, Graphics graphics, float progress, Drawable*element1, Drawable*element2) const
+	void PopoverTransition::draw(ApplicationData appData, Graphics graphics, double progress, Drawable*element1, Drawable*element2) const
 	{
-		RectangleF e1rect = element1->getFrame();
-		RectangleF e2rect = element2->getFrame();
+		RectangleD e1rect = element1->getFrame();
+		RectangleD e2rect = element2->getFrame();
 		
-		float xOff = (e2rect.width - e1rect.width)/2;
-		float yOff = (e2rect.height - e1rect.height)/2;
+		double xOff = (e2rect.width - e1rect.width)/2;
+		double yOff = (e2rect.height - e1rect.height)/2;
 		
-		float translationX = xOff;
-		float translationY = yOff;
+		double translationX = xOff;
+		double translationY = yOff;
 		switch(direction)
 		{
 			case POPOVER_UP:
@@ -56,7 +56,7 @@ namespace GameLibrary
 		{
 			graphics.compositeAlpha((byte)(progress*255));
 		}
-		graphics.translate((float)translationX, (float)translationY);
+		graphics.translate((double)translationX, (double)translationY);
 		
 		element2->draw(appData, graphics);
 	}

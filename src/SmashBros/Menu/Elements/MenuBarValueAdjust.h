@@ -32,7 +32,7 @@ namespace SmashBros
 			
 		public:
 			MenuBarValueAdjust(const String&label, const String&valueLabel, Number*value, const Number&min, const Number&max, const Number&increment, AssetManager*assetManager, const Dictionary&properties);
-			MenuBarValueAdjust(float x, float y, const String&label, const String&valueLabel, Number*value, const Number&min, const Number&max, const Number&increment, AssetManager*assetManager, const Dictionary&properties);
+			MenuBarValueAdjust(double x, double y, const String&label, const String&valueLabel, Number*value, const Number&min, const Number&max, const Number&increment, AssetManager*assetManager, const Dictionary&properties);
 			virtual ~MenuBarValueAdjust();
 			
 			virtual void update(ApplicationData appData) override;

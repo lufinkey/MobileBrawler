@@ -36,34 +36,34 @@ namespace GameLibrary
 			\param window the window containing the touch instance
 			\param touchID the touch instance ID
 			\returns the touch instance's coordinates in the current frame, relative to the given Window*/
-		static Vector2f getPosition(Window*window, unsigned int touchID);
+		static Vector2d getPosition(Window*window, unsigned int touchID);
 		/*! Gets the current x coordinate of a given touch instance inside a given window.
 			\param window the window containing the touch instance
 			\param touchID the touch instance ID
 			\returns the touch instance's x coordinate in the current frame, relative to the given Window*/
-		static float getX(Window*window, unsigned int touchID);
+		static double getX(Window*window, unsigned int touchID);
 		/*! Gets the current y coordinate of a given touch instance inside a given window.
 			\param window the window containing the touch instance
 			\param touchID the touch instance ID
 			\returns the touch instance's y coordinate in the current frame, relative to the given Window*/
-		static float getY(Window*window, unsigned int touchID);
+		static double getY(Window*window, unsigned int touchID);
 		
 		
 		/*! Gets the previous frame's position of a given touch instance inside a given window.
 			\param window the window containing the touch instance
 			\param touchID the touch instance ID
 			\returns the touch instance's coordinates in the previous frame, relative to the given Window*/
-		static Vector2f getPreviousPosition(Window*window, unsigned int touchID);
+		static Vector2d getPreviousPosition(Window*window, unsigned int touchID);
 		/*! Gets the previous frame's x coordinate of a given touch instance inside a given window.
 			\param window the window containing the touch instance
 			\param touchID the touch instance ID
 			\returns the touch instance's x coordinate in the previous frame, relative to the given Window*/
-		static float getPreviousX(Window*window, unsigned int touchID);
+		static double getPreviousX(Window*window, unsigned int touchID);
 		/*! Gets the previous frame's y coordinate of a given touch instance inside a given window.
 			\param window the window containing the touch instance
 			\param touchID the touch instance ID
 			\returns the touch instance's y coordinate in the previous frame, relative to the given Window*/
-		static float getPreviousY(Window*window, unsigned int touchID);
+		static double getPreviousY(Window*window, unsigned int touchID);
 		
 		
 		/*! Adds a MultitouchEventListener to handle Multitouch events.
@@ -84,17 +84,17 @@ namespace GameLibrary
 			\param givenID the ID given to the touch instance by the system; This value is independent from touchID
 			\param pos the current position of the touch instance, relative to the window
 			\param dif the change in the position of the touch instance from the previous position*/
-		static void handleTouchMove(Window*window, long long givenID, const Vector2f&pos, const Vector2f&dif);
+		static void handleTouchMove(Window*window, long long givenID, const Vector2d&pos, const Vector2d&dif);
 		/*! Handles touch instance press events sent from EventManager.
 			\param window the window inside which the touch event occurred
 			\param givenID the ID given to the touch instance by the system; This value is independent from touchID
 			\param pos the current position of the touch instance, relative to the window*/
-		static void handleTouchDown(Window*window, long long givenID, const Vector2f&pos);
+		static void handleTouchDown(Window*window, long long givenID, const Vector2d&pos);
 		/*! Handles touch instance release events sent from EventManager.
 			\param window the window inside which the touch event occurred
 			\param givenID the ID given to the touch instance by the system; This value is independent from touchID
 			\param pos the current position of the touch instance, relative to the window*/
-		static void handleTouchUp(Window*window, long long givenID, const Vector2f&pos);
+		static void handleTouchUp(Window*window, long long givenID, const Vector2d&pos);
 		
 		
 		/*! Removes a Window from the Window list stored in Multitouch
@@ -117,17 +117,17 @@ namespace GameLibrary
 			\param window the window that contains the touch instance
 			\param touchID the touch instance ID
 			\param touchpos the touch instance coordinates, relative to the window*/
-		virtual void onMultitouchDown(Window*window, unsigned int touchID, const Vector2f&touchpos){}
+		virtual void onMultitouchDown(Window*window, unsigned int touchID, const Vector2d&touchpos){}
 		/*! Called when a touch instance is destroyed on a Window.
 			\param window the window that contained the touch instance
 			\param touchID the touch instance ID
 			\param touchpos the last touch instance coordinates, relative to the window*/
-		virtual void onMultitouchUp(Window*window, unsigned int touchID, const Vector2f&touchpos){}
+		virtual void onMultitouchUp(Window*window, unsigned int touchID, const Vector2d&touchpos){}
 		/*! Called when a touch instance changes position inside a Window.
 			\param window the window that contains the touch instance
 			\param touchID the touch instance ID
 			\param touchpos the current touch instance coordinates, relative to the window
 			\param touchdif the change in the position of the touch instance from the previous position*/
-		virtual void onMultitouchMove(Window*window, unsigned int touchID, const Vector2f&touchpos, const Vector2f&touchdif){}
+		virtual void onMultitouchMove(Window*window, unsigned int touchID, const Vector2d&touchpos, const Vector2d&touchdif){}
 	};
 }

@@ -5,7 +5,7 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-		ActorGrid::ActorGrid(const Vector2f&pos, unsigned int cols, const Vector2f&space)
+		ActorGrid::ActorGrid(const Vector2d&pos, unsigned int cols, const Vector2d&space)
 		{
 			position = pos;
 			columns = cols;
@@ -23,8 +23,8 @@ namespace SmashBros
 			{
 				unsigned int col = index%columns;
 				unsigned int row = index/columns;
-				actor->x = position.x + (((float)col) * spacing.x);
-				actor->y = position.y + (((float)row) * spacing.y);
+				actor->x = position.x + (((double)col) * spacing.x);
+				actor->y = position.y + (((double)row) * spacing.y);
 			}
 		}
 		
@@ -40,7 +40,7 @@ namespace SmashBros
 			actors.clear();
 		}
 		
-		void ActorGrid::setPosition(const Vector2f&pos)
+		void ActorGrid::setPosition(const Vector2d&pos)
 		{
 			position = pos;
 			for(unsigned int i=0; i<actors.size(); i++)
@@ -49,7 +49,7 @@ namespace SmashBros
 			}
 		}
 		
-		const Vector2f& ActorGrid::getPosition() const
+		const Vector2d& ActorGrid::getPosition() const
 		{
 			return position;
 		}
@@ -64,7 +64,7 @@ namespace SmashBros
 			return columns;
 		}
 		
-		const Vector2f& ActorGrid::getSpacing() const
+		const Vector2d& ActorGrid::getSpacing() const
 		{
 			return spacing;
 		}

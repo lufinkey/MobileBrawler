@@ -52,7 +52,7 @@ namespace GameLibrary
 			\param cols divides the image into columns of frames. If 0, no frames are added.
 			\param assetManager the assetManager to load and get the TextureImage. If null, or fails to load the image, the first frame's image is set to null, until Animation::reloadFrames is called to attempt to reload the images.
 			\param file the path to the image file to use for the frames
-			\param sequence the specific sequence to order the frames. the x value of the Vector2f represents the column, and the y value represents the row*/
+			\param sequence the specific sequence to order the frames. the x value of the Vector2d represents the column, and the y value represents the row*/
 		Animation(unsigned int fps, unsigned int rows, unsigned int cols, AssetManager*assetManager, const String&file, const ArrayList<Vector2u>& sequence);
 		/*! virtual destructor
 			\note this does not unload the images loaded during construction. You must manually unload the contents of the assetManager used.*/
@@ -127,7 +127,7 @@ namespace GameLibrary
 			\param file the path to the image file to use
 			\param rows the number of rows to divide the image into
 			\param cols the number of columns to divide the image into
-			\param sequence the specific sequence to order the frames. the x value of the Vector2f represents the column, and the y value represents the row*/
+			\param sequence the specific sequence to order the frames. the x value of the Vector2d represents the column, and the y value represents the row*/
 		void addFrames(AssetManager*assetManager, const String&file, unsigned int rows, unsigned int cols, const ArrayList<Vector2u>&sequence);
 		
 		
@@ -168,11 +168,11 @@ namespace GameLibrary
 		
 		/*! Gets the frame (bounding box) of the Animation at the current frame (animation frame).
 			\returns the current bounding box of the Animation*/
-		virtual RectangleF getFrame() const override;
+		virtual RectangleD getFrame() const override;
 		/*! Gets the frame (bounding box) of the Animation at the specified frame (animation frame).
 			\param frameNum the frame index
 			\returns the bounding box of the Animation*/
-		virtual RectangleF getFrame(unsigned int frameNum) const;
+		virtual RectangleD getFrame(unsigned int frameNum) const;
 		
 	private:
 		class AnimationFrame

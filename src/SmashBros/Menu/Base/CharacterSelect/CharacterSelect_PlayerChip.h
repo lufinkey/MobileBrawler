@@ -23,10 +23,10 @@ namespace SmashBros
 				
 				bool dragging;
 				unsigned int dragTouchID;
-				Vector2f dragOffset;
+				Vector2d dragOffset;
 				
 			public:
-				PlayerChip(unsigned int playerNum, CharacterSelectScreen*charSelectScreen, float x, float y, AssetManager*assetManager);
+				PlayerChip(unsigned int playerNum, CharacterSelectScreen*charSelectScreen, double x, double y, AssetManager*assetManager);
 				virtual ~PlayerChip();
 				
 				virtual void onMousePress(ApplicationData appData, unsigned int touchID) override;

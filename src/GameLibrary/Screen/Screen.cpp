@@ -14,12 +14,12 @@ namespace GameLibrary
 			View*view = window->getView();
 			if(view != nullptr)
 			{
-				const Vector2f& size = view->getSize();
+				const Vector2d& size = view->getSize();
 				if(framesize.x!=size.x || framesize.y!=size.y)
 				{
-					framesize = size; //setFrame(RectangleF(frame.x, frame.y, size.x, size.y));
+					framesize = size; //setFrame(RectangleD(frame.x, frame.y, size.x, size.y));
 					ScreenElement* mainElement = getElement();
-					mainElement->setFrame(RectangleF(0,0,size.x,size.y));
+					mainElement->setFrame(RectangleD(0,0,size.x,size.y));
 					onFrameChange();
 				}
 			}
@@ -99,7 +99,7 @@ namespace GameLibrary
 			TransitionData_checkInitialization(appData, data);
 			long long currentTime = appData.getTime().getMilliseconds();
 			long long timeDif = currentTime - data.startTime;
-			data.progress = (float)(((double)timeDif) / ((double)data.duration));
+			data.progress = (double)(((double)timeDif) / ((double)data.duration));
 			if(data.progress >= 1)
 			{
 				finishedAction = data.action;
@@ -166,12 +166,12 @@ namespace GameLibrary
 			View*view = window->getView();
 			if(view != nullptr)
 			{
-				const Vector2f& size = view->getSize();
+				const Vector2d& size = view->getSize();
 				if(framesize.x!=size.x || framesize.y!=size.y)
 				{
-					framesize = size; //frame = RectangleF(frame.x, frame.y, size.x, size.y);
+					framesize = size; //frame = RectangleD(frame.x, frame.y, size.x, size.y);
 					ScreenElement* mainElement = getElement();
-					mainElement->setFrame(RectangleF(0,0,size.x,size.y));
+					mainElement->setFrame(RectangleD(0,0,size.x,size.y));
 				}
 			}
 		}
@@ -282,7 +282,7 @@ namespace GameLibrary
 			//ScreenElement::drawBackground(appData, graphics);
 			if(!backgroundColor.equals(Color::TRANSPARENT))
 			{
-				RectangleF frame = getFrame();
+				RectangleD frame = getFrame();
 				graphics.setColor(backgroundColor);
 				graphics.fillRect(frame.x, frame.y, frame.width, frame.height);
 			}
@@ -306,20 +306,20 @@ namespace GameLibrary
 	{
 		if(childScreen!=nullptr || overlayData.action!=TRANSITION_NONE)
 		{
-			RectangleF frame = getFrame();
+			RectangleD frame = getFrame();
 			graphics.translate(frame.x, frame.y);
 			
 			if(overlayData.action == TRANSITION_NONE)
 			{
-				RectangleF overlayFrame = childScreen->getFrame();
-				float xOff = (overlayFrame.width - frame.width)/2;
-				float yOff = (overlayFrame.height - frame.height)/2;
+				RectangleD overlayFrame = childScreen->getFrame();
+				double xOff = (overlayFrame.width - frame.width)/2;
+				double yOff = (overlayFrame.height - frame.height)/2;
 				graphics.translate(xOff, yOff);
 				childScreen->draw(appData, graphics);
 			}
 			else
 			{
-				float progress = overlayData.progress;
+				double progress = overlayData.progress;
 				
 				if(overlayData.action == TRANSITION_HIDE)
 				{
@@ -357,9 +357,9 @@ namespace GameLibrary
 		//Open for implementation
 	}
 	
-	RectangleF Screen::getFrame() const
+	RectangleD Screen::getFrame() const
 	{
-		return RectangleF(0,0,framesize.x,framesize.y);
+		return RectangleD(0,0,framesize.x,framesize.y);
 	}
 	
 	void Screen::present(Screen*screen, const Transition*transition, unsigned long long duration, CompletionCallback completion)
@@ -565,8 +565,8 @@ namespace GameLibrary
 	{
 		if(element == nullptr)
 		{
-			RectangleF screenFrame = getFrame();
-			element = new ScreenElement(RectangleF(0,0, screenFrame.width, screenFrame.height));
+			RectangleD screenFrame = getFrame();
+			element = new ScreenElement(RectangleD(0,0, screenFrame.width, screenFrame.height));
 		}
 		return element;
 	}

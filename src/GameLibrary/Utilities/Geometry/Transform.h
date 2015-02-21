@@ -102,7 +102,7 @@ namespace GameLibrary
 		RectangleType<T> transform(const RectangleType<T>& rectangle) const
 		{
 			// Transform the 4 corners of the rectangle
-			const Vector2f points[] =
+			const Vector2d points[] =
 			{
 				transform(rectangle.x, rectangle.y),
 				transform(rectangle.x, rectangle.y + rectangle.height),

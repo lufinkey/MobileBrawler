@@ -9,10 +9,10 @@ namespace SmashBros
 		{
 			AssetManager* assetManager = smashData.getMenuData()->getAssetManager();
 			
-			groupButton = getItem(addItem(RectF(0.03f, 0.187f, 0.53f, 0.687f), new Animation(1, assetManager, "buttons/main/group.png")));
-			soloButton = getItem(addItem(RectF(0.47f, 0.266f, 0.97f, 0.766f), new Animation(1, assetManager, "buttons/main/solo.png")));
+			groupButton = getItem(addItem(RectD(0.03, 0.187, 0.53, 0.687), new Animation(1, assetManager, "buttons/main/group.png")));
+			soloButton = getItem(addItem(RectD(0.47, 0.266, 0.97, 0.766), new Animation(1, assetManager, "buttons/main/solo.png")));
 			
-			backTransition = new FadeColorTransition(Color::BLACK, 0.6f);
+			backTransition = new FadeColorTransition(Color::BLACK, 0.6);
 			
 			groupMenu = new GroupMenu(smashData);
 			soloMenu = new SoloMenu(smashData);

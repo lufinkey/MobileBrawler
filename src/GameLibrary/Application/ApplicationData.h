@@ -22,7 +22,7 @@ namespace GameLibrary
 			\param timeInterval the elapsed time of the Application
 			\param transform the view transform of the Application
 			\param framespeedMult the frame speed multiplier of the Application*/
-		ApplicationData(Application*application, Window*window, AssetManager*assetManager, const TimeInterval&timeInterval, const TransformF&transform, float framespeedMult);
+		ApplicationData(Application*application, Window*window, AssetManager*assetManager, const TimeInterval&timeInterval, const TransformD&transform, double framespeedMult);
 		/*! copy constructor*/
 		ApplicationData(const ApplicationData&);
 		/*! assignment operator*/
@@ -46,13 +46,13 @@ namespace GameLibrary
 		const TimeInterval& getTime() const;
 		/*! Gets the view transform of the Window
 			\returns a Transform reference*/
-		TransformF& getTransform();
+		TransformD& getTransform();
 		/*! Gets the View Transform of the Window
 			\returns a const Transform reference*/
-		const TransformF& getTransform() const;
+		const TransformD& getTransform() const;
 		/*! Gets the frame speed multiplier of the Application
-			\returns a float value*/
-		float getFrameSpeedMultiplier() const;
+			\returns a double value*/
+		double getFrameSpeedMultiplier() const;
 		
 		
 		/*! Sets the current Application.
@@ -69,14 +69,14 @@ namespace GameLibrary
 		void setTime(const TimeInterval&time);
 		/*! Sets the current View Transform
 			\param transform a const Transform reference*/
-		void setTransform(const TransformF&transform);
+		void setTransform(const TransformD&transform);
 		
 	private:
 		Application* application;
 		Window* window;
 		AssetManager* assetManager;
 		TimeInterval timeInterval;
-		TransformF transform;
-		float framespeedMult;
+		TransformD transform;
+		double framespeedMult;
 	};
 }

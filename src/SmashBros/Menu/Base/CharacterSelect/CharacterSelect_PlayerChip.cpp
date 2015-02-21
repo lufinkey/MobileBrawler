@@ -9,7 +9,7 @@ namespace SmashBros
 	{
 		namespace CharacterSelect
 		{
-			PlayerChip::PlayerChip(unsigned int pNum, CharacterSelectScreen*screen, float x, float y, AssetManager*assetManager) : SpriteActor(x,y)
+			PlayerChip::PlayerChip(unsigned int pNum, CharacterSelectScreen*screen, double x, double y, AssetManager*assetManager) : SpriteActor(x,y)
 			{
 				playerNum = pNum;
 				charSelectScreen = screen;
@@ -61,7 +61,7 @@ namespace SmashBros
 					{
 						if(Multitouch::isTouchActive(appData.getWindow(), dragTouchID))
 						{
-							Vector2f touchpos = appData.getTransform().getInverse().transform(Multitouch::getPosition(appData.getWindow(), dragTouchID));
+							Vector2d touchpos = appData.getTransform().getInverse().transform(Multitouch::getPosition(appData.getWindow(), dragTouchID));
 							x = touchpos.x + dragOffset.x;
 							y = touchpos.y + dragOffset.y;
 						}
@@ -74,7 +74,7 @@ namespace SmashBros
 					{
 						if(Mouse::isButtonPressed(appData.getWindow(), dragTouchID, Mouse::BUTTON_LEFT))
 						{
-							Vector2f mousepos = appData.getTransform().getInverse().transform(Mouse::getPosition(appData.getWindow(), dragTouchID));
+							Vector2d mousepos = appData.getTransform().getInverse().transform(Mouse::getPosition(appData.getWindow(), dragTouchID));
 							x = mousepos.x + dragOffset.x;
 							y = mousepos.y + dragOffset.y;
 						}
@@ -88,17 +88,17 @@ namespace SmashBros
 				
 				//check if overlapping with any character icons;
 				CharacterInfo* overlap_charInfo = nullptr;
-				float overlap_area = 0;
+				double overlap_area = 0;
 				const ArrayList<CharacterIcon*>& icons = charSelectScreen->getCharacterIcons();
-				RectangleF frame = getFrame();
+				RectangleD frame = getFrame();
 				for(unsigned int i=0; i<icons.size(); i++)
 				{
 					CharacterIcon* icon = icons.get(i);
-					RectangleF iconFrame = icon->getFrame();
+					RectangleD iconFrame = icon->getFrame();
 					if(frame.intersects(iconFrame))
 					{
-						RectangleF overlap = frame.getIntersect(iconFrame);
-						float area = overlap.getArea();
+						RectangleD overlap = frame.getIntersect(iconFrame);
+						double area = overlap.getArea();
 						if(area > overlap_area)
 						{
 							overlap_charInfo = icon->getCharacterInfo();
@@ -124,14 +124,14 @@ namespace SmashBros
 			{
 				dragging = true;
 				dragTouchID = touchID;
-				TransformF mouseTransform = appData.getTransform().getInverse();
+				TransformD mouseTransform = appData.getTransform().getInverse();
 				if(Multitouch::isAvailable())
 				{
-					dragOffset = Vector2f(x,y) - mouseTransform.transform(Multitouch::getPosition(appData.getWindow(), touchID));
+					dragOffset = Vector2d(x,y) - mouseTransform.transform(Multitouch::getPosition(appData.getWindow(), touchID));
 				}
 				else
 				{
-					dragOffset = Vector2f(x,y) - mouseTransform.transform(Mouse::getPosition(appData.getWindow(), touchID));
+					dragOffset = Vector2d(x,y) - mouseTransform.transform(Mouse::getPosition(appData.getWindow(), touchID));
 				}
 				unsigned int index = charSelectScreen->chips.indexOf(this);
 				charSelectScreen->chips.remove(index);

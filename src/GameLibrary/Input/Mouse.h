@@ -42,27 +42,27 @@ namespace GameLibrary
 			\param window the window containing the mouse instance, or null for the currently mouse-focused window
 			\param mouseIndex the mouse instance index
 			\returns the current frame's mouse coordinates, relative to the given Window*/
-		static Vector2f getPosition(Window*window, unsigned int mouseIndex);
+		static Vector2d getPosition(Window*window, unsigned int mouseIndex);
 		/*! Gets the current x position of a mouse instance inside of a given window.
 			\param window the window containing the mouse instance, or null for the currently mouse-focused window
 			\param mouseIndex the mouse instance index
 			\returns the current frame's mouse x coordinate, relative to the givem Window*/
-		static float getX(Window*window, unsigned int mouseIndex);
+		static double getX(Window*window, unsigned int mouseIndex);
 		/*! Gets the current y position of a mouse instance inside of a given window.
 			\param window the window containing the mouse instance, or null for the currently mouse-focused window
 			\param mouseIndex the mouse instance index
 			\returns the current frame's mouse y coordinate, relative to the givem Window*/
-		static float getY(Window*window, unsigned int mouseIndex);
+		static double getY(Window*window, unsigned int mouseIndex);
 		/*! Sets the position of the mouse instance, relative to the given window
 			\param window the window to move the mouse in, or null for the currently mouse-focused window
 			\param mouseIndex the mouse instance index
 			\param pos the coordinates to move the mouse pointer to*/
-		static void setPosition(Window*window, unsigned int mouseIndex, const Vector2f&pos);
+		static void setPosition(Window*window, unsigned int mouseIndex, const Vector2d&pos);
 		/*! Sets the position of the mouse instance, relative to the entire screen.
 			\note this function currently has no implementation
 			\param mouseIndex the mouse instance index
 			\param pos the coordinates to move the mouse pointer*/
-		static void setPosition(unsigned int mouseIndex, const Vector2f&pos);
+		static void setPosition(unsigned int mouseIndex, const Vector2d&pos);
 		
 		
 		/*! Checks if a given button on a given mouse instance was in a pressed state in the previous frame
@@ -75,17 +75,17 @@ namespace GameLibrary
 			\param window the window containing the mouse instance, or null for the currently mouse-focused window
 			\param mouseIndex the mouse instance index
 			\returns the previous frame's mouse coordinates, relative to the given Window*/
-		static Vector2f getPreviousPosition(Window*window, unsigned int mouseIndex);
+		static Vector2d getPreviousPosition(Window*window, unsigned int mouseIndex);
 		/*! Gets the previous frame's x position of a mouse instance inside of a given window.
 			\param window the window containing the mouse instance, or null for the currently mouse-focused window
 			\param mouseIndex the mouse instance index
 			\returns the previous frame's mouse x coordinate, relative to the givem Window*/
-		static float getPreviousX(Window*window, unsigned int mouseIndex);
+		static double getPreviousX(Window*window, unsigned int mouseIndex);
 		/*! Gets the previous frame's y position of a mouse instance inside of a given window.
 			\param window the window containing the mouse instance, or null for the currently mouse-focused window
 			\param mouseIndex the mouse instance index
 			\returns the previous frame's mouse y coordinate, relative to the givem Window*/
-		static float getPreviousY(Window*window, unsigned int mouseIndex);
+		static double getPreviousY(Window*window, unsigned int mouseIndex);
 		
 		
 		/*! Checks if a mouse button was just pressed.
@@ -115,19 +115,19 @@ namespace GameLibrary
 			\param mouseIndex the mouse instance index
 			\param pos the current position of the mouse instance, relative to the window
 			\param dif the change in the position of the mouse from the previous position*/
-		static void handleMouseMovement(Window*window, unsigned int mouseIndex, const Vector2f&pos, const Vector2f&dif);
+		static void handleMouseMovement(Window*window, unsigned int mouseIndex, const Vector2d&pos, const Vector2d&dif);
 		/*! Handles button press events sent from EventManager.
 			\param window the window inside which the mouse event occurred
 			\param mouseIndex the mouse instance index
 			\param button a constant representing the mouse button that was pressed
 			\param pos the current position of the mouse instance, relative to the window*/
-		static void handleButtonPress(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2f&pos);
+		static void handleButtonPress(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2d&pos);
 		/*! Handles button release events sent from EventManager.
 			\param window the window inside which the mouse event occurred
 			\param mouseIndex the mouse instance index
 			\param button a constant representing the mouse button that was released
 			\param pos the current position of the mouse instance, relative to the window*/
-		static void handleButtonRelease(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2f&pos);
+		static void handleButtonRelease(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2d&pos);
 		
 		
 		/*! Removes a Window from the Window list stored in Mouse
@@ -151,18 +151,18 @@ namespace GameLibrary
 			\param mouseIndex the mouse instance index
 			\param button a constant that represents the pressed mouse button
 			\param mousepos the mouse instance coordinates, relative to the window*/
-		virtual void onMouseButtonPress(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2f&mousepos){}
+		virtual void onMouseButtonPress(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2d&mousepos){}
 		/*! Called when a Mouse::Button state changes to released.
 			\param window the window that has mouse focus; May be null if no window has mouse focus
 			\param mouseIndex the mouse instance index
 			\param button the constant that represents the mouse button
 			\param mousepos the mouse instance coordinates, relative to the window*/
-		virtual void onMouseButtonRelease(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2f&mousepos){}
+		virtual void onMouseButtonRelease(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2d&mousepos){}
 		/*! Called when a Mouse instance changes position.
 			\param window the window that has mouse focus; May be null if no window has mouse focus
 			\param mouseIndex the mouse instance index
 			\param mousepos the mouse instance coordinates, relative to the window
 			\param mousedif the change in the position of the mouse from the previous position*/
-		virtual void onMouseMove(Window*window, unsigned int mouseIndex, const Vector2f&mousepos, const Vector2f&mousedif){}
+		virtual void onMouseMove(Window*window, unsigned int mouseIndex, const Vector2d&mousepos, const Vector2d&mousedif){}
 	};
 }

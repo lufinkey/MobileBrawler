@@ -18,7 +18,7 @@ namespace GameLibrary
 		/*! Constructs a SpriteActor with the specified x and y coordinates
 			\param x the x coordinate
 			\param y the y coordinate*/
-		SpriteActor(float x, float y);
+		SpriteActor(double x, double y);
 		/*! virtual destructor*/
 		virtual ~SpriteActor();
 		
@@ -30,13 +30,13 @@ namespace GameLibrary
 		
 		
 		/*! \copydoc GameLibrary::Actor::getFrame()const*/
-		virtual RectangleF getFrame() const override;
+		virtual RectangleD getFrame() const override;
 		
 		
 		/*! Scales and repositions the Actor to fit within the specified container
 			\param container the frame to fit the Actor into.
 			\note this function will not work correctly if the Actor's scale value is set to 0*/
-		virtual void scaleToFit(const RectangleF&container) override;
+		virtual void scaleToFit(const RectangleD&container) override;
 		
 		
 		/*! Called when the SpriteActor finishes running through the frames of the current Animation.
@@ -78,8 +78,8 @@ namespace GameLibrary
 		
 		/*! \copydoc GameLibrary::Actor::updateSize()*/
 		virtual void updateSize() override;
-		/*! \copydoc GameLibrary::Actor::checkPointCollision(const Vector2f&)*/
-		virtual bool checkPointCollision(const Vector2f&point) override;
+		/*! \copydoc GameLibrary::Actor::checkPointCollision(const Vector2d&)*/
+		virtual bool checkPointCollision(const Vector2d&point) override;
 		
 	protected:
 		/*! Special draw function to draw the SpriteActor with specific properties. These properties are not stored into the SpriteActor. This function is called from SpriteActor::draw
@@ -88,7 +88,7 @@ namespace GameLibrary
 			\param x the x coordinate
 			\param y the y coordinate
 			\param scale the ratio to size the SpriteActor from its default size*/
-		virtual void drawActor(ApplicationData&appData, Graphics&graphics, float x, float y, float scale) const;
+		virtual void drawActor(ApplicationData&appData, Graphics&graphics, double x, double y, double scale) const;
 		
 	private:
 		typedef struct
@@ -106,7 +106,7 @@ namespace GameLibrary
 		long long animation_prevFrameTime;
 		Animation::Direction animation_direction;
 
-		Vector2f framesize;
+		Vector2d framesize;
 		
 		bool firstUpdate;
 		long long prevUpdateTime;

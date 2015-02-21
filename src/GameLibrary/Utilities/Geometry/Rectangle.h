@@ -280,7 +280,7 @@ namespace GameLibrary
 		/*void scale(double scaleX, double scaleY, const T&originX, const T& originY)
 		{
 			Transform transform;
-			transform.scale((float)scaleX, (float)scaleY, (float)originX, (float)originY);
+			transform.scale((double)scaleX, (double)scaleY, (double)originX, (double)originY);
 			Polygon polygon = toPolygon();
 			polygon = transform.transform(polygon);
 			x = (T)(polygon.getPoints().get(0).x);
@@ -294,10 +294,10 @@ namespace GameLibrary
 		PolygonType<T> toPolygon() const
 		{
 			PolygonType<T> polygon;
-			polygon.addPoint((float)x, (float)y);
-			polygon.addPoint((float)(x+width), (float)y);
-			polygon.addPoint((float)(x+width), (float)(y+height));
-			polygon.addPoint((float)x, (float)(y+height));
+			polygon.addPoint((double)x, (double)y);
+			polygon.addPoint((double)(x+width), (double)y);
+			polygon.addPoint((double)(x+width), (double)(y+height));
+			polygon.addPoint((double)x, (double)(y+height));
 			return polygon;
 		}
 	};

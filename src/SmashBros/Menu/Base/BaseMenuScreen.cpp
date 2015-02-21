@@ -5,9 +5,9 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-#define PULSE_UPPERBOUND 1.1f
-#define PULSE_LOWERBOUND 0.98f
-#define PULSE_SPEED 0.3f
+#define PULSE_UPPERBOUND 1.1
+#define PULSE_LOWERBOUND 0.98
+#define PULSE_SPEED 0.3
 #define PULSE_HOVERCOLOR Color::LIGHTBLUE
 #define PULSE_PRESSCOLOR Color::BLUE
 		
@@ -26,15 +26,15 @@ namespace SmashBros
 			ScreenElement* element = getElement();
 			
 			backgroundElement = new ImageElement(assetManager->getTexture("backgrounds/main.png"), ImageElement::DISPLAY_ZOOM);
-			element->addChildElement(RectF(0,0,1,1), backgroundElement);
+			element->addChildElement(RectD(0,0,1,1), backgroundElement);
 			
 			headerbarElement = new ImageElement(img_headerbar_full, ImageElement::DISPLAY_ZOOM);
-			element->addChildElement(RectF(0,0,1.0f,0.134f), headerbarElement);
+			element->addChildElement(RectD(0, 0, 1.0, 0.134), headerbarElement);
 			
 			element->sendChildElementToBack(headerbarElement);
 			element->sendChildElementToBack(backgroundElement);
 			
-			backButton = (SpriteActor*)getItem(addItem(RectF(0,0,0.145f,0.145f), new Animation(1, assetManager, "buttons/back.png")));
+			backButton = (SpriteActor*)getItem(addItem(RectD(0, 0, 0.145, 0.145), new Animation(1, assetManager, "buttons/back.png")));
 		}
 		
 		BaseMenuScreen::~BaseMenuScreen()
@@ -57,7 +57,7 @@ namespace SmashBros
 			{
 				if(hoverPulseEnabled)
 				{
-					float scaleIncrement = PULSE_SPEED * appData.getFrameSpeedMultiplier();
+					double scaleIncrement = PULSE_SPEED * appData.getFrameSpeedMultiplier();
 					if(hoverPulseGrowing)
 					{
 						hoverPulseScale += scaleIncrement;
@@ -86,7 +86,7 @@ namespace SmashBros
 			unsigned int selectedIndex = getSelectedIndex();
 			if(selectedIndex!=MENUSCREEN_NOSELECTION && item == getItem(selectedIndex))
 			{
-				//RectangleF frame = actor->getFrame();
+				//RectangleD frame = actor->getFrame();
 				if(hoverPulseEnabled)
 				{
 					graphics.scale(hoverPulseScale, hoverPulseScale, item->x, item->y);

@@ -9,7 +9,7 @@ namespace GameLibrary
 		//
 	}
 	
-	SpriteActor::SpriteActor(float x1, float y1)
+	SpriteActor::SpriteActor(double x1, double y1)
 	{
 		x = x1;
 		y = y1;
@@ -112,7 +112,7 @@ namespace GameLibrary
 		drawActor(appData, graphics, x, y, scale);
 	}
 	
-	void SpriteActor::drawActor(ApplicationData&appData, Graphics&graphics, float x, float y, float scale) const
+	void SpriteActor::drawActor(ApplicationData&appData, Graphics&graphics, double x, double y, double scale) const
 	{
 		if(visible && scale!=0 && animation_current!=nullptr)
 		{
@@ -165,12 +165,12 @@ namespace GameLibrary
 		}
 	}
 	
-	RectangleF SpriteActor::getFrame() const
+	RectangleD SpriteActor::getFrame() const
 	{
-		return RectangleF(x-(framesize.x/2), y-(framesize.y/2), framesize.x, framesize.y);
+		return RectangleD(x-(framesize.x/2), y-(framesize.y/2), framesize.x, framesize.y);
 	}
 	
-	void SpriteActor::scaleToFit(const RectangleF&container)
+	void SpriteActor::scaleToFit(const RectangleD&container)
 	{
 		if(width == 0 || height == 0)
 		{
@@ -178,10 +178,10 @@ namespace GameLibrary
 			y = container.y + (container.height/2);
 			return;
 		}
-		RectangleF currentFrame = getFrame();
-		RectangleF oldFrame = currentFrame;
+		RectangleD currentFrame = getFrame();
+		RectangleD oldFrame = currentFrame;
 		currentFrame.scaleToFit(container);
-		float ratio = currentFrame.width/oldFrame.width;
+		double ratio = currentFrame.width/oldFrame.width;
 		x = container.x + (container.width/2);
 		y = container.y + (container.height/2);
 		setScale(getScale()*ratio);
@@ -221,7 +221,7 @@ namespace GameLibrary
 			}
 		}
 		
-		RectangleF frame = animation_current->getFrame(animation_frame);
+		RectangleD frame = animation_current->getFrame(animation_frame);
 		frame.x*=scale;
 		frame.y*=scale;
 		frame.width*=scale;
@@ -396,16 +396,16 @@ namespace GameLibrary
 		}
 	}
 	
-	bool SpriteActor::checkPointCollision(const Vector2f&point)
+	bool SpriteActor::checkPointCollision(const Vector2d&point)
 	{
 		if(animation_current == nullptr)
 		{
 			return false;
 		}
-		RectangleF frame = getFrame();
+		RectangleD frame = getFrame();
 		if(frame.contains(point))
 		{
-			Vector2f pointFixed = point;
+			Vector2d pointFixed = point;
 			pointFixed.x -= x;
 			pointFixed.y -= y;
 			
@@ -423,8 +423,8 @@ namespace GameLibrary
 				pointFixed.y = height - pointFixed.y;
 			}
 			
-			float ratX = pointFixed.x/width;
-			float ratY = pointFixed.y/height;
+			double ratX = pointFixed.x/width;
+			double ratY = pointFixed.y/height;
 			if(ratX < 0 || ratY < 0 || ratX>=1 || ratY>=1)
 			{
 				return false;
@@ -432,8 +432,8 @@ namespace GameLibrary
 			
 			TextureImage* img = animation_current->getImage(animation_frame);
 			RectangleI srcRect = animation_current->getImageSourceRect(animation_frame);
-			unsigned int pxlX = (unsigned int)(ratX*((float)srcRect.width));
-			unsigned int pxlY = (unsigned int)(ratY*((float)srcRect.height));
+			unsigned int pxlX = (unsigned int)(ratX*((double)srcRect.width));
+			unsigned int pxlY = (unsigned int)(ratY*((double)srcRect.height));
 
 			return img->checkPixel((unsigned int)srcRect.x+pxlX,(unsigned int)srcRect.y+pxlY);
 		}
@@ -450,13 +450,13 @@ namespace GameLibrary
 		{
 			return false;
 		}
-		RectangleF frame = getFrame();
-		RectangleF actor_frame = actor->getFrame();
+		RectangleD frame = getFrame();
+		RectangleD actor_frame = actor->getFrame();
 		if(frame.intersects(actor_frame))
 		{
-			RectangleF overlap = frame.getIntersect(actor_frame);
+			RectangleD overlap = frame.getIntersect(actor_frame);
 			
-			float incr = 1;
+			double incr = 1;
 			if(scale < actor->scale)
 			{
 				incr = scale;
@@ -512,12 +512,12 @@ namespace GameLibrary
 			}
 			else
 			{
-				TransformF transform = rotationMatrix;
+				TransformD transform = rotationMatrix;
 				transform.translate(-(width/2), -(height/2));
-				float ratiox = ((float)srcRect.width)/width;
-				float ratioy = ((float)srcRect.height)/height;
+				double ratiox = ((double)srcRect.width)/width;
+				double ratioy = ((double)srcRect.height)/height;
 				Vector2u dimensions(img->getWidth(), img->getHeight());
-				pxlIter = new PixelIterator(dimensions, srcRectU, frame, overlap, incr, incr, transform, Vector2f(ratiox, ratioy), mirrorHorizontal, mirrorVertical);
+				pxlIter = new PixelIterator(dimensions, srcRectU, frame, overlap, incr, incr, transform, Vector2d(ratiox, ratioy), mirrorHorizontal, mirrorVertical);
 			}
 			PixelIterator& pxlIterRef = *pxlIter;
 			
@@ -529,12 +529,12 @@ namespace GameLibrary
 			}
 			else
 			{
-				TransformF transform = actor->rotationMatrix;
+				TransformD transform = actor->rotationMatrix;
 				transform.translate(-(actor->width/2), -(actor->height/2));
-				float ratiox = ((float)actor_srcRect.width)/actor->width;
-				float ratioy = ((float)actor_srcRect.height)/actor->height;
+				double ratiox = ((double)actor_srcRect.width)/actor->width;
+				double ratioy = ((double)actor_srcRect.height)/actor->height;
 				Vector2u dimensions(actor_img->getWidth(), actor_img->getHeight());
-				actor_pxlIter = new PixelIterator(dimensions, actor_srcRectU, actor_frame, overlap, incr, incr, transform, Vector2f(ratiox, ratioy), actor_mirrorHorizontal, actor_mirrorVertical);
+				actor_pxlIter = new PixelIterator(dimensions, actor_srcRectU, actor_frame, overlap, incr, incr, transform, Vector2d(ratiox, ratioy), actor_mirrorHorizontal, actor_mirrorVertical);
 			}
 			PixelIterator& actor_pxlIterRef = *actor_pxlIter;
 
@@ -542,8 +542,8 @@ namespace GameLibrary
 			bool actor_running = actor_pxlIterRef.nextPixelIndex();
 			while(running && actor_running)
 			{
-				float pxlIndex = pxlIterRef.getCurrentPixelIndex();
-				float actor_pxlIndex = actor_pxlIterRef.getCurrentPixelIndex();
+				double pxlIndex = pxlIterRef.getCurrentPixelIndex();
+				double actor_pxlIndex = actor_pxlIterRef.getCurrentPixelIndex();
 				bool pxlOn = false;
 				if(pxlIndex >= 0)
 				{

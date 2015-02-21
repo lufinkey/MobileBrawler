@@ -6,7 +6,7 @@ namespace GameLibrary
 {
 //MenuScreen::MainElement
 	
-	MenuScreen::MainElement::MainElement(MenuScreen*screen, const RectangleF&frame) : ActorMenuElement(frame)
+	MenuScreen::MainElement::MainElement(MenuScreen*screen, const RectangleD&frame) : ActorMenuElement(frame)
 	{
 		menuScreen = screen;
 	}
@@ -63,7 +63,7 @@ namespace GameLibrary
 	{
 		GameLibrary::ScreenElement* element = getElement();
 		mainElement = new MainElement(this, element->getFrame());
-		element->addChildElement(RectF(0,0,1,1), mainElement);
+		element->addChildElement(RectD(0,0,1,1), mainElement);
 	}
 
 	MenuScreen::~MenuScreen()
@@ -88,12 +88,12 @@ namespace GameLibrary
 		return mainElement->addActor(actor);
 	}
 	
-	unsigned int MenuScreen::addItem(const RectF&bounds, SpriteActor*actor)
+	unsigned int MenuScreen::addItem(const RectD&bounds, SpriteActor*actor)
 	{
 		return mainElement->addActor(bounds, actor);
 	}
 	
-	unsigned int MenuScreen::addItem(const Vector2f&position, Animation*animation, const Animation::Direction&direction, bool destructAnimation)
+	unsigned int MenuScreen::addItem(const Vector2d&position, Animation*animation, const Animation::Direction&direction, bool destructAnimation)
 	{
 		if(animation == nullptr)
 		{
@@ -109,7 +109,7 @@ namespace GameLibrary
 		return mainElement->addActor(actor);
 	}
 	
-	unsigned int MenuScreen::addItem(const RectF&bounds, Animation*animation, const Animation::Direction&direction, bool destructAnimation)
+	unsigned int MenuScreen::addItem(const RectD&bounds, Animation*animation, const Animation::Direction&direction, bool destructAnimation)
 	{
 		if(animation == nullptr)
 		{
@@ -130,17 +130,17 @@ namespace GameLibrary
 		return mainElement->addActor(actor);
 	}
 	
-	unsigned int MenuScreen::addItem(const RectF&bounds, TextActor*actor)
+	unsigned int MenuScreen::addItem(const RectD&bounds, TextActor*actor)
 	{
 		return mainElement->addActor(bounds, actor);
 	}
 	
-	unsigned int MenuScreen::addItem(const Vector2f&position, const String&text, Font*font, const Color&color, unsigned int fontsize, int fontstyle, const TextActor::TextAlignment&alignment)
+	unsigned int MenuScreen::addItem(const Vector2d&position, const String&text, Font*font, const Color&color, unsigned int fontsize, int fontstyle, const TextActor::TextAlignment&alignment)
 	{
 		return mainElement->addActor(new TextActor(position.x, position.y, text, font, color, fontsize, fontstyle, alignment));
 	}
 	
-	unsigned int MenuScreen::addItem(const RectF&bounds, const String&text, Font*font, const Color&color, unsigned int fontsize, int fontstyle, const TextActor::TextAlignment&alignment)
+	unsigned int MenuScreen::addItem(const RectD&bounds, const String&text, Font*font, const Color&color, unsigned int fontsize, int fontstyle, const TextActor::TextAlignment&alignment)
 	{
 		return mainElement->addActor(bounds, new TextActor(text, font, color, fontsize, fontstyle, alignment));
 	}

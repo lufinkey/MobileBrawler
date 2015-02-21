@@ -22,7 +22,7 @@ namespace SmashBros
 				bool selected;
 				
 			public:
-				ReadyToFightBanner(CharacterSelectScreen*charSelectScreen, float x, float y, AssetManager*assetManager);
+				ReadyToFightBanner(CharacterSelectScreen*charSelectScreen, double x, double y, AssetManager*assetManager);
 				
 				virtual void update(ApplicationData appData) override;
 				

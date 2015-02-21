@@ -11,8 +11,8 @@ namespace SmashBros
 
 		GroupRulesMenu::GroupRulesMenu(const SmashData&smashData, const GroupSmashData&groupSmashData) : BaseMenuScreen(smashData)
 		{
-			RectangleF frame = getFrame();
-			autoOptionsLayout.setFrame(RectangleF(0,0,frame.width,frame.height));
+			RectangleD frame = getFrame();
+			autoOptionsLayout.setFrame(RectangleD(0,0,frame.width,frame.height));
 			
 			listener = new MenuBarListener(this);
 			rules = groupSmashData.getRules();
@@ -27,14 +27,14 @@ namespace SmashBros
 													smashData.getMenuData()->getAssetManager(),
 													smashData.getMenuData()->getMenuBarProperties());
 			gameModeBar->setEventListener(listener);
-			autoOptionsLayout.add(RectF(0.14f, 0.12f, 0.86f, 0.28f), gameModeBar);
+			autoOptionsLayout.add(RectD(0.14, 0.12, 0.86, 0.28), gameModeBar);
 			
 			gameModeValueBar = new RulesBar(rules, stockWinCondition, timeLimitWinCondition,
 											smashData.getMenuData()->getAssetManager(),
 											smashData.getMenuData()->getMenuBarProperties());
 			gameModeValueBar->changeAnimation("MenuBar", Animation::FORWARD);
 			gameModeValueBar->setLabel(getGameModeLabelString(rules));
-			autoOptionsLayout.add(RectF(0.14f, 0.32f, 0.86f, 0.48f), gameModeValueBar);
+			autoOptionsLayout.add(RectD(0.14, 0.32, 0.86, 0.48), gameModeValueBar);
 		}
 		
 		GroupRulesMenu::~GroupRulesMenu()
@@ -46,8 +46,8 @@ namespace SmashBros
 		void GroupRulesMenu::onFrameChange()
 		{
 			BaseMenuScreen::onFrameChange();
-			RectangleF frame = getFrame();
-			autoOptionsLayout.setFrame(RectangleF(0,0,frame.width,frame.height));
+			RectangleD frame = getFrame();
+			autoOptionsLayout.setFrame(RectangleD(0,0,frame.width,frame.height));
 		}
 		
 		void GroupRulesMenu::onWillAppear(const Transition*transition)

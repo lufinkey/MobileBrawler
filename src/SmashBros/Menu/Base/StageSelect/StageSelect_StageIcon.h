@@ -19,7 +19,7 @@ namespace SmashBros
 				StageInfo* info;
 				
 			public:
-				StageIcon(StageInfo&info, float x, float y, AssetManager*assetManager);
+				StageIcon(StageInfo&info, double x, double y, AssetManager*assetManager);
 				virtual ~StageIcon();
 				
 				virtual void draw(ApplicationData appData, Graphics graphics) const override;

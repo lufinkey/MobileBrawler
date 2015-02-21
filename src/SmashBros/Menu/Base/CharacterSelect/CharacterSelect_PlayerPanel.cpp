@@ -22,7 +22,7 @@ namespace SmashBros
 					charSelectScreen = screen;
 				}
 
-				PlayerPanel_ModeTapRegion(PlayerPanel*playerPanel, CharacterSelectScreen*screen, float x, float y, float width, float height) : WireframeActor(x, y, width, height)
+				PlayerPanel_ModeTapRegion(PlayerPanel*playerPanel, CharacterSelectScreen*screen, double x, double y, double width, double height) : WireframeActor(x, y, width, height)
 				{
 					panel = playerPanel;
 					charSelectScreen = screen;
@@ -30,8 +30,8 @@ namespace SmashBros
 				
 				virtual void onMouseRelease(ApplicationData appData, unsigned int touchID) override
 				{
-					Vector2f touchpos;
-					TransformF mouseTransform = appData.getTransform().getInverse();
+					Vector2d touchpos;
+					TransformD mouseTransform = appData.getTransform().getInverse();
 					if(Multitouch::isAvailable())
 					{
 						touchpos = mouseTransform.transform(Multitouch::getPreviousPosition(appData.getWindow(), touchID));
@@ -62,7 +62,7 @@ namespace SmashBros
 				}
 			};
 			
-			PlayerPanel::PlayerPanel(unsigned int pNum, CharacterSelectScreen*screen, float x, float y, const Dictionary&properties, AssetManager*assetManager)
+			PlayerPanel::PlayerPanel(unsigned int pNum, CharacterSelectScreen*screen, double x, double y, const Dictionary&properties, AssetManager*assetManager)
 				: SpriteActor(x, y)
 			{
 				playerNum = pNum;
@@ -80,7 +80,7 @@ namespace SmashBros
 				portrait_anim = new Animation(1);
 				portrait->addAnimation("default", portrait_anim);
 				portrait->changeAnimation("default", Animation::FORWARD);
-				autoLayout.add(RectF(0,0,1,1), portrait);
+				autoLayout.add(RectD(0,0,1,1), portrait);
 				
 				overlay = new SpriteActor(x,y);
 				overlay->addAnimation("human", new Animation(1, assetManager, (String)"characterselect/panel_overlay_p" + playerNum + ".png"));
@@ -88,10 +88,10 @@ namespace SmashBros
 				overlay->addAnimation("na", new Animation(1, assetManager, "characterselect/panel_overlay_na.png"));
 				//overlay->addAnimation("blank", new Animation(1, assetManager, "characterselect/panel_overlay_blank.png"));
 				overlay->changeAnimation("na", Animation::FORWARD);
-				autoLayout.add(RectF(0,0,1,1), overlay);
+				autoLayout.add(RectD(0,0,1,1), overlay);
 				
 				namebox = new TextActor(x, y, "", assetManager->getFont("fonts/default.ttf"), Color::BLACK, 36, Font::STYLE_PLAIN, TextActor::ALIGN_CENTER);
-				autoLayout.add(RectF(0.32f, 0.87f, 0.91f, 0.981f), namebox);
+				autoLayout.add(RectD(0.32, 0.87, 0.91, 0.981), namebox);
 				
 				tapRegion_mode = new PlayerPanel_ModeTapRegion(this, charSelectScreen);
 				tapRegion_mode->setVisible(false);
@@ -111,7 +111,7 @@ namespace SmashBros
 			{
 				SpriteActor::updateSize();
 				
-				RectangleF frame = getFrame();
+				RectangleD frame = getFrame();
 				autoLayout.setFrame(frame);
 				if(tapRegion_mode!=nullptr)
 				{
@@ -126,21 +126,21 @@ namespace SmashBros
 				const Any& portraitDict = properties.get("portrait");
 				if(!portraitDict.empty() && portraitDict.is<Dictionary>())
 				{
-					RectF portrait_bounds = autoLayout.get(portrait);
+					RectD portrait_bounds = autoLayout.get(portrait);
 					applyPlacementDict(&portrait_bounds, portraitDict.as<Dictionary>(false));
 					autoLayout.set(portrait, portrait_bounds);
 				}
 				const Any& overlayDict = properties.get("overlay");
 				if(!overlayDict.empty() && overlayDict.is<Dictionary>())
 				{
-					RectF overlay_bounds = autoLayout.get(overlay);
+					RectD overlay_bounds = autoLayout.get(overlay);
 					applyPlacementDict(&overlay_bounds, overlayDict.as<Dictionary>(false));
 					autoLayout.set(overlay, overlay_bounds);
 				}
 				const Any& nameboxDict = properties.get("namebox");
 				if(!nameboxDict.empty() && nameboxDict.is<Dictionary>())
 				{
-					RectF namebox_bounds = autoLayout.get(namebox);
+					RectD namebox_bounds = autoLayout.get(namebox);
 					const Dictionary&namebox_dict = nameboxDict.as<Dictionary>(false);
 					applyPlacementDict(&namebox_bounds, nameboxDict);
 					autoLayout.set(namebox, namebox_bounds);
@@ -201,7 +201,7 @@ namespace SmashBros
 				}
 			}
 			
-			void PlayerPanel::applyPlacementDict(RectF*bounds, const Dictionary&dict)
+			void PlayerPanel::applyPlacementDict(RectD*bounds, const Dictionary&dict)
 			{
 				if(bounds == nullptr)
 				{
@@ -214,19 +214,19 @@ namespace SmashBros
 				const Any& bottom_val = dict.get("bottom");
 				if(!left_val.empty() && left_val.is<Number>())
 				{
-					bounds->left = left_val.as<Number>(false).asFloat();
+					bounds->left = left_val.as<Number>(false).asDouble();
 				}
 				if(!top_val.empty() && top_val.is<Number>())
 				{
-					bounds->top = top_val.as<Number>(false).asFloat();
+					bounds->top = top_val.as<Number>(false).asDouble();
 				}
 				if(!right_val.empty() && right_val.is<Number>())
 				{
-					bounds->right = right_val.as<Number>(false).asFloat();
+					bounds->right = right_val.as<Number>(false).asDouble();
 				}
 				if(!bottom_val.empty() && bottom_val.is<Number>())
 				{
-					bounds->bottom = bottom_val.as<Number>(false).asFloat();
+					bounds->bottom = bottom_val.as<Number>(false).asDouble();
 				}
 			}
 			
@@ -267,11 +267,11 @@ namespace SmashBros
 					{
 						if(chip->isDragging())
 						{
-							portrait->setAlpha(0.5f);
+							portrait->setAlpha(0.5);
 						}
 						else
 						{
-							portrait->setAlpha(1.0f);
+							portrait->setAlpha(1.0);
 						}
 						i = chips.size();
 					}

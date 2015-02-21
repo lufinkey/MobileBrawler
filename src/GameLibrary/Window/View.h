@@ -9,24 +9,24 @@ namespace GameLibrary
 	{
 		friend class Graphics;
 	private:
-		Vector2f size;
-		float zoom;
+		Vector2d size;
+		double zoom;
 		bool matchWindow;
 		bool letterboxed;
 		
 	public:
 		View();
 		View(const View&);
-		View(const Vector2f& size);
-		View(float width, float height);
+		View(const Vector2d& size);
+		View(double width, double height);
 		~View();
 		
-		void setSize(float width, float height);
-		void setSize(const Vector2f& size);
-		const Vector2f& getSize() const;
+		void setSize(double width, double height);
+		void setSize(const Vector2d& size);
+		const Vector2d& getSize() const;
 
-		void setZoom(float zoom);
-		float getZoom() const;
+		void setZoom(double zoom);
+		double getZoom() const;
 
 		void setMatchesWindow(bool toggle);
 		bool matchesWindow() const;

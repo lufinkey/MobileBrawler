@@ -33,10 +33,10 @@ namespace SmashBros
 			protected:
 				AutoLayout autoLayout;
 				
-				static void applyPlacementDict(RectF*bounds, const Dictionary&dict);
+				static void applyPlacementDict(RectD*bounds, const Dictionary&dict);
 				
 			public:
-				PlayerPanel(unsigned int playerNum, CharacterSelectScreen*charSelectScreen, float x, float y, const Dictionary&properties, AssetManager*assetManager);
+				PlayerPanel(unsigned int playerNum, CharacterSelectScreen*charSelectScreen, double x, double y, const Dictionary&properties, AssetManager*assetManager);
 				virtual ~PlayerPanel();
 				
 				virtual void updateSize() override;

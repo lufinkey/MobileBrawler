@@ -4,7 +4,7 @@
 
 namespace GameLibrary
 {
-	ApplicationData::ApplicationData(Application*app, Window*win, AssetManager*assetMgr, const TimeInterval&time, const TransformF&transfrm, float fpsMult)
+	ApplicationData::ApplicationData(Application*app, Window*win, AssetManager*assetMgr, const TimeInterval&time, const TransformD&transfrm, double fpsMult)
 	{
 		application = app;
 		window = win;
@@ -61,17 +61,17 @@ namespace GameLibrary
 		return timeInterval;
 	}
 
-	TransformF& ApplicationData::getTransform()
+	TransformD& ApplicationData::getTransform()
 	{
 		return transform;
 	}
 
-	const TransformF& ApplicationData::getTransform() const
+	const TransformD& ApplicationData::getTransform() const
 	{
 		return transform;
 	}
 	
-	float ApplicationData::getFrameSpeedMultiplier() const
+	double ApplicationData::getFrameSpeedMultiplier() const
 	{
 		return framespeedMult;
 	}
@@ -96,7 +96,7 @@ namespace GameLibrary
 		timeInterval = time;
 	}
 
-	void ApplicationData::setTransform(const TransformF&transfrm)
+	void ApplicationData::setTransform(const TransformD&transfrm)
 	{
 		transform = transfrm;
 	}

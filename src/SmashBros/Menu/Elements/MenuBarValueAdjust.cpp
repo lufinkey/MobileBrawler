@@ -11,7 +11,7 @@ namespace SmashBros
 			MenuBarValueAdjust* menuBar;
 			
 		public:
-			MenuBarValueAdjust_ArrowButton(MenuBarValueAdjust*bar, float x, float y, Number*value, const Number&min, const Number&max, const Number&increment, const ArrowButton::Direction&direction, AssetManager*assetManager, const Color&hoverColor = Color::LIGHTBLUE, const Color&pressColor = Color::BLUE)
+			MenuBarValueAdjust_ArrowButton(MenuBarValueAdjust*bar, double x, double y, Number*value, const Number&min, const Number&max, const Number&increment, const ArrowButton::Direction&direction, AssetManager*assetManager, const Color&hoverColor = Color::LIGHTBLUE, const Color&pressColor = Color::BLUE)
 				: ArrowButton(x,y,value,min,max,increment,direction,assetManager,hoverColor,pressColor)
 			{
 				menuBar = bar;
@@ -34,7 +34,7 @@ namespace SmashBros
 			//
 		}
 
-		MenuBarValueAdjust::MenuBarValueAdjust(float x, float y, const String&label, const String&valueLabel, Number*value_arg, const Number&minimum, const Number&maximum, const Number&increment, AssetManager*assetManager, const Dictionary&properties)
+		MenuBarValueAdjust::MenuBarValueAdjust(double x, double y, const String&label, const String&valueLabel, Number*value_arg, const Number&minimum, const Number&maximum, const Number&increment, AssetManager*assetManager, const Dictionary&properties)
 			: MenuBar(x,y,label,assetManager, properties)
 		{
 			value = value_arg;
@@ -46,15 +46,15 @@ namespace SmashBros
 			Font* font = assetManager->getFont("fonts/default.ttf");
 			value_label_color = Color::BLACK;
 			value_label_actor = new TextActor(valueLabel, font, value_label_color, 24, Font::STYLE_PLAIN, TextActor::ALIGN_CENTER);
-			autoLayout.add(RectF(0.65f, 0.05f, 0.9f, 0.95f), value_label_actor);
+			autoLayout.add(RectD(0.65, 0.05, 0.9, 0.95), value_label_actor);
 			
 			arrow_less_dir = "left";
 			arrow_less = new MenuBarValueAdjust_ArrowButton(this, 0,0, value, min, max, -incr, ArrowButton::DIRECTION_LEFT, assetManager);
-			autoLayout.add(RectF(0.6f, 0.05f, 0.65f, 0.95f), arrow_less);
+			autoLayout.add(RectD(0.6, 0.05, 0.65, 0.95), arrow_less);
 			
 			arrow_more_dir = "right";
 			arrow_more = new MenuBarValueAdjust_ArrowButton(this, 0,0, value, min, max, incr, ArrowButton::DIRECTION_RIGHT, assetManager);
-			autoLayout.add(RectF(0.9f, 0.05f, 0.95f, 0.95f), arrow_more);
+			autoLayout.add(RectD(0.9, 0.05, 0.95, 0.95), arrow_more);
 			
 			applyProperties(properties);
 		}
@@ -71,7 +71,7 @@ namespace SmashBros
 			Any value_label_bounds_any = properties.get("value_label_bounds");
 			if(!value_label_bounds_any.empty() && value_label_bounds_any.is<Dictionary>())
 			{
-				RectF value_label_bounds = autoLayout.get(value_label_actor);
+				RectD value_label_bounds = autoLayout.get(value_label_actor);
 				const Dictionary& value_label_bounds_dict = value_label_bounds_any.as<Dictionary>(false);
 				applyPropertiesDict(&value_label_bounds, value_label_bounds_dict);
 				autoLayout.set(value_label_actor, value_label_bounds);
@@ -86,7 +86,7 @@ namespace SmashBros
 			Any arrow_less_bounds_any = properties.get("arrow_less_bounds");
 			if(!arrow_less_bounds_any.empty() && arrow_less_bounds_any.is<Dictionary>())
 			{
-				RectF arrow_less_bounds = autoLayout.get(arrow_less);
+				RectD arrow_less_bounds = autoLayout.get(arrow_less);
 				const Dictionary& arrow_less_bounds_dict = arrow_less_bounds_any.as<Dictionary>(false);
 				applyPropertiesDict(&arrow_less_bounds, arrow_less_bounds_dict);
 				autoLayout.set(arrow_less, arrow_less_bounds);
@@ -115,7 +115,7 @@ namespace SmashBros
 			Any arrow_more_bounds_any = properties.get("arrow_more_bounds");
 			if(!arrow_more_bounds_any.empty() && arrow_more_bounds_any.is<Dictionary>())
 			{
-				RectF arrow_more_bounds = autoLayout.get(arrow_more);
+				RectD arrow_more_bounds = autoLayout.get(arrow_more);
 				const Dictionary& arrow_more_bounds_dict = arrow_more_bounds_any.as<Dictionary>(false);
 				applyPropertiesDict(&arrow_more_bounds, arrow_more_bounds_dict);
 				autoLayout.set(arrow_more, arrow_more_bounds);

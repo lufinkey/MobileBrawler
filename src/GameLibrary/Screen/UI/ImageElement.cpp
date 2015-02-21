@@ -3,23 +3,23 @@
 
 namespace GameLibrary
 {
-	ImageElement::ImageElement() : ImageElement(RectangleF(0,0,0,0),nullptr)
+	ImageElement::ImageElement() : ImageElement(RectangleD(0,0,0,0),nullptr)
 	{
 		//
 	}
 	
-	ImageElement::ImageElement(const RectangleF&frame) : ImageElement(frame,nullptr)
+	ImageElement::ImageElement(const RectangleD&frame) : ImageElement(frame,nullptr)
 	{
 		//
 	}
 	
-	ImageElement::ImageElement(const RectangleF&frame, TextureImage*img, const ImageElement::DisplayMode&displayMd) : ScreenElement(frame)
+	ImageElement::ImageElement(const RectangleD&frame, TextureImage*img, const ImageElement::DisplayMode&displayMd) : ScreenElement(frame)
 	{
 		image = img;
 		displayMode = displayMd;
 	}
 	
-	ImageElement::ImageElement(TextureImage*img, const ImageElement::DisplayMode&displayMode) : ImageElement(RectangleF(0, 0, 0, 0), img, displayMode)
+	ImageElement::ImageElement(TextureImage*img, const ImageElement::DisplayMode&displayMode) : ImageElement(RectangleD(0, 0, 0, 0), img, displayMode)
 	{
 		//
 	}
@@ -37,12 +37,12 @@ namespace GameLibrary
 			{
 				case DISPLAY_FIT:
 				{
-					RectangleF frame = getFrame();
-					float imgwidth = (float)image->getWidth();
-					float imgheight = (float)image->getHeight();
+					RectangleD frame = getFrame();
+					double imgwidth = (double)image->getWidth();
+					double imgheight = (double)image->getHeight();
 					if(imgwidth!=0 && imgheight!=0 && frame.width!=0 && frame.height!=0)
 					{
-						RectangleF drawFrame(frame.x, frame.y, imgwidth, imgheight);
+						RectangleD drawFrame(frame.x, frame.y, imgwidth, imgheight);
 						drawFrame.scaleToFit(frame);
 						graphics.drawImage(image, drawFrame.x, drawFrame.y, drawFrame.width, drawFrame.height);
 					}
@@ -51,13 +51,13 @@ namespace GameLibrary
 				
 				case DISPLAY_ZOOM:
 				{
-					RectangleF frame = getFrame();
+					RectangleD frame = getFrame();
 
-					float imgwidth = (float)image->getWidth();
-					float imgheight = (float)image->getHeight();
+					double imgwidth = (double)image->getWidth();
+					double imgheight = (double)image->getHeight();
 					if(imgwidth!=0 && imgheight!=0 && frame.width!=0 && frame.height!=0)
 					{
-						RectangleF drawFrame(frame.x, frame.y, imgwidth, imgheight);
+						RectangleD drawFrame(frame.x, frame.y, imgwidth, imgheight);
 						drawFrame.scaleToFill(frame);
 						graphics.clip(frame);
 						graphics.drawImage(image, drawFrame.x, drawFrame.y, drawFrame.width, drawFrame.height);

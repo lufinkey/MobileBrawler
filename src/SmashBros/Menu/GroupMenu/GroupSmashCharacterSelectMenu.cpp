@@ -14,14 +14,14 @@ namespace SmashBros
 			reloadIcons(smashData);
 			reloadPlayerPanels(smashData);
 			
-			float headerbarBottom = getElement()->getAutoLayout().get(getHeaderbarElement()).bottom;
+			double headerbarBottom = getElement()->getAutoLayout().get(getHeaderbarElement()).bottom;
 			
 			rulesBar = new RulesBar(groupSmashData.getRules(),
 									groupSmashData.getStockWinCondition(),
 									groupSmashData.getTimeLimitWinCondition(),
 									smashData.getMenuData()->getAssetManager(),
 									smashData.getMenuData()->getRulesBarProperties());
-			getElement()->getAutoLayout().add(RectF(0.36f,0,1.0f,headerbarBottom), rulesBar);
+			getElement()->getAutoLayout().add(RectD(0.36,0,1.0,headerbarBottom), rulesBar);
 			
 			groupSmashStageSelectMenu = new GroupSmashStageSelectMenu(smashData, groupSmashData);
 		}

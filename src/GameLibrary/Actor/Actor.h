@@ -13,9 +13,9 @@ namespace GameLibrary
 		friend class WireframeActor;
 	public:
 		/*! x coordinate of the Actor. The x coordinate is 0 by default.*/
-		float x;
+		double x;
 		/*! y coordinate of the Actor. The x coordinate is 0 by default.*/
-		float y;
+		double y;
 		
 		
 		/*! default constructor*/
@@ -34,36 +34,36 @@ namespace GameLibrary
 		
 		
 		/*! Gets the actual bounding box of the Actor. The bounding box resizes based on rotation, scaling, and other transformations.
-			\returns a RectangleF object representing the Actor's bounding box*/
-		virtual RectangleF getFrame() const override;
+			\returns a RectangleD object representing the Actor's bounding box*/
+		virtual RectangleD getFrame() const override;
 		
 		
 		/*! Scales and repositions the Actor to fit within the specified container
 			\param container the frame to fit the Actor into.
 			\note this function will not work correctly if the Actor's scale value is set to 0*/
-		virtual void scaleToFit(const RectangleF&container);
+		virtual void scaleToFit(const RectangleD&container);
 		/*! Scales the Actor to fit within the specified size
 			\param the size to fit the Actor within
 			\note this function will not work correctly if the Actor's scale value is set to 0*/
-		void scaleToFit(const Vector2f&size);
+		void scaleToFit(const Vector2d&size);
 		
 		
 		/*! Gets the width of the Actor object. This value is affected by scale, but is not affected by rotation.
-			\returns a float representing the width of the Actor
+			\returns a double representing the width of the Actor
 			\note this is NOT the same as getting the width from Actor::getFrame()*/
-		float getWidth() const;
+		double getWidth() const;
 		/*! Gets the height of the Actor object This value is affected by scale, but is not affected by rotation.
-			\returns a float representing the width of the Actor
+			\returns a double representing the width of the Actor
 			\note this is NOT the same as getting the width from Actor::getFrame()*/
-		float getHeight() const;
+		double getHeight() const;
 		
 		
 		/*! Gets the x value of the Actor in the previous frame.
-			\returns a float value*/
-		float getPreviousX() const;
+			\returns a double value*/
+		double getPreviousX() const;
 		/*! Gets the y value of the Actor in the previous frame.
-			\returns a float value*/
-		float getPreviousY() const;
+			\returns a double value*/
+		double getPreviousY() const;
 
 		
 		
@@ -81,20 +81,20 @@ namespace GameLibrary
 			\see GameLibrary::Actor::x
 			\see GameLibrary::Actor::y
 			\param degrees the rotation, in degrees, to rotate the Actor*/
-		void rotate(float degrees);
+		void rotate(double degrees);
 		/*! Sets the rotation of the Actor to the specified amount of degrees with the origin at its (x,y) position. Rotation does affect mouse states. Rotation is 0 by default.
 			\see GameLibrary::Actor::x
 			\see GameLibrary::Actor::y
 			\param degrees the rotation, in degrees, to set the Actor's rotation*/
-		void setRotation(float degrees);
+		void setRotation(double degrees);
 		/*! Sets the transparency level of the Actor. This does not affect whether the mouse can detect the Actor. Alpha is 1 by default (fully visible).
 			\param alpha the alpha level, from 0 (fully invisible) to 1 (fully visible)*/
-		void setAlpha(float alpha);
+		void setAlpha(double alpha);
 		/*! Sets the scale of the Actor with the origin at its (x,y) position. This does affect mouse states. Scale is 1 by default.
 			\see GameLibrary::Actor::x
 			\see GameLibrary::Actor::y
 			\param scale the ratio to scale the Actor from its default size*/
-		void setScale(float scale);
+		void setScale(double scale);
 		/*! Sets the frame (bounding box) and the border of the Actor to be drawn on top of the Actor when GameLibrary::Actor::draw is called. This is good for testing. Frame is not visible by default.
 			\param visible true makes the frame and border visible, false makes the frame and border invisible*/
 		void setFrameVisible(bool visible);
@@ -119,17 +119,17 @@ namespace GameLibrary
 			\returns a const reference to a Color object representing the Actor's color*/
 		const Color& getColor() const;
 		/*! Gets the Actor's rotation, in degrees, on its (x,y) origin. Rotation is 0 by default.
-			\see GameLibrary::Actor::setRotation(float)
-			\returns a float value representing the Actor's rotation in degrees*/
-		float getRotation() const;
+			\see GameLibrary::Actor::setRotation(double)
+			\returns a double value representing the Actor's rotation in degrees*/
+		double getRotation() const;
 		/*! Gets the Actor's alpha value. Alpha is 1 by default (fully visible).
-			\see GameLibrary::Actor::setAlpha(float)
-			\returns a float representing the alpha level, from 0 (fully invisible) to 1 (fully visible)*/
-		float getAlpha() const;
+			\see GameLibrary::Actor::setAlpha(double)
+			\returns a double representing the alpha level, from 0 (fully invisible) to 1 (fully visible)*/
+		double getAlpha() const;
 		/*! Gets the Actor's scale ratio. Scale is 1 by default.
-			\see GameLibrary::Actor::setScale(float)
-			\returns a float representing the ratio the Actor has been scaled*/
-		float getScale() const;
+			\see GameLibrary::Actor::setScale(double)
+			\returns a double representing the ratio the Actor has been scaled*/
+		double getScale() const;
 		/*! Tells whether the Actor's frame (bounding box) and border have been set visible. Frame and border visibility is false by default.
 			\see GameLibrary::Actor::setFrameVisible(bool)
 			\returns true if the Actor's frame and border are visible, and false if the frame and border are invisible*/
@@ -204,14 +204,14 @@ namespace GameLibrary
 			\param point an (x,y) coordinate to check.
 			\returns true if the point collides with the Actor, false if otherwise.
 			\note this function is inefficient in loops. It should be used for checking single pixels, and not for pixel level collisions.*/
-		virtual bool checkPointCollision(const Vector2f&point);
+		virtual bool checkPointCollision(const Vector2d&point);
 		
 	private:
-		float width;
-		float height;
+		double width;
+		double height;
 		
-		float prevx;
-		float prevy;
+		double prevx;
+		double prevy;
 		bool clicked;
 		bool prevclicked;
 		bool mouseover;
@@ -224,12 +224,12 @@ namespace GameLibrary
 		bool frame_visible;
 		Color color;
 		Color frame_color;
-		float rotation;
-		float alpha;
-		float scale;
+		double rotation;
+		double alpha;
+		double scale;
 		
-		TransformF rotationMatrix;
-		TransformF inverseRotationMatrix;
+		TransformD rotationMatrix;
+		TransformD inverseRotationMatrix;
 		
 		typedef struct
 		{

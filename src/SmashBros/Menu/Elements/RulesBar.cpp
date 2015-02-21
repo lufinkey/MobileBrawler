@@ -11,7 +11,7 @@ namespace SmashBros
 			//
 		}
 		
-		RulesBar::RulesBar(float x, float y, Rules*ruleData, StockWinCondition*stockWinCondition, TimeLimitWinCondition*timeLimitWinCondition, AssetManager*assetManager, const Dictionary&properties)
+		RulesBar::RulesBar(double x, double y, Rules*ruleData, StockWinCondition*stockWinCondition, TimeLimitWinCondition*timeLimitWinCondition, AssetManager*assetManager, const Dictionary&properties)
 			: MenuBarValueAdjust(x, y, "Stock", "3", &value, 1, 25, 1, assetManager, properties)
 		{
 			rules = ruleData;

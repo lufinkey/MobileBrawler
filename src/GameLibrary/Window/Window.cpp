@@ -262,7 +262,7 @@ namespace GameLibrary
 		bool createdView = false;
 		if(view == nullptr)
 		{
-			view = new View((float)windowed_size.x, (float)windowed_size.y);
+			view = new View((double)windowed_size.x, (double)windowed_size.y);
 			createdView = true;
 		}
 		
@@ -302,7 +302,7 @@ namespace GameLibrary
 		{
 			if(view!=nullptr)
 			{
-				Vector2f viewSize = view->getSize();
+				Vector2d viewSize = view->getSize();
 				windowed_size = Vector2u((unsigned int)viewSize.x, (unsigned int)viewSize.y);
 			}
 			else
@@ -452,7 +452,7 @@ namespace GameLibrary
 			SDL_SetWindowSize((SDL_Window*)windowdata,(int)size.x,(int)size.y);
 			if(view != nullptr && view->matchesWindow())
 			{
-				view->setSize((float)size.x, (float)size.y);
+				view->setSize((double)size.x, (double)size.y);
 			}
 		}
 #endif
@@ -621,7 +621,7 @@ namespace GameLibrary
 						windowed_size = oldsize;
 						if(view != nullptr && view->matchesWindow())
 						{
-							view->setSize((float)width, (float)height);
+							view->setSize((double)width, (double)height);
 						}
 					}
 					else
@@ -640,7 +640,7 @@ namespace GameLibrary
 						SDL_SetWindowSize((SDL_Window*)windowdata, (int)width, (int)height);
 						if(view != nullptr && view->matchesWindow())
 						{
-							view->setSize((float)width, (float)height);
+							view->setSize((double)width, (double)height);
 						}
 					}
 				}
@@ -690,7 +690,7 @@ namespace GameLibrary
 				break;
 
 				case SDL_WINDOWEVENT_MOVED:
-				listener->onWindowMoved(this, Vector2f((float)x, (float)y));
+				listener->onWindowMoved(this, Vector2d((double)x, (double)y));
 				break;
 
 				case SDL_WINDOWEVENT_RESIZED:
@@ -733,16 +733,16 @@ namespace GameLibrary
 		}
 	}
 
-	TransformF Window::getViewTransform()
+	TransformD Window::getViewTransform()
 	{
-		TransformF transform;
+		TransformD transform;
 
 		if(windowdata == nullptr)
 		{
 			return transform;
 		}
 		
-		float zoom = 1;
+		double zoom = 1;
 		if(view!=nullptr)
 		{
 			zoom = view->getZoom();
@@ -751,27 +751,27 @@ namespace GameLibrary
 		if(view == nullptr || view->matchesWindow())
 		{
 			const Vector2u& winSz = getSize();
-			Vector2f winSize = Vector2f((float)winSz.x, (float)winSz.y);
+			Vector2d winSize = Vector2d((double)winSz.x, (double)winSz.y);
 			if(view != nullptr)
 			{
-				view->setSize((float)winSz.x, (float)winSz.y);
+				view->setSize((double)winSz.x, (double)winSz.y);
 			}
 			
-			float difX = (winSize.x - (winSize.x*zoom))/(2*zoom);
-			float difY = (winSize.y - (winSize.y*zoom))/(2*zoom);
+			double difX = (winSize.x - (winSize.x*zoom))/(2*zoom);
+			double difY = (winSize.y - (winSize.y*zoom))/(2*zoom);
 			
 			transform.scale(zoom, zoom);
 			transform.translate(difX, difY);
 		}
 		else if(view->isLetterboxed())
 		{
-			float multScale = 1;
+			double multScale = 1;
 			Vector2u winSz = getSize();
-			Vector2f winSize = Vector2f((float)winSz.x, (float)winSz.y);
-			Vector2f viewSize = view->getSize();
+			Vector2d winSize = Vector2d((double)winSz.x, (double)winSz.y);
+			Vector2d viewSize = view->getSize();
 			
-			float ratX = winSize.x /viewSize.x;
-			float ratY = winSize.y /viewSize.y;
+			double ratX = winSize.x /viewSize.x;
+			double ratY = winSize.y /viewSize.y;
 			if(ratX<ratY)
 			{
 				multScale = ratX;
@@ -781,13 +781,13 @@ namespace GameLibrary
 				multScale = ratY;
 			}
 			
-			float fixedWidth = viewSize.x*multScale;
-			float fixedHeight = viewSize.y*multScale;
+			double fixedWidth = viewSize.x*multScale;
+			double fixedHeight = viewSize.y*multScale;
 			
-			float difX = ((winSize.x - (winSize.x*zoom))+(winSize.x - fixedWidth))/(2*zoom*multScale);
-			float difY = ((winSize.y - (winSize.y*zoom))+(winSize.y - fixedHeight))/(2*zoom*multScale);
+			double difX = ((winSize.x - (winSize.x*zoom))+(winSize.x - fixedWidth))/(2*zoom*multScale);
+			double difY = ((winSize.y - (winSize.y*zoom))+(winSize.y - fixedHeight))/(2*zoom*multScale);
 			
-			float scaleVal = zoom*multScale;
+			double scaleVal = zoom*multScale;
 			
 			transform.scale(scaleVal, scaleVal);
 			transform.translate(difX, difY);
@@ -795,17 +795,17 @@ namespace GameLibrary
 		else
 		{
 			Vector2u winSz = getSize();
-			Vector2f winSize = Vector2f((float)winSz.x, (float)winSz.y);
-			Vector2f viewSize = view->getSize();
+			Vector2d winSize = Vector2d((double)winSz.x, (double)winSz.y);
+			Vector2d viewSize = view->getSize();
 			
-			float ratX = winSize.x /viewSize.x;
-			float ratY = winSize.y /viewSize.y;
+			double ratX = winSize.x /viewSize.x;
+			double ratY = winSize.y /viewSize.y;
 			
-			float difX = (winSize.x - (winSize.x*zoom))/(2*zoom*ratX);
-			float difY = (winSize.y - (winSize.y*zoom))/(2*zoom*ratY);
+			double difX = (winSize.x - (winSize.x*zoom))/(2*zoom*ratX);
+			double difY = (winSize.y - (winSize.y*zoom))/(2*zoom*ratY);
 			
-			float scaleValX = (zoom*ratX);
-			float scaleValY = (zoom*ratY);
+			double scaleValX = (zoom*ratX);
+			double scaleValY = (zoom*ratY);
 
 			transform.scale(scaleValX, scaleValY);
 			transform.translate(difX, difY);
@@ -845,7 +845,7 @@ namespace GameLibrary
 		//
 	}
 
-	void WindowEventListener::onWindowMoved(Window*window, const Vector2f&position)
+	void WindowEventListener::onWindowMoved(Window*window, const Vector2d&position)
 	{
 		//
 	}

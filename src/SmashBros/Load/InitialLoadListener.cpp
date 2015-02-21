@@ -42,7 +42,7 @@ namespace SmashBros
 	{
 		TextureImage*loadingImage = batchLoader->getAssetManager()->getTexture("backgrounds/loading.png");
 		
-		Vector2f viewSize = window->getView()->getSize();
+		Vector2d viewSize = window->getView()->getSize();
 		graphics.drawImage(loadingImage, 0, 0, viewSize.x, viewSize.y);
 		window->refresh();
 	}

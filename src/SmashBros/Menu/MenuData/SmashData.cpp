@@ -30,24 +30,24 @@ namespace SmashBros
 		return *this;
 	}
 	
-	Vector2f SmashData::getScreenCoords(float ratX, float ratY) const
+	Vector2d SmashData::getScreenCoords(double ratX, double ratY) const
 	{
 		if(window == nullptr)
 		{
-			return Vector2f(0,0);
+			return Vector2d(0,0);
 		}
-		Vector2f viewSize = window->getView()->getSize();
-		return Vector2f(ratX*viewSize.x, ratY*viewSize.y);
+		Vector2d viewSize = window->getView()->getSize();
+		return Vector2d(ratX*viewSize.x, ratY*viewSize.y);
 	}
 	
-	Vector2f SmashData::getScreenCoords(const Vector2f&rat) const
+	Vector2d SmashData::getScreenCoords(const Vector2d&rat) const
 	{
 		if(window == nullptr)
 		{
-			return Vector2f(0,0);
+			return Vector2d(0,0);
 		}
-		Vector2f viewSize = window->getView()->getSize();
-		return Vector2f(rat.x*viewSize.x, rat.y*viewSize.y);
+		Vector2d viewSize = window->getView()->getSize();
+		return Vector2d(rat.x*viewSize.x, rat.y*viewSize.y);
 	}
 	
 	Window* SmashData::getWindow() const

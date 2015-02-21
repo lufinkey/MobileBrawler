@@ -43,21 +43,21 @@ namespace GameLibrary
 			\param actor a SpriteActor pointer
 			\returns the index of the added SpriteActor
 			\throws GameLibrary::IllegalArgumentException if actor argument is null*/
-		unsigned int addItem(const RectF&bounds, SpriteActor*actor);
+		unsigned int addItem(const RectD&bounds, SpriteActor*actor);
 		/*! Creates and adds a SpriteActor.
 			\param position the position of the Actor in the Screen
 			\param animation the default Animation of the Actor
 			\param direction the default Animation::Direction of the Actor
 			\param destructAnimation true to have the Actor handle deallocation of the Animation, or false to manually handle deallocation of the Animation
 			\throws GameLibrary::IllegalArgumentException if the animation argument is null, or if direction is not a valid Animation::Direction*/
-		unsigned int addItem(const Vector2f&position, Animation*animation, const Animation::Direction&direction=Animation::FORWARD, bool destructAnimation=true);
+		unsigned int addItem(const Vector2d&position, Animation*animation, const Animation::Direction&direction=Animation::FORWARD, bool destructAnimation=true);
 		/*! Creates and adds a SpriteActor that will be automatically resized by the AutoLayout.
 			\param bounds the ratio in the frame where the Actor will be laid out
 			\param animation the default Animation of the Actor
 			\param direction the default Animation::Direction of the Actor
 			\param destructAnimation true to have the Actor handle deallocation of the Animation, or false to manually handle deallocation of the Animation
 			\throws GameLibrary::IllegalArgumentException if the animation argument is null, or if direction is not a valid Animation::Direction*/
-		unsigned int addItem(const RectF&bounds, Animation*animation, const Animation::Direction&direction=Animation::FORWARD, bool destructAnimation=true);
+		unsigned int addItem(const RectD&bounds, Animation*animation, const Animation::Direction&direction=Animation::FORWARD, bool destructAnimation=true);
 		/*! Adds a TextActor. This Actor's deallocation will be automatically handled when this Screen is deallocated.
 			\param actor a TextActor pointer
 			\throws GameLibrary::IllegalArgumentException if actor argument is null*/
@@ -66,7 +66,7 @@ namespace GameLibrary
 			\param bounds the ratio in the frame where the Actor will be laid out
 			\param actor a TextActor pointer
 			\throws GameLibrary::IllegalArgumentException if actor argument is null*/
-		unsigned int addItem(const RectF&bounds, TextActor*actor);
+		unsigned int addItem(const RectD&bounds, TextActor*actor);
 		/*! Creates and adds a TextActor.
 			\param position the position of the Actor in the Screen
 			\param text a string to display
@@ -75,7 +75,7 @@ namespace GameLibrary
 			\param fontSize the glyph size of the font
 			\param fontStyle the style (plain, bold italic, etc.) of the font \see GameLibrary::Font::Style
 			\param alignment the alignment of the text, relative the origin \see GameLibrary::TextActor::TextAlignment*/
-		unsigned int addItem(const Vector2f&position, const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontsize=18, int fontstyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_CENTER);
+		unsigned int addItem(const Vector2d&position, const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontsize=18, int fontstyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_CENTER);
 		/*! Creates and adds a TextActor that will be automatically resized by the AutoLayout.
 			\param bounds the ratio in the frame where the Actor will be laid out
 			\param text a string to display
@@ -84,7 +84,7 @@ namespace GameLibrary
 			\param fontSize the glyph size of the font
 			\param fontStyle the style (plain, bold italic, etc.) of the font \see GameLibrary::Font::Style
 			\param alignment the alignment of the text, relative the origin \see GameLibrary::TextActor::TextAlignment*/
-		unsigned int addItem(const RectF&bounds, const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontsize=18, int fontstyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_CENTER);
+		unsigned int addItem(const RectD&bounds, const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontsize=18, int fontstyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_CENTER);
 		/*! Removes and deallocates a previously added Actor pointer.
 			\param index the index of the Actor. When an Actor is removed, the indexes of other Actors may change*/
 		void removeItem(unsigned int index);
@@ -193,7 +193,7 @@ namespace GameLibrary
 			virtual void drawActor(ApplicationData appData, Graphics graphics, Actor*actor) const override;
 			
 		public:
-			MainElement(MenuScreen*menuScreen, const RectangleF&frame);
+			MainElement(MenuScreen*menuScreen, const RectangleD&frame);
 			virtual ~MainElement();
 			
 			virtual void onActorHover(unsigned int index) override;

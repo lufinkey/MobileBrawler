@@ -33,49 +33,49 @@ namespace GameLibrary
 		
 		/*! Rotates the graphics by the given amount.
 			\param degrees the amount, in degrees, to rotate the Graphics*/
-		virtual void rotate(float degrees);
+		virtual void rotate(double degrees);
 		/*! Rotates the graphics by the given amount at the given origin.
 			\param degrees the amount, in degrees, to rotate the Graphics
 			\param x the x coordinate of the origin of the rotation
 			\param y the y coordinate of the origin of the rotation*/
-		virtual void rotate(float degrees, float x, float y);
+		virtual void rotate(double degrees, double x, double y);
 		/*! Rotates the graphics by the given amount at the given origin.
 			\param degrees the amount, in degrees, to rotate the Graphics
 			\param center the origin of the rotation*/
-		virtual void rotate(float degrees, const Vector2f&center);
+		virtual void rotate(double degrees, const Vector2d&center);
 		
 
 		/*! Scales the graphics by the given amount.
 			\param scaleX the ratio to scale the graphics along the x axis
 			\param scaleY the ratio to scale the graphics along the y axis*/
-		virtual void scale(float scaleX, float scaleY);
+		virtual void scale(double scaleX, double scaleY);
 		/*! Scales the graphics by the given amount.
 			\param factors the ratio to scale the graphics along the x and y axis*/
-		virtual void scale(const Vector2f& factors);
+		virtual void scale(const Vector2d& factors);
 		/*! Scales the graphics by the given amount at the given origin.
 			\param scaleX the ratio to scale the graphics along the x axis
 			\param scaleY the ratio to scale the graphics along the y axis
 			\param originX the x coordinate of the origin of the scaling
 			\param originY the y coordinate of the origin of the scaling*/
-		virtual void scale(float scaleX, float scaleY, float originX, float originY);
+		virtual void scale(double scaleX, double scaleY, double originX, double originY);
 		/*! Scales the graphics by the given amount at the given origin.
 			\param factors the ratio to scale the graphics along the x and y axis
 			\param origin the origin of the scaling*/
-		virtual void scale(const Vector2f& factors, const Vector2f& origin);
+		virtual void scale(const Vector2d& factors, const Vector2d& origin);
 		
 		
 		/*! Translates the graphics by the given amount.
 			\param x the amount, along the x axis, to translate
 			\param y the amount, along the y axis, to translate*/
-		virtual void translate(float x, float y);
+		virtual void translate(double x, double y);
 		/*! Translates the graphics by the givem amount.
 			\param delta the amount, along the x and y axis, to translate*/
-		virtual void translate(const Vector2f&delta);
+		virtual void translate(const Vector2d&delta);
 		
 		
 		/*! Gets the current transformation of the Graphics
-			\returns a TransformF object*/
-		virtual TransformF getTransform() const;
+			\returns a TransformD object*/
+		virtual TransformD getTransform() const;
 		
 		
 		/*! Sets the alpha (transparency) of the Graphics.
@@ -125,27 +125,27 @@ namespace GameLibrary
 			\param y the x coordinate of the clipping rectangle
 			\param width the width of the clipping rectangle
 			\param height the height of the clipping rectangle*/
-		virtual void setClipRect(float x, float y, float width, float height);
+		virtual void setClipRect(double x, double y, double width, double height);
 		/*! Sets the clipping region for draw operations.
 			\param rect the clipping rectangle*/
-		virtual void setClipRect(const RectangleF&rect);
+		virtual void setClipRect(const RectangleD&rect);
 		/*! Clips the current clipping region further using another clipping region.
 			\param rect the clipping rectangle*/
-		virtual void clip(const RectangleF&rect);
+		virtual void clip(const RectangleD&rect);
 		/*! Gets the current clipping rectangle.
-			\returns a const RectangleF reference*/
-		virtual const RectangleF& getClipRect();
+			\returns a const RectangleD reference*/
+		virtual const RectangleD& getClipRect();
 		
 		
 		/*! Draws a string to the Window.
 			\param text the string of text to draw
 			\param x the x coordinate of the bottom left of the string
 			\param y the y coordinate of the bottom left of the string*/
-		void drawString(const String&text, float x, float y);
+		void drawString(const String&text, double x, double y);
 		/*! Draws a string to the Window.
 			\param text the string of text to draw
 			\param point the coordinates of the bottom left of the string*/
-		void drawString(const String&text, const Vector2f& point);
+		void drawString(const String&text, const Vector2d& point);
 		
 		
 		/*! Draws a line to the Window.
@@ -153,11 +153,11 @@ namespace GameLibrary
 			\param y1 the y coordinate of the starting point of the line
 			\param x2 the x coordinate of the ending point of the line
 			\param y2 the y coordinate of the ending point of the line*/
-		void drawLine(float x1,float y1,float x2,float y2);
+		void drawLine(double x1,double y1,double x2,double y2);
 		/*! Draws a line to the Window.
 			\param point1 the coordinates of the starting point of the line
 			\param point2 the coordinates of the ending point of the line*/
-		void drawLine(const Vector2f& point1, const Vector2f& point2);
+		void drawLine(const Vector2d& point1, const Vector2d& point2);
 		
 		
 		/*! Draws a rectangle outline to the Window.
@@ -165,10 +165,10 @@ namespace GameLibrary
 			\param y the y coordinate of the rectangle
 			\param width the width of the rectangle
 			\param height the height of the rectangle*/
-		void drawRect(float x,float y,float width,float height);
+		void drawRect(double x,double y,double width,double height);
 		/*! Draws a rectangle outline to the Window.
 			\param rect the rectangle to draw*/
-		void drawRect(const RectangleF& rect);
+		void drawRect(const RectangleD& rect);
 		
 		
 		/*! Draws a filled rectangle to the Window.
@@ -176,40 +176,40 @@ namespace GameLibrary
 			\param y the y coordinate of the rectangle
 			\param width the width of the rectangle
 			\param height the height of the rectangle*/
-		void fillRect(float x,float y,float width,float height);
+		void fillRect(double x,double y,double width,double height);
 		/*! Draws a filled rectangle to the Window.
 			\param rect the rectangle to draw*/
-		void fillRect(const RectangleF& rect);
+		void fillRect(const RectangleD& rect);
 		
 		
-		//void drawOval(float x1,float y1,float w,float h);
-		//void drawOval(const RectangleF& rect);
+		//void drawOval(double x1,double y1,double w,double h);
+		//void drawOval(const RectangleD& rect);
 
-		//void fillOval(float x1,float y1,float w,float h);
-		//void fillOval(const RectangleF& rect);
+		//void fillOval(double x1,double y1,double w,double h);
+		//void fillOval(const RectangleD& rect);
 		
-		void drawPolygon(const PolygonF&polygon);
-		//void fillPolygon(const PolygonF&polygon);
+		void drawPolygon(const PolygonD&polygon);
+		//void fillPolygon(const PolygonD&polygon);
 		
 		
 		/*! Draws a TextureImage to the Window.
 			\param img the TextureImage to draw
 			\param x the x coordinate of the TextureImage
 			\param y the y coordinate of the TextureImage*/
-		void drawImage(TextureImage*img, float x, float y);
+		void drawImage(TextureImage*img, double x, double y);
 		/*! Draws a TextureImage to the Window.
 			\param img the TextureImage to draw
 			\param point the (x,y) coordinate to draw the TextureImage*/
-		void drawImage(TextureImage*img, const Vector2f& point);
+		void drawImage(TextureImage*img, const Vector2d& point);
 		/*! Draws a TextureImage to the Window.
 			\param img the TextureImage to draw
 			\param x the x coordinate of the TextureImage
 			\param y the y coordinate of the TextureImage*/
-		void drawImage(TextureImage*img, float x, float y, float width, float height);
+		void drawImage(TextureImage*img, double x, double y, double width, double height);
 		/*! Draws a TextureImage to the Window.
 			\param img the TextureImage to draw
 			\param rect the destination rectangle to draw the TextureImage*/
-		void drawImage(TextureImage*img, const RectangleF& rect);
+		void drawImage(TextureImage*img, const RectangleD& rect);
 		/*! Draws a TextureImage to the Window.
 			\param img the TextureImage to draw
 			\param dx1 the x coordinate of the top left of the destination rectangle to draw the TextureImage
@@ -220,12 +220,12 @@ namespace GameLibrary
 			\param sy1 the y coordinate of the top left of the source rectangle inside the TextureImage
 			\param sx2 the x coordinate of the bottom right of the source rectangle inside the TextureImage
 			\param sy2 the y coordinate of the bottom right of the source rectangle inside the TextureImage*/
-		void drawImage(TextureImage*img, float dx1, float dy1, float dx2, float dy2, unsigned int sx1, unsigned int sy1, unsigned int sx2, unsigned int sy2);
+		void drawImage(TextureImage*img, double dx1, double dy1, double dx2, double dy2, unsigned int sx1, unsigned int sy1, unsigned int sx2, unsigned int sy2);
 		/*! Draws a TextureImage to the Window.
 			\param img the TextureImage to draw
 			\param dst the destination rectangle to draw the TextureImage
 			\param src the source rectangle inside the TextureImage*/
-		void drawImage(TextureImage*img, const RectangleF& dst, const RectangleI& src);
+		void drawImage(TextureImage*img, const RectangleD& dst, const RectangleI& src);
 		
 	protected:
 		/*! Clears the Window render and resets all the properties of the Graphics*/
@@ -255,13 +255,13 @@ namespace GameLibrary
 
 		TextureImage*pixel;
 		
-		RectangleF cliprect;
-		Vector2f clipoffset;
+		RectangleD cliprect;
+		Vector2d clipoffset;
 
-		float rotation;
-		Vector2f scaling;
+		double rotation;
+		Vector2d scaling;
 		
-		TransformF transform;
+		TransformD transform;
 
 		bool derived;
 	};

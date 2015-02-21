@@ -11,7 +11,7 @@ namespace SmashBros
 			//
 		}
 		
-		ArrowButton::ArrowButton(float x, float y, Number*val, const Number&minimum, const Number&maximum, const Number&increment, const ArrowButton::Direction&direction, AssetManager*assetManager, const Color&hover, const Color&press) : SpriteActor(x, y)
+		ArrowButton::ArrowButton(double x, double y, Number*val, const Number&minimum, const Number&maximum, const Number&increment, const ArrowButton::Direction&direction, AssetManager*assetManager, const Color&hover, const Color&press) : SpriteActor(x, y)
 		{
 			selecting = false;
 			value = val;

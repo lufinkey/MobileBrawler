@@ -196,7 +196,7 @@ namespace GameLibrary
 		
 		apptime.start();
 		
-		float framespeedMult = (float)(((long double)sleeptime)/((long double)1000));
+		double framespeedMult = (double)(((long double)sleeptime)/((long double)1000));
 		
 		while(app_running && !app_closing)
 		{
@@ -235,7 +235,7 @@ namespace GameLibrary
 			{
 				long long actualEndFrameTime = apptime.getMilliseconds();
 				long long totalFrameTime = (long long)(actualEndFrameTime - startFrameTime);
-				framespeedMult = (float)(((long double)totalFrameTime)/((long double)1000));
+				framespeedMult = (double)(((long double)totalFrameTime)/((long double)1000));
 			}
 		}
 

@@ -7,7 +7,7 @@ namespace SmashBros
 	{
 		namespace StageSelect
 		{
-			StageIcon::StageIcon(StageInfo&stageInfo, float x, float y, AssetManager*assetManager)
+			StageIcon::StageIcon(StageInfo&stageInfo, double x, double y, AssetManager*assetManager)
 			{
 				info = &stageInfo;
 				String icon_path = stageInfo.getPath() + "/icon.png";

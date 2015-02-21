@@ -3,7 +3,7 @@
 
 namespace GameLibrary
 {
-	FadeZoomTransition::FadeZoomTransition(float start, float end)
+	FadeZoomTransition::FadeZoomTransition(double start, double end)
 	{
 		startZoom = start;
 		endZoom = end;
@@ -14,15 +14,15 @@ namespace GameLibrary
 		//
 	}
 
-	void FadeZoomTransition::draw(ApplicationData appData, Graphics graphics, float progress, Drawable*element1, Drawable*element2) const
+	void FadeZoomTransition::draw(ApplicationData appData, Graphics graphics, double progress, Drawable*element1, Drawable*element2) const
 	{
-		float zoom = startZoom + ((float)progress * (endZoom - startZoom));
+		double zoom = startZoom + ((double)progress * (endZoom - startZoom));
 
-		RectangleF e2rect = element2->getFrame();
-		Vector2f e2center = Vector2f(e2rect.x+(e2rect.width/2), e2rect.y+(e2rect.height/2));
+		RectangleD e2rect = element2->getFrame();
+		Vector2d e2center = Vector2d(e2rect.x+(e2rect.width/2), e2rect.y+(e2rect.height/2));
 
-		float xOffset = (e2rect.width - (e2rect.width * zoom)) / (float)(2 * zoom);
-		float yOffset = (e2rect.height - (e2rect.height * zoom)) / (float)(2 * zoom);
+		double xOffset = (e2rect.width - (e2rect.width * zoom)) / (double)(2 * zoom);
+		double yOffset = (e2rect.height - (e2rect.height * zoom)) / (double)(2 * zoom);
 		byte alpha = (byte)(progress*255);
 
 		element1->draw(appData, graphics);

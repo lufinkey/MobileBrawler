@@ -46,8 +46,8 @@ namespace GameLibrary
 		
 		
 		/*! Gets the actual frame (bounding box) of the Screen inside the Window.
-			\returns a RectangleF object representing the Screen's bounding box*/
-		virtual RectangleF getFrame() const override;
+			\returns a RectangleD object representing the Screen's bounding box*/
+		virtual RectangleD getFrame() const override;
 		
 		
 		//TODO add events for navigation from ScreenManager
@@ -200,7 +200,7 @@ namespace GameLibrary
 			bool requiresInitializing;
 			long long startTime;
 			const Transition*transition;
-			float progress;
+			double progress;
 			unsigned long long duration;
 			CompletionCallback completion;
 			void* caller;
@@ -218,7 +218,7 @@ namespace GameLibrary
 		static void TransitionData_callVirtualFunctions(TransitionData&data, Screen*onDidDisappearCaller, Screen*onDidAppearCaller);
 		
 		Window* window;
-		Vector2f framesize;
+		Vector2d framesize;
 		Color backgroundColor;
 		
 		TransitionData overlayData;

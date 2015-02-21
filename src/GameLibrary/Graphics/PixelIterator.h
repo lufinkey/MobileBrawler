@@ -21,7 +21,7 @@ namespace GameLibrary
 			\param mirrorHorizontal true if the destination image or canvas is mirrored horizontally, and false if otherwise
 			\param mirrorVertical true if the destination image or canvas is mirrored vertically, and false if otherwise
 			\throws GameLibrary::IllegalArgumentException if loopRect is not contained within dstRect or if srcRect is stretches larger than dimensions*/
-		PixelIterator(const Vector2u&dimensions, const RectangleU&srcRect, const RectangleF&dstRect, const RectangleF&loopRect, float xincrement, float yincrement, bool mirrorHorizontal=false, bool mirrorVertical=false);
+		PixelIterator(const Vector2u&dimensions, const RectangleU&srcRect, const RectangleD&dstRect, const RectangleD&loopRect, double xincrement, double yincrement, bool mirrorHorizontal=false, bool mirrorVertical=false);
 		/*! Constructs a PixelIterator to loop through a given area.
 			\param dimensions the actual size of the image or canvas, in pixels
 			\param srcRect the source rectangle of the area being checked
@@ -34,7 +34,7 @@ namespace GameLibrary
 			\param mirrorHorizontal true if the destination image or canvas is mirrored horizontally, and false if otherwise
 			\param mirrorVertical true if the destination image or canvas is mirrored vertically, and false if otherwise
 			\throws GameLibrary::IllegalArgumentException if loopRect is not contained within dstRect or if srcRect is stretches larger than dimensions*/
-		PixelIterator(const Vector2u&dimensions, const RectangleU&srcRect, const RectangleF&dstRect, const RectangleF&loopRect, float xincrement, float yincrement, const TransformF&transform, const Vector2f&ratio, bool mirrorHorizontal=false, bool mirrorVertical=false);
+		PixelIterator(const Vector2u&dimensions, const RectangleU&srcRect, const RectangleD&dstRect, const RectangleD&loopRect, double xincrement, double yincrement, const TransformD&transform, const Vector2d&ratio, bool mirrorHorizontal=false, bool mirrorVertical=false);
 		/*! copy constructor*/
 		PixelIterator(const PixelIterator&);
 		/*! assignment operator*/
@@ -45,34 +45,34 @@ namespace GameLibrary
 			\returns true if there is still more area to iterate through, or false if the iterator has finished iterating and has returned to the starting point*/
 		bool nextPixelIndex();
 		/*! Gets the current pixel "index". This value should be floored and converted to an integer before checking against an image or canvas.
-			\returns a float value representing the current iteration through the images pixel indexes; This value will be negative if outside of the bounds of the image or canvas*/
-		float getCurrentPixelIndex() const;
+			\returns a double value representing the current iteration through the images pixel indexes; This value will be negative if outside of the bounds of the image or canvas*/
+		double getCurrentPixelIndex() const;
 		
 	private:
-		float calculatePixelIndex();
+		double calculatePixelIndex();
 		
-		Vector2f dimensions;
+		Vector2d dimensions;
 		
 		RectangleU srcRect;
-		RectangleF srcRectF;
-		float srcRectRight;
-		float srcRectBottom;
-		RectangleF dstRect;
-		RectangleF loopRect;
-		RectF loopRectRel; //relative to dstRect
+		RectangleD srcRectD;
+		double srcRectRight;
+		double srcRectBottom;
+		RectangleD dstRect;
+		RectangleD loopRect;
+		RectD loopRectRel; //relative to dstRect
 
-		TransformF inverseTransform;
+		TransformD inverseTransform;
 		bool usesTransform;
 		bool mirrorHorizontal;
 		bool mirrorVertical;
 		bool started;
 		
-		Vector2f currentPoint; //relative to dstRect
-		float currentPixelIndex; //relative to the image
-		float lastRowStartIndex;
-		float row;
-		Vector2f incr;
-		Vector2f incrpxl;
-		Vector2f ratio; // ratio of srcSize/dstSize
+		Vector2d currentPoint; //relative to dstRect
+		double currentPixelIndex; //relative to the image
+		double lastRowStartIndex;
+		double row;
+		Vector2d incr;
+		Vector2d incrpxl;
+		Vector2d ratio; // ratio of srcSize/dstSize
 	};
 }

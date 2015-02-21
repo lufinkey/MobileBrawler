@@ -76,7 +76,7 @@ namespace GameLibrary
 		}
 		
 		/*! Gets a list of all of the points in the polygon.
-			\returns a const ArrayList reference of Vector2f objects*/
+			\returns a const ArrayList reference of Vector2d objects*/
 		const ArrayList<Vector2<T> >& getPoints() const
 		{
 			return points;

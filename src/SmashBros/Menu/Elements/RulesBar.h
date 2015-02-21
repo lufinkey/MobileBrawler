@@ -15,7 +15,7 @@ namespace SmashBros
 		{
 		public:
 			RulesBar(Rules*rules, StockWinCondition*stockWinCondition, TimeLimitWinCondition*timeLimitWinCondition, AssetManager*assetManager, const Dictionary&properties);
-			RulesBar(float x, float y, Rules*rules, StockWinCondition*stockWinCondition, TimeLimitWinCondition*timeLimitWinCondition, AssetManager*assetManager, const Dictionary&properties);
+			RulesBar(double x, double y, Rules*rules, StockWinCondition*stockWinCondition, TimeLimitWinCondition*timeLimitWinCondition, AssetManager*assetManager, const Dictionary&properties);
 			virtual ~RulesBar();
 			
 			virtual void update(ApplicationData appData) override;

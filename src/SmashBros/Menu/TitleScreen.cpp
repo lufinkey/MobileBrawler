@@ -13,17 +13,17 @@ namespace SmashBros
 			getBackgroundElement()->setImage(assetManager->getTexture("titlescreen/background.png"));
 			
 			TextureImage* logoImage = assetManager->getTexture("titlescreen/logo.png");
-			Vector2f logoImageSize(0,0);
+			Vector2d logoImageSize(0,0);
 			if(logoImage != nullptr)
 			{
-				logoImageSize.x = (float)logoImage->getWidth();
-				logoImageSize.y = (float)logoImage->getHeight();
+				logoImageSize.x = (double)logoImage->getWidth();
+				logoImageSize.y = (double)logoImage->getHeight();
 			}
 			logo = new ImageElement(logoImage, ImageElement::DISPLAY_FIT);
-			getElement()->addChildElement(RectF(0,0,1.0f,1.0f), logo);
+			getElement()->addChildElement(RectD(0, 0, 1.0, 1.0), logo);
 			
 			mainMenu = new MainMenu(smashData);
-			transition = new FadeColorTransition(Color::WHITE, 0.6f);
+			transition = new FadeColorTransition(Color::WHITE, 0.6);
 			
 			tapRegion = new WireframeActor();
 			
@@ -57,7 +57,7 @@ namespace SmashBros
 		void TitleScreen::onFrameChange()
 		{
 			BaseMenuScreen::onFrameChange();
-			RectangleF frame = getFrame();
+			RectangleD frame = getFrame();
 			tapRegion->x = 0;
 			tapRegion->y = 0;
 			tapRegion->setSize(frame.width, frame.height);

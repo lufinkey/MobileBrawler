@@ -24,6 +24,6 @@ namespace GameLibrary
 			\param progress the current Transition progress, from 0 to 1; Making this a value other than 0 through 1 causes undefined behavior
 			\param element1 the first Drawable being transitioned
 			\param element2 the second Drawable being transitioned*/
-		virtual void draw(ApplicationData appData, Graphics graphics, float progress, Drawable*element1, Drawable*element2) const = 0;
+		virtual void draw(ApplicationData appData, Graphics graphics, double progress, Drawable*element1, Drawable*element2) const = 0;
 	};
 }

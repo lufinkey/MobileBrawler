@@ -62,12 +62,12 @@ namespace GameLibrary
 		//Open for implementation
 	}
 	
-	RectangleF Actor::getFrame() const
+	RectangleD Actor::getFrame() const
 	{
-		return RectangleF(x, y, width, height);
+		return RectangleD(x, y, width, height);
 	}
 	
-	void Actor::scaleToFit(const RectangleF&container)
+	void Actor::scaleToFit(const RectangleD&container)
 	{
 		if(width == 0 || height == 0)
 		{
@@ -75,46 +75,46 @@ namespace GameLibrary
 			y = container.y + (container.height/2);
 			return;
 		}
-		RectangleF currentFrame = getFrame();
-		RectangleF oldFrame = currentFrame;
+		RectangleD currentFrame = getFrame();
+		RectangleD oldFrame = currentFrame;
 		currentFrame.scaleToFit(container);
-		float ratio = currentFrame.width/oldFrame.width;
+		double ratio = currentFrame.width/oldFrame.width;
 		setScale(getScale()*ratio);
-		RectangleF newFrame = getFrame();
+		RectangleD newFrame = getFrame();
 		x = container.x + ((container.width-newFrame.width)/2);
 		y = container.y + ((container.height-newFrame.height)/2);
 	}
 	
-	void Actor::scaleToFit(const Vector2f& size)
+	void Actor::scaleToFit(const Vector2d& size)
 	{
 		if(width == 0 || height == 0)
 		{
 			return;
 		}
-		RectangleF container(0,0,size.x,size.y);
-		RectangleF currentFrame = getFrame();
-		RectangleF oldFrame = currentFrame;
+		RectangleD container(0,0,size.x,size.y);
+		RectangleD currentFrame = getFrame();
+		RectangleD oldFrame = currentFrame;
 		currentFrame.scaleToFit(container);
-		float ratio = currentFrame.width/oldFrame.width;
+		double ratio = currentFrame.width/oldFrame.width;
 		setScale(getScale()*ratio);
 	}
 	
-	float Actor::getWidth() const
+	double Actor::getWidth() const
 	{
 		return width;
 	}
 	
-	float Actor::getHeight() const
+	double Actor::getHeight() const
 	{
 		return height;
 	}
 	
-	float Actor::getPreviousX() const
+	double Actor::getPreviousX() const
 	{
 		return prevx;
 	}
 	
-	float Actor::getPreviousY() const
+	double Actor::getPreviousY() const
 	{
 		return prevy;
 	}
@@ -129,7 +129,7 @@ namespace GameLibrary
 		color = c;
 	}
 	
-	void Actor::rotate(float degrees)
+	void Actor::rotate(double degrees)
 	{
 		if(degrees!=0)
 		{
@@ -140,7 +140,7 @@ namespace GameLibrary
 		}
 	}
 	
-	void Actor::setRotation(float degrees)
+	void Actor::setRotation(double degrees)
 	{
 		if(degrees!=rotation)
 		{
@@ -155,12 +155,12 @@ namespace GameLibrary
 		}
 	}
 	
-	void Actor::setAlpha(float a)
+	void Actor::setAlpha(double a)
 	{
 		alpha = a;
 	}
 	
-	void Actor::setScale(float s)
+	void Actor::setScale(double s)
 	{
 		scale = s;
 		updateSize();
@@ -198,17 +198,17 @@ namespace GameLibrary
 		return color;
 	}
 	
-	float Actor::getRotation() const
+	double Actor::getRotation() const
 	{
 		return rotation;
 	}
 	
-	float Actor::getAlpha() const
+	double Actor::getAlpha() const
 	{
 		return alpha;
 	}
 	
-	float Actor::getScale() const
+	double Actor::getScale() const
 	{
 		return scale;
 	}
@@ -274,7 +274,7 @@ namespace GameLibrary
 		height = 0;
 	}
 
-	bool Actor::checkPointCollision(const Vector2f&point)
+	bool Actor::checkPointCollision(const Vector2d&point)
 	{
 		return false;
 	}
@@ -399,7 +399,7 @@ namespace GameLibrary
 	void Actor::updateMouse(ApplicationData&appData)
 	{
 		Window* window = appData.getWindow();
-		TransformF mouseTransform = appData.getTransform().getInverse();
+		TransformD mouseTransform = appData.getTransform().getInverse();
 		
 		mouseover = false;
 		clicked = false;
@@ -427,8 +427,8 @@ namespace GameLibrary
 		for(unsigned int i=0; i<touchIDs.size(); i++)
 		{
 			unsigned int touchID = touchIDs.get(i);
-			Vector2f mousepos = Mouse::getPosition(window, touchID);
-			Vector2f transformedPos = mouseTransform.transform(mousepos);
+			Vector2d mousepos = Mouse::getPosition(window, touchID);
+			Vector2d transformedPos = mouseTransform.transform(mousepos);
 			if(checkPointCollision(transformedPos))
 			{
 				mouseover = true;
@@ -504,7 +504,7 @@ namespace GameLibrary
 	void Actor::updateTouch(ApplicationData&appData)
 	{
 		Window* window = appData.getWindow();
-		TransformF mouseTransform = appData.getTransform().getInverse();
+		TransformD mouseTransform = appData.getTransform().getInverse();
 		
 		mouseover = false;
 		clicked = false;
@@ -527,8 +527,8 @@ namespace GameLibrary
 		for(unsigned int i=0; i<touchIDs.size(); i++)
 		{
 			unsigned int touchID = touchIDs.get(i);
-			Vector2f touchpos = Multitouch::getPosition(window, touchID);
-			Vector2f transformedPos = mouseTransform.transform(touchpos);
+			Vector2d touchpos = Multitouch::getPosition(window, touchID);
+			Vector2d transformedPos = mouseTransform.transform(touchpos);
 			if(checkPointCollision(transformedPos))
 			{
 				mouseover = true;

@@ -3,7 +3,7 @@
 
 namespace GameLibrary
 {
-	ActorMenuElement::ActorMenuElement(const RectangleF&frame) : ScreenElement(frame), autoActorLayout(frame)
+	ActorMenuElement::ActorMenuElement(const RectangleD&frame) : ScreenElement(frame), autoActorLayout(frame)
 	{
 		selectedIndex = ACTORMENU_NOSELECTION;
 		keyboardEnabled = false;
@@ -234,7 +234,7 @@ namespace GameLibrary
 		}
 	}
 	
-	void ActorMenuElement::setFrame(const RectangleF&frame)
+	void ActorMenuElement::setFrame(const RectangleD&frame)
 	{
 		ScreenElement::setFrame(frame);
 		autoActorLayout.setFrame(frame);
@@ -272,7 +272,7 @@ namespace GameLibrary
 		return actors.size()-1;
 	}
 	
-	unsigned int ActorMenuElement::addActor(const RectF&bounds, Actor*actor)
+	unsigned int ActorMenuElement::addActor(const RectD&bounds, Actor*actor)
 	{
 		if(actor == nullptr)
 		{

@@ -26,7 +26,7 @@ namespace GameLibrary
 
 	void TextInputElement::onAddToWindow(Window*window)
 	{
-		/*RectangleF frame = getFrame();
+		/*RectangleD frame = getFrame();
 
 		#if defined(TARGETPLATFORM_WINDOWS)
 			HWND hwnd = nullptr;
@@ -42,7 +42,7 @@ namespace GameLibrary
 		ScreenElement::onAddToWindow(window);
 	}
 
-	TextInputElement::TextInputElement(const RectangleF&frame)
+	TextInputElement::TextInputElement(const RectangleD&frame)
 	{
 		//
 	}

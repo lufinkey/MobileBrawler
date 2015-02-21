@@ -21,7 +21,7 @@ namespace GameLibrary
 		ScreenElement();
 		/*! Constructs an element with a given frame (bounding box).
 			\param frame the bounding box of the element*/
-		ScreenElement(const RectangleF&frame);
+		ScreenElement(const RectangleD&frame);
 		/*! virtual destructor*/
 		virtual ~ScreenElement();
 		
@@ -40,14 +40,14 @@ namespace GameLibrary
 		
 		
 		/*! Sets the actual frame (bounding box) of the element inside of its parent.
-			\param frame a RectangleF object representing the element's bounding box within its parent*/
-		virtual void setFrame(const RectangleF&frame);
+			\param frame a RectangleD object representing the element's bounding box within its parent*/
+		virtual void setFrame(const RectangleD&frame);
 		/*! Gets the actual frame (bounding box) of the element inside of its parent.
-			\returns a RectangleF object representing the element's bounding box within its parent*/
-		virtual RectangleF getFrame() const override;
+			\returns a RectangleD object representing the element's bounding box within its parent*/
+		virtual RectangleD getFrame() const override;
 		/*! Gets the center coordinates of the frame.
-			\returns a Vector2f point*/
-		Vector2f getCenter() const;
+			\returns a Vector2d point*/
+		Vector2d getCenter() const;
 		
 		
 		/*! Adds a child element to this element.
@@ -58,7 +58,7 @@ namespace GameLibrary
 			\param bounds the ratio in the frame where the element will be laid out
 			\param element a ScreenElement pointer
 			\throws GameLibrary::IllegalArgumentException if element is null, or if the element is already a child of another ScreenElement*/
-		void addChildElement(const RectF&bounds, ScreenElement*element);
+		void addChildElement(const RectD&bounds, ScreenElement*element);
 		/*! Removes this element from its parent element, or returns if it has no parent element.
 			\throws GameLibrary::IllegalStateException if this element is not stored within its parent element*/
 		void removeFromParentElement();
@@ -131,7 +131,7 @@ namespace GameLibrary
 	private:
 		Window*window;
 
-		RectangleF frame;
+		RectangleD frame;
 
 		Screen*screen;
 		ScreenElement* parentElement;

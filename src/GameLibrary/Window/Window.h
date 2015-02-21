@@ -144,7 +144,7 @@ namespace GameLibrary
 		void addEventListener(WindowEventListener*);
 		void removeEventListener(WindowEventListener*);
 
-		TransformF getViewTransform();
+		TransformD getViewTransform();
 
 		void getHandlePtr(void*ptr) const;
 	};
@@ -168,7 +168,7 @@ namespace GameLibrary
 		/*Event called when the window has been moved
 		window: the window that was moved
 		position: the new position of the window, relative to the entire screen*/
-		virtual void onWindowMoved(Window*window, const Vector2f&position);
+		virtual void onWindowMoved(Window*window, const Vector2d&position);
 		/*Event called when the window has been resized
 		window: the window that was resized
 		size: the new size of the window

@@ -8,12 +8,12 @@ namespace GameLibrary
 		//
 	}
 	
-	WireframeActor::WireframeActor(float x, float y) : WireframeActor(x,y,0,0)
+	WireframeActor::WireframeActor(double x, double y) : WireframeActor(x,y,0,0)
 	{
 		//
 	}
 	
-	WireframeActor::WireframeActor(float x1, float y1, float w, float h)
+	WireframeActor::WireframeActor(double x1, double y1, double w, double h)
 	{
 		x = x1;
 		y = y1;
@@ -41,7 +41,7 @@ namespace GameLibrary
 		drawActor(appData, graphics, x, y, scale);
 	}
 
-	void WireframeActor::drawActor(ApplicationData&appData, Graphics&graphics, float x, float y, float scale) const
+	void WireframeActor::drawActor(ApplicationData&appData, Graphics&graphics, double x, double y, double scale) const
 	{
 		if(visible && scale!=0)
 		{
@@ -104,22 +104,22 @@ namespace GameLibrary
 	{
 		width = size.x*scale;
 		height = size.y*scale;
-		framerect = rotationMatrix.transform(RectangleF(0, 0, size.x, size.y));
+		framerect = rotationMatrix.transform(RectangleD(0, 0, size.x, size.y));
 		framerect.x *= scale;
 		framerect.y *= scale;
 		framerect.width *= scale;
 		framerect.height *= scale;
 	}
 	
-	RectangleF WireframeActor::getFrame() const
+	RectangleD WireframeActor::getFrame() const
 	{
-		RectangleF frame = framerect;
+		RectangleD frame = framerect;
 		frame.x += x;
 		frame.y += y;
 		return frame;
 	}
 	
-	void WireframeActor::scaleToFit(const RectangleF&container)
+	void WireframeActor::scaleToFit(const RectangleD&container)
 	{
 		if(width == 0 || height == 0)
 		{
@@ -127,25 +127,25 @@ namespace GameLibrary
 			y = container.y + (container.height/2);
 			return;
 		}
-		RectangleF currentFrame = getFrame();
-		RectangleF oldFrame = currentFrame;
+		RectangleD currentFrame = getFrame();
+		RectangleD oldFrame = currentFrame;
 		currentFrame.scaleToFit(container);
-		float ratio = currentFrame.width/oldFrame.width;
+		double ratio = currentFrame.width/oldFrame.width;
 		setScale(getScale()*ratio);
-		RectangleF newFrame = getFrame();
+		RectangleD newFrame = getFrame();
 		x = container.x + ((container.width-newFrame.width)/2);
 		y = container.y + ((container.height-newFrame.height)/2);
 		updateSize();
 	}
 
-	void WireframeActor::setSize(const Vector2f&sz)
+	void WireframeActor::setSize(const Vector2d&sz)
 	{
 		size.x = sz.x;
 		size.y = sz.y;
 		updateSize();
 	}
 	
-	void WireframeActor::setSize(float w, float h)
+	void WireframeActor::setSize(double w, double h)
 	{
 		size.x = w;
 		size.y = h;
@@ -157,7 +157,7 @@ namespace GameLibrary
 		filled = toggle;
 	}
 	
-	const Vector2f& WireframeActor::getSize() const
+	const Vector2d& WireframeActor::getSize() const
 	{
 		return size;
 	}
@@ -167,16 +167,16 @@ namespace GameLibrary
 		return filled;
 	}
 
-	bool WireframeActor::checkPointCollision(const Vector2f&point)
+	bool WireframeActor::checkPointCollision(const Vector2d&point)
 	{
-		PolygonF polygon;
-		polygon.addPoint(Vector2f(0,0));
-		polygon.addPoint(Vector2f(width,0));
-		polygon.addPoint(Vector2f(width,height));
-		polygon.addPoint(Vector2f(0,height));
+		PolygonD polygon;
+		polygon.addPoint(Vector2d(0,0));
+		polygon.addPoint(Vector2d(width,0));
+		polygon.addPoint(Vector2d(width,height));
+		polygon.addPoint(Vector2d(0,height));
 		polygon = rotationMatrix.transform(polygon);
 
-		Vector2f fixedPoint(point.x-x, point.y-y);
+		Vector2d fixedPoint(point.x-x, point.y-y);
 
 		return polygon.contains(fixedPoint);
 	}

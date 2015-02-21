@@ -16,12 +16,12 @@ namespace GameLibrary
 		letterboxed = view.letterboxed;
 	}
 
-	View::View(const Vector2f& size) : View(size.x,size.y)
+	View::View(const Vector2d& size) : View(size.x,size.y)
 	{
 		//
 	}
 
-	View::View(float width, float height)
+	View::View(double width, double height)
 	{
 		size.x = width;
 		size.y = height;
@@ -35,28 +35,28 @@ namespace GameLibrary
 		//
 	}
 	
-	void View::setSize(float width, float height)
+	void View::setSize(double width, double height)
 	{
 		size.x = width;
 		size.y = height;
 	}
 
-	void View::setSize(const Vector2f& size)
+	void View::setSize(const Vector2d& size)
 	{
 		setSize(size.x, size.y);
 	}
 
-	const Vector2f& View::getSize() const
+	const Vector2d& View::getSize() const
 	{
 		return size;
 	}
 
-	void View::setZoom(float z)
+	void View::setZoom(double z)
 	{
 		zoom = z;
 	}
 
-	float View::getZoom() const
+	double View::getZoom() const
 	{
 		return zoom;
 	}

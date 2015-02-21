@@ -23,7 +23,7 @@ namespace GameLibrary
 		
 		
 		/*! Gets the actual frame (bounding box) of the Drawable inside of the Window.
-			\returns a RectangleF object representing the Drawable's bounding box*/
-		virtual RectangleF getFrame() const = 0;
+			\returns a RectangleD object representing the Drawable's bounding box*/
+		virtual RectangleD getFrame() const = 0;
 	};
 }

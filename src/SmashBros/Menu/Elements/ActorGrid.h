@@ -12,27 +12,27 @@ namespace SmashBros
 		class ActorGrid
 		{
 		private:
-			Vector2f position;
+			Vector2d position;
 			ArrayList<Actor*> actors;
 			unsigned int columns;
-			Vector2f spacing;
+			Vector2d spacing;
 			
 		protected:
 			void setActorPosition(unsigned int index, Actor*actor);
 			
 		public:
-			ActorGrid(const Vector2f&position, unsigned int columns, const Vector2f&spacing);
+			ActorGrid(const Vector2d&position, unsigned int columns, const Vector2d&spacing);
 			virtual ~ActorGrid();
 			
 			void add(Actor*actor);
 			void clear();
 			
-			void setPosition(const Vector2f&position);
+			void setPosition(const Vector2d&position);
 			
-			const Vector2f& getPosition() const;
+			const Vector2d& getPosition() const;
 			const ArrayList<Actor*>& getActors() const;
 			unsigned int getColumns() const;
-			const Vector2f& getSpacing() const;
+			const Vector2d& getSpacing() const;
 		};
 	}
 }

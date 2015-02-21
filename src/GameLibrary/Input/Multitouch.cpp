@@ -16,7 +16,7 @@ namespace GameLibrary
 		//ID assigned by SDL
 		long long givenID;
 		//coordinate of the touch
-		Vector2f position;
+		Vector2d position;
 		//Window that the touch occured inside of
 		Window*window;
 	} MultitouchData;
@@ -25,7 +25,7 @@ namespace GameLibrary
 	void Multitouch_incrementID();
 #define MULTITOUCH_MAXID 10000
 	
-	MultitouchData Multitouch_createTouchData(Window*window, unsigned int touchID, long long givenID, const Vector2f&position);
+	MultitouchData Multitouch_createTouchData(Window*window, unsigned int touchID, long long givenID, const Vector2d&position);
 	unsigned int Multitouch_indexOfData(const ArrayList<MultitouchData>&touchDataList, Window*window, unsigned int touchID);
 	unsigned int Multitouch_indexOfData_byGivenID(const ArrayList<MultitouchData>&touchDataList, Window*window, long long givenID);
 	unsigned int Multitouch_indexOfData(const ArrayList<MultitouchData>&touchDataList, Window*window);
@@ -108,7 +108,7 @@ namespace GameLibrary
 		while(exists);
 	}
 	
-	MultitouchData Multitouch_createTouchData(Window*window, unsigned int touchID, long long givenID, const Vector2f&position)
+	MultitouchData Multitouch_createTouchData(Window*window, unsigned int touchID, long long givenID, const Vector2d&position)
 	{
 		MultitouchData touchData;
 		touchData.window = window;
@@ -209,7 +209,7 @@ namespace GameLibrary
 	}
 	
 	//Called when a touch position is moved. Forwards the event to all the MultitouchEventListeners
-	void Multitouch_callListeners_move(const MultitouchData&touchData, const Vector2f&touchdif)
+	void Multitouch_callListeners_move(const MultitouchData&touchData, const Vector2d&touchdif)
 	{
 		Multitouch_changedListeners_mutex.lock();
 		Multitouch_changedListeners.clear();
@@ -268,7 +268,7 @@ namespace GameLibrary
 		return touchIDs;
 	}
 	
-	void Multitouch::handleTouchMove(Window*window, long long givenID, const Vector2f&pos, const Vector2f&dif)
+	void Multitouch::handleTouchMove(Window*window, long long givenID, const Vector2d&pos, const Vector2d&dif)
 	{
 		if(window!=nullptr)
 		{
@@ -293,7 +293,7 @@ namespace GameLibrary
 		}
 	}
 	
-	void Multitouch::handleTouchDown(Window*window, long long givenID, const Vector2f&pos)
+	void Multitouch::handleTouchDown(Window*window, long long givenID, const Vector2d&pos)
 	{
 		if(window!=nullptr)
 		{
@@ -318,7 +318,7 @@ namespace GameLibrary
 		}
 	}
 	
-	void Multitouch::handleTouchUp(Window*window, long long givenID, const Vector2f&pos)
+	void Multitouch::handleTouchUp(Window*window, long long givenID, const Vector2d&pos)
 	{
 		if(window!=nullptr)
 		{
@@ -412,7 +412,7 @@ namespace GameLibrary
 		return pressed;
 	}
 
-	Vector2f Multitouch::getPosition(Window*window, unsigned int touchID)
+	Vector2d Multitouch::getPosition(Window*window, unsigned int touchID)
 	{
 		if(window == nullptr)
 		{
@@ -422,7 +422,7 @@ namespace GameLibrary
 				window = EventManager::getWindowFromID(SDL_GetWindowID(sdlwin));
 				if(window == nullptr)
 				{
-					return Vector2f(0,0);
+					return Vector2d(0,0);
 				}
 			}
 		}
@@ -432,24 +432,24 @@ namespace GameLibrary
 		if(index == ARRAYLIST_NOTFOUND)
 		{
 			Multitouch_state_mutex.unlock();
-			return Vector2f(0,0);
+			return Vector2d(0,0);
 		}
-		Vector2f vect = Multitouch_currentActiveTouches.get(index).position;
+		Vector2d vect = Multitouch_currentActiveTouches.get(index).position;
 		Multitouch_state_mutex.unlock();
 		return vect;
 	}
 
-	float Multitouch::getX(Window*window, unsigned int touchID)
+	double Multitouch::getX(Window*window, unsigned int touchID)
 	{
 		return Multitouch::getPosition(window, touchID).x;
 	}
 	
-	float Multitouch::getY(Window*window, unsigned int touchID)
+	double Multitouch::getY(Window*window, unsigned int touchID)
 	{
 		return Multitouch::getPosition(window, touchID).y;
 	}
 
-	Vector2f Multitouch::getPreviousPosition(Window*window, unsigned int touchID)
+	Vector2d Multitouch::getPreviousPosition(Window*window, unsigned int touchID)
 	{
 		if(window == nullptr)
 		{
@@ -459,7 +459,7 @@ namespace GameLibrary
 				window = EventManager::getWindowFromID(SDL_GetWindowID(sdlwin));
 				if(window == nullptr)
 				{
-					return Vector2f(0,0);
+					return Vector2d(0,0);
 				}
 			}
 		}
@@ -469,19 +469,19 @@ namespace GameLibrary
 		if(index == ARRAYLIST_NOTFOUND)
 		{
 			Multitouch_state_mutex.unlock();
-			return Vector2f(0,0);
+			return Vector2d(0,0);
 		}
-		Vector2f vect = Multitouch_prevActiveTouches.get(index).position;
+		Vector2d vect = Multitouch_prevActiveTouches.get(index).position;
 		Multitouch_state_mutex.unlock();
 		return vect;
 	}
 
-	float Multitouch::getPreviousX(Window*window, unsigned int touchID)
+	double Multitouch::getPreviousX(Window*window, unsigned int touchID)
 	{
 		return Multitouch::getPreviousPosition(window, touchID).x;
 	}
 	
-	float Multitouch::getPreviousY(Window*window, unsigned int touchID)
+	double Multitouch::getPreviousY(Window*window, unsigned int touchID)
 	{
 		return Multitouch::getPreviousPosition(window, touchID).y;
 	}

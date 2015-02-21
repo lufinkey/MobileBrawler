@@ -9,7 +9,7 @@ namespace SmashBros
 	{
 		namespace CharacterSelect
 		{
-			ReadyToFightBanner::ReadyToFightBanner(CharacterSelectScreen*screen, float x, float y, AssetManager*assetManager) : SpriteActor(x, y)
+			ReadyToFightBanner::ReadyToFightBanner(CharacterSelectScreen*screen, double x, double y, AssetManager*assetManager) : SpriteActor(x, y)
 			{
 				charSelectScreen = screen;
 				selected = false;

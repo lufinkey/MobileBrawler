@@ -7,12 +7,12 @@ namespace SmashBros
 	{
 		namespace StageSelect
 		{
-			StagePreview::StagePreview(AssetManager*assetMgr) : StagePreview(RectangleF(0, 0, 0, 0), assetMgr)
+			StagePreview::StagePreview(AssetManager*assetMgr) : StagePreview(RectangleD(0, 0, 0, 0), assetMgr)
 			{
 				//
 			}
 			
-			StagePreview::StagePreview(const RectangleF& frame, AssetManager*assetMgr) : ImageElement(frame)
+			StagePreview::StagePreview(const RectangleD& frame, AssetManager*assetMgr) : ImageElement(frame)
 			{
 				assetManager = assetMgr;
 				info = nullptr;

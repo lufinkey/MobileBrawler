@@ -16,16 +16,16 @@ namespace GameLibrary
 	class ActorMenuElement : public ScreenElement
 	{
 	public:
-		/*! \copydoc GameLibrary::ScreenElement::ScreenElement(const GameLibrary::RectangleF&)*/
-		ActorMenuElement(const RectangleF&frame);
+		/*! \copydoc GameLibrary::ScreenElement::ScreenElement(const GameLibrary::RectangleD&)*/
+		ActorMenuElement(const RectangleD&frame);
 		/*! virtual destructor*/
 		virtual ~ActorMenuElement();
 		
 		
 		/*! \copydoc GameLibrary::ScreenElement::update(ApplicationData)*/
 		virtual void update(ApplicationData appData) override;
-		/*! \copydoc GameLibrary::ScreenElement::setFrame(const GameLibrary::RectangleF&)*/
-		virtual void setFrame(const RectangleF&frame) override;
+		/*! \copydoc GameLibrary::ScreenElement::setFrame(const GameLibrary::RectangleD&)*/
+		virtual void setFrame(const RectangleD&frame) override;
 		
 		
 		/*! Adds an actor to the menu.
@@ -36,7 +36,7 @@ namespace GameLibrary
 			\param bounds the ratio in the frame where the Actor will be laid out
 			\param actor an Actor pointer
 			\returns the index of the Actor inside the menu*/
-		virtual unsigned int addActor(const RectF&bounds, Actor*actor);
+		virtual unsigned int addActor(const RectD&bounds, Actor*actor);
 		/*! Gets an actor at a given index inside the menu.
 			\param index the index of the Actor inside the menu
 			\returns an Actor pointer*/

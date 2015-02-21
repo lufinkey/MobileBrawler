@@ -13,12 +13,12 @@ namespace GameLibrary
 	typedef struct
 	{
 		unsigned int mouseIndex;
-		Vector2f position;
+		Vector2d position;
 		Window*window;
 		bool state[4];
 	} MouseData;
 
-	MouseData Mouse_createMouseData(Window*window, unsigned int mouseIndex, const Vector2f&position);
+	MouseData Mouse_createMouseData(Window*window, unsigned int mouseIndex, const Vector2d&position);
 	unsigned int Mouse_indexOfData(const ArrayList<MouseData>&mouseDataList, Window*window, unsigned int mouseIndex);
 	unsigned int Mouse_indexOfData(const ArrayList<MouseData>&mouseDataList, Window*window);
 
@@ -41,7 +41,7 @@ namespace GameLibrary
 	//stores the state of all mouse instances in the previous frame
 	static ArrayList<MouseData> Mouse_prevStates;
 
-	MouseData Mouse_createMouseData(Window*window, unsigned int mouseIndex, const Vector2f&position)
+	MouseData Mouse_createMouseData(Window*window, unsigned int mouseIndex, const Vector2d&position)
 	{
 		MouseData mouseData;
 		mouseData.window = window;
@@ -81,7 +81,7 @@ namespace GameLibrary
 	}
 
 	//Called when a button state is changed. Forwards the event to all the MouseEventListeners
-	void Mouse_callListeners_press(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2f&pos, bool pressed)
+	void Mouse_callListeners_press(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2d&pos, bool pressed)
 	{
 		Mouse_changedListeners_mutex.lock();
 		Mouse_changedListeners.clear();
@@ -132,7 +132,7 @@ namespace GameLibrary
 	}
 
 	//Called when the mouse position changes. Forwards the event to all the MouseEventListeners
-	void Mouse_callListeners_move(Window*window, unsigned int mouseIndex, const Vector2f&pos, const Vector2f&dif)
+	void Mouse_callListeners_move(Window*window, unsigned int mouseIndex, const Vector2d&pos, const Vector2d&dif)
 	{
 		Mouse_changedListeners_mutex.lock();
 		Mouse_changedListeners.clear();
@@ -191,7 +191,7 @@ namespace GameLibrary
 		return counter;
 	}
 	
-	void Mouse::handleMouseMovement(Window*window, unsigned int mouseIndex, const Vector2f&pos, const Vector2f&dif)
+	void Mouse::handleMouseMovement(Window*window, unsigned int mouseIndex, const Vector2d&pos, const Vector2d&dif)
 	{
 		if(window!=nullptr)
 		{
@@ -211,7 +211,7 @@ namespace GameLibrary
 		Mouse_callListeners_move(window, mouseIndex, pos, dif);
 	}
 	
-	void Mouse::handleButtonPress(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2f&pos)
+	void Mouse::handleButtonPress(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2d&pos)
 	{
 		if(button!=Mouse::UNKNOWN_BUTTON)
 		{
@@ -241,7 +241,7 @@ namespace GameLibrary
 		}
 	}
 	
-	void Mouse::handleButtonRelease(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2f&pos)
+	void Mouse::handleButtonRelease(Window*window, unsigned int mouseIndex, Mouse::Button button, const Vector2d&pos)
 	{
 		if(button!=Mouse::UNKNOWN_BUTTON)
 		{
@@ -315,7 +315,7 @@ namespace GameLibrary
 		return pressed;
 	}
 	
-	Vector2f Mouse::getPosition(Window*window, unsigned int mouseIndex)
+	Vector2d Mouse::getPosition(Window*window, unsigned int mouseIndex)
 	{
 		if(window == nullptr)
 		{
@@ -325,7 +325,7 @@ namespace GameLibrary
 				window = EventManager::getWindowFromID(SDL_GetWindowID(sdlwin));
 				if(window == nullptr)
 				{
-					return Vector2f(0,0);
+					return Vector2d(0,0);
 				}
 			}
 		}
@@ -335,24 +335,24 @@ namespace GameLibrary
 		if(index == ARRAYLIST_NOTFOUND)
 		{
 			Mouse_state_mutex.unlock();
-			return Vector2f(0,0);
+			return Vector2d(0,0);
 		}
-		Vector2f vect = Mouse_currentStates.get(index).position;
+		Vector2d vect = Mouse_currentStates.get(index).position;
 		Mouse_state_mutex.unlock();
 		return vect;
 	}
 	
-	float Mouse::getX(Window*window, unsigned int mouseIndex)
+	double Mouse::getX(Window*window, unsigned int mouseIndex)
 	{
 		return Mouse::getPosition(window, mouseIndex).x;
 	}
 	
-	float Mouse::getY(Window*window, unsigned int mouseIndex)
+	double Mouse::getY(Window*window, unsigned int mouseIndex)
 	{
 		return Mouse::getPosition(window, mouseIndex).y;
 	}
 	
-	void Mouse::setPosition(Window*window, unsigned int mouseIndex, const Vector2f&pos)
+	void Mouse::setPosition(Window*window, unsigned int mouseIndex, const Vector2d&pos)
 	{
 		//TODO add support for multiple mouse indexes
 		if(mouseIndex==0)
@@ -361,7 +361,7 @@ namespace GameLibrary
 		}
 	}
 	
-	void Mouse::setPosition(unsigned int mouseIndex, const Vector2f&pos)
+	void Mouse::setPosition(unsigned int mouseIndex, const Vector2d&pos)
 	{
 		//TODO add support for mouse warping globally
 		//(uncomment this line when SDL 2.0.4 comes out)
@@ -398,7 +398,7 @@ namespace GameLibrary
 		return pressed;
 	}
 
-	Vector2f Mouse::getPreviousPosition(Window*window, unsigned int mouseIndex)
+	Vector2d Mouse::getPreviousPosition(Window*window, unsigned int mouseIndex)
 	{
 		if(window == nullptr)
 		{
@@ -408,7 +408,7 @@ namespace GameLibrary
 				window = EventManager::getWindowFromID(SDL_GetWindowID(sdlwin));
 				if(window == nullptr)
 				{
-					return Vector2f(0,0);
+					return Vector2d(0,0);
 				}
 			}
 		}
@@ -418,19 +418,19 @@ namespace GameLibrary
 		if(index == ARRAYLIST_NOTFOUND)
 		{
 			Mouse_state_mutex.unlock();
-			return Vector2f(0,0);
+			return Vector2d(0,0);
 		}
-		Vector2f vect = Mouse_prevStates.get(index).position;
+		Vector2d vect = Mouse_prevStates.get(index).position;
 		Mouse_state_mutex.unlock();
 		return vect;
 	}
 
-	float Mouse::getPreviousX(Window*window, unsigned int mouseIndex)
+	double Mouse::getPreviousX(Window*window, unsigned int mouseIndex)
 	{
 		return Mouse::getPreviousPosition(window, mouseIndex).x;
 	}
 
-	float Mouse::getPreviousY(Window*window, unsigned int mouseIndex)
+	double Mouse::getPreviousY(Window*window, unsigned int mouseIndex)
 	{
 		return Mouse::getPreviousPosition(window, mouseIndex).y;
 	}

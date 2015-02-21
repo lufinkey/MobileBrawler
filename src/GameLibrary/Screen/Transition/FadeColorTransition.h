@@ -14,17 +14,17 @@ namespace GameLibrary
 			\param color the solid color to fade between.
 			\param frozenPortion the portion of the transition duration when the solid color is displayed without fading; Must be a value between 0 and 1
 			\throws GameLibrary::IllegalArgumentException if frozenPortion is not a value between 0 and 1*/
-		FadeColorTransition(const Color& color, float frozenPortion = 0);
+		FadeColorTransition(const Color& color, double frozenPortion = 0);
 		/*! virtual destructor*/
 		virtual ~FadeColorTransition();
 		
-		/*! \copydoc GameLibrary::Transition::draw(ApplicationData,Graphics,float,Drawable*,Drawable*)const*/
-		virtual void draw(ApplicationData appData, Graphics graphics, float progress, Drawable*element1, Drawable*element2) const override;
+		/*! \copydoc GameLibrary::Transition::draw(ApplicationData,Graphics,double,Drawable*,Drawable*)const*/
+		virtual void draw(ApplicationData appData, Graphics graphics, double progress, Drawable*element1, Drawable*element2) const override;
 		
 	protected:
 		/*! the solid color to fade between*/
 		Color color;
 		/*! the portion of the transition duration when the solid color is displayed without fading; Must be a value between 0 and 1*/
-		float frozenPortion;
+		double frozenPortion;
 	};
 }

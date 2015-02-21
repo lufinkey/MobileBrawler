@@ -326,28 +326,28 @@ namespace GameLibrary
 		return getImageSourceRect(currentFrame);
 	}
 	
-	RectangleF Animation::getFrame() const
+	RectangleD Animation::getFrame() const
 	{
 		return getFrame(currentFrame);
 	}
 	
-	RectangleF Animation::getFrame(unsigned int frameNum) const
+	RectangleD Animation::getFrame(unsigned int frameNum) const
 	{
 		const AnimationFrame& animFrame = frames.get(frameNum);
 		TextureImage* img = animFrame.img;
 		if(img == nullptr)
 		{
-			return RectangleF(0,0,0,0);
+			return RectangleD(0,0,0,0);
 		}
 		else
 		{
 			unsigned int imgwidth = img->getWidth();
 			unsigned int imgheight = img->getHeight();
-			float width = ((float)imgwidth/(float)animFrame.cols);
-			float height = ((float)imgheight/(float)animFrame.rows);
-			float left = -(width/2);
-			float top = -(height/2);
-			return RectangleF(left, top, width, height);
+			double width = ((double)imgwidth/(double)animFrame.cols);
+			double height = ((double)imgheight/(double)animFrame.rows);
+			double left = -(width/2);
+			double top = -(height/2);
+			return RectangleD(left, top, width, height);
 		}
 	}
 	
@@ -393,13 +393,13 @@ namespace GameLibrary
 		
 		const AnimationFrame& animFrame = frames.get(drawFrame);
 
-		RectangleF dstRect = getFrame(drawFrame);
+		RectangleD dstRect = getFrame(drawFrame);
 		RectangleI srcRect = animFrame.getSourceRect();
 
-		float dst_left = dstRect.x;
-		float dst_top = dstRect.y;
-		float dst_right = dst_left + dstRect.width;
-		float dst_bottom = dst_top + dstRect.height;
+		double dst_left = dstRect.x;
+		double dst_top = dstRect.y;
+		double dst_right = dst_left + dstRect.width;
+		double dst_bottom = dst_top + dstRect.height;
 
 		unsigned int src_left = (unsigned int)srcRect.x;
 		unsigned int src_top = (unsigned int)srcRect.y;

@@ -17,8 +17,8 @@ namespace SmashBros
 			rules = ruleData;
 			preview = nullptr;
 			
-			RectangleF frame = getFrame();
-			autoIconLayout.setFrame(RectangleF(0,0,frame.width,frame.height));
+			RectangleD frame = getFrame();
+			autoIconLayout.setFrame(RectangleD(0,0,frame.width,frame.height));
 		}
 		
 		StageSelectScreen::~StageSelectScreen()
@@ -29,8 +29,8 @@ namespace SmashBros
 		void StageSelectScreen::onFrameChange()
 		{
 			BaseMenuScreen::onFrameChange();
-			RectangleF frame = getFrame();
-			autoIconLayout.setFrame(RectangleF(0,0,frame.width,frame.height));
+			RectangleD frame = getFrame();
+			autoIconLayout.setFrame(RectangleD(0,0,frame.width,frame.height));
 		}
 		
 		Rules* StageSelectScreen::getRules() const
@@ -65,14 +65,14 @@ namespace SmashBros
 			
 			ArrayList<StageInfo>& stages = smashData.getModuleData()->getStageLoader()->getStages();
 			
-			RectF bounds(0.3f, 0.2f, 0.9f, 0.9f);
-			float bounds_w = bounds.right - bounds.left;
-			float bounds_h = bounds.bottom - bounds.top;
+			RectD bounds(0.3, 0.2, 0.9, 0.9);
+			double bounds_w = bounds.right - bounds.left;
+			double bounds_h = bounds.bottom - bounds.top;
 			
 			unsigned int cols = 6;
 			unsigned int rows = 6;
-			float icon_width = bounds_w / (float)cols;
-			float icon_height = bounds_h / (float)rows;
+			double icon_width = bounds_w / (double)cols;
+			double icon_height = bounds_h / (double)rows;
 			
 			AssetManager* loaderAssetManager = smashData.getModuleData()->getStageLoader()->getAssetManager();
 			for(unsigned int i=0; i<stages.size(); i++)
@@ -81,9 +81,9 @@ namespace SmashBros
 				StageIcon* icon = new StageIcon(info, 0, 0, loaderAssetManager);
 				unsigned int col = i%cols;
 				unsigned int row = i/cols;
-				float icon_left = bounds.left+(((float)col)*icon_width);
-				float icon_top = bounds.top+(((float)row)*icon_height);
-				autoIconLayout.add(RectF(icon_left, icon_top, icon_left+icon_width, icon_top+icon_height), icon);
+				double icon_left = bounds.left+(((double)col)*icon_width);
+				double icon_top = bounds.top+(((double)row)*icon_height);
+				autoIconLayout.add(RectD(icon_left, icon_top, icon_left+icon_width, icon_top+icon_height), icon);
 				icons.add(icon);
 				addItem(icon);
 			}
@@ -99,7 +99,7 @@ namespace SmashBros
 			}
 			
 			preview = new StagePreview(smashData.getModuleData()->getStageLoader()->getAssetManager());
-			getElement()->addChildElement(RectF(0.05f, 0.2f, 0.25f, 0.9f), preview);
+			getElement()->addChildElement(RectD(0.05, 0.2, 0.25, 0.9), preview);
 		}
 		
 		void StageSelectScreen::onUpdate(ApplicationData appData)

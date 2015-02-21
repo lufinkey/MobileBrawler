@@ -42,7 +42,7 @@ namespace SmashBros
 			virtual void drawItem(ApplicationData appData, Graphics graphics, Actor*item) const override;
 			
 		private:
-			float hoverPulseScale;
+			double hoverPulseScale;
 			bool hoverPulseGrowing;
 			bool hoverPulseEnabled;
 			

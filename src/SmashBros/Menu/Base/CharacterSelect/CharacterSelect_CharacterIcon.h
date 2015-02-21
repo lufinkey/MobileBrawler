@@ -19,7 +19,7 @@ namespace SmashBros
 				CharacterInfo* info;
 
 			public:
-				CharacterIcon(CharacterInfo&info, float x, float y, AssetManager*assetManager);
+				CharacterIcon(CharacterInfo&info, double x, double y, AssetManager*assetManager);
 				virtual ~CharacterIcon();
 				
 				virtual void draw(ApplicationData appData, Graphics graphics) const override;

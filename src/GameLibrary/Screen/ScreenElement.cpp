@@ -45,12 +45,12 @@ namespace GameLibrary
 		//
 	}
 
-	ScreenElement::ScreenElement() : ScreenElement(RectangleF(0,0,0,0))
+	ScreenElement::ScreenElement() : ScreenElement(RectangleD(0,0,0,0))
 	{
 		//
 	}
 
-	ScreenElement::ScreenElement(const RectangleF&frame_arg) : autoLayout(frame_arg)
+	ScreenElement::ScreenElement(const RectangleD&frame_arg) : autoLayout(frame_arg)
 	{
 		frame = frame_arg;
 		window = nullptr;
@@ -99,7 +99,7 @@ namespace GameLibrary
 	{
 		if(visible && !backgroundColor.equals(Color::TRANSPARENT))
 		{
-			RectangleF rect = getFrame();
+			RectangleD rect = getFrame();
 			graphics.setColor(backgroundColor);
 			graphics.fillRect(rect.x, rect.y, rect.width, rect.height);
 		}
@@ -115,7 +115,7 @@ namespace GameLibrary
 		ArrayList<ScreenElement*> children = childElements;
 		updatingElements = true;
 
-		RectangleF frame = getFrame();
+		RectangleD frame = getFrame();
 
 		graphics.translate(frame.x, frame.y);
 
@@ -148,21 +148,21 @@ namespace GameLibrary
 		drawElements(appData, graphics);
 	}
 
-	void ScreenElement::setFrame(const RectangleF&frame_arg)
+	void ScreenElement::setFrame(const RectangleD&frame_arg)
 	{
 		frame = frame_arg;
 		autoLayout.setFrame(frame);
 	}
 
-	RectangleF ScreenElement::getFrame() const
+	RectangleD ScreenElement::getFrame() const
 	{
 		return frame;
 	}
 
-	Vector2f ScreenElement::getCenter() const
+	Vector2d ScreenElement::getCenter() const
 	{
-		RectangleF frame = getFrame();
-		return Vector2f(frame.x+(frame.width/2), frame.y+(frame.height/2));
+		RectangleD frame = getFrame();
+		return Vector2d(frame.x+(frame.width/2), frame.y+(frame.height/2));
 	}
 
 	void ScreenElement::addChildElement(ScreenElement*element)
@@ -179,7 +179,7 @@ namespace GameLibrary
 		childElements.add(element);
 	}
 	
-	void ScreenElement::addChildElement(const RectF&bounds, ScreenElement*element)
+	void ScreenElement::addChildElement(const RectD&bounds, ScreenElement*element)
 	{
 		if(element == nullptr)
 		{

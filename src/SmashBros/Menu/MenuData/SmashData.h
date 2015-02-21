@@ -23,8 +23,8 @@ namespace SmashBros
 		
 		SmashData& operator=(const SmashData&);
 		
-		Vector2f getScreenCoords(float ratX, float ratY) const;
-		Vector2f getScreenCoords(const Vector2f&rat) const;
+		Vector2d getScreenCoords(double ratX, double ratY) const;
+		Vector2d getScreenCoords(const Vector2d&rat) const;
 		
 		Window* getWindow() const;
 		MenuLoad* getMenuData() const;

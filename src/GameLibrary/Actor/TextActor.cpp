@@ -15,7 +15,7 @@ namespace GameLibrary
 		//
 	}
 	
-	TextActor::TextActor(float x1, float y1, const String&txt, Font*fnt, const Color&colr, unsigned int fontSize, int fontStyle, const TextActor::TextAlignment&align)
+	TextActor::TextActor(double x1, double y1, const String&txt, Font*fnt, const Color&colr, unsigned int fontSize, int fontStyle, const TextActor::TextAlignment&align)
 	{
 		x = x1;
 		y = y1;
@@ -46,7 +46,7 @@ namespace GameLibrary
 		drawActor(appData, graphics, x, y, scale);
 	}
 	
-	void TextActor::drawActor(ApplicationData&appData, Graphics&graphics, float x, float y, float scale) const
+	void TextActor::drawActor(ApplicationData&appData, Graphics&graphics, double x, double y, double scale) const
 	{
 		if(visible && scale!=0 && font!=nullptr)
 		{
@@ -98,12 +98,12 @@ namespace GameLibrary
 			ArrayList<String> lines;
 			TextActor::getLinesList(text, lines);
 			
-			float lineoffset = boundsrect.y;
+			double lineoffset = boundsrect.y;
 			
 			for(unsigned int i=0; i<lines.size(); i++)
 			{
 				const String&line = lines.get(i);
-				const RectangleF&linerect = linerects.get(i);
+				const RectangleD&linerect = linerects.get(i);
 				//TODO add mirroring
 				
 				switch(alignment)
@@ -116,7 +116,7 @@ namespace GameLibrary
 					
 					case ALIGN_BOTTOMRIGHT:
 					case ALIGN_TOPRIGHT:
-					actorGraphics.drawString(line, (float)(boundsrect.width-linerect.width), lineoffset+linerect.y+linerect.height);
+					actorGraphics.drawString(line, (double)(boundsrect.width-linerect.width), lineoffset+linerect.y+linerect.height);
 					break;
 					
 					case ALIGN_CENTER:
@@ -126,22 +126,22 @@ namespace GameLibrary
 
 				if(frame_visible)
 				{
-					RectangleF fixedLineRect;
+					RectangleD fixedLineRect;
 					switch(alignment)
 					{
 						default:
 						case ALIGN_BOTTOMLEFT:
 						case ALIGN_TOPLEFT:
-						fixedLineRect = RectangleF(0, lineoffset+linerect.y, linerect.width, linerect.height);
+						fixedLineRect = RectangleD(0, lineoffset+linerect.y, linerect.width, linerect.height);
 						break;
 					
 						case ALIGN_BOTTOMRIGHT:
 						case ALIGN_TOPRIGHT:
-						fixedLineRect = RectangleF((float)(boundsrect.width-linerect.width), lineoffset+linerect.y, linerect.width, linerect.height);
+						fixedLineRect = RectangleD((double)(boundsrect.width-linerect.width), lineoffset+linerect.y, linerect.width, linerect.height);
 						break;
 					
 						case ALIGN_CENTER:
-						fixedLineRect = RectangleF(-linerect.width/2, lineoffset+linerect.y, linerect.width, linerect.height);
+						fixedLineRect = RectangleD(-linerect.width/2, lineoffset+linerect.y, linerect.width, linerect.height);
 						break;
 					}
 
@@ -183,16 +183,16 @@ namespace GameLibrary
 			ArrayList<String> lines;
 			TextActor::getLinesList(text, lines);
 
-			RectangleF rect = RectangleF(0,0,0,0);
+			RectangleD rect = RectangleD(0,0,0,0);
 			linerects.clear();
-			float offset_y = 0;
-			float spacing = (float)lineSpacing;
+			double offset_y = 0;
+			double spacing = (double)lineSpacing;
 			for(unsigned int i=0; i<lines.size(); i++)
 			{
 				const String&line = lines.get(i);
 				Vector2u lineSize = font->measureString(line);
-				float lineH = (float)lineSize.y;
-				RectangleF linerect = RectangleF(0, offset_y, (float)lineSize.x, lineH);
+				double lineH = (double)lineSize.y;
+				RectangleD linerect = RectangleD(0, offset_y, (double)lineSize.x, lineH);
 				rect.combine(linerect);
 				linerects.add(linerect);
 				offset_y += lineH;
@@ -250,37 +250,37 @@ namespace GameLibrary
 		}
 	}
 	
-	RectangleF TextActor::getBoundsRect(float width, float height) const
+	RectangleD TextActor::getBoundsRect(double width, double height) const
 	{
 		switch(alignment)
 		{
 			default:
 			case ALIGN_BOTTOMLEFT:
-			return RectangleF(0, -height, width, height);
+			return RectangleD(0, -height, width, height);
 			
 			case ALIGN_BOTTOMRIGHT:
-			return RectangleF(-width, -height, width, height);
+			return RectangleD(-width, -height, width, height);
 			
 			case ALIGN_CENTER:
-			return RectangleF(-(width/2), -(height/2), width, height);
+			return RectangleD(-(width/2), -(height/2), width, height);
 			
 			case ALIGN_TOPLEFT:
-			return RectangleF(0, 0, width, height);
+			return RectangleD(0, 0, width, height);
 			
 			case ALIGN_TOPRIGHT:
-			return RectangleF(-width, 0, width, height);
+			return RectangleD(-width, 0, width, height);
 		}
 	}
 
-	RectangleF TextActor::getFrame() const
+	RectangleD TextActor::getFrame() const
 	{
-		RectangleF frame = framerect;
+		RectangleD frame = framerect;
 		frame.x += x;
 		frame.y += y;
 		return frame;
 	}
 	
-	void TextActor::scaleToFit(const RectangleF&container)
+	void TextActor::scaleToFit(const RectangleD&container)
 	{
 		if(width == 0 || height == 0)
 		{
@@ -288,12 +288,12 @@ namespace GameLibrary
 			y = container.y + (container.height/2);
 			return;
 		}
-		RectangleF currentFrame = getFrame();
-		RectangleF oldFrame = currentFrame;
+		RectangleD currentFrame = getFrame();
+		RectangleD oldFrame = currentFrame;
 		currentFrame.scaleToFit(container);
-		float ratio = currentFrame.width/oldFrame.width;
+		double ratio = currentFrame.width/oldFrame.width;
 		setScale(getScale()*ratio);
-		RectangleF newFrame = getFrame();
+		RectangleD newFrame = getFrame();
 		
 		switch(alignment)
 		{
@@ -392,56 +392,56 @@ namespace GameLibrary
 		return lineSpacing;
 	}
 	
-	bool TextActor::checkPointCollision(const Vector2f&point)
+	bool TextActor::checkPointCollision(const Vector2d&point)
 	{
 		if(text.length() == 0 || font==nullptr)
 		{
 			return false;
 		}
-		RectangleF frame = getFrame();
-		float left = frame.x;
-		float top = frame.y;
-		float right = frame.x+frame.width;
-		float bottom = frame.y+frame.height;
+		RectangleD frame = getFrame();
+		double left = frame.x;
+		double top = frame.y;
+		double right = frame.x+frame.width;
+		double bottom = frame.y+frame.height;
 		if(point.x>left && point.y>top && point.x<right && point.y<bottom)
 		{
-			Vector2f pointFixed = point;
+			Vector2d pointFixed = point;
 			pointFixed.x -= x;
 			pointFixed.y -= y;
 			
 			pointFixed = inverseRotationMatrix.transform(pointFixed);
 			
-			float ratX = pointFixed.x/width;
-			float ratY = pointFixed.y/height;
+			double ratX = pointFixed.x/width;
+			double ratY = pointFixed.y/height;
 
-			float pxlX = (ratX*((float)boundsrect.width));
-			float pxlY = (ratY*((float)boundsrect.height));
+			double pxlX = (ratX*((double)boundsrect.width));
+			double pxlY = (ratY*((double)boundsrect.height));
 
-			float lineoffset = boundsrect.y;
+			double lineoffset = boundsrect.y;
 			
 			for(unsigned int i=0; i<linerects.size(); i++)
 			{
-				const RectangleF&linerect = linerects.get(i);
-				RectangleF fixedLineRect;
+				const RectangleD&linerect = linerects.get(i);
+				RectangleD fixedLineRect;
 				switch(alignment)
 				{
 					default:
 					case ALIGN_BOTTOMLEFT:
 					case ALIGN_TOPLEFT:
-					fixedLineRect = RectangleF(0, lineoffset+linerect.y, linerect.width, linerect.height);
+					fixedLineRect = RectangleD(0, lineoffset+linerect.y, linerect.width, linerect.height);
 					break;
 					
 					case ALIGN_BOTTOMRIGHT:
 					case ALIGN_TOPRIGHT:
-					fixedLineRect = RectangleF((float)(boundsrect.width-linerect.width), lineoffset+linerect.y, linerect.width, linerect.height);
+					fixedLineRect = RectangleD((double)(boundsrect.width-linerect.width), lineoffset+linerect.y, linerect.width, linerect.height);
 					break;
 					
 					case ALIGN_CENTER:
-					fixedLineRect = RectangleF(-linerect.width/2, lineoffset+linerect.y, linerect.width, linerect.height);
+					fixedLineRect = RectangleD(-linerect.width/2, lineoffset+linerect.y, linerect.width, linerect.height);
 					break;
 				}
 
-				if(fixedLineRect.contains(Vector2f(pxlX, pxlY)))
+				if(fixedLineRect.contains(Vector2d(pxlX, pxlY)))
 				{
 					return true;
 				}

@@ -43,7 +43,7 @@ namespace GameLibrary
 			\param fontSize the glyph size of the font
 			\param fontStyle the style (plain, bold italic, etc.) of the font \see GameLibrary::Font::Style
 			\param alignment the alignment of the text, relative the origin \see GameLibrary::TextActor::TextAlignment*/
-		TextActor(float x, float y, const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontSize=24, int fontStyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_BOTTOMLEFT);
+		TextActor(double x, double y, const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontSize=24, int fontStyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_BOTTOMLEFT);
 		/*virtual destructor*/
 		virtual ~TextActor();
 		
@@ -55,11 +55,11 @@ namespace GameLibrary
 		
 		
 		/*! \copydoc GameLibrary::Actor::getFrame()const*/
-		virtual RectangleF getFrame() const override;
+		virtual RectangleD getFrame() const override;
 		
 		
-		/*! \copydoc GameLibrary::Actor::scaleToFit(const RectangleF&)*/
-		virtual void scaleToFit(const RectangleF&container) override;
+		/*! \copydoc GameLibrary::Actor::scaleToFit(const RectangleD&)*/
+		virtual void scaleToFit(const RectangleD&container) override;
 		
 		
 		/*! Sets the string to display when drawn.
@@ -104,8 +104,8 @@ namespace GameLibrary
 		
 		/*! \copydoc GameLibrary::Actor::updateSize()*/
 		virtual void updateSize() override;
-		/*! \copydoc GameLibrary::Actor::checkPointCollision(const Vector2f&)*/
-		virtual bool checkPointCollision(const Vector2f&point) override;
+		/*! \copydoc GameLibrary::Actor::checkPointCollision(const Vector2d&)*/
+		virtual bool checkPointCollision(const Vector2d&point) override;
 		
 	protected:
 		/*! Special draw function to draw the TextActor with specific properties. These properties are not stored into the TextActor. This function is called from TextActor::draw
@@ -114,7 +114,7 @@ namespace GameLibrary
 			\param x the x coordinate
 			\param y the y coordinate
 			\param scale the ratio to size the SpriteActor from its default size*/
-		virtual void drawActor(ApplicationData&appData, Graphics&graphics, float x, float y, float scale) const;
+		virtual void drawActor(ApplicationData&appData, Graphics&graphics, double x, double y, double scale) const;
 		
 	private:
 		String text;
@@ -125,11 +125,11 @@ namespace GameLibrary
 		int fontstyle;
 		unsigned int fontsize;
 
-		RectangleF framerect;
-		RectangleF boundsrect;
-		ArrayList<RectangleF> linerects;
+		RectangleD framerect;
+		RectangleD boundsrect;
+		ArrayList<RectangleD> linerects;
 
-		RectangleF getBoundsRect(float width, float height) const;
+		RectangleD getBoundsRect(double width, double height) const;
 		static void getLinesList(const String&text, ArrayList<String>&lines);
 	};
 }

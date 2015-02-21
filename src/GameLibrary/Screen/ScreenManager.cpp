@@ -146,7 +146,7 @@ namespace GameLibrary
 	{
 		if(childScreen==nullptr || overlayData.action!=TRANSITION_NONE)
 		{
-			RectangleF frame = getFrame();
+			RectangleD frame = getFrame();
 			graphics.translate(frame.x, frame.y);
 
 			if(pushpopData.action == TRANSITION_NONE)
@@ -155,7 +155,7 @@ namespace GameLibrary
 			}
 			else
 			{
-				float progress = pushpopData.progress;
+				double progress = pushpopData.progress;
 
 				if(pushpopData.action == TRANSITION_HIDE)
 				{

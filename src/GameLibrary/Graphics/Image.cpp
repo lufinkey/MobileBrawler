@@ -317,7 +317,7 @@ namespace GameLibrary
 		{
 			return;
 		}
-		RectangleF dstRect = RectangleF(0,0,(float)width,(float)height);
+		RectangleD dstRect = RectangleD(0,0,(double)width,(double)height);
 		PixelIterator pxlIter(Vector2u(width,height), RectangleU(0,0,width,height), dstRect, dstRect, 1, 1, false, false);
 		
 		PixelIterator mask_pxlIter(Vector2u(mask.width,mask.height), RectangleU(0,0,mask.width,mask.height), dstRect, dstRect, 1, 1, false, false);
@@ -333,8 +333,8 @@ namespace GameLibrary
 		bool mask_running = mask_pxlIter.nextPixelIndex();
 		while(running && mask_running)
 		{
-			float pxlIndex = pxlIter.getCurrentPixelIndex();
-			float mask_pxlIndex = mask_pxlIter.getCurrentPixelIndex();
+			double pxlIndex = pxlIter.getCurrentPixelIndex();
+			double mask_pxlIndex = mask_pxlIter.getCurrentPixelIndex();
 			
 			if(pxlIndex>=0 && mask_pxlIndex>=0)
 			{

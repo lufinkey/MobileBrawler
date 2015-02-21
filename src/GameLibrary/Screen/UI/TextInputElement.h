@@ -15,7 +15,7 @@ namespace GameLibrary
 		virtual void onAddToWindow(Window*window) override;
 
 	public:
-		TextInputElement(const RectangleF&frame);
+		TextInputElement(const RectangleD&frame);
 		virtual ~TextInputElement();
 
 		virtual void update(ApplicationData appData) override;

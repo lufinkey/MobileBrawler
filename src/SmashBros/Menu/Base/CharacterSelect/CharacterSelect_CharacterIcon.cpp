@@ -7,7 +7,7 @@ namespace SmashBros
 	{
 		namespace CharacterSelect
 		{
-			CharacterIcon::CharacterIcon(CharacterInfo&characterInfo, float x, float y, AssetManager*assetManager) : SpriteActor(x,y)
+			CharacterIcon::CharacterIcon(CharacterInfo&characterInfo, double x, double y, AssetManager*assetManager) : SpriteActor(x,y)
 			{
 				info = &characterInfo;
 				String icon_path = characterInfo.getPath() + "/icon.png";

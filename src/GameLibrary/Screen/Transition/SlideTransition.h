@@ -29,8 +29,8 @@ namespace GameLibrary
 		/*! virtual destructor*/
 		virtual ~SlideTransition();
 		
-		/*! \copydoc GameLibrary::Transition::draw(ApplicationData,Graphics,float,Drawable*,Drawable*)const*/
-		virtual void draw(ApplicationData appData, Graphics graphics, float progress, Drawable*element1, Drawable*element2) const override;
+		/*! \copydoc GameLibrary::Transition::draw(ApplicationData,Graphics,double,Drawable*,Drawable*)const*/
+		virtual void draw(ApplicationData appData, Graphics graphics, double progress, Drawable*element1, Drawable*element2) const override;
 		
 	protected:
 		/*! The direction where the Drawable objects slide*/

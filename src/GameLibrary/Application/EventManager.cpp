@@ -99,7 +99,7 @@ namespace GameLibrary
 				{
 					if(resizingWindow->view != nullptr && resizingWindow->view->matchesWindow())
 					{
-						resizingWindow->view->setSize((float)event.window.data1, (float)event.window.data2);
+						resizingWindow->view->setSize((double)event.window.data1, (double)event.window.data2);
 					}
 					resizingWindow->callListenerEvent(SDL_WINDOWEVENT_RESIZED, event.window.data1, event.window.data2, true);
 					skip = true;
@@ -119,7 +119,7 @@ namespace GameLibrary
 					{
 						Window*window = EventManager::getWindowFromID(event.motion.windowID);
 						//TODO add support for multiple mouse indexes
-						Mouse::handleMouseMovement(window, 0, Vector2f((float)event.motion.x, (float)event.motion.y), Vector2f((float)event.motion.xrel, (float)event.motion.yrel));
+						Mouse::handleMouseMovement(window, 0, Vector2d((double)event.motion.x, (double)event.motion.y), Vector2d((double)event.motion.xrel, (double)event.motion.yrel));
 					}
 					break;
 					
@@ -131,12 +131,12 @@ namespace GameLibrary
 						if(event.button.state == SDL_PRESSED)
 						{
 							//TODO add support for multiple mouse indexes
-							Mouse::handleButtonPress(window, 0, button, Vector2f((float)event.button.x, (float)event.button.y));
+							Mouse::handleButtonPress(window, 0, button, Vector2d((double)event.button.x, (double)event.button.y));
 						}
 						else if(event.button.state == SDL_RELEASED)
 						{
 							//TODO add support for multiple mouse indexes
-							Mouse::handleButtonRelease(window, 0, button, Vector2f((float)event.button.x, (float)event.button.y));
+							Mouse::handleButtonRelease(window, 0, button, Vector2d((double)event.button.x, (double)event.button.y));
 						}
 					}
 					break;
@@ -147,7 +147,7 @@ namespace GameLibrary
 					{
 						Window*window = EventManager_windows.get(0);
 						Vector2u winSize = window->getSize();
-						Vector2f fingerpos = Vector2f(((float)event.tfinger.x)*((float)winSize.x), ((float)event.tfinger.y)*((float)winSize.y));
+						Vector2d fingerpos = Vector2d(((double)event.tfinger.x)*((double)winSize.x), ((double)event.tfinger.y)*((double)winSize.y));
 						if(event.tfinger.type==SDL_FINGERDOWN)
 						{
 							Multitouch::handleTouchDown(window, (long long)event.tfinger.fingerId, fingerpos);
@@ -158,7 +158,7 @@ namespace GameLibrary
 						}
 						else if(event.tfinger.type == SDL_FINGERMOTION)
 						{
-							Vector2f diffingerpos = Vector2f(((float)event.tfinger.dx)*((float)winSize.x), ((float)event.tfinger.dy)*((float)winSize.y));
+							Vector2d diffingerpos = Vector2d(((double)event.tfinger.dx)*((double)winSize.x), ((double)event.tfinger.dy)*((double)winSize.y));
 							Multitouch::handleTouchMove(window, (long long)event.tfinger.fingerId, fingerpos, diffingerpos);
 						}
 					}

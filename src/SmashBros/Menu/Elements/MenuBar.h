@@ -20,24 +20,24 @@ namespace SmashBros
 		protected:
 			AutoLayout autoLayout;
 			
-			RectangleF getLabelFrame(const RectF&bounds) const;
-			void applyPropertiesDict(RectF*bounds, const Dictionary&properties);
+			RectangleD getLabelFrame(const RectD&bounds) const;
+			void applyPropertiesDict(RectD*bounds, const Dictionary&properties);
 			void applyPropertiesDict(Color*color, const Dictionary&properties);
 			
 		public:
 			MenuBar(const String&label, AssetManager*assetManager, const Dictionary&properties);
-			MenuBar(float x, float y, const String&label, AssetManager*assetManager, const Dictionary&properties);
+			MenuBar(double x, double y, const String&label, AssetManager*assetManager, const Dictionary&properties);
 			virtual ~MenuBar();
 			
 			virtual void update(ApplicationData appData) override;
 			virtual void draw(ApplicationData appData, Graphics graphics) const override;
 			
 			void setLabel(const String&);
-			void setLabelBounds(const RectF&bounds);
+			void setLabelBounds(const RectD&bounds);
 			void setLabelAlignment(const TextActor::TextAlignment&);
 			
 			const String& getLabel() const;
-			const RectF& getLabelBounds() const;
+			const RectD& getLabelBounds() const;
 			const TextActor::TextAlignment& getLabelAlignment() const;
 			
 			virtual void updateSize() override;

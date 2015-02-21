@@ -11,7 +11,7 @@ namespace SmashBros
 			//
 		}
 		
-		MenuBar::MenuBar(float x, float y, const String&label_text, AssetManager*assetManager, const Dictionary&properties) : SpriteActor(x, y)
+		MenuBar::MenuBar(double x, double y, const String&label_text, AssetManager*assetManager, const Dictionary&properties) : SpriteActor(x, y)
 		{
 			addAnimation("MenuBar", new Animation(1, assetManager, "elements/menu_bar.png"));
 			changeAnimation("MenuBar", Animation::FORWARD);
@@ -21,7 +21,7 @@ namespace SmashBros
 			Font* font = assetManager->getFont("fonts/default.ttf");
 			label_color = Color::BLACK;
 			label_actor = new TextActor(label_text, font, label_color, 24, Font::STYLE_PLAIN, TextActor::ALIGN_BOTTOMLEFT);
-			autoLayout.add(RectF(0.05f, 0.05f, 0.575f, 0.95f), label_actor);
+			autoLayout.add(RectD(0.05, 0.05, 0.575, 0.95), label_actor);
 			
 			applyProperties(properties);
 		}
@@ -42,7 +42,7 @@ namespace SmashBros
 			Any label_bounds_any = properties.get("label_bounds");
 			if(!label_bounds_any.empty() && label_bounds_any.is<Dictionary>())
 			{
-				RectF label_bounds = autoLayout.get(label_actor);
+				RectD label_bounds = autoLayout.get(label_actor);
 				const Dictionary& label_bounds_dict = label_bounds_any.as<Dictionary>(false);
 				applyPropertiesDict(&label_bounds, label_bounds_dict);
 				autoLayout.set(label_actor, label_bounds);
@@ -56,7 +56,7 @@ namespace SmashBros
 			}
 		}
 		
-		void MenuBar::applyPropertiesDict(RectF*bounds, const Dictionary&properties)
+		void MenuBar::applyPropertiesDict(RectD*bounds, const Dictionary&properties)
 		{
 			if(bounds == nullptr)
 			{
@@ -68,19 +68,19 @@ namespace SmashBros
 			Any bottom = properties.get("bottom");
 			if(!left.empty() && left.is<Number>())
 			{
-				bounds->left = left.as<Number>(false).asFloat();
+				bounds->left = left.as<Number>(false).asDouble();
 			}
 			if(!top.empty() && top.is<Number>())
 			{
-				bounds->top = top.as<Number>(false).asFloat();
+				bounds->top = top.as<Number>(false).asDouble();
 			}
 			if(!right.empty() && right.is<Number>())
 			{
-				bounds->right = right.as<Number>(false).asFloat();
+				bounds->right = right.as<Number>(false).asDouble();
 			}
 			if(!bottom.empty() && bottom.is<Number>())
 			{
-				bounds->bottom = bottom.as<Number>(false).asFloat();
+				bounds->bottom = bottom.as<Number>(false).asDouble();
 			}
 		}
 		
@@ -112,12 +112,12 @@ namespace SmashBros
 			}
 		}
 		
-		RectangleF MenuBar::getLabelFrame(const RectF&bounds) const
+		RectangleD MenuBar::getLabelFrame(const RectD&bounds) const
 		{
-			RectangleF frame = getFrame();
-			Vector2f topleft(bounds.left*frame.width, bounds.top*frame.height);
-			Vector2f bottomright(bounds.right*frame.width, bounds.bottom*frame.height);
-			return RectangleF(frame.x+topleft.x, frame.y+topleft.y, bottomright.x-topleft.x, bottomright.y-topleft.y);
+			RectangleD frame = getFrame();
+			Vector2d topleft(bounds.left*frame.width, bounds.top*frame.height);
+			Vector2d bottomright(bounds.right*frame.width, bounds.bottom*frame.height);
+			return RectangleD(frame.x+topleft.x, frame.y+topleft.y, bottomright.x-topleft.x, bottomright.y-topleft.y);
 		}
 		
 		void MenuBar::update(ApplicationData appData)
@@ -138,7 +138,7 @@ namespace SmashBros
 			autoLayout.setFrame(getFrame());
 		}
 		
-		void MenuBar::setLabelBounds(const RectF&bounds)
+		void MenuBar::setLabelBounds(const RectD&bounds)
 		{
 			autoLayout.set(label_actor, bounds);
 		}
@@ -154,7 +154,7 @@ namespace SmashBros
 			return label_actor->getText();
 		}
 		
-		const RectF& MenuBar::getLabelBounds() const
+		const RectD& MenuBar::getLabelBounds() const
 		{
 			return autoLayout.get(label_actor);
 		}
