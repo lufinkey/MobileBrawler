@@ -128,10 +128,13 @@
       <UniqueIdentifier>{73d50b91-b1c4-4d02-9a44-606cf014dca4}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\BrawlerLibrary\Game\Elements">
-      <UniqueIdentifier>{77e692e6-3285-4bc8-821e-d15e66f965da}</UniqueIdentifier>
+      <UniqueIdentifier>{0dfcf46e-9ea8-451a-b6f3-61ec8f3aceb1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\BrawlerLibrary\Game\Components">
-      <UniqueIdentifier>{3ef5efa1-19c7-42b4-9ff7-8c24e3d363bd}</UniqueIdentifier>
+    <Filter Include="src\BrawlerLibrary\Game\Elements\Components">
+      <UniqueIdentifier>{e25712a3-7716-4fc5-89f0-44876dd33bf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BrawlerLibrary\Game\Utilities">
+      <UniqueIdentifier>{7dd6d75b-99b6-440e-ad51-b03edebead1c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -474,6 +477,9 @@
     <ClCompile Include="external\pugixml\src\pugixml.cpp">
       <Filter>external\pugixml\src</Filter>
     </ClCompile>
+    <ClCompile Include="src\BrawlerLibrary\Game\BrawlGame.cpp">
+      <Filter>src\BrawlerLibrary\Game</Filter>
+    </ClCompile>
     <ClCompile Include="src\BrawlerLibrary\Game\Elements\Character.cpp">
       <Filter>src\BrawlerLibrary\Game\Elements</Filter>
     </ClCompile>
@@ -486,8 +492,11 @@
     <ClCompile Include="src\BrawlerLibrary\Game\Elements\Stage.cpp">
       <Filter>src\BrawlerLibrary\Game\Elements</Filter>
     </ClCompile>
-    <ClCompile Include="src\BrawlerLibrary\Game\Components\Attack.cpp">
-      <Filter>src\BrawlerLibrary\Game\Components</Filter>
+    <ClCompile Include="src\BrawlerLibrary\Game\Elements\Components\Attack.cpp">
+      <Filter>src\BrawlerLibrary\Game\Elements\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BrawlerLibrary\Game\Utilities\Camera.cpp">
+      <Filter>src\BrawlerLibrary\Game\Utilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -869,6 +878,9 @@
     <ClInclude Include="src\SmashBros\Menu\SoloMenu\SoloMenu.h">
       <Filter>src\SmashBros\Menu\SoloMenu</Filter>
     </ClInclude>
+    <ClInclude Include="src\BrawlerLibrary\Game\BrawlGame.h">
+      <Filter>src\BrawlerLibrary\Game</Filter>
+    </ClInclude>
     <ClInclude Include="src\BrawlerLibrary\Game\Elements\Character.h">
       <Filter>src\BrawlerLibrary\Game\Elements</Filter>
     </ClInclude>
@@ -881,8 +893,11 @@
     <ClInclude Include="src\BrawlerLibrary\Game\Elements\Stage.h">
       <Filter>src\BrawlerLibrary\Game\Elements</Filter>
     </ClInclude>
-    <ClInclude Include="src\BrawlerLibrary\Game\Components\Attack.h">
-      <Filter>src\BrawlerLibrary\Game\Components</Filter>
+    <ClInclude Include="src\BrawlerLibrary\Game\Elements\Components\Attack.h">
+      <Filter>src\BrawlerLibrary\Game\Elements\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BrawlerLibrary\Game\Utilities\Camera.h">
+      <Filter>src\BrawlerLibrary\Game\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

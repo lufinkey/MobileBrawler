@@ -85,8 +85,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="external\pugixml\src\pugixml.cpp" />
-    <ClCompile Include="src\BrawlerLibrary\Game\Components\Attack.cpp" />
+    <ClCompile Include="src\BrawlerLibrary\Game\BrawlGame.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Game\Elements\Character.cpp" />
+    <ClCompile Include="src\BrawlerLibrary\Game\Elements\Components\Attack.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Game\Elements\GameObject.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Game\Elements\Platform.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Game\Elements\Stage.cpp" />
@@ -95,6 +96,7 @@
     <ClCompile Include="src\BrawlerLibrary\Game\Rules\WinCondition\StockWinCondition.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Game\Rules\WinCondition\TimeLimitWinCondition.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Game\Rules\WinCondition\WinCondition.cpp" />
+    <ClCompile Include="src\BrawlerLibrary\Game\Utilities\Camera.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Loader\CharacterInfo.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Loader\CharacterLoader.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Loader\StageInfo.cpp" />
@@ -204,8 +206,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BrawlerLibrary\BrawlerLibrary.h" />
-    <ClInclude Include="src\BrawlerLibrary\Game\Components\Attack.h" />
+    <ClInclude Include="src\BrawlerLibrary\Game\BrawlGame.h" />
     <ClInclude Include="src\BrawlerLibrary\Game\Elements\Character.h" />
+    <ClInclude Include="src\BrawlerLibrary\Game\Elements\Components\Attack.h" />
     <ClInclude Include="src\BrawlerLibrary\Game\Elements\GameObject.h" />
     <ClInclude Include="src\BrawlerLibrary\Game\Elements\Platform.h" />
     <ClInclude Include="src\BrawlerLibrary\Game\Elements\Stage.h" />
@@ -214,6 +217,7 @@
     <ClInclude Include="src\BrawlerLibrary\Game\Rules\WinCondition\StockWinCondition.h" />
     <ClInclude Include="src\BrawlerLibrary\Game\Rules\WinCondition\TimeLimitWinCondition.h" />
     <ClInclude Include="src\BrawlerLibrary\Game\Rules\WinCondition\WinCondition.h" />
+    <ClInclude Include="src\BrawlerLibrary\Game\Utilities\Camera.h" />
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterInfo.h" />
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterLoader.h" />
     <ClInclude Include="src\BrawlerLibrary\Loader\StageInfo.h" />
