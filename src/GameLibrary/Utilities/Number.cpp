@@ -1518,7 +1518,7 @@ namespace GameLibrary
 		return num.value->streamTo(stream);
 	}
 	
-#define NUMBER_OPERATION_TONUMBER(operatr, type) \
+#define _NUMBER_OPERATION_TONUMBER(operatr, type) \
 	Number operator operatr(const Number&left, const type&right) \
 	{ \
 		if(left.value==nullptr) \
@@ -1529,7 +1529,7 @@ namespace GameLibrary
 		return *left.value operatr *Number(right).value; \
 	}
 	
-#define NUMBER_OPERATION_TOPRIMITIVE(operatr, type) \
+#define _NUMBER_OPERATION_TOPRIMITIVE(operatr, type) \
 	type operator operatr(const type&left, const Number&right) \
 	{ \
 		if(right.value==nullptr) \
@@ -1540,7 +1540,7 @@ namespace GameLibrary
 		return *Number(left).value operatr *right.value; \
 	}
 	
-#define NUMBER_COMPARISON_DEFINE(operatr, type, nullReturn) \
+#define _NUMBER_COMPARISON_DEFINE(operatr, type, nullReturn) \
 	bool operator operatr(const type&left, const Number&right) \
 	{ \
 		if(right.value==nullptr) \
@@ -1558,7 +1558,7 @@ namespace GameLibrary
 		return *left.value operatr *Number(right).value; \
 	}
 	
-#define NUMBER_COMPARISON_DEFINE_WITHEXCEPTION(operatr, type) \
+#define _NUMBER_COMPARISON_DEFINE_WITHEXCEPTION(operatr, type) \
 	bool operator operatr(const type&left, const Number&right) \
 	{ \
 		if(right.value==nullptr) \
@@ -1578,38 +1578,38 @@ namespace GameLibrary
 		return *left.value operatr *Number(right).value; \
 	}
 	
-#define NUMBER_COMPARISON_SET(type) \
-	NUMBER_COMPARISON_DEFINE(==, type, false) \
-	NUMBER_COMPARISON_DEFINE(!=, type, true) \
-	NUMBER_COMPARISON_DEFINE_WITHEXCEPTION(>, type) \
-	NUMBER_COMPARISON_DEFINE_WITHEXCEPTION(>=, type) \
-	NUMBER_COMPARISON_DEFINE_WITHEXCEPTION(<, type) \
-	NUMBER_COMPARISON_DEFINE_WITHEXCEPTION(<=, type)
+#define _NUMBER_COMPARISON_SET(type) \
+	_NUMBER_COMPARISON_DEFINE(==, type, false) \
+	_NUMBER_COMPARISON_DEFINE(!=, type, true) \
+	_NUMBER_COMPARISON_DEFINE_WITHEXCEPTION(>, type) \
+	_NUMBER_COMPARISON_DEFINE_WITHEXCEPTION(>=, type) \
+	_NUMBER_COMPARISON_DEFINE_WITHEXCEPTION(<, type) \
+	_NUMBER_COMPARISON_DEFINE_WITHEXCEPTION(<=, type)
 	
-#define NUMBER_OPERATOR_SET(type) \
-	NUMBER_OPERATION_TONUMBER(+, type) \
-	NUMBER_OPERATION_TOPRIMITIVE(+, type) \
-	NUMBER_OPERATION_TONUMBER(-, type) \
-	NUMBER_OPERATION_TOPRIMITIVE(-, type) \
-	NUMBER_OPERATION_TONUMBER(*, type) \
-	NUMBER_OPERATION_TOPRIMITIVE(*, type) \
-	NUMBER_OPERATION_TONUMBER(/, type) \
-	NUMBER_OPERATION_TOPRIMITIVE(/, type) \
-	NUMBER_OPERATION_TONUMBER(%, type) \
-	NUMBER_OPERATION_TOPRIMITIVE(%, type) \
-	NUMBER_COMPARISON_SET(type)
+#define _NUMBER_OPERATOR_SET(type) \
+	_NUMBER_OPERATION_TONUMBER(+, type) \
+	_NUMBER_OPERATION_TOPRIMITIVE(+, type) \
+	_NUMBER_OPERATION_TONUMBER(-, type) \
+	_NUMBER_OPERATION_TOPRIMITIVE(-, type) \
+	_NUMBER_OPERATION_TONUMBER(*, type) \
+	_NUMBER_OPERATION_TOPRIMITIVE(*, type) \
+	_NUMBER_OPERATION_TONUMBER(/, type) \
+	_NUMBER_OPERATION_TOPRIMITIVE(/, type) \
+	_NUMBER_OPERATION_TONUMBER(%, type) \
+	_NUMBER_OPERATION_TOPRIMITIVE(%, type) \
+	_NUMBER_COMPARISON_SET(type)
 	
-#define NUMBER_OPERATOR_SET_FLOATINGPOINT(type) \
-	NUMBER_OPERATION_TONUMBER(+, type) \
-	NUMBER_OPERATION_TOPRIMITIVE(+, type) \
-	NUMBER_OPERATION_TONUMBER(-, type) \
-	NUMBER_OPERATION_TOPRIMITIVE(-, type) \
-	NUMBER_OPERATION_TONUMBER(*, type) \
-	NUMBER_OPERATION_TOPRIMITIVE(*, type) \
-	NUMBER_OPERATION_TONUMBER(/, type) \
-	NUMBER_OPERATION_TOPRIMITIVE(/, type) \
-	NUMBER_OPERATION_TOPRIMITIVE(%, type) \
-	NUMBER_COMPARISON_SET(type)
+#define _NUMBER_OPERATOR_SET_FLOATINGPOINT(type) \
+	_NUMBER_OPERATION_TONUMBER(+, type) \
+	_NUMBER_OPERATION_TOPRIMITIVE(+, type) \
+	_NUMBER_OPERATION_TONUMBER(-, type) \
+	_NUMBER_OPERATION_TOPRIMITIVE(-, type) \
+	_NUMBER_OPERATION_TONUMBER(*, type) \
+	_NUMBER_OPERATION_TOPRIMITIVE(*, type) \
+	_NUMBER_OPERATION_TONUMBER(/, type) \
+	_NUMBER_OPERATION_TOPRIMITIVE(/, type) \
+	_NUMBER_OPERATION_TOPRIMITIVE(%, type) \
+	_NUMBER_COMPARISON_SET(type)
 	
 	Number operator+(const Number&left, const Number&right)
 	{
@@ -1745,20 +1745,20 @@ namespace GameLibrary
 		return *left.value <= *right.value;
 	}
 	
-	NUMBER_COMPARISON_SET(bool)
-	NUMBER_OPERATOR_SET(char)
-	NUMBER_OPERATOR_SET(unsigned char)
-	NUMBER_OPERATOR_SET(short)
-	NUMBER_OPERATOR_SET(unsigned short)
-	NUMBER_OPERATOR_SET(int)
-	NUMBER_OPERATOR_SET(unsigned int)
-	NUMBER_OPERATOR_SET(long)
-	NUMBER_OPERATOR_SET(unsigned long)
-	NUMBER_OPERATOR_SET(long long)
-	NUMBER_OPERATOR_SET(unsigned long long)
-	NUMBER_OPERATOR_SET_FLOATINGPOINT(float)
-	NUMBER_OPERATOR_SET_FLOATINGPOINT(double)
-	NUMBER_OPERATOR_SET_FLOATINGPOINT(long double)
+	_NUMBER_COMPARISON_SET(bool)
+	_NUMBER_OPERATOR_SET(char)
+	_NUMBER_OPERATOR_SET(unsigned char)
+	_NUMBER_OPERATOR_SET(short)
+	_NUMBER_OPERATOR_SET(unsigned short)
+	_NUMBER_OPERATOR_SET(int)
+	_NUMBER_OPERATOR_SET(unsigned int)
+	_NUMBER_OPERATOR_SET(long)
+	_NUMBER_OPERATOR_SET(unsigned long)
+	_NUMBER_OPERATOR_SET(long long)
+	_NUMBER_OPERATOR_SET(unsigned long long)
+	_NUMBER_OPERATOR_SET_FLOATINGPOINT(float)
+	_NUMBER_OPERATOR_SET_FLOATINGPOINT(double)
+	_NUMBER_OPERATOR_SET_FLOATINGPOINT(long double)
 }
 
 #ifdef _MSC_VER

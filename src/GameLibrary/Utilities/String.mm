@@ -4,7 +4,7 @@
 #include "String.h"
 #include <cstdlib>
 
-#ifdef STRING_USES_GAMELIBRARY
+#ifdef _STRING_USES_GAMELIBRARY
 namespace GameLibrary
 #endif
 {
@@ -81,7 +81,7 @@ namespace GameLibrary
 		return str;
 	}
 	
-#ifdef STRING_USES_GAMELIBRARY
+#ifdef _STRING_USES_GAMELIBRARY
 }
 #endif
 

@@ -7,9 +7,9 @@
 	#import <Foundation/Foundation.h>
 #endif
 
-#define STRING_USES_GAMELIBRARY
+#define _STRING_USES_GAMELIBRARY
 
-#ifdef STRING_USES_GAMELIBRARY
+#ifdef _STRING_USES_GAMELIBRARY
 namespace GameLibrary
 {
 #else
@@ -283,7 +283,7 @@ namespace GameLibrary
 	String operator+(const String&left, const NSString*&right);
 	String operator+(const NSString*&left, const String&right);
 #endif
-#ifdef STRING_USES_GAMELIBRARY
+#ifdef _STRING_USES_GAMELIBRARY
 }
 #endif
 

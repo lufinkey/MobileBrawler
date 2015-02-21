@@ -6,9 +6,9 @@
 #include <vector>
 
 
-#define ARRAYLIST_USES_GAMELIBRARY
+#define _ARRAYLIST_USES_GAMELIBRARY
 
-#ifdef ARRAYLIST_USES_GAMELIBRARY
+#ifdef _ARRAYLIST_USES_GAMELIBRARY
 #include "../Exception/Utilities/ArrayListOutOfBoundsException.h"
 namespace GameLibrary
 {
@@ -291,6 +291,6 @@ namespace GameLibrary
 			return ARRAYLIST_NOTFOUND;
 		}
 	};
-#ifdef ARRAYLIST_USES_GAMELIBRARY
+#ifdef _ARRAYLIST_USES_GAMELIBRARY
 }
 #endif

@@ -10,37 +10,37 @@ namespace GameLibrary
 	class _BaseNumberType;
 	
 	//TODO add equality operators
-#define NUMBER_OPERATOR_DECLARE(prefix, type, operatr) \
+#define _NUMBER_OPERATOR_DECLARE(prefix, type, operatr) \
 	prefix Number operator operatr(const Number&left, const type&right); \
 	prefix type operator operatr(const type&left, const Number&right);
 	
-#define NUMBER_COMPARISON_DECLARE(prefix, type, operatr) \
+#define _NUMBER_COMPARISON_DECLARE(prefix, type, operatr) \
 	prefix bool operator operatr(const Number&left, const type&right); \
 	prefix bool operator operatr(const type&left, const Number&right);
 	
-#define NUMBER_COMPARISON_DECLARE_SET(prefix, type) \
-	NUMBER_COMPARISON_DECLARE(prefix, type, ==) \
-	NUMBER_COMPARISON_DECLARE(prefix, type, !=) \
-	NUMBER_COMPARISON_DECLARE(prefix, type, >) \
-	NUMBER_COMPARISON_DECLARE(prefix, type, >=) \
-	NUMBER_COMPARISON_DECLARE(prefix, type, <) \
-	NUMBER_COMPARISON_DECLARE(prefix, type, <=)
+#define _NUMBER_COMPARISON_DECLARE_SET(prefix, type) \
+	_NUMBER_COMPARISON_DECLARE(prefix, type, ==) \
+	_NUMBER_COMPARISON_DECLARE(prefix, type, !=) \
+	_NUMBER_COMPARISON_DECLARE(prefix, type, >) \
+	_NUMBER_COMPARISON_DECLARE(prefix, type, >=) \
+	_NUMBER_COMPARISON_DECLARE(prefix, type, <) \
+	_NUMBER_COMPARISON_DECLARE(prefix, type, <=)
 	
-#define NUMBER_OPERATOR_DECLARE_SET(prefix, type) \
-	NUMBER_OPERATOR_DECLARE(prefix, type, +) \
-	NUMBER_OPERATOR_DECLARE(prefix, type, -) \
-	NUMBER_OPERATOR_DECLARE(prefix, type, *) \
-	NUMBER_OPERATOR_DECLARE(prefix, type, /) \
-	NUMBER_OPERATOR_DECLARE(prefix, type, %) \
-	NUMBER_COMPARISON_DECLARE_SET(prefix, type)
+#define _NUMBER_OPERATOR_DECLARE_SET(prefix, type) \
+	_NUMBER_OPERATOR_DECLARE(prefix, type, +) \
+	_NUMBER_OPERATOR_DECLARE(prefix, type, -) \
+	_NUMBER_OPERATOR_DECLARE(prefix, type, *) \
+	_NUMBER_OPERATOR_DECLARE(prefix, type, /) \
+	_NUMBER_OPERATOR_DECLARE(prefix, type, %) \
+	_NUMBER_COMPARISON_DECLARE_SET(prefix, type)
 	
-#define NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT(prefix, type) \
-	NUMBER_OPERATOR_DECLARE(prefix, type, +) \
-	NUMBER_OPERATOR_DECLARE(prefix, type, -) \
-	NUMBER_OPERATOR_DECLARE(prefix, type, *) \
-	NUMBER_OPERATOR_DECLARE(prefix, type, /) \
+#define _NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT(prefix, type) \
+	_NUMBER_OPERATOR_DECLARE(prefix, type, +) \
+	_NUMBER_OPERATOR_DECLARE(prefix, type, -) \
+	_NUMBER_OPERATOR_DECLARE(prefix, type, *) \
+	_NUMBER_OPERATOR_DECLARE(prefix, type, /) \
 	prefix type operator%(const type&left, const Number&right); \
-	NUMBER_COMPARISON_DECLARE_SET(prefix, type)
+	_NUMBER_COMPARISON_DECLARE_SET(prefix, type)
 	
 	Number operator+(const Number&left, const Number&right);
 	Number operator-(const Number&left, const Number&right);
@@ -56,38 +56,38 @@ namespace GameLibrary
 	bool operator>(const Number&left, const Number&right);
 	bool operator>=(const Number&left, const Number&right);
 	
-	NUMBER_COMPARISON_DECLARE_SET(, bool)
-	NUMBER_OPERATOR_DECLARE_SET(, char)
-	NUMBER_OPERATOR_DECLARE_SET(, unsigned char)
-	NUMBER_OPERATOR_DECLARE_SET(, short)
-	NUMBER_OPERATOR_DECLARE_SET(, unsigned short)
-	NUMBER_OPERATOR_DECLARE_SET(, int)
-	NUMBER_OPERATOR_DECLARE_SET(, unsigned int)
-	NUMBER_OPERATOR_DECLARE_SET(, long)
-	NUMBER_OPERATOR_DECLARE_SET(, unsigned long)
-	NUMBER_OPERATOR_DECLARE_SET(, long long)
-	NUMBER_OPERATOR_DECLARE_SET(, unsigned long long)
-	NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT(, float)
-	NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT(, double)
-	NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT(, long double)
+	_NUMBER_COMPARISON_DECLARE_SET(, bool)
+	_NUMBER_OPERATOR_DECLARE_SET(, char)
+	_NUMBER_OPERATOR_DECLARE_SET(, unsigned char)
+	_NUMBER_OPERATOR_DECLARE_SET(, short)
+	_NUMBER_OPERATOR_DECLARE_SET(, unsigned short)
+	_NUMBER_OPERATOR_DECLARE_SET(, int)
+	_NUMBER_OPERATOR_DECLARE_SET(, unsigned int)
+	_NUMBER_OPERATOR_DECLARE_SET(, long)
+	_NUMBER_OPERATOR_DECLARE_SET(, unsigned long)
+	_NUMBER_OPERATOR_DECLARE_SET(, long long)
+	_NUMBER_OPERATOR_DECLARE_SET(, unsigned long long)
+	_NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT(, float)
+	_NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT(, double)
+	_NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT(, long double)
 	
 	class Number
 	{
 		friend std::ostream& operator<<(std::ostream& stream, const Number& num);
-		NUMBER_COMPARISON_DECLARE_SET(friend, bool)
-		NUMBER_OPERATOR_DECLARE_SET(friend, char)
-		NUMBER_OPERATOR_DECLARE_SET(friend, unsigned char)
-		NUMBER_OPERATOR_DECLARE_SET(friend, short)
-		NUMBER_OPERATOR_DECLARE_SET(friend, unsigned short)
-		NUMBER_OPERATOR_DECLARE_SET(friend, int)
-		NUMBER_OPERATOR_DECLARE_SET(friend, unsigned int)
-		NUMBER_OPERATOR_DECLARE_SET(friend, long)
-		NUMBER_OPERATOR_DECLARE_SET(friend, unsigned long)
-		NUMBER_OPERATOR_DECLARE_SET(friend, long long)
-		NUMBER_OPERATOR_DECLARE_SET(friend, unsigned long long)
-		NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT(friend, float)
-		NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT(friend, double)
-		NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT(friend, long double)
+		_NUMBER_COMPARISON_DECLARE_SET(friend, bool)
+		_NUMBER_OPERATOR_DECLARE_SET(friend, char)
+		_NUMBER_OPERATOR_DECLARE_SET(friend, unsigned char)
+		_NUMBER_OPERATOR_DECLARE_SET(friend, short)
+		_NUMBER_OPERATOR_DECLARE_SET(friend, unsigned short)
+		_NUMBER_OPERATOR_DECLARE_SET(friend, int)
+		_NUMBER_OPERATOR_DECLARE_SET(friend, unsigned int)
+		_NUMBER_OPERATOR_DECLARE_SET(friend, long)
+		_NUMBER_OPERATOR_DECLARE_SET(friend, unsigned long)
+		_NUMBER_OPERATOR_DECLARE_SET(friend, long long)
+		_NUMBER_OPERATOR_DECLARE_SET(friend, unsigned long long)
+		_NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT(friend, float)
+		_NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT(friend, double)
+		_NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT(friend, long double)
 		friend Number operator+(const Number&left, const Number&right);
 		friend Number operator-(const Number&left, const Number&right);
 		friend Number operator*(const Number&left, const Number&right);
@@ -192,8 +192,8 @@ namespace GameLibrary
 	
 	std::ostream& operator<<(std::ostream& stream, const Number& num);
 	
-	#undef NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT
-	#undef NUMBER_OPERATOR_DECLARE_SET
-	#undef NUMBER_COMPARISON_DECLARE
-	#undef NUMBER_OPERATOR_DECLARE
+	#undef _NUMBER_OPERATOR_DECLARE_SET_FLOATINGPOINT
+	#undef _NUMBER_OPERATOR_DECLARE_SET
+	#undef _NUMBER_COMPARISON_DECLARE
+	#undef _NUMBER_OPERATOR_DECLARE
 }
