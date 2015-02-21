@@ -5,18 +5,13 @@
 
 namespace BrawlerLibrary
 {
-	class BrawlGame : GameLibrary::ScreenElement
+	class GameObject : public GameLibrary::SpriteActor
 	{
 	public:
-		BrawlGame(const GameLibrary::RectangleD&frame);
-		virtual ~BrawlGame();
-
+		GameObject(double x, double y);
+		virtual ~GameObject();
+		
 		virtual void update(GameLibrary::ApplicationData appData) override;
 		virtual void draw(GameLibrary::ApplicationData appData, GameLibrary::Graphics graphics) const override;
-		
-		virtual GameLibrary::RectangleD getFrame() const;
-		
-		virtual void startGame();
-		virtual void stopGame();
 	};
 }

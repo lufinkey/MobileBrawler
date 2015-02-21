@@ -1,5 +1,5 @@
 
-#include "BrawlGame.h"
+#include "Character.h"
 
 namespace BrawlerLibrary
 {

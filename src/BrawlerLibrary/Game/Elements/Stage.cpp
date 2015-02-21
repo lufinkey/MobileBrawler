@@ -1,5 +1,5 @@
 
-#include "BrawlGame.h"
+#include "Stage.h"
 
 namespace BrawlerLibrary
 {

@@ -237,6 +237,7 @@ namespace GameLibrary
 		/*! Called internally to begin a drawing operation.
 		To create a custom drawing operation, beginDraw() should be called before the operation, and endDraw() should be called when the operation finishes.*/
 		void beginDraw();
+		
 		/*! Called internally to end a drawing operation.
 		To create a custom drawing operation, beginDraw() should be called before the operation, and endDraw() should be called when the operation finishes.*/
 		void endDraw();
