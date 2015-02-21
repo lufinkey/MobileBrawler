@@ -90,6 +90,7 @@
     <ClCompile Include="src\BrawlerLibrary\Game\Rules\WinCondition\StockWinCondition.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Game\Rules\WinCondition\TimeLimitWinCondition.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Game\Rules\WinCondition\WinCondition.cpp" />
+    <ClCompile Include="src\BrawlerLibrary\Game\Stage.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Loader\CharacterInfo.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Loader\CharacterLoader.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Loader\StageInfo.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="src\BrawlerLibrary\Game\Rules\WinCondition\StockWinCondition.h" />
     <ClInclude Include="src\BrawlerLibrary\Game\Rules\WinCondition\TimeLimitWinCondition.h" />
     <ClInclude Include="src\BrawlerLibrary\Game\Rules\WinCondition\WinCondition.h" />
+    <ClInclude Include="src\BrawlerLibrary\Game\Stage.h" />
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterInfo.h" />
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterLoader.h" />
     <ClInclude Include="src\BrawlerLibrary\Loader\StageInfo.h" />

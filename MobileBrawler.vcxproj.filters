@@ -351,9 +351,6 @@
     <ClCompile Include="src\BrawlerLibrary\Loader\CharacterInfo.cpp">
       <Filter>src\BrawlerLibrary\Loader</Filter>
     </ClCompile>
-    <ClCompile Include="external\pugixml\src\pugixml.cpp">
-      <Filter>external\pugixml\src</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameLibrary\IO\FileTools.cpp">
       <Filter>src\GameLibrary\IO</Filter>
     </ClCompile>
@@ -467,6 +464,12 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Utilities\String.mm">
       <Filter>src\GameLibrary\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BrawlerLibrary\Game\Stage.cpp">
+      <Filter>src\BrawlerLibrary\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="external\pugixml\src\pugixml.cpp">
+      <Filter>external\pugixml\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -847,6 +850,9 @@
     </ClInclude>
     <ClInclude Include="src\SmashBros\Menu\SoloMenu\SoloMenu.h">
       <Filter>src\SmashBros\Menu\SoloMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BrawlerLibrary\Game\Stage.h">
+      <Filter>src\BrawlerLibrary\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
