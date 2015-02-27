@@ -7,7 +7,6 @@ namespace BrawlerLibrary
 {
 	class BrawlGame;
 	
-	
 	class GameObject : public GameLibrary::SpriteActor
 	{
 	public:

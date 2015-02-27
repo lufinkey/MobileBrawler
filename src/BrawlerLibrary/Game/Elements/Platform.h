@@ -1,11 +1,11 @@
 
 #pragma once
 
-#include "GameObject.h"
+#include "PhysicalGameObject.h"
 
 namespace BrawlerLibrary
 {
-	class Platform : public GameObject
+	class Platform : public PhysicalGameObject
 	{
 	public:
 		Platform(double x, double y);

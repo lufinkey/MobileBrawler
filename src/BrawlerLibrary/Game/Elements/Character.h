@@ -1,9 +1,9 @@
 
-#include "GameObject.h"
+#include "PhysicalGameObject.h"
 
 namespace BrawlerLibrary
 {
-	class Character : public GameObject
+	class Character : public PhysicalGameObject
 	{
 	public:
 	};
