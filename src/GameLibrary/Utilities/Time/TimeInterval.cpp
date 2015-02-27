@@ -50,14 +50,95 @@ namespace GameLibrary
 
 		return *this;
 	}
-
-	void TimeInterval::update()
+	
+	bool TimeInterval::equals(const TimeInterval&time) const
+	{
+		if(getMilliseconds() == time.getMilliseconds())
+		{
+			return true;
+		}
+		else if(time.getMilliseconds() == getMilliseconds())
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	bool TimeInterval::operator==(const TimeInterval&time) const
+	{
+		return equals(time);
+	}
+	
+	bool TimeInterval::operator!=(const TimeInterval&time) const
+	{
+		return !equals(time);
+	}
+	
+	bool TimeInterval::operator<(const TimeInterval&time) const
+	{
+		if(getMilliseconds() < time.getMilliseconds())
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	bool TimeInterval::operator<=(const TimeInterval&time) const
+	{
+		if(getMilliseconds() <= time.getMilliseconds())
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	bool TimeInterval::operator>(const TimeInterval&time) const
+	{
+		if(getMilliseconds() > time.getMilliseconds())
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	bool TimeInterval::operator>=(const TimeInterval&time) const
+	{
+		if(getMilliseconds() >= time.getMilliseconds())
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	TimeInterval TimeInterval::operator+(const TimeInterval&time) const
+	{
+		return TimeInterval(getMilliseconds() + time.getMilliseconds());
+	}
+	
+	TimeInterval TimeInterval::operator-(const TimeInterval&time) const
+	{
+		return TimeInterval(getMilliseconds() - time.getMilliseconds());
+	}
+	
+	TimeInterval& TimeInterval::operator+=(const TimeInterval&time)
+	{
+		milliseconds += time.getMilliseconds();
+		return *this;
+	}
+	
+	TimeInterval& TimeInterval::operator-=(const TimeInterval&time)
+	{
+		milliseconds -= time.getMilliseconds();
+		return *this;
+	}
+	
+	void TimeInterval::update() const
 	{
 		long long currentmillis = TimeInterval_getCurrentMilliseconds();
 		milliseconds += (currentmillis - lastmillis);
 		lastmillis = currentmillis;
 	}
-
+	
 	void TimeInterval::start()
 	{
 		if(!running)
@@ -82,17 +163,12 @@ namespace GameLibrary
 		lastmillis = TimeInterval_getCurrentMilliseconds();
 	}
 
-	long long TimeInterval::getMilliseconds()
+	long long TimeInterval::getMilliseconds() const
 	{
 		if(running)
 		{
 			update();
 		}
-		return milliseconds;
-	}
-
-	long long TimeInterval::getMilliseconds() const
-	{
 		return milliseconds;
 	}
 }
