@@ -498,6 +498,9 @@
     <ClCompile Include="src\BrawlerLibrary\Game\Utilities\Camera.cpp">
       <Filter>src\BrawlerLibrary\Game\Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="src\BrawlerLibrary\Game\Elements\PhysicalGameObject.cpp">
+      <Filter>src\BrawlerLibrary\Game\Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -898,6 +901,12 @@
     </ClInclude>
     <ClInclude Include="src\BrawlerLibrary\Game\Utilities\Camera.h">
       <Filter>src\BrawlerLibrary\Game\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BrawlerLibrary\Game\Elements\PhysicalGameObject.h">
+      <Filter>src\BrawlerLibrary\Game\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\Geometry\ValueEase.h">
+      <Filter>src\GameLibrary\Utilities\Geometry</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

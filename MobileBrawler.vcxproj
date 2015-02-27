@@ -89,6 +89,7 @@
     <ClCompile Include="src\BrawlerLibrary\Game\Elements\Character.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Game\Elements\Components\Attack.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Game\Elements\GameObject.cpp" />
+    <ClCompile Include="src\BrawlerLibrary\Game\Elements\PhysicalGameObject.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Game\Elements\Platform.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Game\Elements\Stage.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Game\Rules\PlayerInfo.cpp" />
@@ -210,6 +211,7 @@
     <ClInclude Include="src\BrawlerLibrary\Game\Elements\Character.h" />
     <ClInclude Include="src\BrawlerLibrary\Game\Elements\Components\Attack.h" />
     <ClInclude Include="src\BrawlerLibrary\Game\Elements\GameObject.h" />
+    <ClInclude Include="src\BrawlerLibrary\Game\Elements\PhysicalGameObject.h" />
     <ClInclude Include="src\BrawlerLibrary\Game\Elements\Platform.h" />
     <ClInclude Include="src\BrawlerLibrary\Game\Elements\Stage.h" />
     <ClInclude Include="src\BrawlerLibrary\Game\Rules\PlayerInfo.h" />
@@ -295,6 +297,7 @@
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\Polygon.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\Rectangle.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\Transform.h" />
+    <ClInclude Include="src\GameLibrary\Utilities\Geometry\ValueEase.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\Vector2.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Math.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Number.h" />

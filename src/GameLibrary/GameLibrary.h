@@ -78,6 +78,7 @@
 #include "Utilities/Geometry/Polygon.h"
 #include "Utilities/Geometry/Rectangle.h"
 #include "Utilities/Geometry/Transform.h"
+#include "Utilities/Geometry/ValueEase.h"
 #include "Utilities/Geometry/Vector2.h"
 #include "Utilities/Time/DateTime.h"
 #include "Utilities/Time/TimeInterval.h"
