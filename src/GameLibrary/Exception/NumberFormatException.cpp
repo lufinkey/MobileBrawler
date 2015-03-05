@@ -9,7 +9,7 @@ namespace GameLibrary
 		reason = exception.reason;
 	}
 
-	NumberFormatException::NumberFormatException(const String& t, const String& r) : IllegalArgumentException((String)"Unable to convert String to type " + t + ": " + r)
+	NumberFormatException::NumberFormatException(const String& t, const String& r) : IllegalArgumentException("format", (String)"Unable to convert String to type " + t + ": " + r)
 	{
 		type = t;
 		reason = r;

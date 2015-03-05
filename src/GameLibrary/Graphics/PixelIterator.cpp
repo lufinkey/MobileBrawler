@@ -8,15 +8,15 @@ namespace GameLibrary
 	{
 		if(!dstRect.contains(loopRect))
 		{
-			throw IllegalArgumentException("loopRect must be contained within dstRect");
+			throw IllegalArgumentException("loopRect", "not within bounds of dstRect");
 		}
 		if((unsigned int)(srcRect.x + srcRect.width) > dims.x)
 		{
-			throw IllegalArgumentException("srcRect cannot stretch larger than dimensions");
+			throw IllegalArgumentException("srcRect", "not within bounds of dimensions");
 		}
 		else if((unsigned int)(srcRect.y + srcRect.height) > dims.y)
 		{
-			throw IllegalArgumentException("srcRect cannot stretch larger than dimensions");
+			throw IllegalArgumentException("srcRect", "not within bounds of dimensions");
 		}
 		usesTransform = false;
 		started = false;
@@ -48,15 +48,15 @@ namespace GameLibrary
 	{
 		if(!dstRect.contains(loopRect))
 		{
-			throw IllegalArgumentException("loopRect must be contained within dstRect");
+			throw IllegalArgumentException("loopRect", "not within bounds of dstRect");
 		}
 		if((unsigned int)(srcRect.x + srcRect.width) > dims.x)
 		{
-			throw IllegalArgumentException("srcRect cannot stretch larger than dimensions");
+			throw IllegalArgumentException("srcRect", "not within bounds of dimensions");
 		}
 		else if((unsigned int)(srcRect.y + srcRect.height) > dims.y)
 		{
-			throw IllegalArgumentException("srcRect cannot stretch larger than dimensions");
+			throw IllegalArgumentException("srcRect", "not within bounds of dimensions");
 		}
 		usesTransform = true;
 		started = false;

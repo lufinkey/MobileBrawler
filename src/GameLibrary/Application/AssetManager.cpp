@@ -159,7 +159,7 @@ namespace GameLibrary
 	{
 		if(image==nullptr)
 		{
-			throw IllegalArgumentException("TextureImage cannot be null");
+			throw IllegalArgumentException("image", "null");
 		}
 		for(unsigned int i=0; i<textures.size(); i++)
 		{

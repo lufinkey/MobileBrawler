@@ -91,13 +91,12 @@ namespace GameLibrary
 	
 	DataPacket::DataPacket(const void*data1, size_t size)
 	{
-		if(size>0)
+		if(data1 == nullptr)
 		{
-			if(data1 == nullptr)
-			{
-				throw IllegalArgumentException("data argument in DataPacket(const void*data,size_t size) cannot be nullptr if size>0");
-			}
-
+			throw IllegalArgumentException("data", "null");
+		}
+		else if(size>0)
+		{
 			data = (byte*)std::malloc(size);
 			const byte*copyBytes = (const byte*)data1;
 			for(size_t i=0; i<size; i++)
@@ -216,7 +215,7 @@ namespace GameLibrary
 		{
 			if(data1==nullptr)
 			{
-				throw IllegalArgumentException("data argument in DataPacket::setData(const void*data,size_t size) cannot be nullptr if size>0");
+				throw IllegalArgumentException("data", "null");
 			}
 
 			if(data==nullptr)
@@ -334,7 +333,7 @@ namespace GameLibrary
 		{
 			if(data1 == nullptr)
 			{
-				throw IllegalArgumentException("data argument in DataPacket::add(const void*data,size_t size) cannot be nullptr if size>0");
+				throw IllegalArgumentException("data", "null");
 			}
 
 			if(data == nullptr)
@@ -365,17 +364,16 @@ namespace GameLibrary
 	
 	void DataPacket::add(size_t byteIndex, const void*data1, size_t size)
 	{
-		if(byteIndex > total)
+		if(data1 == nullptr)
+		{
+			throw IllegalArgumentException("data","null");
+		}
+		else if(byteIndex > total)
 		{
 			throw DataPacketOutOfBoundsException(byteIndex, total);
 		}
 		else if(size>0)
 		{
-			if(data1 == nullptr)
-			{
-				throw IllegalArgumentException("data argument in DataPacket::add(size_t byteIndex,const void*data,size_t size) cannot be nullptr if size>0");
-			}
-
 			if(data == nullptr)
 			{
 				data = (byte*)std::malloc(size);
@@ -573,6 +571,10 @@ namespace GameLibrary
 	
 	void DataPacket::set(size_t byteIndex, const void*data1, size_t size)
 	{
+		if(data1 == nullptr)
+		{
+			throw IllegalArgumentException("data", "null");
+		}
 		size_t endIndex = byteIndex + size;
 		if(endIndex>total)
 		{
@@ -580,11 +582,6 @@ namespace GameLibrary
 		}
 		else if(size>0)
 		{
-			if(data1 == nullptr)
-			{
-				throw IllegalArgumentException("data argument in DataPacket::set(size_t byteIndex,const void*data,size_t size) cannot be nullptr if size>0");
-			}
-
 			const byte*copyBytes = (const byte*)data1;
 			size_t counter = byteIndex;
 			for(size_t i=0; i<size; i++)

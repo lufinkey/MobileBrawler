@@ -490,7 +490,7 @@ namespace GameLibrary
 	{
 		if(listener == nullptr)
 		{
-			throw IllegalArgumentException("Cannot add a null MultitouchEventListener to Multitouch");
+			throw IllegalArgumentException("listener", "null");
 		}
 		
 		if(Multitouch_callingListeners)
@@ -508,7 +508,7 @@ namespace GameLibrary
 	{
 		if(listener == nullptr)
 		{
-			throw IllegalArgumentException("Cannot remove a null MultitouchEventListener from Multitouch");
+			throw IllegalArgumentException("listener", "null");
 		}
 		
 		if(Multitouch_callingListeners)

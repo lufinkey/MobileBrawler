@@ -78,11 +78,12 @@ namespace GameLibrary
 			\param duration a length of time, in milliseconds, that the transition will last
 			\param completion a callback to call when the Screen finishes the transition
 			\throws GameLibrary::IllegalArgumentException if the given Screen:\n
-				2.) is null\n
-				3.) is already presented on another Screen\n
-				4.) is already inside a Screen container\n
-				5.) already belongs to another Window\n
-			\throws GameLibrary::ScreenNavigationException if this container is already in the process of pushing, popping, or setting items on the list*/
+				1.) is null\n
+				2.) is already presented on another Screen\n
+				3.) is already inside a Screen container\n
+				4.) already belongs to another Window\n
+			\throws GameLibrary::ScreenNavigationException if:\n
+				1.) this container is already in the process of pushing, popping, or setting items on the list*/
 		void push(Screen*screen, const Transition*transition=defaultPushTransition, unsigned long long duration=Transition::defaultDuration, CompletionCallback completion=nullptr);
 		/*! Pushes a list of Screen pointers onto the container's list of Screen pointers.
 			\param screens a list of Screen pointers to push

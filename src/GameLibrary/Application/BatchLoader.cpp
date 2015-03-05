@@ -77,7 +77,7 @@ namespace GameLibrary
 	{
 		if(function == nullptr)
 		{
-			throw IllegalArgumentException("function argument cannot be null");
+			throw IllegalArgumentException("function", "null");
 		}
 		LoadInfo info;
 		info.type = LOADTYPE_FUNCTION;

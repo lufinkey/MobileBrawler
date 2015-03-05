@@ -169,11 +169,11 @@ namespace GameLibrary
 	{
 		if(element == nullptr)
 		{
-			throw IllegalArgumentException("Cannot add a null ScreenElement to a ScreenElement");
+			throw IllegalArgumentException("element", "null");
 		}
 		else if(element->parentElement != nullptr)
 		{
-			throw IllegalArgumentException("Cannot add a ScreenElement that is already added to another ScreenElement");
+			throw IllegalArgumentException("element", "already added to another ScreenElement");
 		}
 		element->parentElement = this;
 		childElements.add(element);
@@ -183,11 +183,11 @@ namespace GameLibrary
 	{
 		if(element == nullptr)
 		{
-			throw IllegalArgumentException("Cannot add a null ScreenElement to a ScreenElement");
+			throw IllegalArgumentException("element", "null");
 		}
 		else if(element->parentElement != nullptr)
 		{
-			throw IllegalArgumentException("Cannot add a ScreenElement that is already added to another ScreenElement");
+			throw IllegalArgumentException("element", "already added to another ScreenElement");
 		}
 		element->parentElement = this;
 		childElements.add(element);
@@ -219,11 +219,11 @@ namespace GameLibrary
 	{
 		if(element == nullptr)
 		{
-			throw IllegalArgumentException("element argument cannot be null");
+			throw IllegalArgumentException("element", "null");
 		}
 		else if(element->parentElement != this)
 		{
-			throw IllegalArgumentException("Specified ScreenElement is not a child of this ScreenElement");
+			throw IllegalArgumentException("element", "not a child of the calling element");
 		}
 		
 		unsigned int index = childElements.indexOf(element);
@@ -243,11 +243,11 @@ namespace GameLibrary
 	{
 		if(element == nullptr)
 		{
-			throw IllegalArgumentException("element argument cannot be null");
+			throw IllegalArgumentException("element", "null");
 		}
 		else if(element->parentElement != this)
 		{
-			throw IllegalArgumentException("Specified ScreenElement is not a child of this ScreenElement");
+			throw IllegalArgumentException("element", "not a child of the calling element");
 		}
 		
 		unsigned int index = childElements.indexOf(element);

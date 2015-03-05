@@ -3,19 +3,14 @@
 
 namespace GameLibrary
 {
-	IllegalArgumentException::IllegalArgumentException() : Exception("An illegal argument was used on a function")
-	{
-		//
-	}
-
 	IllegalArgumentException::IllegalArgumentException(const IllegalArgumentException&exception) : Exception(exception)
 	{
 		//
 	}
 
-	IllegalArgumentException::IllegalArgumentException(const String&message) : Exception(message)
+	IllegalArgumentException::IllegalArgumentException(const String&arg, const String&reason) : Exception("argument " + arg + " for is not a valid argument: " + message)
 	{
-		//
+		argument = arg;
 	}
 
 	IllegalArgumentException::~IllegalArgumentException()
@@ -26,6 +21,7 @@ namespace GameLibrary
 	IllegalArgumentException& IllegalArgumentException::operator=(const IllegalArgumentException&exception)
 	{
 		Exception::operator=(exception);
+		argument = exception.argument;
 		return *this;
 	}
 }

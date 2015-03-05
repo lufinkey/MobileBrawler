@@ -35,7 +35,7 @@ namespace GameLibrary
 	{
 		if(entries == nullptr)
 		{
-			throw IllegalArgumentException("entries argument cannot be null");
+			throw IllegalArgumentException("entries", "null");
 		}
 		DIR*dir = opendir(directory);
 		if(dir==NULL)

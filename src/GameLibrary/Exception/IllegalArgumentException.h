@@ -9,12 +9,12 @@ namespace GameLibrary
 	class IllegalArgumentException : public Exception
 	{
 	public:
-		/*! default constructor*/
-		IllegalArgumentException();
+		String argument;
+		
 		/*! copy constructor*/
 		IllegalArgumentException(const IllegalArgumentException&);
 		/*! \copydoc GameLibrary::Exception::Exception(const GameLibrary::String&)*/
-		IllegalArgumentException(const String&message);
+		IllegalArgumentException(const String&argument, const String&reason);
 		/*! virtual destructor*/
 		virtual ~IllegalArgumentException();
 		/*! assignment operator*/

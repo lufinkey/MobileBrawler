@@ -34,7 +34,7 @@ namespace GameLibrary
 	{
 		if(actor == nullptr)
 		{
-			throw IllegalArgumentException("actor argument cannot be null");
+			throw IllegalArgumentException("actor", "null");
 		}
 		for(unsigned int i=0; i<actors.size(); i++)
 		{
@@ -57,7 +57,7 @@ namespace GameLibrary
 	{
 		if(element == nullptr)
 		{
-			throw IllegalArgumentException("element argument cannot be null");
+			throw IllegalArgumentException("element", "null");
 		}
 		for(unsigned int i=0; i<elements.size(); i++)
 		{
@@ -80,7 +80,7 @@ namespace GameLibrary
 	{
 		if(actor == nullptr)
 		{
-			throw IllegalArgumentException("actor argument cannot be null");
+			throw IllegalArgumentException("actor", "null");
 		}
 		for(unsigned int i=0; i<actors.size(); i++)
 		{
@@ -92,14 +92,14 @@ namespace GameLibrary
 				return;
 			}
 		}
-		throw IllegalArgumentException("the given Actor is not stored in this AutoLayout");
+		throw IllegalArgumentException("actor", "not stored in the calling AutoLayout");
 	}
 	
 	void AutoLayout::set(ScreenElement*element, const RectD&bounds)
 	{
 		if(element == nullptr)
 		{
-			throw IllegalArgumentException("element argument cannot be null");
+			throw IllegalArgumentException("element", "null");
 		}
 		for(unsigned int i=0; i<elements.size(); i++)
 		{
@@ -111,14 +111,14 @@ namespace GameLibrary
 				return;
 			}
 		}
-		throw IllegalArgumentException("the given ScreenElement is not stored in this AutoLayout");
+		throw IllegalArgumentException("element", "not stored in the calling AutoLayout");
 	}
 	
 	const RectD& AutoLayout::get(Actor*actor) const
 	{
 		if(actor == nullptr)
 		{
-			throw IllegalArgumentException("element argument cannot be null");
+			throw IllegalArgumentException("actor", "null");
 		}
 		for(unsigned int i=0; i<actors.size(); i++)
 		{
@@ -128,14 +128,14 @@ namespace GameLibrary
 				return container.bounds;
 			}
 		}
-		throw IllegalArgumentException("the given Actor is not stored in this AutoLayout");
+		throw IllegalArgumentException("actor", "not stored in the calling AutoLayout");
 	}
 	
 	const RectD& AutoLayout::get(ScreenElement*element) const
 	{
 		if(element == nullptr)
 		{
-			throw IllegalArgumentException("element argument cannot be null");
+			throw IllegalArgumentException("element", "null");
 		}
 		for(unsigned int i=0; i<elements.size(); i++)
 		{
@@ -145,7 +145,7 @@ namespace GameLibrary
 				return container.bounds;
 			}
 		}
-		throw IllegalArgumentException("the given ScreenElement is not stored in this AutoLayout");
+		throw IllegalArgumentException("element", "not stored in the calling AutoLayout");
 	}
 	
 	bool AutoLayout::contains(Actor*actor) const

@@ -97,11 +97,11 @@ namespace GameLibrary
 	{
 		if(animation == nullptr)
 		{
-			throw IllegalArgumentException("Cannot add an item with a null Animation to a GameLibrary::MenuScreen object");
+			throw IllegalArgumentException("animation", "null");
 		}
 		else if(!(direction==Animation::FORWARD || direction==Animation::BACKWARD || direction==Animation::STOPPED || direction==Animation::NO_CHANGE))
 		{
-			throw IllegalArgumentException((String)"Invalid value " + direction + "for \"direction\" argument");
+			throw IllegalArgumentException("direction", (String)"" + direction);
 		}
 		SpriteActor* actor = new SpriteActor(position.x, position.y);
 		actor->addAnimation("default", animation, destructAnimation);
@@ -113,11 +113,11 @@ namespace GameLibrary
 	{
 		if(animation == nullptr)
 		{
-			throw IllegalArgumentException("Cannot add an item with a null Animation to a GameLibrary::MenuScreen object");
+			throw IllegalArgumentException("animation", "null");
 		}
 		else if(!(direction==Animation::FORWARD || direction==Animation::BACKWARD || direction==Animation::STOPPED || direction==Animation::NO_CHANGE))
 		{
-			throw IllegalArgumentException((String)"Invalid value " + direction + "for \"direction\" argument");
+			throw IllegalArgumentException("direction", (String)"" + direction);
 		}
 		SpriteActor* actor = new SpriteActor();
 		actor->addAnimation("default", animation, destructAnimation);

@@ -76,11 +76,11 @@ namespace GameLibrary
 			\param transition a Transition to use to present the Screen
 			\param duration a length of time, in milliseconds, that the transition will last
 			\param completion a callback to call when the Screen finishes the transition
-			\throws GameLibrary::IllegalArgumentException if\n
-				1.) the Screen being presented is already presented on another Screen,\n
-				2.) the Screen being presented is a root Screen \see GameLibrary::Screen::Screen(GameLibrary::Window*),\n
-				3.) the Screen being presented is already held within a ScreenManager,\n
-				4.) trying to present a null Screen
+			\throws GameLibrary::IllegalArgumentException if the Screen being presented is:\n
+				1.) null
+				2.) already presented on another Screen,\n
+				3.) a root Screen \see GameLibrary::Screen::Screen(GameLibrary::Window*),\n
+				4.) already held within a ScreenManager,\n
 			\throws GameLibrary::ScreenNavigationException if a Screen is already in the process of being presented on this Screen*/
 		void present(Screen*screen, const Transition*transition=defaultPresentTransition, unsigned long long duration=Transition::defaultDuration, CompletionCallback completion=nullptr);
 		/*! Dismisses the child Screen that is presented on top of this Screen, or if no Screen is presented on top of this Screen, this Screen is dismissed from its parent Screen.

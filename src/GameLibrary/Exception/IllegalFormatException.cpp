@@ -3,7 +3,7 @@
 
 namespace GameLibrary
 {
-	IllegalFormatException::IllegalFormatException(const String&message) : IllegalArgumentException(message)
+	IllegalFormatException::IllegalFormatException(const String&message) : IllegalArgumentException("format", message)
 	{
 		//
 	}

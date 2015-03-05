@@ -266,7 +266,7 @@ namespace GameLibrary
 	{
 		if(actor == nullptr)
 		{
-			throw IllegalArgumentException("Cannot add a null Actor to an ActorMenuElement object");
+			throw IllegalArgumentException("actor", "null");
 		}
 		actors.add(actor);
 		return actors.size()-1;
@@ -276,7 +276,7 @@ namespace GameLibrary
 	{
 		if(actor == nullptr)
 		{
-			throw IllegalArgumentException("Cannot add a null Actor to an ActorMenuElement object");
+			throw IllegalArgumentException("actor", "null");
 		}
 		actors.add(actor);
 		autoActorLayout.add(bounds, actor);

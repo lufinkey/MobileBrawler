@@ -481,7 +481,7 @@ namespace GameLibrary
 	{
 		if(listener == nullptr)
 		{
-			throw IllegalArgumentException("Cannot add a null MouseEventListener to Mouse");
+			throw IllegalArgumentException("listener", "null");
 		}
 		
 		if(Mouse_callingListeners)
@@ -499,7 +499,7 @@ namespace GameLibrary
 	{
 		if(listener == nullptr)
 		{
-			throw IllegalArgumentException("Cannot remove a null MouseEventListener from Mouse");
+			throw IllegalArgumentException("listener", "null");
 		}
 		
 		if(Mouse_callingListeners)

@@ -29,7 +29,7 @@ namespace GameLibrary
 #endif
 	
 #define STRING_NOTFOUND SIZE_MAX
-	
+
 	class String
 	{
 		friend std::ostream& operator<<(std::ostream& stream, const String& str);
@@ -286,5 +286,3 @@ namespace GameLibrary
 #ifdef _STRING_USES_GAMELIBRARY
 }
 #endif
-
-

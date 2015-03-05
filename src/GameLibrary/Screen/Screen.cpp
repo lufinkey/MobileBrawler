@@ -376,23 +376,23 @@ namespace GameLibrary
 		
 		if(screen == nullptr)
 		{
-			throw IllegalArgumentException("Cannot present a null Screen");
+			throw IllegalArgumentException("screen", "null");
 		}
 		else if(screen->parentScreen != nullptr)
 		{
-			throw IllegalArgumentException("Cannot present Screen that is already presenting on another Screen");
+			throw IllegalArgumentException("screen", "already presenting on another Screen");
 		}
 		/*else if(screen->parentElement != nullptr)
 		{
-			throw IllegalArgumentException("Cannot present Screen that is already displaying on another ScreenElement");
+			throw IllegalArgumentException("screen", "already displaying on another ScreenElement");
 		}*/
 		else if(screen->screenManager != nullptr)
 		{
-			throw IllegalArgumentException("Cannot present Screen that is already displaying in a ScreenManager");
+			throw IllegalArgumentException("screen", "already displaying in a ScreenManager");
 		}
 		else if(screen->window != nullptr)
 		{
-			throw IllegalArgumentException("Cannot present Screen that already belongs to a Window");
+			throw IllegalArgumentException("screen", "already belongs to a Window");
 		}
 		else if(childScreen != nullptr)
 		{

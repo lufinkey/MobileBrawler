@@ -240,7 +240,7 @@ namespace GameLibrary
 	{
 		if(hasAnimation(name))
 		{
-			throw IllegalArgumentException("Animation with name \"" + name + "\" is already added to this SpriteActor");
+			throw IllegalArgumentException("name", "duplicate animation name");
 		}
 		
 		AnimationInfo animInfo;
@@ -307,13 +307,13 @@ namespace GameLibrary
 	{
 		if(direction != Animation::FORWARD && direction != Animation::BACKWARD && direction != Animation::STOPPED && direction != Animation::NO_CHANGE)
 		{
-			throw IllegalArgumentException((String)"Invalid value " + direction + " for direction argument in SpriteActor::changeAnimation");
+			throw IllegalArgumentException("direction", (String)"" + direction);
 		}
 		
 		Animation* animation = getAnimation(name);
 		if(animation == nullptr)
 		{
-			throw IllegalArgumentException("Animation with name \"" + name + "\" does not exist");
+			throw IllegalArgumentException("name", "animation does not exist");
 		}
 		
 		animation_name = name;
@@ -444,7 +444,7 @@ namespace GameLibrary
 	{
 		if(actor == nullptr)
 		{
-			throw IllegalArgumentException("Cannot pass a null actor to SpriteActor::isColliding");
+			throw IllegalArgumentException("actor", "null");
 		}
 		else if(animation_current==nullptr || actor->animation_current==nullptr || scale==0 || actor->scale==0)
 		{
