@@ -909,4 +909,7 @@
       <Filter>src\GameLibrary\Utilities\Geometry</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MobileBrawler.rc" />
+  </ItemGroup>
 </Project>

@@ -81,7 +81,11 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>external\PlistCpp\Windows\lib;external\SDL\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;SDL2_p2p.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>$(IntDir)$(TargetName).res %(AdditionalOptions)</AdditionalOptions>
     </Link>
+    <PreLinkEvent>
+      <Command>rc /nologo /fo"$(IntDir)%(Filename).res" $(InitDir)%(Filename).rs </Command>
+    </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="external\pugixml\src\pugixml.cpp" />
@@ -346,6 +350,9 @@
     <ClCompile Include="src\GameLibrary\Utilities\String.mm">
       <FileType>Document</FileType>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MobileBrawler.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
