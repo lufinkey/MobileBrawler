@@ -11,7 +11,7 @@ namespace GameLibrary
 	class ValueEase
 	{
 	private:
-		T value;
+		T*value;
 		T goal;
 		
 		TimeInterval duration;
@@ -24,34 +24,29 @@ namespace GameLibrary
 		ValueEaseCallback completion;
 		
 	public:
-		ValueEase()
+		ValueEase() : ValueEase(nullptr)
 		{
-			value = 0;
-			goal = 0;
-			progress = 1;
-			completion = nullptr;
-			easing = false;
-			timer.start();
+			//
 		}
-
-		ValueEase(const T&value)
+		
+		ValueEase(T*value)
 		{
 			ValueEase::value = value;
-			goal = value;
+			goal = *value;
 			progress = 1;
 			completion = nullptr;
 			easing = false;
 			timer.start();
 		}
 
-		void setValue(const T&value)
+		void setValue(T*value)
 		{
 			ValueEase::value = value;
 		}
 		
 		void setGoal(const T&goal, const TimeInterval&duration)
 		{
-			progress = 0;
+			progress = nullptr;
 			ValueEase::goal = goal;
 			ValueEase::duration = duration;
 		}
@@ -68,7 +63,7 @@ namespace GameLibrary
 
 		void update()
 		{
-			if(easing)
+			if(easing && value!=nullptr)
 			{
 				TimeInterval elapsedTime = time - previousTime;
 				long double elapsedMillis = (long double)elapsedTime.getMilliseconds();
@@ -76,7 +71,7 @@ namespace GameLibrary
 				if(durationMillis == 0)
 				{
 					progress = 1.0;
-					value = goal;
+					*value = goal;
 					easing = false;
 					if(completion != nullptr)
 					{
@@ -90,7 +85,7 @@ namespace GameLibrary
 					if(totalProgress >= 1.0)
 					{
 						progress = 1.0;
-						value = goal;
+						*value = goal;
 						easing = false;
 						if(completion != nullptr)
 						{
@@ -100,7 +95,7 @@ namespace GameLibrary
 					else
 					{
 						long double portionRatio = easeProgress/(1.0 - progress);
-						value = (T)(((long double)(goal-value))*portionRatio);
+						*value = (T)(((long double)(goal-*value))*portionRatio);
 						progress = totalProgress;
 					}
 				}
