@@ -20,6 +20,7 @@ namespace GameLibrary
 		long double progress;
 
 		bool easing;
+		bool goalset;
 
 		ValueEaseCallback completion;
 		
@@ -32,7 +33,16 @@ namespace GameLibrary
 		ValueEase(T*value)
 		{
 			ValueEase::value = value;
-			goal = *value;
+			if(value!=nullptr)
+			{
+				goal = *value;
+				goalset = true;
+			}
+			else
+			{
+				goal = 0;
+				goalset = false;
+			}
 			progress = 1;
 			completion = nullptr;
 			easing = false;
@@ -42,12 +52,21 @@ namespace GameLibrary
 		void setValue(T*value)
 		{
 			ValueEase::value = value;
+			if(ValueEase::value!=nullptr && !goalset)
+			{
+				goal = *value;
+				goalset = true;
+			}
 		}
 		
 		void setGoal(const T&goal, const TimeInterval&duration)
 		{
 			progress = nullptr;
 			ValueEase::goal = goal;
+			if(!goalset)
+			{
+				goalset = true;
+			}
 			ValueEase::duration = duration;
 		}
 
