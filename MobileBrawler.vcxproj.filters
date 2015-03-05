@@ -501,6 +501,9 @@
     <ClCompile Include="src\BrawlerLibrary\Game\Elements\PhysicalGameObject.cpp">
       <Filter>src\BrawlerLibrary\Game\Elements</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Utilities\BasicString.cpp">
+      <Filter>src\GameLibrary\Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -907,6 +910,9 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\ValueEase.h">
       <Filter>src\GameLibrary\Utilities\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\BasicString.h">
+      <Filter>src\GameLibrary\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

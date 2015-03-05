@@ -164,6 +164,7 @@
     <ClCompile Include="src\GameLibrary\Screen\UI\MenuScreen.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\UI\ScrollElement.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\UI\TextInputElement.cpp" />
+    <ClCompile Include="src\GameLibrary\Utilities\BasicString.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\BitList.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\BitSet.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\DataPacket.cpp" />
@@ -291,6 +292,7 @@
     <ClInclude Include="src\GameLibrary\Types.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Any.h" />
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h" />
+    <ClInclude Include="src\GameLibrary\Utilities\BasicString.h" />
     <ClInclude Include="src\GameLibrary\Utilities\BitList.h" />
     <ClInclude Include="src\GameLibrary\Utilities\BitSet.h" />
     <ClInclude Include="src\GameLibrary\Utilities\DataPacket.h" />
