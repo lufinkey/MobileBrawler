@@ -3,9 +3,9 @@
 
 namespace GameLibrary
 {
-	Exception::Exception()
+	Exception::Exception() : Exception("")
 	{
-		message = "";
+		//
 	}
 
 	Exception::Exception(const Exception&exception) : std::exception(exception)

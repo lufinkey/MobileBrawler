@@ -10,16 +10,16 @@ namespace GameLibrary
 	{
 	public:
 		/*! The out of bounds index*/
-		unsigned int index;
+		size_t index;
 		/*! The size of the DataPacket*/
-		unsigned int size;
+		size_t size;
 		
 		/*! copy constructor*/
 		DataPacketOutOfBoundsException(const DataPacketOutOfBoundsException&);
 		/*! Constructs an exception with a DataPacket index and size.
 			\param index the index in the DataPacket
 			\param size the size of the DataPacket*/
-		DataPacketOutOfBoundsException(unsigned int index, unsigned int size);
+		DataPacketOutOfBoundsException(size_t index, size_t size);
 		/*! virtual destructor*/
 		virtual ~DataPacketOutOfBoundsException();
 		/*! assignment operator*/

@@ -10,25 +10,25 @@ namespace GameLibrary
 	{
 	public:
 		/*! The index that was out of range*/
-		unsigned int index;
+		size_t index;
 		/*! The index of the byte out of range*/
-		unsigned int byteIndex;
+		size_t byteIndex;
 		/*! The index of the bit, within the byte, that was out of range*/
-		unsigned int bitIndex;
+		size_t bitIndex;
 		/*! The size of the BitList*/
-		unsigned int size;
+		size_t size;
 		
 		/*! copy constructor*/
 		BitListOutOfBoundsException(const BitListOutOfBoundsException&);
 		/*! Constructs an exception with a BitList index and size.
 			\param index the index that was out of bounds
 			\param size the size of the BitList*/
-		BitListOutOfBoundsException(unsigned int index, unsigned int size);
+		BitListOutOfBoundsException(size_t index, size_t size);
 		/*! Constructs an exception with a BitList byte index, bit index, and size.
 			\param byteIndex the byte index
 			\param bitIndex the bit index in the byte
 			\param size the size of the BitList*/
-		BitListOutOfBoundsException(unsigned int byteIndex, unsigned int bitIndex, unsigned int size);
+		BitListOutOfBoundsException(size_t byteIndex, size_t bitIndex, size_t size);
 		/*! virtual destructor*/
 		virtual ~BitListOutOfBoundsException();
 		/*! assignment operator*/

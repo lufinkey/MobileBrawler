@@ -10,16 +10,16 @@ namespace GameLibrary
 	{
 	public:
 		/*! The index in the string*/
-		unsigned int index;
+		size_t index;
 		/*! The length of the string*/
-		unsigned int length;
+		size_t length;
 		
 		/*! copy constructor*/
 		StringOutOfBoundsException(const StringOutOfBoundsException&);
 		/*! Constructs an exception with a String index and length.
 			\param index the index in the String
 			\param length the length of the String*/
-		StringOutOfBoundsException(unsigned int index, unsigned int length);
+		StringOutOfBoundsException(size_t index, size_t length);
 		/*! virtual destructor*/
 		virtual ~StringOutOfBoundsException();
 		/*! assignment operator*/

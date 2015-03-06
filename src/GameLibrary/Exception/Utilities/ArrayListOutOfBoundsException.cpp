@@ -9,7 +9,7 @@ namespace GameLibrary
 		size = exception.size;
 	}
 	
-	ArrayListOutOfBoundsException::ArrayListOutOfBoundsException(unsigned int i, unsigned int s) : OutOfBoundsException((String)"index " + i + " is out of bounds in ArrayList with a size of " + s)
+	ArrayListOutOfBoundsException::ArrayListOutOfBoundsException(size_t i, size_t s) : OutOfBoundsException((String)"index " + i + " is out of bounds in ArrayList with a size of " + s)
 	{
 		index = i;
 		size = s;

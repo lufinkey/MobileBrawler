@@ -8,7 +8,7 @@ namespace GameLibrary
 		index = exception.index;
 	}
 
-	BitSetOutOfBoundsException::BitSetOutOfBoundsException(unsigned int i) : OutOfBoundsException((String)"index " + i + " is out of bounds. The max index in a BitSet is 7. All BitSet objects have a length of 8")
+	BitSetOutOfBoundsException::BitSetOutOfBoundsException(size_t i) : OutOfBoundsException((String)"index " + i + " is out of bounds. The max index in a BitSet is 7. All BitSet objects have a length of 8")
 	{
 		index = i;
 	}

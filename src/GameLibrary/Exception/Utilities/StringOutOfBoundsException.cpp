@@ -9,7 +9,7 @@ namespace GameLibrary
 		length = exception.length;
 	}
 
-	StringOutOfBoundsException::StringOutOfBoundsException(unsigned int i, unsigned int l) : OutOfBoundsException((String)"index " + i + " is out of bounds in String with a length of " + l)
+	StringOutOfBoundsException::StringOutOfBoundsException(size_t i, size_t l) : OutOfBoundsException((String)"index " + i + " is out of bounds in String with a length of " + l)
 	{
 		index = i;
 		length = l;

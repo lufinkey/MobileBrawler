@@ -9,7 +9,7 @@ namespace GameLibrary
 		size = exception.size;
 	}
 	
-	DataPacketOutOfBoundsException::DataPacketOutOfBoundsException(unsigned int i, unsigned int s) : OutOfBoundsException((String)"index " + i + " is out of bounds in DataPacket with a size of " + s)
+	DataPacketOutOfBoundsException::DataPacketOutOfBoundsException(size_t i, size_t s) : OutOfBoundsException((String)"index " + i + " is out of bounds in DataPacket with a size of " + s)
 	{
 		index = i;
 		size = s;
