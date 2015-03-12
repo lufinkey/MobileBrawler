@@ -3,7 +3,7 @@
 		#define STRING_NOTFOUND SIZE_MAX
 	#endif
 	
-	typedef char_type _STRING_TYPE
+	typedef char_type _STRING_TYPE;
 	
 	friend std::ostream& operator<<(std::ostream& stream, const _STRING_CLASS& str);
 	friend _STRING_CLASS operator+(const _STRING_CLASS&left, const _STRING_CLASS&right);
