@@ -164,7 +164,6 @@
     <ClCompile Include="src\GameLibrary\Screen\UI\MenuScreen.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\UI\ScrollElement.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\UI\TextInputElement.cpp" />
-    <ClCompile Include="src\GameLibrary\Utilities\BasicString.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\BitList.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\BitSet.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\DataPacket.cpp" />
@@ -292,7 +291,6 @@
     <ClInclude Include="src\GameLibrary\Types.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Any.h" />
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h" />
-    <ClInclude Include="src\GameLibrary\Utilities\BasicString.h" />
     <ClInclude Include="src\GameLibrary\Utilities\BitList.h" />
     <ClInclude Include="src\GameLibrary\Utilities\BitSet.h" />
     <ClInclude Include="src\GameLibrary\Utilities\DataPacket.h" />
@@ -349,12 +347,11 @@
     <ClInclude Include="src\SmashBros\Menu\TitleScreen.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\GameLibrary\Utilities\String.mm">
-      <FileType>Document</FileType>
-    </ClCompile>
+    <ResourceCompile Include="MobileBrawler.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="MobileBrawler.rc" />
+    <None Include="src\GameLibrary\Utilities\StringClass.cpp.impl" />
+    <None Include="src\GameLibrary\Utilities\StringClass.h.impl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

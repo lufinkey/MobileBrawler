@@ -1,0 +1,210 @@
+	
+	#ifndef STRING_NOTFOUND
+		#define STRING_NOTFOUND SIZE_MAX
+	#endif
+	
+	friend std::ostream& operator<<(std::ostream& stream, const _STRING_CLASS& str);
+	friend _STRING_CLASS operator+(const _STRING_CLASS&left, const _STRING_CLASS&right);
+	friend _STRING_CLASS operator+(const _STRING_CLASS&left, const _STRING_TYPE*right);
+	friend _STRING_CLASS operator+(const _STRING_TYPE*left, const _STRING_CLASS&right);
+	friend _STRING_CLASS operator+(const _STRING_CLASS&left, const _STRING_TYPE&right);
+	friend _STRING_CLASS operator+(const _STRING_TYPE&left, const _STRING_CLASS&right);
+	/*bool*/
+	friend _STRING_CLASS operator+(const _STRING_CLASS&left, const bool&right);
+	friend _STRING_CLASS operator+(const bool&left, const _STRING_CLASS&right);
+	#ifndef _STRING_STANDALONE
+		//byte
+		friend _STRING_CLASS operator+(const _STRING_CLASS&left, const byte&right);
+		friend _STRING_CLASS operator+(const byte&left, const _STRING_CLASS&right);
+	#endif
+	//short
+	friend _STRING_CLASS operator+(const _STRING_CLASS&left, const short&right);
+	friend _STRING_CLASS operator+(const short&left, const _STRING_CLASS&right);
+	//unsigned short
+	friend _STRING_CLASS operator+(const _STRING_CLASS&left, const unsigned short&right);
+	friend _STRING_CLASS operator+(const unsigned short&left, const _STRING_CLASS&right);
+	//int
+	friend _STRING_CLASS operator+(const _STRING_CLASS&left, const int&right);
+	friend _STRING_CLASS operator+(const int&left, const _STRING_CLASS&right);
+	//unsigned int
+	friend _STRING_CLASS operator+(const _STRING_CLASS&left, const unsigned int&right);
+	friend _STRING_CLASS operator+(const unsigned int&left, const _STRING_CLASS&right);
+	//long
+	friend _STRING_CLASS operator+(const _STRING_CLASS&left, const long&right);
+	friend _STRING_CLASS operator+(const long&left, const _STRING_CLASS&right);
+	//unsigned long
+	friend _STRING_CLASS operator+(const _STRING_CLASS&left, const unsigned long&right);
+	friend _STRING_CLASS operator+(const unsigned long&left, const _STRING_CLASS&right);
+	//long long
+	friend _STRING_CLASS operator+(const _STRING_CLASS&left, const long long&right);
+	friend _STRING_CLASS operator+(const long long&left, const _STRING_CLASS&right);
+	//unsigned long long
+	friend _STRING_CLASS operator+(const _STRING_CLASS&left, const unsigned long long&right);
+	friend _STRING_CLASS operator+(const unsigned long long&left, const _STRING_CLASS&right);
+	//float
+	friend _STRING_CLASS operator+(const _STRING_CLASS&left, const float&right);
+	friend _STRING_CLASS operator+(const float&left, const _STRING_CLASS&right);
+	//double
+	friend _STRING_CLASS operator+(const _STRING_CLASS&left, const double&right);
+	friend _STRING_CLASS operator+(const double&left, const _STRING_CLASS&right);
+	//long double
+	friend _STRING_CLASS operator+(const _STRING_CLASS&left, const long double&right);
+	friend _STRING_CLASS operator+(const long double&left, const _STRING_CLASS&right);
+
+private:
+	_STRING_TYPE*characters;
+	size_t size;
+	
+public:
+	static size_t strlen(const _STRING_TYPE*str);
+	static int compare_value(const _STRING_TYPE&c1, const _STRING_TYPE&c2);
+	
+	static bool asBool(const _STRING_CLASS&);
+	#ifndef _STRING_STANDALONE
+		static byte asByte(const _STRING_CLASS&);
+	#endif
+	static int asInt(const _STRING_CLASS&);
+	static long asLong(const _STRING_CLASS&);
+	static short asShort(const _STRING_CLASS&);
+	static float asFloat(const _STRING_CLASS&);
+	static double asDouble(const _STRING_CLASS&);
+	static long long asLongLong(const _STRING_CLASS&);
+	static long double asLongDouble(const _STRING_CLASS&);
+	static unsigned int asUnsignedInt(const _STRING_CLASS&);
+	static unsigned long asUnsignedLong(const _STRING_CLASS&);
+	static unsigned short asUnsignedShort(const _STRING_CLASS&);
+	static unsigned long long asUnsignedLongLong(const _STRING_CLASS&);
+	
+	static _STRING_TYPE asLowerCaseChar(const _STRING_TYPE&c);
+	static _STRING_TYPE asUpperCaseChar(const _STRING_TYPE&c);
+	
+	_STRING_CLASS();
+	_STRING_CLASS(const _STRING_CLASS&str);
+	_STRING_CLASS(const _STRING_TYPE&str);
+	_STRING_CLASS(const _STRING_TYPE*str);
+	_STRING_CLASS(const _STRING_TYPE*str, size_t length);
+	~_STRING_CLASS();
+	
+	operator _STRING_TYPE*();
+	operator const _STRING_TYPE*() const;
+	
+	void append(const _STRING_CLASS&str);
+	void append(const _STRING_TYPE*str, size_t length);
+	_STRING_CLASS& operator+=(const _STRING_CLASS&str);
+	_STRING_CLASS& operator+=(const _STRING_TYPE&str);
+	_STRING_CLASS& operator+=(const _STRING_TYPE*str);
+	_STRING_CLASS& operator+=(const bool&);
+	#ifndef _STRING_STANDALONE
+		_STRING_CLASS& operator+=(const byte&);
+	#endif
+	_STRING_CLASS& operator+=(const short&);
+	_STRING_CLASS& operator+=(const unsigned short&);
+	_STRING_CLASS& operator+=(const int&);
+	_STRING_CLASS& operator+=(const unsigned int&);
+	_STRING_CLASS& operator+=(const long&);
+	_STRING_CLASS& operator+=(const unsigned long&);
+	_STRING_CLASS& operator+=(const long long&);
+	_STRING_CLASS& operator+=(const unsigned long long&);
+	_STRING_CLASS& operator+=(const float&);
+	_STRING_CLASS& operator+=(const double&);
+	_STRING_CLASS& operator+=(const long double&);
+	
+	void set(const _STRING_CLASS&str);
+	void set(const _STRING_TYPE*str, size_t length);
+	_STRING_CLASS& operator=(const _STRING_CLASS&str);
+	_STRING_CLASS& operator=(const _STRING_TYPE*str);
+	_STRING_CLASS& operator=(const bool&);
+	#ifndef _STRING_STANDALONE
+		_STRING_CLASS& operator=(const byte&);
+	#endif
+	_STRING_CLASS& operator=(const short&);
+	_STRING_CLASS& operator=(const unsigned short&);
+	_STRING_CLASS& operator=(const int&);
+	_STRING_CLASS& operator=(const unsigned int&);
+	_STRING_CLASS& operator=(const long&);
+	_STRING_CLASS& operator=(const unsigned long&);
+	_STRING_CLASS& operator=(const long long&);
+	_STRING_CLASS& operator=(const unsigned long long&);
+	_STRING_CLASS& operator=(const float&);
+	_STRING_CLASS& operator=(const double&);
+	_STRING_CLASS& operator=(const long double&);
+	
+	int compare(const _STRING_CLASS&str, int(*compare_function)(const _STRING_TYPE&,const _STRING_TYPE&)) const;
+	bool operator<(const _STRING_CLASS&str) const;
+	bool operator<=(const _STRING_CLASS&str) const;
+	bool operator>(const _STRING_CLASS&str) const;
+	bool operator>=(const _STRING_CLASS&str) const;
+	
+	bool equals(const _STRING_CLASS&str) const;
+	bool equals(const _STRING_TYPE*str) const;
+	bool operator==(const _STRING_CLASS&str) const;
+	bool operator==(const _STRING_TYPE*str) const;
+	bool operator!=(const _STRING_CLASS&str) const;
+	bool operator!=(const _STRING_TYPE*str) const;
+	
+	void clear();
+	size_t length() const;
+	_STRING_TYPE& charAt(size_t index);
+	const _STRING_TYPE& charAt(size_t index) const;
+	_STRING_CLASS replace(_STRING_TYPE find, _STRING_TYPE replace) const;
+	_STRING_CLASS replace(const _STRING_CLASS&find, const _STRING_CLASS&rep) const;
+	_STRING_CLASS substring(size_t beginIndex) const;
+	_STRING_CLASS substring(size_t beginIndex, size_t endIndex) const;
+	size_t indexOf(_STRING_TYPE c, size_t beginIndex, size_t endIndex) const;
+	size_t indexOf(_STRING_TYPE c, size_t beginIndex = 0) const;
+	size_t indexOf(const _STRING_CLASS&str, size_t beginIndex, size_t endIndex) const;
+	size_t indexOf(const _STRING_CLASS&str, size_t beginIndex = 0) const;
+	size_t lastIndexOf(_STRING_TYPE c) const;
+	size_t lastIndexOf(const _STRING_CLASS&str) const;
+	_STRING_CLASS toLowerCase() const;
+	_STRING_CLASS toUpperCase() const;
+	_STRING_CLASS trim() const;
+};
+
+std::ostream& operator<<(std::ostream& stream, const _STRING_CLASS&str);
+_STRING_CLASS operator+(const _STRING_CLASS&left, const _STRING_CLASS&right);
+_STRING_CLASS operator+(const _STRING_CLASS&left, const _STRING_TYPE*right);
+_STRING_CLASS operator+(const _STRING_TYPE*left, const _STRING_CLASS&right);
+_STRING_CLASS operator+(const _STRING_CLASS&left, const _STRING_TYPE&right);
+_STRING_CLASS operator+(const _STRING_TYPE&left, const _STRING_CLASS&right);
+//bool
+_STRING_CLASS operator+(const _STRING_CLASS&left, const bool&right);
+_STRING_CLASS operator+(const bool&left, const _STRING_CLASS&right);
+#ifndef _STRING_STANDALONE
+	//byte
+	_STRING_CLASS operator+(const _STRING_CLASS&left, const byte&right);
+	_STRING_CLASS operator+(const byte&left, const _STRING_CLASS&right);
+#endif
+//short
+_STRING_CLASS operator+(const _STRING_CLASS&left, const short&right);
+_STRING_CLASS operator+(const short&left, const _STRING_CLASS&right);
+//unsigned short
+_STRING_CLASS operator+(const _STRING_CLASS&left, const unsigned short&right);
+_STRING_CLASS operator+(const unsigned short&left, const _STRING_CLASS&right);
+//int
+_STRING_CLASS operator+(const _STRING_CLASS&left, const int&right);
+_STRING_CLASS operator+(const int&left, const _STRING_CLASS&right);
+//unsigned int
+_STRING_CLASS operator+(const _STRING_CLASS&left, const unsigned int&right);
+_STRING_CLASS operator+(const unsigned int&left, const _STRING_CLASS&right);
+//long
+_STRING_CLASS operator+(const _STRING_CLASS&left, const long&right);
+_STRING_CLASS operator+(const long&left, const _STRING_CLASS&right);
+//unsigned long
+_STRING_CLASS operator+(const _STRING_CLASS&left, const unsigned long&right);
+_STRING_CLASS operator+(const unsigned long&left, const _STRING_CLASS&right);
+//long long
+_STRING_CLASS operator+(const _STRING_CLASS&left, const long long&right);
+_STRING_CLASS operator+(const long long&left, const _STRING_CLASS&right);
+//unsigned long long
+_STRING_CLASS operator+(const _STRING_CLASS&left, const unsigned long long&right);
+_STRING_CLASS operator+(const unsigned long long&left, const _STRING_CLASS&right);
+//float
+_STRING_CLASS operator+(const _STRING_CLASS&left, const float&right);
+_STRING_CLASS operator+(const float&left, const _STRING_CLASS&right);
+//double
+_STRING_CLASS operator+(const _STRING_CLASS&left, const double&right);
+_STRING_CLASS operator+(const double&left, const _STRING_CLASS&right);
+//long double
+_STRING_CLASS operator+(const _STRING_CLASS&left, const long double&right);
+_STRING_CLASS operator+(const long double&left, const _STRING_CLASS&right);

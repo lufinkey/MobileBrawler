@@ -218,7 +218,7 @@ namespace GameLibrary
 	void TextActor::getLinesList(const String&text, ArrayList<String>&lines)
 	{
 		String currentLine;
-		for(unsigned int i=0; i<text.length(); i++)
+		for(size_t i=0; i<text.length(); i++)
 		{
 			char c = text.charAt(i);
 			if(c == '\r')

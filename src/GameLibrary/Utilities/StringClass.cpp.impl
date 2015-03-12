@@ -1,0 +1,3066 @@
+
+#ifndef _CONCAT
+#define _CONCAT(x,y) x##y
+#endif
+
+long long _CONCAT(_STRING_CLASS,_powll)(const long long&base, const int&exp)
+{
+	if(exp==0)
+	{
+		return 1;
+	}
+	
+	long long result = base;
+	int absExp = std::abs(exp);
+	
+	for(int i=1; i<absExp; i++)
+	{
+		result = result*base;
+	}
+	
+	if(exp<0)
+	{
+		result = 1/result;
+	}
+	
+	return result;
+}
+
+unsigned long long _CONCAT(_STRING_CLASS,_powull)(const unsigned long long&base, const int&exp)
+{
+	if(exp==0)
+	{
+		return 1;
+	}
+	
+	unsigned long long result = base;
+	int absExp = std::abs(exp);
+	
+	for(int i=1; i<absExp; i++)
+	{
+		result = result*base;
+	}
+	
+	if(exp<0)
+	{
+		result = 1/result;
+	}
+	
+	return result;
+}
+
+bool _STRING_CLASS::asBool(const _STRING_CLASS&str)
+{
+	if(str.size == 0)
+	{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+		throw _STRING_EXCEPTION_NUMBERFORMAT("bool", "string is empty");
+#else
+		throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+	}
+	
+	bool onlyNums = true;
+	bool hasNum = false;
+	bool hasDecimal = false;
+	
+	for(size_t i=0; i<str.length(); i++)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		if(!(c>=_STRING_LITERAL('0') && c<=_STRING_LITERAL('9')))
+		{
+			if(c==_STRING_LITERAL('.'))
+			{
+				if(onlyNums && hasDecimal)
+				{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+					throw _STRING_EXCEPTION_NUMBERFORMAT("bool", "Too many decimal points");
+#else
+					throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+				}
+				else if(onlyNums)
+				{
+					hasDecimal = true;
+				}
+			}
+			else if(hasNum)
+			{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+				throw _STRING_EXCEPTION_NUMBERFORMAT("bool", "Invalid string. Bool should either be true, false, or a number");
+#else
+				throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+			}
+			else
+			{
+				onlyNums = false;
+			}
+		}
+		else
+		{
+			hasNum = true;
+		}
+	}
+	
+	if(onlyNums)
+	{
+		if(hasDecimal)
+		{
+			double d = asDouble(str);
+			if(d!=0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			long l = asLong(str);
+			if(l!=0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+	}
+	else if(hasNum)
+	{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+		throw _STRING_EXCEPTION_NUMBERFORMAT("bool", "Invalid string. Bool should either be true, false, or a number");
+#else
+		throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+	}
+	else
+	{
+		if(str.equals("true") || str.equals("TRUE") || str.equals("on") || str.equals("ON") || str.equals("yes") || str.equals("YES"))
+		{
+			return true;
+		}
+		else if(str.equals("false") || str.equals("FALSE") || str.equals("off") || str.equals("OFF") || str.equals("no") || str.equals("NO"))
+		{
+			return false;
+		}
+		else
+		{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+		throw _STRING_EXCEPTION_NUMBERFORMAT("bool", "Invalid string. Bool should either be true, false, or a number");
+#else
+		throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+		}
+	}
+}
+
+#ifndef _STRING_STANDALONE
+byte _STRING_CLASS::asByte(const _STRING_CLASS&str)
+{
+	if(str.size == 0)
+	{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+		throw _STRING_EXCEPTION_NUMBERFORMAT("byte", "string is empty");
+#else
+		throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+	}
+	
+	for(size_t i=0; i<str.size; i++)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		if(!(c>=_STRING_LITERAL('0') && c<=_STRING_LITERAL('9')))
+		{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+			throw _STRING_EXCEPTION_NUMBERFORMAT("byte", "Unexpected character at index " + std::to_string(i));
+#else
+			throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+		}
+	}
+	
+	size_t startIndex = 0;
+	
+	int counter = 0;
+	byte sizeVal = 0;
+	
+	for(size_t i=(str.size-1); i>=startIndex; i--)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		byte value = (byte)(c - _STRING_LITERAL('0'));
+		if(counter==0)
+		{
+			sizeVal += value;
+		}
+		else
+		{
+			sizeVal += ((byte)value*(byte)std::pow((float)10,counter));
+		}
+		counter++;
+		
+		if(i == startIndex)
+		{
+			return sizeVal;
+		}
+	}
+	
+	return sizeVal;
+}
+#endif
+
+int _STRING_CLASS::asInt(const _STRING_CLASS&str)
+{
+	if(str.size == 0)
+	{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+		throw _STRING_EXCEPTION_NUMBERFORMAT("int", "string is empty");
+#else
+		throw _CONCAT(_STRING_CLASS,Exception)("Unable to convert to type int: string is empty");
+#endif
+	}
+	
+	for(size_t i=0; i<str.size; i++)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		if(!((c>=_STRING_LITERAL('0') && c<=_STRING_LITERAL('9')) || (c==_STRING_LITERAL('-') && i==0) || (c==_STRING_LITERAL('+') && i==0)))
+		{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+			throw _STRING_EXCEPTION_NUMBERFORMAT("int", "Unexpected character at index " + std::to_string(i));
+#else
+			throw _CONCAT(_STRING_CLASS,Exception)((_STRING_CLASS)"Unable to convert to type int: Unexpected character at index " + std::to_string(i));
+#endif
+		}
+	}
+	
+	int mult = 1;
+	size_t startIndex = 0;
+	if(str.charAt(0)==_STRING_LITERAL('-'))
+	{
+		mult = -1;
+		startIndex = 1;
+	}
+	else if(str.charAt(0)==_STRING_LITERAL('+'))
+	{
+		mult = 1;
+		startIndex = 1;
+	}
+	
+	int counter = 0;
+	int sizeVal = 0;
+	
+	for(size_t i=(str.size-1); i>=startIndex; i--)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		int value = (int)(c - _STRING_LITERAL('0'));
+		if(counter==0)
+		{
+			sizeVal += value;
+		}
+		else
+		{
+			sizeVal += (value*(int)std::pow((float)10,counter));
+		}
+		counter++;
+		
+		if(i == startIndex)
+		{
+			return sizeVal*mult;
+		}
+	}
+	
+	return sizeVal*mult;
+}
+
+long _STRING_CLASS::asLong(const _STRING_CLASS&str)
+{
+	if(str.size == 0)
+	{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+		throw _STRING_EXCEPTION_NUMBERFORMAT("long", "string is empty");
+#else
+		throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+	}
+	
+	for(size_t i=0; i<str.size; i++)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		if(!((c>=_STRING_LITERAL('0') && c<=_STRING_LITERAL('9')) || (c==_STRING_LITERAL('-') && i==0) || (c==_STRING_LITERAL('+') && i==0)))
+		{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+			throw _STRING_EXCEPTION_NUMBERFORMAT("long", "Unexpected character at index " + std::to_string(i));
+#else
+			throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+		}
+	}
+	
+	int mult = 1;
+	size_t startIndex = 0;
+	if(str.charAt(0)==_STRING_LITERAL('-'))
+	{
+		mult = -1;
+		startIndex = 1;
+	}
+	else if(str.charAt(0)==_STRING_LITERAL('+'))
+	{
+		mult = 1;
+		startIndex = 1;
+	}
+	
+	int counter = 0;
+	long sizeVal = 0;
+	
+	for(size_t i=(str.size-1); i>=startIndex; i--)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		int value = (int)(c - _STRING_LITERAL('0'));
+		if(counter==0)
+		{
+			sizeVal += value;
+		}
+		else
+		{
+			sizeVal += ((long)value*(long)std::pow((long double)10,(int)counter));
+		}
+		counter++;
+		
+		if(i == startIndex)
+		{
+			return sizeVal*mult;
+		}
+	}
+	
+	return sizeVal*mult;
+}
+
+short _STRING_CLASS::asShort(const _STRING_CLASS&str)
+{
+	if(str.size == 0)
+	{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+		throw _STRING_EXCEPTION_NUMBERFORMAT("short", "string is empty");
+#else
+		throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+	}
+	
+	for(size_t i=0; i<str.size; i++)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		if(!((c>=_STRING_LITERAL('0') && c<=_STRING_LITERAL('9')) || (c==_STRING_LITERAL('-') && i==0) || (c==_STRING_LITERAL('+') && i==0)))
+		{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+			throw _STRING_EXCEPTION_NUMBERFORMAT("short", "Unexpected character at index " + std::to_string(i));
+#else
+			throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+		}
+	}
+	
+	int mult = 1;
+	size_t startIndex = 0;
+	if(str.charAt(0)==_STRING_LITERAL('-'))
+	{
+		mult = -1;
+		startIndex = 1;
+	}
+	else if(str.charAt(0)==_STRING_LITERAL('+'))
+	{
+		mult = 1;
+		startIndex = 1;
+	}
+	
+	int counter = 0;
+	short sizeVal = 0;
+	
+	for(size_t i=(str.size-1); i>=startIndex; i--)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		int value = (short)(c - _STRING_LITERAL('0'));
+		if(counter==0)
+		{
+			sizeVal += value;
+		}
+		else
+		{
+			sizeVal += ((short)value*(short)std::pow((float)10,(int)counter));
+		}
+		counter++;
+		
+		if(i == startIndex)
+		{
+			return (short)(sizeVal*mult);
+		}
+	}
+	
+	return (short)(sizeVal*mult);
+}
+
+float _STRING_CLASS::asFloat(const _STRING_CLASS&str)
+{
+	if(str.size == 0)
+	{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+		throw _STRING_EXCEPTION_NUMBERFORMAT("float", "string is empty");
+#else
+		throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+	}
+	
+	bool hasDecimal = false;
+	size_t decimalIndex = str.size;
+	
+	for(size_t i=0; i<str.size; i++)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		if(!((c>=_STRING_LITERAL('0') && c<=_STRING_LITERAL('9')) || (c==_STRING_LITERAL('-') && i==0) || (c==_STRING_LITERAL('+') && i==0)))
+		{
+			if(c==_STRING_LITERAL('.'))
+			{
+				if(hasDecimal)
+				{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+			throw _STRING_EXCEPTION_NUMBERFORMAT("float", (_STRING_CLASS)"Too many decimal points");
+#else
+			throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+				}
+				else
+				{
+					hasDecimal = true;
+					decimalIndex = i;
+				}
+			}
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+			throw _STRING_EXCEPTION_NUMBERFORMAT("float", "Unexpected character at index " + std::to_string(i));
+#else
+			throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+		}
+	}
+	
+	int mult = 1;
+	size_t startIndex = 0;
+	if(str.charAt(0)==_STRING_LITERAL('-'))
+	{
+		mult = -1;
+		startIndex = 1;
+	}
+	else if(str.charAt(0)==_STRING_LITERAL('+'))
+	{
+		mult = 1;
+		startIndex = 1;
+	}
+	
+	int counter = -1;
+	float sizeVal = 0;
+	
+	for(size_t i=(decimalIndex+1); i<str.size; i++)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		int value = (int)(c - _STRING_LITERAL('0'));
+		sizeVal += (float)std::pow((float)10,counter)*value;
+		counter--;
+	}
+	
+	counter = 0;
+	
+	for(size_t i=(decimalIndex-1); i>=startIndex; i--)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		int value = (int)(c - _STRING_LITERAL('0'));
+		if(counter==0)
+		{
+			sizeVal += value;
+		}
+		else
+		{
+			sizeVal += (float)std::pow((float)10,counter)*value;
+		}
+		counter++;
+		
+		if(i == startIndex)
+		{
+			return sizeVal*mult;
+		}
+	}
+	
+	return sizeVal*mult;
+}
+
+double _STRING_CLASS::asDouble(const _STRING_CLASS&str)
+{
+	if(str.size == 0)
+	{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+		throw _STRING_EXCEPTION_NUMBERFORMAT("double", "string is empty");
+#else
+		throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+	}
+	
+	bool hasDecimal = false;
+	size_t decimalIndex = str.size;
+	
+	for(size_t i=0; i<str.size; i++)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		if(!((c>=_STRING_LITERAL('0') && c<=_STRING_LITERAL('9')) || (c==_STRING_LITERAL('-') && i==0) || (c==_STRING_LITERAL('+') && i==0)))
+		{
+			if(c==_STRING_LITERAL('.'))
+			{
+				if(hasDecimal)
+				{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+			throw _STRING_EXCEPTION_NUMBERFORMAT("double", "Too many decimal points");
+#else
+			throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+				}
+				else
+				{
+					hasDecimal = true;
+					decimalIndex = i;
+				}
+			}
+			else
+			{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+			throw _STRING_EXCEPTION_NUMBERFORMAT("double", "Unexpected character at index " + std::to_string(i));
+#else
+			throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+			}
+		}
+	}
+	
+	int mult = 1;
+	size_t startIndex = 0;
+	if(str.charAt(0)==_STRING_LITERAL('-'))
+	{
+		mult = -1;
+		startIndex = 1;
+	}
+	else if(str.charAt(0)==_STRING_LITERAL('+'))
+	{
+		mult = 1;
+		startIndex = 1;
+	}
+	
+	int counter = -1;
+	double sizeVal = 0;
+	
+	for(size_t i=(decimalIndex+1); i<str.size; i++)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		int value = (int)(c - _STRING_LITERAL('0'));
+		sizeVal += (double)(std::pow((double)10,counter)*value);
+		counter--;
+	}
+	
+	counter = 0;
+	
+	for(size_t i=(decimalIndex-1); i>=startIndex; i--)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		int value = (int)(c - _STRING_LITERAL('0'));
+		if(counter==0)
+		{
+			sizeVal += value;
+		}
+		else
+		{
+			sizeVal += (double)std::pow((double)10,counter)*value;
+		}
+		counter++;
+
+		if(i == startIndex)
+		{
+			return sizeVal*mult;
+		}
+	}
+	
+	return sizeVal*mult;
+}
+
+long long _STRING_CLASS::asLongLong(const _STRING_CLASS&str)
+{
+	if(str.size == 0)
+	{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+		throw _STRING_EXCEPTION_NUMBERFORMAT("long long", "string is empty");
+#else
+		throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+	}
+	
+	for(size_t i=0; i<str.size; i++)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		if(!((c>=_STRING_LITERAL('0') && c<=_STRING_LITERAL('9')) || (c==_STRING_LITERAL('-') && i==0) || (c==_STRING_LITERAL('+') && i==0)))
+		{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+			throw _STRING_EXCEPTION_NUMBERFORMAT("long long", "Unexpected character at index " + std::to_string(i));
+#else
+			throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+		}
+	}
+	
+	int mult = 1;
+	size_t startIndex = 0;
+	if(str.charAt(0)==_STRING_LITERAL('-'))
+	{
+		mult = -1;
+		startIndex = 1;
+	}
+	else if(str.charAt(0)==_STRING_LITERAL('+'))
+	{
+		mult = 1;
+		startIndex = 1;
+	}
+	
+	int counter = 0;
+	long long sizeVal = 0;
+	
+	for(size_t i=(str.size-1); i>=startIndex; i--)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		int value = (int)(c - _STRING_LITERAL('0'));
+		if(counter==0)
+		{
+			sizeVal += value;
+		}
+		else
+		{
+			sizeVal += ((long long)value*(long long)_CONCAT(_STRING_CLASS,_powll)((long long)10,(int)counter));
+		}
+		counter++;
+
+		if(i == startIndex)
+		{
+			return (long long)(sizeVal*mult);
+		}
+	}
+	
+	return (long long)(sizeVal*mult);
+}
+
+long double _STRING_CLASS::asLongDouble(const _STRING_CLASS&str)
+{
+	if(str.size == 0)
+	{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+		throw _STRING_EXCEPTION_NUMBERFORMAT("long double", "string is empty");
+#else
+		throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+	}
+	
+	bool hasDecimal = false;
+	size_t decimalIndex = str.size;
+	
+	for(size_t i=0; i<str.size; i++)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		if(!((c>=_STRING_LITERAL('0') && c<=_STRING_LITERAL('9')) || (c==_STRING_LITERAL('-') && i==0) || (c==_STRING_LITERAL('+') && i==0)))
+		{
+			if(c==_STRING_LITERAL('.'))
+			{
+				if(hasDecimal)
+				{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+			throw _STRING_EXCEPTION_NUMBERFORMAT("long double", "Too many decimal points");
+#else
+			throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+				}
+				else
+				{
+					hasDecimal = true;
+					decimalIndex = i;
+				}
+			}
+			else
+			{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+			throw _STRING_EXCEPTION_NUMBERFORMAT("long double", "Unexpected character at index " + std::to_string(i));
+#else
+			throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+			}
+		}
+	}
+	
+	int mult = 1;
+	size_t startIndex = 0;
+	if(str.charAt(0)==_STRING_LITERAL('-'))
+	{
+		mult = -1;
+		startIndex = 1;
+	}
+	else if(str.charAt(0)==_STRING_LITERAL('+'))
+	{
+		mult = 1;
+		startIndex = 1;
+	}
+	
+	int counter = -1;
+	long double sizeVal = 0;
+	
+	for(size_t i=(decimalIndex+1); i<str.size; i++)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		int value = (int)(c - _STRING_LITERAL('0'));
+		sizeVal += (long double)std::pow((long double)10,counter)*value;
+		counter--;
+	}
+	
+	counter = 0;
+	
+	for(size_t i=(decimalIndex-1); i>=startIndex; i--)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		int value = (int)(c - _STRING_LITERAL('0'));
+		if(counter==0)
+		{
+			sizeVal += value;
+		}
+		else
+		{
+			sizeVal += (long double)std::pow((long double)10,counter)*value;
+		}
+		counter++;
+		
+		if(i == startIndex)
+		{
+			return sizeVal*mult;
+		}
+	}
+		
+	return sizeVal*mult;
+}
+	
+unsigned int _STRING_CLASS::asUnsignedInt(const _STRING_CLASS&str)
+{
+	if(str.size == 0)
+	{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+		throw _STRING_EXCEPTION_NUMBERFORMAT("unsigned int", "string is empty");
+#else
+		throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+	}
+	
+	for(size_t i=0; i<str.size; i++)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		if(!(c>=_STRING_LITERAL('0') && c<=_STRING_LITERAL('9')))
+		{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+			throw _STRING_EXCEPTION_NUMBERFORMAT("unsigned int", "Unexpected character at index " + std::to_string(i));
+#else
+			throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+		}
+	}
+	
+	size_t startIndex = 0;
+	
+	int counter = 0;
+	unsigned int sizeVal = 0;
+	
+	for(size_t i=(str.size-1); i>=startIndex; i--)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		unsigned int value = (unsigned int)(c - _STRING_LITERAL('0'));
+		if(counter==0)
+		{
+			sizeVal += value;
+		}
+		else
+		{
+			sizeVal += ((unsigned int)value*(unsigned int)std::pow((float)10,counter));
+		}
+		counter++;
+
+		if(i == startIndex)
+		{
+			return sizeVal;
+		}
+	}
+		
+	return sizeVal;
+}
+
+unsigned long _STRING_CLASS::asUnsignedLong(const _STRING_CLASS&str)
+{
+	if(str.size == 0)
+	{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+		throw _STRING_EXCEPTION_NUMBERFORMAT("unsigned long", "string is empty");
+#else
+		throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+	}
+	
+	for(size_t i=0; i<str.size; i++)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		if(!(c>=_STRING_LITERAL('0') && c<=_STRING_LITERAL('9')))
+		{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+			throw _STRING_EXCEPTION_NUMBERFORMAT("unsigned long", "Unexpected character at index " + std::to_string(i));
+#else
+			throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+		}
+	}
+	
+	size_t startIndex = 0;
+	
+	int counter = 0;
+	unsigned long sizeVal = 0;
+	
+	for(size_t i=(str.size-1); i>=startIndex; i--)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		unsigned long value = (unsigned long)(c - _STRING_LITERAL('0'));
+		if(counter==0)
+		{
+			sizeVal += value;
+		}
+		else
+		{
+			sizeVal += ((unsigned long)value*(unsigned long)std::pow((long double)10,(int)counter));
+		}
+		counter++;
+
+		if(i == startIndex)
+		{
+			return sizeVal;
+		}
+	}
+	
+	return sizeVal;
+}
+
+unsigned short _STRING_CLASS::asUnsignedShort(const _STRING_CLASS&str)
+{
+	if(str.size == 0)
+	{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+		throw _STRING_EXCEPTION_NUMBERFORMAT("unsigned short", "string is empty");
+#else
+		throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+	}
+	
+	for(size_t i=0; i<str.size; i++)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		if(!(c>=_STRING_LITERAL('0') && c<=_STRING_LITERAL('9')))
+		{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+			throw _STRING_EXCEPTION_NUMBERFORMAT("unsigned short", "Unexpected character at index " + std::to_string(i));
+#else
+			throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+		}
+	}
+	
+	size_t startIndex = 0;
+	
+	int counter = 0;
+	unsigned short sizeVal = 0;
+	
+	for(size_t i=(str.size-1); i>=startIndex; i--)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		unsigned short value = (unsigned short)(c - _STRING_LITERAL('0'));
+		if(counter==0)
+		{
+			sizeVal += value;
+		}
+		else
+		{
+			sizeVal += ((unsigned short)value*(unsigned short)std::pow((float)10,(int)counter));
+		}
+		counter++;
+		
+		if(i == startIndex)
+		{
+			return sizeVal;
+		}
+	}
+	
+	return sizeVal;
+}
+
+unsigned long long _STRING_CLASS::asUnsignedLongLong(const _STRING_CLASS&str)
+{
+	if(str.size == 0)
+	{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+		throw _STRING_EXCEPTION_NUMBERFORMAT("unsigned long long", "string is empty");
+#else
+		throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+	}
+	
+	for(size_t i=0; i<str.size; i++)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		if(!(c>=_STRING_LITERAL('0') && c<=_STRING_LITERAL('9')))
+		{
+#ifdef _STRING_EXCEPTION_NUMBERFORMAT
+			throw _STRING_EXCEPTION_NUMBERFORMAT("unsigned long long", "Unexpected character at index " + std::to_string(i));
+#else
+			throw /*numberformatexception*/std::invalid_argument("str");
+#endif
+		}
+	}
+	
+	size_t startIndex = 0;
+	
+	int counter = 0;
+	unsigned long long sizeVal = 0;
+	
+	for(size_t i=(str.size-1); i>=startIndex; i--)
+	{
+		_STRING_TYPE c = str.charAt(i);
+		unsigned long long value = (unsigned long long)(c - _STRING_LITERAL('0'));
+		if(counter==0)
+		{
+			sizeVal += value;
+		}
+		else
+		{
+			sizeVal += ((unsigned long long)value*(unsigned long long)_CONCAT(_STRING_CLASS,_powull)((unsigned long long)10,(int)counter));
+		}
+		counter++;
+
+		if(i == startIndex)
+		{
+			return sizeVal;
+		}
+	}
+	
+	return sizeVal;
+}
+
+_STRING_TYPE _STRING_CLASS::asLowerCaseChar(const _STRING_TYPE&c)
+{
+	if(c >= _STRING_LITERAL('A') && c <= _STRING_LITERAL('Z'))
+	{
+		return c + (_STRING_LITERAL(_STRING_LITERAL('a')) - _STRING_LITERAL('A'));
+	}
+	return c;
+}
+
+_STRING_TYPE _STRING_CLASS::asUpperCaseChar(const _STRING_TYPE&c)
+{
+	if(c >= _STRING_LITERAL(_STRING_LITERAL('a')) && c <= _STRING_LITERAL('z'))
+	{
+		return c - (_STRING_LITERAL(_STRING_LITERAL('a')) - _STRING_LITERAL('A'));
+	}
+	return c;
+}
+
+size_t _STRING_CLASS::strlen(const _STRING_TYPE*str)
+{
+	size_t size = 0;
+	while(str[size] != 0)
+	{
+		size++;
+	}
+	return size;
+}
+
+int _STRING_CLASS::compare_value(const _STRING_TYPE&c1, const _STRING_TYPE&c2)
+{
+	if(c1 < c2)
+	{
+		return -1;
+	}
+	else if(c1 > c2)
+	{
+		return 1;
+	}
+	return 0;
+}
+
+#ifndef _OVERRIDE_CONVERT_FROMDECIMAL
+template<typename T>
+_STRING_CLASS _CONCAT(_STRING_CLASS,_convert_fromdecimal)(const T&decimal)
+{
+	std::stringstream ss;
+	ss << decimal;
+	return ss.str();
+}
+#endif
+
+#ifndef _OVERRIDE_CONVERT_INTEGRAL
+template<typename T>
+_STRING_CLASS _CONCAT(_STRING_CLASS,_convert_fromintegral)(const T&integral)
+{
+	std::stringstream ss;
+	ss << integral;
+	return ss.str();
+}
+#endif
+
+#ifndef _OVERRIDE_CONSTRUCTOR_DEFAULT
+_STRING_CLASS::_STRING_CLASS()
+{
+	size = 0;
+	characters = (_STRING_TYPE*)std::calloc(1, sizeof(_STRING_TYPE));
+	if(characters==nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	characters[0] = NULL;
+}
+#endif
+
+#ifndef _OVERRIDE_CONSTRUCTOR_COPY
+_STRING_CLASS::_STRING_CLASS(const _STRING_CLASS&str)
+{
+	size = str.size;
+	characters = (_STRING_TYPE*)std::calloc(size+1, sizeof(_STRING_TYPE));
+	if(characters==nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	for(size_t i=0; i<size; i++)
+	{
+		characters[i] = str.characters[i];
+	}
+	characters[size] = NULL;
+}
+#endif
+
+#ifndef _OVERRIDE_CONSTRUCTOR_STRPTR_LENGTH
+_STRING_CLASS::_STRING_CLASS(const _STRING_TYPE*str, size_t length)
+{
+	size = length;
+	characters = (_STRING_TYPE*)std::calloc(size+1, sizeof(_STRING_TYPE));
+	if(characters==nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	for(size_t i=0; i<size; i++)
+	{
+		characters[i] = str[i];
+	}
+	characters[size] = NULL;
+}
+#endif
+
+#ifndef _OVERRIDE_CONSTRUCTOR_STRPTR
+_STRING_CLASS::_STRING_CLASS(const _STRING_TYPE*str) : _STRING_CLASS(str, _STRING_CLASS::strlen(str))
+{
+	//
+}
+#endif
+
+#ifndef _OVERRIDE_CONSTRUCTOR_CHAR
+_STRING_CLASS::_STRING_CLASS(const _STRING_TYPE&c)
+{
+	size = 1;
+	characters = (_STRING_TYPE*)std::calloc(size+1, sizeof(_STRING_TYPE));
+	if(characters == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	characters[0] = c;
+	characters[size] = NULL;
+}
+#endif
+
+#ifndef _OVERRIDE_DESTRUCTOR
+_STRING_CLASS::~_STRING_CLASS()
+{
+	if(characters!=nullptr)
+	{
+		std::free(characters);
+	}
+}
+#endif
+
+#ifndef _OVERRIDE_OPERATOR_STRPTR
+_STRING_CLASS::operator _STRING_TYPE*()
+{
+	return characters;
+}
+#endif
+
+#ifndef _OVERRIDE_OPERATOR_CONST_STRPTR
+_STRING_CLASS::operator const _STRING_TYPE*() const
+{
+	return characters;
+}
+#endif
+
+#ifndef _OVERRIDE_APPEND
+void _STRING_CLASS::append(const _STRING_CLASS&str)
+{
+	size_t size_new = size + str.size;
+	_STRING_TYPE*characters_new = (_STRING_TYPE*)std::realloc(characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	characters = characters_new;
+	size_t counter = 0;
+	for(size_t i=size; i<size_new; i++)
+	{
+		characters[i] = str.characters[counter];
+		counter++;
+	}
+	size = size_new;
+	characters[size] = NULL;
+}
+#endif
+
+#ifndef _OVERRIDE_APPEND_STRPTR_LENGTH
+void _STRING_CLASS::append(const _STRING_TYPE*str, size_t length)
+{
+	size_t size_new = size + length;
+	_STRING_TYPE*characters_new = (_STRING_TYPE*)std::realloc(characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	characters = characters_new;
+	size_t counter = 0;
+	for(size_t i=size; i<size_new; i++)
+	{
+		characters[i] = str[counter];
+		counter++;
+	}
+	size = size_new;
+	characters[size] = NULL;
+}
+#endif
+
+#ifndef _OVERRIDE_OPERATOR_PLUSEQUALS
+_STRING_CLASS& _STRING_CLASS::operator+=(const _STRING_CLASS&str)
+{
+	append(str);
+	return *this;
+}
+#endif
+
+#ifndef _OVERRIDE_OPERATOR_PLUSEQUALS_CHAR
+_STRING_CLASS& _STRING_CLASS::operator+=(const _STRING_TYPE&c)
+{
+	_STRING_TYPE buffer[2] = {c, NULL};
+	append(buffer, 1);
+	return *this;
+}
+#endif
+
+#ifndef _OVERRIDE_OPERATOR_PLUSEQUALS_STRPTR
+_STRING_CLASS& _STRING_CLASS::operator+=(const _STRING_TYPE*str)
+{
+	append(str, strlen(str));
+	return *this;
+}
+#endif
+
+_STRING_CLASS& _STRING_CLASS::operator+=(const bool& b)
+{
+	if(b)
+	{
+		size_t size_new = size+4;
+		_STRING_TYPE*characters_new = (_STRING_TYPE*)std::realloc(characters, (size_new+1)*sizeof(_STRING_TYPE));
+		if(characters_new == nullptr)
+		{
+			throw std::bad_alloc();
+		}
+		characters = characters_new;
+		size = size_new;
+		characters[size]   = _STRING_LITERAL('t');
+		characters[size+1] = _STRING_LITERAL('r');
+		characters[size+2] = _STRING_LITERAL('u');
+		characters[size+3] = _STRING_LITERAL('e');
+		characters[size+4] = NULL;
+	}
+	else
+	{
+		size_t size_new = size+5;
+		_STRING_TYPE*characters_new = (_STRING_TYPE*)std::realloc(characters, (size_new+1)*sizeof(_STRING_TYPE));
+		if(characters_new == nullptr)
+		{
+			throw std::bad_alloc();
+		}
+		characters = characters_new;
+		size = size_new;
+		characters[size]   = _STRING_LITERAL('f');
+		characters[size+1] = _STRING_LITERAL('a');
+		characters[size+2] = _STRING_LITERAL('l');
+		characters[size+3] = _STRING_LITERAL('s');
+		characters[size+4] = _STRING_LITERAL('e');
+		characters[size+5] = NULL;
+	}
+	return *this;
+}
+
+#ifndef _STRING_STANDALONE
+_STRING_CLASS& _STRING_CLASS::operator+=(const byte& num)
+{
+	operator+=(_CONCAT(_STRING_CLASS,_convert_fromintegral)((unsigned short)num));
+	return *this;
+}
+#endif
+
+_STRING_CLASS& _STRING_CLASS::operator+=(const short& num)
+{
+	operator+=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	return *this;
+}
+
+_STRING_CLASS& _STRING_CLASS::operator+=(const unsigned short& num)
+{
+	operator+=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	return *this;
+}
+
+_STRING_CLASS& _STRING_CLASS::operator+=(const int& num)
+{
+	operator+=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	return *this;
+}
+
+_STRING_CLASS& _STRING_CLASS::operator+=(const unsigned int& num)
+{
+	operator+=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	return *this;
+}
+
+_STRING_CLASS& _STRING_CLASS::operator+=(const long& num)
+{
+	operator+=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	return *this;
+}
+
+_STRING_CLASS& _STRING_CLASS::operator+=(const unsigned long& num)
+{
+	operator+=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	return *this;
+}
+
+_STRING_CLASS& _STRING_CLASS::operator+=(const long long& num)
+{
+	operator+=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	return *this;
+}
+
+_STRING_CLASS& _STRING_CLASS::operator+=(const unsigned long long& num)
+{
+	operator+=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	return *this;
+}
+
+_STRING_CLASS& _STRING_CLASS::operator+=(const float& num)
+{
+	operator+=(_CONCAT(_STRING_CLASS,_convert_fromdecimal)(num));
+	return *this;
+}
+
+_STRING_CLASS& _STRING_CLASS::operator+=(const double& num)
+{
+	operator+=(_CONCAT(_STRING_CLASS,_convert_fromdecimal)(num));
+	return *this;
+}
+
+_STRING_CLASS& _STRING_CLASS::operator+=(const long double& num)
+{
+	operator+=(_CONCAT(_STRING_CLASS,_convert_fromdecimal)(num));
+	return *this;
+}
+
+#ifndef _OVERRIDE_SET
+void _STRING_CLASS::set(const _STRING_CLASS&str)
+{
+	_STRING_TYPE*characters_new = (_STRING_TYPE*)std::realloc(characters, (str.size+1)*sizeof(_STRING_TYPE));
+	if(characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	characters = characters_new;
+	for(size_t i=0; i<str.size; i++)
+	{
+		characters[i] = str.characters[i];
+	}
+	size = str.size;
+	characters[size] = NULL;
+}
+#endif
+
+#ifndef _OVERRIDE_SET_STRPTR_LENGTH
+void _STRING_CLASS::set(const _STRING_TYPE*str, size_t length)
+{
+	size_t size_new = length;
+	_STRING_TYPE*characters_new = (_STRING_TYPE*)std::realloc(characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	characters = characters_new;
+	for(size_t i=0; i<size_new; i++)
+	{
+		characters[i] = str[i];
+	}
+	size = size_new;
+	characters[size] = NULL;
+}
+#endif
+
+#ifndef _OVERRIDE_OPERATOR_ASSIGN
+_STRING_CLASS& _STRING_CLASS::operator=(const _STRING_CLASS&str)
+{
+	set(str);
+	return *this;
+}
+#endif
+
+#ifndef _OVERRIDE_OPERATOR_ASSIGN_STRPTR
+_STRING_CLASS& _STRING_CLASS::operator=(const _STRING_TYPE*str)
+{
+	set(str, strlen(str));
+	return *this;
+}
+#endif
+
+_STRING_CLASS& _STRING_CLASS::operator=(const bool& b)
+{
+	if(b)
+	{
+		size_t size_new = 4;
+		_STRING_TYPE*characters_new = (_STRING_TYPE*)std::realloc(characters, (size_new+1)*sizeof(_STRING_TYPE));
+		if(characters_new == nullptr)
+		{
+			throw std::bad_alloc();
+		}
+		characters = characters_new;
+		size = size_new;
+		characters[0] = _STRING_LITERAL('t');
+		characters[1] = _STRING_LITERAL('r');
+		characters[2] = _STRING_LITERAL('u');
+		characters[3] = _STRING_LITERAL('e');
+		characters[4] = NULL;
+	}
+	else
+	{
+		size_t size_new = 5;
+		_STRING_TYPE*characters_new = (_STRING_TYPE*)std::realloc(characters, (size_new+1)*sizeof(_STRING_TYPE));
+		if(characters_new == nullptr)
+		{
+			throw std::bad_alloc();
+		}
+		characters = characters_new;
+		size = size_new;
+		characters[0] = _STRING_LITERAL('f');
+		characters[1] = _STRING_LITERAL('a');
+		characters[2] = _STRING_LITERAL('l');
+		characters[3] = _STRING_LITERAL('s');
+		characters[4] = _STRING_LITERAL('e');
+		characters[5] = NULL;
+	}
+	return *this;
+}
+
+_STRING_CLASS& _STRING_CLASS::operator=(const byte& num)
+{
+	operator=(_CONCAT(_STRING_CLASS,_convert_fromintegral)((unsigned short)num));
+	return *this;
+}
+
+_STRING_CLASS& _STRING_CLASS::operator=(const short& num)
+{
+	operator=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	return *this;
+}
+
+_STRING_CLASS& _STRING_CLASS::operator=(const unsigned short& num)
+{
+	operator=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	return *this;
+}
+
+_STRING_CLASS& _STRING_CLASS::operator=(const int& num)
+{
+	operator=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	return *this;
+}
+
+_STRING_CLASS& _STRING_CLASS::operator=(const unsigned int& num)
+{
+	operator=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	return *this;
+}
+
+_STRING_CLASS& _STRING_CLASS::operator=(const long& num)
+{
+	operator=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	return *this;
+}
+
+_STRING_CLASS& _STRING_CLASS::operator=(const unsigned long& num)
+{
+	operator=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	return *this;
+}
+
+_STRING_CLASS& _STRING_CLASS::operator=(const long long& num)
+{
+	operator=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	return *this;
+}
+
+_STRING_CLASS& _STRING_CLASS::operator=(const unsigned long long& num)
+{
+	operator=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	return *this;
+}
+
+_STRING_CLASS& _STRING_CLASS::operator=(const float& num)
+{
+	operator=(_CONCAT(_STRING_CLASS,_convert_fromdecimal)(num));
+	return *this;
+}
+
+_STRING_CLASS& _STRING_CLASS::operator=(const double& num)
+{
+	operator=(_CONCAT(_STRING_CLASS,_convert_fromdecimal)(num));
+	return *this;
+}
+
+_STRING_CLASS& _STRING_CLASS::operator=(const long double& num)
+{
+	operator=(_CONCAT(_STRING_CLASS,_convert_fromdecimal)(num));
+	return *this;
+}
+
+#ifndef _OVERRIDE_COMPARE
+int _STRING_CLASS::compare(const _STRING_CLASS&str, int(*compare_function)(const _STRING_TYPE&,const _STRING_TYPE&)) const
+{
+	if(compare_function == nullptr)
+	{
+		throw std::invalid_argument("compare_function");
+	}
+	size_t minsize = (size<str.size) ? size : str.size; /*minimum between this string and other string*/
+	for(size_t i=0; i<minsize; i++)
+	{
+		int result = compare_function(characters[i], str.characters[i]);
+		if(result != 0)
+		{
+			return result;
+		}
+	}
+	if(size<str.size)
+	{
+		return -1;
+	}
+	else if(size>str.size)
+	{
+		return 1;
+	}
+	return 0;
+}
+#endif
+
+#ifndef _OVERRIDE_OPERATOR_LESSTHAN
+bool _STRING_CLASS::operator<(const _STRING_CLASS&str) const
+{
+	if(compare(str, compare_value)==-1)
+	{
+		return true;
+	}
+	return false;
+}
+#endif
+
+#ifndef _OVERRIDE_LESSTHANOREQUALTO
+bool _STRING_CLASS::operator<=(const _STRING_CLASS&str) const
+{
+	int result = compare(str, compare_value);
+	if(result==-1 || result==0)
+	{
+		return true;
+	}
+	return false;
+}
+#endif
+
+#ifndef _OVERRIDE_GREATERTHAN
+bool _STRING_CLASS::operator>(const _STRING_CLASS&str) const
+{
+	if(compare(str, compare_value)==1)
+	{
+		return true;
+	}
+	return false;
+}
+#endif
+
+#ifndef _OVERRIDE_GREATERTHANOREQUALTO
+bool _STRING_CLASS::operator>=(const _STRING_CLASS&str) const
+{
+	int result = compare(str, compare_value);
+	if(result==0 || result==1)
+	{
+		return true;
+	}
+	return false;
+}
+#endif
+
+#ifndef _OVERRIDE_EQUALS
+bool _STRING_CLASS::equals(const _STRING_CLASS&str) const
+{
+	if(size == str.size)
+	{
+		for(size_t i=0; i<size; i++)
+		{
+			if(characters[i] != str.characters[i])
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	return false;
+}
+#endif
+
+#ifndef _OVERRIDE_EQUALS
+bool _STRING_CLASS::equals(const _STRING_TYPE*str) const
+{
+	if(size == strlen(str))
+	{
+		for(size_t i=0; i<size; i++)
+		{
+			if(characters[i] != str[i])
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	return false;
+}
+#endif
+
+#ifndef _OVERRIDE_OPERATOR_ISEQUAL
+bool _STRING_CLASS::operator==(const _STRING_CLASS&str) const
+{
+	return equals(str);
+}
+#endif
+
+#ifndef _OVERRIDE_OPERATOR_ISEQUAL
+bool _STRING_CLASS::operator==(const _STRING_TYPE*str) const
+{
+	return equals(str);
+}
+#endif
+
+#ifndef _OVERRIDE_OPERATOR_NOTEQUAL
+bool _STRING_CLASS::operator!=(const _STRING_CLASS&str) const
+{
+	return !equals(str);
+}
+#endif
+
+#ifndef _OVERRIDE_OPERATOR_NOTEQUAL
+bool _STRING_CLASS::operator!=(const _STRING_TYPE*str) const
+{
+	return !equals(str);
+}
+#endif
+	
+#ifndef _OVERRIDE_CLEAR
+void _STRING_CLASS::clear()
+{
+	_STRING_TYPE*characters_new = (_STRING_TYPE*)std::realloc(characters, sizeof(_STRING_TYPE));
+	if(characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	characters = characters_new;
+	characters[0] = NULL;
+}
+#endif
+
+#ifndef _OVERRIDE_LENGTH
+size_t _STRING_CLASS::length() const
+{
+	return size;
+}
+#endif
+
+#ifndef _OVERRIDE_CHARAT
+_STRING_TYPE& _STRING_CLASS::charAt(size_t index)
+{
+	if(index >= size)
+	{
+		#ifdef _STRING_EXCEPTION_OUTOFBOUNDS
+			throw _STRING_EXCEPTION_OUTOFBOUNDS(index, size);
+		#else
+			throw std::out_of_range("index " + std::to_string(index) + " is out of bounds in string with a length of " + std::to_string(size));
+		#endif
+	}
+	return characters[index];
+}
+#endif
+
+#ifndef _OVERRIDE_CONST_CHARAT
+const _STRING_TYPE& _STRING_CLASS::charAt(size_t index) const
+{
+	if(index >= size)
+	{
+		#ifdef _STRING_EXCEPTION_OUTOFBOUNDS
+			throw _STRING_EXCEPTION_OUTOFBOUNDS(index, size);
+		#else
+			throw std::out_of_range("index " + std::to_string(index) + " is out of bounds in string with a length of " + std::to_string(size));
+		#endif
+	}
+	return characters[index];
+}
+#endif
+
+#ifndef _OVERRIDE_REPLACE_CHAR
+_STRING_CLASS _STRING_CLASS::replace(_STRING_TYPE find, _STRING_TYPE replace) const
+{
+	_STRING_CLASS replacedStr(*this);
+	for(size_t i=0; i<size; i++)
+	{
+		if(replacedStr.characters[i] == find)
+		{
+			replacedStr.characters[i] = replace;
+		}
+	}
+	return replacedStr;
+}
+#endif
+
+#ifndef _OVERRIDE_REPLACE
+_STRING_CLASS _STRING_CLASS::replace(const _STRING_CLASS&find, const _STRING_CLASS&rep) const
+{
+	if(find.size==0)
+	{
+		return *this;
+	}
+	else if(find.size > size)
+	{
+		return *this;
+	}
+	
+	std::vector<size_t> indexes;
+	size_t indexesTotal = 0;
+	
+	size_t finish = size - find.size;
+	
+	for(size_t i=0; i<=finish; i++)
+	{
+		if(characters[i]==find.characters[0])
+		{
+			bool match = true;
+			for(size_t j=1; j<find.size; j++)
+			{
+				if(characters[i+j] != find.characters[j])
+				{
+					match = false;
+					j = find.size;
+				}
+			}
+			
+			if(match)
+			{
+				indexes.resize(indexesTotal+1);
+				indexes[indexesTotal] = i;
+				indexesTotal++;
+				i += (find.size-1);
+			}
+		}
+	}
+	
+	if(indexes.size()>0)
+	{
+		_STRING_CLASS newStr(*this);
+		
+		bool posDif = false;
+		size_t dif;
+		if(rep.size >= find.size)
+		{
+			posDif = true;
+			dif = rep.size - find.size;
+		}
+		else
+		{
+			posDif = false;
+			dif = find.size - rep.size;
+		}
+		
+		size_t sizeSize = 0;
+		if(posDif)
+		{
+			sizeSize = newStr.size + (indexes.size()*dif);
+		}
+		else
+		{
+			sizeSize = newStr.size - (indexes.size()*dif);
+		}
+		
+		if(rep.size>find.size)
+		{
+			_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (sizeSize+1)*sizeof(_STRING_TYPE));
+			if(newStr_characters_new == nullptr)
+			{
+				throw std::bad_alloc();
+			}
+			newStr.characters = newStr_characters_new;
+			newStr.characters[sizeSize] = NULL;
+			
+			size_t counterNew = sizeSize;
+			size_t counterOld = newStr.size;
+			size_t lastIndex = newStr.size;
+			
+			bool firstLoop = true;
+			size_t i=(indexes.size()-1);
+			while(i > 0 || (firstLoop && i == 0))
+			{
+				if(!firstLoop)
+				{
+					i--;
+				}
+				
+				bool posOffset = false;
+				size_t offset = 0;
+				size_t lastIndexEnd = (indexes[i]+find.size);
+				if(lastIndex >= lastIndexEnd)
+				{
+					posOffset = true;
+					offset = lastIndex - lastIndexEnd + 1;
+				}
+				else
+				{
+					posOffset = false;
+					offset = lastIndexEnd - lastIndex + 1;
+				}
+				
+				lastIndex = indexes[i];
+				if(posOffset)
+				{
+					for(size_t j=0; j<offset; j++)
+					{
+						newStr.characters[counterNew] = newStr.characters[counterOld];
+						counterNew--;
+						counterOld--;
+					}
+				}
+				
+				counterNew-=(rep.size-1);
+				counterOld-=(find.size-1);
+				
+				if(i==0 && counterOld!=0)
+				{
+					bool firstCounterLoop = true;
+					while(counterOld>0 || (firstCounterLoop && counterOld==0))
+					{
+						if(!firstCounterLoop)
+						{
+							counterNew--;
+							counterOld--;
+						}
+
+						newStr.characters[counterNew] = newStr.characters[counterOld];
+						
+						firstCounterLoop = false;
+					}
+				}
+
+				firstLoop = false;
+			}
+			
+			newStr.size = sizeSize;
+		}
+		else if(rep.size<find.size)
+		{
+			size_t counterNew = 0;
+			size_t counterOld = 0;
+			size_t lastIndex = 0;
+			
+			for(size_t i=0; i<indexes.size(); i++)
+			{
+				bool posOffset = false;
+				size_t offset = 0;
+				if(indexes[i]>=lastIndex)
+				{
+					posOffset = true;
+					offset = indexes[i] - lastIndex;
+				}
+				else
+				{
+					posOffset = false;
+					offset = lastIndex - indexes[i];
+				}
+				
+				lastIndex = indexes[i] + find.size;
+				
+				if(posOffset)
+				{
+					for(size_t j=0; j<offset; j++)
+					{
+						newStr.characters[counterNew] = newStr.characters[counterOld];
+						counterNew++;
+						counterOld++;
+					}
+				}
+				
+				counterNew += rep.size;
+				counterOld += find.size;
+				
+				if(i==(indexes.size()-1) && counterOld<newStr.size)
+				{
+					while(counterOld<size)
+					{
+						newStr.characters[counterNew] = newStr.characters[counterOld];
+						counterNew++;
+						counterOld++;
+					}
+				}
+			}
+			
+			_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (sizeSize+1)*sizeof(_STRING_TYPE));
+			if(newStr_characters_new == nullptr)
+			{
+				throw std::bad_alloc();
+			}
+			newStr.characters = newStr_characters_new;
+			newStr.characters[sizeSize] = NULL;
+			newStr.size = sizeSize;
+		}
+		
+		size_t difCounter = 0;
+		
+		for(size_t i=0; i<indexes.size(); i++)
+		{
+			size_t offset = 0;
+			if(posDif)
+			{
+				offset = indexes[i] + difCounter;
+			}
+			else
+			{
+				offset = indexes[i] - difCounter;
+			}
+
+			for(size_t j=0; j<rep.size; j++)
+			{
+				newStr.characters[offset+j] = rep.characters[j];
+			}
+
+			difCounter+=dif;
+		}
+		return newStr;
+	}
+	return *this;
+}
+#endif
+
+#ifndef _OVERRIDE_SUBSTRING_FROM
+_STRING_CLASS _STRING_CLASS::substring(size_t beginIndex) const
+{
+	if(beginIndex>size)
+	{
+		#ifdef _STRING_EXCEPTION_OUTOFBOUNDS
+			throw _STRING_EXCEPTION_OUTOFBOUNDS(beginIndex, size);
+		#else
+			throw std::out_of_range("index " + std::to_string(beginIndex) + " is out of bounds in string with a length of " + std::to_string(size));
+		#endif
+	}
+	
+	_STRING_CLASS newStr;
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, ((size-beginIndex)+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	size_t counter = 0;
+	for(size_t i=beginIndex; i<size; i++)
+	{
+		newStr.characters[counter] = characters[i];
+		counter++;
+	}
+	newStr.characters[counter] = NULL;
+	newStr.size = counter;
+	return newStr;
+}
+#endif
+
+#ifndef _OVERRIDE_SUBSTRING
+_STRING_CLASS _STRING_CLASS::substring(size_t beginIndex, size_t endIndex) const
+{
+	if(beginIndex > size)
+	{
+		#ifdef _STRING_EXCEPTION_OUTOFBOUNDS
+			throw _STRING_EXCEPTION_OUTOFBOUNDS(beginIndex, size);
+		#else
+			throw std::out_of_range("index " + std::to_string(beginIndex) + " is out of bounds in string with a length of " + std::to_string(size));
+		#endif
+	}
+	else if(endIndex > size)
+	{
+		#ifdef _STRING_EXCEPTION_OUTOFBOUNDS
+			throw _STRING_EXCEPTION_OUTOFBOUNDS(endIndex, size);
+		#else
+			throw std::out_of_range("index " + std::to_string(endIndex) + " is out of bounds in string with a length of " + std::to_string(size));
+		#endif
+	}
+
+	size_t dif = 0;
+	bool goUp = true;
+	if(beginIndex <= endIndex)
+	{
+		dif = endIndex - beginIndex;
+	}
+	else
+	{
+		goUp = false;
+		dif = beginIndex - endIndex;
+	}
+
+	_STRING_CLASS newStr;
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (dif+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	size_t counter = 0;
+	if(goUp)
+	{
+		for(size_t i=beginIndex; i<endIndex; i++)
+		{
+			newStr.characters[counter] = characters[i];
+			counter++;
+		}
+	}
+	else
+	{
+		bool firstLoop = true;
+		size_t i = endIndex;
+		while(i > beginIndex || (firstLoop && i==beginIndex))
+		{
+			if(!firstLoop)
+			{
+				i--;
+			}
+			newStr.characters[counter] = characters[i];
+			counter++;
+			firstLoop = false;
+		}
+	}
+	newStr.characters[counter] = NULL;
+	newStr.size = counter;
+	return newStr;
+}
+#endif
+
+#ifndef _OVERRIDE_INDEXOF_CHAR
+size_t _STRING_CLASS::indexOf(_STRING_TYPE c, size_t beginIndex, size_t endIndex) const
+{
+	if(beginIndex>size)
+	{
+		#ifdef _STRING_EXCEPTION_OUTOFBOUNDS
+			throw _STRING_EXCEPTION_OUTOFBOUNDS(beginIndex, size);
+		#else
+			throw std::out_of_range("beginIndex " + std::to_string(beginIndex) + " is out of bounds in string of length " + std::to_string(size));
+		#endif
+	}
+	else if(endIndex>size)
+	{
+		#ifdef _STRING_EXCEPTION_OUTOFBOUNDS
+			throw _STRING_EXCEPTION_OUTOFBOUNDS(endIndex, size);
+		#else
+			throw std::out_of_range("endIndex " + std::to_string(endIndex) + " is out of bounds in string of length " + std::to_string(size));
+		#endif
+	}
+	if(size == 0 || endIndex<=beginIndex)
+	{
+		return STRING_NOTFOUND;
+	}
+	for(size_t i=beginIndex; i<endIndex; i++)
+	{
+		if(characters[i] == c)
+		{
+			return i;
+		}
+	}
+	return STRING_NOTFOUND;
+}
+#endif
+
+#ifndef _OVERRIDE_INDEXOF_CHAR_FROM
+size_t _STRING_CLASS::indexOf(_STRING_TYPE c, size_t beginIndex) const
+{
+	return indexOf(c, beginIndex, size);
+}
+#endif
+
+#ifndef _OVERRIDE_INDEXOF
+size_t _STRING_CLASS::indexOf(const _STRING_CLASS&str, size_t beginIndex, size_t endIndex) const
+{
+	if(str.size==0 || str.size>size)
+	{
+		return STRING_NOTFOUND;
+	}
+	
+	size_t finish = size - str.size;
+	
+	for(size_t i=0; i<=finish; i++)
+	{
+		if(characters[i]==str.characters[0])
+		{
+			bool match = true;
+			for(size_t j=1; j<str.size; j++)
+			{
+				if(characters[i+j] != str.characters[j])
+				{
+					match = false;
+					j = str.size;
+				}
+			}
+				
+			if(match)
+			{
+				return i;
+			}
+		}
+	}
+	return STRING_NOTFOUND;
+}
+#endif
+
+#ifndef _OVERRIDE_INDEXOF_FROM
+size_t _STRING_CLASS::indexOf(const _STRING_CLASS&str, size_t beginIndex) const
+{
+	return indexOf(str, beginIndex, size);
+}
+#endif
+
+#ifndef _OVERRIDE_LASTINDEXOF_CHAR
+size_t _STRING_CLASS::lastIndexOf(_STRING_TYPE c) const
+{
+	if(size == 0)
+	{
+		return STRING_NOTFOUND;
+	}
+	for(size_t i=(size-1); i!=SIZE_MAX; i--)
+	{
+		if(characters[i] == c)
+		{
+			return i;
+		}
+		if(i == 0)
+		{
+			return STRING_NOTFOUND;
+		}
+	}
+	return STRING_NOTFOUND;
+}
+#endif
+
+#ifndef _OVERRIDE_LASTINDEXOF
+size_t _STRING_CLASS::lastIndexOf(const _STRING_CLASS&str) const
+{
+	if(str.size==0 || str.size>size)
+	{
+		return STRING_NOTFOUND;
+	}
+	size_t finish = (str.size-1);
+	if(size>0)
+	{
+		for(size_t i=(size-1); i>=finish; i--)
+		{
+			if(characters[i]==str.characters[str.size-1])
+			{
+				bool match = true;
+				for(size_t j=1; j<str.size; j++)
+				{
+					if(characters[i-j] != str.characters[(str.size-1)-j])
+					{
+						match = false;
+						j = str.size;
+					}
+				}
+				
+				if(match)
+				{
+					return (i-(str.size-1));
+				}
+			}
+			if(i == 0)
+			{
+				return STRING_NOTFOUND;
+			}
+		}
+	}
+	return STRING_NOTFOUND;
+}
+#endif
+
+#ifndef _OVERRIDE_TOLOWERCASE
+_STRING_CLASS _STRING_CLASS::toLowerCase() const
+{
+	_STRING_CLASS newStr(*this);
+	for(size_t i=0; i<size; i++)
+	{
+		newStr.characters[i] = _STRING_CLASS::asUpperCaseChar(newStr.characters[i]);
+	}
+	return newStr;
+}
+#endif
+
+#ifndef _OVERRIDE_TOUPPERCASE
+_STRING_CLASS _STRING_CLASS::toUpperCase() const
+{
+	_STRING_CLASS newStr(*this);
+	for(size_t i=0; i<size; i++)
+	{
+		newStr.characters[i] = _STRING_CLASS::asLowerCaseChar(newStr.characters[i]);
+	}
+	return newStr;
+}
+#endif
+
+#ifndef _OVERRIDE_TRIM
+_STRING_CLASS _STRING_CLASS::trim() const
+{
+	if(size == 0)
+	{
+		return *this;
+	}
+	
+	size_t i=0;
+	size_t startIndex = 0;
+	bool hitLetter = false;
+	while(!hitLetter && i<size)
+	{
+		_STRING_TYPE c = charAt(i);
+		if(c>_STRING_LITERAL(' '))
+		{
+			startIndex = i;
+			hitLetter = true;
+		}
+		i++;
+	}
+	
+	if(!hitLetter)
+	{
+		return "";
+	}
+	
+	hitLetter = false;
+	i = size-1;
+	
+	size_t endIndex = 0;
+	
+	while(!hitLetter && i>=0 && i!=SIZE_MAX)
+	{
+		_STRING_TYPE c = charAt(i);
+		if(c>_STRING_LITERAL(' '))
+		{
+			endIndex = i+1;
+			hitLetter = true;
+		}
+		i--;
+	}
+	
+	return substring(startIndex, endIndex);
+}
+#endif
+
+#ifndef _OVERRIDE_OPERATOR_STREAM
+std::ostream& operator<<(std::ostream& stream, const _STRING_CLASS& str)
+{
+	return stream << str.characters << "";
+}
+#endif
+
+#ifndef _OVERRIDE_OPERATOR_PLUS
+_STRING_CLASS operator+(const _STRING_CLASS&left, const _STRING_CLASS&right)
+{
+	_STRING_CLASS newStr;
+	size_t size_new = left.size + right.size;
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new==nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left.size; i++)
+	{
+		newStr.characters[i] = left.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left.size; i<size_new; i++)
+	{
+		newStr.characters[i] = right.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+#endif
+
+#ifndef _OVERRIDE_OPERATOR_PLUS_STRPTR_RIGHT
+_STRING_CLASS operator+(const _STRING_CLASS&left, const _STRING_TYPE*right)
+{
+	_STRING_CLASS newStr;
+	size_t size_new = left.size + _STRING_CLASS::strlen(right);
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new==nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left.size; i++)
+	{
+		newStr.characters[i] = left.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left.size; i<size_new; i++)
+	{
+		newStr.characters[i] = right[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+#endif
+
+#ifndef _OVERRIDE_OPERATOR_PLUS_STRPTR_LEFT
+_STRING_CLASS operator+(const _STRING_TYPE*left, const _STRING_CLASS&right)
+{
+	_STRING_CLASS newStr;
+	size_t left_size = _STRING_CLASS::strlen(left);
+	size_t size_new = left_size + right.size;
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new==nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left_size; i++)
+	{
+		newStr.characters[i] = left[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left_size; i<size_new; i++)
+	{
+		newStr.characters[i] = right.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+#endif
+
+#ifndef _OVERRIDE_OPERATOR_PLUS_CHAR_RIGHT
+_STRING_CLASS operator+(const _STRING_CLASS&left, const _STRING_TYPE&right)
+{
+	_STRING_CLASS newStr;
+	size_t size_new = left.size+1;
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left.size; i++)
+	{
+		newStr.characters[i] = left.characters[i];
+	}
+	newStr.characters[left.size] = right;
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+#endif
+
+#ifndef _OVERRIDE_OPERATOR_CHAR_LEFT
+_STRING_CLASS operator+(const _STRING_TYPE&left, const _STRING_CLASS&right)
+{
+	_STRING_CLASS newStr;
+	size_t size_new = 1+right.size;
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	newStr.characters[0] = left;
+	size_t counter=0;
+	for(size_t i=1; i<size_new; i++)
+	{
+		newStr.characters[i] = right.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+#endif
+
+_STRING_CLASS operator+(const _STRING_CLASS&left, const bool&right)
+{
+	_STRING_CLASS newStr;
+	if(right)
+	{
+		size_t size_new = left.size + 4;
+		_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+		if(newStr_characters_new == nullptr)
+		{
+			throw std::bad_alloc();
+		}
+		newStr.characters = newStr_characters_new;
+		newStr.size = size_new;
+		for(size_t i=0; i<left.size; i++)
+		{
+			newStr.characters[i] = left.characters[i];
+		}
+		newStr.characters[left.size]   = _STRING_LITERAL('t');
+		newStr.characters[left.size+1] = _STRING_LITERAL('r');
+		newStr.characters[left.size+2] = _STRING_LITERAL('u');
+		newStr.characters[left.size+3] = _STRING_LITERAL('e');
+		newStr.characters[size_new] = NULL;
+	}
+	else
+	{
+		size_t size_new = left.size + 5;
+		_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+		if(newStr_characters_new == nullptr)
+		{
+			throw std::bad_alloc();
+		}
+		newStr.characters = newStr_characters_new;
+		newStr.size = size_new;
+		for(size_t i=0; i<left.size; i++)
+		{
+			newStr.characters[i] = left.characters[i];
+		}
+		newStr.characters[left.size]   = _STRING_LITERAL('f');
+		newStr.characters[left.size+1] = _STRING_LITERAL('a');
+		newStr.characters[left.size+2] = _STRING_LITERAL('l');
+		newStr.characters[left.size+3] = _STRING_LITERAL('s');
+		newStr.characters[left.size+4] = _STRING_LITERAL('e');
+		newStr.characters[size_new] = NULL;
+	}
+	return newStr;
+}
+	
+_STRING_CLASS operator+(const bool&left, const _STRING_CLASS&right)
+{
+	_STRING_CLASS newStr;
+	if(left)
+	{
+		size_t size_new = 4 + right.size;
+		_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+		if(newStr_characters_new == nullptr)
+		{
+			throw std::bad_alloc();
+		}
+		newStr.characters = newStr_characters_new;
+		newStr.size = size_new;
+		newStr.characters[0] = _STRING_LITERAL('t');
+		newStr.characters[1] = _STRING_LITERAL('r');
+		newStr.characters[2] = _STRING_LITERAL('u');
+		newStr.characters[3] = _STRING_LITERAL('e');
+		size_t counter=0;
+		for(size_t i=4; i<size_new; i++)
+		{
+			newStr.characters[i] = right.characters[counter];
+			counter++;
+		}
+		newStr.characters[size_new] = NULL;
+	}
+	else
+	{
+		size_t size_new = 5 + right.size;
+		_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+		if(newStr_characters_new == nullptr)
+		{
+			throw std::bad_alloc();
+		}
+		newStr.characters = newStr_characters_new;
+		newStr.size = size_new;
+		newStr.characters[0] = _STRING_LITERAL('f');
+		newStr.characters[1] = _STRING_LITERAL('a');
+		newStr.characters[2] = _STRING_LITERAL('l');
+		newStr.characters[3] = _STRING_LITERAL('s');
+		newStr.characters[4] = _STRING_LITERAL('e');
+		size_t counter=0;
+		for(size_t i=5; i<size_new; i++)
+		{
+			newStr.characters[i] = right.characters[counter];
+			counter++;
+		}
+		newStr.characters[size_new] = NULL;
+	}
+	return newStr;
+}
+
+#ifndef _STRING_STANDALONE
+_STRING_CLASS operator+(const _STRING_CLASS&left, const byte&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)((unsigned short)right);
+	size_t size_new = left.size + rightStr.length();
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left.size; i++)
+	{
+		newStr.characters[i] = left.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left.size; i<size_new; i++)
+	{
+		newStr.characters[i] = rightStr.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+#endif
+
+#ifndef _STRING_STANDALONE
+_STRING_CLASS operator+(const unsigned _STRING_TYPE&left, const _STRING_CLASS&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)((unsigned short)left);
+	size_t left_size = leftStr.length();
+	size_t size_new = left_size + right.size;
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left_size; i++)
+	{
+		newStr.characters[i] = leftStr.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left_size; i<size_new; i++)
+	{
+		newStr.characters[i] = right.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+#endif
+
+_STRING_CLASS operator+(const _STRING_CLASS&left, const short&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(right);
+	size_t size_new = left.size + rightStr.length();
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left.size; i++)
+	{
+		newStr.characters[i] = left.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left.size; i<size_new; i++)
+	{
+		newStr.characters[i] = rightStr.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+	
+_STRING_CLASS operator+(const short&left, const _STRING_CLASS&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(left);
+	size_t left_size = leftStr.length();
+	size_t size_new = left_size + right.size;
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left_size; i++)
+	{
+		newStr.characters[i] = leftStr.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left_size; i<size_new; i++)
+	{
+		newStr.characters[i] = right.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+
+_STRING_CLASS operator+(const _STRING_CLASS&left, const unsigned short&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(right);
+	size_t size_new = left.size + rightStr.length();
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left.size; i++)
+	{
+		newStr.characters[i] = left.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left.size; i<size_new; i++)
+	{
+		newStr.characters[i] = rightStr.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+	
+_STRING_CLASS operator+(const unsigned short&left, const _STRING_CLASS&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(left);
+	size_t left_size = leftStr.length();
+	size_t size_new = left_size + right.size;
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left_size; i++)
+	{
+		newStr.characters[i] = leftStr.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left_size; i<size_new; i++)
+	{
+		newStr.characters[i] = right.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+
+_STRING_CLASS operator+(const _STRING_CLASS&left, const int&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(right);
+	size_t size_new = left.size + rightStr.length();
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left.size; i++)
+	{
+		newStr.characters[i] = left.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left.size; i<size_new; i++)
+	{
+		newStr.characters[i] = rightStr.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+
+_STRING_CLASS operator+(const int&left, const _STRING_CLASS&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(left);
+	size_t left_size = leftStr.length();
+	size_t size_new = left_size + right.size;
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left_size; i++)
+	{
+		newStr.characters[i] = leftStr.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left_size; i<size_new; i++)
+	{
+		newStr.characters[i] = right.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+
+_STRING_CLASS operator+(const _STRING_CLASS&left, const unsigned int&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(right);
+	size_t size_new = left.size + rightStr.length();
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left.size; i++)
+	{
+		newStr.characters[i] = left.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left.size; i<size_new; i++)
+	{
+		newStr.characters[i] = rightStr.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+
+_STRING_CLASS operator+(const unsigned int&left, const _STRING_CLASS&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(left);
+	size_t left_size = leftStr.length();
+	size_t size_new = left_size + right.size;
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left_size; i++)
+	{
+		newStr.characters[i] = leftStr.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left_size; i<size_new; i++)
+	{
+		newStr.characters[i] = right.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+
+_STRING_CLASS operator+(const _STRING_CLASS&left, const long&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(right);
+	size_t size_new = left.size + rightStr.length();
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left.size; i++)
+	{
+		newStr.characters[i] = left.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left.size; i<size_new; i++)
+	{
+		newStr.characters[i] = rightStr.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+
+_STRING_CLASS operator+(const long&left, const _STRING_CLASS&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(left);
+	size_t left_size = leftStr.length();
+	size_t size_new = left_size + right.size;
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left_size; i++)
+	{
+		newStr.characters[i] = leftStr.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left_size; i<size_new; i++)
+	{
+		newStr.characters[i] = right.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+
+_STRING_CLASS operator+(const _STRING_CLASS&left, const unsigned long&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(right);
+	size_t size_new = left.size + rightStr.length();
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left.size; i++)
+	{
+		newStr.characters[i] = left.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left.size; i<size_new; i++)
+	{
+		newStr.characters[i] = rightStr.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+
+_STRING_CLASS operator+(const unsigned long&left, const _STRING_CLASS&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(left);
+	size_t left_size = leftStr.length();
+	size_t size_new = left_size + right.size;
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left_size; i++)
+	{
+		newStr.characters[i] = leftStr.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left_size; i<size_new; i++)
+	{
+		newStr.characters[i] = right.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+
+_STRING_CLASS operator+(const _STRING_CLASS&left, const long long&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(right);
+	size_t size_new = left.size + rightStr.length();
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left.size; i++)
+	{
+		newStr.characters[i] = left.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left.size; i<size_new; i++)
+	{
+		newStr.characters[i] = rightStr.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+
+_STRING_CLASS operator+(const long long&left, const _STRING_CLASS&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(left);
+	size_t left_size = leftStr.length();
+	size_t size_new = left_size + right.size;
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left_size; i++)
+	{
+		newStr.characters[i] = leftStr.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left_size; i<size_new; i++)
+	{
+		newStr.characters[i] = right.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+
+_STRING_CLASS operator+(const _STRING_CLASS&left, const unsigned long long&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(right);
+	size_t size_new = left.size + rightStr.length();
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left.size; i++)
+	{
+		newStr.characters[i] = left.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left.size; i<size_new; i++)
+	{
+		newStr.characters[i] = rightStr.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+
+_STRING_CLASS operator+(const unsigned long long&left, const _STRING_CLASS&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(left);
+	size_t left_size = leftStr.length();
+	size_t size_new = left_size + right.size;
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left_size; i++)
+	{
+		newStr.characters[i] = leftStr.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left_size; i<size_new; i++)
+	{
+		newStr.characters[i] = right.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+
+_STRING_CLASS operator+(const _STRING_CLASS&left, const float&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromdecimal)(right);
+	size_t size_new = left.size + rightStr.length();
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left.size; i++)
+	{
+		newStr.characters[i] = left.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left.size; i<size_new; i++)
+	{
+		newStr.characters[i] = rightStr.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+
+_STRING_CLASS operator+(const float&left, const _STRING_CLASS&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromdecimal)(left);
+	size_t left_size = leftStr.length();
+	size_t size_new = left_size + right.size;
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left_size; i++)
+	{
+		newStr.characters[i] = leftStr.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left_size; i<size_new; i++)
+	{
+		newStr.characters[i] = right.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+
+_STRING_CLASS operator+(const _STRING_CLASS&left, const double&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromdecimal)(right);
+	size_t size_new = left.size + rightStr.length();
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left.size; i++)
+	{
+		newStr.characters[i] = left.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left.size; i<size_new; i++)
+	{
+		newStr.characters[i] = rightStr.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+
+_STRING_CLASS operator+(const double&left, const _STRING_CLASS&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromdecimal)(left);
+	size_t left_size = leftStr.length();
+	size_t size_new = left_size + right.size;
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left_size; i++)
+	{
+		newStr.characters[i] = leftStr.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left_size; i<size_new; i++)
+	{
+		newStr.characters[i] = right.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+
+_STRING_CLASS operator+(const _STRING_CLASS&left, const long double&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromdecimal)(right);
+	size_t size_new = left.size + rightStr.length();
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left.size; i++)
+	{
+		newStr.characters[i] = left.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left.size; i<size_new; i++)
+	{
+		newStr.characters[i] = rightStr.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}
+
+_STRING_CLASS operator+(const long double&left, const _STRING_CLASS&right)
+{
+	_STRING_CLASS newStr;
+	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromdecimal)(left);
+	size_t left_size = leftStr.length();
+	size_t size_new = left_size + right.size;
+	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
+	if(newStr_characters_new == nullptr)
+	{
+		throw std::bad_alloc();
+	}
+	newStr.characters = newStr_characters_new;
+	newStr.size = size_new;
+	for(size_t i=0; i<left_size; i++)
+	{
+		newStr.characters[i] = leftStr.characters[i];
+	}
+	size_t counter = 0;
+	for(size_t i=left_size; i<size_new; i++)
+	{
+		newStr.characters[i] = right.characters[counter];
+		counter++;
+	}
+	newStr.characters[size_new] = NULL;
+	return newStr;
+}

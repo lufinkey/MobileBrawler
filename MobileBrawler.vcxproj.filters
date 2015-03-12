@@ -471,9 +471,6 @@
     <ClCompile Include="src\SmashBros\Menu\SoloMenu\SoloMenu.cpp">
       <Filter>src\SmashBros\Menu\SoloMenu</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameLibrary\Utilities\String.mm">
-      <Filter>src\GameLibrary\Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="external\pugixml\src\pugixml.cpp">
       <Filter>external\pugixml\src</Filter>
     </ClCompile>
@@ -500,9 +497,6 @@
     </ClCompile>
     <ClCompile Include="src\BrawlerLibrary\Game\Elements\PhysicalGameObject.cpp">
       <Filter>src\BrawlerLibrary\Game\Elements</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameLibrary\Utilities\BasicString.cpp">
-      <Filter>src\GameLibrary\Utilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -911,11 +905,16 @@
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\ValueEase.h">
       <Filter>src\GameLibrary\Utilities\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameLibrary\Utilities\BasicString.h">
-      <Filter>src\GameLibrary\Utilities</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MobileBrawler.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\GameLibrary\Utilities\StringClass.h.impl">
+      <Filter>src\GameLibrary\Utilities</Filter>
+    </None>
+    <None Include="src\GameLibrary\Utilities\StringClass.cpp.impl">
+      <Filter>src\GameLibrary\Utilities</Filter>
+    </None>
   </ItemGroup>
 </Project>
