@@ -911,6 +911,9 @@
     <ClInclude Include="src\GameLibrary\Utilities\WideString.h">
       <Filter>src\GameLibrary\Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\StringConvert.h">
+      <Filter>src\GameLibrary\Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MobileBrawler.rc" />

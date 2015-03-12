@@ -72,6 +72,7 @@
 #include "Utilities/Math.h"
 #include "Utilities/PlatformChecks.h"
 #include "Utilities/String.h"
+#include "Utilities/StringConvert.h"
 #include "Utilities/Thread.h"
 #include "Utilities/WideString.h"
 #include "Utilities/Font/Font.h"
