@@ -73,6 +73,7 @@
 #include "Utilities/PlatformChecks.h"
 #include "Utilities/String.h"
 #include "Utilities/Thread.h"
+#include "Utilities/WideString.h"
 #include "Utilities/Font/Font.h"
 #include "Utilities/Geometry/Circle.h"
 #include "Utilities/Geometry/Polygon.h"

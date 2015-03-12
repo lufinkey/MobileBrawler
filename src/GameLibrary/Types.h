@@ -98,6 +98,7 @@ namespace GameLibrary
 	class Number;
 	class String;
 	class Thread;
+	class WideString;
 	
 	//View
 	class View;
