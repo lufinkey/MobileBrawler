@@ -17,7 +17,7 @@ namespace GameLibrary
 		}
 		else if(sizeof(S) > sizeof(D))
 		{
-			S d_max = (S)std::numeric_limits<D>();
+			S d_max = (S)std::numeric_limits<D>::max();
 			if(src >= d_max)
 			{
 				if(sizeof(D) >= 2)
@@ -46,7 +46,8 @@ namespace GameLibrary
 		if(sizeof(S) < sizeof(D))
 		{
 			size_t size = src.length();
-			std::basic_string<D, std::char_traits<D>, std::allocator<D> > dst(size);
+			std::basic_string<D, std::char_traits<D>, std::allocator<D> > dst;
+			dst.resize(size);
 			for(size_t i=0; i<size; i++)
 			{
 				dst.at(i) = (D)src.at(i);
@@ -80,7 +81,7 @@ namespace GameLibrary
 		}
 		else
 		{
-			return std::basic_string<D, std::char_traits<D>, std::allocator<D> >((D*)src.c_str(), src.length());
+			return std::basic_string<D, std::char_traits<D>, std::allocator<D> >((const D*)src.c_str(), ((const D*)src.c_str()) + src.length());
 		}
 	}
 	
@@ -93,18 +94,18 @@ namespace GameLibrary
 			std::basic_string<D, std::char_traits<D>, std::allocator<D> > dst(size);
 			for(size_t i=0; i<size; i++)
 			{
-				dst.at(i) = (D)src.at(i);
+				dst.at(i) = (D)src.charAt(i);
 			}
 			return dst;
 		}
 		else if(sizeof(String::char_type) > sizeof(D))
 		{
 			size_t size = src.length();
-			String::char_type d_max = (String::char_type)std::numeric_limits<D>();
+			String::char_type d_max = (String::char_type)std::numeric_limits<D>::max();
 			std::basic_string<D, std::char_traits<D>, std::allocator<D> > dst(size);
 			for(size_t i=0; i<size; i++)
 			{
-				if(src.at(i) >= d_max)
+				if(src.charAt(i) >= d_max)
 				{
 					if(sizeof(D) >= 2)
 					{
@@ -117,14 +118,14 @@ namespace GameLibrary
 				}
 				else
 				{
-					d.at(i) = (D)src.at(i);
+					d.at(i) = (D)src.charAt(i);
 				}
 			}
 			return dst;
 		}
 		else
 		{
-			return std::basic_string<D, std::char_traits<D>, std::allocator<D> >((D*)src.c_str(), src.length());
+			return std::basic_string<D, std::char_traits<D>, std::allocator<D> >((const D*)((const String::char_type*)src), ((const D*)((const String::char_type*)src)) + src.length());
 		}
 	}
 	
@@ -134,21 +135,23 @@ namespace GameLibrary
 		if(sizeof(WideString::char_type) < sizeof(D))
 		{
 			size_t size = src.length();
-			std::basic_string<D, std::char_traits<D>, std::allocator<D> > dst(size);
+			std::basic_string<D, std::char_traits<D>, std::allocator<D> > dst;
+			dst.resize(size);
 			for(size_t i=0; i<size; i++)
 			{
-				dst.at(i) = (D)src.at(i);
+				dst.at(i) = (D)src.charAt(i);
 			}
 			return dst;
 		}
 		else if(sizeof(WideString::char_type) > sizeof(D))
 		{
 			size_t size = src.length();
-			WideString::char_type d_max = (WideString::char_type)std::numeric_limits<D>();
-			std::basic_string<D, std::char_traits<D>, std::allocator<D> > dst(size);
+			WideString::char_type d_max = (WideString::char_type)std::numeric_limits<D>::max();
+			std::basic_string<D, std::char_traits<D>, std::allocator<D> > dst;
+			dst.resize(size);
 			for(size_t i=0; i<size; i++)
 			{
-				if(src.at(i) >= d_max)
+				if(src.charAt(i) >= d_max)
 				{
 					if(sizeof(D) >= 2)
 					{
@@ -161,14 +164,14 @@ namespace GameLibrary
 				}
 				else
 				{
-					d.at(i) = (D)src.at(i);
+					dst.at(i) = (D)src.charAt(i);
 				}
 			}
 			return dst;
 		}
 		else
 		{
-			return std::basic_string<D, std::char_traits<D>, std::allocator<D> >((D*)src.c_str(), src.length());
+			return std::basic_string<D, std::char_traits<D>, std::allocator<D> >((const D*)((const WideString::char_type*)src), ((const D*)((const WideString::char_type*)src)) + src.length());
 		}
 	}
 }

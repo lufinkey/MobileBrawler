@@ -41,7 +41,8 @@ namespace GameLibrary
 	
 	_STRING_CLASS::_STRING_CLASS(const wchar_t&c)
 	{
-		characters = (_STRING_TYPE*)std::calloc((size+1)*sizeof(wchar_t), sizeof(_STRING_TYPE));
+		size = 1;
+		characters = (_STRING_TYPE*)std::malloc((size+1)*sizeof(wchar_t)*sizeof(_STRING_TYPE));
 		size = (size_t)wctomb(characters,c);
 		if(size == (size_t)-1)
 		{
@@ -109,13 +110,6 @@ namespace GameLibrary
 		delete[] str;
 		return newStr;
 	}
-	
-	#ifdef _STRING_WIDESTRING_ENABLED
-	_STRING_CLASS::operator WideString() const
-	{
-		return WideString(characters, size);
-	}
-	#endif
 	
 	#ifdef _STRING_WIDESTRING_ENABLED
 	WideString _STRING_CLASS::toWideString() const

@@ -72,9 +72,6 @@ namespace GameLibrary
 		
 		operator std::wstring() const;
 		operator std::string() const;
-		#ifdef _WIDESTRING_STRING_ENABLED
-			operator String() const;
-		#endif
 		#ifdef __OBJC__
 			operator NSString*() const;
 		#endif

@@ -41,7 +41,8 @@ namespace GameLibrary
 	
 	_STRING_CLASS::_STRING_CLASS(const char&c)
 	{
-		characters = (_STRING_TYPE*)std::calloc(size+1, sizeof(_STRING_TYPE));
+		size = 1;
+		characters = (_STRING_TYPE*)std::malloc((size+1) * sizeof(_STRING_TYPE));
 		if(characters == nullptr)
 		{
 			throw std::bad_alloc();
@@ -52,7 +53,7 @@ namespace GameLibrary
 		{
 			size = 0;
 		}
-		_STRING_TYPE*characters_new = (_STRING_TYPE*)std::realloc(characters, size*sizeof(_STRING_TYPE));
+		_STRING_TYPE*characters_new = (_STRING_TYPE*)std::realloc(characters, (size+1)*sizeof(_STRING_TYPE));
 		if(characters_new == nullptr)
 		{
 			std::free(characters);
@@ -114,13 +115,6 @@ namespace GameLibrary
 		delete[] str;
 		return newStr;
 	}
-	
-	#ifdef _WIDESTRING_STRING_ENABLED
-	_STRING_CLASS::operator String() const
-	{
-		return String(characters, size);
-	}
-	#endif
 	
 	#ifdef _WIDESTRING_STRING_ENABLED
 	String _STRING_CLASS::toString() const
