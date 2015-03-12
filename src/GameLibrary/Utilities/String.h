@@ -16,9 +16,20 @@ namespace GameLibrary
 	#define _STRING_TYPE char
 	
 	class _STRING_CLASS;
+
+	#ifndef _STRING_STANDALONE
+		#define _STRING_WIDESTRING_ENABLED
+	#endif
+
+	#ifdef _STRING_WIDESTRING_ENABLED
+		class WideString;
+	#endif
 	
 	class _STRING_CLASS
 	{
+		#ifdef _STRING_WIDESTRING_ENABLED
+			friend class WideString;
+		#endif
 		//std::string
 		friend _STRING_CLASS operator+(const _STRING_CLASS&left, const std::string&right);
 		friend _STRING_CLASS operator+(const std::string&left, const _STRING_CLASS&right);
@@ -31,6 +42,11 @@ namespace GameLibrary
 		//const wchar_t*
 		friend _STRING_CLASS operator+(const _STRING_CLASS&left, const wchar_t*right);
 		friend _STRING_CLASS operator+(const wchar_t*left, const _STRING_CLASS&right);
+		#ifdef _STRING_WIDESTRING_ENABLED
+			//WideString
+			friend _STRING_CLASS operator+(const _STRING_CLASS&left, const WideString&right);
+			friend WideString operator+(const WideString&left, const _STRING_CLASS&right);
+		#endif
 		#ifdef __OBJC__
 			//NSString*
 			friend _STRING_CLASS operator+(const _STRING_CLASS&left, const NSString*&right);
@@ -43,12 +59,22 @@ namespace GameLibrary
 		_STRING_CLASS(const wchar_t&);
 		_STRING_CLASS(const wchar_t*);
 		_STRING_CLASS(const wchar_t*str, size_t length);
+		#ifdef _STRING_WIDESTRING_ENABLED
+			_STRING_CLASS(const WideString&);
+		#endif
 		#ifdef __OBJC__
 			_STRING_CLASS(const NSString*&);
 		#endif
 		
+		#ifdef _STRING_WIDESTRING_ENABLED
+			WideString toWideString() const;
+		#endif
+		
 		operator std::string() const;
 		operator std::wstring() const;
+		#ifdef _STRING_WIDESTRING_ENABLED
+			operator WideString() const;
+		#endif
 		#ifdef __OBJC__
 			operator NSString*() const;
 		#endif
@@ -58,6 +84,9 @@ namespace GameLibrary
 		_STRING_CLASS& operator+=(const std::wstring&);
 		_STRING_CLASS& operator+=(const wchar_t&);
 		_STRING_CLASS& operator+=(const wchar_t*);
+		#ifdef _STRING_WIDESTRING_ENABLED
+			_STRING_CLASS& operator+=(const WideString&);
+		#endif
 		#ifdef __OBJC__
 			_STRING_CLASS& operator+=(const NSString*&);
 		#endif
@@ -67,6 +96,9 @@ namespace GameLibrary
 		_STRING_CLASS& operator=(const std::wstring&);
 		_STRING_CLASS& operator=(const wchar_t&);
 		_STRING_CLASS& operator=(const wchar_t*);
+		#ifdef _STRING_WIDESTRING_ENABLED
+			_STRING_CLASS& operator=(const WideString&);
+		#endif
 		#ifdef __OBJC__
 			_STRING_CLASS& operator=(const NSString*&);
 		#endif
@@ -75,21 +107,25 @@ namespace GameLibrary
 	//}
 	
 	//const std::string
-	String operator+(const String&left, const std::string&right);
-	String operator+(const std::string&left, const String&right);
+	_STRING_CLASS operator+(const _STRING_CLASS&left, const std::string&right);
+	_STRING_CLASS operator+(const std::string&left, const _STRING_CLASS&right);
 	//const std::wstring
-	String operator+(const String&left, const std::wstring&right);
-	String operator+(const std::wstring&left, const String&right);
+	_STRING_CLASS operator+(const _STRING_CLASS&left, const std::wstring&right);
+	_STRING_CLASS operator+(const std::wstring&left, const _STRING_CLASS&right);
 	//const wchar_t
-	String operator+(const String&left, const wchar_t&right);
-	String operator+(const wchar_t&left, const String&right);
+	_STRING_CLASS operator+(const _STRING_CLASS&left, const wchar_t&right);
+	_STRING_CLASS operator+(const wchar_t&left, const _STRING_CLASS&right);
 	//const wchar_t*
-	String operator+(const String&left, const wchar_t*right);
-	String operator+(const wchar_t*left, const String&right);
+	_STRING_CLASS operator+(const _STRING_CLASS&left, const wchar_t*right);
+	_STRING_CLASS operator+(const wchar_t*left, const _STRING_CLASS&right);
+	#ifdef _STRING_WIDESTRING_ENABLED
+		//WideString
+		_STRING_CLASS operator+(const _STRING_CLASS&left, const WideString&right);
+	#endif
 	#ifdef __OBJC__
 		//NSString*
-		String operator+(const String&left, const NSString*&right);
-		String operator+(const NSString*&left, const String&right);
+		_STRING_CLASS operator+(const _STRING_CLASS&left, const NSString*&right);
+		_STRING_CLASS operator+(const NSString*&left, const _STRING_CLASS&right);
 	#endif
 	
 #ifndef _STRING_STANDALONE

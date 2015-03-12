@@ -1,9 +1,9 @@
 
-#ifndef _CONCAT
-#define _CONCAT(x,y) x##y
-#endif
+#define _CONCAT_PASTER(x,y) x ## y
+#define _CONCAT_EVALUATOR(x,y)  _CONCAT_PASTER(x,y)
+#define _STRING_PREFIXED_TOKEN(x) _CONCAT_EVALUATOR(_STRING_CLASS, x)
 
-long long _CONCAT(_STRING_CLASS,_powll)(const long long&base, const int&exp)
+long long _STRING_PREFIXED_TOKEN(_powll) (const long long&base, const int&exp)
 {
 	if(exp==0)
 	{
@@ -26,7 +26,7 @@ long long _CONCAT(_STRING_CLASS,_powll)(const long long&base, const int&exp)
 	return result;
 }
 
-unsigned long long _CONCAT(_STRING_CLASS,_powull)(const unsigned long long&base, const int&exp)
+unsigned long long _STRING_PREFIXED_TOKEN(_powull) (const unsigned long long&base, const int&exp)
 {
 	if(exp==0)
 	{
@@ -220,7 +220,7 @@ int _STRING_CLASS::asInt(const _STRING_CLASS&str)
 #ifdef _STRING_EXCEPTION_NUMBERFORMAT
 		throw _STRING_EXCEPTION_NUMBERFORMAT("int", "string is empty");
 #else
-		throw _CONCAT(_STRING_CLASS,Exception)("Unable to convert to type int: string is empty");
+		throw _STRING_PREFIXED_TOKEN(Exception)("Unable to convert to type int: string is empty");
 #endif
 	}
 	
@@ -232,7 +232,7 @@ int _STRING_CLASS::asInt(const _STRING_CLASS&str)
 #ifdef _STRING_EXCEPTION_NUMBERFORMAT
 			throw _STRING_EXCEPTION_NUMBERFORMAT("int", "Unexpected character at index " + std::to_string(i));
 #else
-			throw _CONCAT(_STRING_CLASS,Exception)((_STRING_CLASS)"Unable to convert to type int: Unexpected character at index " + std::to_string(i));
+			throw _STRING_PREFIXED_TOKEN(Exception)((_STRING_CLASS)"Unable to convert to type int: Unexpected character at index " + std::to_string(i));
 #endif
 		}
 	}
@@ -426,7 +426,7 @@ float _STRING_CLASS::asFloat(const _STRING_CLASS&str)
 				if(hasDecimal)
 				{
 #ifdef _STRING_EXCEPTION_NUMBERFORMAT
-			throw _STRING_EXCEPTION_NUMBERFORMAT("float", (_STRING_CLASS)"Too many decimal points");
+			throw _STRING_EXCEPTION_NUMBERFORMAT("float", "Too many decimal points");
 #else
 			throw /*numberformatexception*/std::invalid_argument("str");
 #endif
@@ -639,7 +639,7 @@ long long _STRING_CLASS::asLongLong(const _STRING_CLASS&str)
 		}
 		else
 		{
-			sizeVal += ((long long)value*(long long)_CONCAT(_STRING_CLASS,_powll)((long long)10,(int)counter));
+			sizeVal += ((long long)value*(long long)_STRING_PREFIXED_TOKEN(_powll)((long long)10,(int)counter));
 		}
 		counter++;
 
@@ -942,7 +942,7 @@ unsigned long long _STRING_CLASS::asUnsignedLongLong(const _STRING_CLASS&str)
 		}
 		else
 		{
-			sizeVal += ((unsigned long long)value*(unsigned long long)_CONCAT(_STRING_CLASS,_powull)((unsigned long long)10,(int)counter));
+			sizeVal += ((unsigned long long)value*(unsigned long long)_STRING_PREFIXED_TOKEN(_powull)((unsigned long long)10,(int)counter));
 		}
 		counter++;
 
@@ -959,16 +959,16 @@ _STRING_TYPE _STRING_CLASS::asLowerCaseChar(const _STRING_TYPE&c)
 {
 	if(c >= _STRING_LITERAL('A') && c <= _STRING_LITERAL('Z'))
 	{
-		return c + (_STRING_LITERAL(_STRING_LITERAL('a')) - _STRING_LITERAL('A'));
+		return c + (_STRING_LITERAL('a') - _STRING_LITERAL('A'));
 	}
 	return c;
 }
 
 _STRING_TYPE _STRING_CLASS::asUpperCaseChar(const _STRING_TYPE&c)
 {
-	if(c >= _STRING_LITERAL(_STRING_LITERAL('a')) && c <= _STRING_LITERAL('z'))
+	if(c >= _STRING_LITERAL('a') && c <= _STRING_LITERAL('z'))
 	{
-		return c - (_STRING_LITERAL(_STRING_LITERAL('a')) - _STRING_LITERAL('A'));
+		return c - (_STRING_LITERAL('a') - _STRING_LITERAL('A'));
 	}
 	return c;
 }
@@ -998,7 +998,7 @@ int _STRING_CLASS::compare_value(const _STRING_TYPE&c1, const _STRING_TYPE&c2)
 
 #ifndef _OVERRIDE_CONVERT_FROMDECIMAL
 template<typename T>
-_STRING_CLASS _CONCAT(_STRING_CLASS,_convert_fromdecimal)(const T&decimal)
+_STRING_CLASS _STRING_PREFIXED_TOKEN(_convert_fromdecimal)(const T&decimal)
 {
 	std::stringstream ss;
 	ss << decimal;
@@ -1008,7 +1008,7 @@ _STRING_CLASS _CONCAT(_STRING_CLASS,_convert_fromdecimal)(const T&decimal)
 
 #ifndef _OVERRIDE_CONVERT_INTEGRAL
 template<typename T>
-_STRING_CLASS _CONCAT(_STRING_CLASS,_convert_fromintegral)(const T&integral)
+_STRING_CLASS _STRING_PREFIXED_TOKEN(_convert_fromintegral)(const T&integral)
 {
 	std::stringstream ss;
 	ss << integral;
@@ -1216,74 +1216,74 @@ _STRING_CLASS& _STRING_CLASS::operator+=(const bool& b)
 #ifndef _STRING_STANDALONE
 _STRING_CLASS& _STRING_CLASS::operator+=(const byte& num)
 {
-	operator+=(_CONCAT(_STRING_CLASS,_convert_fromintegral)((unsigned short)num));
+	operator+=(_STRING_PREFIXED_TOKEN(_convert_fromintegral)((unsigned short)num));
 	return *this;
 }
 #endif
 
 _STRING_CLASS& _STRING_CLASS::operator+=(const short& num)
 {
-	operator+=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	operator+=(_STRING_PREFIXED_TOKEN(_convert_fromintegral)(num));
 	return *this;
 }
 
 _STRING_CLASS& _STRING_CLASS::operator+=(const unsigned short& num)
 {
-	operator+=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	operator+=(_STRING_PREFIXED_TOKEN(_convert_fromintegral)(num));
 	return *this;
 }
 
 _STRING_CLASS& _STRING_CLASS::operator+=(const int& num)
 {
-	operator+=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	operator+=(_STRING_PREFIXED_TOKEN(_convert_fromintegral)(num));
 	return *this;
 }
 
 _STRING_CLASS& _STRING_CLASS::operator+=(const unsigned int& num)
 {
-	operator+=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	operator+=(_STRING_PREFIXED_TOKEN(_convert_fromintegral)(num));
 	return *this;
 }
 
 _STRING_CLASS& _STRING_CLASS::operator+=(const long& num)
 {
-	operator+=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	operator+=(_STRING_PREFIXED_TOKEN(_convert_fromintegral)(num));
 	return *this;
 }
 
 _STRING_CLASS& _STRING_CLASS::operator+=(const unsigned long& num)
 {
-	operator+=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	operator+=(_STRING_PREFIXED_TOKEN(_convert_fromintegral)(num));
 	return *this;
 }
 
 _STRING_CLASS& _STRING_CLASS::operator+=(const long long& num)
 {
-	operator+=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	operator+=(_STRING_PREFIXED_TOKEN(_convert_fromintegral)(num));
 	return *this;
 }
 
 _STRING_CLASS& _STRING_CLASS::operator+=(const unsigned long long& num)
 {
-	operator+=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	operator+=(_STRING_PREFIXED_TOKEN(_convert_fromintegral)(num));
 	return *this;
 }
 
 _STRING_CLASS& _STRING_CLASS::operator+=(const float& num)
 {
-	operator+=(_CONCAT(_STRING_CLASS,_convert_fromdecimal)(num));
+	operator+=(_STRING_PREFIXED_TOKEN(_convert_fromdecimal)(num));
 	return *this;
 }
 
 _STRING_CLASS& _STRING_CLASS::operator+=(const double& num)
 {
-	operator+=(_CONCAT(_STRING_CLASS,_convert_fromdecimal)(num));
+	operator+=(_STRING_PREFIXED_TOKEN(_convert_fromdecimal)(num));
 	return *this;
 }
 
 _STRING_CLASS& _STRING_CLASS::operator+=(const long double& num)
 {
-	operator+=(_CONCAT(_STRING_CLASS,_convert_fromdecimal)(num));
+	operator+=(_STRING_PREFIXED_TOKEN(_convert_fromdecimal)(num));
 	return *this;
 }
 
@@ -1380,73 +1380,73 @@ _STRING_CLASS& _STRING_CLASS::operator=(const bool& b)
 
 _STRING_CLASS& _STRING_CLASS::operator=(const byte& num)
 {
-	operator=(_CONCAT(_STRING_CLASS,_convert_fromintegral)((unsigned short)num));
+	operator=(_STRING_PREFIXED_TOKEN(_convert_fromintegral)((unsigned short)num));
 	return *this;
 }
 
 _STRING_CLASS& _STRING_CLASS::operator=(const short& num)
 {
-	operator=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	operator=(_STRING_PREFIXED_TOKEN(_convert_fromintegral)(num));
 	return *this;
 }
 
 _STRING_CLASS& _STRING_CLASS::operator=(const unsigned short& num)
 {
-	operator=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	operator=(_STRING_PREFIXED_TOKEN(_convert_fromintegral)(num));
 	return *this;
 }
 
 _STRING_CLASS& _STRING_CLASS::operator=(const int& num)
 {
-	operator=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	operator=(_STRING_PREFIXED_TOKEN(_convert_fromintegral)(num));
 	return *this;
 }
 
 _STRING_CLASS& _STRING_CLASS::operator=(const unsigned int& num)
 {
-	operator=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	operator=(_STRING_PREFIXED_TOKEN(_convert_fromintegral)(num));
 	return *this;
 }
 
 _STRING_CLASS& _STRING_CLASS::operator=(const long& num)
 {
-	operator=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	operator=(_STRING_PREFIXED_TOKEN(_convert_fromintegral)(num));
 	return *this;
 }
 
 _STRING_CLASS& _STRING_CLASS::operator=(const unsigned long& num)
 {
-	operator=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	operator=(_STRING_PREFIXED_TOKEN(_convert_fromintegral)(num));
 	return *this;
 }
 
 _STRING_CLASS& _STRING_CLASS::operator=(const long long& num)
 {
-	operator=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	operator=(_STRING_PREFIXED_TOKEN(_convert_fromintegral)(num));
 	return *this;
 }
 
 _STRING_CLASS& _STRING_CLASS::operator=(const unsigned long long& num)
 {
-	operator=(_CONCAT(_STRING_CLASS,_convert_fromintegral)(num));
+	operator=(_STRING_PREFIXED_TOKEN(_convert_fromintegral)(num));
 	return *this;
 }
 
 _STRING_CLASS& _STRING_CLASS::operator=(const float& num)
 {
-	operator=(_CONCAT(_STRING_CLASS,_convert_fromdecimal)(num));
+	operator=(_STRING_PREFIXED_TOKEN(_convert_fromdecimal)(num));
 	return *this;
 }
 
 _STRING_CLASS& _STRING_CLASS::operator=(const double& num)
 {
-	operator=(_CONCAT(_STRING_CLASS,_convert_fromdecimal)(num));
+	operator=(_STRING_PREFIXED_TOKEN(_convert_fromdecimal)(num));
 	return *this;
 }
 
 _STRING_CLASS& _STRING_CLASS::operator=(const long double& num)
 {
-	operator=(_CONCAT(_STRING_CLASS,_convert_fromdecimal)(num));
+	operator=(_STRING_PREFIXED_TOKEN(_convert_fromdecimal)(num));
 	return *this;
 }
 
@@ -2429,7 +2429,7 @@ _STRING_CLASS operator+(const bool&left, const _STRING_CLASS&right)
 _STRING_CLASS operator+(const _STRING_CLASS&left, const byte&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)((unsigned short)right);
+	_STRING_CLASS rightStr = _STRING_PREFIXED_TOKEN(_convert_fromintegral)((unsigned short)right);
 	size_t size_new = left.size + rightStr.length();
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
 	if(newStr_characters_new == nullptr)
@@ -2454,10 +2454,10 @@ _STRING_CLASS operator+(const _STRING_CLASS&left, const byte&right)
 #endif
 
 #ifndef _STRING_STANDALONE
-_STRING_CLASS operator+(const unsigned _STRING_TYPE&left, const _STRING_CLASS&right)
+_STRING_CLASS operator+(const byte&left, const _STRING_CLASS&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)((unsigned short)left);
+	_STRING_CLASS leftStr = _STRING_PREFIXED_TOKEN(_convert_fromintegral)((unsigned short)left);
 	size_t left_size = leftStr.length();
 	size_t size_new = left_size + right.size;
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
@@ -2485,7 +2485,7 @@ _STRING_CLASS operator+(const unsigned _STRING_TYPE&left, const _STRING_CLASS&ri
 _STRING_CLASS operator+(const _STRING_CLASS&left, const short&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(right);
+	_STRING_CLASS rightStr = _STRING_PREFIXED_TOKEN(_convert_fromintegral)(right);
 	size_t size_new = left.size + rightStr.length();
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
 	if(newStr_characters_new == nullptr)
@@ -2511,7 +2511,7 @@ _STRING_CLASS operator+(const _STRING_CLASS&left, const short&right)
 _STRING_CLASS operator+(const short&left, const _STRING_CLASS&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(left);
+	_STRING_CLASS leftStr = _STRING_PREFIXED_TOKEN(_convert_fromintegral)(left);
 	size_t left_size = leftStr.length();
 	size_t size_new = left_size + right.size;
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
@@ -2538,7 +2538,7 @@ _STRING_CLASS operator+(const short&left, const _STRING_CLASS&right)
 _STRING_CLASS operator+(const _STRING_CLASS&left, const unsigned short&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(right);
+	_STRING_CLASS rightStr = _STRING_PREFIXED_TOKEN(_convert_fromintegral)(right);
 	size_t size_new = left.size + rightStr.length();
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
 	if(newStr_characters_new == nullptr)
@@ -2564,7 +2564,7 @@ _STRING_CLASS operator+(const _STRING_CLASS&left, const unsigned short&right)
 _STRING_CLASS operator+(const unsigned short&left, const _STRING_CLASS&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(left);
+	_STRING_CLASS leftStr = _STRING_PREFIXED_TOKEN(_convert_fromintegral)(left);
 	size_t left_size = leftStr.length();
 	size_t size_new = left_size + right.size;
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
@@ -2591,7 +2591,7 @@ _STRING_CLASS operator+(const unsigned short&left, const _STRING_CLASS&right)
 _STRING_CLASS operator+(const _STRING_CLASS&left, const int&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(right);
+	_STRING_CLASS rightStr = _STRING_PREFIXED_TOKEN(_convert_fromintegral)(right);
 	size_t size_new = left.size + rightStr.length();
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
 	if(newStr_characters_new == nullptr)
@@ -2617,7 +2617,7 @@ _STRING_CLASS operator+(const _STRING_CLASS&left, const int&right)
 _STRING_CLASS operator+(const int&left, const _STRING_CLASS&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(left);
+	_STRING_CLASS leftStr = _STRING_PREFIXED_TOKEN(_convert_fromintegral)(left);
 	size_t left_size = leftStr.length();
 	size_t size_new = left_size + right.size;
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
@@ -2644,7 +2644,7 @@ _STRING_CLASS operator+(const int&left, const _STRING_CLASS&right)
 _STRING_CLASS operator+(const _STRING_CLASS&left, const unsigned int&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(right);
+	_STRING_CLASS rightStr = _STRING_PREFIXED_TOKEN(_convert_fromintegral)(right);
 	size_t size_new = left.size + rightStr.length();
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
 	if(newStr_characters_new == nullptr)
@@ -2670,7 +2670,7 @@ _STRING_CLASS operator+(const _STRING_CLASS&left, const unsigned int&right)
 _STRING_CLASS operator+(const unsigned int&left, const _STRING_CLASS&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(left);
+	_STRING_CLASS leftStr = _STRING_PREFIXED_TOKEN(_convert_fromintegral)(left);
 	size_t left_size = leftStr.length();
 	size_t size_new = left_size + right.size;
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
@@ -2697,7 +2697,7 @@ _STRING_CLASS operator+(const unsigned int&left, const _STRING_CLASS&right)
 _STRING_CLASS operator+(const _STRING_CLASS&left, const long&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(right);
+	_STRING_CLASS rightStr = _STRING_PREFIXED_TOKEN(_convert_fromintegral)(right);
 	size_t size_new = left.size + rightStr.length();
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
 	if(newStr_characters_new == nullptr)
@@ -2723,7 +2723,7 @@ _STRING_CLASS operator+(const _STRING_CLASS&left, const long&right)
 _STRING_CLASS operator+(const long&left, const _STRING_CLASS&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(left);
+	_STRING_CLASS leftStr = _STRING_PREFIXED_TOKEN(_convert_fromintegral)(left);
 	size_t left_size = leftStr.length();
 	size_t size_new = left_size + right.size;
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
@@ -2750,7 +2750,7 @@ _STRING_CLASS operator+(const long&left, const _STRING_CLASS&right)
 _STRING_CLASS operator+(const _STRING_CLASS&left, const unsigned long&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(right);
+	_STRING_CLASS rightStr = _STRING_PREFIXED_TOKEN(_convert_fromintegral)(right);
 	size_t size_new = left.size + rightStr.length();
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
 	if(newStr_characters_new == nullptr)
@@ -2776,7 +2776,7 @@ _STRING_CLASS operator+(const _STRING_CLASS&left, const unsigned long&right)
 _STRING_CLASS operator+(const unsigned long&left, const _STRING_CLASS&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(left);
+	_STRING_CLASS leftStr = _STRING_PREFIXED_TOKEN(_convert_fromintegral)(left);
 	size_t left_size = leftStr.length();
 	size_t size_new = left_size + right.size;
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
@@ -2803,7 +2803,7 @@ _STRING_CLASS operator+(const unsigned long&left, const _STRING_CLASS&right)
 _STRING_CLASS operator+(const _STRING_CLASS&left, const long long&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(right);
+	_STRING_CLASS rightStr = _STRING_PREFIXED_TOKEN(_convert_fromintegral)(right);
 	size_t size_new = left.size + rightStr.length();
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
 	if(newStr_characters_new == nullptr)
@@ -2829,7 +2829,7 @@ _STRING_CLASS operator+(const _STRING_CLASS&left, const long long&right)
 _STRING_CLASS operator+(const long long&left, const _STRING_CLASS&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(left);
+	_STRING_CLASS leftStr = _STRING_PREFIXED_TOKEN(_convert_fromintegral)(left);
 	size_t left_size = leftStr.length();
 	size_t size_new = left_size + right.size;
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
@@ -2856,7 +2856,7 @@ _STRING_CLASS operator+(const long long&left, const _STRING_CLASS&right)
 _STRING_CLASS operator+(const _STRING_CLASS&left, const unsigned long long&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(right);
+	_STRING_CLASS rightStr = _STRING_PREFIXED_TOKEN(_convert_fromintegral)(right);
 	size_t size_new = left.size + rightStr.length();
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
 	if(newStr_characters_new == nullptr)
@@ -2882,7 +2882,7 @@ _STRING_CLASS operator+(const _STRING_CLASS&left, const unsigned long long&right
 _STRING_CLASS operator+(const unsigned long long&left, const _STRING_CLASS&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromintegral)(left);
+	_STRING_CLASS leftStr = _STRING_PREFIXED_TOKEN(_convert_fromintegral)(left);
 	size_t left_size = leftStr.length();
 	size_t size_new = left_size + right.size;
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
@@ -2909,7 +2909,7 @@ _STRING_CLASS operator+(const unsigned long long&left, const _STRING_CLASS&right
 _STRING_CLASS operator+(const _STRING_CLASS&left, const float&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromdecimal)(right);
+	_STRING_CLASS rightStr = _STRING_PREFIXED_TOKEN(_convert_fromdecimal)(right);
 	size_t size_new = left.size + rightStr.length();
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
 	if(newStr_characters_new == nullptr)
@@ -2935,7 +2935,7 @@ _STRING_CLASS operator+(const _STRING_CLASS&left, const float&right)
 _STRING_CLASS operator+(const float&left, const _STRING_CLASS&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromdecimal)(left);
+	_STRING_CLASS leftStr = _STRING_PREFIXED_TOKEN(_convert_fromdecimal)(left);
 	size_t left_size = leftStr.length();
 	size_t size_new = left_size + right.size;
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
@@ -2962,7 +2962,7 @@ _STRING_CLASS operator+(const float&left, const _STRING_CLASS&right)
 _STRING_CLASS operator+(const _STRING_CLASS&left, const double&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromdecimal)(right);
+	_STRING_CLASS rightStr = _STRING_PREFIXED_TOKEN(_convert_fromdecimal)(right);
 	size_t size_new = left.size + rightStr.length();
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
 	if(newStr_characters_new == nullptr)
@@ -2988,7 +2988,7 @@ _STRING_CLASS operator+(const _STRING_CLASS&left, const double&right)
 _STRING_CLASS operator+(const double&left, const _STRING_CLASS&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromdecimal)(left);
+	_STRING_CLASS leftStr = _STRING_PREFIXED_TOKEN(_convert_fromdecimal)(left);
 	size_t left_size = leftStr.length();
 	size_t size_new = left_size + right.size;
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
@@ -3015,7 +3015,7 @@ _STRING_CLASS operator+(const double&left, const _STRING_CLASS&right)
 _STRING_CLASS operator+(const _STRING_CLASS&left, const long double&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS rightStr = _CONCAT(_STRING_CLASS,_convert_fromdecimal)(right);
+	_STRING_CLASS rightStr = _STRING_PREFIXED_TOKEN(_convert_fromdecimal)(right);
 	size_t size_new = left.size + rightStr.length();
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
 	if(newStr_characters_new == nullptr)
@@ -3041,7 +3041,7 @@ _STRING_CLASS operator+(const _STRING_CLASS&left, const long double&right)
 _STRING_CLASS operator+(const long double&left, const _STRING_CLASS&right)
 {
 	_STRING_CLASS newStr;
-	_STRING_CLASS leftStr = _CONCAT(_STRING_CLASS,_convert_fromdecimal)(left);
+	_STRING_CLASS leftStr = _STRING_PREFIXED_TOKEN(_convert_fromdecimal)(left);
 	size_t left_size = leftStr.length();
 	size_t size_new = left_size + right.size;
 	_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (size_new+1)*sizeof(_STRING_TYPE));
@@ -3064,3 +3064,7 @@ _STRING_CLASS operator+(const long double&left, const _STRING_CLASS&right)
 	newStr.characters[size_new] = NULL;
 	return newStr;
 }
+
+#undef _STRING_PREFIXED_TOKEN
+#undef _CONCAT_EVALUATOR
+#undef _CONCAT_PASTER

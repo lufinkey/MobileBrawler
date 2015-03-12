@@ -1,7 +1,7 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 
-#include "String.h"
+#include "WideString.h"
 #include <cmath>
 #include <cstdlib>
 #include <new>
@@ -9,8 +9,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <vector>
-#ifdef _STRING_WIDESTRING_ENABLED
-	#include "WideString.h"
+#ifdef _WIDESTRING_STRING_ENABLED
+	#include "String.h"
 #endif
 
 #ifndef _STRING_STANDALONE
@@ -23,31 +23,36 @@ namespace GameLibrary
 {
 #endif
 	
-	#define _STRING_CLASS String
-	#define _STRING_TYPE char
+	#define _STRING_CLASS WideString
+	#define _STRING_TYPE wchar_t
 	#define _STRING_EXCEPTION_NUMBERFORMAT NumberFormatException
 	#define _STRING_EXCEPTION_OUTOFBOUNDS StringOutOfBoundsException
-	#define _STRING_LITERAL(str) str
-	
-	_STRING_CLASS::_STRING_CLASS(const std::string&str) : _STRING_CLASS(str.c_str(), str.length())
-	{
-		//
-	}
+	#define _STRING_LITERAL(str) L##str
 	
 	_STRING_CLASS::_STRING_CLASS(const std::wstring&str) : _STRING_CLASS(str.c_str(), str.length())
 	{
 		//
 	}
 	
-	_STRING_CLASS::_STRING_CLASS(const wchar_t&c)
+	_STRING_CLASS::_STRING_CLASS(const std::string&str) : _STRING_CLASS(str.c_str(), str.length())
 	{
-		characters = (_STRING_TYPE*)std::calloc((size+1)*sizeof(wchar_t), sizeof(_STRING_TYPE));
-		size = (size_t)wctomb(characters,c);
+		//
+	}
+	
+	_STRING_CLASS::_STRING_CLASS(const char&c)
+	{
+		characters = (_STRING_TYPE*)std::calloc(size+1, sizeof(_STRING_TYPE));
+		if(characters == nullptr)
+		{
+			throw std::bad_alloc();
+		}
+		char src[2] = {c, NULL};
+		size = (size_t)mbtowc(characters, src, 2);
 		if(size == (size_t)-1)
 		{
 			size = 0;
 		}
-		_STRING_TYPE*characters_new = (_STRING_TYPE*)std::realloc(characters, (size+1)*sizeof(_STRING_TYPE));
+		_STRING_TYPE*characters_new = (_STRING_TYPE*)std::realloc(characters, size*sizeof(_STRING_TYPE));
 		if(characters_new == nullptr)
 		{
 			std::free(characters);
@@ -57,20 +62,20 @@ namespace GameLibrary
 		characters[size] = NULL;
 	}
 
-	_STRING_CLASS::_STRING_CLASS(const wchar_t*str) : _STRING_CLASS(str, std::wcslen(str))
+	_STRING_CLASS::_STRING_CLASS(const char*str) : _STRING_CLASS(str, std::strlen(str))
 	{
 		//
 	}
 	
-	_STRING_CLASS::_STRING_CLASS(const wchar_t*str, size_t length)
+	_STRING_CLASS::_STRING_CLASS(const char*str, size_t length)
 	{
-		size = (length*sizeof(wchar_t));
+		size = (length*sizeof(char));
 		characters = (_STRING_TYPE*)std::calloc(size+1, sizeof(_STRING_TYPE));
 		if(characters == nullptr)
 		{
 			throw std::bad_alloc();
 		}
-		size = std::wcstombs(characters,str,size+1);
+		size = std::mbstowcs(characters,str,size+1);
 		if(size == (size_t)-1)
 		{
 			size = 0;
@@ -85,48 +90,48 @@ namespace GameLibrary
 		characters[size] = NULL;
 	}
 	
-	#ifdef _STRING_WIDESTRING_ENABLED
-	_STRING_CLASS::_STRING_CLASS(const WideString&str) : _STRING_CLASS(str.characters, str.size)
+	#ifdef _WIDESTRING_STRING_ENABLED
+	_STRING_CLASS::_STRING_CLASS(const String&str) : _STRING_CLASS(str.characters, str.size)
 	{
 		//
 	}
 	#endif
 	
-	_STRING_CLASS::operator std::string() const
-	{
-		return std::string(characters);
-	}
-	
 	_STRING_CLASS::operator std::wstring() const
 	{
-		wchar_t*str = new wchar_t[(size+1)*sizeof(_STRING_TYPE)];
-		size_t strSize = std::mbstowcs(str,characters,size+1);
+		return std::wstring(characters);
+	}
+	
+	_STRING_CLASS::operator std::string() const
+	{
+		char*str = new char[(size+1)*sizeof(_STRING_TYPE)];
+		size_t strSize = std::wcstombs(str,characters,size+1);
 		if(strSize == (size_t)-1)
 		{
-			return std::wstring();
+			return std::string();
 		}
-		std::wstring newStr(str);
+		std::string newStr(str);
 		delete[] str;
 		return newStr;
 	}
 	
-	#ifdef _STRING_WIDESTRING_ENABLED
-	_STRING_CLASS::operator WideString() const
+	#ifdef _WIDESTRING_STRING_ENABLED
+	_STRING_CLASS::operator String() const
 	{
-		return WideString(characters, size);
+		return String(characters, size);
 	}
 	#endif
 	
-	#ifdef _STRING_WIDESTRING_ENABLED
-	WideString _STRING_CLASS::toWideString() const
+	#ifdef _WIDESTRING_STRING_ENABLED
+	String _STRING_CLASS::toString() const
 	{
-		return WideString(characters, size);
+		return String(characters, size);
 	}
 	#endif
 	
-	void _STRING_CLASS::append(const wchar_t*str, size_t length)
+	void _STRING_CLASS::append(const char*str, size_t length)
 	{
-		append(String(str, length));
+		append(WideString(str, length));
 	}
 	
 	_STRING_CLASS& _STRING_CLASS::operator+=(const std::string&str)
@@ -141,36 +146,36 @@ namespace GameLibrary
 		return *this;
 	}
 	
-	_STRING_CLASS& _STRING_CLASS::operator+=(const wchar_t&c)
+	_STRING_CLASS& _STRING_CLASS::operator+=(const char&c)
 	{
-		wchar_t buffer[2] = {c, NULL};
+		char buffer[2] = {c, NULL};
 		append(buffer, 1);
 		return *this;
 	}
 	
-	_STRING_CLASS& _STRING_CLASS::operator+=(const wchar_t*str)
+	_STRING_CLASS& _STRING_CLASS::operator+=(const char*str)
 	{
-		append(str, std::wcslen(str));
+		append(str, std::strlen(str));
 		return *this;
 	}
 	
-	#ifdef _STRING_WIDESTRING_ENABLED
-	_STRING_CLASS& _STRING_CLASS::operator+=(const WideString&str)
+	#ifdef _WIDESTRING_STRING_ENABLED
+	_STRING_CLASS& _STRING_CLASS::operator+=(const String&str)
 	{
 		append(str.characters, str.size);
 		return *this;
 	}
 	#endif
 	
-	void _STRING_CLASS::set(const wchar_t*str, size_t length)
+	void _STRING_CLASS::set(const char*str, size_t length)
 	{
-		size_t size_new = (length*sizeof(wchar_t));
+		size_t size_new = (length*sizeof(char));
 		_STRING_TYPE*characters_new = (_STRING_TYPE*)std::realloc(characters, (size_new+1)*sizeof(_STRING_TYPE));
 		if(characters_new == nullptr)
 		{
 			throw std::bad_alloc();
 		}
-		size_new = std::wcstombs(characters,str,size_new+1);
+		size_new = std::mbstowcs(characters,str,size_new+1);
 		if(size_new == (size_t)-1)
 		{
 			size_new = 0;
@@ -186,33 +191,33 @@ namespace GameLibrary
 		characters[size] = NULL;
 	}
 	
-	_STRING_CLASS& _STRING_CLASS::operator=(const std::string&str)
-	{
-		set(str.c_str(), str.length());
-		return *this;
-	}
-	
 	_STRING_CLASS& _STRING_CLASS::operator=(const std::wstring&str)
 	{
 		set(str.c_str(), str.length());
 		return *this;
 	}
 	
-	_STRING_CLASS& _STRING_CLASS::operator=(const wchar_t&c)
+	_STRING_CLASS& _STRING_CLASS::operator=(const std::string&str)
 	{
-		wchar_t buffer[2] = {c, NULL};
+		set(str.c_str(), str.length());
+		return *this;
+	}
+	
+	_STRING_CLASS& _STRING_CLASS::operator=(const char&c)
+	{
+		char buffer[2] = {c, NULL};
 		set(buffer, 1);
 		return *this;
 	}
 	
-	_STRING_CLASS& _STRING_CLASS::operator=(const wchar_t*str)
+	_STRING_CLASS& _STRING_CLASS::operator=(const char*str)
 	{
-		set(str, std::wcslen(str));
+		set(str, std::strlen(str));
 		return *this;
 	}
 	
-	#ifdef _STRING_WIDESTRING_ENABLED
-	_STRING_CLASS& _STRING_CLASS::operator=(const WideString&str)
+	#ifdef _WIDESTRING_STRING_ENABLED
+	_STRING_CLASS& _STRING_CLASS::operator=(const String&str)
 	{
 		set(str.characters, str.size);
 		return *this;
@@ -221,7 +226,7 @@ namespace GameLibrary
 	
 	#include "StringClass.cpp.impl"
 	
-	_STRING_CLASS operator+(const _STRING_CLASS&left, const std::string& right)
+	_STRING_CLASS operator+(const _STRING_CLASS&left, const std::wstring& right)
 	{
 		_STRING_CLASS newStr;
 		size_t size_new = left.size + right.length();
@@ -245,8 +250,8 @@ namespace GameLibrary
 		newStr.characters[size_new] = NULL;
 		return newStr;
 	}
-
-	_STRING_CLASS operator+(const std::string& left, const _STRING_CLASS&right)
+	
+	_STRING_CLASS operator+(const std::wstring& left, const _STRING_CLASS&right)
 	{
 		_STRING_CLASS newStr;
 		size_t left_size = left.length();
@@ -271,8 +276,8 @@ namespace GameLibrary
 		newStr.characters[size_new] = NULL;
 		return newStr;
 	}
-
-	_STRING_CLASS operator+(const _STRING_CLASS&left, const std::wstring&right)
+	
+	_STRING_CLASS operator+(const _STRING_CLASS&left, const std::string&right)
 	{
 		_STRING_CLASS newStr;
 		_STRING_CLASS rightStr(right);
@@ -298,7 +303,7 @@ namespace GameLibrary
 		return newStr;
 	}
 
-	_STRING_CLASS operator+(const std::wstring&left, const _STRING_CLASS&right)
+	_STRING_CLASS operator+(const std::string&left, const _STRING_CLASS&right)
 	{
 		_STRING_CLASS newStr;
 		_STRING_CLASS leftStr(left);
@@ -324,7 +329,7 @@ namespace GameLibrary
 		return newStr;
 	}
 	
-	_STRING_CLASS operator+(const _STRING_CLASS&left, const wchar_t*right)
+	_STRING_CLASS operator+(const _STRING_CLASS&left, const char*right)
 	{
 		_STRING_CLASS newStr;
 		_STRING_CLASS rightStr(right);
@@ -350,7 +355,7 @@ namespace GameLibrary
 		return newStr;
 	}
 
-	_STRING_CLASS operator+(const wchar_t*left, const _STRING_CLASS&right)
+	_STRING_CLASS operator+(const char*left, const _STRING_CLASS&right)
 	{
 		_STRING_CLASS newStr;
 		_STRING_CLASS leftStr(left);
@@ -376,7 +381,7 @@ namespace GameLibrary
 		return newStr;
 	}
 	
-	_STRING_CLASS operator+(const _STRING_CLASS&left, const wchar_t&right)
+	_STRING_CLASS operator+(const _STRING_CLASS&left, const char&right)
 	{
 		_STRING_CLASS newStr;
 		_STRING_CLASS rightStr(right);
@@ -402,7 +407,7 @@ namespace GameLibrary
 		return newStr;
 	}
 
-	_STRING_CLASS operator+(const wchar_t&left, const _STRING_CLASS&right)
+	_STRING_CLASS operator+(const char&left, const _STRING_CLASS&right)
 	{
 		_STRING_CLASS newStr;
 		_STRING_CLASS leftStr(left);
@@ -428,8 +433,8 @@ namespace GameLibrary
 		return newStr;
 	}
 	
-	#ifdef _STRING_WIDESTRING_ENABLED
-	_STRING_CLASS operator+(const _STRING_CLASS&left, const WideString&right)
+	#ifdef _WIDESTRING_STRING_ENABLED
+	_STRING_CLASS operator+(const _STRING_CLASS&left, const String&right)
 	{
 		_STRING_CLASS newStr;
 		_STRING_CLASS rightStr(right);
