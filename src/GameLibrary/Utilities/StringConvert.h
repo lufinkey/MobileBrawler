@@ -8,6 +8,38 @@
 
 namespace GameLibrary
 {
+	template <typename S, typename D>
+	D CharForceConvert(const S&src)
+	{
+		if(sizeof(S) < sizeof(D))
+		{
+			return (D)src;
+		}
+		else if(sizeof(S) > sizeof(D))
+		{
+			S d_max = (S)std::numeric_limits<D>();
+			if(src >= d_max)
+			{
+				if(sizeof(D) >= 2)
+				{
+					return (D)0xfffd;
+				}
+				else
+				{
+					return (D)'?';
+				}
+			}
+			else
+			{
+				return (D)src;
+			}
+		}
+		else
+		{
+			return (D)src;
+		}
+	}
+	
 	template<typename S, typename D>
 	std::basic_string<D, std::char_traits<D>, std::allocator<D> > StringForceConvert(const std::basic_string<S, std::char_traits<S>, std::allocator<S> > &src)
 	{
@@ -55,7 +87,7 @@ namespace GameLibrary
 	template<typename D>
 	std::basic_string<D, std::char_traits<D>, std::allocator<D> > StringForceConvert(const String&src)
 	{
-		if(sizeof(char) < sizeof(D))
+		if(sizeof(String::char_type) < sizeof(D))
 		{
 			size_t size = src.length();
 			std::basic_string<D, std::char_traits<D>, std::allocator<D> > dst(size);
@@ -65,10 +97,10 @@ namespace GameLibrary
 			}
 			return dst;
 		}
-		else if(sizeof(char) > sizeof(D))
+		else if(sizeof(String::char_type) > sizeof(D))
 		{
 			size_t size = src.length();
-			char d_max = (char)std::numeric_limits<D>();
+			String::char_type d_max = (String::char_type)std::numeric_limits<D>();
 			std::basic_string<D, std::char_traits<D>, std::allocator<D> > dst(size);
 			for(size_t i=0; i<size; i++)
 			{
@@ -99,7 +131,7 @@ namespace GameLibrary
 	template<typename D>
 	std::basic_string<D, std::char_traits<D>, std::allocator<D> > StringForceConvert(const WideString&src)
 	{
-		if(sizeof(wchar_t) < sizeof(D))
+		if(sizeof(WideString::char_type) < sizeof(D))
 		{
 			size_t size = src.length();
 			std::basic_string<D, std::char_traits<D>, std::allocator<D> > dst(size);
@@ -109,10 +141,10 @@ namespace GameLibrary
 			}
 			return dst;
 		}
-		else if(sizeof(wchar_t) > sizeof(D))
+		else if(sizeof(WideString::char_type) > sizeof(D))
 		{
 			size_t size = src.length();
-			wchar_t d_max = (wchar_t)std::numeric_limits<D>();
+			WideString::char_type d_max = (WideString::char_type)std::numeric_limits<D>();
 			std::basic_string<D, std::char_traits<D>, std::allocator<D> > dst(size);
 			for(size_t i=0; i<size; i++)
 			{
