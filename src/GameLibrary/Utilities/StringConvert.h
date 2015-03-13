@@ -58,7 +58,7 @@ namespace GameLibrary
 		else if(sizeof(S) > sizeof(D))
 		{
 			size_t size = src.length();
-			S d_max = (S)std::numeric_limits<D>();
+			S d_max = (S)std::numeric_limits<D>::max();
 			std::basic_string<D, std::char_traits<D>, std::allocator<D> > dst;
 			dst.resize(size+1);
 			for(size_t i=0; i<size; i++)
@@ -76,7 +76,7 @@ namespace GameLibrary
 				}
 				else
 				{
-					d.at(i) = (D)src.at(i);
+					dst.at(i) = (D)src.at(i);
 				}
 			}
 			dst.at(size) = NULL;
@@ -85,6 +85,65 @@ namespace GameLibrary
 		else
 		{
 			return std::basic_string<D, std::char_traits<D>, std::allocator<D> >((const D*)src.c_str(), ((const D*)src.c_str()) + src.length());
+		}
+	}
+
+	template<typename T>
+	size_t MeasureString(const T*str)
+	{
+		size_t counter = 0;
+		while(str[counter] != NULL)
+		{
+			counter++;
+		}
+		return counter;
+	}
+	
+	template<typename S, typename D>
+	std::basic_string<D, std::char_traits<D>, std::allocator<D> > StringForceConvert(const S*src)
+	{
+		if(sizeof(S) < sizeof(D))
+		{
+			size_t size = MeasureString(src);
+			std::basic_string<D, std::char_traits<D>, std::allocator<D> > dst;
+			dst.resize(size+1);
+			for(size_t i=0; i<size; i++)
+			{
+				dst.at(i) = (D)src[i];
+			}
+			dst.at(size) = NULL;
+			return dst;
+		}
+		else if(sizeof(S) > sizeof(D))
+		{
+			size_t size = MeasureString(src);
+			S d_max = (S)std::numeric_limits<D>::max();
+			std::basic_string<D, std::char_traits<D>, std::allocator<D> > dst;
+			dst.resize(size+1);
+			for(size_t i=0; i<size; i++)
+			{
+				if(src[i] >= d_max)
+				{
+					if(sizeof(D) >= 2)
+					{
+						dst.at(i) = (D)0xfffd;
+					}
+					else
+					{
+						dst.at(i) = (D)'?';
+					}
+				}
+				else
+				{
+					dst.at(i) = (D)src[i];
+				}
+			}
+			dst.at(size) = NULL;
+			return dst;
+		}
+		else
+		{
+			return std::basic_string<D, std::char_traits<D>, std::allocator<D> >((const D*)src, (const D*)(src + MeasureString(src)));
 		}
 	}
 	

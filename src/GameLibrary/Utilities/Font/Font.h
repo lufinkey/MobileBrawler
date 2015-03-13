@@ -5,6 +5,8 @@
 #include "../ArrayList.h"
 #include "../Pair.h"
 #include "../String.h"
+#include "../WideString.h"
+#include "../StringConvert.h"
 #include "../Geometry/Vector2.h"
 #include "../../Exception/InitializeLibraryException.h"
 #include "../../Exception/Utilities/Font/RenderGlyphException.h"
@@ -19,6 +21,9 @@ namespace GameLibrary
 		friend class Graphics;
 		friend class RenderedGlyphContainer;
 	public:
+		typedef RenderedGlyphContainer::GlyphString GlyphString;
+		typedef GlyphString::char_type glyph_char;
+
 		/*Bitmask values for Font styles*/
 		enum Style
 		{
@@ -51,7 +56,7 @@ namespace GameLibrary
 		/*! Estimates the display size of a given string of text.
 			\param text a string of text to estimate
 			\returns a Vector2u representing the display width (x) and height (y) of the string*/
-		Vector2u measureString(const String&text);
+		Vector2u measureString(const GlyphString&text);
 		
 		
 		/*! Sets a bitmask for the style (plain, bold, italic, etc.).
@@ -91,7 +96,7 @@ namespace GameLibrary
 		void*getFontPtr(unsigned int size);
 		void clearFontSizes();
 		RenderedGlyphContainer* getRenderedGlyphContainer(void*renderer);
-		ArrayList<RenderedGlyphContainer::RenderedGlyph> getRenderedGlyphs(const String&text, void*renderer);
+		ArrayList<RenderedGlyphContainer::RenderedGlyph> getRenderedGlyphs(const GlyphString&text, void*renderer);
 
 		static int styleToTTFStyle(int fontstyle);
 	};

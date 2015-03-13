@@ -141,11 +141,11 @@ namespace GameLibrary
 			\param text the string of text to draw
 			\param x the x coordinate of the bottom left of the string
 			\param y the y coordinate of the bottom left of the string*/
-		void drawString(const String&text, double x, double y);
+		void drawString(const WideString&text, double x, double y);
 		/*! Draws a string to the Window.
 			\param text the string of text to draw
 			\param point the coordinates of the bottom left of the string*/
-		void drawString(const String&text, const Vector2d& point);
+		void drawString(const WideString&text, const Vector2d& point);
 		
 		
 		/*! Draws a line to the Window.

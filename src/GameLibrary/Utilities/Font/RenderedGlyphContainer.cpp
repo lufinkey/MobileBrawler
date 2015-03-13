@@ -7,36 +7,33 @@ namespace GameLibrary
 {
 	RenderedGlyphContainer::RenderedGlyphContainer()
 	{
-		for(unsigned int i=0; i<256; i++)
-		{
-			glyphs[i] = nullptr;
-		}
+		//
 	}
-
+	
 	RenderedGlyphContainer::~RenderedGlyphContainer()
 	{
 		clear();
 	}
-
+	
 	void RenderedGlyphContainer::clear()
 	{
 		mlock.lock();
-		for(unsigned int i=0; i<256; i++)
+		for(size_t i=0; i<glyphs.size(); i++)
 		{
-			destroyGlyphStyles(glyphs[i]);
-			glyphs[i] = nullptr;
+			destroyGlyphStyles(glyphs.get(i).second);
 		}
+		glyphs.clear();
 		mlock.unlock();
 	}
 
-	ArrayList<RenderedGlyphContainer::RenderedGlyph> RenderedGlyphContainer::getRenderedGlyphs(void*fontptr, void*renderer, unsigned int size, int fontstyle, const String&txt, bool antialiasing)
+	ArrayList<RenderedGlyphContainer::RenderedGlyph> RenderedGlyphContainer::getRenderedGlyphs(void*fontptr, void*renderer, unsigned int size, int fontstyle, const GlyphString&txt, bool antialiasing)
 	{
 		mlock.lock();
 		ArrayList<RenderedGlyph> glyphTextures;
 		int ttf_style = Font::styleToTTFStyle(fontstyle);
 		TTF_SetFontStyle((TTF_Font*)fontptr, ttf_style);
 		unsigned int length = txt.length();
-		for(unsigned int i=0; i<length; i++)
+		for(size_t i=0; i<length; i++)
 		{
 			try
 			{
@@ -51,15 +48,22 @@ namespace GameLibrary
 		mlock.unlock();
 		return glyphTextures;
 	}
-
-	RenderedGlyphContainer::RenderedGlyph RenderedGlyphContainer::getGlyph(char glyph, void*fontptr, void*renderer, unsigned int size, int fontstyle, bool antialiasing)
+	
+	RenderedGlyphContainer::RenderedGlyph RenderedGlyphContainer::getGlyph(glyph_char glyph, void*fontptr, void*renderer, unsigned int size, int fontstyle, bool antialiasing)
 	{
-		unsigned int index = (unsigned int)(((int)glyph) - CHAR_MIN);
-		RenderedGlyphStyles* glyphStyles = glyphs[index];
-		if(glyphStyles == nullptr)
+		size_t index = ARRAYLIST_NOTFOUND;
+		for(size_t i=0; i<glyphs.size(); i++)
 		{
-			glyphStyles = new RenderedGlyphStyles();
-			glyphs[index] = glyphStyles;
+			if(glyphs.get(i).first == glyph)
+			{
+				index = i;
+				i = glyphs.size();
+			}
+		}
+		if(index == ARRAYLIST_NOTFOUND)
+		{
+			RenderedGlyphStyles* glyphStyles = new RenderedGlyphStyles();
+			glyphs.add(Pair<glyph_char, RenderedGlyphStyles*>(glyph, glyphStyles));
 
 			RenderedGlyph renderedGlyph = renderGlyph(glyph, fontptr, renderer, size, fontstyle, antialiasing);
 			glyphStyles->styles.add(renderedGlyph);
@@ -67,6 +71,7 @@ namespace GameLibrary
 		}
 		else
 		{
+			RenderedGlyphStyles* glyphStyles = glyphs.get(index).second;
 			ArrayList<RenderedGlyph>& renderedGlyphs = glyphStyles->styles;
 			RenderedGlyph renderedGlyph = findGlyph(renderedGlyphs, size, fontstyle, antialiasing);
 			if(renderedGlyph.texture == nullptr)
@@ -78,15 +83,15 @@ namespace GameLibrary
 		}
 	}
 
-	RenderedGlyphContainer::RenderedGlyph RenderedGlyphContainer::findGlyph(const ArrayList<RenderedGlyph>&glyphStyles, unsigned int size, int fontstyle, bool antialiasing)
+	RenderedGlyphContainer::RenderedGlyph RenderedGlyphContainer::findGlyph(const ArrayList<RenderedGlyph>&renderedGlyphs, unsigned int size, int fontstyle, bool antialiasing)
 	{
-		unsigned int total = glyphStyles.size();
+		unsigned int total = renderedGlyphs.size();
 		for(unsigned int i=0; i<total; i++)
 		{
-			const RenderedGlyph& glyphStyle = glyphStyles.get(i);
-			if(glyphStyle.size >= size && glyphStyle.fontstyle == fontstyle && glyphStyle.antialias==antialiasing)
+			const RenderedGlyph& renderedGlyph = renderedGlyphs.get(i);
+			if(renderedGlyph.size >= size && renderedGlyph.fontstyle == fontstyle && renderedGlyph.antialias==antialiasing)
 			{
-				return glyphStyle;
+				return renderedGlyph;
 			}
 		}
 		RenderedGlyph renderedGlyph;
@@ -97,18 +102,18 @@ namespace GameLibrary
 		return renderedGlyph;
 	}
 
-	RenderedGlyphContainer::RenderedGlyph RenderedGlyphContainer::renderGlyph(char glyph, void*fontptr, void*renderer, unsigned int size, int fontstyle, bool antialiasing)
+	RenderedGlyphContainer::RenderedGlyph RenderedGlyphContainer::renderGlyph(glyph_char glyph, void*fontptr, void*renderer, unsigned int size, int fontstyle, bool antialiasing)
 	{
 		TTF_Font* font = (TTF_Font*)fontptr;
 		SDL_Color color = {255,255,255,255}; //white
 		SDL_Surface* surface = nullptr;
 		if(antialiasing)
 		{
-			surface = TTF_RenderGlyph_Blended(font, glyph, color);
+			surface = TTF_RenderGlyph_Blended(font, CharForceConvert<glyph_char, GameLibrary::Uint16>(glyph), color);
 		}
 		else
 		{
-			surface = TTF_RenderGlyph_Solid(font, glyph, color);
+			surface = TTF_RenderGlyph_Solid(font, CharForceConvert<glyph_char, GameLibrary::Uint16>(glyph), color);
 		}
 		if(surface == nullptr)
 		{

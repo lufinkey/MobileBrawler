@@ -182,7 +182,7 @@ namespace GameLibrary
 			{
 				if(error!=nullptr)
 				{
-					*error = (String)"" + *error + ".\n" + SDL_GetError();
+					*error = (String)"" + *error + "\n" + SDL_GetError();
 				}
 			}
 			delete fontDataPacket;
@@ -224,7 +224,7 @@ namespace GameLibrary
 		return container.first;
 	}
 
-	ArrayList<RenderedGlyphContainer::RenderedGlyph> Font::getRenderedGlyphs(const String&text, void*renderer)
+	ArrayList<RenderedGlyphContainer::RenderedGlyph> Font::getRenderedGlyphs(const GlyphString&text, void*renderer)
 	{
 		if(fontdata!=nullptr)
 		{
@@ -253,7 +253,7 @@ namespace GameLibrary
 		return ArrayList<RenderedGlyphContainer::RenderedGlyph>();
 	}
 
-	Vector2u Font::measureString(const String&text)
+	Vector2u Font::measureString(const GlyphString&text)
 	{
 		mlock.lock();
 		if(fontdata == nullptr || fontsizes == nullptr)
@@ -270,10 +270,10 @@ namespace GameLibrary
 		{
 			int w = 0;
 			int h = 0;
-			char str[2];
+			glyph_char str[2];
 			str[0] = text.charAt(i);
-			str[1] = '\0';
-			if(TTF_SizeText(font, str, &w, &h) < 0)
+			str[1] = NULL;
+			if(TTF_SizeUNICODE(font, StringForceConvert<glyph_char, GameLibrary::Uint16>(str).c_str(), &w, &h) < 0)
 			{
 				mlock.unlock();
 				//TODO replace with more specific exception type

@@ -3,7 +3,8 @@
 
 #include "../../Types.h"
 #include "../ArrayList.h"
-#include "../String.h"
+#include "../WideString.h"
+#include "../Dictionary.h"
 #include <mutex>
 
 namespace GameLibrary
@@ -14,6 +15,9 @@ namespace GameLibrary
 		friend class Font;
 		friend class Graphics;
 	public:
+		typedef WideString GlyphString;
+		typedef GlyphString::char_type glyph_char;
+
 		/*! information for a rendered font glyph*/
 		typedef struct
 		{
@@ -36,7 +40,7 @@ namespace GameLibrary
 			\param txt the string of text to render glyphs for
 			\param antialiasing tell whether smoothing is enabled
 			\returns an ArrayList of RendererdGlyph structures*/
-		ArrayList<RenderedGlyph> getRenderedGlyphs(void*fontptr, void*renderer, unsigned int size, int fontstyle, const String&txt, bool antialiasing = false);
+		ArrayList<RenderedGlyph> getRenderedGlyphs(void*fontptr, void*renderer, unsigned int size, int fontstyle, const GlyphString&txt, bool antialiasing = false);
 		
 		/*! Removes and deletes all stored glyph renders.*/
 		void clear();
@@ -46,15 +50,15 @@ namespace GameLibrary
 		{
 			ArrayList<RenderedGlyph> styles;
 		} RenderedGlyphStyles;
-
-		RenderedGlyphStyles* glyphs[256];
+		
+		ArrayList<Pair<glyph_char, RenderedGlyphStyles*> > glyphs;
 		std::mutex mlock;
 
-		RenderedGlyph renderGlyph(char glyph, void*fontptr, void*renderer, unsigned int size, int fontstyle, bool antialiasing);
+		RenderedGlyph renderGlyph(glyph_char glyph, void*fontptr, void*renderer, unsigned int size, int fontstyle, bool antialiasing);
 		void destroyGlyph(RenderedGlyph&renderedGlyph);
 		void destroyGlyphStyles(RenderedGlyphStyles*glyphStyles);
-
-		RenderedGlyph getGlyph(char glyph, void*fontptr, void*renderer, unsigned int size, int fontstyle, bool antialiasing);
+		
+		RenderedGlyph getGlyph(glyph_char glyph, void*fontptr, void*renderer, unsigned int size, int fontstyle, bool antialiasing);
 		RenderedGlyph findGlyph(const ArrayList<RenderedGlyph>&glyphStyles, unsigned int size, int fontstyle, bool antialiasing);
 	};
 }

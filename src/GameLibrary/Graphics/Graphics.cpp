@@ -402,7 +402,7 @@ namespace GameLibrary
 		return cliprect;
 	}
 
-	void Graphics::drawString(const String&text, double x1, double y1)
+	void Graphics::drawString(const WideString&text, double x1, double y1)
 	{
 		ArrayList<RenderedGlyphContainer::RenderedGlyph> glyphs = font->getRenderedGlyphs(text,renderer);
 		Vector2u dimensions = font->measureString(text);
@@ -454,7 +454,7 @@ namespace GameLibrary
 		}
 	}
 	
-	void Graphics::drawString(const String&text, const Vector2d& point)
+	void Graphics::drawString(const WideString&text, const Vector2d& point)
 	{
 		drawString(text, point.x, point.y);
 	}
