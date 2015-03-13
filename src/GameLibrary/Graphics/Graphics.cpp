@@ -396,7 +396,7 @@ namespace GameLibrary
 		trueCR.y -= clipoffset.y;
 		cliprect = cliprect.getIntersect(trueCR);
 	}
-
+	
 	const RectangleD& Graphics::getClipRect()
 	{
 		return cliprect;

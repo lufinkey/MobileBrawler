@@ -58,7 +58,7 @@ namespace SmashBros
 			}
 		}
 		
-		void RulesBar::setValueLabelSuffix(const String&suffix)
+		void RulesBar::setValueLabelSuffix(const WideString&suffix)
 		{
 			valueLabelSuffix = suffix;
 		}

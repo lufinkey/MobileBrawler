@@ -28,13 +28,13 @@ namespace SmashBros
 			}
 		};
 		
-		MenuBarValueAdjust::MenuBarValueAdjust(const String&label, const String&valueLabel, Number*value_arg, const Number&minimum, const Number&maximum, const Number&increment, AssetManager*assetManager, const Dictionary&properties)
+		MenuBarValueAdjust::MenuBarValueAdjust(const WideString&label, const WideString&valueLabel, Number*value_arg, const Number&minimum, const Number&maximum, const Number&increment, AssetManager*assetManager, const Dictionary&properties)
 			: MenuBarValueAdjust(0, 0, label, valueLabel, value_arg, minimum, maximum, increment, assetManager, properties)
 		{
 			//
 		}
 
-		MenuBarValueAdjust::MenuBarValueAdjust(double x, double y, const String&label, const String&valueLabel, Number*value_arg, const Number&minimum, const Number&maximum, const Number&increment, AssetManager*assetManager, const Dictionary&properties)
+		MenuBarValueAdjust::MenuBarValueAdjust(double x, double y, const WideString&label, const WideString&valueLabel, Number*value_arg, const Number&minimum, const Number&maximum, const Number&increment, AssetManager*assetManager, const Dictionary&properties)
 			: MenuBar(x,y,label,assetManager, properties)
 		{
 			value = value_arg;
@@ -169,7 +169,7 @@ namespace SmashBros
 			listener = eventListener;
 		}
 		
-		void MenuBarValueAdjust::setValueLabel(const String&label)
+		void MenuBarValueAdjust::setValueLabel(const WideString&label)
 		{
 			value_label_actor->setText(label);
 			autoLayout.setFrame(getFrame());
@@ -180,7 +180,7 @@ namespace SmashBros
 			return listener;
 		}
 		
-		const String& MenuBarValueAdjust::getValueLabel() const
+		const WideString& MenuBarValueAdjust::getValueLabel() const
 		{
 			return value_label_actor->getText();
 		}

@@ -33,7 +33,7 @@ namespace GameLibrary
 			\param fontSize the glyph size of the font
 			\param fontStyle the style (plain, bold italic, etc.) of the font \see GameLibrary::Font::Style
 			\param alignment the alignment of the text, relative the origin \see GameLibrary::TextActor::TextAlignment*/
-		TextActor(const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontSize=24, int fontStyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_BOTTOMLEFT);
+		TextActor(const WideString&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontSize=24, int fontStyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_BOTTOMLEFT);
 		/*! Constructs a TextActor with a specified position, string, font, color, font size, font style, and alignment.
 			\param x the x coordinate
 			\param y the y coordinate
@@ -43,7 +43,7 @@ namespace GameLibrary
 			\param fontSize the glyph size of the font
 			\param fontStyle the style (plain, bold italic, etc.) of the font \see GameLibrary::Font::Style
 			\param alignment the alignment of the text, relative the origin \see GameLibrary::TextActor::TextAlignment*/
-		TextActor(double x, double y, const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontSize=24, int fontStyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_BOTTOMLEFT);
+		TextActor(double x, double y, const WideString&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontSize=24, int fontStyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_BOTTOMLEFT);
 		/*virtual destructor*/
 		virtual ~TextActor();
 		
@@ -64,7 +64,7 @@ namespace GameLibrary
 		
 		/*! Sets the string to display when drawn.
 			\param text the string to display*/
-		void setText(const String&text);
+		void setText(const WideString&text);
 		/*! Sets the font to use to display the text.
 			\param font the font to display the string*/
 		void setFont(Font*font);
@@ -84,7 +84,7 @@ namespace GameLibrary
 		
 		/*! Gets a constant reference to the String being displayed.
 			\returns the string being displayed*/
-		const String& getText() const;
+		const WideString& getText() const;
 		/*! Gets a pointer to the Font being used to display the text.
 			\returns a pointer to the font being used*/
 		Font* getFont() const;
@@ -117,7 +117,7 @@ namespace GameLibrary
 		virtual void drawActor(ApplicationData&appData, Graphics&graphics, double x, double y, double scale) const;
 		
 	private:
-		String text;
+		WideString text;
 		Font* font;
 		TextAlignment alignment;
 		int lineSpacing;
@@ -130,6 +130,6 @@ namespace GameLibrary
 		ArrayList<RectangleD> linerects;
 
 		RectangleD getBoundsRect(double width, double height) const;
-		static void getLinesList(const String&text, ArrayList<String>&lines);
+		static void getLinesList(const WideString&text, ArrayList<WideString>&lines);
 	};
 }

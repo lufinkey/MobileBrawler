@@ -4,18 +4,18 @@
 namespace GameLibrary
 {
 	TextActor::TextActor()
-		: TextActor(0,0, "", Graphics::getDefaultFont(), Color::BLACK)
+		: TextActor(0,0, L"", Graphics::getDefaultFont(), Color::BLACK)
 	{
 		//
 	}
 	
-	TextActor::TextActor(const String&text, Font*font, const Color&color, unsigned int fontSize, int fontStyle, const TextActor::TextAlignment&align)
+	TextActor::TextActor(const WideString&text, Font*font, const Color&color, unsigned int fontSize, int fontStyle, const TextActor::TextAlignment&align)
 		: TextActor(0,0, text, font, color, fontSize, fontStyle, align)
 	{
 		//
 	}
 	
-	TextActor::TextActor(double x1, double y1, const String&txt, Font*fnt, const Color&colr, unsigned int fontSize, int fontStyle, const TextActor::TextAlignment&align)
+	TextActor::TextActor(double x1, double y1, const WideString&txt, Font*fnt, const Color&colr, unsigned int fontSize, int fontStyle, const TextActor::TextAlignment&align)
 	{
 		x = x1;
 		y = y1;
@@ -95,14 +95,14 @@ namespace GameLibrary
 			
 			actorGraphics.setFont(font);
 			
-			ArrayList<String> lines;
+			ArrayList<WideString> lines;
 			TextActor::getLinesList(text, lines);
 			
 			double lineoffset = boundsrect.y;
 			
 			for(unsigned int i=0; i<lines.size(); i++)
 			{
-				const String&line = lines.get(i);
+				const WideString&line = lines.get(i);
 				const RectangleD&linerect = linerects.get(i);
 				//TODO add mirroring
 				
@@ -180,7 +180,7 @@ namespace GameLibrary
 			font->setSize(fontsize);
 			font->setStyle(fontstyle);
 
-			ArrayList<String> lines;
+			ArrayList<WideString> lines;
 			TextActor::getLinesList(text, lines);
 
 			RectangleD rect = RectangleD(0,0,0,0);
@@ -189,7 +189,7 @@ namespace GameLibrary
 			double spacing = (double)lineSpacing;
 			for(unsigned int i=0; i<lines.size(); i++)
 			{
-				const String&line = lines.get(i);
+				const WideString&line = lines.get(i);
 				Vector2u lineSize = font->measureString(line);
 				double lineH = (double)lineSize.y;
 				RectangleD linerect = RectangleD(0, offset_y, (double)lineSize.x, lineH);
@@ -215,17 +215,17 @@ namespace GameLibrary
 		framerect = rotationMatrix.transform(getBoundsRect(width, height));
 	}
 
-	void TextActor::getLinesList(const String&text, ArrayList<String>&lines)
+	void TextActor::getLinesList(const WideString&text, ArrayList<WideString>&lines)
 	{
-		String currentLine;
+		WideString currentLine;
 		for(size_t i=0; i<text.length(); i++)
 		{
-			char c = text.charAt(i);
-			if(c == '\r')
+			wchar_t c = text.charAt(i);
+			if(c == L'\r')
 			{
 				if(i != (text.length() - 1))
 				{
-					if(text.charAt(i+1) == '\n')
+					if(text.charAt(i+1) == L'\n')
 					{
 						i++;
 					}
@@ -233,7 +233,7 @@ namespace GameLibrary
 				lines.add(currentLine);
 				currentLine.clear();
 			}
-			else if(c == '\n')
+			else if(c == L'\n')
 			{
 				lines.add(currentLine);
 				currentLine.clear();
@@ -326,7 +326,7 @@ namespace GameLibrary
 		updateSize();
 	}
 	
-	void TextActor::setText(const String&str)
+	void TextActor::setText(const WideString&str)
 	{
 		text = str;
 		updateSize();
@@ -362,7 +362,7 @@ namespace GameLibrary
 		updateSize();
 	}
 	
-	const String& TextActor::getText() const
+	const WideString& TextActor::getText() const
 	{
 		return text;
 	}
