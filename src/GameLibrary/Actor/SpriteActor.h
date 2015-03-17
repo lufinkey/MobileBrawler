@@ -40,8 +40,9 @@ namespace GameLibrary
 		
 		
 		/*! Called when the SpriteActor finishes running through the frames of the current Animation.
+			\param name the user-defined identifier of the Animation
 			\param animation the Animation that has finished a cycle*/
-		virtual void onAnimationFinish(Animation*animation);
+		virtual void onAnimationFinish(const String&name, Animation*animation);
 		
 		
 		/*! Adds an Animation. The Animation object's deallocation becomes manually managed by the SpriteActor, unless specified otherwise.

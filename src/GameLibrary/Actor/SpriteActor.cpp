@@ -72,7 +72,7 @@ namespace GameLibrary
 						{
 							animation_frame = 0;
 							animation_current->setCurrentFrame(animation_frame);
-							onAnimationFinish(animation_current);
+							onAnimationFinish(animation_name, animation_current);
 						}
 						else
 						{
@@ -89,7 +89,7 @@ namespace GameLibrary
 								animation_frame = totalFrames-1;
 							}
 							animation_current->setCurrentFrame(animation_frame);
-							onAnimationFinish(animation_current);
+							onAnimationFinish(animation_name, animation_current);
 						}
 						else
 						{
@@ -187,7 +187,7 @@ namespace GameLibrary
 		setScale(getScale()*ratio);
 	}
 	
-	void SpriteActor::onAnimationFinish(Animation*animation)
+	void SpriteActor::onAnimationFinish(const String&name, Animation*animation)
 	{
 		//Open for implementation
 	}
