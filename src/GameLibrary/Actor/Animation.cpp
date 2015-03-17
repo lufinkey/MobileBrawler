@@ -77,25 +77,29 @@ namespace GameLibrary
 		return *this;
 	}
 
-	Animation::Animation(unsigned int fps_arg)
+	Animation::Animation(float fps_arg)
 	{
+		if(fps_arg < 0.0f)
+		{
+			throw IllegalArgumentException("fps", "cannot be negative");
+		}
 		fps = fps_arg;
 		currentFrame = 0;
 		mirroredHorizontal = false;
 		mirroredVertical = false;
 	}
 
-	Animation::Animation(unsigned int fps, AssetManager*assetManager, const String&file) : Animation(fps)
+	Animation::Animation(float fps, AssetManager*assetManager, const String&file) : Animation(fps)
 	{
 		addFrame(assetManager, file);
 	}
 
-	Animation::Animation(unsigned int fps, unsigned int rows, unsigned int cols, AssetManager*assetManager, const String&file) : Animation(fps)
+	Animation::Animation(float fps, unsigned int rows, unsigned int cols, AssetManager*assetManager, const String&file) : Animation(fps)
 	{
 		addFrames(assetManager, file, rows, cols);
 	}
 
-	Animation::Animation(unsigned int fps, unsigned int rows, unsigned int cols, AssetManager*assetManager, const String&file, const ArrayList<Vector2u>& sequence) : Animation(fps)
+	Animation::Animation(float fps, unsigned int rows, unsigned int cols, AssetManager*assetManager, const String&file, const ArrayList<Vector2u>& sequence) : Animation(fps)
 	{
 		addFrames(assetManager, file, rows, cols, sequence);
 	}
@@ -270,12 +274,16 @@ namespace GameLibrary
 		return frames.size();
 	}
 
-	void Animation::setFPS(unsigned int framerate)
+	void Animation::setFPS(float framerate)
 	{
+		if(framerate < 0.0f)
+		{
+			throw IllegalArgumentException("fps", "cannot be negative");
+		}
 		fps = framerate;
 	}
 
-	unsigned int Animation::getFPS() const
+	float Animation::getFPS() const
 	{
 		return fps;
 	}

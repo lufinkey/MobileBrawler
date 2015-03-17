@@ -56,10 +56,10 @@ namespace GameLibrary
 		}
 		else if(animation_current!=nullptr)
 		{
-			unsigned int fps = animation_current->getFPS();
+			float fps = animation_current->getFPS();
 			if(fps!=0)
 			{
-				long long waitTime = 1000/fps;
+				long long waitTime = (long long)(1000.0f/fps);
 				long long finishTime = animation_prevFrameTime + waitTime;
 				if(finishTime <= prevUpdateTime)
 				{

@@ -31,29 +31,33 @@ namespace GameLibrary
 		/*! copy constructor*/
 		Animation(const Animation&);
 		/*! Constructs an Animation with a specified frame rate.
-			\param fps the frame rate in frames per second*/
-		Animation(unsigned int fps);
+			\param fps the frame rate in frames per second
+			\throws GameLibrary::IllegalArgumentException if fps is a negative value*/
+		Animation(float fps);
 		/*! Constructs an Animation with a frame rate and a first frame.
 			\param fps the frame rate in frames per second
 			\param assetManager the assetManager to load and get the TextureImage. If null, or fails to load the image, the first frame's image is set to null, until Animation::reloadFrames is called to attempt to reload the images.
-			\param file the path to the image file of the first frame*/
-		Animation(unsigned int fps, AssetManager*assetManager, const String&file);
+			\param file the path to the image file of the first frame
+			\throws GameLibrary::IllegalArgumentException if fps is a negative value*/
+		Animation(float fps, AssetManager*assetManager, const String&file);
 		/*! Constructs an Animation with a frame rate and frames
 			\param fps the frame rate in frames per second
 			\param rows divides the image into rows of frames. If 0, no frames are added.
 			\param cols divides the image into columns of frames. If 0, no frames are added.
 			\param assetManager the assetManager to load and get the TextureImage. If null, or fails to load the image, the first frame's image is set to null, until Animation::reloadFrames is called to attempt to reload the images.
 			\param file the path to the image file to use for the frames
-			\note through this function, frames are added by looping through each row and adding the columns in each row. If you want a specific order, use the sequence parameter.*/
-		Animation(unsigned int fps, unsigned int rows, unsigned int cols, AssetManager*assetManager, const String&file);
+			\note through this function, frames are added by looping through each row and adding the columns in each row. If you want a specific order, use the sequence parameter.
+			\throws GameLibrary::IllegalArgumentException if fps is a negative value*/
+		Animation(float fps, unsigned int rows, unsigned int cols, AssetManager*assetManager, const String&file);
 		/*! Constructs an Animation with a frame rate and frames
 			\param fps the frame rate in frames per second
 			\param rows divides the image into rows of frames. If 0, no frames are added.
 			\param cols divides the image into columns of frames. If 0, no frames are added.
 			\param assetManager the assetManager to load and get the TextureImage. If null, or fails to load the image, the first frame's image is set to null, until Animation::reloadFrames is called to attempt to reload the images.
 			\param file the path to the image file to use for the frames
-			\param sequence the specific sequence to order the frames. the x value of the Vector2d represents the column, and the y value represents the row*/
-		Animation(unsigned int fps, unsigned int rows, unsigned int cols, AssetManager*assetManager, const String&file, const ArrayList<Vector2u>& sequence);
+			\param sequence the specific sequence to order the frames. the x value of the Vector2d represents the column, and the y value represents the row
+			\throws GameLibrary::IllegalArgumentException if fps is a negative value*/
+		Animation(float fps, unsigned int rows, unsigned int cols, AssetManager*assetManager, const String&file, const ArrayList<Vector2u>& sequence);
 		/*! virtual destructor
 			\note this does not unload the images loaded during construction. You must manually unload the contents of the assetManager used.*/
 		virtual ~Animation();
@@ -143,11 +147,12 @@ namespace GameLibrary
 		
 		
 		/*! Sets the frame rate.
-			\param fps the frame rate in frames per second*/
-		void setFPS(unsigned int fps);
+			\param fps the frame rate in frames per second
+			\throws GameLibrary::IllegalArgumentException if fps is a negative value*/
+		void setFPS(float fps);
 		/*! Gets the frame rate.
 			\returns an unsigned int representing the frame rate in frames per second*/
-		unsigned int getFPS() const;
+		float getFPS() const;
 		
 		
 		/*! Gets the image being used in the specified frame.
@@ -196,7 +201,7 @@ namespace GameLibrary
 		unsigned int currentFrame;
 		ArrayList<AnimationFrame> frames;
 
-		unsigned int fps;
+		float fps;
 
 		bool mirroredHorizontal;
 		bool mirroredVertical;
