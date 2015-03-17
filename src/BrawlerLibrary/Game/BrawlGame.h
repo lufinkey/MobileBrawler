@@ -10,11 +10,9 @@ namespace BrawlerLibrary
 	public:
 		BrawlGame(const GameLibrary::RectangleD&frame);
 		virtual ~BrawlGame();
-
-		virtual void update(GameLibrary::ApplicationData appData) override;
-		virtual void draw(GameLibrary::ApplicationData appData, GameLibrary::Graphics graphics) const override;
 		
-		virtual GameLibrary::RectangleD getFrame() const;
+		virtual void update(GameLibrary::ApplicationData appData) override;
+		virtual void drawMain(GameLibrary::ApplicationData appData, GameLibrary::Graphics graphics) const override;
 		
 		virtual void startGame();
 		virtual void stopGame();
