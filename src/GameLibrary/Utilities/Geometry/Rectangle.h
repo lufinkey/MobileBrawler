@@ -8,7 +8,7 @@ namespace GameLibrary
 {
 	template<typename T>
 	/*! Contains data about a rectangle*/
-	class RectangleType
+	class Rectangle
 	{
 	public:
 		/*! The x coordinate of the top left of the rectangle*/
@@ -21,7 +21,7 @@ namespace GameLibrary
 		T height;
 		
 		/*! default constructor*/
-		RectangleType() : x(0), y(0), width(0), height(0)
+		Rectangle() : x(0), y(0), width(0), height(0)
 		{
 			//
 		}
@@ -31,7 +31,7 @@ namespace GameLibrary
 			\param y the y coordinate of the top left of the rectangle
 			\param width the width of the rectangle
 			\param height the height of the rectangle*/
-		RectangleType(const T&x, const T&y, const T&width, const T&height) : x(x), y(y), width(width), height(height)
+		Rectangle(const T&x, const T&y, const T&width, const T&height) : x(x), y(y), width(width), height(height)
 		{
 			//
 		}
@@ -51,7 +51,7 @@ namespace GameLibrary
 		/*! Calculates whether a given rectangle is inside the bounds of this rectangle.
 			\param rect the rectangle to check
 			\returns true if the given rectangle is inside this rectangle's bounds, or false if otherwise*/
-		bool contains(const RectangleType<T>&rect) const
+		bool contains(const Rectangle<T>&rect) const
 		{
 			if(x <= rect.x &&y <= rect.y && x >= (rect.x+rect.width) && y >= (rect.y+rect.height))
 			{
@@ -63,7 +63,7 @@ namespace GameLibrary
 		/*! Calculates whether a given rectangle is intersecting the bounds of this rectangle.
 			\param rect the rectangle to check
 			\param true if the given rectangle is intersecting this rectangle's bounds, or false if otherwise*/
-		bool intersects(const RectangleType<T>&rect) const
+		bool intersects(const Rectangle<T>&rect) const
 		{
 			T left1, left2;
 			T right1, right2;
@@ -110,7 +110,7 @@ namespace GameLibrary
 		/*! Gets a rectangle of the overlap between this rectangle and a given rectangle.
 			\param rect the rectangle to check the overlap with
 			\returns a rectangle representing the overlap, or a Rectangle containing a width and height of 0 if the rectangle is not overlapping*/
-		RectangleType getIntersect(const RectangleType<T>&rect) const
+		Rectangle getIntersect(const Rectangle<T>&rect) const
 		{
 			T overlapLeft = 0;
 			T overlapTop = 0;
@@ -180,7 +180,7 @@ namespace GameLibrary
 				overlapRight = 0;
 				overlapBottom = 0;
 			}
-			RectangleType<T> overlapRect;
+			Rectangle<T> overlapRect;
 			overlapRect.x = x + overlapLeft;
 			overlapRect.y = y + overlapTop;
 			overlapRect.width = overlapRight - overlapLeft;
@@ -188,7 +188,7 @@ namespace GameLibrary
 			return overlapRect;
 		}
 	
-		void combine(const RectangleType<T>&rect)
+		void combine(const Rectangle<T>&rect)
 		{
 			T rect_left = rect.x;
 			T rect_top = rect.y;
@@ -225,7 +225,7 @@ namespace GameLibrary
 		
 		/*! Resizes and moves this rectangle, maintaining its aspect ratio, to fit within a given containing rectangle.
 			\param container a containing rectangle*/
-		void scaleToFit(const RectangleType<T>&container)
+		void scaleToFit(const Rectangle<T>&container)
 		{
 			T fixedHeight = height;
 			long double ratX = ((long double)container.width)/((long double)width);
@@ -252,7 +252,7 @@ namespace GameLibrary
 		
 		/*! Resizes and moves this rectangle, maintaining its aspect ratio, to exactly fill a given containing rectangle.
 			\param container a containing rectangle*/
-		void scaleToFill(const RectangleType<T>&container)
+		void scaleToFill(const Rectangle<T>&container)
 		{
 			T fixedHeight = height;
 			long double ratX = ((long double)container.width)/((long double)width);
@@ -279,9 +279,9 @@ namespace GameLibrary
 		
 		/*void scale(double scaleX, double scaleY, const T&originX, const T& originY)
 		{
-			Transform transform;
+			Transform<T> transform;
 			transform.scale((double)scaleX, (double)scaleY, (double)originX, (double)originY);
-			Polygon polygon = toPolygon();
+			Polygon<T> polygon = toPolygon();
 			polygon = transform.transform(polygon);
 			x = (T)(polygon.getPoints().get(0).x);
 			y = (T)(polygon.getPoints().get(0).y);
@@ -291,26 +291,26 @@ namespace GameLibrary
 		
 		/*! Creates a polygon with the coordinates of the 4 corners of this rectangle.
 			\returns a Polygon object*/
-		PolygonType<T> toPolygon() const
+		Polygon<T> toPolygon() const
 		{
-			PolygonType<T> polygon;
-			polygon.addPoint((double)x, (double)y);
-			polygon.addPoint((double)(x+width), (double)y);
-			polygon.addPoint((double)(x+width), (double)(y+height));
-			polygon.addPoint((double)x, (double)(y+height));
+			Polygon<T> polygon;
+			polygon.addPoint((T)x, (T)y);
+			polygon.addPoint((T)(x+width), (T)y);
+			polygon.addPoint((T)(x+width), (T)(y+height));
+			polygon.addPoint((T)x, (T)(y+height));
 			return polygon;
 		}
 	};
 	
-	typedef RectangleType<int> RectangleI;
-	typedef RectangleType<unsigned int> RectangleU;
-	typedef RectangleType<float> RectangleF;
-	typedef RectangleType<double> RectangleD;
+	typedef Rectangle<int> RectangleI;
+	typedef Rectangle<unsigned int> RectangleU;
+	typedef Rectangle<float> RectangleF;
+	typedef Rectangle<double> RectangleD;
 	
 	template<typename T>
 	/*! Contains data about a rectangle.
 	Similar to GameLibrary::Rectangle, but rather than having a width and a height, it contains coordinates for top left and bottom right.*/
-	class RectType
+	class Rect
 	{
 	public:
 		/*! the x coordinate of the left side of the rectangle*/
@@ -323,27 +323,27 @@ namespace GameLibrary
 		T bottom;
 		
 		/*! */
-		RectType() : left(0), top(0), right(0), bottom(0)
+		Rect() : left(0), top(0), right(0), bottom(0)
 		{
 			//
 		}
 		
-		RectType(const T&left, const T&top, const T&right, const T&bottom) : left(left), top(top), right(right), bottom(bottom)
+		Rect(const T&left, const T&top, const T&right, const T&bottom) : left(left), top(top), right(right), bottom(bottom)
 		{
 			//
 		}
 		
-		RectType(const RectType<T>&rect) : left(rect.left), top(rect.top), right(rect.right), bottom(rect.bottom)
+		Rect(const Rect<T>&rect) : left(rect.left), top(rect.top), right(rect.right), bottom(rect.bottom)
 		{
 			//
 		}
 		
-		RectType(const RectangleType<T>&rect) : left(rect.x), top(rect.y), right(rect.x+rect.width), bottom(rect.y+rect.height)
+		Rect(const Rectangle<T>&rect) : left(rect.x), top(rect.y), right(rect.x+rect.width), bottom(rect.y+rect.height)
 		{
 			//
 		}
 		
-		RectType<T>& operator=(const RectType<T>&rect)
+		Rect<T>& operator=(const Rect<T>&rect)
 		{
 			left = rect.left;
 			top = rect.top;
@@ -352,19 +352,19 @@ namespace GameLibrary
 			return *this;
 		}
 		
-		RectangleType<T>& toRectangle() const
+		Rectangle<T>& toRectangle() const
 		{
-			return RectangleType<T>(left,top,right-left,bottom-top);
+			return Rectangle<T>(left,top,right-left,bottom-top);
 		}
 		
-		operator RectangleType<T>() const
+		operator Rectangle<T>() const
 		{
-			return RectangleType<T>(left,top,right-left,bottom-top);
+			return Rectangle<T>(left,top,right-left,bottom-top);
 		}
 	};
 	
-	typedef RectType<int> RectI;
-	typedef RectType<unsigned int> RectU;
-	typedef RectType<float> RectF;
-	typedef RectType<double> RectD;
+	typedef Rect<int> RectI;
+	typedef Rect<unsigned int> RectU;
+	typedef Rect<float> RectF;
+	typedef Rect<double> RectD;
 }

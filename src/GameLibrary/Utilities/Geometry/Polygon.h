@@ -8,17 +8,17 @@ namespace GameLibrary
 {
 	template<typename T>
 	/*! A series of points that make up a polygon.*/
-	class PolygonType
+	class Polygon
 	{
 	public:
 		/*! default constructor*/
-		PolygonType()
+		Polygon()
 		{
 			//
 		}
 		
 		/*! copy constructor*/
-		PolygonType(const PolygonType<T>&polygon)
+		Polygon(const Polygon<T>&polygon)
 		{
 			points = polygon.points;
 		}
@@ -27,7 +27,7 @@ namespace GameLibrary
 			\param xpoints an array of x coordinates
 			\param ypoints an array of y coordinates
 			\param numpoints the size of the xpoints and ypoints arrays*/
-		PolygonType(const T*xpoints, const T*ypoints, unsigned int numpoints)
+		Polygon(const T*xpoints, const T*ypoints, unsigned int numpoints)
 		{
 			for (unsigned int i=0; i<numpoints; i++)
 			{
@@ -37,24 +37,24 @@ namespace GameLibrary
 		
 		/*! Constructs a Polygon from an ArrayList of coordinates.
 			\param points a list of points in the polygon*/
-		PolygonType(const ArrayList<Vector2<T> >& points)
+		Polygon(const ArrayList<Vector2<T> >& points)
 		{
-			PolygonType<T>::points = points;
+			Polygon<T>::points = points;
 		}
 		
 		/*! Constructs a Polygon from an array of coordinates.
 			\param points an array of points in the polygon
 			\param numpoints the size of the points array*/
-		PolygonType(const Vector2<T>* points, unsigned int numpoints)
+		Polygon(const Vector2<T>* points, unsigned int numpoints)
 		{
 			for(unsigned int i=0; i<numpoints; i++)
 			{
-				PolygonType::points.add(points[i]);
+				Polygon::points.add(points[i]);
 			}
 		}
 		
 		/*! assignment operator*/
-		PolygonType<T>& operator=(const PolygonType<T>&polygon)
+		Polygon<T>& operator=(const Polygon<T>&polygon)
 		{
 			points = polygon.points;
 			return *this;
@@ -125,8 +125,8 @@ namespace GameLibrary
 		ArrayList<Vector2<T> > points;
 	};
 	
-	typedef PolygonType<int> PolygonI;
-	typedef PolygonType<float> PolygonF;
-	typedef PolygonType<double> PolygonD;
-	typedef PolygonType<long double> PolygonLD;
+	typedef Polygon<int> PolygonI;
+	typedef Polygon<float> PolygonF;
+	typedef Polygon<double> PolygonD;
+	typedef Polygon<long double> PolygonLD;
 }

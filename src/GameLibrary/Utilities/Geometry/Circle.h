@@ -5,7 +5,7 @@ namespace GameLibrary
 {
 	template<typename T>
 	/*! Contains data about a circle*/
-	class CircleType
+	class Circle
 	{
 	public:
 		/*! The x coordinate for the center of the circle*/
@@ -16,7 +16,7 @@ namespace GameLibrary
 		T radius;
 		
 		/*! default constructor*/
-		CircleType()
+		Circle()
 		{
 			//
 		}
@@ -25,14 +25,14 @@ namespace GameLibrary
 			\param x the x coordinate for the center point
 			\param y the y coordinate for the center point
 			\param radius the radius*/
-		CircleType(const T&x, const T&y, const T&radius) : x(x), y(y), radius(radius)
+		Circle(const T&x, const T&y, const T&radius) : x(x), y(y), radius(radius)
 		{
 			//
 		}
 	};
 	
-	typedef CircleType<int> CircleI;
-	typedef CircleType<unsigned int> CircleU;
-	typedef CircleType<float> CircleF;
-	typedef CircleType<double> CircleD;
+	typedef Circle<int> CircleI;
+	typedef Circle<unsigned int> CircleU;
+	typedef Circle<float> CircleF;
+	typedef Circle<double> CircleD;
 }

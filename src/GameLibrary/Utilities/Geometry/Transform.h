@@ -13,15 +13,15 @@
 namespace GameLibrary
 {
 	template<typename T>
-	class TransformType
+	class Transform
 	{
 	public:
-		TransformType()
+		Transform()
 		{
 			reset();
 		}
 		
-		TransformType(const TransformType<T>&transform)
+		Transform(const Transform<T>&transform)
 		{
 			for(unsigned int i=0; i<16; i++)
 			{
@@ -29,7 +29,7 @@ namespace GameLibrary
 			}
 		}
 		
-		TransformType(const T&a00, const T&a01, const T&a02, const T&a10, const T&a11, const T&a12, const T&a20, const T&a21, const T&a22)
+		Transform(const T&a00, const T&a01, const T&a02, const T&a10, const T&a11, const T&a12, const T&a20, const T&a21, const T&a22)
 		{
 			m_matrix[0] = a00; m_matrix[4] = a01; m_matrix[8]  = 0; m_matrix[12] = a02;
 			m_matrix[1] = a10; m_matrix[5] = a11; m_matrix[9]  = 0; m_matrix[13] = a12;
@@ -37,7 +37,7 @@ namespace GameLibrary
 			m_matrix[3] = a20; m_matrix[7] = a21; m_matrix[11] = 0; m_matrix[15] = a22;
 		}
 		
-		TransformType& operator=(const TransformType<T>&transform)
+		Transform& operator=(const Transform<T>&transform)
 		{
 			for(unsigned int i = 0; i < 16; i++)
 			{
@@ -60,7 +60,7 @@ namespace GameLibrary
 			return m_matrix;
 		}
 		
-		TransformType<T> getInverse() const
+		Transform<T> getInverse() const
 		{
 			// Compute the determinant
 			T det = m_matrix[0] * (m_matrix[15] * m_matrix[5] - m_matrix[7] * m_matrix[13]) -
@@ -71,7 +71,7 @@ namespace GameLibrary
 			// (don't use an epsilon because the determinant may *really* be tiny)
 			if (det != 0.f)
 			{
-				return TransformType<T>( (m_matrix[15] * m_matrix[5] - m_matrix[7] * m_matrix[13]) / det,
+				return Transform<T>( (m_matrix[15] * m_matrix[5] - m_matrix[7] * m_matrix[13]) / det,
 									-(m_matrix[15] * m_matrix[4] - m_matrix[7] * m_matrix[12]) / det,
 									 (m_matrix[13] * m_matrix[4] - m_matrix[5] * m_matrix[12]) / det,
 									-(m_matrix[15] * m_matrix[1] - m_matrix[3] * m_matrix[13]) / det,
@@ -83,7 +83,7 @@ namespace GameLibrary
 			}
 			else
 			{
-				return TransformType<T>();
+				return Transform<T>();
 			}
 		}
 		
@@ -99,10 +99,10 @@ namespace GameLibrary
 								m_matrix[1] * point.x + m_matrix[5] * point.y + m_matrix[13]);
 		}
 		
-		RectangleType<T> transform(const RectangleType<T>& rectangle) const
+		Rectangle<T> transform(const Rectangle<T>& rectangle) const
 		{
 			// Transform the 4 corners of the rectangle
-			const Vector2d points[] =
+			const Vector2<T> points[] =
 			{
 				transform(rectangle.x, rectangle.y),
 				transform(rectangle.x, rectangle.y + rectangle.height),
@@ -134,12 +134,12 @@ namespace GameLibrary
 					bottom = points[i].y;
 				}
 			}
-			return RectangleType<T>(left, top, right - left, bottom - top);
+			return Rectangle<T>(left, top, right - left, bottom - top);
 		}
 		
-		PolygonType<T> transform(const PolygonType<T>& polygon) const
+		Polygon<T> transform(const Polygon<T>& polygon) const
 		{
-			PolygonType<T> newPoly;
+			Polygon<T> newPoly;
 			const ArrayList<Vector2<T> >& points = polygon.getPoints();
 			for(unsigned int i=0; i<points.size(); i++)
 			{
@@ -148,12 +148,12 @@ namespace GameLibrary
 			return newPoly;
 		}
 		
-		TransformType<T>& combine(const TransformType<T>& transform)
+		Transform<T>& combine(const Transform<T>& transform)
 		{
 			const T* a = m_matrix;
 			const T* b = transform.m_matrix;
 			
-			*this = TransformType<T>(a[0] * b[0]  + a[4] * b[1]  + a[12] * b[3],
+			*this = Transform<T>(a[0] * b[0]  + a[4] * b[1]  + a[12] * b[3],
 								 a[0] * b[4]  + a[4] * b[5]  + a[12] * b[7],
 								 a[0] * b[12] + a[4] * b[13] + a[12] * b[15],
 								 a[1] * b[0]  + a[5] * b[1]  + a[13] * b[3],
@@ -166,91 +166,91 @@ namespace GameLibrary
 			return *this;
 		}
 		
-		TransformType<T>& translate(const T&x, const T&y)
+		Transform<T>& translate(const T&x, const T&y)
 		{
-			TransformType<T> translation(1, 0, x,
+			Transform<T> translation(1, 0, x,
 									 0, 1, y,
 									 0, 0, 1);
 			return combine(translation);
 		}
 		
-		TransformType<T>& translate(const Vector2<T>& offset)
+		Transform<T>& translate(const Vector2<T>& offset)
 		{
-			TransformType<T> translation(1, 0, offset.x,
+			Transform<T> translation(1, 0, offset.x,
 									 0, 1, offset.y,
 									 0, 0, 1);
 			return combine(translation);
 		}
 		
-		TransformType<T>& rotate(const T& degrees)
+		Transform<T>& rotate(const T& degrees)
 		{
 			T rad = Math::degtorad(degrees);
 			T cos = (T)Math::cos(rad);
 			T sin = (T)Math::sin(rad);
 			
-			TransformType<T> rotation(  cos, -sin, 0,
+			Transform<T> rotation(  cos, -sin, 0,
 									sin,  cos, 0,
 									0,	  0,   1);
 			
 			return combine(rotation);
 		}
 		
-		TransformType<T>& rotate(const T& degrees, const T& centerX, const T& centerY)
+		Transform<T>& rotate(const T& degrees, const T& centerX, const T& centerY)
 		{
 			T rad = Math::degtorad(degrees);
 			T cos = (T)Math::cos(rad);
 			T sin = (T)Math::sin(rad);
 			
-			TransformType<T> rotation(  cos, -sin, centerX*(1-cos)+centerY*sin,
+			Transform<T> rotation(  cos, -sin, centerX*(1-cos)+centerY*sin,
 									sin,  cos, centerY*(1-cos)-centerX*sin,
 									0,	  0,   1);
 			
 			return combine(rotation);
 		}
 		
-		TransformType<T>& rotate(const T& degrees, const Vector2<T>&center)
+		Transform<T>& rotate(const T& degrees, const Vector2<T>&center)
 		{
 			T rad = Math::degtorad(degrees);
 			T cos = (T)Math::cos(rad);
 			T sin = (T)Math::sin(rad);
 			
-			TransformType<T> rotation(  cos, -sin, center.x*(1-cos)+center.y*sin,
+			Transform<T> rotation(  cos, -sin, center.x*(1-cos)+center.y*sin,
 									sin,  cos, center.y*(1-cos)-center.x*sin,
 									0,	  0,   1);
 			
 			return combine(rotation);
 		}
 		
-		TransformType<T>& scale(const T&scaleX, const T&scaleY)
+		Transform<T>& scale(const T&scaleX, const T&scaleY)
 		{
-			TransformType<T> scaling(scaleX, 0,		 0,
+			Transform<T> scaling(scaleX, 0,		 0,
 								 0,		 scaleY, 0,
 								 0,		 0,		 1);
 			
 			return combine(scaling);
 		}
 		
-		TransformType<T>& scale(const T& scaleX, const T& scaleY, const T& centerX, const T& centerY)
+		Transform<T>& scale(const T& scaleX, const T& scaleY, const T& centerX, const T& centerY)
 		{
-			TransformType<T> scaling(scaleX, 0,		 centerX*(1-scaleX),
+			Transform<T> scaling(scaleX, 0,		 centerX*(1-scaleX),
 								 0,		 scaleY, centerY*(1-scaleY),
 								 0,		 0,		 1);
 			
 			return combine(scaling);
 		}
 		
-		TransformType<T>& scale(const Vector2<T>& factors)
+		Transform<T>& scale(const Vector2<T>& factors)
 		{
-			TransformType<T> scaling(factors.x, 0,			0,
+			Transform<T> scaling(factors.x, 0,			0,
 								 0,			factors.y,	0,
 								 0,			0,			1);
 			
 			return combine(scaling);
 		}
 		
-		TransformType<T>& scale(const Vector2<T>& factors, const Vector2<T>& center)
+		Transform<T>& scale(const Vector2<T>& factors, const Vector2<T>& center)
 		{
-			TransformType<T> scaling(factors.x, 0,			center.x*(1-factors.x),
+			Transform<T> scaling(factors.x, 0,			center.x*(1-factors.x),
 								 0,			factors.y,	center.y*(1-factors.y),
 								 0,			0,			1);
 			
@@ -261,7 +261,7 @@ namespace GameLibrary
 		T m_matrix[16];
 	};
 	
-	typedef TransformType<float> TransformF;
-	typedef TransformType<double> TransformD;
-	typedef TransformType<long double> TransformLD;
+	typedef Transform<float> TransformF;
+	typedef Transform<double> TransformD;
+	typedef Transform<long double> TransformLD;
 }

@@ -83,9 +83,6 @@ namespace GameLibrary
 	//Utilities
 		//Font
 		class Font;
-		//Geometry
-		class Polygon;
-		class Transform;
 		//Time
 		class DateTime;
 		class TimeInterval;
