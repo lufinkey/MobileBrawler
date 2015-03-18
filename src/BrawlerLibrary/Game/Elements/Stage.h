@@ -5,10 +5,12 @@
 
 namespace BrawlerLibrary
 {
+	class BrawlGame;
+	
 	class Stage : GameLibrary::Drawable
 	{
 	public:
-		Stage(double x, double y);
+		Stage(BrawlGame*gameInstance, const GameLibrary::Vector2d&position);
 		virtual ~Stage();
 		
 		virtual void update(GameLibrary::ApplicationData appData) override;

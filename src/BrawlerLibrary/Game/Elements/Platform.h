@@ -8,7 +8,7 @@ namespace BrawlerLibrary
 	class Platform : public PhysicalGameObject
 	{
 	public:
-		Platform(double x, double y);
+		Platform(BrawlGame*gameInstance, const GameLibrary::Vector2d&position);
 		virtual ~Platform();
 		
 		virtual void update(GameLibrary::ApplicationData appData) override;
