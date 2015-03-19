@@ -64,8 +64,14 @@ namespace GameLibrary
 		Animation* getAnimation(const String&name) const;
 		/*! Changes the current Animation to the Animation with the specified identifier.
 			\param name the user-defined identifier of the Animation
-			\param direction the direction to iterate through the Animation frames*/
-		void changeAnimation(const String&name, const Animation::Direction&direction);
+			\param direction the direction to iterate through the Animation frames
+			\throws GameLibrary::IllegalArgumentException if the given name does not match an animation name in this SpriteActor*/
+		void changeAnimation(const String&name, const Animation::Direction&direction = Animation::Direction::FORWARD);
+		/*! Changes the current animation to a given animation pointer. This animation is given an empty string for a name, and is not stored in or managed by the SpriteActor.
+			\param animation a pointer to an Animation
+			\param direction the direction to iterate through the Animation frames
+			\throws GameLibrary::IllegalArgumentException if the given pointer is null*/
+		void changeAnimation(Animation*animation, const Animation::Direction&direction = Animation::Direction::FORWARD);
 		/*! Loads and re-stores the images for each frame of each Animation. Calls Animation::reloadFrames for each Animation.
 			\param assetManager the AssetManager to load the images from. If null, the images for each frame are set to null.*/
 		void reloadAnimations(AssetManager*assetManager);

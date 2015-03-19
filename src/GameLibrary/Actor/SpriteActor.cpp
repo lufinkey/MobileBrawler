@@ -307,7 +307,7 @@ namespace GameLibrary
 	{
 		if(direction != Animation::FORWARD && direction != Animation::BACKWARD && direction != Animation::STOPPED && direction != Animation::NO_CHANGE)
 		{
-			throw IllegalArgumentException("direction", (String)"" + direction);
+			throw IllegalArgumentException("direction", "Invalid enum value");
 		}
 		
 		Animation* animation = getAnimation(name);
@@ -317,6 +317,90 @@ namespace GameLibrary
 		}
 		
 		animation_name = name;
+		animation_current = animation;
+		
+		switch(direction)
+		{
+			case Animation::FORWARD:
+			case Animation::STOPPED:
+			{
+				animation_frame = 0;
+				animation_prevFrameTime = prevUpdateTime;
+				animation_direction = direction;
+			}
+			break;
+			
+			case Animation::BACKWARD:
+			{
+				unsigned int totalFrames = animation->getTotalFrames();
+				if(totalFrames>0)
+				{
+					animation_frame = (totalFrames-1);
+				}
+				else
+				{
+					animation_frame = 0;
+				}
+				animation_prevFrameTime = prevUpdateTime;
+				animation_direction = direction;
+			}
+			break;
+			
+			case Animation::NO_CHANGE:
+			{
+				switch(animation_direction)
+				{
+					default:
+					case Animation::NO_CHANGE:
+					break;
+					
+					case Animation::FORWARD:
+					case Animation::STOPPED:
+					{
+						if(animation_frame >= animation->getTotalFrames())
+						{
+							animation_frame = 0;
+						}
+					}
+					break;
+					
+					case Animation::BACKWARD:
+					{
+						unsigned int totalFrames = animation->getTotalFrames();
+						if(animation_frame >= totalFrames)
+						{
+							if(totalFrames>0)
+							{
+								animation_frame = (totalFrames-1);
+							}
+							else
+							{
+								animation_frame = 0;
+							}
+						}
+					}
+					break;
+				}
+			}
+		}
+		
+		animation->setCurrentFrame(animation_frame);
+		updateSize();
+	}
+	
+	void SpriteActor::changeAnimation(Animation*animation, const Animation::Direction&direction)
+	{
+		if(direction != Animation::FORWARD && direction != Animation::BACKWARD && direction != Animation::STOPPED && direction != Animation::NO_CHANGE)
+		{
+			throw IllegalArgumentException("direction", "Invalid enum value");
+		}
+		
+		if(animation == nullptr)
+		{
+			throw IllegalArgumentException("animation", "animation cannot be null");
+		}
+		
+		animation_name = "";
 		animation_current = animation;
 		
 		switch(direction)
