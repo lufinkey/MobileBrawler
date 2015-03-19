@@ -39,12 +39,6 @@ namespace GameLibrary
 		virtual void scaleToFit(const RectangleD&container) override;
 		
 		
-		/*! Called when the SpriteActor finishes running through the frames of the current Animation.
-			\param name the user-defined identifier of the Animation
-			\param animation the Animation that has finished a cycle*/
-		virtual void onAnimationFinish(const String&name, Animation*animation);
-		
-		
 		/*! Adds an Animation. The Animation object's deallocation becomes manually managed by the SpriteActor, unless specified otherwise.
 			\throws GameLibrary::IllegalArgumentException if the SpriteActor already contains an Animation with the specified identifier
 			\param name a user-defined identifier for the Animation
@@ -89,6 +83,11 @@ namespace GameLibrary
 		virtual bool checkPointCollision(const Vector2d&point) override;
 		
 	protected:
+		/*! Called when the SpriteActor finishes running through the frames of the current Animation.
+			\param name the user-defined identifier of the Animation
+			\param animation the Animation that has finished a cycle*/
+		virtual void onAnimationFinish(const String&name, Animation*animation);
+		
 		/*! Special draw function to draw the SpriteActor with specific properties. These properties are not stored into the SpriteActor. This function is called from SpriteActor::draw
 			\param appData specifies information about the Application drawing the SpriteActor, such as the Window object, the View transform, etc. \see GameLibrary::ApplicationData
 			\param graphics the Graphics object used to draw the SpriteActor
