@@ -43,7 +43,8 @@ namespace GameLibrary
 			\throws GameLibrary::IllegalArgumentException if the SpriteActor already contains an Animation with the specified identifier
 			\param name a user-defined identifier for the Animation
 			\param animation the Animation to be added.
-			\param destruct specify true to tell the SpriteActor to deallocate the Animation when destroyed, false to manually deallocate the memory for the Animation*/
+			\param destruct specify true to tell the SpriteActor to deallocate the Animation when destroyed, false to manually deallocate the memory for the Animation
+			\throws GameLibrary::IllegalArgumentException if the given name is an empty string, if an animation with the same name is already added, or if the given animation pointer is null*/
 		void addAnimation(const String&name, Animation*animation, bool destruct=true);
 		/*! Removes the Animation with the specified identifier from the SpriteActor. If the Animation was added with the destruct parameter set to true, the Animation is deallocated.
 			\param name the user-defined identifier for the Animation*/
@@ -63,8 +64,7 @@ namespace GameLibrary
 		void changeAnimation(const String&name, const Animation::Direction&direction = Animation::Direction::FORWARD);
 		/*! Changes the current animation to a given animation pointer. This animation is given an empty string for a name, and is not stored in or managed by the SpriteActor.
 			\param animation a pointer to an Animation
-			\param direction the direction to iterate through the Animation frames
-			\throws GameLibrary::IllegalArgumentException if the given pointer is null*/
+			\param direction the direction to iterate through the Animation frames*/
 		void changeAnimation(Animation*animation, const Animation::Direction&direction = Animation::Direction::FORWARD);
 		/*! Loads and re-stores the images for each frame of each Animation. Calls Animation::reloadFrames for each Animation.
 			\param assetManager the AssetManager to load the images from. If null, the images for each frame are set to null.*/

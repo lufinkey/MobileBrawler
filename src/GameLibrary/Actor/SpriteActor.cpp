@@ -238,6 +238,14 @@ namespace GameLibrary
 	
 	void SpriteActor::addAnimation(const String&name, Animation*animation, bool destruct)
 	{
+		if(animation == nullptr)
+		{
+			throw IllegalArgumentException("animation", "cannot be null");
+		}
+		if(name.length() == 0)
+		{
+			throw IllegalArgumentException("name", "cannot be empty string");
+		}
 		if(hasAnimation(name))
 		{
 			throw IllegalArgumentException("name", "duplicate animation name");
@@ -266,6 +274,11 @@ namespace GameLibrary
 			AnimationInfo animInfo = animations.get(i);
 			if(animInfo.name.equals(name))
 			{
+				if(animInfo.name.equals(animation_name))
+				{
+					animation_current = nullptr;
+					animation_name = "";
+				}
 				if(animInfo.destruct)
 				{
 					delete animInfo.animation;
@@ -395,11 +408,6 @@ namespace GameLibrary
 			throw IllegalArgumentException("direction", "Invalid enum value");
 		}
 		
-		if(animation == nullptr)
-		{
-			throw IllegalArgumentException("animation", "animation cannot be null");
-		}
-		
 		animation_name = "";
 		animation_current = animation;
 		
@@ -416,7 +424,11 @@ namespace GameLibrary
 			
 			case Animation::BACKWARD:
 			{
-				unsigned int totalFrames = animation->getTotalFrames();
+				unsigned int totalFrames = 0;
+				if(animation!=nullptr)
+				{
+					totalFrames = animation->getTotalFrames();
+				}
 				if(totalFrames>0)
 				{
 					animation_frame = (totalFrames-1);
@@ -441,7 +453,12 @@ namespace GameLibrary
 					case Animation::FORWARD:
 					case Animation::STOPPED:
 					{
-						if(animation_frame >= animation->getTotalFrames())
+						unsigned int totalFrames = 0;
+						if(animation!=nullptr)
+						{
+							totalFrames = animation->getTotalFrames();
+						}
+						if(animation_frame >= totalFrames)
 						{
 							animation_frame = 0;
 						}
@@ -450,7 +467,11 @@ namespace GameLibrary
 					
 					case Animation::BACKWARD:
 					{
-						unsigned int totalFrames = animation->getTotalFrames();
+						unsigned int totalFrames = 0;
+						if(animation!=nullptr)
+						{
+							totalFrames = animation->getTotalFrames();
+						}
 						if(animation_frame >= totalFrames)
 						{
 							if(totalFrames>0)
@@ -468,7 +489,10 @@ namespace GameLibrary
 			}
 		}
 		
-		animation->setCurrentFrame(animation_frame);
+		if(animation!=nullptr)
+		{
+			animation->setCurrentFrame(animation_frame);
+		}
 		updateSize();
 	}
 	
