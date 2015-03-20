@@ -262,14 +262,9 @@ namespace GameLibrary
 		
 		bool contains(const T& obj) const
 		{
-			size_t length = objects.size();
-			for(size_t i=0; i<length; i++)
+			if(indexOf(obj) != ARRAYLIST_NOTFOUND)
 			{
-				const T& cmp = (const T&)objects[i];
-				if((const T&)obj==(const T&)cmp)
-				{
-					return true;
-				}
+				return true;
 			}
 			return false;
 		}
