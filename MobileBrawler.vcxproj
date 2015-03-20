@@ -90,8 +90,10 @@
   <ItemGroup>
     <ClCompile Include="external\pugixml\src\pugixml.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Game\BrawlGame.cpp" />
+    <ClCompile Include="src\BrawlerLibrary\Game\Elements\ActionPerformer\Action.cpp" />
+    <ClCompile Include="src\BrawlerLibrary\Game\Elements\ActionPerformer\ActionPerformer.cpp" />
+    <ClCompile Include="src\BrawlerLibrary\Game\Elements\ActionPerformer\Attack.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Game\Elements\Character.cpp" />
-    <ClCompile Include="src\BrawlerLibrary\Game\Elements\Components\Attack.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Game\Elements\GameObject.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Game\Elements\PhysicalGameObject.cpp" />
     <ClCompile Include="src\BrawlerLibrary\Game\Elements\Platform.cpp" />
@@ -213,8 +215,10 @@
   <ItemGroup>
     <ClInclude Include="src\BrawlerLibrary\BrawlerLibrary.h" />
     <ClInclude Include="src\BrawlerLibrary\Game\BrawlGame.h" />
+    <ClInclude Include="src\BrawlerLibrary\Game\Elements\ActionPerformer\Action.h" />
+    <ClInclude Include="src\BrawlerLibrary\Game\Elements\ActionPerformer\ActionPerformer.h" />
+    <ClInclude Include="src\BrawlerLibrary\Game\Elements\ActionPerformer\Attack.h" />
     <ClInclude Include="src\BrawlerLibrary\Game\Elements\Character.h" />
-    <ClInclude Include="src\BrawlerLibrary\Game\Elements\Components\Attack.h" />
     <ClInclude Include="src\BrawlerLibrary\Game\Elements\GameObject.h" />
     <ClInclude Include="src\BrawlerLibrary\Game\Elements\PhysicalGameObject.h" />
     <ClInclude Include="src\BrawlerLibrary\Game\Elements\Platform.h" />
@@ -225,6 +229,7 @@
     <ClInclude Include="src\BrawlerLibrary\Game\Rules\WinCondition\TimeLimitWinCondition.h" />
     <ClInclude Include="src\BrawlerLibrary\Game\Rules\WinCondition\WinCondition.h" />
     <ClInclude Include="src\BrawlerLibrary\Game\Utilities\Camera.h" />
+    <ClInclude Include="src\BrawlerLibrary\Game\Utilities\FaceDirection.h" />
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterInfo.h" />
     <ClInclude Include="src\BrawlerLibrary\Loader\CharacterLoader.h" />
     <ClInclude Include="src\BrawlerLibrary\Loader\StageInfo.h" />

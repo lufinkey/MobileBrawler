@@ -1,13 +1,13 @@
 
 #pragma once
 
-#include <GameLibrary/GameLibrary.h>
+#include "ActionPerformer/ActionPerformer.h"
 
 namespace BrawlerLibrary
 {
 	class BrawlGame;
 	
-	class GameObject : public GameLibrary::SpriteActor
+	class GameObject : public ActionPerformer
 	{
 	public:
 		GameObject(BrawlGame*gameInstance, const GameLibrary::Vector2d&position);

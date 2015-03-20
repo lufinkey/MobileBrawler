@@ -130,11 +130,11 @@
     <Filter Include="src\BrawlerLibrary\Game\Elements">
       <UniqueIdentifier>{0dfcf46e-9ea8-451a-b6f3-61ec8f3aceb1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\BrawlerLibrary\Game\Elements\Components">
-      <UniqueIdentifier>{e25712a3-7716-4fc5-89f0-44876dd33bf6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\BrawlerLibrary\Game\Utilities">
       <UniqueIdentifier>{7dd6d75b-99b6-440e-ad51-b03edebead1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BrawlerLibrary\Game\Elements\ActionPerformer">
+      <UniqueIdentifier>{fb6ce159-a083-4ba2-a101-00c94cec2825}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -489,9 +489,6 @@
     <ClCompile Include="src\BrawlerLibrary\Game\Elements\Stage.cpp">
       <Filter>src\BrawlerLibrary\Game\Elements</Filter>
     </ClCompile>
-    <ClCompile Include="src\BrawlerLibrary\Game\Elements\Components\Attack.cpp">
-      <Filter>src\BrawlerLibrary\Game\Elements\Components</Filter>
-    </ClCompile>
     <ClCompile Include="src\BrawlerLibrary\Game\Utilities\Camera.cpp">
       <Filter>src\BrawlerLibrary\Game\Utilities</Filter>
     </ClCompile>
@@ -500,6 +497,15 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Utilities\WideString.cpp">
       <Filter>src\GameLibrary\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BrawlerLibrary\Game\Elements\ActionPerformer\Action.cpp">
+      <Filter>src\BrawlerLibrary\Game\Elements\ActionPerformer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BrawlerLibrary\Game\Elements\ActionPerformer\ActionPerformer.cpp">
+      <Filter>src\BrawlerLibrary\Game\Elements\ActionPerformer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BrawlerLibrary\Game\Elements\ActionPerformer\Attack.cpp">
+      <Filter>src\BrawlerLibrary\Game\Elements\ActionPerformer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -896,9 +902,6 @@
     <ClInclude Include="src\BrawlerLibrary\Game\Elements\Stage.h">
       <Filter>src\BrawlerLibrary\Game\Elements</Filter>
     </ClInclude>
-    <ClInclude Include="src\BrawlerLibrary\Game\Elements\Components\Attack.h">
-      <Filter>src\BrawlerLibrary\Game\Elements\Components</Filter>
-    </ClInclude>
     <ClInclude Include="src\BrawlerLibrary\Game\Utilities\Camera.h">
       <Filter>src\BrawlerLibrary\Game\Utilities</Filter>
     </ClInclude>
@@ -913,6 +916,18 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Utilities\StringConvert.h">
       <Filter>src\GameLibrary\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BrawlerLibrary\Game\Utilities\FaceDirection.h">
+      <Filter>src\BrawlerLibrary\Game\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BrawlerLibrary\Game\Elements\ActionPerformer\Action.h">
+      <Filter>src\BrawlerLibrary\Game\Elements\ActionPerformer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BrawlerLibrary\Game\Elements\ActionPerformer\ActionPerformer.h">
+      <Filter>src\BrawlerLibrary\Game\Elements\ActionPerformer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BrawlerLibrary\Game\Elements\ActionPerformer\Attack.h">
+      <Filter>src\BrawlerLibrary\Game\Elements\ActionPerformer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
