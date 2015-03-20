@@ -13,6 +13,7 @@ namespace BrawlerLibrary
 	ActionPerformer::ActionPerformer(const Vector2d&position) : SpriteActor(position.x, position.y)
 	{
 		action_current = nullptr;
+		side = FaceDirection::LEFT;
 	}
 	
 	ActionPerformer::~ActionPerformer()
@@ -187,6 +188,35 @@ namespace BrawlerLibrary
 		{
 			queue.add(Pair<String, Action*>("", action));
 		}
+	}
+	
+	bool ActionPerformer::setFaceDirection(const FaceDirection&faceSide)
+	{
+		if(faceSide!=side)
+		{
+			if(action_current != nullptr)
+			{
+				if(!action_current->canPerformerSetFaceDirection(faceSide))
+				{
+					return false;
+				}
+			}
+			side = faceSide;
+			if(side == FaceDirection::LEFT)
+			{
+				setMirroredHorizontal(false);
+			}
+			else if(side == FaceDirection::RIGHT)
+			{
+				setMirroredHorizontal(true);
+			}
+		}
+		return true;
+	}
+	
+	const FaceDirection& ActionPerformer::getFaceDirection() const
+	{
+		return side;
 	}
 	
 	void ActionPerformer::onAnimationFinish(const String&name, Animation*animation)

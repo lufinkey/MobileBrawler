@@ -2,6 +2,7 @@
 #pragma once
 
 #include <GameLibrary/GameLibrary.h>
+#include "../../Utilities/FaceDirection.h"
 
 namespace BrawlerLibrary
 {
@@ -23,6 +24,7 @@ namespace BrawlerLibrary
 		virtual void onCancel();
 		virtual void onFinish();
 		virtual void onPerformerAnimationFinish(const GameLibrary::String&name, GameLibrary::Animation*animation);
+		virtual bool canPerformerSetFaceDirection(const FaceDirection&side);
 		
 	private:
 		void perform(ActionPerformer*performer);

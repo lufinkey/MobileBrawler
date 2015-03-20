@@ -21,6 +21,9 @@ namespace BrawlerLibrary
 		void queueAction(const GameLibrary::String&name);
 		void queueAction(Action*action);
 		
+		bool setFaceDirection(const FaceDirection&side);
+		const FaceDirection& getFaceDirection() const;
+		
 	protected:
 		virtual void onAnimationFinish(const GameLibrary::String&name, GameLibrary::Animation*animation) override;
 		virtual void onActionFinish(const GameLibrary::String&name, Action*action);
@@ -35,6 +38,7 @@ namespace BrawlerLibrary
 			bool destruct;
 		} ActionInfo;
 		
+		FaceDirection side;
 		GameLibrary::String action_name;
 		Action* action_current;
 		GameLibrary::ArrayList<ActionInfo> actions;

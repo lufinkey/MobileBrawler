@@ -83,4 +83,9 @@ namespace BrawlerLibrary
 	{
 		//Open for implementation
 	}
+	
+	bool Action::canPerformerSetFaceDirection(const FaceDirection&side)
+	{
+		return true;
+	}
 }
