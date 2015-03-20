@@ -18,7 +18,7 @@ namespace BrawlerLibrary
 		
 	protected:
 		void finish();
-
+		
 		virtual void onPerform();
 		virtual void onCancel();
 		virtual void onFinish();

@@ -210,5 +210,18 @@ namespace BrawlerLibrary
 			action_name = "";
 		}
 		onActionFinish(name, action);
+		if(queue.size() > 0)
+		{
+			Pair<String, Action*>& next = queue.get(0);
+			queue.remove(0);
+			if(name.length() == 0)
+			{
+				performAction(next.second);
+			}
+			else
+			{
+				performAction(next.first);
+			}
+		}
 	}
 }
