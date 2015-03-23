@@ -7,7 +7,8 @@ namespace BrawlerLibrary
 {
 	Stage::Stage(BrawlGame*gameInstance, const Vector2d&position)
 	{
-		//
+		x = position.x;
+		y = position.y;
 	}
 	
 	Stage::~Stage()

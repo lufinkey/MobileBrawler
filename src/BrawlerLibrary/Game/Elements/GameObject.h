@@ -13,7 +13,11 @@ namespace BrawlerLibrary
 		GameObject(BrawlGame*gameInstance, const GameLibrary::Vector2d&position);
 		virtual ~GameObject();
 		
+		void setZDepth(double zdepth);
+		double getZDepth() const;
+		
 	private:
 		BrawlGame*gameInstance;
+		double zdepth;
 	};
 }

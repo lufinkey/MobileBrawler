@@ -7,13 +7,6 @@ namespace BrawlerLibrary
 {
 	class StageInfo
 	{
-	private:
-		GameLibrary::String path;
-		GameLibrary::String name;
-		GameLibrary::String creator;
-		GameLibrary::String version;
-		GameLibrary::String minsmashversion;
-		
 	public:
 		StageInfo();
 		StageInfo(const StageInfo&);
@@ -32,5 +25,12 @@ namespace BrawlerLibrary
 		void setName(const GameLibrary::String&name);
 		void setCreator(const GameLibrary::String&creator);
 		void setMinimumSmashVersion(const GameLibrary::String&minsmashversion);
+		
+	private:
+		GameLibrary::String path;
+		GameLibrary::String name;
+		GameLibrary::String creator;
+		GameLibrary::String version;
+		GameLibrary::String minsmashversion;
 	};
 }

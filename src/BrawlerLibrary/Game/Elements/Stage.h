@@ -1,7 +1,8 @@
 
 #pragma once
 
-#include <GameLibrary/GameLibrary.h>
+#include "Platform.h"
+#include "../../Loader/StageInfo.h"
 
 namespace BrawlerLibrary
 {
@@ -10,10 +11,17 @@ namespace BrawlerLibrary
 	class Stage : GameLibrary::Drawable
 	{
 	public:
-		Stage(BrawlGame*gameInstance, const GameLibrary::Vector2d&position);
+		Stage(BrawlGame*gameInstance, const StageInfo&info, const GameLibrary::Vector2d&position);
 		virtual ~Stage();
 		
 		virtual void update(GameLibrary::ApplicationData appData) override;
 		virtual void draw(GameLibrary::ApplicationData appData, GameLibrary::Graphics graphics) const override;
+		
+	private:
+		double x;
+		double y;
+		
+		ArrayList<Platform*> platforms;
+		ArrayList<GameObject*> objects;
 	};
 }
