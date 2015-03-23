@@ -1,11 +1,14 @@
 
 #include "BrawlGame.h"
 
+using namespace GameLibrary;
+
 namespace BrawlerLibrary
 {
-	BrawlGame::BrawlGame(const GameLibrary::RectangleD&frame)
+	BrawlGame::BrawlGame(const RectangleD&frame, const GameLibrary::Vector2d&natSize) : ScreenElement(frame)
 	{
-		//
+		camera = nullptr;
+		naturalSize = natSize;
 	}
 	
 	BrawlGame::~BrawlGame()
@@ -13,12 +16,12 @@ namespace BrawlerLibrary
 		//
 	}
 	
-	void BrawlGame::update(GameLibrary::ApplicationData appData)
+	void BrawlGame::update(ApplicationData appData)
 	{
 		//
 	}
 	
-	void BrawlGame::drawMain(GameLibrary::ApplicationData appData, GameLibrary::Graphics graphics) const
+	void BrawlGame::drawMain(ApplicationData appData, Graphics graphics) const
 	{
 		//
 	}
@@ -31,5 +34,15 @@ namespace BrawlerLibrary
 	void BrawlGame::stopGame()
 	{
 		//
+	}
+	
+	Camera* BrawlGame::getCamera() const
+	{
+		return camera;
+	}
+	
+	const Vector2d& BrawlGame::getNaturalSize() const
+	{
+		return naturalSize;
 	}
 }
