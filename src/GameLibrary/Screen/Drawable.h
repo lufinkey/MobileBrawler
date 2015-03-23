@@ -1,21 +1,18 @@
 
 #pragma once
 
-#include "../Application/ApplicationData.h"
+#include "Updateable.h"
 #include "../Graphics/Graphics.h"
 
 namespace GameLibrary
 {
 	/*! An interface class representing an entity that can be updated and drawn to a Window using a Graphics object*/
-	class Drawable
+	class Drawable : public Updateable
 	{
 	public:
 		/*! virtual destructor*/
-		virtual ~Drawable() {};
+		virtual ~Drawable(){};
 		
-		/*! Updates any properties of the Drawable subclass.
-			\param appData specifies information about the Application updating the Drawable, such as the Window object, the View transform, etc. \see GameLibrary::ApplicationData*/
-		virtual void update(ApplicationData appData) = 0;
 		/*! Draws the entity to the Window.
 			\param appData specifies information about the Application drawing the Drawable, such as the Window object, the View transform, etc. \see GameLibrary::ApplicationData
 			\param graphics the Graphics object used to draw the Drawable*/

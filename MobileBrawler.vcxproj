@@ -294,6 +294,7 @@
     <ClInclude Include="src\GameLibrary\Screen\UI\MenuScreen.h" />
     <ClInclude Include="src\GameLibrary\Screen\UI\ScrollElement.h" />
     <ClInclude Include="src\GameLibrary\Screen\UI\TextInputElement.h" />
+    <ClInclude Include="src\GameLibrary\Screen\Updateable.h" />
     <ClInclude Include="src\GameLibrary\Types.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Any.h" />
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h" />

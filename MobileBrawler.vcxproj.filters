@@ -929,6 +929,9 @@
     <ClInclude Include="src\BrawlerLibrary\Game\Elements\ActionPerformer\Attack.h">
       <Filter>src\BrawlerLibrary\Game\Elements\ActionPerformer</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameLibrary\Screen\Updateable.h">
+      <Filter>src\GameLibrary\Screen</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MobileBrawler.rc" />

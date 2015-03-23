@@ -50,6 +50,7 @@
 #include "Network/NetworkProtocol.h"
 
 #include "Screen/AutoLayout.h"
+#include "Screen/Updateable.h"
 #include "Screen/Drawable.h"
 #include "Screen/ScreenElement.h"
 #include "Screen/Screen.h"
