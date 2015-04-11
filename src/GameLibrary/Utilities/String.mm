@@ -8,77 +8,96 @@
 namespace GameLibrary
 #endif
 {
-	String::String(const NSString*&str) : String([str UTF8String], (size_t)[str length])
+	#define _STRING_CLASS String
+	#define _STRING_TYPE char
+	#define _STRING_LITERAL(str) str
+	
+	_STRING_CLASS::_STRING_CLASS(const NSString*&str) : _STRING_CLASS([str UTF8String], (size_t)[str length])
 	{
 		//
 	}
 	
-	String::operator NSString*() const
+	_STRING_CLASS::operator NSString*() const
 	{
 		return [NSString stringWithUTF8String:characters];
 	}
 	
-	String& String::operator+=(const NSString*&str)
+	_STRING_CLASS& _STRING_CLASS::operator+=(const NSString*&str)
 	{
 		append([str UTF8String], (size_t)[str length]);
 		return *this;
 	}
 	
-	String& String::operator=(const NSString*&str)
+	_STRING_CLASS& _STRING_CLASS::operator=(const NSString*&str)
 	{
-		size_t total2 = (size_t)[str length];
-		characters = (char*)std::realloc(characters, total2+1);
-		const char* newChars = [str UTF8String];
-		for(size_t i=0; i<total2; i++)
+		size_t size_new = (size_t)[str length];
+		_STRING_TYPE* characters_new = (_STRING_TYPE*)std::realloc(characters, (size_new+1)*sizeof(_STRING_TYPE));
+		if(characters_new==nullptr)
+		{
+			throw std::bad_alloc();
+		}
+		characters = characters_new;
+		const _STRING_TYPE* newChars = [str UTF8String];
+		for(size_t i=0; i<size_new; i++)
 		{
 			characters[i] = newChars[i];
 		}
-		characters[total2] = '\0';
-		total = total2;
+		characters[size_new] = NULL;
+		size = size_new;
 		return *this;
 	}
 	
-	String operator+(const String&left, const NSString*&right)
+	_STRING_CLASS operator+(const _STRING_CLASS&left, const NSString*&right)
 	{
-		String str;
-		size_t total2 = left.total + (size_t)[right length];
-		const char* right_chars = [right UTF8String];
-		str.characters = (char*)std::realloc(str.characters, total2+1);
-		for(size_t i=0; i<left.total; i++)
+		_STRING_CLASS newStr;
+		size_t newStr_size_new = left.size + (size_t)[right length];
+		const _STRING_TYPE* right_chars = [right UTF8String];
+		_STRING_TYPE* newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (newStr_size_new+1)*sizeof(_STRING_TYPE));
+		if(newStr_characters_new==nullptr)
 		{
-			str.characters[i] = left.characters[i];
+			throw std::bad_alloc();
+		}
+		newStr.characters = newStr_characters_new;
+		for(size_t i=0; i<left.size; i++)
+		{
+			newStr.characters[i] = left.characters[i];
 		}
 		size_t counter = 0;
-		for(size_t i=(left.total+1); i<total2; i++)
+		for(size_t i=(left.size+1); i<newStr_size_new; i++)
 		{
-			str.characters[i] = right_chars[counter];
+			newStr.characters[i] = right_chars[counter];
 			counter++;
 		}
-		str.characters[total2] = '\0';
-		str.total = total2;
-		return str;
+		newStr.characters[newStr_size_new] = NULL;
+		newStr.size = newStr_size_new;
+		return newStr;
 	}
 	
-	String operator+(const NSString*&left, const String&right)
+	_STRING_CLASS operator+(const NSString*&left, const _STRING_CLASS&right)
 	{
-		String str;
-		size_t left_total = (size_t)[left length];
-		size_t total2 = (size_t)[left length] + right.total;
-		const char* left_chars = [left UTF8String];
-		str.characters = (char*)std::realloc(str.characters, total2+1);
-		for(size_t i=0; i<left_total; i++)
+		_STRING_CLASS newStr;
+		size_t left_size = (size_t)[left length];
+		size_t newStr_size_new = (size_t)[left length] + right.size;
+		const _STRING_TYPE* left_chars = [left UTF8String];
+		_STRING_TYPE*newStr_characters_new = (_STRING_TYPE*)std::realloc(newStr.characters, (newStr_size_new+1)*sizeof(_STRING_TYPE));
+		if(newStr_characters_new==nullptr)
 		{
-			str.characters[i] = left_chars[i];
+			throw std::bad_alloc();
+		}
+		newStr.characters = newStr_characters_new;
+		for(size_t i=0; i<left_size; i++)
+		{
+			newStr.characters[i] = left_chars[i];
 		}
 		size_t counter = 0;
-		for(size_t i=(left_total+1); i<total2; i++)
+		for(size_t i=(left_size+1); i<newStr_size_new; i++)
 		{
-			str.characters[i] = right.characters[counter];
+			newStr.characters[i] = right.characters[counter];
 			counter++;
 		}
-		str.characters[total2] = '\0';
-		str.total = total2;
-		return str;
+		newStr.characters[newStr_size_new] = NULL;
+		newStr.size = newStr_size_new;
+		return newStr;
 	}
 	
 #ifndef _STRING_STANDALONE
