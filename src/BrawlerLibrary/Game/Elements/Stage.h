@@ -8,20 +8,12 @@ namespace BrawlerLibrary
 {
 	class BrawlGame;
 	
-	class Stage : GameLibrary::Drawable
+	class Stage : GameLibrary::Updateable
 	{
 	public:
-		Stage(BrawlGame*gameInstance, const StageInfo&info, const GameLibrary::Vector2d&position);
+		Stage(BrawlGame*gameInstance, const StageInfo&info);
 		virtual ~Stage();
 		
 		virtual void update(GameLibrary::ApplicationData appData) override;
-		virtual void draw(GameLibrary::ApplicationData appData, GameLibrary::Graphics graphics) const override;
-		
-	private:
-		double x;
-		double y;
-		
-		ArrayList<Platform*> platforms;
-		ArrayList<GameObject*> objects;
 	};
 }

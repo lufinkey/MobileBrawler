@@ -142,7 +142,7 @@ namespace GameLibrary
 		}
 		
 		std::fseek(file, 0, SEEK_END);
-		long fileSize = (long)std::ftell(file);
+		size_t fileSize = (size_t)std::ftell(file);
 		std::fseek(file, 0, SEEK_SET);
 		
 		if(data == nullptr)

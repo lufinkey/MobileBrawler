@@ -5,10 +5,9 @@ using namespace GameLibrary;
 
 namespace BrawlerLibrary
 {
-	Stage::Stage(BrawlGame*gameInstance, const Vector2d&position)
+	Stage::Stage(BrawlGame*gameInstance, const StageInfo&info)
 	{
-		x = position.x;
-		y = position.y;
+		//TODO Stage load properties using StageInfo
 	}
 	
 	Stage::~Stage()
@@ -18,11 +17,6 @@ namespace BrawlerLibrary
 	
 	void Stage::update(ApplicationData appData)
 	{
-		//
-	}
-	
-	void Stage::draw(ApplicationData appData, Graphics graphics) const
-	{
-		//
+		//TODO Stage::update
 	}
 }

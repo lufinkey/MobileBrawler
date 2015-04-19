@@ -20,8 +20,13 @@ namespace BrawlerLibrary
 		Camera* getCamera() const;
 		const GameLibrary::Vector2d& getNaturalSize() const;
 		
+		void addGameObject(GameObject*object);
+		void removeGameObject(GameObject*object);
+		
 	private:
 		Camera* camera;
 		GameLibrary::Vector2d naturalSize;
+		
+		GameLibrary::ArrayList<GameObject*> objects;
 	};
 }
