@@ -12,6 +12,7 @@
 #if defined(TARGETPLATFORM_WINDOWS)
 	#include <direct.h>
 	#include <Windows.h>
+	#include <ShlObj.h>
 #else
 	#include <unistd.h>
 #endif
@@ -143,7 +144,7 @@ namespace GameLibrary
 		return fullpath;
 	}
 	
-#if !defined(TARGETPLATFORM_MAC) && !defined(TARGETPLATFORM_IOS)
+	#if !defined(TARGETPLATFORM_MAC) && !defined(TARGETPLATFORM_IOS)
 	String FileTools::openFilePicker(const String&title, const String&startingDir)
 	{
 		#if defined(TARGETPLATFORM_WINDOWS)
@@ -159,6 +160,7 @@ namespace GameLibrary
 			//XP or lower
 			{
 				std::basic_string<TCHAR, std::char_traits<TCHAR>, std::allocator<TCHAR> > default_dir = startingDir;
+				std::basic_string<TCHAR, std::char_traits<TCHAR>, std::allocator<TCHAR> > dialog_title = title;
 				TCHAR filenameBuffer[MAX_PATH];
 				filenameBuffer[0] = '\0';
 				OPENFILENAME ofn;
@@ -167,6 +169,7 @@ namespace GameLibrary
 				ofn.lpstrFile = filenameBuffer;
 				ofn.nMaxFile = MAX_PATH;
 				ofn.lpstrInitialDir = default_dir.c_str();
+				ofn.lpstrTitle = dialog_title.c_str();
 				ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
 				BOOL result = GetOpenFileName(&ofn);
 				if(result)
@@ -177,6 +180,60 @@ namespace GameLibrary
 			}
 		#elif defined(TARGETPLATFORM_LINUX)
 			//TODO implement linux file picker
+			return "";
+		#else
+			return "";
+		#endif
+	}
+	#endif
+	
+	#if defined(TARGETPLATFORM_WINDOWS)
+	INT CALLBACK FileTools_openFolderPicker_BrowseCallbackProc(HWND hwnd, UINT uMsg, LPARAM lParam, LPARAM lpData)
+	{
+		switch(uMsg)
+		{
+			case BFFM_INITIALIZED:
+			{
+				if (NULL != lpData)
+				{
+					SendMessage(hwnd, BFFM_SETSELECTION, TRUE, lpData);
+				}
+			}
+		}
+		return 0; // The function should always return 0.
+	}
+	#endif
+	
+	#if !defined(TARGETPLATFORM_MAC) && !defined(TARGETPLATFORM_IOS)
+	String FileTools::openFolderPicker(const String&title, const String&startingDir)
+	{
+		#if defined(TARGETPLATFORM_WINDOWS)
+			std::basic_string<TCHAR, std::char_traits<TCHAR>, std::allocator<TCHAR> > dialog_title = title;
+			std::basic_string<TCHAR, std::char_traits<TCHAR>, std::allocator<TCHAR> > default_dir = startingDir;
+			BROWSEINFO bi;
+			ZeroMemory(&bi, sizeof(bi));
+			TCHAR folderdisplaynameBuffer[MAX_PATH];
+			bi.pszDisplayName = folderdisplaynameBuffer;
+			bi.lpszTitle = dialog_title.c_str();
+			bi.ulFlags = BIF_RETURNONLYFSDIRS | BIF_NEWDIALOGSTYLE;
+			bi.lpfn = FileTools_openFolderPicker_BrowseCallbackProc;
+			bi.lParam = (LPARAM)default_dir.c_str();
+			LPITEMIDLIST pidl = SHBrowseForFolder(&bi);
+			if (pidl!=nullptr)
+			{
+				TCHAR path[MAX_PATH];
+				path[0] = NULL;
+				BOOL success = SHGetPathFromIDList(pidl, path);
+				CoTaskMemFree(pidl);
+				if(success==FALSE)
+				{
+					return "";
+				}
+				return path;
+			}
+			return "";
+		#elif defined(TARGETPLATFORM_LINUX)
+			//TODO implement linux folder picker
 			return "";
 		#else
 			return "";
