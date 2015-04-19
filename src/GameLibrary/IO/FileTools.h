@@ -39,6 +39,11 @@ namespace GameLibrary
 		} DirectoryEntry;
 		
 		
+		/*! Gets the user home directory
+			\returns a String containing the path to the current user's home directory, or an empty String if an error occured*/
+		static String getUserHomeDirectory();
+		
+		
 		/*! Gets the path of the current working directory.
 			\returns a String containing the path to the working directory*/
 		static String getCurrentWorkingDirectory();
@@ -56,5 +61,11 @@ namespace GameLibrary
 			\param second the second half of the path
 			\returns a String containing a full path from the two given paths*/
 		static String combinePathStrings(const String&first, const String&second);
+		
+		
+		/*! Opens up the native file chooser to select a file or folder.
+			\param startingDir the path to open the file picker window to; default value is the user home directory
+			\returns a String representing the selected path, or an empty String, if the operation was cancelled*/
+		static String openFilePicker(const String&title="Open", const String&startingDir=FileTools::getUserHomeDirectory());
 	};
 }

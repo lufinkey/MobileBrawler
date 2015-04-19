@@ -10,6 +10,7 @@
 	#define TARGETPLATFORM_IOS_SIMULATOR
 #elif defined(TARGET_OS_IPHONE)
 	#define TARGETPLATFORM_IOS
+	#define TARGETPLATFORM_IOS_DEVICE
 #elif defined (__ANDROID__)
 	#define TARGETPLATFORM_ANDROID
 #elif defined(_WIN32) || defined(__MINGW32__)

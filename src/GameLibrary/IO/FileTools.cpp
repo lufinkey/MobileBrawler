@@ -1,4 +1,8 @@
 
+#ifdef _WIN32
+	#define _CRT_SECURE_NO_WARNINGS
+#endif
+
 #include "FileTools.h"
 #include "../Utilities/PlatformChecks.h"	
 
@@ -7,12 +11,27 @@
 
 #if defined(TARGETPLATFORM_WINDOWS)
 	#include <direct.h>
+	#include <Windows.h>
 #else
 	#include <unistd.h>
 #endif
 
 namespace GameLibrary
 {
+	String FileTools::getUserHomeDirectory()
+	{
+		#if defined(TARGETPLATFORM_WINDOWS)
+			const char* homedir = getenv("HOMEPATH");
+		#else
+			const char* homedir = getenv("HOME");
+		#endif
+		if(homedir == nullptr)
+		{
+			return "";
+		}
+		return homedir;
+	}
+	
 	String FileTools::getCurrentWorkingDirectory()
 	{
 		char buffer[FILENAME_MAX];
@@ -123,4 +142,45 @@ namespace GameLibrary
 		}
 		return fullpath;
 	}
+	
+#if !defined(TARGETPLATFORM_MAC) && !defined(TARGETPLATFORM_IOS)
+	String FileTools::openFilePicker(const String&title, const String&startingDir)
+	{
+		#if defined(TARGETPLATFORM_WINDOWS)
+			//OSVERSIONINFO vi;
+			//memset(&vi, 0, sizeof(vi));
+			//vi.dwOSVersionInfoSize = sizeof(vi);
+			//if(vi.dwMajorVersion >= 6)
+			//Vista or greater
+			//{
+
+			//}
+			//else
+			//XP or lower
+			{
+				std::basic_string<TCHAR, std::char_traits<TCHAR>, std::allocator<TCHAR> > default_dir = startingDir;
+				TCHAR filenameBuffer[MAX_PATH];
+				filenameBuffer[0] = '\0';
+				OPENFILENAME ofn;
+				ZeroMemory(&ofn, sizeof(ofn));
+				ofn.lStructSize = sizeof(ofn);
+				ofn.lpstrFile = filenameBuffer;
+				ofn.nMaxFile = MAX_PATH;
+				ofn.lpstrInitialDir = default_dir.c_str();
+				ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
+				BOOL result = GetOpenFileName(&ofn);
+				if(result)
+				{
+					return ofn.lpstrFile;
+				}
+				return "";
+			}
+		#elif defined(TARGETPLATFORM_LINUX)
+			//TODO implement linux file picker
+			return "";
+		#else
+			return "";
+		#endif
+	}
+	#endif
 }
