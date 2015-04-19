@@ -8,7 +8,7 @@ namespace BrawlerLibrary
 	ActionPerformer::ActionPerformer()
 		: side(FaceDirection::LEFT), action_current(nullptr)
 	{
-		
+		//
 	}
 	
 	ActionPerformer::ActionPerformer(const Vector2d&position)
