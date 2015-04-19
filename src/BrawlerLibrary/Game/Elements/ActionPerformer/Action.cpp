@@ -7,10 +7,9 @@ using namespace GameLibrary;
 namespace BrawlerLibrary
 {
 	Action::Action()
+		: performer(nullptr), finishing(false), cancelling(false), reran(false)
 	{
-		performer = nullptr;
-		finishing = false;
-		reran = false;
+		//
 	}
 	
 	Action::~Action()
@@ -20,48 +19,84 @@ namespace BrawlerLibrary
 	
 	void Action::perform(ActionPerformer*actionPerformer)
 	{
-		if(performer != nullptr && (!finishing || reran))
+		if(actionPerformer == nullptr)
 		{
-			throw IllegalStateException("Action is already being performed");
+			throw IllegalArgumentException("performer", "cannot be null");
 		}
+		else if(cancelling)
+		{
+			throw IllegalStateException("action is cancelling");
+		}
+		else if(performer != nullptr && (!finishing || reran))
+		{
+			throw IllegalStateException("action is already being performed");
+		}
+		
 		if(finishing)
 		{
 			reran = true;
 		}
 		performer = actionPerformer;
-		onPerform();
+		if(!reran)
+		{
+			finishing = false;
+			cancelling = false;
+			onPerform();
+		}
 	}
 	
 	void Action::cancel()
 	{
-		if(performer == nullptr)
+		if(cancelling)
 		{
-			throw IllegalStateException("Action is not being performed");
+			throw IllegalStateException("action is already cancelling");
 		}
+		else if(finishing)
+		{
+			throw IllegalStateException("action is finishing");
+		}
+		else if(performer==nullptr)
+		{
+			throw IllegalStateException("action is not being performed");
+		}
+		cancelling = true;
+		ActionPerformer*actionPerformer = performer;
 		onCancel();
 		performer = nullptr;
+		actionPerformer->action_current = nullptr;
+		actionPerformer->action_name = "";
+		cancelling = false;
 	}
 	
 	void Action::finish()
 	{
-		if(performer == nullptr)
+		if(finishing)
 		{
-			throw IllegalStateException("Action is not being performed");
+			throw IllegalStateException("action is already finishing");
+		}
+		else if(cancelling)
+		{
+			throw IllegalStateException("action is cancelling");
+		}
+		else if(performer == nullptr)
+		{
+			throw IllegalStateException("action is not being performed");
 		}
 		finishing = true;
-		ActionPerformer*performer_old = performer;
-		String name_old = performer_old->action_name;
+		ActionPerformer*actionPerformer = performer;
+		String action_name = actionPerformer->action_name;
 		onFinish();
-		performer_old->whenActionFinish(name_old,this);
-		if(!reran)
+		actionPerformer->onActionFinish(action_name, this);
+		finishing = false;
+		if(reran)
 		{
-			performer = nullptr;
+			onPerform();
 		}
 		else
 		{
-			reran = false;
+			actionPerformer->action_current = nullptr;
+			actionPerformer->action_name = "";
 		}
-		finishing = false;
 	}
 	
 	void Action::onPerform()
@@ -78,14 +113,19 @@ namespace BrawlerLibrary
 	{
 		//Open for implementation
 	}
-	
-	void Action::onPerformerAnimationFinish(const String&name, Animation*animation)
+		
+	void Action::onActionPush()
 	{
 		//Open for implementation
 	}
 	
-	bool Action::canPerformerSetFaceDirection(const FaceDirection&side)
+	void Action::onActionPop()
 	{
-		return true;
+		//Open for implementation
+	}
+	
+	void Action::onPerformerAnimationFinish(const String&name, Animation*animation)
+	{
+		//Open for implementation
 	}
 }
