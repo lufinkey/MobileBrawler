@@ -118,7 +118,7 @@ namespace BrawlerLibrary
 	{
 		if(action == nullptr)
 		{
-			throw IllegalArgumentException("action", "cannot be null");
+			throw IllegalArgumentException("action", "null");
 		}
 		else if(action->performer != nullptr && ((!action->finishing && !action->cancelling) || action->reran))
 		{

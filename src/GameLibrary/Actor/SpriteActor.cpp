@@ -240,7 +240,7 @@ namespace GameLibrary
 	{
 		if(animation == nullptr)
 		{
-			throw IllegalArgumentException("animation", "cannot be null");
+			throw IllegalArgumentException("animation", "null");
 		}
 		if(name.length() == 0)
 		{

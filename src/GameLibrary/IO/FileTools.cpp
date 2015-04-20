@@ -123,6 +123,30 @@ namespace GameLibrary
 		return true;
 	}
 	
+	bool FileTools::isDirectoryEmpty(const String&directory)
+	{
+		DIR*dir = opendir(directory);
+		if(dir==NULL)
+		{
+			return false;
+		}
+		struct dirent *entry = readdir(dir);
+		while (entry != NULL)
+		{
+			if(entry->d_type==DT_REG || entry->d_type==DT_DIR || entry->d_type==DT_LNK)
+			{
+				String itemName = entry->d_name;
+				if(!itemName.equals(".") && !itemName.equals(".."))
+				{
+					closedir(dir);
+					return false;
+				}
+			}
+			entry = readdir(dir);
+		}
+		return true;
+	}
+	
 	String FileTools::combinePathStrings(const String&first, const String&second)
 	{
 		String fullpath;

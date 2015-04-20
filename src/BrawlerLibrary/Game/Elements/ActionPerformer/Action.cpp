@@ -21,7 +21,7 @@ namespace BrawlerLibrary
 	{
 		if(actionPerformer == nullptr)
 		{
-			throw IllegalArgumentException("performer", "cannot be null");
+			throw IllegalArgumentException("performer", "null");
 		}
 		else if(cancelling)
 		{

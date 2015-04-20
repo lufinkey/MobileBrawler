@@ -75,7 +75,7 @@ namespace BrawlerLibrary
 	{
 		if(object == nullptr)
 		{
-			throw IllegalArgumentException("object", "cannot be null");
+			throw IllegalArgumentException("object", "null");
 		}
 		size_t objects_size = objects.size();
 		for(size_t i=0; i<objects_size; i++)

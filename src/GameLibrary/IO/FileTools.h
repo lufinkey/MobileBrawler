@@ -56,6 +56,12 @@ namespace GameLibrary
 		static bool readEntriesFromDirectory(const String&directory, ArrayList<DirectoryEntry>*entries, String*error=nullptr);
 		
 		
+		/*! Checks whether there are files or folder inside the specified directory. This function assumes the directory exists and is accessible.
+			\param directory the directory to read
+			\returns true if the directory exists and is empty, or false if it contains files or folder or an error occurred*/
+		static bool isDirectoryEmpty(const String&directory);
+		
+		
 		/*! Combines two path strings into a single path.
 			\param first the first half of the path
 			\param second the second half of the path

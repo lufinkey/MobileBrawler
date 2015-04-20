@@ -59,7 +59,7 @@ namespace BrawlerLibrary
 	{
 		if(object == nullptr)
 		{
-			throw IllegalArgumentException("object", "cannot be null");
+			throw IllegalArgumentException("object", "null");
 		}
 		if(!focusedObjects.contains(object))
 		{
@@ -87,7 +87,7 @@ namespace BrawlerLibrary
 	{
 		if(gameInstance == nullptr)
 		{
-			throw IllegalArgumentException("gameInstance", "cannot be null");
+			throw IllegalArgumentException("gameInstance", "null");
 		}
 		size_t objects_size = objects.size();
 		if(objects_size == 0)
