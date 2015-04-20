@@ -2,6 +2,7 @@
 #pragma once
 
 #include "Action.h"
+#include "../../../Utilities/FaceDirection.h"
 
 namespace BrawlerLibrary
 {

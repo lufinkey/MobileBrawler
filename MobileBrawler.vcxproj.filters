@@ -136,6 +136,9 @@
     <Filter Include="src\BrawlerLibrary\Game\Elements\ActionPerformer">
       <UniqueIdentifier>{fb6ce159-a083-4ba2-a101-00c94cec2825}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\BrawlerLibrary\Utilities">
+      <UniqueIdentifier>{a33ee25c-9b9b-4ae1-b376-db4d61568aed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameLibrary\Actor\TextActor.cpp">
@@ -920,9 +923,6 @@
     <ClInclude Include="src\GameLibrary\Utilities\StringConvert.h">
       <Filter>src\GameLibrary\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="src\BrawlerLibrary\Game\Utilities\FaceDirection.h">
-      <Filter>src\BrawlerLibrary\Game\Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="src\BrawlerLibrary\Game\Elements\ActionPerformer\Action.h">
       <Filter>src\BrawlerLibrary\Game\Elements\ActionPerformer</Filter>
     </ClInclude>
@@ -937,6 +937,9 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Window\MessageBox.h">
       <Filter>src\GameLibrary\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BrawlerLibrary\Utilities\FaceDirection.h">
+      <Filter>src\BrawlerLibrary\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

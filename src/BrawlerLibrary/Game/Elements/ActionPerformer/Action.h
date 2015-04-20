@@ -2,7 +2,6 @@
 #pragma once
 
 #include <GameLibrary/GameLibrary.h>
-#include "../../Utilities/FaceDirection.h"
 
 namespace BrawlerLibrary
 {
