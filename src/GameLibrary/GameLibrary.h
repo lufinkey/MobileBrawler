@@ -88,6 +88,7 @@
 
 #include "Window/Window.h"
 #include "Window/View.h"
+#include "Window/MessageBox.h"
 
 #ifndef main
 	#define main GameLibrary_main
