@@ -3,6 +3,10 @@
 
 #include "FileTools.h"
 
+#if defined(TARGETPLATFORM_MAC)
+#import <AppKit/AppKit.h>
+#endif
+
 namespace GameLibrary
 {
 #if defined(TARGETPLATFORM_MAC)

@@ -13,6 +13,7 @@ namespace GameLibrary
 {
 	ArrayList<Window*> EventManager_windows;
 	static std::mutex EventManager_windows_mutex;
+	static bool EventManager_quitRequest = false;
 	
 	Keyboard::Key Keyboard_SDLK_to_Key(int code);
 	Mouse::Button Mouse_SDL_to_MouseButton(byte button);
@@ -75,7 +76,12 @@ namespace GameLibrary
 		Mouse::removeWindow(window);
 	}
 	
-	void EventManager::update(Application*application)
+	bool EventManager::recievedQuitRequest()
+	{
+		return EventManager_quitRequest;
+	}
+	
+	void EventManager::update()
 	{
 		if(!Thread::isMainThread())
 		{
@@ -86,7 +92,7 @@ namespace GameLibrary
 		int data1 = 0;
 		int data2 = 0;
 
-		bool closing = false;
+		EventManager_quitRequest = false;
 		
 		//event polling
 		SDL_Event event;
@@ -111,7 +117,7 @@ namespace GameLibrary
 				resizingWindow = nullptr;
 			}
 			
-			if(!skip && !closing)
+			if(!skip && !EventManager_quitRequest)
 			{
 				switch(event.type)
 				{
@@ -201,8 +207,7 @@ namespace GameLibrary
 					break;
 					
 					case SDL_QUIT:
-					application->close(0);
-					closing = true;
+					EventManager_quitRequest = true;
 					break;
 					
 					//TODO add event types here

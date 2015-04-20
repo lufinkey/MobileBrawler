@@ -147,6 +147,7 @@ namespace GameLibrary
 		TransformD getViewTransform();
 
 		void getHandlePtr(void*ptr) const;
+		void*getWindowData() const;
 	};
 
 //WindowEventListener

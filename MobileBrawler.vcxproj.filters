@@ -507,6 +507,9 @@
     <ClCompile Include="src\BrawlerLibrary\Game\Elements\ActionPerformer\Attack.cpp">
       <Filter>src\BrawlerLibrary\Game\Elements\ActionPerformer</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Window\MessageBox.cpp">
+      <Filter>src\GameLibrary\Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -931,6 +934,9 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Screen\Updateable.h">
       <Filter>src\GameLibrary\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Window\MessageBox.h">
+      <Filter>src\GameLibrary\Window</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

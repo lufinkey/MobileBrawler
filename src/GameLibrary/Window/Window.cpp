@@ -824,6 +824,11 @@ namespace GameLibrary
 			#endif
 		}
 	}
+	
+	void* Window::getWindowData() const
+	{
+		return windowdata;
+	}
 
 	WindowEventListener::~WindowEventListener()
 	{

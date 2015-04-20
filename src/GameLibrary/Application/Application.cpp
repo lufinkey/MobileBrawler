@@ -202,8 +202,12 @@ namespace GameLibrary
 		{
 			long long startFrameTime = apptime.getMilliseconds();
 
-			EventManager::update(this);
-
+			EventManager::update();
+			if(EventManager::recievedQuitRequest())
+			{
+				this->close(0);
+			}
+			
 			TimeInterval currentapptime = apptime;
 			currentapptime.stop();
 			ApplicationData appdata(this,window,window->getAssetManager(),currentapptime,window->getViewTransform(), framespeedMult);

@@ -26,8 +26,8 @@ namespace GameLibrary
 		static void removeWindow(Window*window);
 		
 	public:
-		/*! Polls all the queued events of the current Application.
-			\param application the current Application*/
-		static void update(Application*application);
+		/*! Polls all queued events*/
+		static void update();
+		static bool recievedQuitRequest();
 	};
 }

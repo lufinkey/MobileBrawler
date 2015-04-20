@@ -181,6 +181,7 @@
     <ClCompile Include="src\GameLibrary\Utilities\Time\time64\time64.c" />
     <ClCompile Include="src\GameLibrary\Utilities\Time\TimeInterval.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\WideString.cpp" />
+    <ClCompile Include="src\GameLibrary\Window\MessageBox.cpp" />
     <ClCompile Include="src\GameLibrary\Window\View.cpp" />
     <ClCompile Include="src\GameLibrary\Window\Window.cpp" />
     <ClCompile Include="src\SmashBros\Game.cpp" />
@@ -324,6 +325,7 @@
     <ClInclude Include="src\GameLibrary\Utilities\Time\time64\time64_limits.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Time\TimeInterval.h" />
     <ClInclude Include="src\GameLibrary\Utilities\WideString.h" />
+    <ClInclude Include="src\GameLibrary\Window\MessageBox.h" />
     <ClInclude Include="src\GameLibrary\Window\View.h" />
     <ClInclude Include="src\GameLibrary\Window\Window.h" />
     <ClInclude Include="src\SmashBros\Game.h" />
