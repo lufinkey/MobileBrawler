@@ -849,15 +849,13 @@ namespace GameLibrary
 		
 		virtual _BaseNumberType& operator++() override
 		{
-			// COMMENTED OUT LINE BELOW
-            //value++;
+            value++;
 			return *((_BaseNumberType*)this);
 		}
 		
 		virtual _BaseNumberType& operator--() override
 		{
-            // COMMENTED OUT LINE BELOW
-			//value--;
+			value--;
 			return *((_BaseNumberType*)this);
 		}
 	};
@@ -1025,15 +1023,13 @@ namespace GameLibrary
 		
 		virtual _BaseNumberType& operator++() override
 		{
-			// COMMENTED OUT LINE BELOW
-            //value++;
+            value++;
 			return *((_BaseNumberType*)this);
 		}
 		
 		virtual _BaseNumberType& operator--() override
 		{
-			// COMMENTED OUT LINE BELOW
-            //value--;
+            value--;
 			return *((_BaseNumberType*)this);
 		}
 	};

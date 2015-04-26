@@ -55,7 +55,7 @@ namespace GameLibrary
 			\param cols divides the image into columns of frames. If 0, no frames are added.
 			\param assetManager the assetManager to load and get the TextureImage. If null, or fails to load the image, the first frame's image is set to null, until Animation::reloadFrames is called to attempt to reload the images.
 			\param file the path to the image file to use for the frames
-			\param sequence the specific sequence to order the frames. the x value of the Vector2d represents the column, and the y value represents the row
+			\param sequence the specific sequence to order the frames. the x value of the Vector2d represents the column, and the y value represents the row; rows and columns start from 0
 			\throws GameLibrary::IllegalArgumentException if fps is a negative value*/
 		Animation(float fps, unsigned int rows, unsigned int cols, AssetManager*assetManager, const String&file, const ArrayList<Vector2u>& sequence);
 		/*! virtual destructor
