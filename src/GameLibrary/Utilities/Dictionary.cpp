@@ -127,7 +127,21 @@ namespace GameLibrary
 	bool Dictionary_parseDate(const void*ptr, pugi::xml_node&node, Any&any, String*error);
 	bool Dictionary_write(pugi::xml_node&node, const Any&any, String*error);
 	bool Dictionary_writeDictionary(pugi::xml_node&node, const Dictionary&dictionary, String*error);
-	bool Dictionary_writeArray(pugi::xml_node&node, const ArrayList<Any>&dictionary, String*error);
+	
+	template<typename T>
+	bool Dictionary_writeArray(pugi::xml_node&node, const ArrayList<T>&arraylist, String*error)
+	{
+		pugi::xml_node newNode = node.append_child("array");
+		for(size_t i=0; i<arraylist.size(); i++)
+		{
+			bool result = Dictionary_write(newNode, arraylist.get(i), error);
+			if(!result)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	bool Dictionary::loadFromFile(const String&path, String*error)
 	{
@@ -733,6 +747,120 @@ namespace GameLibrary
 			}
 			return true;
 		}
+		else if(any.is<GameLibrary::Uint64>())
+		{
+			pugi::xml_node newNode = node.append_child("integer");
+			newNode.append_child(pugi::node_pcdata).set_value((String)"" + any.as<GameLibrary::Uint64>(false));
+			return true;
+		}
+		else if(any.is<GameLibrary::Uint32>())
+		{
+			pugi::xml_node newNode = node.append_child("integer");
+			newNode.append_child(pugi::node_pcdata).set_value((String)"" + any.as<GameLibrary::Uint32>(false));
+			return true;
+		}
+		else if(any.is<GameLibrary::Uint16>())
+		{
+			pugi::xml_node newNode = node.append_child("integer");
+			newNode.append_child(pugi::node_pcdata).set_value((String)"" + any.as<GameLibrary::Uint16>(false));
+			return true;
+		}
+		else if(any.is<GameLibrary::Uint8>())
+		{
+			pugi::xml_node newNode = node.append_child("integer");
+			newNode.append_child(pugi::node_pcdata).set_value((String)"" + any.as<GameLibrary::Uint8>(false));
+			return true;
+		}
+		else if(any.is<ArrayList<Dictionary> >())
+		{
+			const ArrayList<Dictionary>&list = any.as<ArrayList<Dictionary> >(false);
+			return Dictionary_writeArray(node, list, error);
+		}
+		else if(any.is<ArrayList<String> >())
+		{
+			const ArrayList<String>&list = any.as<ArrayList<String> >(false);
+			return Dictionary_writeArray(node, list, error);
+		}
+		else if(any.is<ArrayList<std::string> >())
+		{
+			const ArrayList<std::string>&list = any.as<ArrayList<std::string> >(false);
+			return Dictionary_writeArray(node, list, error);
+		}
+		else if(any.is<ArrayList<const char*> >())
+		{
+			const ArrayList<const char*>&list = any.as<ArrayList<const char*> >(false);
+			return Dictionary_writeArray(node, list, error);
+		}
+		else if(any.is<ArrayList<DateTime> >())
+		{
+			const ArrayList<DateTime>&list = any.as<ArrayList<DateTime> >(false);
+			return Dictionary_writeArray(node, list, error);
+		}
+		else if(any.is<ArrayList<Number> >())
+		{
+			const ArrayList<Number>&list = any.as<ArrayList<Number> >(false);
+			return Dictionary_writeArray(node, list, error);
+		}
+		else if(any.is<ArrayList<DataPacket> >())
+		{
+			const ArrayList<DataPacket>&list = any.as<ArrayList<DataPacket> >(false);
+			return Dictionary_writeArray(node, list, error);
+		}
+		else if(any.is<ArrayList<GameLibrary::Int64> >())
+		{
+			const ArrayList<GameLibrary::Int64>&list = any.as<ArrayList<GameLibrary::Int64> >(false);
+			return Dictionary_writeArray(node, list, error);
+		}
+		else if(any.is<ArrayList<GameLibrary::Int32> >())
+		{
+			const ArrayList<GameLibrary::Int32>&list = any.as<ArrayList<GameLibrary::Int32> >(false);
+			return Dictionary_writeArray(node, list, error);
+		}
+		else if(any.is<ArrayList<GameLibrary::Int16> >())
+		{
+			const ArrayList<GameLibrary::Int16>&list = any.as<ArrayList<GameLibrary::Int16> >(false);
+			return Dictionary_writeArray(node, list, error);
+		}
+		else if(any.is<ArrayList<GameLibrary::Int8> >())
+		{
+			const ArrayList<GameLibrary::Int8>&list = any.as<ArrayList<GameLibrary::Int8> >(false);
+			return Dictionary_writeArray(node, list, error);
+		}
+		else if(any.is<ArrayList<GameLibrary::Uint64> >())
+		{
+			const ArrayList<GameLibrary::Uint64>&list = any.as<ArrayList<GameLibrary::Uint64> >(false);
+			return Dictionary_writeArray(node, list, error);
+		}
+		else if(any.is<ArrayList<GameLibrary::Uint32> >())
+		{
+			const ArrayList<GameLibrary::Uint32>&list = any.as<ArrayList<GameLibrary::Uint32> >(false);
+			return Dictionary_writeArray(node, list, error);
+		}
+		else if(any.is<ArrayList<GameLibrary::Uint16> >())
+		{
+			const ArrayList<GameLibrary::Uint16>&list = any.as<ArrayList<GameLibrary::Uint16> >(false);
+			return Dictionary_writeArray(node, list, error);
+		}
+		else if(any.is<ArrayList<GameLibrary::Uint8> >())
+		{
+			const ArrayList<GameLibrary::Uint8>&list = any.as<ArrayList<GameLibrary::Uint8> >(false);
+			return Dictionary_writeArray(node, list, error);
+		}
+		else if(any.is<ArrayList<long double> >())
+		{
+			const ArrayList<long double>&list = any.as<ArrayList<long double> >(false);
+			return Dictionary_writeArray(node, list, error);
+		}
+		else if(any.is<ArrayList<double> >())
+		{
+			const ArrayList<double>&list = any.as<ArrayList<double> >(false);
+			return Dictionary_writeArray(node, list, error);
+		}
+		else if(any.is<ArrayList<float> >())
+		{
+			const ArrayList<float>&list = any.as<ArrayList<float> >(false);
+			return Dictionary_writeArray(node, list, error);
+		}
 		else
 		{
 			if(error!=nullptr)
@@ -753,20 +881,6 @@ namespace GameLibrary
 			pugi::xml_node keyNode = newNode.append_child("key");
 			keyNode.append_child(pugi::node_pcdata).set_value(pair.first);
 			bool result = Dictionary_write(newNode, pair.second, error);
-			if(!result)
-			{
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	bool Dictionary_writeArray(pugi::xml_node&node, const ArrayList<Any>&arraylist, String*error)
-	{
-		pugi::xml_node newNode = node.append_child("array");
-		for(size_t i=0; i<arraylist.size(); i++)
-		{
-			bool result = Dictionary_write(newNode, arraylist.get(i), error);
 			if(!result)
 			{
 				return false;
