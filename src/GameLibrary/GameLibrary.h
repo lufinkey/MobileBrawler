@@ -63,6 +63,7 @@
 #include "Screen/UI/ActorMenuElement.h"
 #include "Screen/UI/ImageElement.h"
 #include "Screen/UI/MenuScreen.h"
+#include "Screen/UI/ZoomPanElement.h"
 
 #include "Utilities/Any.h"
 #include "Utilities/ArrayList.h"
