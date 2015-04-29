@@ -17,7 +17,9 @@ namespace GameLibrary
 			/*! Scale the image to be contained within the frame, but maintain the aspect ratio of the image.*/
 			DISPLAY_FIT,
 			/*! Scale the image to fill the frame, but don't stretch the image. If a part of the image is outside the frame, it is clipped.*/
-			DISPLAY_ZOOM
+			DISPLAY_ZOOM,
+			/*! Repeat the image to fill the frame*/
+			DISPLAY_REPEAT
 		} DisplayMode;
 		
 		/*! default constructor; */

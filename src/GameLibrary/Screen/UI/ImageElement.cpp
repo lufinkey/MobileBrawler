@@ -35,6 +35,13 @@ namespace GameLibrary
 		{
 			switch(displayMode)
 			{
+				default:
+				case DISPLAY_STRETCH:
+				{
+					graphics.drawImage(image, getFrame());
+				}
+				break;
+				
 				case DISPLAY_FIT:
 				{
 					RectangleD frame = getFrame();
@@ -65,10 +72,23 @@ namespace GameLibrary
 				}
 				break;
 				
-				case DISPLAY_STRETCH:
-				default:
+				case DISPLAY_REPEAT:
 				{
-					graphics.drawImage(image, getFrame());
+					RectangleD frame = getFrame();
+					graphics.clip(frame);
+					double imgwidth = (double)image->getWidth();
+					double imgheight = (double)image->getHeight();
+					unsigned int imageTimesX = (unsigned int)Math::ceil(frame.width/imgwidth);
+					unsigned int imageTimesY = (unsigned int)Math::ceil(frame.height/imgheight);
+					for(unsigned int y=0; y<imageTimesY; y++)
+					{
+						for(unsigned int x=0; x<imageTimesX; x++)
+						{
+							double imageX = imgwidth*((double)imageTimesX);
+							double imageY = imgheight*((double)imageTimesY);
+							graphics.drawImage(image, imageX, imageY, imgwidth, imgheight);
+						}
+					}
 				}
 				break;
 			}
