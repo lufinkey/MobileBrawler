@@ -634,7 +634,7 @@ namespace GameLibrary
 	{
 		drawImage(img, rect.x, rect.y, rect.width, rect.height);
 	}
-
+	
 	void Graphics::drawImage(TextureImage*img, double dx1, double dy1, double dx2, double dy2, unsigned int sx1, unsigned int sy1, unsigned int sx2, unsigned int sy2)
 	{
 		SDL_Texture*texture = (SDL_Texture*)img->texture;
@@ -655,7 +655,14 @@ namespace GameLibrary
 			dstrect.y = (int)pnt1.y;
 			dstrect.w = (int)((dx2 - (double)((int)dx1))*scaling.x);
 			dstrect.h = (int)((dy2 - (double)((int)dy1))*scaling.y);
-
+			
+			RectangleD dstrectBox((double)dstrect.x, (double)dstrect.y, (double)dstrect.w, (double)dstrect.h);
+			RectangleD cliprectBox(clipoffset.x+cliprect.x, clipoffset.y+cliprect.y, cliprect.width, cliprect.height);
+			if(!cliprectBox.intersects(dstrectBox))
+			{
+				return;
+			}
+			
 			SDL_Point center;
 			center.x = 0;
 			center.y = 0;
