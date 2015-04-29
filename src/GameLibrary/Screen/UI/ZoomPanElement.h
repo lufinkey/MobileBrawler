@@ -21,7 +21,7 @@ namespace GameLibrary
 		void zoomOnPointInFrame(const Vector2d&point, double zoomScale);
 		
 	protected:
-		/*! \copydoc GameLibrary::ScreenElement::drawMain(GameLibrary::ApplicationData,GameLibrary::Graphics)const*/
+		/*! \copydoc GameLibrary::ScreenElement::drawElements(GameLibrary::ApplicationData,GameLibrary::Graphics)const*/
 		virtual void drawElements(ApplicationData appData, Graphics graphics) const override;
 		
 	private:

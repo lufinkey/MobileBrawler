@@ -84,8 +84,8 @@ namespace GameLibrary
 					{
 						for(unsigned int x=0; x<imageTimesX; x++)
 						{
-							double imageX = imgwidth*((double)imageTimesX);
-							double imageY = imgheight*((double)imageTimesY);
+							double imageX = frame.x + (imgwidth*((double)imageTimesX));
+							double imageY = frame.y + (imgheight*((double)imageTimesY));
 							graphics.drawImage(image, imageX, imageY, imgwidth, imgheight);
 						}
 					}
