@@ -164,8 +164,8 @@
     <ClCompile Include="src\GameLibrary\Screen\UI\ActorMenuElement.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\UI\ImageElement.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\UI\MenuScreen.cpp" />
-    <ClCompile Include="src\GameLibrary\Screen\UI\ScrollElement.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\UI\TextInputElement.cpp" />
+    <ClCompile Include="src\GameLibrary\Screen\UI\ZoomPanElement.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\BitList.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\BitSet.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\DataPacket.cpp" />
@@ -293,8 +293,8 @@
     <ClInclude Include="src\GameLibrary\Screen\UI\ActorMenuElement.h" />
     <ClInclude Include="src\GameLibrary\Screen\UI\ImageElement.h" />
     <ClInclude Include="src\GameLibrary\Screen\UI\MenuScreen.h" />
-    <ClInclude Include="src\GameLibrary\Screen\UI\ScrollElement.h" />
     <ClInclude Include="src\GameLibrary\Screen\UI\TextInputElement.h" />
+    <ClInclude Include="src\GameLibrary\Screen\UI\ZoomPanElement.h" />
     <ClInclude Include="src\GameLibrary\Screen\Updateable.h" />
     <ClInclude Include="src\GameLibrary\Types.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Any.h" />

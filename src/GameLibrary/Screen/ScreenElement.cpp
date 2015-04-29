@@ -115,10 +115,6 @@ namespace GameLibrary
 		ArrayList<ScreenElement*> children = childElements;
 		updatingElements = true;
 
-		RectangleD frame = getFrame();
-
-		graphics.translate(frame.x, frame.y);
-
 		for(unsigned int i=0; i<children.size(); i++)
 		{
 			ScreenElement* element = children.get(i);
@@ -145,6 +141,8 @@ namespace GameLibrary
 	{
 		drawBackground(appData, graphics);
 		drawMain(appData, graphics);
+		RectangleD frame = getFrame();
+		graphics.translate(frame.x, frame.y);
 		drawElements(appData, graphics);
 	}
 

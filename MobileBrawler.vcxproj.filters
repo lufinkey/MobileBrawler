@@ -441,9 +441,6 @@
     <ClCompile Include="src\GameLibrary\Screen\UI\ActorMenuElement.cpp">
       <Filter>src\GameLibrary\Screen\UI</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameLibrary\Screen\UI\ScrollElement.cpp">
-      <Filter>src\GameLibrary\Screen\UI</Filter>
-    </ClCompile>
     <ClCompile Include="src\SmashBros\Menu\Base\StageSelect\StageSelect_StageIcon.cpp">
       <Filter>src\SmashBros\Menu\Base\StageSelect</Filter>
     </ClCompile>
@@ -512,6 +509,9 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Window\MessageBox.cpp">
       <Filter>src\GameLibrary\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Screen\UI\ZoomPanElement.cpp">
+      <Filter>src\GameLibrary\Screen\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -860,9 +860,6 @@
     <ClInclude Include="src\GameLibrary\Screen\UI\ActorMenuElement.h">
       <Filter>src\GameLibrary\Screen\UI</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameLibrary\Screen\UI\ScrollElement.h">
-      <Filter>src\GameLibrary\Screen\UI</Filter>
-    </ClInclude>
     <ClInclude Include="src\SmashBros\Menu\Base\StageSelect\StageSelect_StageIcon.h">
       <Filter>src\SmashBros\Menu\Base\StageSelect</Filter>
     </ClInclude>
@@ -940,6 +937,9 @@
     </ClInclude>
     <ClInclude Include="src\BrawlerLibrary\Utilities\FaceDirection.h">
       <Filter>src\BrawlerLibrary\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Screen\UI\ZoomPanElement.h">
+      <Filter>src\GameLibrary\Screen\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
