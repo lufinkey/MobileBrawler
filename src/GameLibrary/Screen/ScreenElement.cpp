@@ -71,6 +71,13 @@ namespace GameLibrary
 
 	void ScreenElement::update(ApplicationData appData)
 	{
+		RectangleD frame = getFrame();
+		appData.getTransform().translate(frame.x, frame.y);
+		updateElements(appData);
+	}
+	
+	void ScreenElement::updateElements(ApplicationData appData)
+	{
 		ArrayList<ScreenElement*> children = childElements;
 		updatingElements = true;
 
@@ -93,6 +100,8 @@ namespace GameLibrary
 				element->update(appData);
 			}
 		}
+		
+		updatingElements = false;
 	}
 	
 	void ScreenElement::drawBackground(ApplicationData appData, Graphics graphics) const

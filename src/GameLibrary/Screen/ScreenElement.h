@@ -107,6 +107,9 @@ namespace GameLibrary
 		bool isVisible() const;
 		
 	protected:
+		/*! Updates all the child elements of this element. This function is automatically called from ScreenElement::update.
+			\param appData specifies information about the Application drawing the element, such as the Window object, the View transform, etc. \see GameLibrary::ApplicationData*/
+		virtual void updateElements(ApplicationData appData);
 		/*! Draws the background color of the element. This function is automatically called from ScreenElement::draw.
 			\param appData specifies information about the Application drawing the element, such as the Window object, the View transform, etc. \see GameLibrary::ApplicationData
 			\param graphics the Graphics object used to draw the element*/
