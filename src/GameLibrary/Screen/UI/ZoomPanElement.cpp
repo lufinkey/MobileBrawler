@@ -52,7 +52,8 @@ namespace GameLibrary
 	
 	void ZoomPanElement::drawElements(ApplicationData appData, Graphics graphics) const
 	{
-		graphics.clip(getFrame());
+		RectangleD frame = getFrame();
+		graphics.clip(RectangleD(0,0,frame.width,frame.height));
 		graphics.translate(contentOffset.x*zoomScale, contentOffset.y*zoomScale);
 		graphics.scale(zoomScale, zoomScale);
 		ScreenElement::drawElements(appData, graphics);

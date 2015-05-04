@@ -49,6 +49,9 @@ namespace GameLibrary
 		/*! Sets the display method to display the TextureImage within the element.
 			\param mode a constant that dictates how to display the image \see GameLibrary::ImageElement::DisplayMode*/
 		void setDisplayMode(const DisplayMode&mode);
+		/*! Sets a specific source area of the image to be displayed. The srcRect is reset when a new image is set on the element.
+			\param srcRect the section of the image to display*/
+		void setImageSourceRect(const RectangleU&srcRect);
 		
 		
 		/*! Gets the current TextureImage being displayed.
@@ -57,7 +60,8 @@ namespace GameLibrary
 		/*! Gets the current display method for the TextureImage within the element.
 			\returns an ImageElement::DisplayMode constant*/
 		DisplayMode getDisplayMode() const;
-		
+		/*! Gets the current section of the image that is set to be displayed, or the entire image, if no source rectangle is set.*/
+		RectangleU getImageSourceRect() const;
 		
 	protected:
 		/*! \copydoc GameLibrary::ScreenElement::drawMain(GameLibrary::ApplicationData,GameLibrary::Graphics)const*/
@@ -66,5 +70,6 @@ namespace GameLibrary
 	private:
 		TextureImage* image;
 		DisplayMode displayMode;
+		RectangleU* srcrect;
 	};
 }

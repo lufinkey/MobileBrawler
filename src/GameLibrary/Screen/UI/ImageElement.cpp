@@ -15,6 +15,7 @@ namespace GameLibrary
 	
 	ImageElement::ImageElement(const RectangleD&frame, TextureImage*img, const ImageElement::DisplayMode&displayMd) : ScreenElement(frame)
 	{
+		srcrect = nullptr;
 		image = img;
 		displayMode = displayMd;
 	}
@@ -26,7 +27,11 @@ namespace GameLibrary
 	
 	ImageElement::~ImageElement()
 	{
-		//
+		if(srcrect != nullptr)
+		{
+			delete srcrect;
+			srcrect = nullptr;
+		}
 	}
 	
 	void ImageElement::drawMain(ApplicationData appData, Graphics graphics) const
@@ -98,11 +103,26 @@ namespace GameLibrary
 	void ImageElement::setImage(TextureImage*img)
 	{
 		image = img;
+		if(srcrect != nullptr)
+		{
+			delete srcrect;
+			srcrect = nullptr;
+		}
 	}
 	
 	void ImageElement::setDisplayMode(const DisplayMode&mode)
 	{
 		displayMode = mode;
+	}
+	
+	void ImageElement::setImageSourceRect(const RectangleU&srcRect)
+	{
+		if(srcrect != nullptr)
+		{
+			delete srcrect;
+			srcrect = nullptr;
+		}
+		srcrect = new RectangleU(srcRect.x, srcRect.y, srcRect.width, srcRect.height);
 	}
 	
 	TextureImage* ImageElement::getImage() const
@@ -113,5 +133,21 @@ namespace GameLibrary
 	ImageElement::DisplayMode ImageElement::getDisplayMode() const
 	{
 		return displayMode;
+	}
+	
+	RectangleU ImageElement::getImageSourceRect() const
+	{
+		if(image == nullptr)
+		{
+			return RectangleU(0,0,0,0);
+		}
+		else if(srcrect == nullptr)
+		{
+			return RectangleU(0,0,image->getWidth(),image->getHeight());
+		}
+		else
+		{
+			return *srcrect;
+		}
 	}
 }
