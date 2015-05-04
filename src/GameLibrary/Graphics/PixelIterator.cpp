@@ -6,15 +6,15 @@ namespace GameLibrary
 {
 	PixelIterator::PixelIterator(const Vector2u&dims, const RectangleU&srcrect, const RectangleD&dstrect, const RectangleD&looprect, double xincrement, double yincrement, bool mirrorHorizontal_arg, bool mirrorVertical_arg)
 	{
-		if(!dstRect.contains(loopRect))
+		if(!dstrect.contains(looprect))
 		{
 			throw IllegalArgumentException("loopRect", "not within bounds of dstRect");
 		}
-		if((unsigned int)(srcRect.x + srcRect.width) > dims.x)
+		if((unsigned int)(srcrect.x + srcrect.width) > dims.x)
 		{
 			throw IllegalArgumentException("srcRect", "not within bounds of dimensions");
 		}
-		else if((unsigned int)(srcRect.y + srcRect.height) > dims.y)
+		else if((unsigned int)(srcrect.y + srcrect.height) > dims.y)
 		{
 			throw IllegalArgumentException("srcRect", "not within bounds of dimensions");
 		}
@@ -46,15 +46,15 @@ namespace GameLibrary
 	
 	PixelIterator::PixelIterator(const Vector2u&dims, const RectangleU&srcrect, const RectangleD&dstrect, const RectangleD&looprect, double xincrement, double yincrement, const TransformD&transform, const Vector2d&rat, bool mirrorHorizontal_arg, bool mirrorVertical_arg)
 	{
-		if(!dstRect.contains(loopRect))
+		if(!dstrect.contains(looprect))
 		{
 			throw IllegalArgumentException("loopRect", "not within bounds of dstRect");
 		}
-		if((unsigned int)(srcRect.x + srcRect.width) > dims.x)
+		if((unsigned int)(srcrect.x + srcrect.width) > dims.x)
 		{
 			throw IllegalArgumentException("srcRect", "not within bounds of dimensions");
 		}
-		else if((unsigned int)(srcRect.y + srcRect.height) > dims.y)
+		else if((unsigned int)(srcrect.y + srcrect.height) > dims.y)
 		{
 			throw IllegalArgumentException("srcRect", "not within bounds of dimensions");
 		}
