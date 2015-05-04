@@ -38,7 +38,11 @@ namespace GameLibrary
 		SDL_RenderClear((SDL_Renderer*)renderer);
 		SDL_SetRenderDrawColor((SDL_Renderer*)renderer, 0,0,0,255);
 		
-		double zoom = window->view->zoom;
+		double zoom = 1;
+		if(window->view!=nullptr)
+		{
+			zoom = window->view->zoom;
+		}
 		
 		if(window->view == nullptr || window->view->matchWindow)
 		{
