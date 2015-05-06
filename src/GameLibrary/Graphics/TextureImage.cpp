@@ -131,6 +131,17 @@ namespace GameLibrary
 		SDL_UnlockTexture((SDL_Texture*)texture);
 	}*/
 	
+	void TextureImage::clear()
+	{
+		if(texture != nullptr)
+		{
+			SDL_DestroyTexture((SDL_Texture*)texture);
+			texture = nullptr;
+		}
+		width = 0;
+		height = 0;
+	}
+	
 	bool TextureImage::loadFromFile(const String&path, Graphics&graphics, String*error)
 	{
 		SDL_Surface* surface = IMG_Load(path);

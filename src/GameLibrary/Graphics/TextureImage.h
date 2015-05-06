@@ -33,8 +33,8 @@ namespace GameLibrary
 			\param pixels an array of pixels to write to the texture
 			\note updating a texture is a slow operation, and requires writing to the video card memory*/
 		void update(const Color*pixels);
-		//void update(const Color*pixels, unsigned int x, unsigned int y, unsigned int width, unsigned int height);
-		
+		/*! Clears all data from the texture and resets the width and height to 0.*/
+		void clear();
 		
 		/*! Loads the image data from a file path and writes it to the video card memory.
 			\param path the path to the image file
