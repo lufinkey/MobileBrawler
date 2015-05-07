@@ -563,6 +563,7 @@ namespace GameLibrary
 		if(frame.intersects(actor_frame))
 		{
 			RectangleD overlap = frame.getIntersect(actor_frame);
+			RectangleD actor_overlap = actor_frame.getIntersect(frame);
 			
 			double incr = 1;
 			if(scale < actor->scale)
@@ -633,7 +634,7 @@ namespace GameLibrary
 			if(actor->rotation == 0)
 			{
 				Vector2u dimensions(actor_img->getWidth(), actor_img->getHeight());
-				actor_pxlIter = new PixelIterator(dimensions, actor_srcRectU, actor_frame, overlap, incr, incr, actor_mirrorHorizontal, actor_mirrorVertical);
+				actor_pxlIter = new PixelIterator(dimensions, actor_srcRectU, actor_frame, actor_overlap, incr, incr, actor_mirrorHorizontal, actor_mirrorVertical);
 			}
 			else
 			{
@@ -642,7 +643,7 @@ namespace GameLibrary
 				double ratiox = ((double)actor_srcRect.width)/actor->width;
 				double ratioy = ((double)actor_srcRect.height)/actor->height;
 				Vector2u dimensions(actor_img->getWidth(), actor_img->getHeight());
-				actor_pxlIter = new PixelIterator(dimensions, actor_srcRectU, actor_frame, overlap, incr, incr, transform, Vector2d(ratiox, ratioy), actor_mirrorHorizontal, actor_mirrorVertical);
+				actor_pxlIter = new PixelIterator(dimensions, actor_srcRectU, actor_frame, actor_overlap, incr, incr, transform, Vector2d(ratiox, ratioy), actor_mirrorHorizontal, actor_mirrorVertical);
 			}
 			PixelIterator& actor_pxlIterRef = *actor_pxlIter;
 
