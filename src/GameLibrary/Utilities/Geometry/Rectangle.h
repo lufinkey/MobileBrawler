@@ -53,7 +53,7 @@ namespace GameLibrary
 			\returns true if the given rectangle is inside this rectangle's bounds, or false if otherwise*/
 		bool contains(const Rectangle<T>&rect) const
 		{
-			if(x <= rect.x &&y <= rect.y && x >= (rect.x+rect.width) && y >= (rect.y+rect.height))
+			if(x <= rect.x &&y <= rect.y && (x+width) >= (rect.x+rect.width) && (y+height) >= (rect.y+rect.height))
 			{
 				return true;
 			}
