@@ -22,6 +22,7 @@ namespace BrawlerLibrary
 		CharacterInfo& operator=(const CharacterInfo&);
 		
 		bool loadFromPath(const GameLibrary::String&path, GameLibrary::String*error=nullptr);
+		bool saveToPath(const GameLibrary::String&path, GameLibrary::String*error=nullptr) const;
 		
 		const GameLibrary::String& getPath() const;
 		const GameLibrary::String& getName() const;

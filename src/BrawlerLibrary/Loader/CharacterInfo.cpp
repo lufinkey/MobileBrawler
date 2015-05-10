@@ -1,10 +1,10 @@
 
 #include "CharacterInfo.h"
 
+using namespace GameLibrary;
+
 namespace BrawlerLibrary
 {
-	using namespace GameLibrary;
-	
 	CharacterInfo::CharacterInfo()
 	{
 		//
@@ -37,7 +37,7 @@ namespace BrawlerLibrary
 	bool CharacterInfo::loadFromPath(const String&folderpath, String*error)
 	{
 		Dictionary dict;
-		bool success = dict.loadFromFile(folderpath + "/Info.plist", error);
+		bool success = dict.loadFromFile(FileTools::combinePathStrings(folderpath, "Info.plist"), error);
 		if(success)
 		{
 			Any val_name = dict.get("name");
@@ -113,7 +113,7 @@ namespace BrawlerLibrary
 			}
 			
 			ArrayList<FileTools::DirectoryEntry> entries;
-			FileTools::readEntriesFromDirectory(folderpath + "/costumes", &entries);
+			FileTools::readEntriesFromDirectory(FileTools::combinePathStrings(folderpath, "costumes"), &entries);
 			for(unsigned int i = 0; i < entries.size(); i++)
 			{
 				//TODO do something with the costumes
@@ -131,6 +131,16 @@ namespace BrawlerLibrary
 			*error = (String)"Unable to load Info.plist: " + *error;
 		}
 		return false;
+	}
+	
+	bool CharacterInfo::saveToPath(const String&path, String*error) const
+	{
+		Dictionary dict;
+		dict.set("name", name);
+		dict.set("creator", creator);
+		dict.set("version", version);
+		dict.set("minsmashversion", minsmashversion);
+		return dict.saveToFile(FileTools::combinePathStrings(path + "Info.plist"), error);
 	}
 	
 	const String& CharacterInfo::getPath() const
