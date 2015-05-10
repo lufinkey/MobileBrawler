@@ -57,7 +57,7 @@ namespace GameLibrary
 					{
 						RectangleD drawFrame(frame.x, frame.y, imgwidth, imgheight);
 						drawFrame.scaleToFit(frame);
-						graphics.drawImage(image, drawFrame.x, drawFrame.y, drawFrame.width, drawFrame.height, srcRect.x, srcRect.y, srcRect.x+srcRect.width, srcRect.y+srcRect.height);
+						graphics.drawImage(image, drawFrame, srcRect);
 					}
 				}
 				break;
@@ -73,7 +73,7 @@ namespace GameLibrary
 						RectangleD drawFrame(frame.x, frame.y, imgwidth, imgheight);
 						drawFrame.scaleToFill(frame);
 						graphics.clip(frame);
-						graphics.drawImage(image, drawFrame.x, drawFrame.y, drawFrame.width, drawFrame.height, srcRect.x, srcRect.y, srcRect.x+srcRect.width, srcRect.y+srcRect.height);
+						graphics.drawImage(image, drawFrame, srcRect);
 					}
 				}
 				break;
@@ -86,14 +86,13 @@ namespace GameLibrary
 					double imgheight = (double)srcRect.height;
 					unsigned int imageTimesX = (unsigned int)Math::ceil(frame.width/imgwidth);
 					unsigned int imageTimesY = (unsigned int)Math::ceil(frame.height/imgheight);
-					RectU srcRect2(srcRect);
 					for(unsigned int y=0; y<imageTimesY; y++)
 					{
 						for(unsigned int x=0; x<imageTimesX; x++)
 						{
 							double imageX = frame.x + (imgwidth*((double)imageTimesX));
 							double imageY = frame.y + (imgheight*((double)imageTimesY));
-							graphics.drawImage(image, imageX, imageY, imgwidth, imgheight, srcRect2.left, srcRect2.top, srcRect2.right, srcRect2.bottom);
+							graphics.drawImage(image, RectangleD(imageX, imageY, imgwidth, imgheight), srcRect);
 						}
 					}
 				}
