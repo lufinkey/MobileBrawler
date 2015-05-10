@@ -12,7 +12,7 @@ namespace GameLibrary
 		/*! copy constructor*/
 		OutOfBoundsException(const OutOfBoundsException&);
 		/*! \copydoc GameLibrary::Exception::Exception(const GameLibrary::String&)*/
-		OutOfBoundsException(const String&message);
+		explicit OutOfBoundsException(const String&message);
 		/*! virtual destructor*/
 		virtual ~OutOfBoundsException();
 		/*! assignment operator*/

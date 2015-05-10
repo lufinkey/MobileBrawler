@@ -11,7 +11,7 @@ namespace BrawlerLibrary
 		friend class Action;
 	public:
 		ActionPerformer();
-		ActionPerformer(const GameLibrary::Vector2d&position);
+		explicit ActionPerformer(const GameLibrary::Vector2d&position);
 		virtual ~ActionPerformer();
 		
 		void addAction(const GameLibrary::String&name, Action*action, bool destruct=true);

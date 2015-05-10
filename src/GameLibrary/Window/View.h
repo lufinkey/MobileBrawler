@@ -17,7 +17,7 @@ namespace GameLibrary
 	public:
 		View();
 		View(const View&);
-		View(const Vector2d& size);
+		explicit View(const Vector2d& size);
 		View(double width, double height);
 		~View();
 		

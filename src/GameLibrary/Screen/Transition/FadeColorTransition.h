@@ -14,7 +14,7 @@ namespace GameLibrary
 			\param color the solid color to fade between.
 			\param frozenPortion the portion of the transition duration when the solid color is displayed without fading; Must be a value between 0 and 1
 			\throws GameLibrary::IllegalArgumentException if frozenPortion is not a value between 0 and 1*/
-		FadeColorTransition(const Color& color, double frozenPortion = 0);
+		explicit FadeColorTransition(const Color& color, double frozenPortion = 0);
 		/*! virtual destructor*/
 		virtual ~FadeColorTransition();
 		

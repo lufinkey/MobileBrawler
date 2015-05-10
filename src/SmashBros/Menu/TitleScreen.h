@@ -17,7 +17,7 @@ namespace SmashBros
 			WireframeActor* tapRegion;
 			
 		public:
-			TitleScreen(const SmashData&smashData);
+			explicit TitleScreen(const SmashData&smashData);
 			virtual ~TitleScreen();
 
 			virtual void onFrameChange() override;

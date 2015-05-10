@@ -9,7 +9,7 @@ namespace GameLibrary
 	{
 	public:
 		ZoomPanElement();
-		ZoomPanElement(const RectangleD&frame);
+		explicit ZoomPanElement(const RectangleD&frame);
 		
 		void setContentOffset(const Vector2d&offset);
 		const Vector2d& getContentOffset() const;

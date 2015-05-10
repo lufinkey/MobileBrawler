@@ -8,7 +8,7 @@ namespace BrawlerLibrary
 	class BrawlGame : GameLibrary::ScreenElement
 	{
 	public:
-		BrawlGame(const GameLibrary::RectangleD&frame, const GameLibrary::Vector2d&naturalSize=GameLibrary::Vector2d(900,600));
+		explicit BrawlGame(const GameLibrary::RectangleD&frame, const GameLibrary::Vector2d&naturalSize=GameLibrary::Vector2d(900,600));
 		virtual ~BrawlGame();
 		
 		virtual void update(GameLibrary::ApplicationData appData) override;

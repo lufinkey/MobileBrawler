@@ -33,7 +33,7 @@ namespace GameLibrary
 		/*! Constructs an Animation with a specified frame rate.
 			\param fps the frame rate in frames per second
 			\throws GameLibrary::IllegalArgumentException if fps is a negative value*/
-		Animation(float fps);
+		explicit Animation(float fps);
 		/*! Constructs an Animation with a frame rate and a first frame.
 			\param fps the frame rate in frames per second
 			\param assetManager the assetManager to load and get the TextureImage. If null, or fails to load the image, the first frame's image is set to null, until Animation::reloadFrames is called to attempt to reload the images.

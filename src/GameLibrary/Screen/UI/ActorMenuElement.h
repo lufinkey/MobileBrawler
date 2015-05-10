@@ -17,7 +17,7 @@ namespace GameLibrary
 	{
 	public:
 		/*! \copydoc GameLibrary::ScreenElement::ScreenElement(const GameLibrary::RectangleD&)*/
-		ActorMenuElement(const RectangleD&frame);
+		explicit ActorMenuElement(const RectangleD&frame);
 		/*! virtual destructor*/
 		virtual ~ActorMenuElement();
 		

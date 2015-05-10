@@ -16,7 +16,7 @@ namespace SmashBros
 				HEADERBAR_FULL
 			} HeaderbarMode;
 			
-			BaseMenuScreen(const SmashData&smashData);
+			explicit BaseMenuScreen(const SmashData&smashData);
 			virtual ~BaseMenuScreen();
 			
 			virtual void onWillDisappear(const Transition*transition) override;

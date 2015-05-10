@@ -12,7 +12,7 @@ namespace GameLibrary
 		/*! Constructs a transition that fades and zooms between two Drawable objects
 			\param startZoom the zoom ratio at the beginning of the transition
 			\param endZoom the zoom ratio at the end of the transition; Default value is 1*/
-		FadeZoomTransition(double startZoom, double endZoom=1.0f);
+		explicit FadeZoomTransition(double startZoom, double endZoom=1.0f);
 		/*! virtual destructor*/
 		virtual ~FadeZoomTransition();
 		

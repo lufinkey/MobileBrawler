@@ -12,7 +12,7 @@ namespace GameLibrary
 		/*! copy constructor*/
 		IllegalStateException(const IllegalStateException&);
 		/*! \copydoc GameLibrary::Exception::Exception(const GameLibrary::String&)*/
-		IllegalStateException(const String&message);
+		explicit IllegalStateException(const String&message);
 		/*! virtual destructor*/
 		virtual ~IllegalStateException();
 		/*! assignment operator*/

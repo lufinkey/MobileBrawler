@@ -12,7 +12,7 @@ namespace GameLibrary
 		/*! copy constructor*/
 		TextureImageCreateException(const TextureImageCreateException&);
 		/*! \copydoc GameLibrary::Exception::Exception(const GameLibrary::String&)*/
-		TextureImageCreateException(const String&message);
+		explicit TextureImageCreateException(const String&message);
 		/*! virtual destructor*/
 		virtual ~TextureImageCreateException();
 		/*! assignment operator*/

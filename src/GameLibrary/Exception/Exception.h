@@ -19,7 +19,7 @@ namespace GameLibrary
 		Exception(const Exception&);
 		/*! Constructs an exception with an error message.
 			\param message an explanation of the error*/
-		Exception(const String&message);
+		explicit Exception(const String&message);
 		/*! virtual destructor*/
 		virtual ~Exception();
 		/*! assignment operator*/

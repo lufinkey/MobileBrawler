@@ -84,7 +84,7 @@ namespace GameLibrary
 			}
 		}*/
 		
-		ArrayList(size_t size)
+		explicit ArrayList(size_t size)
 		{
 			objects.resize(size);
 		}

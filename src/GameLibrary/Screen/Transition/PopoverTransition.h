@@ -25,7 +25,7 @@ namespace GameLibrary
 		/*! Constructs a transition that slides one Drawable on top of the other Drawable, with an optional fade.
 			\param direction the direction of the popover
 			\param fade true to fade in as the Drawable slides in, or false to just have the Drawable slide in without fade*/
-		PopoverTransition(PopoverDirection direction, bool fade=false);
+		explicit PopoverTransition(PopoverDirection direction, bool fade=false);
 		/*! virtual destructor*/
 		virtual ~PopoverTransition();
 		

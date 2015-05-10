@@ -25,7 +25,7 @@ namespace GameLibrary
 		
 		/*! Constructs a transition that slides in a given direction
 			\param direction the direction where the Drawable objects slide*/
-		SlideTransition(SlideDirection direction);
+		explicit SlideTransition(SlideDirection direction);
 		/*! virtual destructor*/
 		virtual ~SlideTransition();
 		

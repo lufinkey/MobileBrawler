@@ -13,7 +13,7 @@ namespace GameLibrary
 		BadAnyCastException(const BadAnyCastException&);
 		/*! Constructs an exception with a casted type string.
 			\param casttype the type that the Any object was cast as*/
-		BadAnyCastException(const String&casttype);
+		explicit BadAnyCastException(const String&casttype);
 		/*! virtual destructor*/
 		virtual ~BadAnyCastException();
 		/*! assignment operator*/

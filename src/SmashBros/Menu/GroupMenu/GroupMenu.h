@@ -23,7 +23,7 @@ namespace SmashBros
 			GroupRulesMenu* rulesMenu;
 			
 		public:
-			GroupMenu(const SmashData&smashData);
+			explicit GroupMenu(const SmashData&smashData);
 			virtual ~GroupMenu();
 			
 			virtual void onItemSelect(unsigned int index) override;

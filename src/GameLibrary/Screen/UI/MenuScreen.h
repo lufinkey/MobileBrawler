@@ -24,7 +24,7 @@ namespace GameLibrary
 		MenuScreen();
 		/*! Constructs a MenuScreen to be the root Screen of a Window. Only one screen in any Screen stack should be delegated as the root Screen.
 			\param window the Window that the Screen will be contained within*/
-		MenuScreen(Window*window);
+		explicit MenuScreen(Window*window);
 		/*! virtual destructor*/
 		virtual ~MenuScreen();
 		

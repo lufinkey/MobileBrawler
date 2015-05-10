@@ -14,7 +14,7 @@ namespace BrawlerLibrary
 		GameLibrary::AssetManager* assetManager;
 		
 	public:
-		CharacterLoader(GameLibrary::Window& window);
+		explicit CharacterLoader(GameLibrary::Window& window);
 		~CharacterLoader();
 		
 		GameLibrary::AssetManager* getAssetManager() const;

@@ -19,7 +19,7 @@ namespace GameLibrary
 			\param window the Window that the assets will be used for
 			\param root the root folder to load assets
 			\param secondaryRoots alternate root folders to search if an asset cannot be loaded inside the main root folder*/
-		AssetManager(Window&window, const String&root="", const ArrayList<String>&secondaryRoots=ArrayList<String>());
+		explicit AssetManager(Window&window, const String&root="", const ArrayList<String>&secondaryRoots=ArrayList<String>());
 		/*! virtual destructor*/
 		~AssetManager();
 		

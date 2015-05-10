@@ -37,7 +37,7 @@ namespace GameLibrary
 		
 		/*! Constructs a Polygon from an ArrayList of coordinates.
 			\param points a list of points in the polygon*/
-		Polygon(const ArrayList<Vector2<T> >& points)
+		explicit Polygon(const ArrayList<Vector2<T> >& points)
 		{
 			Polygon<T>::points = points;
 		}

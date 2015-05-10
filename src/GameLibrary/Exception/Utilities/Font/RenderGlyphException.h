@@ -12,7 +12,7 @@ namespace GameLibrary
 		/*! copy constructor*/
 		RenderGlyphException(const RenderGlyphException&);
 		/*! \copydoc GameLibrary::Exception::Exception(const GameLibrary::String&)*/
-		RenderGlyphException(const String&message);
+		explicit RenderGlyphException(const String&message);
 		/*! virtual destructor*/
 		virtual ~RenderGlyphException();
 		/*! assignment operator*/

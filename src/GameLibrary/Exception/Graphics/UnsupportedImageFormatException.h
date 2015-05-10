@@ -17,7 +17,7 @@ namespace GameLibrary
 		UnsupportedImageFormatException(const UnsupportedImageFormatException&);
 		/*! Constructs an exception with the unsupported image extensions.
 			\param format the file extension that was unsupported by Image::saveToFile*/
-		UnsupportedImageFormatException(const String& format);
+		explicit UnsupportedImageFormatException(const String& format);
 		/*! virtual destructor*/
 		virtual ~UnsupportedImageFormatException();
 		/*! assignment operator*/

@@ -12,7 +12,7 @@ namespace GameLibrary
 		/*! copy constructor*/
 		ScreenNavigationException(const ScreenNavigationException&);
 		/*! \copydoc GameLibrary::Exception::Exception(const GameLibrary::String&)*/
-		ScreenNavigationException(const String&message);
+		explicit ScreenNavigationException(const String&message);
 		/*! virtual destructor*/
 		virtual ~ScreenNavigationException();
 		/*! assignment operator*/

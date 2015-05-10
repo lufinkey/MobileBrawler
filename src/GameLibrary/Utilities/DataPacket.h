@@ -23,7 +23,7 @@ namespace GameLibrary
 		DataPacket();
 		DataPacket(const DataPacket&);
 		DataPacket(const String&);
-		DataPacket(size_t size);
+		explicit DataPacket(size_t size);
 		DataPacket(const void*data, size_t size);
 		~DataPacket();
 

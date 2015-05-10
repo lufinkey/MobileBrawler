@@ -19,7 +19,7 @@ namespace GameLibrary
 		AutoLayout(const AutoLayout&);
 		/*! Constructs an AutoLayout with a given frame.
 			\param frame a RectangleD frame*/
-		AutoLayout(const RectangleD&frame);
+		explicit AutoLayout(const RectangleD&frame);
 		/*! assignment operator*/
 		AutoLayout& operator=(const AutoLayout&);
 		

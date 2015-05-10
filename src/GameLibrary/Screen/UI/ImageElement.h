@@ -25,7 +25,7 @@ namespace GameLibrary
 		/*! default constructor; */
 		ImageElement();
 		/*! \copydoc GameLibrary::ScreenElement::ScreenElement(const RectangleD&frame)*/
-		ImageElement(const RectangleD&frame);
+		explicit ImageElement(const RectangleD&frame);
 		/*! Constructs a screen element with a frame and an image to display with a given display mode
 			\param frame the frame (bounding box) of the element
 			\param image the image to display inside the element

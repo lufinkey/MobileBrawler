@@ -33,7 +33,7 @@ namespace GameLibrary
 			\param fontSize the glyph size of the font
 			\param fontStyle the style (plain, bold italic, etc.) of the font \see GameLibrary::Font::Style
 			\param alignment the alignment of the text, relative the origin \see GameLibrary::TextActor::TextAlignment*/
-		TextActor(const WideString&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontSize=24, int fontStyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_BOTTOMLEFT);
+		explicit TextActor(const WideString&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontSize=24, int fontStyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_BOTTOMLEFT);
 		/*! Constructs a TextActor with a specified position, string, font, color, font size, font style, and alignment.
 			\param x the x coordinate
 			\param y the y coordinate

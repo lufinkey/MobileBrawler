@@ -27,8 +27,8 @@ namespace GameLibrary
 		BitSet();
 		BitSet(const BitSet&);
 		BitSet(byte b);
-		BitSet(char bits[8]);
-		BitSet(bool bits[8]);
+		explicit BitSet(char bits[8]);
+		explicit BitSet(bool bits[8]);
 		~BitSet();
 
 		BitSet& operator=(const BitSet&bitset);

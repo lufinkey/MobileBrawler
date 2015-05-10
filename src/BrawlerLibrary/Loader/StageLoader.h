@@ -14,7 +14,7 @@ namespace BrawlerLibrary
 		GameLibrary::AssetManager* assetManager;
 
 	public:
-		StageLoader(GameLibrary::Window& window);
+		explicit StageLoader(GameLibrary::Window& window);
 		StageLoader();
 		
 		GameLibrary::AssetManager* getAssetManager() const;

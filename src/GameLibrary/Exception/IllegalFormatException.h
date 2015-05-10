@@ -11,7 +11,7 @@ namespace GameLibrary
 	{
 	protected:
 		/*! \copydoc GameLibrary::Exception::Exception(const GameLibrary::String&)*/
-		IllegalFormatException(const String&message);
+		explicit IllegalFormatException(const String&message);
 		
 	public:
 		/*! copy constructor*/

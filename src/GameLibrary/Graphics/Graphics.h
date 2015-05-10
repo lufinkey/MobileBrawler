@@ -232,7 +232,7 @@ namespace GameLibrary
 		void reset(const Color&clearColor = Color::WHITE);
 		
 		/*! Constructs a Graphics object to draw to a given Window*/
-		Graphics(Window&window);
+		explicit Graphics(Window&window);
 		
 		/*! Called internally to begin a drawing operation.
 		To create a custom drawing operation, beginDraw() should be called before the operation, and endDraw() should be called when the operation finishes.*/

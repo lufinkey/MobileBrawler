@@ -22,7 +22,7 @@ namespace GameLibrary
 				2.) is already contained within another ScreenManager\n
 				3.) is presented on another Screen\n
 				4.) already belongs to another Window*/
-		ScreenManager(Screen*rootScreen);
+		explicit ScreenManager(Screen*rootScreen);
 		/*! Constructs a ScreenManager with a Screen at the beginning of the contained list, and an optional Window for being the root screen of a Window.
 			\param window a Window pointer, or null if this ScreenManager is not the root Screen of the Window
 			\param rootScreen the Screen to be contained in the root of the container

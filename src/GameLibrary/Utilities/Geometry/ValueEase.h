@@ -30,7 +30,7 @@ namespace GameLibrary
 			//
 		}
 		
-		ValueEase(T*value)
+		explicit ValueEase(T*value)
 		{
 			ValueEase::value = value;
 			if(value!=nullptr)

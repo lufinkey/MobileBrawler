@@ -21,7 +21,7 @@ namespace GameLibrary
 		ScreenElement();
 		/*! Constructs an element with a given frame (bounding box).
 			\param frame the bounding box of the element*/
-		ScreenElement(const RectangleD&frame);
+		explicit ScreenElement(const RectangleD&frame);
 		/*! virtual destructor*/
 		virtual ~ScreenElement();
 		

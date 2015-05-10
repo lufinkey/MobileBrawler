@@ -15,7 +15,7 @@ namespace BrawlerLibrary
 			MODE_FOLLOW
 		} CameraMode;
 		
-		Camera(BrawlGame*gameInstance);
+		explicit Camera(BrawlGame*gameInstance);
 		Camera(BrawlGame*gameInstance, const GameLibrary::Vector2d&position, double zoom);
 		virtual ~Camera();
 		

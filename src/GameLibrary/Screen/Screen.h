@@ -25,7 +25,7 @@ namespace GameLibrary
 		Screen();
 		/*! Constructs a Screen to be the root Screen of a Window. Only one screen in any Screen stack should be delegated as the root Screen.
 			\param window the Window that the Screen will be contained within*/
-		Screen(Window*window);
+		explicit Screen(Window*window);
 		/*! virtual destructor*/
 		virtual ~Screen();
 		

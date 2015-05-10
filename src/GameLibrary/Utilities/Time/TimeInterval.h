@@ -8,7 +8,7 @@ namespace GameLibrary
 	public:
 		TimeInterval();
 		TimeInterval(const TimeInterval&);
-		TimeInterval(long long milliseconds);
+		explicit TimeInterval(long long milliseconds);
 		~TimeInterval();
 		
 		TimeInterval& operator=(const TimeInterval&);
