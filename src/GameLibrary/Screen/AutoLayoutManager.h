@@ -10,18 +10,18 @@ namespace GameLibrary
 	class ScreenElement;
 	
 	/*! Automatically lays out Actor and ScreenElement objects based on a given frame*/
-	class AutoLayout
+	class AutoLayoutManager
 	{
 	public:
 		/*! default constructor*/
-		AutoLayout();
+		AutoLayoutManager();
 		/*! copy constructor*/
-		AutoLayout(const AutoLayout&);
+		AutoLayoutManager(const AutoLayoutManager&);
 		/*! Constructs an AutoLayout with a given frame.
 			\param frame a RectangleD frame*/
-		explicit AutoLayout(const RectangleD&frame);
+		explicit AutoLayoutManager(const RectangleD&frame);
 		/*! assignment operator*/
-		AutoLayout& operator=(const AutoLayout&);
+		AutoLayoutManager& operator=(const AutoLayoutManager&);
 		
 		
 		/*! Adds an Actor to be laid out. If the Actor is already stored, the new bounds are set and the function returns.

@@ -3,7 +3,7 @@
 
 namespace GameLibrary
 {
-	ActorMenuElement::ActorMenuElement(const RectangleD&frame) : ScreenElement(frame), autoActorLayout(frame)
+	ActorMenuElement::ActorMenuElement(const RectangleD&frame) : ScreenElement(frame), autoActorLayoutMgr(frame)
 	{
 		selectedIndex = ACTORMENU_NOSELECTION;
 		keyboardEnabled = false;
@@ -237,7 +237,7 @@ namespace GameLibrary
 	void ActorMenuElement::setFrame(const RectangleD&frame)
 	{
 		ScreenElement::setFrame(frame);
-		autoActorLayout.setFrame(frame);
+		autoActorLayoutMgr.setFrame(frame);
 	}
 	
 	void ActorMenuElement::drawActor(ApplicationData appData, Graphics graphics, Actor*actor) const
@@ -279,7 +279,7 @@ namespace GameLibrary
 			throw IllegalArgumentException("actor", "null");
 		}
 		actors.add(actor);
-		autoActorLayout.add(bounds, actor);
+		autoActorLayoutMgr.add(bounds, actor);
 		return actors.size()-1;
 	}
 	
@@ -306,7 +306,7 @@ namespace GameLibrary
 	{
 		Actor* actor = actors.get(index);
 		actors.remove(index);
-		autoActorLayout.remove(actor);
+		autoActorLayoutMgr.remove(actor);
 		if(selectedIndex == index)
 		{
 			selectedIndex = ACTORMENU_NOSELECTION;
@@ -611,8 +611,8 @@ namespace GameLibrary
 		return selectedIndex;
 	}
 	
-	const AutoLayout& ActorMenuElement::getAutoActorLayout() const
+	const AutoLayoutManager& ActorMenuElement::getAutoActorLayoutManager() const
 	{
-		return autoActorLayout;
+		return autoActorLayoutMgr;
 	}
 }

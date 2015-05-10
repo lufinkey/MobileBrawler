@@ -18,7 +18,7 @@ namespace SmashBros
 			preview = nullptr;
 			
 			RectangleD frame = getFrame();
-			autoIconLayout.setFrame(RectangleD(0,0,frame.width,frame.height));
+			autoIconLayoutMgr.setFrame(RectangleD(0,0,frame.width,frame.height));
 		}
 		
 		StageSelectScreen::~StageSelectScreen()
@@ -30,7 +30,7 @@ namespace SmashBros
 		{
 			BaseMenuScreen::onFrameChange();
 			RectangleD frame = getFrame();
-			autoIconLayout.setFrame(RectangleD(0,0,frame.width,frame.height));
+			autoIconLayoutMgr.setFrame(RectangleD(0,0,frame.width,frame.height));
 		}
 		
 		Rules* StageSelectScreen::getRules() const
@@ -55,7 +55,7 @@ namespace SmashBros
 		
 		void StageSelectScreen::reloadIcons(const SmashData&smashData)
 		{
-			autoIconLayout.clear();
+			autoIconLayoutMgr.clear();
 			
 			for(unsigned int i=0; i<icons.size(); i++)
 			{
@@ -83,7 +83,7 @@ namespace SmashBros
 				unsigned int row = i/cols;
 				double icon_left = bounds.left+(((double)col)*icon_width);
 				double icon_top = bounds.top+(((double)row)*icon_height);
-				autoIconLayout.add(RectD(icon_left, icon_top, icon_left+icon_width, icon_top+icon_height), icon);
+				autoIconLayoutMgr.add(RectD(icon_left, icon_top, icon_left+icon_width, icon_top+icon_height), icon);
 				icons.add(icon);
 				addItem(icon);
 			}

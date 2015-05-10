@@ -49,7 +49,7 @@
 
 #include "Network/NetworkProtocol.h"
 
-#include "Screen/AutoLayout.h"
+#include "Screen/AutoLayoutManager.h"
 #include "Screen/Updateable.h"
 #include "Screen/Drawable.h"
 #include "Screen/ScreenElement.h"

@@ -46,15 +46,15 @@ namespace SmashBros
 			Font* font = assetManager->getFont("fonts/default.ttf");
 			value_label_color = Color::BLACK;
 			value_label_actor = new TextActor(valueLabel, font, value_label_color, 24, Font::STYLE_PLAIN, TextActor::ALIGN_CENTER);
-			autoLayout.add(RectD(0.65, 0.05, 0.9, 0.95), value_label_actor);
+			autoLayoutMgr.add(RectD(0.65, 0.05, 0.9, 0.95), value_label_actor);
 			
 			arrow_less_dir = "left";
 			arrow_less = new MenuBarValueAdjust_ArrowButton(this, 0,0, value, min, max, -incr, ArrowButton::DIRECTION_LEFT, assetManager);
-			autoLayout.add(RectD(0.6, 0.05, 0.65, 0.95), arrow_less);
+			autoLayoutMgr.add(RectD(0.6, 0.05, 0.65, 0.95), arrow_less);
 			
 			arrow_more_dir = "right";
 			arrow_more = new MenuBarValueAdjust_ArrowButton(this, 0,0, value, min, max, incr, ArrowButton::DIRECTION_RIGHT, assetManager);
-			autoLayout.add(RectD(0.9, 0.05, 0.95, 0.95), arrow_more);
+			autoLayoutMgr.add(RectD(0.9, 0.05, 0.95, 0.95), arrow_more);
 			
 			applyProperties(properties);
 		}
@@ -71,10 +71,10 @@ namespace SmashBros
 			Any value_label_bounds_any = properties.get("value_label_bounds");
 			if(!value_label_bounds_any.empty() && value_label_bounds_any.is<Dictionary>())
 			{
-				RectD value_label_bounds = autoLayout.get(value_label_actor);
+				RectD value_label_bounds = autoLayoutMgr.get(value_label_actor);
 				const Dictionary& value_label_bounds_dict = value_label_bounds_any.as<Dictionary>(false);
 				applyPropertiesDict(&value_label_bounds, value_label_bounds_dict);
-				autoLayout.set(value_label_actor, value_label_bounds);
+				autoLayoutMgr.set(value_label_actor, value_label_bounds);
 			}
 			Any value_label_color_any = properties.get("value_label_color");
 			if(!value_label_color_any.empty() && value_label_color_any.is<Dictionary>())
@@ -86,10 +86,10 @@ namespace SmashBros
 			Any arrow_less_bounds_any = properties.get("arrow_less_bounds");
 			if(!arrow_less_bounds_any.empty() && arrow_less_bounds_any.is<Dictionary>())
 			{
-				RectD arrow_less_bounds = autoLayout.get(arrow_less);
+				RectD arrow_less_bounds = autoLayoutMgr.get(arrow_less);
 				const Dictionary& arrow_less_bounds_dict = arrow_less_bounds_any.as<Dictionary>(false);
 				applyPropertiesDict(&arrow_less_bounds, arrow_less_bounds_dict);
-				autoLayout.set(arrow_less, arrow_less_bounds);
+				autoLayoutMgr.set(arrow_less, arrow_less_bounds);
 			}
 			Any arrow_less_dir_any = properties.get("arrow_less_dir");
 			if(!arrow_less_dir_any.empty() && arrow_less_dir_any.is<String>())
@@ -115,10 +115,10 @@ namespace SmashBros
 			Any arrow_more_bounds_any = properties.get("arrow_more_bounds");
 			if(!arrow_more_bounds_any.empty() && arrow_more_bounds_any.is<Dictionary>())
 			{
-				RectD arrow_more_bounds = autoLayout.get(arrow_more);
+				RectD arrow_more_bounds = autoLayoutMgr.get(arrow_more);
 				const Dictionary& arrow_more_bounds_dict = arrow_more_bounds_any.as<Dictionary>(false);
 				applyPropertiesDict(&arrow_more_bounds, arrow_more_bounds_dict);
-				autoLayout.set(arrow_more, arrow_more_bounds);
+				autoLayoutMgr.set(arrow_more, arrow_more_bounds);
 			}
 			Any arrow_more_dir_any = properties.get("arrow_more_dir");
 			if(!arrow_more_dir_any.empty() && arrow_more_dir_any.is<String>())
@@ -172,7 +172,7 @@ namespace SmashBros
 		void MenuBarValueAdjust::setValueLabel(const WideString&label)
 		{
 			value_label_actor->setText(label);
-			autoLayout.setFrame(getFrame());
+			autoLayoutMgr.setFrame(getFrame());
 		}
 		
 		MenuBarValueAdjustEventListener* MenuBarValueAdjust::getEventListener() const

@@ -76,13 +76,13 @@ namespace SmashBros
 				//addAnimation("blank", new Animation(1, assetManager, (String)"characterselect/panel_background_blank.png"));
 				changeAnimation("na", Animation::FORWARD);
 				
-				autoLayout.setFrame(getFrame());
+				autoLayoutMgr.setFrame(getFrame());
 				
 				portrait = new SpriteActor(x,y);
 				portrait_anim = new Animation(1);
 				portrait->addAnimation("default", portrait_anim);
 				portrait->changeAnimation("default", Animation::FORWARD);
-				autoLayout.add(RectD(0,0,1,1), portrait);
+				autoLayoutMgr.add(RectD(0,0,1,1), portrait);
 				
 				overlay = new SpriteActor(x,y);
 				overlay->addAnimation("human", new Animation(1, assetManager, (String)"characterselect/panel_overlay_p" + playerNum + ".png"));
@@ -90,10 +90,10 @@ namespace SmashBros
 				overlay->addAnimation("na", new Animation(1, assetManager, "characterselect/panel_overlay_na.png"));
 				//overlay->addAnimation("blank", new Animation(1, assetManager, "characterselect/panel_overlay_blank.png"));
 				overlay->changeAnimation("na", Animation::FORWARD);
-				autoLayout.add(RectD(0,0,1,1), overlay);
+				autoLayoutMgr.add(RectD(0,0,1,1), overlay);
 				
 				namebox = new TextActor(x, y, "", assetManager->getFont("fonts/default.ttf"), Color::BLACK, 36, Font::STYLE_PLAIN, TextActor::ALIGN_CENTER);
-				autoLayout.add(RectD(0.32, 0.87, 0.91, 0.981), namebox);
+				autoLayoutMgr.add(RectD(0.32, 0.87, 0.91, 0.981), namebox);
 				
 				tapRegion_mode = new PlayerPanel_ModeTapRegion(this, charSelectScreen);
 				tapRegion_mode->setVisible(false);
@@ -114,7 +114,7 @@ namespace SmashBros
 				SpriteActor::updateSize();
 				
 				RectangleD frame = getFrame();
-				autoLayout.setFrame(frame);
+				autoLayoutMgr.setFrame(frame);
 				if(tapRegion_mode!=nullptr)
 				{
 					tapRegion_mode->x = frame.x;
@@ -128,24 +128,24 @@ namespace SmashBros
 				const Any& portraitDict = properties.get("portrait");
 				if(!portraitDict.empty() && portraitDict.is<Dictionary>())
 				{
-					RectD portrait_bounds = autoLayout.get(portrait);
+					RectD portrait_bounds = autoLayoutMgr.get(portrait);
 					applyPlacementDict(&portrait_bounds, portraitDict.as<Dictionary>(false));
-					autoLayout.set(portrait, portrait_bounds);
+					autoLayoutMgr.set(portrait, portrait_bounds);
 				}
 				const Any& overlayDict = properties.get("overlay");
 				if(!overlayDict.empty() && overlayDict.is<Dictionary>())
 				{
-					RectD overlay_bounds = autoLayout.get(overlay);
+					RectD overlay_bounds = autoLayoutMgr.get(overlay);
 					applyPlacementDict(&overlay_bounds, overlayDict.as<Dictionary>(false));
-					autoLayout.set(overlay, overlay_bounds);
+					autoLayoutMgr.set(overlay, overlay_bounds);
 				}
 				const Any& nameboxDict = properties.get("namebox");
 				if(!nameboxDict.empty() && nameboxDict.is<Dictionary>())
 				{
-					RectD namebox_bounds = autoLayout.get(namebox);
+					RectD namebox_bounds = autoLayoutMgr.get(namebox);
 					const Dictionary&namebox_dict = nameboxDict.as<Dictionary>(false);
 					applyPlacementDict(&namebox_bounds, nameboxDict);
-					autoLayout.set(namebox, namebox_bounds);
+					autoLayoutMgr.set(namebox, namebox_bounds);
 					
 					/*const Any& alignment_val = namebox_dict.get("alignment");
 					if(!alignment_val.empty() && alignment_val.is<String>())

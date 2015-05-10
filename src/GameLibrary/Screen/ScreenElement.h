@@ -2,7 +2,7 @@
 #pragma once
 
 #include "Drawable.h"
-#include "AutoLayout.h"
+#include "AutoLayoutManager.h"
 #include "../Exception/IllegalArgumentException.h"
 #include "../Exception/IllegalStateException.h"
 #include "../Utilities/ArrayList.h"
@@ -92,10 +92,10 @@ namespace GameLibrary
 		
 		/*! Gets the automatic layout manager for this element.
 			\returns a const AutoLayout reference*/
-		AutoLayout& getAutoLayout();
+		AutoLayoutManager& getAutoLayoutManager();
 		/*! Gets the automatic layout manager for this element.
 			\returns a const AutoLayout reference*/
-		const AutoLayout& getAutoLayout() const;
+		const AutoLayoutManager& getAutoLayoutManager() const;
 		
 		
 		/*! Sets this element's visibility, and optionally sets all its children's visibility.
@@ -141,7 +141,7 @@ namespace GameLibrary
 		ArrayList<ScreenElement*> childElements;
 		ArrayList<ScreenElement*> removedChildElements;
 		
-		AutoLayout autoLayout;
+		AutoLayoutManager autoLayoutMgr;
 
 		mutable bool updatingElements;
 

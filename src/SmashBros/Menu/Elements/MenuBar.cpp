@@ -16,12 +16,12 @@ namespace SmashBros
 			addAnimation("MenuBar", new Animation(1, assetManager, "elements/menu_bar.png"));
 			changeAnimation("MenuBar", Animation::FORWARD);
 			
-			autoLayout.setFrame(getFrame());
+			autoLayoutMgr.setFrame(getFrame());
 			
 			Font* font = assetManager->getFont("fonts/default.ttf");
 			label_color = Color::BLACK;
 			label_actor = new TextActor(label_text, font, label_color, 24, Font::STYLE_PLAIN, TextActor::ALIGN_BOTTOMLEFT);
-			autoLayout.add(RectD(0.05, 0.05, 0.575, 0.95), label_actor);
+			autoLayoutMgr.add(RectD(0.05, 0.05, 0.575, 0.95), label_actor);
 			
 			applyProperties(properties);
 		}
@@ -34,7 +34,7 @@ namespace SmashBros
 		void MenuBar::updateSize()
 		{
 			SpriteActor::updateSize();
-			autoLayout.setFrame(getFrame());
+			autoLayoutMgr.setFrame(getFrame());
 		}
 		
 		void MenuBar::applyProperties(const Dictionary&properties)
@@ -42,10 +42,10 @@ namespace SmashBros
 			Any label_bounds_any = properties.get("label_bounds");
 			if(!label_bounds_any.empty() && label_bounds_any.is<Dictionary>())
 			{
-				RectD label_bounds = autoLayout.get(label_actor);
+				RectD label_bounds = autoLayoutMgr.get(label_actor);
 				const Dictionary& label_bounds_dict = label_bounds_any.as<Dictionary>(false);
 				applyPropertiesDict(&label_bounds, label_bounds_dict);
-				autoLayout.set(label_actor, label_bounds);
+				autoLayoutMgr.set(label_actor, label_bounds);
 			}
 			Any label_color_any = properties.get("label_color");
 			if(!label_color_any.empty() && label_color_any.is<Dictionary>())
@@ -135,18 +135,18 @@ namespace SmashBros
 		void MenuBar::setLabel(const WideString&text)
 		{
 			label_actor->setText(text);
-			autoLayout.setFrame(getFrame());
+			autoLayoutMgr.setFrame(getFrame());
 		}
 		
 		void MenuBar::setLabelBounds(const RectD&bounds)
 		{
-			autoLayout.set(label_actor, bounds);
+			autoLayoutMgr.set(label_actor, bounds);
 		}
 		
 		void MenuBar::setLabelAlignment(const TextActor::TextAlignment&alignment)
 		{
 			label_actor->setAlignment(alignment);
-			autoLayout.setFrame(getFrame());
+			autoLayoutMgr.setFrame(getFrame());
 		}
 		
 		const WideString& MenuBar::getLabel() const
@@ -156,7 +156,7 @@ namespace SmashBros
 		
 		const RectD& MenuBar::getLabelBounds() const
 		{
-			return autoLayout.get(label_actor);
+			return autoLayoutMgr.get(label_actor);
 		}
 		
 		const TextActor::TextAlignment& MenuBar::getLabelAlignment() const

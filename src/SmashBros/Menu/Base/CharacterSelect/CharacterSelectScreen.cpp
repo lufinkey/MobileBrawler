@@ -15,13 +15,13 @@ namespace SmashBros
 		CharacterSelectScreen::CharacterSelectScreen(const SmashData&smashData, Rules*ruleData) : SmashBros::Menu::BaseMenuScreen(smashData)
 		{
 			RectangleD frame = getFrame();
-			autoIconLayout.setFrame(RectangleD(0,0,frame.width,frame.height));
-			autoPanelLayout.setFrame(RectangleD(0,0,frame.width,frame.height));
+			autoIconLayoutMgr.setFrame(RectangleD(0,0,frame.width,frame.height));
+			autoPanelLayoutMgr.setFrame(RectangleD(0,0,frame.width,frame.height));
 			
 			rules = ruleData;
 			characterLoader = smashData.getModuleData()->getCharacterLoader();
 			readyToFightBanner = new ReadyToFightBanner(this, 0, 0, smashData.getMenuData()->getAssetManager());
-			getElement()->getAutoLayout().add(RectD(0, 0.5, 1.0, 0.7), readyToFightBanner);
+			getElement()->getAutoLayoutManager().add(RectD(0, 0.5, 1.0, 0.7), readyToFightBanner);
 		}
 		
 		CharacterSelectScreen::~CharacterSelectScreen()
@@ -45,8 +45,8 @@ namespace SmashBros
 		{
 			BaseMenuScreen::onFrameChange();
 			RectangleD frame = getFrame();
-			autoIconLayout.setFrame(RectangleD(0,0,frame.width,frame.height));
-			autoPanelLayout.setFrame(RectangleD(0,0,frame.width,frame.height));
+			autoIconLayoutMgr.setFrame(RectangleD(0,0,frame.width,frame.height));
+			autoPanelLayoutMgr.setFrame(RectangleD(0,0,frame.width,frame.height));
 		}
 		
 		bool CharacterSelectScreen::isReadyToFight() const
@@ -105,7 +105,7 @@ namespace SmashBros
 		
 		void CharacterSelectScreen::reloadIcons(const SmashData&smashData)
 		{
-			autoIconLayout.clear();
+			autoIconLayoutMgr.clear();
 			
 			for(unsigned int i=0; i<icons.size(); i++)
 			{
@@ -128,7 +128,7 @@ namespace SmashBros
 				}
 			}
 			
-			double frameoffset_y = getElement()->getAutoLayout().get(getHeaderbarElement()).bottom*1.1;
+			double frameoffset_y = getElement()->getAutoLayoutManager().get(getHeaderbarElement()).bottom*1.1;
 			
 			RectD bounds(0.1, frameoffset_y, 0.9, 0.6);
 			double bounds_w = bounds.right - bounds.left;
@@ -146,14 +146,14 @@ namespace SmashBros
 				unsigned int row = i/cols;
 				double icon_left = bounds.left+(((double)col)*icon_width);
 				double icon_top = bounds.top+(((double)row)*icon_height);
-				autoIconLayout.add(RectD(icon_left, icon_top, icon_left+icon_width, icon_top+icon_height), icon);
+				autoIconLayoutMgr.add(RectD(icon_left, icon_top, icon_left+icon_width, icon_top+icon_height), icon);
 				icons.add(icon);
 			}
 		}
 		
 		void CharacterSelectScreen::reloadPlayerPanels(const SmashData&smashData)
 		{
-			autoPanelLayout.clear();
+			autoPanelLayoutMgr.clear();
 			
 			for(unsigned int i=0; i<panels.size(); i++)
 			{
@@ -191,7 +191,7 @@ namespace SmashBros
 				PlayerPanel* panel = new PlayerPanel(playerNum, this, 0, 0, panelProperties, smashData.getMenuData()->getAssetManager());
 				double panel_left = panelBounds.left + (panel_width*((double)i));
 				double panel_top = panelBounds.top;
-				autoPanelLayout.add(RectD(panel_left, panel_top, panel_left+panel_width, panelBounds.bottom), panel);
+				autoPanelLayoutMgr.add(RectD(panel_left, panel_top, panel_left+panel_width, panelBounds.bottom), panel);
 				panels.add(panel);
 
 				double chipX = (panel_left*screenSize.x)+(chipSize.x/2);

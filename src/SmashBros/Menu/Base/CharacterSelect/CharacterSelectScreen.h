@@ -47,8 +47,8 @@ namespace SmashBros
 
 			Rules*rules;
 			CharacterLoader* characterLoader;
-			AutoLayout autoIconLayout;
-			AutoLayout autoPanelLayout;
+			AutoLayoutManager autoIconLayoutMgr;
+			AutoLayoutManager autoPanelLayoutMgr;
 			ArrayList<CharacterSelect::CharacterIcon*> icons;
 			ArrayList<CharacterSelect::PlayerPanel*> panels;
 			ArrayList<CharacterSelect::PlayerChip*> chips;

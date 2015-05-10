@@ -18,7 +18,7 @@ namespace SmashBros
 			void applyProperties(const Dictionary&properties);
 			
 		protected:
-			AutoLayout autoLayout;
+			AutoLayoutManager autoLayoutMgr;
 			
 			RectangleD getLabelFrame(const RectD&bounds) const;
 			void applyPropertiesDict(RectD*bounds, const Dictionary&properties);

@@ -50,7 +50,7 @@ namespace GameLibrary
 		//
 	}
 
-	ScreenElement::ScreenElement(const RectangleD&frame_arg) : autoLayout(frame_arg)
+	ScreenElement::ScreenElement(const RectangleD&frame_arg) : autoLayoutMgr(frame_arg)
 	{
 		frame = frame_arg;
 		window = nullptr;
@@ -158,7 +158,7 @@ namespace GameLibrary
 	void ScreenElement::setFrame(const RectangleD&frame_arg)
 	{
 		frame = frame_arg;
-		autoLayout.setFrame(frame);
+		autoLayoutMgr.setFrame(frame);
 	}
 
 	RectangleD ScreenElement::getFrame() const
@@ -198,14 +198,14 @@ namespace GameLibrary
 		}
 		element->parentElement = this;
 		childElements.add(element);
-		autoLayout.add(bounds, element);
+		autoLayoutMgr.add(bounds, element);
 	}
 
 	void ScreenElement::removeFromParentElement()
 	{
 		if(parentElement != nullptr)
 		{
-			parentElement->autoLayout.remove(this);
+			parentElement->autoLayoutMgr.remove(this);
 			if(parentElement->updatingElements)
 			{
 				parentElement->removedChildElements.add(this);
@@ -290,14 +290,14 @@ namespace GameLibrary
 		return backgroundColor;
 	}
 	
-	AutoLayout& ScreenElement::getAutoLayout()
+	AutoLayoutManager& ScreenElement::getAutoLayoutManager()
 	{
-		return autoLayout;
+		return autoLayoutMgr;
 	}
 	
-	const AutoLayout& ScreenElement::getAutoLayout() const
+	const AutoLayoutManager& ScreenElement::getAutoLayoutManager() const
 	{
-		return autoLayout;
+		return autoLayoutMgr;
 	}
 	
 	void ScreenElement::setVisible(bool toggle, bool applyToChildren)

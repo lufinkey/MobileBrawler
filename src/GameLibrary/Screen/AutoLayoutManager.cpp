@@ -1,28 +1,28 @@
 
-#include "AutoLayout.h"
+#include "AutoLayoutManager.h"
 #include "../Actor/Actor.h"
 #include "ScreenElement.h"
 
 namespace GameLibrary
 {
-	AutoLayout::AutoLayout() : AutoLayout(RectangleD(0,0,0,0))
+	AutoLayoutManager::AutoLayoutManager() : AutoLayoutManager(RectangleD(0,0,0,0))
 	{
 		//
 	}
 	
-	AutoLayout::AutoLayout(const AutoLayout&autoLayout)
+	AutoLayoutManager::AutoLayoutManager(const AutoLayoutManager&autoLayoutMgr)
 	{
-		frame = autoLayout.frame;
-		actors = autoLayout.actors;
-		elements = autoLayout.elements;
+		frame = autoLayoutMgr.frame;
+		actors = autoLayoutMgr.actors;
+		elements = autoLayoutMgr.elements;
 	}
 	
-	AutoLayout::AutoLayout(const RectangleD&frame_arg)
+	AutoLayoutManager::AutoLayoutManager(const RectangleD&frame_arg)
 	{
 		frame = frame_arg;
 	}
 	
-	AutoLayout& AutoLayout::operator=(const AutoLayout&autoLayout)
+	AutoLayoutManager& AutoLayoutManager::operator=(const AutoLayoutManager&autoLayout)
 	{
 		frame = autoLayout.frame;
 		actors = autoLayout.actors;
@@ -30,7 +30,7 @@ namespace GameLibrary
 		return *this;
 	}
 	
-	void AutoLayout::add(const RectD&bounds, Actor*actor)
+	void AutoLayoutManager::add(const RectD&bounds, Actor*actor)
 	{
 		if(actor == nullptr)
 		{
@@ -53,7 +53,7 @@ namespace GameLibrary
 		actors.add(container);
 	}
 	
-	void AutoLayout::add(const RectD&bounds, ScreenElement*element)
+	void AutoLayoutManager::add(const RectD&bounds, ScreenElement*element)
 	{
 		if(element == nullptr)
 		{
@@ -76,7 +76,7 @@ namespace GameLibrary
 		elements.add(container);
 	}
 	
-	void AutoLayout::set(Actor*actor, const RectD&bounds)
+	void AutoLayoutManager::set(Actor*actor, const RectD&bounds)
 	{
 		if(actor == nullptr)
 		{
@@ -95,7 +95,7 @@ namespace GameLibrary
 		throw IllegalArgumentException("actor", "not stored in the calling AutoLayout");
 	}
 	
-	void AutoLayout::set(ScreenElement*element, const RectD&bounds)
+	void AutoLayoutManager::set(ScreenElement*element, const RectD&bounds)
 	{
 		if(element == nullptr)
 		{
@@ -114,7 +114,7 @@ namespace GameLibrary
 		throw IllegalArgumentException("element", "not stored in the calling AutoLayout");
 	}
 	
-	const RectD& AutoLayout::get(Actor*actor) const
+	const RectD& AutoLayoutManager::get(Actor*actor) const
 	{
 		if(actor == nullptr)
 		{
@@ -131,7 +131,7 @@ namespace GameLibrary
 		throw IllegalArgumentException("actor", "not stored in the calling AutoLayout");
 	}
 	
-	const RectD& AutoLayout::get(ScreenElement*element) const
+	const RectD& AutoLayoutManager::get(ScreenElement*element) const
 	{
 		if(element == nullptr)
 		{
@@ -148,7 +148,7 @@ namespace GameLibrary
 		throw IllegalArgumentException("element", "not stored in the calling AutoLayout");
 	}
 	
-	bool AutoLayout::contains(Actor*actor) const
+	bool AutoLayoutManager::contains(Actor*actor) const
 	{
 		for(unsigned int i=0; i<actors.size(); i++)
 		{
@@ -161,7 +161,7 @@ namespace GameLibrary
 		return false;
 	}
 	
-	bool AutoLayout::contains(ScreenElement*element) const
+	bool AutoLayoutManager::contains(ScreenElement*element) const
 	{
 		for(unsigned int i=0; i<elements.size(); i++)
 		{
@@ -174,7 +174,7 @@ namespace GameLibrary
 		return false;
 	}
 	
-	void AutoLayout::remove(Actor*actor)
+	void AutoLayoutManager::remove(Actor*actor)
 	{
 		if(actor == nullptr)
 		{
@@ -191,7 +191,7 @@ namespace GameLibrary
 		}
 	}
 	
-	void AutoLayout::remove(ScreenElement*element)
+	void AutoLayoutManager::remove(ScreenElement*element)
 	{
 		if(element == nullptr)
 		{
@@ -208,13 +208,13 @@ namespace GameLibrary
 		}
 	}
 	
-	void AutoLayout::clear()
+	void AutoLayoutManager::clear()
 	{
 		actors.clear();
 		elements.clear();
 	}
 	
-	void AutoLayout::setFrame(const RectangleD&frame_arg)
+	void AutoLayoutManager::setFrame(const RectangleD&frame_arg)
 	{
 		frame = frame_arg;
 		for(unsigned int i=0; i<actors.size(); i++)
@@ -229,19 +229,19 @@ namespace GameLibrary
 		}
 	}
 	
-	void AutoLayout::layout(const RectD&bounds, Actor*actor) const
+	void AutoLayoutManager::layout(const RectD&bounds, Actor*actor) const
 	{
 		actor->setScale(1);
 		RectangleD rect = convertFrame(frame, bounds);
 		actor->scaleToFit(rect);
 	}
 	
-	void AutoLayout::layout(const RectD&bounds, ScreenElement*element) const
+	void AutoLayoutManager::layout(const RectD&bounds, ScreenElement*element) const
 	{
 		element->setFrame(convertFrame(frame, bounds));
 	}
 	
-	RectangleD AutoLayout::convertFrame(const RectangleD&frame, const RectD&bounds)
+	RectangleD AutoLayoutManager::convertFrame(const RectangleD&frame, const RectD&bounds)
 	{
 		double left = bounds.left*frame.width;
 		double top = bounds.top*frame.height;

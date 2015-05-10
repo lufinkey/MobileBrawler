@@ -132,7 +132,7 @@ namespace GameLibrary
 		
 		/*! Gets the automatic layout manager for the contained actors.
 			\returns a const AutoLayout reference*/
-		const AutoLayout& getAutoActorLayout() const;
+		const AutoLayoutManager& getAutoActorLayoutManager() const;
 		
 	protected:
 		/*! \copydoc GameLibrary::ScreenElement::drawMain(ApplicationData)const*/
@@ -145,7 +145,7 @@ namespace GameLibrary
 		
 	private:
 		ArrayList<Actor*> actors;
-		AutoLayout autoActorLayout;
+		AutoLayoutManager autoActorLayoutMgr;
 		
 		unsigned int selectedIndex;
 		bool keyboardEnabled;

@@ -174,7 +174,7 @@ namespace GameLibrary
 		
 		/*! Gets the automatic layout manager for the contained actors.
 			\returns a const AutoLayout reference*/
-		const AutoLayout& getAutoActorLayout() const;
+		const AutoLayoutManager& getAutoActorLayoutManager() const;
 		
 	protected:
 		/*! Called to draw an Actor in the menu. This function can be overridden to add custom drawing behavior.

@@ -31,7 +31,7 @@ namespace SmashBros
 				void applyProperties(const Dictionary&properties);
 				
 			protected:
-				AutoLayout autoLayout;
+				AutoLayoutManager autoLayoutMgr;
 				
 				static void applyPlacementDict(RectD*bounds, const Dictionary&dict);
 				

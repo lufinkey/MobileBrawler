@@ -271,8 +271,8 @@ namespace GameLibrary
 		return mainElement->getSelectedIndex();
 	}
 	
-	const AutoLayout& MenuScreen::getAutoActorLayout() const
+	const AutoLayoutManager& MenuScreen::getAutoActorLayoutManager() const
 	{
-		return mainElement->getAutoActorLayout();
+		return mainElement->getAutoActorLayoutManager();
 	}
 }

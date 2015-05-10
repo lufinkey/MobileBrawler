@@ -450,9 +450,6 @@
     <ClCompile Include="src\SmashBros\Menu\Base\StageSelect\StageSelectScreen.cpp">
       <Filter>src\SmashBros\Menu\Base\StageSelect</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameLibrary\Screen\AutoLayout.cpp">
-      <Filter>src\GameLibrary\Screen</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameLibrary\Screen\UI\MenuScreen.cpp">
       <Filter>src\GameLibrary\Screen\UI</Filter>
     </ClCompile>
@@ -512,6 +509,9 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Screen\UI\ZoomPanElement.cpp">
       <Filter>src\GameLibrary\Screen\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Screen\AutoLayoutManager.cpp">
+      <Filter>src\GameLibrary\Screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -869,9 +869,6 @@
     <ClInclude Include="src\SmashBros\Menu\Base\StageSelect\StageSelectScreen.h">
       <Filter>src\SmashBros\Menu\Base\StageSelect</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameLibrary\Screen\AutoLayout.h">
-      <Filter>src\GameLibrary\Screen</Filter>
-    </ClInclude>
     <ClInclude Include="src\GameLibrary\Screen\UI\MenuScreen.h">
       <Filter>src\GameLibrary\Screen\UI</Filter>
     </ClInclude>
@@ -940,6 +937,9 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Screen\UI\ZoomPanElement.h">
       <Filter>src\GameLibrary\Screen\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Screen\AutoLayoutManager.h">
+      <Filter>src\GameLibrary\Screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

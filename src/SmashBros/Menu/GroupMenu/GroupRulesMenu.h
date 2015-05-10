@@ -44,7 +44,7 @@ namespace SmashBros
 			StockWinCondition* stockWinCondition;
 			TimeLimitWinCondition* timeLimitWinCondition;
 
-			AutoLayout autoOptionsLayout;
+			AutoLayoutManager autoOptionsLayoutMgr;
 			
 			MenuBarValueAdjust* gameModeBar;
 			Number gameMode;
