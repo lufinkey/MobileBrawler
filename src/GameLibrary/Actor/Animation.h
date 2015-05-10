@@ -165,10 +165,10 @@ namespace GameLibrary
 		/*! Gets the source Rectangle for the TextureImage at the specified frame.
 			\param frameNum the frame index
 			\returns the source Rectangle for the specified frame*/
-		RectangleI getImageSourceRect(unsigned int frameNum) const;
+		RectangleU getImageSourceRect(unsigned int frameNum) const;
 		/*! Gets the source Rectangle for the TextureImage at the current frame.
 			\returns the source Rectangle for the current frame*/
-		RectangleI getImageSourceRect() const;
+		RectangleU getImageSourceRect() const;
 		
 		
 		/*! Gets the frame (bounding box) of the Animation at the current frame (animation frame).
@@ -195,7 +195,7 @@ namespace GameLibrary
 			AnimationFrame(const String&file, TextureImage*img=nullptr);
 			AnimationFrame(const String&file, unsigned int rows, unsigned int cols, unsigned int row, unsigned int col, TextureImage*img=nullptr);
 			
-			RectangleI getSourceRect() const;
+			RectangleU getSourceRect() const;
 		};
 
 		unsigned int currentFrame;

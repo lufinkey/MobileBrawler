@@ -225,7 +225,7 @@ namespace GameLibrary
 			\param img the TextureImage to draw
 			\param dst the destination rectangle to draw the TextureImage
 			\param src the source rectangle inside the TextureImage*/
-		void drawImage(TextureImage*img, const RectangleD& dst, const RectangleI& src);
+		void drawImage(TextureImage*img, const RectangleD& dst, const RectangleU& src);
 		
 	protected:
 		/*! Clears the Window render and resets all the properties of the Graphics*/

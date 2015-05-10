@@ -539,7 +539,7 @@ namespace GameLibrary
 			}
 			
 			TextureImage* img = animation_current->getImage(animation_frame);
-			RectangleI srcRect = animation_current->getImageSourceRect(animation_frame);
+			RectangleU srcRect = animation_current->getImageSourceRect(animation_frame);
 			unsigned int pxlX = (unsigned int)(ratX*((double)srcRect.width));
 			unsigned int pxlY = (unsigned int)(ratY*((double)srcRect.height));
 
@@ -580,16 +580,14 @@ namespace GameLibrary
 			{
 				throw IllegalStateException("The animation images within SpriteActor have not been loaded through an AssetManager");
 			}
-			RectangleI srcRect = animation_current->getImageSourceRect(animation_frame);
-			RectangleU srcRectU = RectangleU((unsigned int)srcRect.x, (unsigned int)srcRect.y, (unsigned int)srcRect.width, (unsigned int)srcRect.height);
+			RectangleU srcRect = animation_current->getImageSourceRect(animation_frame);
 			
 			TextureImage* actor_img = actor->animation_current->getImage(actor->animation_frame);
 			if(actor_img == nullptr)
 			{
 				throw IllegalStateException("The animation images within SpriteActor have not been loaded through an AssetManager");
 			}
-			RectangleI actor_srcRect = actor->animation_current->getImageSourceRect(actor->animation_frame);
-			RectangleU actor_srcRectU = RectangleU((unsigned int)actor_srcRect.x, (unsigned int)actor_srcRect.y, (unsigned int)actor_srcRect.width, (unsigned int)actor_srcRect.height);
+			RectangleU actor_srcRect = actor->animation_current->getImageSourceRect(actor->animation_frame);
 			
 			bool mirrorHorizontal = false;
 			if(mirroredHorizontal != animation_current->isMirroredHorizontal())
@@ -617,7 +615,7 @@ namespace GameLibrary
 			if(rotation == 0)
 			{
 				Vector2u dimensions(img->getWidth(), img->getHeight());
-				pxlIter = new PixelIterator(dimensions, srcRectU, frame, overlap, incr, incr, mirrorHorizontal, mirrorVertical);
+				pxlIter = new PixelIterator(dimensions, srcRect, frame, overlap, incr, incr, mirrorHorizontal, mirrorVertical);
 			}
 			else
 			{
@@ -626,7 +624,7 @@ namespace GameLibrary
 				double ratiox = ((double)srcRect.width)/width;
 				double ratioy = ((double)srcRect.height)/height;
 				Vector2u dimensions(img->getWidth(), img->getHeight());
-				pxlIter = new PixelIterator(dimensions, srcRectU, frame, overlap, incr, incr, transform, Vector2d(ratiox, ratioy), mirrorHorizontal, mirrorVertical);
+				pxlIter = new PixelIterator(dimensions, srcRect, frame, overlap, incr, incr, transform, Vector2d(ratiox, ratioy), mirrorHorizontal, mirrorVertical);
 			}
 			PixelIterator& pxlIterRef = *pxlIter;
 			
@@ -634,7 +632,7 @@ namespace GameLibrary
 			if(actor->rotation == 0)
 			{
 				Vector2u dimensions(actor_img->getWidth(), actor_img->getHeight());
-				actor_pxlIter = new PixelIterator(dimensions, actor_srcRectU, actor_frame, actor_overlap, incr, incr, actor_mirrorHorizontal, actor_mirrorVertical);
+				actor_pxlIter = new PixelIterator(dimensions, actor_srcRect, actor_frame, actor_overlap, incr, incr, actor_mirrorHorizontal, actor_mirrorVertical);
 			}
 			else
 			{
@@ -643,7 +641,7 @@ namespace GameLibrary
 				double ratiox = ((double)actor_srcRect.width)/actor->width;
 				double ratioy = ((double)actor_srcRect.height)/actor->height;
 				Vector2u dimensions(actor_img->getWidth(), actor_img->getHeight());
-				actor_pxlIter = new PixelIterator(dimensions, actor_srcRectU, actor_frame, actor_overlap, incr, incr, transform, Vector2d(ratiox, ratioy), actor_mirrorHorizontal, actor_mirrorVertical);
+				actor_pxlIter = new PixelIterator(dimensions, actor_srcRect, actor_frame, actor_overlap, incr, incr, transform, Vector2d(ratiox, ratioy), actor_mirrorHorizontal, actor_mirrorVertical);
 			}
 			PixelIterator& actor_pxlIterRef = *actor_pxlIter;
 
