@@ -38,25 +38,26 @@ namespace GameLibrary
 	{
 		if(image!=nullptr && isVisible())
 		{
+			RectangleU srcRect = getImageSourceRect();
 			switch(displayMode)
 			{
 				default:
 				case DISPLAY_STRETCH:
 				{
-					graphics.drawImage(image, getFrame());
+					graphics.drawImage(image, getFrame(), srcRect);
 				}
 				break;
 				
 				case DISPLAY_FIT:
 				{
 					RectangleD frame = getFrame();
-					double imgwidth = (double)image->getWidth();
-					double imgheight = (double)image->getHeight();
+					double imgwidth = (double)srcRect.width;
+					double imgheight = (double)srcRect.height;
 					if(imgwidth!=0 && imgheight!=0 && frame.width!=0 && frame.height!=0)
 					{
 						RectangleD drawFrame(frame.x, frame.y, imgwidth, imgheight);
 						drawFrame.scaleToFit(frame);
-						graphics.drawImage(image, drawFrame.x, drawFrame.y, drawFrame.width, drawFrame.height);
+						graphics.drawImage(image, drawFrame.x, drawFrame.y, drawFrame.width, drawFrame.height, srcRect.x, srcRect.y, srcRect.x+srcRect.width, srcRect.y+srcRect.height);
 					}
 				}
 				break;
@@ -65,14 +66,14 @@ namespace GameLibrary
 				{
 					RectangleD frame = getFrame();
 
-					double imgwidth = (double)image->getWidth();
-					double imgheight = (double)image->getHeight();
+					double imgwidth = (double)srcRect.width;
+					double imgheight = (double)srcRect.height;
 					if(imgwidth!=0 && imgheight!=0 && frame.width!=0 && frame.height!=0)
 					{
 						RectangleD drawFrame(frame.x, frame.y, imgwidth, imgheight);
 						drawFrame.scaleToFill(frame);
 						graphics.clip(frame);
-						graphics.drawImage(image, drawFrame.x, drawFrame.y, drawFrame.width, drawFrame.height);
+						graphics.drawImage(image, drawFrame.x, drawFrame.y, drawFrame.width, drawFrame.height, srcRect.x, srcRect.y, srcRect.x+srcRect.width, srcRect.y+srcRect.height);
 					}
 				}
 				break;
@@ -81,17 +82,18 @@ namespace GameLibrary
 				{
 					RectangleD frame = getFrame();
 					graphics.clip(frame);
-					double imgwidth = (double)image->getWidth();
-					double imgheight = (double)image->getHeight();
+					double imgwidth = (double)srcRect.width;
+					double imgheight = (double)srcRect.height;
 					unsigned int imageTimesX = (unsigned int)Math::ceil(frame.width/imgwidth);
 					unsigned int imageTimesY = (unsigned int)Math::ceil(frame.height/imgheight);
+					RectU srcRect2(srcRect);
 					for(unsigned int y=0; y<imageTimesY; y++)
 					{
 						for(unsigned int x=0; x<imageTimesX; x++)
 						{
 							double imageX = frame.x + (imgwidth*((double)imageTimesX));
 							double imageY = frame.y + (imgheight*((double)imageTimesY));
-							graphics.drawImage(image, imageX, imageY, imgwidth, imgheight);
+							graphics.drawImage(image, imageX, imageY, imgwidth, imgheight, srcRect2.left, srcRect2.top, srcRect2.right, srcRect2.bottom);
 						}
 					}
 				}
