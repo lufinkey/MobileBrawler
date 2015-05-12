@@ -25,6 +25,7 @@ namespace GameLibrary
 			}
 			
 			virtual Base* clone() const = 0;
+			virtual void* getPtr() const = 0;
 		};
 		
 		template<typename T>
@@ -38,9 +39,14 @@ namespace GameLibrary
 				//
 			}
 			
-			Base* clone() const
+			virtual Base* clone() const override
 			{
 				return new Derived<T>(value);
+			}
+			
+			virtual void* getPtr() const override
+			{
+				return (void*)(&value);
 			}
 		};
 		
@@ -191,6 +197,11 @@ namespace GameLibrary
 				Derived<T>* derived = static_cast<Derived<T>*>(ptr);
 				return derived->value;
 			}
+		}
+		
+		void* getPtr() const
+		{
+			return ptr->getPtr();
 		}
 	};
 }
