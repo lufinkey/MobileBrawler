@@ -4,6 +4,7 @@
 #include <climits>
 //#include <initializer_list>
 #include <vector>
+#include <array>
 
 #ifndef _ARRAYLIST_STANDALONE
 #include "../Exception/Utilities/ArrayListOutOfBoundsException.h"
@@ -60,6 +61,16 @@ namespace GameLibrary
 			size_t length = arr.objects.size();
 			objects.resize(length);
 			for(size_t i=0; i<length; i++)
+			{
+				objects[i] = arr[i];
+			}
+		}
+		
+		template<size_t Size>
+		ArrayList(const std::array<T, Size>& arr)
+		{
+			objects.resize(Size);
+			for(size_t i = 0; i < Size; i++)
 			{
 				objects[i] = arr[i];
 			}
