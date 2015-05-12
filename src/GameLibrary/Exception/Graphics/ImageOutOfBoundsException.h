@@ -40,5 +40,8 @@ namespace GameLibrary
 		virtual ~ImageOutOfBoundsException();
 		/*! assignment operator*/
 		ImageOutOfBoundsException& operator=(const ImageOutOfBoundsException&);
+		
+		/*! \copydoc GameLibrary::Exception::getClassName()const*/
+		virtual String getClassName() const override;
 	};
 }

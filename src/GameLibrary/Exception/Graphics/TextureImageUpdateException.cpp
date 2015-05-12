@@ -23,4 +23,6 @@ namespace GameLibrary
 		Exception::operator=(exception);
 		return *this;
 	}
+	
+	MEMBERFUNC_GETCLASSNAME(TextureImageUpdateException)
 }

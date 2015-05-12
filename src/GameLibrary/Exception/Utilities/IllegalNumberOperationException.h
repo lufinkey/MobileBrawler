@@ -25,5 +25,8 @@ namespace GameLibrary
 		virtual ~IllegalNumberOperationException();
 		/*! assignment operator*/
 		IllegalNumberOperationException& operator=(const IllegalNumberOperationException&);
+		
+		/*! \copydoc GameLibrary::Exception::getClassName()const*/
+		virtual String getClassName() const override;
 	};
 }

@@ -8,6 +8,7 @@
 
 #ifndef _ARRAYLIST_STANDALONE
 #include "../Exception/Utilities/ArrayListOutOfBoundsException.h"
+#include "Stringifier.h"
 namespace GameLibrary
 {
 #else
@@ -292,6 +293,24 @@ namespace GameLibrary
 				}
 			}
 			return ARRAYLIST_NOTFOUND;
+		}
+		
+		String toString() const
+		{
+			String str = "[ ";
+			size_t length = objects.size();
+			size_t lastIndex = length-1;
+			Stringifier<T> stringifier;
+			for(size_t i=0; i<length; i++)
+			{
+				str += stringifier.convertToString(&objects[i]);
+				if(i != lastIndex)
+				{
+					str += ", ";
+				}
+			}
+			str += " ]";
+			return str;
 		}
 	};
 #ifndef _ARRAYLIST_STANDALONE

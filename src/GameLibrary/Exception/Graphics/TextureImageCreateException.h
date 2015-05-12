@@ -17,5 +17,8 @@ namespace GameLibrary
 		virtual ~TextureImageCreateException();
 		/*! assignment operator*/
 		TextureImageCreateException& operator=(const TextureImageCreateException&);
+		
+		/*! \copydoc GameLibrary::Exception::getClassName()const*/
+		virtual String getClassName() const override;
 	};
 }

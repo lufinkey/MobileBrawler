@@ -455,6 +455,12 @@ namespace GameLibrary
 	}
 	#endif
 	
+	std::ostream& operator<<(std::ostream& stream, const _STRING_CLASS& str)
+	{
+		stream.write(str.characters, str.length());
+		return stream;
+	}
+	
 #ifndef _STRING_STANDALONE
 }
 #endif

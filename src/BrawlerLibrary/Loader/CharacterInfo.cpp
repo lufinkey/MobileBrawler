@@ -140,7 +140,7 @@ namespace BrawlerLibrary
 		dict.set("creator", creator);
 		dict.set("version", version);
 		dict.set("minsmashversion", minsmashversion);
-		return dict.saveToFile(FileTools::combinePathStrings(path, "Info.plist"), false, error);
+		return dict.saveToFile(FileTools::combinePathStrings(path, "Info.plist"), error);
 	}
 	
 	const String& CharacterInfo::getPath() const

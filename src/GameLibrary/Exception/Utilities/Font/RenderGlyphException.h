@@ -17,5 +17,8 @@ namespace GameLibrary
 		virtual ~RenderGlyphException();
 		/*! assignment operator*/
 		RenderGlyphException& operator=(const RenderGlyphException&);
+		
+		/*! \copydoc GameLibrary::Exception::getClassName()const*/
+		virtual String getClassName() const override;
 	};
 }

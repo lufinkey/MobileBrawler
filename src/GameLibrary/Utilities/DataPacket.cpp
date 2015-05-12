@@ -171,7 +171,7 @@ namespace GameLibrary
 			if(error != nullptr)
 			{
 				//TODO add checking of errno
-				*error = "Unable to write data to file";
+				*error = "Unable to open file for writing";
 			}
 			return false;
 		}

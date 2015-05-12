@@ -52,7 +52,7 @@ namespace GameLibrary
 			
 			virtual String toString() const override
 			{
-				return Stringifier<T>().toString(&value);
+				return Stringifier<T>().convertToString(&value);
 			}
 		};
 		

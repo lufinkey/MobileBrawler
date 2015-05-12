@@ -17,5 +17,8 @@ namespace GameLibrary
 		virtual ~IllegalStateException();
 		/*! assignment operator*/
 		IllegalStateException& operator=(const IllegalStateException&);
+		
+		/*! \copydoc GameLibrary::Exception::getClassName()const*/
+		virtual String getClassName() const override;
 	};
 }

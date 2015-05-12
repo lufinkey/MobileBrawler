@@ -24,5 +24,8 @@ namespace GameLibrary
 		virtual ~NumberFormatException();
 		/*! assignment operator*/
 		NumberFormatException& operator=(const NumberFormatException&);
+		
+		/*! \copydoc GameLibrary::Exception::getClassName()const*/
+		virtual String getClassName() const override;
 	};
 }

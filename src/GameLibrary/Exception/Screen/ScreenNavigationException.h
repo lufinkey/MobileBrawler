@@ -17,5 +17,8 @@ namespace GameLibrary
 		virtual ~ScreenNavigationException();
 		/*! assignment operator*/
 		ScreenNavigationException& operator=(const ScreenNavigationException&);
+		
+		/*! \copydoc GameLibrary::Exception::getClassName()const*/
+		virtual String getClassName() const override;
 	};
 }

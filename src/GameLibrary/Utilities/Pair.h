@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "String.h"
 #include <type_traits>
 
 namespace GameLibrary
@@ -52,6 +53,11 @@ namespace GameLibrary
 			first = p.first;
 			second = p.second;
 			return *this;
+		}
+		
+		String toString() const
+		{
+			return "Pair( " + Stringifier<T1>().convertToString(&first) + ", " + Stringifier<T2>().convertToString(&second) + " )";
 		}
 	};
 }

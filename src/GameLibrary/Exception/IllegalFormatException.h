@@ -20,5 +20,8 @@ namespace GameLibrary
 		virtual ~IllegalFormatException();
 		/*! assignment operator*/
 		IllegalFormatException& operator=(const IllegalFormatException&);
+		
+		/*! \copydoc GameLibrary::Exception::getClassName()const*/
+		virtual String getClassName() const override;
 	};
 }

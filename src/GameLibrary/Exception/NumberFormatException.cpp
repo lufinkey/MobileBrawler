@@ -27,4 +27,6 @@ namespace GameLibrary
 		reason = exception.reason;
 		return *this;
 	}
+	
+	MEMBERFUNC_GETCLASSNAME(NumberFormatException)
 }

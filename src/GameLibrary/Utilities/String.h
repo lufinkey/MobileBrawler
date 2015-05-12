@@ -30,6 +30,7 @@ namespace GameLibrary
 		#ifdef _STRING_WIDESTRING_ENABLED
 			friend class WideString;
 		#endif
+		friend std::ostream& operator<<(std::ostream& stream, const _STRING_CLASS& str);
 		//std::string
 		friend _STRING_CLASS operator+(const _STRING_CLASS&left, const std::string&right);
 		friend _STRING_CLASS operator+(const std::string&left, const _STRING_CLASS&right);
@@ -104,6 +105,8 @@ namespace GameLibrary
 		
 		#include "StringClass.h.impl"
 	//}
+	
+	std::ostream& operator<<(std::ostream& stream, const _STRING_CLASS&str);
 	
 	//const std::string
 	_STRING_CLASS operator+(const _STRING_CLASS&left, const std::string&right);

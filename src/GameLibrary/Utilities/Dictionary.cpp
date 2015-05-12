@@ -249,33 +249,74 @@ namespace GameLibrary
 		}
 	}
 	
-	bool Dictionary::saveToFile(const String&path, bool binary, String*error)
+	class xml_string_writer : public pugi::xml_writer
 	{
-		if(binary)
+	public:
+		std::string result;
+		
+		virtual void write(const void* data, size_t size) override
 		{
-			if(error!=nullptr)
-			{
-				*error = "This feature is not yet implemented";
-			}
-			return false;
+			result += std::string(static_cast<const char*>(data), size);
 		}
-		else
+	};
+	
+	bool Dictionary::saveToFile(const String&path, String*error)
+	{
+		pugi::xml_document doc;
+		pugi::xml_node decNode = doc.append_child(pugi::node_declaration);
+		decNode.append_attribute("version") = "1.0";
+		decNode.append_attribute("encoding") = "UTF-8";
+		
+		// doctype node
+		doc.append_child(pugi::node_doctype).set_value("plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\"");
+		
+		// root node
+		pugi::xml_node plistNode = doc.append_child("plist");
+		plistNode.append_attribute("version") = "1.0";
+		
+		bool success = Dictionary_writeDictionary(plistNode, *this, error);
+		if(success)
 		{
-			pugi::xml_document doc;
-			pugi::xml_node decNode = doc.append_child(pugi::node_declaration);
-			decNode.append_attribute("version") = "1.0";
-			decNode.append_attribute("encoding") = "UTF-8";
-		
-			// doctype node
-			doc.append_child(pugi::node_doctype).set_value("plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\"");
-		
-			// root node
-			pugi::xml_node plistNode = doc.append_child("plist");
-			plistNode.append_attribute("version") = "1.0";
+			xml_string_writer writer;
+			doc.save(writer);
 			
-			return Dictionary_writeDictionary(plistNode, *this, error);
+			const char* data = writer.result.c_str();
+			size_t total = writer.result.length();
+			
+			FILE*file = std::fopen(path, "w");
+			if(file==NULL)
+			{
+				if(error != nullptr)
+				{
+					//TODO add checking of errno
+					*error = "Unable to open file for writing";
+				}
+				return false;
+			}
+			
+			size_t written = std::fwrite(data, sizeof(char), total, file);
+			if(written != total)
+			{
+				if(error != nullptr)
+				{
+					//TODO add checking of errno
+					*error = (String)"Unable to write all bytes to file stream";
+				}
+				return false;
+			}
+			
+			if(std::fclose(file) == EOF)
+			{
+				if(error!=nullptr)
+				{
+					//TODO add checking of errno
+					*error = "Error closing the file";
+				}
+				return false;
+			}
+			return true;
 		}
-		return true;
+		return success;
 	}
 	
 // plist parse functions
@@ -877,11 +918,9 @@ namespace GameLibrary
 		}
 		else
 		{
-			if(error!=nullptr)
-			{
-				*error = "Unknown type";
-			}
-			return false;
+			pugi::xml_node newNode = node.append_child("string");
+			newNode.append_child(pugi::node_pcdata).set_value(any.toString());
+			return true;
 		}
 	}
 	
@@ -903,171 +942,195 @@ namespace GameLibrary
 		return true;
 	}
 	
+	void Dictionary_toJSON(const Any&any, String*output);
+	void Dictionary_toJSON(const String&string, String*output);
+	void Dictionary_toJSON(const WideString&string, String*output);
+	void Dictionary_toJSON(const ArrayList<Any>&arraylist, String*output);
+	void Dictionary_toJSON(const Dictionary&dict, String*output);
+	void Dictionary_toJSON(const Number&number, String*output);
+	
+	template<typename T>
+	void Dictionary_toJSON(const ArrayList<T>&arraylist, String*output)
+	{
+		output->append("[", 1);
+		size_t size = arraylist.size();
+		size_t lastIndex = size-1;
+		for(size_t i=0; i<size; i++)
+		{
+			Dictionary_toJSON((Any)arraylist.get(i), output);
+			if(i != lastIndex)
+			{
+				output->append(",");
+			}
+		}
+		output->append("]", 1);
+	}
+	
 	void Dictionary_toJSON(const Any&any, String*output)
 	{
 		if(any.is<Dictionary>())
 		{
-			Dictionary_toJSON(any.as<Dictionary>(), output);
+			Dictionary_toJSON(any.as<Dictionary>(false), output);
 		}
 		else if(any.is<ArrayList<Any> >())
 		{
-			Dictionary_toJSON(any.as<ArrayList<Any> >(), output);
+			Dictionary_toJSON(any.as<ArrayList<Any> >(false), output);
 		}
 		else if(any.is<String>())
 		{
-			Dictionary_toJSON((WideString)any.as<String>(), output);
+			Dictionary_toJSON((WideString)any.as<String>(false), output);
 		}
 		else if(any.is<WideString>())
 		{
-			Dictionary_toJSON(any.as<WideString>(), output);
+			Dictionary_toJSON(any.as<WideString>(false), output);
 		}
 		else if(any.is<Number>())
 		{
-			Dictionary_toJSON(any.as<Number>(), output);
+			Dictionary_toJSON(any.as<Number>(false), output);
 		}
 		else if(any.is<DataPacket>())
 		{
-			Dictionary_toJSON(any.as<DataPacket>().toString(), output);
+			Dictionary_toJSON(any.as<DataPacket>(false).toString(), output);
 		}
 		else if(any.is<DateTime>())
 		{
-			Dictionary_toJSON(any.as<DateTime>().toString(), output);
+			Dictionary_toJSON(any.as<DateTime>(false).toString(), output);
 		}
 		else if(any.is<std::string>())
 		{
-			Dictionary_toJSON((WideString)any.as<std::string>(), output);
+			Dictionary_toJSON((WideString)any.as<std::string>(false), output);
 		}
 		else if(any.is<const char*>())
 		{
-			Dictionary_toJSON((WideString)any.as<const char*>(), output);
+			Dictionary_toJSON((WideString)any.as<const char*>(false), output);
 		}
 		else if(any.is<std::vector<Any> >())
 		{
-			Dictionary_toJSON(ArrayList<Any>(any.as<std::vector<Any> >()), output);
+			Dictionary_toJSON(ArrayList<Any>(any.as<std::vector<Any> >(false)), output);
 		}
 		else if(any.is<GameLibrary::Int64>())
 		{
-			Dictionary_toJSON(Number(any.as<GameLibrary::Int64>()), output);
+			Dictionary_toJSON(Number(any.as<GameLibrary::Int64>(false)), output);
 		}
 		else if(any.is<GameLibrary::Int32>())
 		{
-			Dictionary_toJSON(Number(any.as<GameLibrary::Int32>()), output);
+			Dictionary_toJSON(Number(any.as<GameLibrary::Int32>(false)), output);
 		}
 		else if(any.is<GameLibrary::Int16>())
 		{
-			Dictionary_toJSON(Number(any.as<GameLibrary::Int16>()), output);
+			Dictionary_toJSON(Number(any.as<GameLibrary::Int16>(false)), output);
 		}
 		else if(any.is<GameLibrary::Int8>())
 		{
-			Dictionary_toJSON(Number(any.as<GameLibrary::Int8>()), output);
+			Dictionary_toJSON(Number(any.as<GameLibrary::Int8>(false)), output);
 		}
 		else if(any.is<long double>())
 		{
-			Dictionary_toJSON(Number(any.as<long double>()), output);
+			Dictionary_toJSON(Number(any.as<long double>(false)), output);
 		}
 		else if(any.is<double>())
 		{
-			Dictionary_toJSON(Number(any.as<double>()), output);
+			Dictionary_toJSON(Number(any.as<double>(false)), output);
 		}
 		else if(any.is<float>())
 		{
-			Dictionary_toJSON(Number(any.as<float>()), output);
+			Dictionary_toJSON(Number(any.as<float>(false)), output);
 		}
 		else if(any.is<bool>())
 		{
-			Dictionary_toJSON(Number(any.as<bool>()), output);
+			Dictionary_toJSON(Number(any.as<bool>(false)), output);
 		}
 		else if(any.is<GameLibrary::Uint64>())
 		{
-			Dictionary_toJSON(Number(any.as<GameLibrary::Uint64>()), output);
+			Dictionary_toJSON(Number(any.as<GameLibrary::Uint64>(false)), output);
 		}
 		else if(any.is<GameLibrary::Uint32>())
 		{
-			Dictionary_toJSON(Number(any.as<GameLibrary::Uint32>()), output);
+			Dictionary_toJSON(Number(any.as<GameLibrary::Uint32>(false)), output);
 		}
 		else if(any.is<GameLibrary::Uint16>())
 		{
-			Dictionary_toJSON(Number(any.as<GameLibrary::Uint16>()), output);
+			Dictionary_toJSON(Number(any.as<GameLibrary::Uint16>(false)), output);
 		}
 		else if(any.is<GameLibrary::Uint8>())
 		{
-			Dictionary_toJSON(Number(any.as<GameLibrary::Uint8>()), output);
+			Dictionary_toJSON(Number(any.as<GameLibrary::Uint8>(false)), output);
 		}
 		else if(any.is<ArrayList<Dictionary> >())
 		{
-			Dictionary_toJSON(any.as<ArrayList<Dictionary> >(), output);
+			Dictionary_toJSON(any.as<ArrayList<Dictionary> >(false), output);
 		}
 		else if(any.is<ArrayList<String> >())
 		{
-			Dictionary_toJSON(any.as<ArrayList<String> >(), output);
+			Dictionary_toJSON(any.as<ArrayList<String> >(false), output);
 		}
 		else if(any.is<ArrayList<std::string> >())
 		{
-			Dictionary_toJSON(any.as<ArrayList<std::string> >(), output);
+			Dictionary_toJSON(any.as<ArrayList<std::string> >(false), output);
 		}
 		else if(any.is<ArrayList<const char*> >())
 		{
-			Dictionary_toJSON(any.as<ArrayList<const char*> >(), output);
+			Dictionary_toJSON(any.as<ArrayList<const char*> >(false), output);
 		}
 		else if(any.is<ArrayList<DateTime> >())
 		{
-			Dictionary_toJSON(any.as<ArrayList<DateTime> >(), output);
+			Dictionary_toJSON(any.as<ArrayList<DateTime> >(false), output);
 		}
 		else if(any.is<ArrayList<Number> >())
 		{
-			Dictionary_toJSON(any.as<ArrayList<Number> >(), output);
+			Dictionary_toJSON(any.as<ArrayList<Number> >(false), output);
 		}
 		else if(any.is<ArrayList<DataPacket> >())
 		{
-			Dictionary_toJSON(any.as<ArrayList<DataPacket> >(), output);
+			Dictionary_toJSON(any.as<ArrayList<DataPacket> >(false), output);
 		}
 		else if(any.is<ArrayList<GameLibrary::Int64> >())
 		{
-			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Int64> >(), output);
+			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Int64> >(false), output);
 		}
 		else if(any.is<ArrayList<GameLibrary::Int32> >())
 		{
-			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Int32> >(), output);
+			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Int32> >(false), output);
 		}
 		else if(any.is<ArrayList<GameLibrary::Int16> >())
 		{
-			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Int16> >(), output);
+			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Int16> >(false), output);
 		}
 		else if(any.is<ArrayList<GameLibrary::Int8> >())
 		{
-			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Int8> >(), output);
+			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Int8> >(false), output);
 		}
 		else if(any.is<ArrayList<GameLibrary::Uint64> >())
 		{
-			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Uint64> >(), output);
+			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Uint64> >(false), output);
 		}
 		else if(any.is<ArrayList<GameLibrary::Uint32> >())
 		{
-			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Uint32> >(), output);
+			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Uint32> >(false), output);
 		}
 		else if(any.is<ArrayList<GameLibrary::Uint16> >())
 		{
-			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Uint16> >(), output);
+			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Uint16> >(false), output);
 		}
 		else if(any.is<ArrayList<GameLibrary::Uint8> >())
 		{
-			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Uint8> >(), output);
+			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Uint8> >(false), output);
 		}
 		else if(any.is<ArrayList<long double> >())
 		{
-			Dictionary_toJSON(any.as<ArrayList<long double> >(), output);
+			Dictionary_toJSON(any.as<ArrayList<long double> >(false), output);
 		}
 		else if(any.is<ArrayList<double> >())
 		{
-			Dictionary_toJSON(any.as<ArrayList<double> >(), output);
+			Dictionary_toJSON(any.as<ArrayList<double> >(false), output);
 		}
 		else if(any.is<ArrayList<float> >())
 		{
-			Dictionary_toJSON(any.as<ArrayList<float> >(), output);
+			Dictionary_toJSON(any.as<ArrayList<float> >(false), output);
 		}
 		else
 		{
-			output->append("{}",2);
+			Dictionary_toJSON((WideString)any.toString(), output);
 		}
 	}
 	
@@ -1245,23 +1308,6 @@ namespace GameLibrary
 		output->append("]", 1);
 	}
 	
-	template<typename T>
-	void Dictionary_toJSON(const ArrayList<T>&arraylist, String*output)
-	{
-		output->append("[", 1);
-		size_t size = arraylist.size();
-		size_t lastIndex = size-1;
-		for(size_t i=0; i<size; i++)
-		{
-			Dictionary_toJSON((Any)arraylist.get(i), output);
-			if(i != lastIndex)
-			{
-				output->append(",");
-			}
-		}
-		output->append("]", 1);
-	}
-	
 	void Dictionary_toJSON(const Dictionary&dict, String*output)
 	{
 		output->append("{", 1);
@@ -1293,5 +1339,32 @@ namespace GameLibrary
 		String json;
 		Dictionary_toJSON(*this, &json);
 		return json;
+	}
+	
+	String Dictionary::toString() const
+	{
+		pugi::xml_document doc;
+		pugi::xml_node decNode = doc.append_child(pugi::node_declaration);
+		decNode.append_attribute("version") = "1.0";
+		decNode.append_attribute("encoding") = "UTF-8";
+		
+		// doctype node
+		doc.append_child(pugi::node_doctype).set_value("plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\"");
+		
+		// root node
+		pugi::xml_node plistNode = doc.append_child("plist");
+		plistNode.append_attribute("version") = "1.0";
+		
+		bool success = Dictionary_writeDictionary(plistNode, *this, nullptr);
+		if(!success)
+		{
+			return "";
+		}
+		else
+		{
+			xml_string_writer writer;
+			doc.save(writer);
+			return writer.result;
+		}
 	}
 }

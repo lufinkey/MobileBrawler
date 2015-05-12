@@ -24,5 +24,8 @@ namespace GameLibrary
 		virtual ~ArrayListOutOfBoundsException();
 		/*! assignment operator*/
 		ArrayListOutOfBoundsException& operator=(const ArrayListOutOfBoundsException&);
+		
+		/*! \copydoc GameLibrary::Exception::getClassName()const*/
+		virtual String getClassName() const override;
 	};
 }

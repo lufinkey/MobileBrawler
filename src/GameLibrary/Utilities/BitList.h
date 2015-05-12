@@ -3,6 +3,7 @@
 
 #include "BitSet.h"
 #include "ArrayList.h"
+#include "String.h"
 #include "../Exception/Utilities/BitListOutOfBoundsException.h"
 
 namespace GameLibrary
@@ -64,5 +65,7 @@ namespace GameLibrary
 		size_t size() const;
 		size_t sizeBytes() const;
 		void resize(size_t size);
+		
+		String toString() const;
 	};
 }

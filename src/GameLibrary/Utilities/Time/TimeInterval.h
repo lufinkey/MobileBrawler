@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include "../String.h"
+
 namespace GameLibrary
 {
 	class TimeInterval
@@ -33,6 +35,8 @@ namespace GameLibrary
 		void reset();
 		
 		long long getMilliseconds() const;
+		
+		String toString() const;
 		
 	private:
 		mutable long long milliseconds;

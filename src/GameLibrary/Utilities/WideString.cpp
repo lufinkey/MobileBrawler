@@ -455,6 +455,12 @@ namespace GameLibrary
 	}
 	#endif
 	
+	std::wostream& operator<<(std::wostream& stream, const _STRING_CLASS& str)
+	{
+		stream.write(str.characters, str.length());
+		return stream;
+	}
+	
 #ifndef _STRING_STANDALONE
 }
 #endif

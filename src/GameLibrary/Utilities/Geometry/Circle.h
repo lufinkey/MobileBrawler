@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include "../String.h"
+
 namespace GameLibrary
 {
 	template<typename T>
@@ -28,6 +30,12 @@ namespace GameLibrary
 		Circle(const T&x, const T&y, const T&radius) : x(x), y(y), radius(radius)
 		{
 			//
+		}
+		
+		String toString() const
+		{
+			Stringifier<T> stringifier;
+			return "Circle(x:" + stringifier.convertToString(&x) + ", y:" + stringifier.convertToString(&y) + ", radius:" + stringifier.convertToString(&radius) + ")";
 		}
 	};
 	

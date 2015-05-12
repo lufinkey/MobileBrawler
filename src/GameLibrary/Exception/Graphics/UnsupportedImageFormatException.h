@@ -22,5 +22,8 @@ namespace GameLibrary
 		virtual ~UnsupportedImageFormatException();
 		/*! assignment operator*/
 		UnsupportedImageFormatException& operator=(const UnsupportedImageFormatException&);
+		
+		/*! \copydoc GameLibrary::Exception::getClassName()const*/
+		virtual String getClassName() const override;
 	};
 }

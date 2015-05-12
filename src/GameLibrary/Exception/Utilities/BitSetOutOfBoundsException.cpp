@@ -24,4 +24,6 @@ namespace GameLibrary
 		index = exception.index;
 		return *this;
 	}
+	
+	MEMBERFUNC_GETCLASSNAME(BitSetOutOfBoundsException)
 }

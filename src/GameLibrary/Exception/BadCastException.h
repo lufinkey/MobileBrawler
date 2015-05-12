@@ -24,5 +24,8 @@ namespace GameLibrary
 		virtual ~BadCastException();
 		/*! assignment operator*/
 		BadCastException& operator=(const BadCastException&);
+		
+		/*! \copydoc GameLibrary::Exception::getClassName()const*/
+		virtual String getClassName() const override;
 	};
 }

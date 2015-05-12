@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "String.h"
 #include <type_traits>
 #include <sstream>
 #include <iomanip>
@@ -47,7 +48,7 @@ namespace GameLibrary
 					return new String("null");
 				}
 				std::stringstream ss;
-				ss << typeid(U).name() << "@0x" << std::setfill('0') << std::setw(sizeof(value)) << std::hex << ((uintptr_t)value);
+				ss << typeid(U).name() << " @ 0x" << std::setfill('0') << std::setw(sizeof(value)) << std::hex << ((uintptr_t)value);
 				return new String(ss.str());
 			}
 			
@@ -59,7 +60,7 @@ namespace GameLibrary
 		};
 		
 	public:
-		String toString(const U*value)
+		String convertToString(const U*value)
 		{
 			String* str = StringifierImpl<U, has_toString<U, String(U::*)()const>::value>().createString(value);
 			String ret(*str);
@@ -72,7 +73,7 @@ namespace GameLibrary
 	struct Stringifier<U, typename std::enable_if<!std::is_class<U>::value && std::is_integral<U>::value && !std::is_pointer<U>::value>::type>
 	{
 	public:
-		String toString(const U*value)
+		String convertToString(const U*value)
 		{
 			if(value == nullptr)
 			{
@@ -88,7 +89,7 @@ namespace GameLibrary
 	public:
 		typedef const signed char* string_ptr;
 
-		String toString(const string_ptr* value)
+		String convertToString(const string_ptr* value)
 		{
 			if(value == nullptr)
 			{
@@ -104,7 +105,7 @@ namespace GameLibrary
 			}
 		}
 		
-		String toString(const U*value)
+		String convertToString(const U*value)
 		{
 			if(value == nullptr)
 			{
@@ -120,7 +121,7 @@ namespace GameLibrary
 	struct Stringifier<U, typename std::enable_if<!std::is_class<U>::value && !std::is_integral<U>::value && !std::is_pointer<U>::value>::type>
 	{
 	public:
-		String toString(const bool*value)
+		String convertToString(const bool*value)
 		{
 			if(value == nullptr)
 			{
@@ -133,7 +134,7 @@ namespace GameLibrary
 			return "false";
 		}
 		
-		String toString(const U*value)
+		String convertToString(const U*value)
 		{
 			if(value == nullptr)
 			{

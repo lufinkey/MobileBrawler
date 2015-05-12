@@ -2192,13 +2192,6 @@ _STRING_CLASS _STRING_CLASS::trim() const
 }
 #endif
 
-#ifndef _OVERRIDE_OPERATOR_STREAM
-std::ostream& operator<<(std::ostream& stream, const _STRING_CLASS& str)
-{
-	return stream << str.characters << "";
-}
-#endif
-
 #ifndef _OVERRIDE_OPERATOR_PLUS
 _STRING_CLASS operator+(const _STRING_CLASS&left, const _STRING_CLASS&right)
 {

@@ -49,4 +49,6 @@ namespace GameLibrary
 		height = exception.height;
 		return *this;
 	}
+	
+	MEMBERFUNC_GETCLASSNAME(ImageOutOfBoundsException)
 }

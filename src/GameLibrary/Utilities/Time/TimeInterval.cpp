@@ -171,4 +171,9 @@ namespace GameLibrary
 		}
 		return milliseconds;
 	}
+	
+	String TimeInterval::toString() const
+	{
+		return (String)"" + milliseconds;
+	}
 }

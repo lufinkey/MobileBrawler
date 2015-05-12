@@ -33,5 +33,8 @@ namespace GameLibrary
 		virtual ~BitListOutOfBoundsException();
 		/*! assignment operator*/
 		BitListOutOfBoundsException& operator=(const BitListOutOfBoundsException&);
+		
+		/*! \copydoc GameLibrary::Exception::getClassName()const*/
+		virtual String getClassName() const override;
 	};
 }

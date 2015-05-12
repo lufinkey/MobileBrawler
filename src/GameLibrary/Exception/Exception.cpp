@@ -7,12 +7,12 @@ namespace GameLibrary
 	{
 		//
 	}
-
+	
 	Exception::Exception(const Exception&exception) : std::exception(exception)
 	{
 		message = exception.message;
 	}
-
+	
 	Exception::Exception(const String& msg)
 #ifdef _MSC_VER
 		: std::exception(msg)
@@ -20,7 +20,7 @@ namespace GameLibrary
 	{
 		message = msg;
 	}
-
+	
 	Exception::~Exception()
 	{
 		//
@@ -31,9 +31,16 @@ namespace GameLibrary
 		message = exception.message;
 		return *this;
 	}
-
+	
 	const char* Exception::what() const _NOEXCEPT
 	{
 		return message;
 	}
+	
+	String Exception::toString() const
+	{
+		return what();
+	}
+	
+	MEMBERFUNC_GETCLASSNAME(Exception)
 }

@@ -24,5 +24,8 @@ namespace GameLibrary
 		virtual ~DataPacketOutOfBoundsException();
 		/*! assignment operator*/
 		DataPacketOutOfBoundsException& operator=(const DataPacketOutOfBoundsException&);
+		
+		/*! \copydoc GameLibrary::Exception::getClassName()const*/
+		virtual String getClassName() const override;
 	};
 }

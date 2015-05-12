@@ -18,5 +18,8 @@ namespace GameLibrary
 		virtual ~BadAnyCastException();
 		/*! assignment operator*/
 		BadAnyCastException& operator=(const BadAnyCastException&);
+		
+		/*! \copydoc GameLibrary::Exception::getClassName()const*/
+		virtual String getClassName() const override;
 	};
 }

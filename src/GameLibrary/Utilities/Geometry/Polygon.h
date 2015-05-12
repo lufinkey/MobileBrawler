@@ -3,6 +3,7 @@
 
 #include "../ArrayList.h"
 #include "Vector2.h"
+#include "../Stringifier.h"
 
 namespace GameLibrary
 {
@@ -119,6 +120,25 @@ namespace GameLibrary
 		void clear()
 		{
 			points.clear();
+		}
+		
+		String toString() const
+		{
+			size_t size = points.size();
+			size_t lastIndex = size-1;
+			String str = "Polygon(";
+			Stringifier<T> stringifier;
+			for(size_t i=0; i<points.size(); i++)
+			{
+				const Vector2<T>& point = points.get(i);
+				str += "[" + stringifier.convertToString(&point.x) + ", " + stringifier.convertToString(&point.y) + "]";
+				if(i != lastIndex)
+				{
+					str += ", ";
+				}
+			}
+			str += ")";
+			return str;
 		}
 		
 	private:

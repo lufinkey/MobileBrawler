@@ -83,4 +83,22 @@ namespace GameLibrary
 	{
 		return b;
 	}
+	
+	String BitSet::toString() const
+	{
+		String str;
+		size_t length = 8;
+		for(size_t i=(length-1); i!=SIZE_MAX; i--)
+		{
+			if(get(i))
+			{
+				str += "1";
+			}
+			else
+			{
+				str += "0";
+			}
+		}
+		return str;
+	}
 }

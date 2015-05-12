@@ -22,5 +22,8 @@ namespace GameLibrary
 		virtual ~InitializeLibraryException();
 		/*! assignment operator*/
 		InitializeLibraryException& operator=(const InitializeLibraryException&);
+		
+		/*! \copydoc GameLibrary::Exception::getClassName()const*/
+		virtual String getClassName() const override;
 	};
 }

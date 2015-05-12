@@ -27,4 +27,6 @@ namespace GameLibrary
 		size = exception.size;
 		return *this;
 	}
+	
+	MEMBERFUNC_GETCLASSNAME(DataPacketOutOfBoundsException)
 }

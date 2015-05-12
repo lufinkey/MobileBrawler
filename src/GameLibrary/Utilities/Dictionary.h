@@ -21,7 +21,7 @@ namespace GameLibrary
 	{
 	private:
 		ArrayList<Pair<String, Any> > contents;
-
+		
 	public:
 		Dictionary();
 		Dictionary(const ArrayList<String>& keys, const ArrayList<Any>& values);
@@ -43,8 +43,9 @@ namespace GameLibrary
 		bool loadFromData(const DataPacket&data, String*error=nullptr);
 		bool loadFromPointer(const void*ptr, size_t size, String*error=nullptr);
 		bool loadFromString(const String&string, String*error=nullptr);
-		bool saveToFile(const String&path, bool binary=false, String*error=nullptr);
+		bool saveToFile(const String&path, String*error=nullptr);
 		
 		String toJSON() const;
+		String toString() const;
 	};
 }

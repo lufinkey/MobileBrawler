@@ -5,7 +5,6 @@
 	
 	typedef _STRING_TYPE char_type;
 	
-	friend std::ostream& operator<<(std::ostream& stream, const _STRING_CLASS& str);
 	friend _STRING_CLASS operator+(const _STRING_CLASS&left, const _STRING_CLASS&right);
 	friend _STRING_CLASS operator+(const _STRING_CLASS&left, const _STRING_TYPE*right);
 	friend _STRING_CLASS operator+(const _STRING_TYPE*left, const _STRING_CLASS&right);
@@ -163,7 +162,6 @@ public:
 	_STRING_CLASS trim() const;
 };
 
-std::ostream& operator<<(std::ostream& stream, const _STRING_CLASS&str);
 _STRING_CLASS operator+(const _STRING_CLASS&left, const _STRING_CLASS&right);
 _STRING_CLASS operator+(const _STRING_CLASS&left, const _STRING_TYPE*right);
 _STRING_CLASS operator+(const _STRING_TYPE*left, const _STRING_CLASS&right);

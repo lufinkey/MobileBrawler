@@ -2,6 +2,7 @@
 #pragma once
 
 #include "../Types.h"
+#include "String.h"
 #include "../Exception/Utilities/BitSetOutOfBoundsException.h"
 
 namespace GameLibrary
@@ -38,5 +39,7 @@ namespace GameLibrary
 		void set(size_t index, bool toggle);
 		
 		const byte& getByte() const;
+		
+		String toString() const;
 	};
 }

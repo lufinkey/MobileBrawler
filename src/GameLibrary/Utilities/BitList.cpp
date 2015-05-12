@@ -422,4 +422,20 @@ namespace GameLibrary
 			}
 		}
 	}
+	
+	String BitList::toString() const
+	{
+		String str;
+		size_t size = bytes.size();
+		size_t lastIndex = size-1;
+		for(size_t i=0; i<size; i++)
+		{
+			str += bytes.get(i).toString();
+			if(i != lastIndex)
+			{
+				str += " ";
+			}
+		}
+		return str;
+	}
 }

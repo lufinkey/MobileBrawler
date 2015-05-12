@@ -24,4 +24,6 @@ namespace GameLibrary
 		argument = exception.argument;
 		return *this;
 	}
+	
+	MEMBERFUNC_GETCLASSNAME(IllegalArgumentException)
 }

@@ -30,4 +30,6 @@ namespace GameLibrary
 		side = exception.side;
 		return *this;
 	}
+	
+	MEMBERFUNC_GETCLASSNAME(IllegalNumberOperationException)
 }

@@ -23,4 +23,6 @@ namespace GameLibrary
 		BadCastException::operator=(exception);
 		return *this;
 	}
+	
+	MEMBERFUNC_GETCLASSNAME(BadAnyCastException)
 }

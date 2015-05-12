@@ -24,4 +24,6 @@ namespace GameLibrary
 		format = exception.format;
 		return *this;
 	}
+	
+	MEMBERFUNC_GETCLASSNAME(UnsupportedImageFormatException)
 }

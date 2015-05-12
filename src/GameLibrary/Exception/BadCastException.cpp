@@ -27,4 +27,6 @@ namespace GameLibrary
 		castedType = exception.castedType;
 		return *this;
 	}
+	
+	MEMBERFUNC_GETCLASSNAME(BadCastException)
 }

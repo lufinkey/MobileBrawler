@@ -2,6 +2,7 @@
 #pragma once
 
 #include "../../Types.h"
+#include "../Stringifier.h"
 
 namespace GameLibrary
 {
@@ -106,6 +107,12 @@ namespace GameLibrary
 				return true;
 			}
 			return false;
+		}
+		
+		String toString() const
+		{
+			Stringifier<T> stringifier;
+			return "Vector2(x:" + stringifier.convertToString(&x) + ", y:" + stringifier.convertToString(&y) + ")";
 		}
 	};
 

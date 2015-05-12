@@ -3,6 +3,7 @@
 
 #include "Vector2.h"
 #include "Polygon.h"
+#include "../Stringifier.h"
 
 namespace GameLibrary
 {
@@ -299,6 +300,13 @@ namespace GameLibrary
 			polygon.addPoint((T)(x+width), (T)(y+height));
 			polygon.addPoint((T)x, (T)(y+height));
 			return polygon;
+		}
+		
+		String toString() const
+		{
+			Stringifier<T> stringifier;
+			return "Rectangle(x:"+stringifier.convertToString(&x)+", y:"+stringifier.convertToString(&y)+
+				", width:"+stringifier.convertToString(&width)+", height:"+stringifier.convertToString(&height)+")";
 		}
 	};
 	

@@ -5,6 +5,7 @@
 #include "Rectangle.h"
 #include "Polygon.h"
 #include "../Math.h"
+#include "../Stringifier.h"
 
 // all credit to SFML library for original Transform code
 // SFML - Simple and Fast Multimedia Library
@@ -255,6 +256,16 @@ namespace GameLibrary
 								 0,			0,			1);
 			
 			return combine(scaling);
+		}
+		
+		String toString() const
+		{
+			Stringifier<T> sfy;
+			return "Transform(["+
+				sfy.convertToString(&m_matrix[0])+", "+sfy.convertToString(&m_matrix[4])+", "+sfy.convertToString(&m_matrix[8])+", "+sfy.convertToString(&m_matrix[12])+"], ["+
+				"["+sfy.convertToString(&m_matrix[1])+", "+sfy.convertToString(&m_matrix[5])+", "+sfy.convertToString(&m_matrix[9])+", "+sfy.convertToString(&m_matrix[13])+"], ["+
+				"["+sfy.convertToString(&m_matrix[2])+", "+sfy.convertToString(&m_matrix[6])+", "+sfy.convertToString(&m_matrix[10])+", "+sfy.convertToString(&m_matrix[14])+"], ["+
+				"["+sfy.convertToString(&m_matrix[3])+", "+sfy.convertToString(&m_matrix[7])+", "+sfy.convertToString(&m_matrix[11])+", "+sfy.convertToString(&m_matrix[15])+"])";
 		}
 		
 	private:
