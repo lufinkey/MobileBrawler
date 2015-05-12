@@ -2,8 +2,11 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "Dictionary.h"
+#include "WideString.h"
 #include <ctime>
 #include <cstdlib>
+#include <iomanip>
+#include <sstream>
 #include <pugixml.hpp>
 #include <base64.hpp>
 
@@ -624,16 +627,10 @@ namespace GameLibrary
 			newNode.append_child(pugi::node_pcdata).set_value(any.as<String>(false));
 			return true;
 		}
-		else if(any.is<std::string>())
+		else if(any.is<WideString>())
 		{
 			pugi::xml_node newNode = node.append_child("string");
-			newNode.append_child(pugi::node_pcdata).set_value(any.as<std::string>(false).c_str());
-			return true;
-		}
-		else if(any.is<const char*>())
-		{
-			pugi::xml_node newNode = node.append_child("string");
-			newNode.append_child(pugi::node_pcdata).set_value(any.as<const char*>(false));
+			newNode.append_child(pugi::node_pcdata).set_value((String)any.as<WideString>(false));
 			return true;
 		}
 		else if(any.is<DataPacket>())
@@ -681,16 +678,33 @@ namespace GameLibrary
 				if(number.isIntegral())
 				{
 					pugi::xml_node newNode = node.append_child("integer");
-					newNode.append_child(pugi::node_pcdata).set_value(number.asString());
+					newNode.append_child(pugi::node_pcdata).set_value(number.toString());
 					return true;
 				}
 				else
 				{
 					pugi::xml_node newNode = node.append_child("real");
-					newNode.append_child(pugi::node_pcdata).set_value(number.asString());
+					newNode.append_child(pugi::node_pcdata).set_value(number.toString());
 					return true;
 				}
 			}
+		}
+		else if(any.is<std::string>())
+		{
+			pugi::xml_node newNode = node.append_child("string");
+			newNode.append_child(pugi::node_pcdata).set_value(any.as<std::string>(false).c_str());
+			return true;
+		}
+		else if(any.is<const char*>())
+		{
+			pugi::xml_node newNode = node.append_child("string");
+			newNode.append_child(pugi::node_pcdata).set_value(any.as<const char*>(false));
+			return true;
+		}
+		else if(any.is<std::vector<Any> >())
+		{
+			const std::vector<Any>&list = any.as<std::vector<Any> >(false);
+			return Dictionary_writeArray(node, ArrayList<Any>(list), error);
 		}
 		else if(any.is<GameLibrary::Int64>())
 		{
@@ -887,5 +901,397 @@ namespace GameLibrary
 			}
 		}
 		return true;
+	}
+	
+	void Dictionary_toJSON(const Any&any, String*output)
+	{
+		if(any.is<Dictionary>())
+		{
+			Dictionary_toJSON(any.as<Dictionary>(), output);
+		}
+		else if(any.is<ArrayList<Any> >())
+		{
+			Dictionary_toJSON(any.as<ArrayList<Any> >(), output);
+		}
+		else if(any.is<String>())
+		{
+			Dictionary_toJSON((WideString)any.as<String>(), output);
+		}
+		else if(any.is<WideString>())
+		{
+			Dictionary_toJSON(any.as<WideString>(), output);
+		}
+		else if(any.is<Number>())
+		{
+			Dictionary_toJSON(any.as<Number>(), output);
+		}
+		else if(any.is<DataPacket>())
+		{
+			Dictionary_toJSON(any.as<DataPacket>().toString(), output);
+		}
+		else if(any.is<DateTime>())
+		{
+			Dictionary_toJSON(any.as<DateTime>().toString(), output);
+		}
+		else if(any.is<std::string>())
+		{
+			Dictionary_toJSON((WideString)any.as<std::string>(), output);
+		}
+		else if(any.is<const char*>())
+		{
+			Dictionary_toJSON((WideString)any.as<const char*>(), output);
+		}
+		else if(any.is<std::vector<Any> >())
+		{
+			Dictionary_toJSON(ArrayList<Any>(any.as<std::vector<Any> >()), output);
+		}
+		else if(any.is<GameLibrary::Int64>())
+		{
+			Dictionary_toJSON(Number(any.as<GameLibrary::Int64>()), output);
+		}
+		else if(any.is<GameLibrary::Int32>())
+		{
+			Dictionary_toJSON(Number(any.as<GameLibrary::Int32>()), output);
+		}
+		else if(any.is<GameLibrary::Int16>())
+		{
+			Dictionary_toJSON(Number(any.as<GameLibrary::Int16>()), output);
+		}
+		else if(any.is<GameLibrary::Int8>())
+		{
+			Dictionary_toJSON(Number(any.as<GameLibrary::Int8>()), output);
+		}
+		else if(any.is<long double>())
+		{
+			Dictionary_toJSON(Number(any.as<long double>()), output);
+		}
+		else if(any.is<double>())
+		{
+			Dictionary_toJSON(Number(any.as<double>()), output);
+		}
+		else if(any.is<float>())
+		{
+			Dictionary_toJSON(Number(any.as<float>()), output);
+		}
+		else if(any.is<bool>())
+		{
+			Dictionary_toJSON(Number(any.as<bool>()), output);
+		}
+		else if(any.is<GameLibrary::Uint64>())
+		{
+			Dictionary_toJSON(Number(any.as<GameLibrary::Uint64>()), output);
+		}
+		else if(any.is<GameLibrary::Uint32>())
+		{
+			Dictionary_toJSON(Number(any.as<GameLibrary::Uint32>()), output);
+		}
+		else if(any.is<GameLibrary::Uint16>())
+		{
+			Dictionary_toJSON(Number(any.as<GameLibrary::Uint16>()), output);
+		}
+		else if(any.is<GameLibrary::Uint8>())
+		{
+			Dictionary_toJSON(Number(any.as<GameLibrary::Uint8>()), output);
+		}
+		else if(any.is<ArrayList<Dictionary> >())
+		{
+			Dictionary_toJSON(any.as<ArrayList<Dictionary> >(), output);
+		}
+		else if(any.is<ArrayList<String> >())
+		{
+			Dictionary_toJSON(any.as<ArrayList<String> >(), output);
+		}
+		else if(any.is<ArrayList<std::string> >())
+		{
+			Dictionary_toJSON(any.as<ArrayList<std::string> >(), output);
+		}
+		else if(any.is<ArrayList<const char*> >())
+		{
+			Dictionary_toJSON(any.as<ArrayList<const char*> >(), output);
+		}
+		else if(any.is<ArrayList<DateTime> >())
+		{
+			Dictionary_toJSON(any.as<ArrayList<DateTime> >(), output);
+		}
+		else if(any.is<ArrayList<Number> >())
+		{
+			Dictionary_toJSON(any.as<ArrayList<Number> >(), output);
+		}
+		else if(any.is<ArrayList<DataPacket> >())
+		{
+			Dictionary_toJSON(any.as<ArrayList<DataPacket> >(), output);
+		}
+		else if(any.is<ArrayList<GameLibrary::Int64> >())
+		{
+			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Int64> >(), output);
+		}
+		else if(any.is<ArrayList<GameLibrary::Int32> >())
+		{
+			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Int32> >(), output);
+		}
+		else if(any.is<ArrayList<GameLibrary::Int16> >())
+		{
+			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Int16> >(), output);
+		}
+		else if(any.is<ArrayList<GameLibrary::Int8> >())
+		{
+			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Int8> >(), output);
+		}
+		else if(any.is<ArrayList<GameLibrary::Uint64> >())
+		{
+			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Uint64> >(), output);
+		}
+		else if(any.is<ArrayList<GameLibrary::Uint32> >())
+		{
+			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Uint32> >(), output);
+		}
+		else if(any.is<ArrayList<GameLibrary::Uint16> >())
+		{
+			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Uint16> >(), output);
+		}
+		else if(any.is<ArrayList<GameLibrary::Uint8> >())
+		{
+			Dictionary_toJSON(any.as<ArrayList<GameLibrary::Uint8> >(), output);
+		}
+		else if(any.is<ArrayList<long double> >())
+		{
+			Dictionary_toJSON(any.as<ArrayList<long double> >(), output);
+		}
+		else if(any.is<ArrayList<double> >())
+		{
+			Dictionary_toJSON(any.as<ArrayList<double> >(), output);
+		}
+		else if(any.is<ArrayList<float> >())
+		{
+			Dictionary_toJSON(any.as<ArrayList<float> >(), output);
+		}
+		else
+		{
+			output->append("{}",2);
+		}
+	}
+	
+	void Dictionary_toJSON(const String&string, String*output)
+	{
+		output->append("\"", 1);
+		size_t length = string.length();
+		for(size_t i=0; i<length; i++)
+		{
+			char c = string.charAt(i);
+			unsigned int uint = (unsigned int)(*((unsigned char*)&c));
+			if(uint<0x20 && uint>=0)
+			{
+				switch(uint)
+				{
+					case 0x00:
+						output->append("\\0", 2);
+						break;
+					
+					case 0x07:
+						output->append("\\a", 2);
+						break;
+
+					case 0x08:
+						output->append("\\b", 2);
+						break;
+
+					case 0x09:
+						output->append("\\t", 2);
+						break;
+					
+					case 0x0A:
+						output->append("\\n", 2);
+						break;
+					
+					case 0x0B:
+						output->append("\\v", 2);
+						break;
+
+					case 0x0C:
+						output->append("\\f", 2);
+						break;
+					
+					case 0x0D:
+						output->append("\\r", 2);
+						break;
+
+					default:
+					{
+						std::stringstream ss;
+						ss << std::hex << uint;
+						String hex = ss.str();
+						while(hex.length() < 4)
+						{
+							hex = "0" + hex;
+						}
+						output->append("\\u"+hex, 6);
+					}
+					break;
+				}
+			}
+			else if(c == '\\')
+			{
+				output->append("\\\\", 2);
+			}
+			else if(c == '\"')
+			{
+				output->append("\\\"", 2);
+			}
+			else
+			{
+				output->append(c);
+			}
+		}
+		output->append("\"", 1);
+	}
+	
+	void Dictionary_toJSON(const WideString&string, String*output)
+	{
+		output->append("\"", 1);
+		size_t length = string.length();
+		for(size_t i=0; i<length; i++)
+		{
+			wchar_t c = string.charAt(i);
+			if(c<0x20 && c>=0)
+			{
+				switch(c)
+				{
+					case 0x00:
+						output->append("\\0", 2);
+						break;
+					
+					case 0x07:
+						output->append("\\a", 2);
+						break;
+
+					case 0x08:
+						output->append("\\b", 2);
+						break;
+
+					case 0x09:
+						output->append("\\t", 2);
+						break;
+					
+					case 0x0A:
+						output->append("\\n", 2);
+						break;
+					
+					case 0x0B:
+						output->append("\\v", 2);
+						break;
+
+					case 0x0C:
+						output->append("\\f", 2);
+						break;
+					
+					case 0x0D:
+						output->append("\\r", 2);
+						break;
+
+					default:
+					{
+						std::stringstream ss;
+						ss << std::hex << ((unsigned int)c);
+						String hex = ss.str();
+						while(hex.length() < 4)
+						{
+							hex = "0" + hex;
+						}
+						output->append("\\u"+hex, 6);
+					}
+					break;
+				}
+			}
+			else if(c == L'\\')
+			{
+				output->append("\\\\", 2);
+			}
+			else if(c == L'\"')
+			{
+				output->append("\\\"", 2);
+			}
+			else if(c > CHAR_MAX)
+			{
+				std::stringstream ss;
+				ss << std::hex << ((unsigned int)c);
+				String hex = ss.str();
+				while(hex.length() < 4)
+				{
+					hex = "0" + hex;
+				}
+				output->append("\\u"+hex, 6);
+			}
+			else
+			{
+				output->append(c);
+			}
+		}
+		output->append("\"", 1);
+	}
+
+	void Dictionary_toJSON(const ArrayList<Any>&arraylist, String*output)
+	{
+		output->append("[", 1);
+		size_t size = arraylist.size();
+		size_t lastIndex = size-1;
+		for(size_t i=0; i<size; i++)
+		{
+			Dictionary_toJSON(arraylist.get(i), output);
+			if(i != lastIndex)
+			{
+				output->append(",");
+			}
+		}
+		output->append("]", 1);
+	}
+	
+	template<typename T>
+	void Dictionary_toJSON(const ArrayList<T>&arraylist, String*output)
+	{
+		output->append("[", 1);
+		size_t size = arraylist.size();
+		size_t lastIndex = size-1;
+		for(size_t i=0; i<size; i++)
+		{
+			Dictionary_toJSON((Any)arraylist.get(i), output);
+			if(i != lastIndex)
+			{
+				output->append(",");
+			}
+		}
+		output->append("]", 1);
+	}
+	
+	void Dictionary_toJSON(const Dictionary&dict, String*output)
+	{
+		output->append("{", 1);
+		const ArrayList<Pair<String, Any> >& contents = dict.getContents();
+		size_t size = contents.size();
+		size_t lastIndex = size-1;
+		for(size_t i=0; i<size; i++)
+		{
+			const Pair<String, Any>& pair = contents.get(i);
+			String keyString;
+			Dictionary_toJSON(pair.first, &keyString);
+			output->append(keyString + ":");
+			Dictionary_toJSON(pair.second, output);
+			if(i != lastIndex)
+			{
+				output->append(",");
+			}
+		}
+		output->append("}", 1);
+	}
+	
+	void Dictionary_toJSON(const Number&number, String*output)
+	{
+		output->append(number.toString());
+	}
+	
+	String Dictionary::toJSON() const
+	{
+		String json;
+		Dictionary_toJSON(*this, &json);
+		return json;
 	}
 }
