@@ -1419,6 +1419,7 @@
 					"$(SRCROOT)/src",
 				);
 				INFOPLIST_FILE = "MobileBrawler-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/external/SDL/lib\"",
@@ -1444,6 +1445,7 @@
 					"$(SRCROOT)/src",
 				);
 				INFOPLIST_FILE = "MobileBrawler-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/external/SDL/lib\"",
