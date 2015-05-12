@@ -31,6 +31,9 @@ namespace GameLibrary
 
 		bool loadFromFile(const String&path, String*error=nullptr);
 		bool saveToFile(const String&path, String*error=nullptr) const;
+		
+		String toString() const;
+		operator String() const;
 
 		void*getData();
 		const void*getData() const;

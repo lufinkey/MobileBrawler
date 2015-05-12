@@ -199,6 +199,30 @@ namespace GameLibrary
 		return true;
 	}
 	
+	String DataPacket::toString() const
+	{
+		if(data == nullptr)
+		{
+			return String();
+		}
+		else
+		{
+			String((char*)data, total);
+		}
+	}
+	
+	DataPacket::operator String() const
+	{
+		if(data == nullptr)
+		{
+			return String();
+		}
+		else
+		{
+			String((char*)data, total);
+		}
+	}
+	
 	void*DataPacket::getData()
 	{
 		return (void*)data;
