@@ -2,7 +2,7 @@
 #pragma once
 
 #include "../Exception/Utilities/BadAnyCastException.h"
-#include <type_traits>
+#include "Stringifier.h"
 
 #ifdef _MSC_VER
 #pragma warning(push)
@@ -26,6 +26,7 @@ namespace GameLibrary
 			
 			virtual Base* clone() const = 0;
 			virtual void* getPtr() const = 0;
+			virtual String toString() const = 0;
 		};
 		
 		template<typename T>
@@ -48,6 +49,11 @@ namespace GameLibrary
 			{
 				return (void*)(&value);
 			}
+			
+			virtual String toString() const override
+			{
+				return Stringifier<T>().toString(&value);
+			}
 		};
 		
 		Base* clone() const
@@ -66,6 +72,11 @@ namespace GameLibrary
 		
 	public:
 		Any() : ptr(nullptr)
+		{
+			//
+		}
+		
+		Any(std::nullptr_t) : ptr(nullptr)
 		{
 			//
 		}
@@ -102,6 +113,19 @@ namespace GameLibrary
 			{
 				delete ptr;
 			}
+		}
+		
+		Any& operator=(std::nullptr_t)
+		{
+			auto old_ptr = ptr;
+			ptr = nullptr;
+
+			if (old_ptr)
+			{
+				delete old_ptr;
+			}
+
+			return *this;
 		}
 		
 		Any& operator=(const Any& any)
@@ -202,6 +226,15 @@ namespace GameLibrary
 		void* getPtr() const
 		{
 			return ptr->getPtr();
+		}
+		
+		String toString() const
+		{
+			if(ptr == nullptr)
+			{
+				return "null";
+			}
+			return ptr->toString();
 		}
 	};
 }

@@ -65,6 +65,8 @@ namespace GameLibrary
 		#ifdef __OBJC__
 			_STRING_CLASS(const NSString*&);
 		#endif
+
+		String toString() const;
 		
 		#ifdef _STRING_WIDESTRING_ENABLED
 			WideString toWideString() const;

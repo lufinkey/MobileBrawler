@@ -307,6 +307,11 @@ namespace GameLibrary
 	{
 		return utc_offset;
 	}
+	
+	String DateTime::toString() const
+	{
+		return toString("%Y-%m-%d %H:%M:%S %z");
+	}
 
 	String DateTime::toString(const String&format) const
 	{

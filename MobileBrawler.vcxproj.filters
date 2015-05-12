@@ -941,6 +941,9 @@
     <ClInclude Include="src\GameLibrary\Screen\AutoLayoutManager.h">
       <Filter>src\GameLibrary\Screen</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameLibrary\Utilities\Stringifier.h">
+      <Filter>src\GameLibrary\Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MobileBrawler.rc" />

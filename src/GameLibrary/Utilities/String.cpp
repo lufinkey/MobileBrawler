@@ -93,6 +93,11 @@ namespace GameLibrary
 	}
 	#endif
 	
+	String _STRING_CLASS::toString() const
+	{
+		return *this;
+	}
+	
 	_STRING_CLASS::operator std::string() const
 	{
 		return std::string(characters);

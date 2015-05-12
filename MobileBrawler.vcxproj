@@ -317,6 +317,7 @@
     <ClInclude Include="src\GameLibrary\Utilities\PlatformChecks.h" />
     <ClInclude Include="src\GameLibrary\Utilities\String.h" />
     <ClInclude Include="src\GameLibrary\Utilities\StringConvert.h" />
+    <ClInclude Include="src\GameLibrary\Utilities\Stringifier.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Thread.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Time\DateTime.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Time\posixtime.h" />
