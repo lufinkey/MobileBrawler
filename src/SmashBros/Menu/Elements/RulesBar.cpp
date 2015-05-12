@@ -35,19 +35,19 @@ namespace SmashBros
 			{
 				value = stock->getStock();
 				setValueProperties(&value, 1, 25, 1);
-				setValueLabel(value.asString() + valueLabelSuffix);
+				setValueLabel(value.toString() + valueLabelSuffix);
 			}
 			else if(rules->getWinCondition() == timeLimit)
 			{
 				value = timeLimit->getTimeLimit();
 				setValueProperties(&value, 1, 45, 1);
-				setValueLabel(value.asString() + valueLabelSuffix);
+				setValueLabel(value.toString() + valueLabelSuffix);
 			}
 		}
 		
 		void RulesBar::onValueChange()
 		{
-			setValueLabel(value.asString());
+			setValueLabel(value.toString());
 			if(rules->getWinCondition() == stock)
 			{
 				stock->setStock(value.asUnsignedInt());

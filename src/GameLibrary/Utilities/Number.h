@@ -184,7 +184,7 @@ namespace GameLibrary
 		float asFloat() const;
 		double asDouble() const;
 		long double asLongDouble() const;
-		String asString() const;
+		String toString() const;
 		
 	private:
 		_BaseNumberType* value;

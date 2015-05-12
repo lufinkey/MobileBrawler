@@ -63,7 +63,7 @@ namespace GameLibrary
 		virtual float asFloat() const = 0;
 		virtual double asDouble() const = 0;
 		virtual long double asLongDouble() const = 0;
-		virtual String asString() const = 0;
+		virtual String toString() const = 0;
 	};
 	
 	template<typename T>
@@ -834,7 +834,7 @@ namespace GameLibrary
 			return static_cast<long double>(value);
 		}
 		
-		virtual String asString() const override
+		virtual String toString() const override
 		{
 			return String("") + value;
 		}
@@ -1495,13 +1495,13 @@ namespace GameLibrary
 		return value->asLongDouble();
 	}
 	
-	String Number::asString() const
+	String Number::toString() const
 	{
 		if(value == nullptr)
 		{
 			return NULL_STRING;
 		}
-		return value->asString();
+		return value->toString();
 	}
 	
 	std::ostream& operator<<(std::ostream& stream, const Number& num)
@@ -1663,7 +1663,7 @@ namespace GameLibrary
 		{
 			return left + NULL_STRING;
 		}
-		return left + right.value->asString();
+		return left + right.value->toString();
 	}
 	
 	String operator+(const Number&left, const String&right)
@@ -1672,7 +1672,7 @@ namespace GameLibrary
 		{
 			return NULL_STRING + right;
 		}
-		return left.value->asString() + right;
+		return left.value->toString() + right;
 	}
 	
 	bool operator==(const Number&left, const Number&right)

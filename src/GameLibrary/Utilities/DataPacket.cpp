@@ -207,7 +207,7 @@ namespace GameLibrary
 		}
 		else
 		{
-			String((char*)data, total);
+			return String((char*)data, total);
 		}
 	}
 	
@@ -219,7 +219,7 @@ namespace GameLibrary
 		}
 		else
 		{
-			String((char*)data, total);
+			return String((char*)data, total);
 		}
 	}
 	
