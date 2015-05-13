@@ -2177,7 +2177,7 @@ _STRING_CLASS _STRING_CLASS::trim() const
 	
 	size_t endIndex = 0;
 	
-	while(!hitLetter && i>=0 && i!=SIZE_MAX)
+	while(!hitLetter && i!=SIZE_MAX)
 	{
 		_STRING_TYPE c = charAt(i);
 		if(c>_STRING_LITERAL(' '))

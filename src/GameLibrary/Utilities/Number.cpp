@@ -13,6 +13,7 @@
 namespace GameLibrary
 {
 #define NULL_STRING "(null)"
+#define NULL_STRING_LENGTH 6
 	
 	class _BaseNumberType
 	{
@@ -44,8 +45,6 @@ namespace GameLibrary
 		virtual bool operator>=(const _BaseNumberType&) const = 0;
 		virtual bool operator<(const _BaseNumberType&) const = 0;
 		virtual bool operator<=(const _BaseNumberType&) const = 0;
-		
-		virtual std::ostream& streamTo(std::ostream&) const = 0;
 		
 		virtual bool isIntegral() const = 0;
 		
@@ -749,12 +748,6 @@ namespace GameLibrary
 			NUMBER_OPERATOR_BODY(<=, num)
 		}
 		
-		virtual std::ostream& streamTo(std::ostream&stream) const override
-		{
-			stream << value;
-			return stream;
-		}
-		
 		virtual bool isIntegral() const override
 		{
 			return false;
@@ -841,7 +834,7 @@ namespace GameLibrary
 	};
 
 	template<typename T>
-	class _DerivedNonBoolNumberType : public _DerivedNumberType < T >
+	class _DerivedNonBoolNumberType : public _DerivedNumberType<T>
 	{
 	public:
 		_DerivedNonBoolNumberType(const T&val, const Number::NumberType&tp) : _DerivedNumberType<T>(val, tp) {}
@@ -849,13 +842,13 @@ namespace GameLibrary
 		
 		virtual _BaseNumberType& operator++() override
 		{
-            value++;
+            _DerivedNumberType<T>::value++;
 			return *((_BaseNumberType*)this);
 		}
 		
 		virtual _BaseNumberType& operator--() override
 		{
-			value--;
+			_DerivedNumberType<T>::value--;
 			return *((_BaseNumberType*)this);
 		}
 	};
@@ -1023,13 +1016,13 @@ namespace GameLibrary
 		
 		virtual _BaseNumberType& operator++() override
 		{
-            value++;
+            _DerivedNumberType<T>::value++;
 			return *((_BaseNumberType*)this);
 		}
 		
 		virtual _BaseNumberType& operator--() override
 		{
-            value--;
+            _DerivedNumberType<T>::value--;
 			return *((_BaseNumberType*)this);
 		}
 	};
@@ -1508,10 +1501,10 @@ namespace GameLibrary
 	{
 		if(num.value == nullptr)
 		{
-			stream << NULL_STRING;
+			stream << String(NULL_STRING);
 			return stream;
 		}
-		return num.value->streamTo(stream);
+		return stream << num.toString();
 	}
 	
 #define _NUMBER_OPERATION_TONUMBER(operatr, type) \

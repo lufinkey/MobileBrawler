@@ -92,7 +92,7 @@ namespace GameLibrary
 	size_t MeasureString(const T*str)
 	{
 		size_t counter = 0;
-		while(str[counter] != NULL)
+		while(str[counter] != ((wchar_t)NULL))
 		{
 			counter++;
 		}

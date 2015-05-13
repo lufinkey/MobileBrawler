@@ -87,24 +87,6 @@ namespace GameLibrary
 	struct Stringifier<U, typename std::enable_if<!std::is_class<U>::value && std::is_pointer<U>::value>::type>
 	{
 	public:
-		typedef const signed char* string_ptr;
-
-		String convertToString(const string_ptr* value)
-		{
-			if(value == nullptr)
-			{
-				return "null";
-			}
-			else if((*value) == nullptr)
-			{
-				return "";
-			}
-			else
-			{
-				return (*value);
-			}
-		}
-		
 		String convertToString(const U*value)
 		{
 			if(value == nullptr)
@@ -121,19 +103,6 @@ namespace GameLibrary
 	struct Stringifier<U, typename std::enable_if<!std::is_class<U>::value && !std::is_integral<U>::value && !std::is_pointer<U>::value>::type>
 	{
 	public:
-		String convertToString(const bool*value)
-		{
-			if(value == nullptr)
-			{
-				return "null";
-			}
-			if((*value))
-			{
-				return "true";
-			}
-			return "false";
-		}
-		
 		String convertToString(const U*value)
 		{
 			if(value == nullptr)

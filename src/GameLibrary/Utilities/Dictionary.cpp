@@ -1142,7 +1142,7 @@ namespace GameLibrary
 		{
 			char c = string.charAt(i);
 			unsigned int uint = (unsigned int)(*((unsigned char*)&c));
-			if(uint<0x20 && uint>=0)
+			if(uint<0x20)
 			{
 				switch(uint)
 				{
