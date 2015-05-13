@@ -513,6 +513,9 @@
     <ClCompile Include="src\GameLibrary\Screen\AutoLayoutManager.cpp">
       <Filter>src\GameLibrary\Screen</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Utilities\Stringifier.cpp">
+      <Filter>src\GameLibrary\Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
