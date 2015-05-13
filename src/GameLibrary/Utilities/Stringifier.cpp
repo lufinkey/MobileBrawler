@@ -18,8 +18,18 @@ namespace GameLibrary
 		}
 		else
 		{
-			return (*value);
+			return *value;
 		}
+	}
+	
+	template<>
+	String Stringifier<std::string>::convertToString(const std::string* value)
+	{
+		if(value == nullptr)
+		{
+			return "null";
+		}
+		return *value;
 	}
 	
 	template<>
