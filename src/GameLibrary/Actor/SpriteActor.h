@@ -8,6 +8,34 @@
 
 namespace GameLibrary
 {
+	class SpriteActorAnimationEvent
+	{
+		friend class SpriteActor;
+	public:
+		/*! copy constructor*/
+		SpriteActorAnimationEvent(const SpriteActorAnimationEvent&);
+		/*! assignment operator*/
+		SpriteActorAnimationEvent& operator=(const SpriteActorAnimationEvent&);
+		/*! default constructor*/
+		explicit SpriteActorAnimationEvent(SpriteActor* target, const String& name, Animation* animation);
+		
+		
+		/*! Gives the target of the animation event. The target is the SpriteActor which the event was performed on.
+			\returns a SpriteActor pointer*/
+		SpriteActor* getTarget() const;
+		/*! Gives the user-defined identifier of the Animation.
+			\returns a string representing an identifier*/
+		const String& getAnimationName() const;
+		/*! Gives the pointer to the Animation that was changed in the event.
+			\returns an Animation pointer*/
+		Animation* getAnimation() const;
+		
+	private:
+		SpriteActor* target;
+		String name;
+		Animation* animation;
+	};
+	
 	/*! A specialized Actor that can draw and animate images.
 		\see GameLibrary::Animation*/
 	class SpriteActor : public Actor
@@ -84,9 +112,8 @@ namespace GameLibrary
 		
 	protected:
 		/*! Called when the SpriteActor finishes running through the frames of the current Animation.
-			\param name the user-defined identifier of the Animation
-			\param animation the Animation that has finished a cycle*/
-		virtual void onAnimationFinish(const String&name, Animation*animation);
+			\param evt contains information about the event*/
+		virtual void onAnimationFinish(const SpriteActorAnimationEvent& evt);
 		
 		/*! Special draw function to draw the SpriteActor with specific properties. These properties are not stored into the SpriteActor. This function is called from SpriteActor::draw
 			\param appData specifies information about the Application drawing the SpriteActor, such as the Window object, the View transform, etc. \see GameLibrary::ApplicationData

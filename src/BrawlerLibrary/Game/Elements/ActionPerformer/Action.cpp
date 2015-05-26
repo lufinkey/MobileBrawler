@@ -124,7 +124,7 @@ namespace BrawlerLibrary
 		//Open for implementation
 	}
 	
-	void Action::onPerformerAnimationFinish(const String&name, Animation*animation)
+	void Action::onPerformerAnimationFinish(const SpriteActorAnimationEvent& evt)
 	{
 		//Open for implementation
 	}

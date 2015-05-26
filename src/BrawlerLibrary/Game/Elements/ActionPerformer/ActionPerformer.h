@@ -26,7 +26,7 @@ namespace BrawlerLibrary
 		const FaceDirection& getFaceDirection() const;
 		
 	protected:
-		virtual void onAnimationFinish(const GameLibrary::String&name, GameLibrary::Animation*animation) override;
+		virtual void onAnimationFinish(const GameLibrary::SpriteActorAnimationEvent& evt) override;
 		virtual void onActionFinish(const GameLibrary::String&name, Action*action);
 		
 	private:

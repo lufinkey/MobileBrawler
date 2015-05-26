@@ -4,6 +4,45 @@
 
 namespace GameLibrary
 {
+	SpriteActorAnimationEvent::SpriteActorAnimationEvent(const SpriteActorAnimationEvent& event)
+		: target(event.target),
+		name(event.name),
+		animation(event.animation)
+	{
+		//
+	}
+	
+	SpriteActorAnimationEvent& SpriteActorAnimationEvent::operator=(const SpriteActorAnimationEvent& event)
+	{
+		target = event.target;
+		name = event.name;
+		animation = event.animation;
+		return *this;
+	}
+	
+	SpriteActorAnimationEvent::SpriteActorAnimationEvent(SpriteActor* target, const String& name, Animation* animation)
+		: target(target),
+		name(name),
+		animation(animation)
+	{
+		//
+	}
+	
+	SpriteActor* SpriteActorAnimationEvent::getTarget() const
+	{
+		return target;
+	}
+	
+	const String& SpriteActorAnimationEvent::getAnimationName() const
+	{
+		return name;
+	}
+	
+	Animation* SpriteActorAnimationEvent::getAnimation() const
+	{
+		return animation;
+	}
+	
 	SpriteActor::SpriteActor() : SpriteActor(0,0)
 	{
 		//
@@ -72,7 +111,7 @@ namespace GameLibrary
 						{
 							animation_frame = 0;
 							animation_current->setCurrentFrame(animation_frame);
-							onAnimationFinish(animation_name, animation_current);
+							onAnimationFinish(SpriteActorAnimationEvent(this, animation_name, animation_current));
 						}
 						else
 						{
@@ -89,7 +128,7 @@ namespace GameLibrary
 								animation_frame = totalFrames-1;
 							}
 							animation_current->setCurrentFrame(animation_frame);
-							onAnimationFinish(animation_name, animation_current);
+							onAnimationFinish(SpriteActorAnimationEvent(this, animation_name, animation_current));
 						}
 						else
 						{
@@ -187,7 +226,7 @@ namespace GameLibrary
 		setScale(getScale()*ratio);
 	}
 	
-	void SpriteActor::onAnimationFinish(const String&name, Animation*animation)
+	void SpriteActor::onAnimationFinish(const SpriteActorAnimationEvent& evt)
 	{
 		//Open for implementation
 	}

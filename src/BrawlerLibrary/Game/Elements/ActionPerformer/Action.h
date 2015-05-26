@@ -30,7 +30,7 @@ namespace BrawlerLibrary
 		//called when the action on top of this action gets popped
 		virtual void onActionPop();
 		
-		virtual void onPerformerAnimationFinish(const GameLibrary::String&name, GameLibrary::Animation*animation);
+		virtual void onPerformerAnimationFinish(const GameLibrary::SpriteActorAnimationEvent& evt);
 		
 	private:
 		void perform(ActionPerformer*performer);

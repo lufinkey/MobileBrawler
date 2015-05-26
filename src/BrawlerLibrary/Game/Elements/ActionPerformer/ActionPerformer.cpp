@@ -179,11 +179,11 @@ namespace BrawlerLibrary
 		return side;
 	}
 	
-	void ActionPerformer::onAnimationFinish(const String&name, Animation*animation)
+	void ActionPerformer::onAnimationFinish(const SpriteActorAnimationEvent& evt)
 	{
 		if(action_current != nullptr)
 		{
-			action_current->onPerformerAnimationFinish(name, animation);
+			action_current->onPerformerAnimationFinish(evt);
 		}
 		
 		//Open for implementation
