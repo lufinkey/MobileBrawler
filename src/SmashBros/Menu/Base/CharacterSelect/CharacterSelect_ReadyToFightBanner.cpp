@@ -55,7 +55,7 @@ namespace SmashBros
 				}
 			}
 			
-			void ReadyToFightBanner::onMousePress(ApplicationData appData, unsigned int touchID)
+			void ReadyToFightBanner::onMousePress(const ActorMouseEvent& evt)
 			{
 				if(isVisible())
 				{
@@ -63,7 +63,7 @@ namespace SmashBros
 				}
 			}
 			
-			void ReadyToFightBanner::onMouseRelease(ApplicationData appData, unsigned int touchID)
+			void ReadyToFightBanner::onMouseRelease(const ActorMouseEvent& evt)
 			{
 				if(selected)
 				{

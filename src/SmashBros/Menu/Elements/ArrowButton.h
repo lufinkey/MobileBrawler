@@ -28,8 +28,8 @@ namespace SmashBros
 			
 			virtual void update(ApplicationData appData) override;
 			
-			virtual void onMousePress(ApplicationData appData, unsigned int touchID) override;
-			virtual void onMouseRelease(ApplicationData appData, unsigned int touchID) override;
+			virtual void onMousePress(const ActorMouseEvent& evt) override;
+			virtual void onMouseRelease(const ActorMouseEvent& evt) override;
 			
 			virtual void onValueChange();
 			

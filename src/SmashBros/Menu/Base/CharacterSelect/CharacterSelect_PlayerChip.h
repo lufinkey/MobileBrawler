@@ -29,7 +29,7 @@ namespace SmashBros
 				PlayerChip(unsigned int playerNum, CharacterSelectScreen*charSelectScreen, double x, double y, AssetManager*assetManager);
 				virtual ~PlayerChip();
 				
-				virtual void onMousePress(ApplicationData appData, unsigned int touchID) override;
+				virtual void onMousePress(const ActorMouseEvent& evt) override;
 				virtual void update(ApplicationData appData) override;
 				
 				void updateDragging(ApplicationData appData, Graphics graphics);

@@ -57,12 +57,12 @@ namespace SmashBros
 			}
 		}
 		
-		void ArrowButton::onMousePress(ApplicationData appData, unsigned int touchID)
+		void ArrowButton::onMousePress(const ActorMouseEvent& evt)
 		{
 			selecting = true;
 		}
 		
-		void ArrowButton::onMouseRelease(ApplicationData appData, unsigned int touchID)
+		void ArrowButton::onMouseRelease(const ActorMouseEvent& evt)
 		{
 			if(selecting)
 			{

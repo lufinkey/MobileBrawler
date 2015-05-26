@@ -28,17 +28,18 @@ namespace SmashBros
 					charSelectScreen = screen;
 				}
 				
-				virtual void onMouseRelease(ApplicationData appData, unsigned int touchID) override
+				virtual void onMouseRelease(const ActorMouseEvent& evt) override
 				{
 					Vector2d touchpos;
+					const ApplicationData& appData = evt.getApplicationData();
 					TransformD mouseTransform = appData.getTransform().getInverse();
 					if(Multitouch::isAvailable())
 					{
-						touchpos = mouseTransform.transform(Multitouch::getPreviousPosition(appData.getWindow(), touchID));
+						touchpos = mouseTransform.transform(Multitouch::getPreviousPosition(appData.getWindow(), evt.getMouseIndex()));
 					}
 					else
 					{
-						touchpos = mouseTransform.transform(Mouse::getPreviousPosition(appData.getWindow(), touchID));
+						touchpos = mouseTransform.transform(Mouse::getPreviousPosition(appData.getWindow(), evt.getMouseIndex()));
 					}
 					
 					bool doCycle = true;

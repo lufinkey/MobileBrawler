@@ -27,7 +27,7 @@ namespace SmashBros
 				//
 			}
 			
-			void PlayerChip::onMousePress(ApplicationData appData, unsigned int touchID)
+			void PlayerChip::onMousePress(const ActorMouseEvent& evt)
 			{
 				if(!dragging)
 				{
@@ -38,7 +38,7 @@ namespace SmashBros
 						PlayerChip*chip = chips.get(i);
 						if(chip != this)
 						{
-							if(chip->dragging && chip->dragTouchID == touchID)
+							if(chip->dragging && chip->dragTouchID == evt.getMouseIndex())
 							{
 								touch_alreadyBeingUsed = true;
 							}
@@ -46,7 +46,7 @@ namespace SmashBros
 					}
 					if(!touch_alreadyBeingUsed)
 					{
-						grabChip(appData, touchID);
+						grabChip(evt.getApplicationData(), evt.getMouseIndex());
 					}
 				}
 			}

@@ -5,6 +5,50 @@
 
 namespace GameLibrary
 {
+	class ActorMouseEvent
+	{
+		friend class Actor;
+	public:
+		enum EventType
+		{
+			EVENTTYPE_NONE,
+			EVENTTYPE_MOUSEENTER,
+			EVENTTYPE_MOUSELEAVE,
+			EVENTTYPE_MOUSEPRESS,
+			EVENTTYPE_MOUSERELEASE
+		};
+		typedef enum EventType EventType;
+		
+		/*! copy constructor*/
+		ActorMouseEvent(const ActorMouseEvent&);
+		/*! assignment operator*/
+		ActorMouseEvent& operator=(const ActorMouseEvent&);
+		/*! default constructor*/
+		ActorMouseEvent();
+		/*! Constructs an ActorMouseEvent object*/
+		explicit ActorMouseEvent(Actor* target, const EventType& eventType, const ApplicationData& appData, unsigned int mouseIndex);
+		
+		
+		/*! Gives the target of the mouse event. The target is the Actor which the event was performed on.
+			\returns an Actor pointer*/
+		Actor* getTarget() const;
+		/*! Tells the type of mouse event that occured.
+			\returns an event type constant*/
+		const EventType& getEventType() const;
+		/*! Gives information about the Application updating the Actor, such as the Window object, the View transform, etc. \see GameLibrary::ApplicationData
+			\returns a const ApplicationData object reference*/
+		const ApplicationData& getApplicationData() const;
+		/*! Gives the touchID or mouseIndex of the input. If Multitouch::isAvailable() returns true, touchID represents a multitouch id. Otherwise, touchID represents a mouse index. \see GameLibrary::Mouse \see GameLibrary::Multitouch
+			\returns an unsigned int representing an index or id*/
+		unsigned int getMouseIndex() const;
+
+	private:
+		Actor* target;
+		EventType eventType;
+		ApplicationData appData;
+		unsigned int mouseIndex;
+	};
+	
 	/*! An overrideable implementation of GameLibrary::Drawable that provides the necessities to create a dynamic, movable, scalable, rotatable object that can be updated and drawn.*/
 	class Actor : public Drawable
 	{
@@ -181,21 +225,17 @@ namespace GameLibrary
 		
 		
 		/*! Called when a Mouse or Multitouch input presses the Actor. This function is called within the Actor's update function. \see GameLibrary::Actor::update(ApplicationData)
-			\param appData specifies information about the Application updating the Actor, such as the Window object, the View transform, etc. \see GameLibrary::ApplicationData
-			\param touchID the touchID or mouseIndex of the input. If Multitouch::isAvailable() returns true, touchID represents a multitouch id. Otherwise, touchID represents a mouse index. \see GameLibrary::Mouse \see GameLibrary::Multitouch*/
-		virtual void onMousePress(ApplicationData appData, unsigned int touchID);
+			\param evt information about the event that was performed*/
+		virtual void onMousePress(const ActorMouseEvent& evt);
 		/*! Called when a Mouse or Multitouch input releases the Actor. This function is called within the Actor's update function. \see GameLibrary::Actor::update(ApplicationData)
-			\param appData specifies information about the Application updating the Actor, such as the Window object, the View transform, etc. \see GameLibrary::ApplicationData
-			\param touchID the touchID or mouseIndex of the input. If Multitouch::isAvailable() returns true, touchID represents a multitouch id. Otherwise, touchID represents a mouse index. \see GameLibrary::Mouse \see GameLibrary::Multitouch*/
-		virtual void onMouseRelease(ApplicationData appData, unsigned int touchID);
+			\param evt information about the event that was performed*/
+		virtual void onMouseRelease(const ActorMouseEvent& evt);
 		/*! Called when a Mouse or Multitouch input enters (hovers over) the Actor. This function is called within the Actor's update function. \see GameLibrary::Actor::update(ApplicationData)
-			\param appData specifies information about the Application updating the Actor, such as the Window object, the View transform, etc. \see GameLibrary::ApplicationData
-			\param touchID the touchID or mouseIndex of the input. If Multitouch::isAvailable() returns true, touchID represents a multitouch id. Otherwise, touchID represents a mouse index. \see GameLibrary::Mouse \see GameLibrary::Multitouch*/
-		virtual void onMouseEnter(ApplicationData appData, unsigned int touchID);
+			\param evt information about the event that was performed*/
+		virtual void onMouseEnter(const ActorMouseEvent& evt);
 		/*! Called when a Mouse or Multitouch input leaves (stops hovering over) the Actor. This function is called within the Actor's update function. \see GameLibrary::Actor::update(ApplicationData)
-			\param appData specifies information about the Application updating the Actor, such as the Window object, the View transform, etc. \see GameLibrary::ApplicationData
-			\param touchID the touchID or mouseIndex of the input. If Multitouch::isAvailable() returns true, touchID represents a multitouch id. Otherwise, touchID represents a mouse index. \see GameLibrary::Mouse \see GameLibrary::Multitouch*/
-		virtual void onMouseLeave(ApplicationData appData, unsigned int touchID);
+			\param evt information about the event that was performed*/
+		virtual void onMouseLeave(const ActorMouseEvent& evt);
 		
 		
 		/*! Updates the Actor's size, based on its properties (scale, rotation, etc.) and stores it. Called by the Actor when new properties have been set through their function in Actor.*/
@@ -247,6 +287,6 @@ namespace GameLibrary
 
 		void updateMouse(ApplicationData&appData);
 		void updateTouch(ApplicationData&appData);
-		void callMouseEvents(ApplicationData&appData, const ArrayList<Pair<unsigned int, byte> >& eventCallData);
+		void callMouseEvents(ApplicationData&appData, const ArrayList<ActorMouseEvent>& eventCallData);
 	};
 }

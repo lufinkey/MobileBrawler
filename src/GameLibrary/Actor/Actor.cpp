@@ -6,6 +6,62 @@
 
 namespace GameLibrary
 {
+	ActorMouseEvent::ActorMouseEvent()
+		: target(target),
+		eventType(EVENTTYPE_NONE),
+		appData(ApplicationData(nullptr, nullptr, nullptr, TimeInterval(), TransformD(), 0)),
+		mouseIndex(-1)
+	{
+		//
+	}
+	
+	ActorMouseEvent::ActorMouseEvent(Actor* target, const ActorMouseEvent::EventType& eventType, const ApplicationData& appData, unsigned int mouseIndex)
+		: target(target),
+		eventType(eventType),
+		appData(appData),
+		mouseIndex(mouseIndex)
+	{
+		//
+	}
+	
+	ActorMouseEvent::ActorMouseEvent(const ActorMouseEvent& event)
+		: target(event.target),
+		eventType(event.eventType),
+		appData(event.appData),
+		mouseIndex(event.mouseIndex)
+	{
+		//
+	}
+	
+	ActorMouseEvent& ActorMouseEvent::operator=(const ActorMouseEvent& event)
+	{
+		target = event.target;
+		eventType = event.eventType;
+		appData = event.appData;
+		mouseIndex = event.mouseIndex;
+		return *this;
+	}
+	
+	Actor* ActorMouseEvent::getTarget() const
+	{
+		return target;
+	}
+	
+	const ActorMouseEvent::EventType& ActorMouseEvent::getEventType() const
+	{
+		return eventType;
+	}
+	
+	const ApplicationData& ActorMouseEvent::getApplicationData() const
+	{
+		return appData;
+	}
+	
+	unsigned int ActorMouseEvent::getMouseIndex() const
+	{
+		return mouseIndex;
+	}
+	
 	Actor::Actor()
 	{
 		x = 0;
@@ -279,22 +335,22 @@ namespace GameLibrary
 		return false;
 	}
 	
-	void Actor::onMousePress(ApplicationData appData, unsigned int touchID)
+	void Actor::onMousePress(const ActorMouseEvent& evt)
 	{
 		//Open for implementation
 	}
 
-	void Actor::onMouseRelease(ApplicationData appData, unsigned int touchID)
+	void Actor::onMouseRelease(const ActorMouseEvent& evt)
 	{
 		//Open for implementation
 	}
 
-	void Actor::onMouseEnter(ApplicationData appData, unsigned int touchID)
+	void Actor::onMouseEnter(const ActorMouseEvent& evt)
 	{
 		//Open for implementation
 	}
 
-	void Actor::onMouseLeave(ApplicationData appData, unsigned int touchID)
+	void Actor::onMouseLeave(const ActorMouseEvent& evt)
 	{
 		//Open for implementation
 	}
@@ -391,11 +447,6 @@ namespace GameLibrary
 		return unlisted;
 	}
 	
-	#define EVENTCALL_MOUSEENTER 1
-	#define EVENTCALL_MOUSELEAVE 2
-	#define EVENTCALL_MOUSEPRESS 3
-	#define EVENTCALL_MOUSERELEASE 4
-	
 	void Actor::updateMouse(ApplicationData&appData)
 	{
 		Window* window = appData.getWindow();
@@ -403,7 +454,7 @@ namespace GameLibrary
 		
 		mouseover = false;
 		clicked = false;
-		ArrayList<Pair<unsigned int,byte> > mouseEventCalls;
+		ArrayList<ActorMouseEvent> mouseEventCalls;
 		
 		ArrayList<unsigned int> touchIDs;
 		unsigned int mouseInstances = Mouse::getTotalMouseInstances(window);
@@ -420,7 +471,7 @@ namespace GameLibrary
 			if(touchData != nullptr)
 			{
 				removeTouchData(touchID);
-				mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSERELEASE));
+				mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSERELEASE, appData, touchID));
 			}
 		}
 
@@ -442,7 +493,7 @@ namespace GameLibrary
 					else
 					{
 						applyTouchData(touchID, false);
-						mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSERELEASE));
+						mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSERELEASE, appData, touchID));
 					}
 				}
 				else if(isTouchDataActive(touchID))
@@ -453,7 +504,7 @@ namespace GameLibrary
 						clicked = true;
 						if(!Mouse::wasButtonPressed(window, touchID, Mouse::BUTTON_LEFT))
 						{
-							mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSEPRESS));
+							mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSEPRESS, appData, touchID));
 						}
 					}
 					else
@@ -461,18 +512,18 @@ namespace GameLibrary
 						applyTouchData(touchID, false);
 						if(Mouse::wasButtonPressed(window, touchID, Mouse::BUTTON_LEFT))
 						{
-							mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSERELEASE));
+							mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSERELEASE, appData, touchID));
 						}
 					}
 				}
 				else
 				{
-					mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSEENTER));
+					mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSEENTER, appData, touchID));
 					if(Mouse::isButtonPressed(window, touchID, Mouse::BUTTON_LEFT) && !Mouse::wasButtonPressed(window, touchID, Mouse::BUTTON_LEFT))
 					{
 						applyTouchData(touchID, true);
 						clicked = true;
-						mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSEPRESS));
+						mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSEPRESS, appData, touchID));
 					}
 					else
 					{
@@ -484,15 +535,15 @@ namespace GameLibrary
 			{
 				if(isTouchDataPressed(touchID))
 				{
-					mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSELEAVE));
+					mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSELEAVE, appData, touchID));
 					if(!Mouse::isButtonPressed(window, touchID, Mouse::BUTTON_LEFT))
 					{
-						mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSERELEASE));
+						mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSERELEASE, appData, touchID));
 					}
 				}
 				else if(isTouchDataActive(touchID))
 				{
-					mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSELEAVE));
+					mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSELEAVE, appData, touchID));
 				}
 				removeTouchData(touchID);
 			}
@@ -508,7 +559,7 @@ namespace GameLibrary
 		
 		mouseover = false;
 		clicked = false;
-		ArrayList<Pair<unsigned int,byte> > mouseEventCalls;
+		ArrayList<ActorMouseEvent> mouseEventCalls;
 		
 		ArrayList<unsigned int> touchIDs = Multitouch::getTouchIDs(window);
 		
@@ -520,7 +571,7 @@ namespace GameLibrary
 			if(touchData != nullptr)
 			{
 				removeTouchData(touchID);
-				mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSERELEASE));
+				mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSERELEASE, appData, touchID));
 			}
 		}
 		
@@ -543,13 +594,13 @@ namespace GameLibrary
 					{
 						applyTouchData(touchID, true);
 						clicked = true;
-						mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSEPRESS));
+						mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSEPRESS, appData, touchID));
 					}
 					else
 					{
 						applyTouchData(touchID, true);
 						clicked = true;
-						mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSEENTER));
+						mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSEENTER, appData, touchID));
 					}
 				}
 			}
@@ -558,7 +609,7 @@ namespace GameLibrary
 				if(isTouchDataActive(touchID))
 				{
 					applyTouchData(touchID, false);
-					mouseEventCalls.add(Pair<unsigned int, byte>(touchID, EVENTCALL_MOUSELEAVE));
+					mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSELEAVE, appData, touchID));
 				}
 				else
 				{
@@ -571,31 +622,31 @@ namespace GameLibrary
 		callMouseEvents(appData, mouseEventCalls);
 	}
 
-	void Actor::callMouseEvents(ApplicationData&appData, const ArrayList<Pair<unsigned int, byte> >& eventCallData)
+	void Actor::callMouseEvents(ApplicationData&appData, const ArrayList<ActorMouseEvent>& eventCallData)
 	{
 		bool didmousepress = false;
 		bool didmouserelease = false;
 		for(unsigned int i=0; i<eventCallData.size(); i++)
 		{
-			const Pair<unsigned int, byte>& eventData = eventCallData.get(i);
-			switch(eventData.second)
+			const ActorMouseEvent& eventData = eventCallData.get(i);
+			switch(eventData.eventType)
 			{
-				case EVENTCALL_MOUSEENTER:
-				onMouseEnter(appData, eventData.first);
+				case ActorMouseEvent::EVENTTYPE_MOUSEENTER:
+				onMouseEnter(eventData);
 				break;
 
-				case EVENTCALL_MOUSELEAVE:
-				onMouseLeave(appData, eventData.first);
+				case ActorMouseEvent::EVENTTYPE_MOUSELEAVE:
+				onMouseLeave(eventData);
 				break;
 
-				case EVENTCALL_MOUSEPRESS:
+				case ActorMouseEvent::EVENTTYPE_MOUSEPRESS:
 				didmousepress = true;
-				onMousePress(appData, eventData.first);
+				onMousePress(eventData);
 				break;
 
-				case EVENTCALL_MOUSERELEASE:
+				case ActorMouseEvent::EVENTTYPE_MOUSERELEASE:
 				didmouserelease = true;
-				onMouseRelease(appData, eventData.first);
+				onMouseRelease(eventData);
 				break;
 			}
 		}
@@ -620,9 +671,4 @@ namespace GameLibrary
 			didrelease = false;
 		}*/
 	}
-	
-	#undef EVENTCALL_MOUSEENTER
-	#undef EVENTCALL_MOUSELEAVE
-	#undef EVENTCALL_MOUSEPRESS
-	#undef EVENTCALL_MOUSERELEASE
 }
