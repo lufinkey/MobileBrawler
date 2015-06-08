@@ -21,6 +21,6 @@ namespace SmashBros
 		virtual void onBatchLoaderErrorFont(BatchLoader*batchLoader, const String&path, unsigned int value, const String&error);
 		virtual void onBatchLoaderFinish(BatchLoader*batchLoader);
 
-		virtual void draw(BatchLoader*batchLoader, Graphics graphics) const;
+		virtual void draw(BatchLoader*batchLoader, Graphics graphics, String image) const;
 	};
 }

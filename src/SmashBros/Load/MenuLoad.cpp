@@ -142,8 +142,13 @@ namespace SmashBros
 		batchLoader->addEventListener(loadListener);
 		
 		//LOAD MENU ASSETS HERE:
-		
+		//TODO: Assets need to be loaded in a non-linear fashion. Maybe an array of strings containing
+		//		all of the asset paths could be loaded so that they could be called when needed (ie. @
+		//		application launch or upon error. Right now, when an asset isn't loaded and is needed,
+		//		the application will crash / break upon calling. This seems very inefficient...
+
 		batchLoader->addTexture("backgrounds/loading.png");
+		batchLoader->addTexture("backgrounds/error.png");
 		batchLoader->addTexture("backgrounds/main.png");
 		
 		batchLoader->addTexture("buttons/back.png");
