@@ -2054,7 +2054,7 @@ size_t _STRING_CLASS::indexOf(const _STRING_CLASS&str, size_t beginIndex, size_t
 	
 	size_t finish = endIndex - str.size;
 	
-	for(size_t i=0; i<=finish && i<endi; i++)
+	for(size_t i=beginIndex; i<=finish; i++)
 	{
 		if(characters[i]==str.characters[0])
 		{
