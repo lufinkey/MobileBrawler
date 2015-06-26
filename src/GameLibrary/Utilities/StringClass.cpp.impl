@@ -2042,11 +2042,11 @@ size_t _STRING_CLASS::indexOf(const _STRING_CLASS&str, size_t beginIndex, size_t
 	{
 		return STRING_NOTFOUND;
 	}
-	if(endIndex<=startIndex)
+	if(endIndex<=beginIndex)
 	{
 		return STRING_NOTFOUND;
 	}
-	size_t checkSize = endIndex-startIndex;
+	size_t checkSize = endIndex-beginIndex;
 	if(checkSize<str.size)
 	{
 		return STRING_NOTFOUND;
