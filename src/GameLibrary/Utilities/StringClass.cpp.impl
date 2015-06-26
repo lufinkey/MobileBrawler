@@ -2022,14 +2022,39 @@ size_t _STRING_CLASS::indexOf(_STRING_TYPE c, size_t beginIndex) const
 #ifndef _OVERRIDE_INDEXOF
 size_t _STRING_CLASS::indexOf(const _STRING_CLASS&str, size_t beginIndex, size_t endIndex) const
 {
+	if(beginIndex>size)
+	{
+		#ifdef _STRING_EXCEPTION_OUTOFBOUNDS
+			throw _STRING_EXCEPTION_OUTOFBOUNDS(beginIndex, size);
+		#else
+			throw std::out_of_range("beginIndex " + std::to_string(beginIndex) + " is out of bounds in string of length " + std::to_string(size));
+		#endif
+	}
+	else if(endIndex>size)
+	{
+		#ifdef _STRING_EXCEPTION_OUTOFBOUNDS
+			throw _STRING_EXCEPTION_OUTOFBOUNDS(endIndex, size);
+		#else
+			throw std::out_of_range("endIndex " + std::to_string(endIndex) + " is out of bounds in string of length " + std::to_string(size));
+		#endif
+	}
 	if(str.size==0 || str.size>size)
 	{
 		return STRING_NOTFOUND;
 	}
+	if(endIndex<=startIndex)
+	{
+		return STRING_NOTFOUND;
+	}
+	size_t checkSize = endIndex-startIndex;
+	if(checkSize<str.size)
+	{
+		return STRING_NOTFOUND;
+	}
 	
-	size_t finish = size - str.size;
+	size_t finish = endIndex - str.size;
 	
-	for(size_t i=0; i<=finish; i++)
+	for(size_t i=0; i<=finish && i<endi; i++)
 	{
 		if(characters[i]==str.characters[0])
 		{
