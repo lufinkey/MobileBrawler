@@ -103,7 +103,6 @@ namespace GameLibrary
 			if(data.progress >= 1)
 			{
 				finishedAction = data.action;
-				TransitionData_clear(data);
 			}
 		}
 		return finishedAction;
@@ -117,11 +116,13 @@ namespace GameLibrary
 		{
 			*onDidDisappearCaller = data.transitionScreen;
 			*onDidAppearCaller = data.screen;
+			TransitionData_clear(data);
 		}
 		else if(finishedAction == TRANSITION_SHOW)
 		{
 			*onDidDisappearCaller = data.screen;
 			*onDidAppearCaller = data.transitionScreen;
+			TransitionData_clear(data);
 		}
 	}
 	
