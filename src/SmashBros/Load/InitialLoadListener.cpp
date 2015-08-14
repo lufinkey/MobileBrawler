@@ -3,6 +3,11 @@
 
 namespace SmashBros
 {
+	InitialLoadListener::InitialLoadListener(Window*win)
+	{
+		//
+	}
+	
 	void InitialLoadListener::onBatchLoaderStart(BatchLoader*batchLoader)
 	{
 		//
