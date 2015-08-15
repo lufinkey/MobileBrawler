@@ -21,12 +21,10 @@
 	#define TARGETPLATFORM_LINUX
 #elif defined(__unix__) || defined(__unix)
 	#define TARGETPLATFORM_UNIX
-#elif defined(__posix)
-	#define TARGETPLATFORM_POSIX
 #endif
 
 #if defined(TARGETPLATFORM_IOS) || defined(TARGETPLATFORM_ANDROID)
-	#define TARGETPLATFORM_MOBILE
+	#define TARGETPLATFORMTYPE_MOBILE
 #elif defined(TARGETPLATFORM_WINDOWS) || defined(TARGETPLATFORM_MAC) || defined(TARGETPLATFORM_LINUX) || defined(TARGETPLATFORM_UNIX) || defined(TARGETPLATFORM_POSIX)
-	#define TARGETPLATFORM_DESKTOP
+	#define TARGETPLATFORMTYPE_DESKTOP
 #endif

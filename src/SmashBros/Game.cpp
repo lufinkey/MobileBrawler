@@ -42,7 +42,7 @@ namespace SmashBros
 	
 	void Game::initialize()
 	{
-		#ifdef TARGETPLATFORM_WINDOWS
+		#ifdef TARGETPLATFORMTYPE_DESKTOP
 			getWindow()->setSize(Vector2u(SMASHBROS_WINDOWWIDTH, SMASHBROS_WINDOWHEIGHT));
 		#endif
 		Vector2u windowSize = getWindow()->getSize();

@@ -138,7 +138,7 @@ namespace GameLibrary
 	
 	WindowSettings Window::getDefaultSettings()
 	{
-		#if defined(TARGETPLATFORM_MOBILE)
+		#if defined(TARGETPLATFORMTYPE_MOBILE)
 			RectangleI displayBounds = getDisplayBounds(0);
 			return WindowSettings(Vector2i(0,0), Vector2u(1334,750)/*Vector2u((unsigned int)displayBounds.width, (unsigned int)displayBounds.height)*/, "", nullptr, Color::WHITE, Window::STYLE_BORDERLESS);
 		#else
@@ -183,7 +183,7 @@ namespace GameLibrary
 		
 		int positionx = 0;
 		int positiony = 0;
-		#ifndef TARGETPLATFORM_MOBILE
+		#ifndef TARGETPLATFORMTYPE_MOBILE
 			if(windowSettings.position.x == Window::POSITION_CENTERED)
 			{
 				positionx = SDL_WINDOWPOS_CENTERED;
@@ -288,7 +288,7 @@ namespace GameLibrary
 		}
 		
 		settings = windowSettings;
-#ifdef TARGETPLATFORM_MOBILE
+#ifdef TARGETPLATFORMTYPE_MOBILE
 		settings.position.x = 0;
 		settings.position.y = 0;
 #endif
@@ -409,7 +409,7 @@ namespace GameLibrary
 	{
 		if(windowdata!=nullptr)
 		{
-			#ifndef TARGETPLATFORM_MOBILE
+			#ifndef TARGETPLATFORMTYPE_MOBILE
 				settings.setPosition(pos);
 				SDL_SetWindowPosition((SDL_Window*)windowdata,pos.x,pos.y);
 			#endif
@@ -431,10 +431,10 @@ namespace GameLibrary
 		}
 		return settings.size;
 	}
-
+	
 	void Window::setSize(const Vector2u&size)
 	{
-#if defined(TARGETPLATFORM_DESKTOP)
+#if defined(TARGETPLATFORMTYPE_DESKTOP)
 		if(windowdata != nullptr)
 		{
 			if((settings.style & Window::STYLE_FULLSCREEN) == Window::STYLE_FULLSCREEN)
@@ -455,7 +455,7 @@ namespace GameLibrary
 		}
 #endif
 	}
-
+	
 	const String& Window::getTitle()
 	{
 		if(windowdata != nullptr)
@@ -464,7 +464,7 @@ namespace GameLibrary
 		}
 		return settings.title;
 	}
-
+	
 	void Window::setTitle(const String&title)
 	{
 		if(windowdata != nullptr)
@@ -473,22 +473,22 @@ namespace GameLibrary
 			SDL_SetWindowTitle((SDL_Window*)windowdata, title);
 		}
 	}
-
+	
 	const Color& Window::getBackgroundColor()
 	{
 		return settings.getBackgroundColor();
 	}
-
+	
 	void Window::setBackgroundColor(const Color&bgcolor)
 	{
 		settings.setBackgroundColor(bgcolor);
 	}
-
+	
 	Image* Window::getIcon()
 	{
 		return settings.icon;
 	}
-
+	
 	void Window::setIcon(Image*icon)
 	{
 		if(windowdata != nullptr)
@@ -510,7 +510,7 @@ namespace GameLibrary
 			}
 		}
 	}
-
+	
 	View* Window::getView()
 	{
 		return view;
@@ -524,7 +524,7 @@ namespace GameLibrary
 		}
 		return false;
 	}
-
+	
 	bool Window::isFocused()
 	{
 		if(windowdata != nullptr)
@@ -537,7 +537,7 @@ namespace GameLibrary
 		}
 		return false;
 	}
-
+	
 	bool Window::isVisible()
 	{
 		if(windowdata != nullptr)
@@ -555,7 +555,7 @@ namespace GameLibrary
 		}
 		return false;
 	}
-
+	
 	void Window::setVisible(bool toggle)
 	{
 		if(windowdata != nullptr)
@@ -577,7 +577,7 @@ namespace GameLibrary
 			}
 		}
 	}
-
+	
 	bool Window::isFullscreen()
 	{
 		if(windowdata != nullptr)
@@ -595,12 +595,12 @@ namespace GameLibrary
 		}
 		return false;
 	}
-
+	
 	void Window::setFullscreen(bool toggle)
 	{
 		setFullscreen(toggle, windowed_size.x, windowed_size.y);
 	}
-
+	
 	void Window::setFullscreen(bool toggle, unsigned int width, unsigned int height)
 	{
 		if(windowdata != nullptr)
@@ -669,7 +669,7 @@ namespace GameLibrary
 		listenermutex.lock();
 		ArrayList<WindowEventListener*> listeners = eventListeners;
 		listenermutex.unlock();
-
+		
 		for(unsigned int i = 0; i<listeners.size(); i++)
 		{
 			WindowEventListener* listener = listeners.get(i);
@@ -678,63 +678,63 @@ namespace GameLibrary
 				case SDL_WINDOWEVENT_SHOWN:
 				listener->onWindowShown(this);
 				break;
-
+				
 				case SDL_WINDOWEVENT_HIDDEN:
 				listener->onWindowHidden(this);
 				break;
-
+				
 				case SDL_WINDOWEVENT_EXPOSED:
 				listener->onWindowExposed(this);
 				break;
-
+				
 				case SDL_WINDOWEVENT_MOVED:
 				listener->onWindowMoved(this, Vector2d((double)x, (double)y));
 				break;
-
+				
 				case SDL_WINDOWEVENT_RESIZED:
 				case SDL_WINDOWEVENT_SIZE_CHANGED:
 				listener->onWindowResized(this, Vector2u((unsigned int)x,(unsigned int)y), external);
 				break;
-
+				
 				case SDL_WINDOWEVENT_MINIMIZED:
 				listener->onWindowMinimize(this);
 				break;
-
+				
 				case SDL_WINDOWEVENT_MAXIMIZED:
 				listener->onWindowMinimize(this);
 				break;
-
+				
 				case SDL_WINDOWEVENT_RESTORED:
 				listener->onWindowRestore(this);
 				break;
-
+				
 				case SDL_WINDOWEVENT_ENTER:
 				listener->onWindowMouseEnter(this);
 				break;
-
+				
 				case SDL_WINDOWEVENT_LEAVE:
 				listener->onWindowMouseLeave(this);
 				break;
-
+				
 				case SDL_WINDOWEVENT_FOCUS_GAINED:
 				listener->onWindowFocusGained(this);
 				break;
-
+				
 				case SDL_WINDOWEVENT_FOCUS_LOST:
 				listener->onWindowFocusLost(this);
 				break;
-
+				
 				case SDL_WINDOWEVENT_CLOSE:
 				listener->onWindowClose(this);
 				break;
 			}
 		}
 	}
-
+	
 	TransformD Window::getViewTransform()
 	{
 		TransformD transform;
-
+		
 		if(windowdata == nullptr)
 		{
 			return transform;

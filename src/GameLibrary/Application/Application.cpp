@@ -124,7 +124,7 @@ namespace GameLibrary
 		}
 
 		WindowSettings settings = windowSettings;
-		#if defined(TARGETPLATFORM_MOBILE)
+		#if defined(TARGETPLATFORMTYPE_MOBILE)
 			settings.setPosition(Vector2i(0,0));
 			if(((orientations & ORIENTATION_PORTRAIT) == ORIENTATION_PORTRAIT)
 			|| ((orientations & ORIENTATION_PORTRAITUPSIDEDOWN) == ORIENTATION_PORTRAITUPSIDEDOWN))

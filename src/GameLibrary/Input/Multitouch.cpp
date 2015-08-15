@@ -537,7 +537,7 @@ namespace GameLibrary
 	
 	bool Multitouch::isAvailable()
 	{
-		#if defined(TARGETPLATFORM_MOBILE)
+		#if defined(TARGETPLATFORMTYPE_MOBILE)
 			return true;
 		#else
 			return false;
