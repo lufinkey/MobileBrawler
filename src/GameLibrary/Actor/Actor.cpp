@@ -7,7 +7,7 @@
 namespace GameLibrary
 {
 	ActorMouseEvent::ActorMouseEvent()
-		: target(target),
+		: target(nullptr),
 		eventType(EVENTTYPE_NONE),
 		appData(ApplicationData(nullptr, nullptr, nullptr, TimeInterval(), TransformD(), 0)),
 		mouseIndex(-1)
@@ -631,6 +631,9 @@ namespace GameLibrary
 			const ActorMouseEvent& eventData = eventCallData.get(i);
 			switch(eventData.eventType)
 			{
+				case ActorMouseEvent::EVENTTYPE_NONE:
+				break;
+				
 				case ActorMouseEvent::EVENTTYPE_MOUSEENTER:
 				onMouseEnter(eventData);
 				break;
