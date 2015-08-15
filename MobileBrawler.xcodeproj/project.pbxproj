@@ -152,6 +152,7 @@
 		A03847F81B7ED2E2002CFEDD /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A03847F71B7ED2E2002CFEDD /* GameKit.framework */; };
 		A03847FA1B7ED2FA002CFEDD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A03847F91B7ED2FA002CFEDD /* MobileCoreServices.framework */; };
 		A03847FC1B7ED30A002CFEDD /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A03847FB1B7ED30A002CFEDD /* ImageIO.framework */; };
+		A052EDC41B7F9D8F0048FA55 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = A052EDC31B7F9D8F0048FA55 /* assets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -445,6 +446,7 @@
 		A03847F71B7ED2E2002CFEDD /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		A03847F91B7ED2FA002CFEDD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		A03847FB1B7ED30A002CFEDD /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		A052EDC31B7F9D8F0048FA55 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -495,6 +497,7 @@
 		A03845A61B7EBE58002CFEDD /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				A052EDC31B7F9D8F0048FA55 /* assets */,
 				A03845811B7EBD77002CFEDD /* Info.plist */,
 			);
 			name = resources;
@@ -1226,6 +1229,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A052EDC41B7F9D8F0048FA55 /* assets in Resources */,
 				A03847391B7EBE76002CFEDD /* StringClass.cpp.impl in Resources */,
 				A038473A1B7EBE76002CFEDD /* StringClass.h.impl in Resources */,
 			);
