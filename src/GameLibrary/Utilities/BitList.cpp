@@ -223,7 +223,7 @@ namespace GameLibrary
 			size_t bitIndexCounter = 7;
 			if(byteIndexCounter>0 || bitIndexCounter>0)
 			{
-				for(size_t i=(bytes.size()-1); i!=UINT_MAX; i--)
+				for(size_t i=(bytes.size()-1); i!=SIZE_MAX; i--)
 				{
 					bitIndexCounter = 7;
 					BitSet& bitset = bytes.get(i);

@@ -133,7 +133,7 @@ namespace SmashBros
 				{
 					dragOffset = Vector2d(x,y) - mouseTransform.transform(Mouse::getPosition(appData.getWindow(), touchID));
 				}
-				unsigned int index = charSelectScreen->chips.indexOf(this);
+				size_t index = charSelectScreen->chips.indexOf(this);
 				charSelectScreen->chips.remove(index);
 				charSelectScreen->chips.add(0,this);
 				//event: whenPlayerChipGrabbed

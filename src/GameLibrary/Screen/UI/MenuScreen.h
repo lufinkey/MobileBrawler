@@ -37,36 +37,40 @@ namespace GameLibrary
 			\param actor a SpriteActor pointer
 			\returns the index of the added SpriteActor
 			\throws GameLibrary::IllegalArgumentException if actor argument is null*/
-		unsigned int addItem(SpriteActor*actor);
+		size_t addItem(SpriteActor*actor);
 		/*! Adds a SpriteActor that will be automatically resized by the AutoLayout. This Actor's deallocation will be automatically handled when this Screen is deallocated
 			\param bounds the ratio in the frame where the Actor will be laid out
 			\param actor a SpriteActor pointer
 			\returns the index of the added SpriteActor
 			\throws GameLibrary::IllegalArgumentException if actor argument is null*/
-		unsigned int addItem(const RectD&bounds, SpriteActor*actor);
+		size_t addItem(const RectD&bounds, SpriteActor*actor);
 		/*! Creates and adds a SpriteActor.
 			\param position the position of the Actor in the Screen
 			\param animation the default Animation of the Actor
 			\param direction the default Animation::Direction of the Actor
 			\param destructAnimation true to have the Actor handle deallocation of the Animation, or false to manually handle deallocation of the Animation
+		 	\returns the index of the added item
 			\throws GameLibrary::IllegalArgumentException if the animation argument is null, or if direction is not a valid Animation::Direction*/
-		unsigned int addItem(const Vector2d&position, Animation*animation, const Animation::Direction&direction=Animation::FORWARD, bool destructAnimation=true);
+		size_t addItem(const Vector2d&position, Animation*animation, const Animation::Direction&direction=Animation::FORWARD, bool destructAnimation=true);
 		/*! Creates and adds a SpriteActor that will be automatically resized by the AutoLayout.
 			\param bounds the ratio in the frame where the Actor will be laid out
 			\param animation the default Animation of the Actor
 			\param direction the default Animation::Direction of the Actor
 			\param destructAnimation true to have the Actor handle deallocation of the Animation, or false to manually handle deallocation of the Animation
+		 	\returns the index of the added item
 			\throws GameLibrary::IllegalArgumentException if the animation argument is null, or if direction is not a valid Animation::Direction*/
-		unsigned int addItem(const RectD&bounds, Animation*animation, const Animation::Direction&direction=Animation::FORWARD, bool destructAnimation=true);
+		size_t addItem(const RectD&bounds, Animation*animation, const Animation::Direction&direction=Animation::FORWARD, bool destructAnimation=true);
 		/*! Adds a TextActor. This Actor's deallocation will be automatically handled when this Screen is deallocated.
 			\param actor a TextActor pointer
+		 	\returns the index of the added item
 			\throws GameLibrary::IllegalArgumentException if actor argument is null*/
-		unsigned int addItem(TextActor*actor);
+		size_t addItem(TextActor*actor);
 		/*! Adds a TextActor that will be automatically resized by the AutoLayout. This Actor's deallocation will be automatically handled when this Screen is deallocated.
 			\param bounds the ratio in the frame where the Actor will be laid out
 			\param actor a TextActor pointer
+		 	\returns the index of the added item
 			\throws GameLibrary::IllegalArgumentException if actor argument is null*/
-		unsigned int addItem(const RectD&bounds, TextActor*actor);
+		size_t addItem(const RectD&bounds, TextActor*actor);
 		/*! Creates and adds a TextActor.
 			\param position the position of the Actor in the Screen
 			\param text a string to display
@@ -74,8 +78,9 @@ namespace GameLibrary
 			\param color the text color
 			\param fontSize the glyph size of the font
 			\param fontStyle the style (plain, bold italic, etc.) of the font \see GameLibrary::Font::Style
-			\param alignment the alignment of the text, relative the origin \see GameLibrary::TextActor::TextAlignment*/
-		unsigned int addItem(const Vector2d&position, const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontsize=18, int fontstyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_CENTER);
+			\param alignment the alignment of the text, relative the origin \see GameLibrary::TextActor::TextAlignment
+			\returns the index of the added item*/
+		size_t addItem(const Vector2d&position, const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontsize=18, int fontstyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_CENTER);
 		/*! Creates and adds a TextActor that will be automatically resized by the AutoLayout.
 			\param bounds the ratio in the frame where the Actor will be laid out
 			\param text a string to display
@@ -83,38 +88,39 @@ namespace GameLibrary
 			\param color the text color
 			\param fontSize the glyph size of the font
 			\param fontStyle the style (plain, bold italic, etc.) of the font \see GameLibrary::Font::Style
-			\param alignment the alignment of the text, relative the origin \see GameLibrary::TextActor::TextAlignment*/
-		unsigned int addItem(const RectD&bounds, const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontsize=18, int fontstyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_CENTER);
+			\param alignment the alignment of the text, relative the origin \see GameLibrary::TextActor::TextAlignment
+		 	\returns the index of the added item*/
+		size_t addItem(const RectD&bounds, const String&text, Font*font=Graphics::getDefaultFont(), const Color&color=Color::BLACK, unsigned int fontsize=18, int fontstyle=Font::STYLE_PLAIN, const TextActor::TextAlignment&alignment=TextActor::ALIGN_CENTER);
 		/*! Removes and deallocates a previously added Actor pointer.
 			\param index the index of the Actor. When an Actor is removed, the indexes of other Actors may change*/
-		void removeItem(unsigned int index);
+		void removeItem(size_t index);
 		/*! Gets the total number of items stored in the menu.
 			\returns an unsigned int representing the total amount of Actor pointers added to the menu*/
-		unsigned int getTotalItems();
+		size_t getTotalItems();
 		/*! Gets an Actor pointer at a given index.
 			\param index the index of the Actor
 			\returns an Actor pointer*/
-		Actor* getItem(unsigned int index) const;
+		Actor* getItem(size_t index) const;
 		
 		
 		/*! Called when an Actor in the menu is hovered over by a mouse or touch instance.
 			\param index the index of the Actor*/
-		virtual void onItemHover(unsigned int index);
+		virtual void onItemHover(size_t index);
 		/*! Called when an Actor in the menu finished being hovered over by a mouse or touch instance.
 			\param index the index of the Actor*/
-		virtual void onItemHoverFinish(unsigned int index);
+		virtual void onItemHoverFinish(size_t index);
 		/*! Called when an Actor in the menu is pressed by a mouse or touch instance.
 			\param index the index of the Actor*/
-		virtual void onItemPress(unsigned int index);
+		virtual void onItemPress(size_t index);
 		/*! Called when an Actor in the menu has a pressed mouse or touch instance leave the vicinity of the Actor, or some other event cancels the press.
 			\param index the index of the Actor*/
-		virtual void onItemPressCancel(unsigned int index);
+		virtual void onItemPressCancel(size_t index);
 		/*! Called when an Actor in the menu is released by a mouse or touch instance that previously pressed it.
 			\param index the index of the Actor*/
-		virtual void onItemRelease(unsigned int index);
+		virtual void onItemRelease(size_t index);
 		/*! Called after an Actor in the menu is released. Menu button actions should be handled here.
 			\param index the index of the Actor*/
-		virtual void onItemSelect(unsigned int index);
+		virtual void onItemSelect(size_t index);
 		
 		
 		/*! Manually sets the current hover to the next Actor above the current one, or the first Actor in the list, if no Actor is currently hovered.
@@ -161,7 +167,7 @@ namespace GameLibrary
 		void clearMouseStates();
 		/*! Sets the currently hovered Actor index in the menu. This automatically enables Keyboard input.
 			\param index the Actor index to set hovered, or MENUSCREEN_NOSELECTION for no selected index*/
-		void setSelectedIndex(unsigned int index);
+		void setSelectedIndex(size_t index);
 		
 		
 		/*! Tells if the menu's input is currently set to the keyboard.
@@ -169,7 +175,7 @@ namespace GameLibrary
 		bool isKeyboardEnabled() const;
 		/*! Gets the currently hovered Actor index in the menu.
 			\returns an index for an Actor in the menu, or MENUSCREEN_NOSELECTION if no index is selected*/
-		unsigned int getSelectedIndex() const;
+		size_t getSelectedIndex() const;
 		
 		
 		/*! Gets the automatic layout manager for the contained actors.
@@ -196,12 +202,12 @@ namespace GameLibrary
 			MainElement(MenuScreen*menuScreen, const RectangleD&frame);
 			virtual ~MainElement();
 			
-			virtual void onActorHover(unsigned int index) override;
-			virtual void onActorHoverFinish(unsigned int index) override;
-			virtual void onActorPress(unsigned int index) override;
-			virtual void onActorPressCancel(unsigned int index) override;
-			virtual void onActorRelease(unsigned int index) override;
-			virtual void onActorSelect(unsigned int index) override;
+			virtual void onActorHover(size_t index) override;
+			virtual void onActorHoverFinish(size_t index) override;
+			virtual void onActorPress(size_t index) override;
+			virtual void onActorPressCancel(size_t index) override;
+			virtual void onActorRelease(size_t index) override;
+			virtual void onActorSelect(size_t index) override;
 		};
 		
 		MainElement* mainElement;

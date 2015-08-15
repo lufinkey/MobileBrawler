@@ -23,9 +23,9 @@ namespace GameLibrary
 		{
 			window = (SDL_Window*)parent->getWindowData();
 		}
-		size_t numOptions = options.size();
+		int numOptions = (int)options.size();
 		SDL_MessageBoxButtonData*buttons = new SDL_MessageBoxButtonData[options.size()];
-		for(size_t i=0; i<numOptions; i++)
+		for(int i=0; i<numOptions; i++)
 		{
 			SDL_MessageBoxButtonData button = {0, (int)i, (const char*)options[i]};
 			buttons[i] = button;

@@ -26,9 +26,9 @@ namespace GameLibrary
 #define MULTITOUCH_MAXID 10000
 	
 	MultitouchData Multitouch_createTouchData(Window*window, unsigned int touchID, long long givenID, const Vector2d&position);
-	unsigned int Multitouch_indexOfData(const ArrayList<MultitouchData>&touchDataList, Window*window, unsigned int touchID);
-	unsigned int Multitouch_indexOfData_byGivenID(const ArrayList<MultitouchData>&touchDataList, Window*window, long long givenID);
-	unsigned int Multitouch_indexOfData(const ArrayList<MultitouchData>&touchDataList, Window*window);
+	size_t Multitouch_indexOfData(const ArrayList<MultitouchData>&touchDataList, Window*window, unsigned int touchID);
+	size_t Multitouch_indexOfData_byGivenID(const ArrayList<MultitouchData>&touchDataList, Window*window, long long givenID);
+	size_t Multitouch_indexOfData(const ArrayList<MultitouchData>&touchDataList, Window*window);
 	
 	//stores all the MultitouchEventListener objects for the Mouse class
 	static ArrayList<MultitouchEventListener*> Multitouch_eventListeners;
@@ -63,7 +63,7 @@ namespace GameLibrary
 		{
 			exists = false;
 			
-			for(unsigned int i=0; i<Multitouch_activeTouches.size(); i++)
+			for(size_t i=0; i<Multitouch_activeTouches.size(); i++)
 			{
 				if(Multitouch_activeTouches.get(i).touchID == Multitouch_currentID)
 				{
@@ -74,7 +74,7 @@ namespace GameLibrary
 			
 			if(!exists)
 			{
-				for(unsigned int i=0; i<Multitouch_currentActiveTouches.size(); i++)
+				for(size_t i=0; i<Multitouch_currentActiveTouches.size(); i++)
 				{
 					if(Multitouch_currentActiveTouches.get(i).touchID == Multitouch_currentID)
 					{
@@ -86,7 +86,7 @@ namespace GameLibrary
 			
 			if(!exists)
 			{
-				for(unsigned int i=0; i<Multitouch_prevActiveTouches.size(); i++)
+				for(size_t i=0; i<Multitouch_prevActiveTouches.size(); i++)
 				{
 					if(Multitouch_prevActiveTouches.get(i).touchID == Multitouch_currentID)
 					{
@@ -118,9 +118,9 @@ namespace GameLibrary
 		return touchData;
 	}
 	
-	unsigned int Multitouch_indexOfData(const ArrayList<MultitouchData>&touchDataList, Window*window, unsigned int touchID)
+	size_t Multitouch_indexOfData(const ArrayList<MultitouchData>&touchDataList, Window*window, unsigned int touchID)
 	{
-		for(unsigned int i=0; i<touchDataList.size(); i++)
+		for(size_t i=0; i<touchDataList.size(); i++)
 		{
 			const MultitouchData&touchData = touchDataList.get(i);
 			if(touchData.window == window && touchData.touchID == touchID)
@@ -131,9 +131,9 @@ namespace GameLibrary
 		return ARRAYLIST_NOTFOUND;
 	}
 	
-	unsigned int Multitouch_indexOfData_byGivenID(const ArrayList<MultitouchData>&touchDataList, Window*window, long long givenID)
+	size_t Multitouch_indexOfData_byGivenID(const ArrayList<MultitouchData>&touchDataList, Window*window, long long givenID)
 	{
-		for(unsigned int i=0; i<touchDataList.size(); i++)
+		for(size_t i=0; i<touchDataList.size(); i++)
 		{
 			const MultitouchData&touchData = touchDataList.get(i);
 			if(touchData.window == window && touchData.givenID == givenID)
@@ -144,9 +144,9 @@ namespace GameLibrary
 		return ARRAYLIST_NOTFOUND;
 	}
 	
-	unsigned int Multitouch_indexOfData(const ArrayList<MultitouchData>&touchDataList, Window*window)
+	size_t Multitouch_indexOfData(const ArrayList<MultitouchData>&touchDataList, Window*window)
 	{
-		for(unsigned int i=0; i<touchDataList.size(); i++)
+		for(size_t i=0; i<touchDataList.size(); i++)
 		{
 			const MultitouchData&touchData = touchDataList.get(i);
 			if(touchData.window == window)
@@ -175,7 +175,7 @@ namespace GameLibrary
 			//check to make sure that the listener hasn't been removed during a MultitouchEventListener event
 			bool listener_notremoved = true;
 			Multitouch_changedListeners_mutex.lock();
-			for(unsigned int j=0; j<Multitouch_changedListeners.size(); j++)
+			for(size_t j=0; j<Multitouch_changedListeners.size(); j++)
 			{
 				Pair<MultitouchEventListener*,bool>& cmp = Multitouch_changedListeners.get(j);
 				if(cmp.first == listener)
@@ -226,7 +226,7 @@ namespace GameLibrary
 			//check to make sure that the listener hasn't been removed during a MultitouchEventListener event
 			bool listener_notremoved = true;
 			Multitouch_changedListeners_mutex.lock();
-			for(unsigned int j=0; j<Multitouch_changedListeners.size(); j++)
+			for(size_t j=0; j<Multitouch_changedListeners.size(); j++)
 			{
 				Pair<MultitouchEventListener*,bool>& cmp = Multitouch_changedListeners.get(j);
 				if(cmp.first == listener)
@@ -256,7 +256,7 @@ namespace GameLibrary
 	{
 		ArrayList<unsigned int> touchIDs;
 		Multitouch_state_mutex.lock();
-		for(unsigned int i=0; i<Multitouch_currentActiveTouches.size(); i++)
+		for(size_t i=0; i<Multitouch_currentActiveTouches.size(); i++)
 		{
 			MultitouchData&touchData = Multitouch_currentActiveTouches.get(i);
 			if(touchData.window == window)
@@ -274,7 +274,7 @@ namespace GameLibrary
 		{
 			Multitouch_state_mutex.lock();
 			MultitouchData touchData;
-			unsigned int index = Multitouch_indexOfData_byGivenID(Multitouch_activeTouches, window, givenID);
+			size_t index = Multitouch_indexOfData_byGivenID(Multitouch_activeTouches, window, givenID);
 			if(index == ARRAYLIST_NOTFOUND)
 			{
 				unsigned int touchID = Multitouch_currentID;
@@ -299,7 +299,7 @@ namespace GameLibrary
 		{
 			Multitouch_state_mutex.lock();
 			MultitouchData touchData;
-			unsigned int index = Multitouch_indexOfData_byGivenID(Multitouch_activeTouches, window, givenID);
+			size_t index = Multitouch_indexOfData_byGivenID(Multitouch_activeTouches, window, givenID);
 			if(index == ARRAYLIST_NOTFOUND)
 			{
 				unsigned int touchID = Multitouch_currentID;
@@ -324,7 +324,7 @@ namespace GameLibrary
 		{
 			Multitouch_state_mutex.lock();
 			MultitouchData touchData;
-			unsigned int index = Multitouch_indexOfData_byGivenID(Multitouch_activeTouches, window, givenID);
+			size_t index = Multitouch_indexOfData_byGivenID(Multitouch_activeTouches, window, givenID);
 			if(index == ARRAYLIST_NOTFOUND)
 			{
 				printf("Multitouch::handleTouchUp called for givenID that was not already stored: %lld", givenID);
@@ -348,7 +348,7 @@ namespace GameLibrary
 	{
 		Multitouch_state_mutex.lock();
 		
-		unsigned int index = Multitouch_indexOfData(Multitouch_activeTouches, window);
+		size_t index = Multitouch_indexOfData(Multitouch_activeTouches, window);
 		while(index != ARRAYLIST_NOTFOUND)
 		{
 			Multitouch_activeTouches.remove(index);
@@ -375,7 +375,7 @@ namespace GameLibrary
 		
 		bool pressed = false;
 		Multitouch_state_mutex.lock();
-		unsigned int index = Multitouch_indexOfData(Multitouch_currentActiveTouches, window, touchID);
+		size_t index = Multitouch_indexOfData(Multitouch_currentActiveTouches, window, touchID);
 		if(index != ARRAYLIST_NOTFOUND)
 		{
 			pressed = true;
@@ -402,7 +402,7 @@ namespace GameLibrary
 		
 		bool pressed = false;
 		Multitouch_state_mutex.lock();
-		unsigned int index = Multitouch_indexOfData(Multitouch_prevActiveTouches, window, touchID);
+		size_t index = Multitouch_indexOfData(Multitouch_prevActiveTouches, window, touchID);
 		if(index != ARRAYLIST_NOTFOUND)
 		{
 			pressed = true;
@@ -428,7 +428,7 @@ namespace GameLibrary
 		}
 		
 		Multitouch_state_mutex.lock();
-		unsigned int index = Multitouch_indexOfData(Multitouch_currentActiveTouches, window, touchID);
+		size_t index = Multitouch_indexOfData(Multitouch_currentActiveTouches, window, touchID);
 		if(index == ARRAYLIST_NOTFOUND)
 		{
 			Multitouch_state_mutex.unlock();
@@ -465,7 +465,7 @@ namespace GameLibrary
 		}
 		
 		Multitouch_state_mutex.lock();
-		unsigned int index = Multitouch_indexOfData(Multitouch_prevActiveTouches, window, touchID);
+		size_t index = Multitouch_indexOfData(Multitouch_prevActiveTouches, window, touchID);
 		if(index == ARRAYLIST_NOTFOUND)
 		{
 			Multitouch_state_mutex.unlock();
@@ -518,7 +518,7 @@ namespace GameLibrary
 			Multitouch_changedListeners_mutex.unlock();
 		}
 		Multitouch_eventListeners_mutex.lock();
-		unsigned int index = Multitouch_eventListeners.indexOf(listener);
+		size_t index = Multitouch_eventListeners.indexOf(listener);
 		while(index != ARRAYLIST_NOTFOUND)
 		{
 			Multitouch_eventListeners.remove(index);

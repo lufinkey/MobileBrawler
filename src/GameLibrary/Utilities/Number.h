@@ -9,6 +9,52 @@ namespace GameLibrary
 	class Number;
 	class _BaseNumberType;
 	
+	#ifdef TYPE_NULL
+		#undef TYPE_NULL
+	#endif
+	#ifdef TYPE_BOOL
+		#undef TYPE_BOOL
+	#endif
+	#ifdef TYPE_CHAR
+		#undef TYPE_CHAR
+	#endif
+	#ifdef TYPE_UNSIGNEDCHAR
+		#undef TYPE_UNSIGNEDCHAR
+	#endif
+	#ifdef TYPE_SHORT
+		#undef TYPE_SHORT
+	#endif
+	#ifdef TYPE_UNSIGNEDSHORT
+		#undef TYPE_UNSIGNEDSHORT
+	#endif
+	#ifdef TYPE_INT
+		#undef TYPE_INT
+	#endif
+	#ifdef TYPE_UNSIGNEDINT
+		#undef TYPE_UNSIGNEDINT
+	#endif
+	#ifdef TYPE_LONG
+		#undef TYPE_LONG
+	#endif
+	#ifdef TYPE_UNSIGNEDLONG
+		#undef TYPE_UNSIGNEDLONG
+	#endif
+	#ifdef TYPE_LONGLONG
+		#undef TYPE_LONGLONG
+	#endif
+	#ifdef TYPE_UNSIGNEDLONGLONG
+		#undef TYPE_UNSIGNEDLONGLONG
+	#endif
+	#ifdef TYPE_FLOAT
+		#undef TYPE_FLOAT
+	#endif
+	#ifdef TYPE_DOUBLE
+		#undef TYPE_DOUBLE
+	#endif
+	#ifdef TYPE_LONGDOUBLE
+		#undef TYPE_LONGDOUBLE
+	#endif
+	
 	//TODO add equality operators
 #define _NUMBER_OPERATOR_DECLARE(prefix, type, operatr) \
 	prefix Number operator operatr(const Number&left, const type&right); \
@@ -102,7 +148,7 @@ namespace GameLibrary
 		friend bool operator>(const Number&left, const Number&right);
 		friend bool operator>=(const Number&left, const Number&right);
 	public:
-		typedef enum
+		typedef enum NumberType
 		{
 			TYPE_NULL,
 			TYPE_BOOL,

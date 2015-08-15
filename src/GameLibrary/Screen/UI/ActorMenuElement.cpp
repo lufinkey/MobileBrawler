@@ -19,7 +19,7 @@ namespace GameLibrary
 	{
 		ScreenElement::update(appData);
 		ArrayList<Pair<Keyboard::Key, KeyDirection> > keyList = keys;
-		for(unsigned int i=0; i<keyList.size(); i++)
+		for(size_t i=0; i<keyList.size(); i++)
 		{
 			Pair<Keyboard::Key, KeyDirection>& keypair = keyList.get(i);
 			if(Keyboard::isKeyPressed(keypair.first) && !Keyboard::wasKeyPressed(keypair.first))
@@ -67,7 +67,7 @@ namespace GameLibrary
 		
 		if(keyboardEnabled)
 		{
-			unsigned int lastSelectedIndex = selectedIndex;
+			size_t lastSelectedIndex = selectedIndex;
 			if(lastSelectedIndex != ACTORMENU_NOSELECTION)
 			{
 				Actor* actor = actors.get(lastSelectedIndex);
@@ -81,7 +81,7 @@ namespace GameLibrary
 					setKeyboardEnabled(false);
 				}
 			}
-			for(unsigned int i=0; i<actors.size(); i++)
+			for(size_t i=0; i<actors.size(); i++)
 			{
 				if(i != lastSelectedIndex)
 				{
@@ -100,7 +100,7 @@ namespace GameLibrary
 		}
 		else
 		{
-			unsigned int lastSelectedIndex = selectedIndex;
+			size_t lastSelectedIndex = selectedIndex;
 			//test/update currently hovered actor
 			if(lastSelectedIndex != ACTORMENU_NOSELECTION)
 			{
@@ -158,14 +158,14 @@ namespace GameLibrary
 			ArrayList<Actor*> menuActors = actors;
 
 			//test/update other actors
-			for(unsigned int i=0; i<menuActors.size(); i++)
+			for(size_t i=0; i<menuActors.size(); i++)
 			{
 				if(i != lastSelectedIndex)
 				{
 					Actor* actor = menuActors.get(i);
 
 					//make sure actor wasn't added or removed from the screen during an event
-					unsigned int actorIndex = ARRAYLIST_NOTFOUND;
+					size_t actorIndex = ARRAYLIST_NOTFOUND;
 					if(i<actors.size() && actors.get(i)==actor)
 					{
 						actorIndex = i;
@@ -247,8 +247,8 @@ namespace GameLibrary
 	
 	void ActorMenuElement::drawMain(ApplicationData appData, Graphics graphics) const
 	{
-		unsigned int hoveredIndex = selectedIndex;
-		for(unsigned int i=0; i<actors.size(); i++)
+		size_t hoveredIndex = selectedIndex;
+		for(size_t i=0; i<actors.size(); i++)
 		{
 			if(i!=hoveredIndex)
 			{
@@ -262,7 +262,7 @@ namespace GameLibrary
 		}
 	}
 	
-	unsigned int ActorMenuElement::addActor(Actor*actor)
+	size_t ActorMenuElement::addActor(Actor*actor)
 	{
 		if(actor == nullptr)
 		{
@@ -272,7 +272,7 @@ namespace GameLibrary
 		return actors.size()-1;
 	}
 	
-	unsigned int ActorMenuElement::addActor(const RectD&bounds, Actor*actor)
+	size_t ActorMenuElement::addActor(const RectD&bounds, Actor*actor)
 	{
 		if(actor == nullptr)
 		{
@@ -283,7 +283,7 @@ namespace GameLibrary
 		return actors.size()-1;
 	}
 	
-	Actor* ActorMenuElement::getActor(unsigned int index) const
+	Actor* ActorMenuElement::getActor(size_t index) const
 	{
 		return actors.get(index);
 	}
@@ -295,14 +295,14 @@ namespace GameLibrary
 	
 	void ActorMenuElement::removeActor(Actor*actor)
 	{
-		unsigned int index = actors.indexOf(actor);
+		size_t index = actors.indexOf(actor);
 		if(index != ARRAYLIST_NOTFOUND)
 		{
 			removeActor(index);
 		}
 	}
 	
-	void ActorMenuElement::removeActor(unsigned int index)
+	void ActorMenuElement::removeActor(size_t index)
 	{
 		Actor* actor = actors.get(index);
 		actors.remove(index);
@@ -324,37 +324,37 @@ namespace GameLibrary
 		}
 	}
 	
-	unsigned int ActorMenuElement::getTotalActors()
+	size_t ActorMenuElement::getTotalActors()
 	{
 		return actors.size();
 	}
 	
-	void ActorMenuElement::onActorHover(unsigned int index)
+	void ActorMenuElement::onActorHover(size_t index)
 	{
 		//
 	}
 	
-	void ActorMenuElement::onActorHoverFinish(unsigned int index)
+	void ActorMenuElement::onActorHoverFinish(size_t index)
 	{
 		//
 	}
 	
-	void ActorMenuElement::onActorPress(unsigned int index)
+	void ActorMenuElement::onActorPress(size_t index)
 	{
 		//
 	}
 	
-	void ActorMenuElement::onActorPressCancel(unsigned int index)
+	void ActorMenuElement::onActorPressCancel(size_t index)
 	{
 		//
 	}
 	
-	void ActorMenuElement::onActorRelease(unsigned int index)
+	void ActorMenuElement::onActorRelease(size_t index)
 	{
 		//
 	}
 	
-	void ActorMenuElement::onActorSelect(unsigned int index)
+	void ActorMenuElement::onActorSelect(size_t index)
 	{
 		//
 	}
@@ -362,8 +362,8 @@ namespace GameLibrary
 	
 	void ActorMenuElement::moveHoverUp()
 	{
-		unsigned int index = getSelectedIndex();
-		unsigned int totalItems = getTotalActors();
+		size_t index = getSelectedIndex();
+		size_t totalItems = getTotalActors();
 		if(index == ACTORMENU_NOSELECTION)
 		{
 			if(totalItems>0)
@@ -396,8 +396,8 @@ namespace GameLibrary
 	
 	void ActorMenuElement::moveHoverDown()
 	{
-		unsigned int index = getSelectedIndex();
-		unsigned int totalActors = getTotalActors();
+		size_t index = getSelectedIndex();
+		size_t totalActors = getTotalActors();
 		if(index == ACTORMENU_NOSELECTION)
 		{
 			if(totalActors>0)
@@ -447,7 +447,7 @@ namespace GameLibrary
 	
 	void ActorMenuElement::addUpKey(const Keyboard::Key&key)
 	{
-		for(unsigned int i=0; i<keys.size(); i++)
+		for(size_t i=0; i<keys.size(); i++)
 		{
 			Pair<Keyboard::Key, KeyDirection>& cmp = keys.get(i);
 			if(cmp.first == key)
@@ -461,7 +461,7 @@ namespace GameLibrary
 	
 	void ActorMenuElement::addDownKey(const Keyboard::Key&key)
 	{
-		for(unsigned int i=0; i<keys.size(); i++)
+		for(size_t i=0; i<keys.size(); i++)
 		{
 			Pair<Keyboard::Key, KeyDirection>& cmp = keys.get(i);
 			if(cmp.first == key)
@@ -475,7 +475,7 @@ namespace GameLibrary
 	
 	void ActorMenuElement::addLeftKey(const Keyboard::Key&key)
 	{
-		for(unsigned int i=0; i<keys.size(); i++)
+		for(size_t i=0; i<keys.size(); i++)
 		{
 			Pair<Keyboard::Key, KeyDirection>& cmp = keys.get(i);
 			if(cmp.first == key)
@@ -489,7 +489,7 @@ namespace GameLibrary
 	
 	void ActorMenuElement::addRightKey(const Keyboard::Key&key)
 	{
-		for(unsigned int i=0; i<keys.size(); i++)
+		for(size_t i=0; i<keys.size(); i++)
 		{
 			Pair<Keyboard::Key, KeyDirection>& cmp = keys.get(i);
 			if(cmp.first == key)
@@ -503,7 +503,7 @@ namespace GameLibrary
 	
 	void ActorMenuElement::addSelectKey(const Keyboard::Key&key)
 	{
-		for(unsigned int i=0; i<keys.size(); i++)
+		for(size_t i=0; i<keys.size(); i++)
 		{
 			Pair<Keyboard::Key, KeyDirection>& cmp = keys.get(i);
 			if(cmp.first == key)
@@ -558,7 +558,7 @@ namespace GameLibrary
 		{
 			Actor*actor = actors.get(selectedIndex);
 			actor->clearMouseState();
-			unsigned int oldSelectedIndex = selectedIndex;
+			size_t oldSelectedIndex = selectedIndex;
 			if(pressingActor)
 			{
 				onActorPressCancel(oldSelectedIndex);
@@ -568,13 +568,13 @@ namespace GameLibrary
 		}
 	}
 	
-	void ActorMenuElement::setSelectedIndex(unsigned int index)
+	void ActorMenuElement::setSelectedIndex(size_t index)
 	{
 		bool keyboardWasEnabled = keyboardEnabled;
 		setKeyboardEnabled(true);
 		if(index != selectedIndex)
 		{
-			unsigned int oldSelectedIndex = selectedIndex;
+			size_t oldSelectedIndex = selectedIndex;
 			bool wasPressingActor = pressingActor;
 			pressingActor = false;
 			
@@ -606,7 +606,7 @@ namespace GameLibrary
 		return keyboardEnabled;
 	}
 	
-	unsigned int ActorMenuElement::getSelectedIndex() const
+	size_t ActorMenuElement::getSelectedIndex() const
 	{
 		return selectedIndex;
 	}

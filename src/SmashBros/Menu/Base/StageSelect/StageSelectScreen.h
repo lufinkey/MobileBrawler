@@ -34,8 +34,8 @@ namespace SmashBros
 			virtual void onUpdate(ApplicationData appData) override;
 			virtual void onDraw(ApplicationData appData, Graphics graphics) const override;
 			
-			virtual void onItemHover(unsigned int index) override;
-			virtual void onItemHoverFinish(unsigned int index) override;
+			virtual void onItemHover(size_t index) override;
+			virtual void onItemHoverFinish(size_t index) override;
 			
 			virtual void onStageIconHover(StageSelect::StageIcon*icon);
 			virtual void onStageIconHoverFinish(StageSelect::StageIcon*icon);

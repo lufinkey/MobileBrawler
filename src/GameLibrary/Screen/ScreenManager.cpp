@@ -499,7 +499,7 @@ namespace GameLibrary
 		}
 		else
 		{
-			unsigned int index = screens.indexOf(screen);
+			size_t index = screens.indexOf(screen);
 			if(index == ARRAYLIST_NOTFOUND)
 			{
 				throw IllegalArgumentException("screen", "not contained within the calling ScreenManager");
@@ -509,7 +509,7 @@ namespace GameLibrary
 			Screen* currentScreen = screens.get(screens.size()-1);
 
 			ArrayList<Screen*> popped;
-			for(unsigned int i=(index+1); i<screens.size(); i++)
+			for(size_t i=(index+1); i<screens.size(); i++)
 			{
 				Screen* screen = screens.get(i);
 				//screen->parentElement = nullptr;

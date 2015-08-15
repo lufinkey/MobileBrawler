@@ -623,7 +623,7 @@ namespace GameLibrary
 		}
 		else if(screenManager!=nullptr)
 		{
-			unsigned int index = screenManager->screens.indexOf(this);
+			size_t index = screenManager->screens.indexOf(this);
 			if(index == ARRAYLIST_NOTFOUND)
 			{
 				throw IllegalStateException("Screen is not contained in its ScreenManager");

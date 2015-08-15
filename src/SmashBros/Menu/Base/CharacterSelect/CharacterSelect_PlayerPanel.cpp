@@ -45,7 +45,7 @@ namespace SmashBros
 					bool doCycle = true;
 					
 					const ArrayList<PlayerChip*>& chips = charSelectScreen->getPlayerChips();
-					for(unsigned int i=0; i<chips.size(); i++)
+					for(size_t i=0; i<chips.size(); i++)
 					{
 						PlayerChip* chip = chips.get(i);
 						if(chip->checkPointCollision(touchpos))
@@ -263,7 +263,7 @@ namespace SmashBros
 				namebox->update(appData);
 				
 				const ArrayList<PlayerChip*>& chips = charSelectScreen->getPlayerChips();
-				for(unsigned int i=0; i<chips.size(); i++)
+				for(size_t i=0; i<chips.size(); i++)
 				{
 					PlayerChip* chip = chips.get(i);
 					if(chip->getPlayerNum() == playerNum)

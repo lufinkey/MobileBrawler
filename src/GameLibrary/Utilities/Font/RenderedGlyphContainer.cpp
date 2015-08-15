@@ -32,7 +32,7 @@ namespace GameLibrary
 		ArrayList<RenderedGlyph> glyphTextures;
 		int ttf_style = Font::styleToTTFStyle(fontstyle);
 		TTF_SetFontStyle((TTF_Font*)fontptr, ttf_style);
-		unsigned int length = txt.length();
+		size_t length = txt.length();
 		for(size_t i=0; i<length; i++)
 		{
 			try
@@ -85,8 +85,8 @@ namespace GameLibrary
 
 	RenderedGlyphContainer::RenderedGlyph RenderedGlyphContainer::findGlyph(const ArrayList<RenderedGlyph>&renderedGlyphs, unsigned int size, int fontstyle, bool antialiasing)
 	{
-		unsigned int total = renderedGlyphs.size();
-		for(unsigned int i=0; i<total; i++)
+		size_t total = renderedGlyphs.size();
+		for(size_t i=0; i<total; i++)
 		{
 			const RenderedGlyph& renderedGlyph = renderedGlyphs.get(i);
 			if(renderedGlyph.size >= size && renderedGlyph.fontstyle == fontstyle && renderedGlyph.antialias==antialiasing)
@@ -145,8 +145,8 @@ namespace GameLibrary
 		if(glyphStyles!=nullptr)
 		{
 			ArrayList<RenderedGlyph>& styles = glyphStyles->styles;
-			unsigned int total = styles.size();
-			for(unsigned int i=0; i<total; i++)
+			size_t total = styles.size();
+			for(size_t i=0; i<total; i++)
 			{
 				destroyGlyph(styles[i]);
 			}

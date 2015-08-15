@@ -57,7 +57,7 @@ namespace SmashBros
 		{
 			autoIconLayoutMgr.clear();
 			
-			for(unsigned int i=0; i<icons.size(); i++)
+			for(size_t i=0; i<icons.size(); i++)
 			{
 				delete icons.get(i);
 			}
@@ -75,12 +75,12 @@ namespace SmashBros
 			double icon_height = bounds_h / (double)rows;
 			
 			AssetManager* loaderAssetManager = smashData.getModuleData()->getStageLoader()->getAssetManager();
-			for(unsigned int i=0; i<stages.size(); i++)
+			for(size_t i=0; i<stages.size(); i++)
 			{
 				StageInfo& info = stages.get(i);
 				StageIcon* icon = new StageIcon(info, 0, 0, loaderAssetManager);
-				unsigned int col = i%cols;
-				unsigned int row = i/cols;
+				unsigned int col = (unsigned int)(i%cols);
+				unsigned int row = (unsigned int)(i/cols);
 				double icon_left = bounds.left+(((double)col)*icon_width);
 				double icon_top = bounds.top+(((double)row)*icon_height);
 				autoIconLayoutMgr.add(RectD(icon_left, icon_top, icon_left+icon_width, icon_top+icon_height), icon);
@@ -112,10 +112,10 @@ namespace SmashBros
 			BaseMenuScreen::onDraw(appData, graphics);
 		}
 		
-		void StageSelectScreen::onItemHover(unsigned int index)
+		void StageSelectScreen::onItemHover(size_t index)
 		{
 			Actor* item = getItem(index);
-			for(unsigned int i=0; i<icons.size(); i++)
+			for(size_t i=0; i<icons.size(); i++)
 			{
 				StageSelect::StageIcon* icon = icons.get(i);
 				if(item == icon)
@@ -126,10 +126,10 @@ namespace SmashBros
 			}
 		}
 		
-		void StageSelectScreen::onItemHoverFinish(unsigned int index)
+		void StageSelectScreen::onItemHoverFinish(size_t index)
 		{
 			Actor* item = getItem(index);
-			for(unsigned int i=0; i<icons.size(); i++)
+			for(size_t i=0; i<icons.size(); i++)
 			{
 				StageSelect::StageIcon* icon = icons.get(i);
 				if(item == icon)

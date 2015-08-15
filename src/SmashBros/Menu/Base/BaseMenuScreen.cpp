@@ -83,7 +83,7 @@ namespace SmashBros
 		
 		void BaseMenuScreen::drawItem(ApplicationData appData, Graphics graphics, Actor*item) const
 		{
-			unsigned int selectedIndex = getSelectedIndex();
+			size_t selectedIndex = getSelectedIndex();
 			if(selectedIndex!=MENUSCREEN_NOSELECTION && item == getItem(selectedIndex))
 			{
 				//RectangleD frame = actor->getFrame();
@@ -103,7 +103,7 @@ namespace SmashBros
 			MenuScreen::drawItem(appData, graphics, item);
 		}
 		
-		void BaseMenuScreen::onItemHover(unsigned int index)
+		void BaseMenuScreen::onItemHover(size_t index)
 		{
 			if(!Multitouch::isAvailable())
 			{
@@ -111,7 +111,7 @@ namespace SmashBros
 			}
 		}
 		
-		void BaseMenuScreen::onItemHoverFinish(unsigned int index)
+		void BaseMenuScreen::onItemHoverFinish(size_t index)
 		{
 			if(!Multitouch::isAvailable())
 			{
@@ -119,22 +119,22 @@ namespace SmashBros
 			}
 		}
 		
-		void BaseMenuScreen::onItemPress(unsigned int index)
+		void BaseMenuScreen::onItemPress(size_t index)
 		{
 			hoverPressed = true;
 		}
 		
-		void BaseMenuScreen::onItemPressCancel(unsigned int index)
+		void BaseMenuScreen::onItemPressCancel(size_t index)
 		{
 			hoverPressed = false;
 		}
 		
-		void BaseMenuScreen::onItemRelease(unsigned int index)
+		void BaseMenuScreen::onItemRelease(size_t index)
 		{
 			hoverPressed = false;
 		}
 		
-		void BaseMenuScreen::onItemSelect(unsigned int index)
+		void BaseMenuScreen::onItemSelect(size_t index)
 		{
 			ScreenManager* screenMgr = getScreenManager();
 			if(screenMgr != nullptr)

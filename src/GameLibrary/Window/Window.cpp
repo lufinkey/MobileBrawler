@@ -136,15 +136,13 @@ namespace GameLibrary
 	
 //Window implementation
 	
-	const WindowSettings Window::defaultDesktopSettings = WindowSettings(Vector2i(Window::POSITION_UNDEFINED, Window::POSITION_UNDEFINED), Vector2u(640, 480), "", nullptr, Color::WHITE, Window::STYLE_DEFAULT);
-	const WindowSettings Window::defaultMobileSettings = WindowSettings(Vector2i(Window::POSITION_UNDEFINED, Window::POSITION_UNDEFINED), Vector2u(480, 320), "", nullptr, Color::WHITE, Window::STYLE_BORDERLESS);
-	
-	const WindowSettings& Window::getDefaultSettings()
+	WindowSettings Window::getDefaultSettings()
 	{
 		#if defined(TARGETPLATFORM_MOBILE)
-			return defaultMobileSettings;
+			RectangleI displayBounds = getDisplayBounds(0);
+			return WindowSettings(Vector2i(0,0), Vector2u(1334,750)/*Vector2u((unsigned int)displayBounds.width, (unsigned int)displayBounds.height)*/, "", nullptr, Color::WHITE, Window::STYLE_BORDERLESS);
 		#else
-			return defaultDesktopSettings;
+			return WindowSettings(Vector2i(Window::POSITION_UNDEFINED, Window::POSITION_UNDEFINED), Vector2u(640, 480), "", nullptr, Color::WHITE, Window::STYLE_DEFAULT);
 		#endif
 	}
 	
@@ -658,7 +656,7 @@ namespace GameLibrary
 	void Window::removeEventListener(WindowEventListener*listener)
 	{
 		listenermutex.lock();
-		unsigned int index = eventListeners.indexOf(listener);
+		size_t index = eventListeners.indexOf(listener);
 		if(index != ARRAYLIST_NOTFOUND)
 		{
 			eventListeners.remove(index);

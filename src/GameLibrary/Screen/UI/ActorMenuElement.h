@@ -10,7 +10,7 @@
 namespace GameLibrary
 {
 	/*! The selected index when an ActorMenuElement has not selected an actor*/
-#define ACTORMENU_NOSELECTION UINT_MAX
+#define ACTORMENU_NOSELECTION SIZE_MAX
 	
 	/*! Holds and updates a list of Actors, finds the currently hovered or selected actor in the list, and calls events ActorMenuElement events for it. This class is non-copyable.*/
 	class ActorMenuElement : public ScreenElement
@@ -31,16 +31,16 @@ namespace GameLibrary
 		/*! Adds an actor to the menu.
 			\param actor an Actor pointer
 			\returns the index of the Actor inside the menu*/
-		virtual unsigned int addActor(Actor*actor);
+		virtual size_t addActor(Actor*actor);
 		/*! Adds an actor to the menu that will be automatically resized by the AutoLayout
 			\param bounds the ratio in the frame where the Actor will be laid out
 			\param actor an Actor pointer
 			\returns the index of the Actor inside the menu*/
-		virtual unsigned int addActor(const RectD&bounds, Actor*actor);
+		virtual size_t addActor(const RectD&bounds, Actor*actor);
 		/*! Gets an actor at a given index inside the menu.
 			\param index the index of the Actor inside the menu
 			\returns an Actor pointer*/
-		Actor* getActor(unsigned int index) const;
+		Actor* getActor(size_t index) const;
 		/*! Gets the list of all the Actor objects in the menu.
 			\returns a const ArrayList reference of Actor pointers*/
 		const ArrayList<Actor*>& getActors() const;
@@ -49,30 +49,30 @@ namespace GameLibrary
 		void removeActor(Actor*actor);
 		/*! Removes a previously added Actor from the menu. When an Actor is removed, the indexes of other Actor entries may change.
 			\param index the Actor index inside the menu*/
-		void removeActor(unsigned int index);
+		void removeActor(size_t index);
 		/*! Gets the total amount of Actor objects stored in the menu.
 			\returns an unsigned int representing the total number of Actor objects in the menu*/
-		unsigned int getTotalActors();
+		size_t getTotalActors();
 		
 		
 		/*! Called when an Actor in the menu is hovered over by a mouse or touch instance.
 			\param index the index of the Actor*/
-		virtual void onActorHover(unsigned int index);
+		virtual void onActorHover(size_t index);
 		/*! Called when an Actor in the menu finished being hovered over by a mouse or touch instance.
 			\param index the index of the Actor*/
-		virtual void onActorHoverFinish(unsigned int index);
+		virtual void onActorHoverFinish(size_t index);
 		/*! Called when an Actor in the menu is pressed by a mouse or touch instance.
 			\param index the index of the Actor*/
-		virtual void onActorPress(unsigned int index);
+		virtual void onActorPress(size_t index);
 		/*! Called when an Actor in the menu has a pressed mouse or touch instance leave the vicinity of the Actor, or some other event cancels the press.
 			\param index the index of the Actor*/
-		virtual void onActorPressCancel(unsigned int index);
+		virtual void onActorPressCancel(size_t index);
 		/*! Called when an Actor in the menu is released by a mouse or touch instance that previously pressed it.
 			\param index the index of the Actor*/
-		virtual void onActorRelease(unsigned int index);
+		virtual void onActorRelease(size_t index);
 		/*! Called after an Actor in the menu is released. Menu button actions should be handled here.
 			\param index the index of the Actor*/
-		virtual void onActorSelect(unsigned int index);
+		virtual void onActorSelect(size_t index);
 		
 		
 		/*! Manually sets the current hover to the next Actor above the current one, or the first Actor in the list, if no Actor is currently hovered.
@@ -119,7 +119,7 @@ namespace GameLibrary
 		void clearMouseStates();
 		/*! Sets the currently hovered Actor index in the menu. This automatically enables Keyboard input.
 			\param index the Actor index to set hovered, or ACTORMENU_NOSELECTION for no selected index*/
-		void setSelectedIndex(unsigned int index);
+		void setSelectedIndex(size_t index);
 		
 		
 		/*! Tells if the menu's input is currently set to the keyboard.
@@ -127,7 +127,7 @@ namespace GameLibrary
 		bool isKeyboardEnabled() const;
 		/*! Gets the currently hovered Actor index in the menu.
 			\returns an index for an Actor in the menu, or ACTORMENU_NOSELECTION if no index is selected*/
-		unsigned int getSelectedIndex() const;
+		size_t getSelectedIndex() const;
 		
 		
 		/*! Gets the automatic layout manager for the contained actors.
@@ -147,7 +147,7 @@ namespace GameLibrary
 		ArrayList<Actor*> actors;
 		AutoLayoutManager autoActorLayoutMgr;
 		
-		unsigned int selectedIndex;
+		size_t selectedIndex;
 		bool keyboardEnabled;
 		bool pressingActor;
 		

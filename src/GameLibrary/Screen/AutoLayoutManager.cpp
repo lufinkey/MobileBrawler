@@ -180,7 +180,7 @@ namespace GameLibrary
 		{
 			return;
 		}
-		for(unsigned int i=(actors.size()-1); i!=UINT_MAX; i--)
+		for(size_t i=(actors.size()-1); i!=SIZE_MAX; i--)
 		{
 			ActorContainer& container = actors.get(i);
 			if(container.actor == actor)
@@ -197,7 +197,7 @@ namespace GameLibrary
 		{
 			return;
 		}
-		for(unsigned int i=(elements.size()-1); i!=UINT_MAX; i--)
+		for(size_t i=(elements.size()-1); i!=SIZE_MAX; i--)
 		{
 			ElementContainer& container = elements.get(i);
 			if(container.element == element)

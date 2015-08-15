@@ -17,7 +17,7 @@ namespace BrawlerLibrary
 	
 	unsigned int Rules::getPlayerCount() const
 	{
-		return players.size();
+		return (unsigned int)players.size();
 	}
 	
 	PlayerInfo& Rules::getPlayerInfo(unsigned int playerNum)

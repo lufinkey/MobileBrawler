@@ -21,7 +21,7 @@ namespace SmashBros
 			virtual ~TitleScreen();
 
 			virtual void onFrameChange() override;
-			virtual void onItemSelect(unsigned int index) override;
+			virtual void onItemSelect(size_t index) override;
 			
 		protected:
 			virtual void onUpdate(ApplicationData appData) override;

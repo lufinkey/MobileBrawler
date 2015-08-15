@@ -21,32 +21,32 @@ namespace GameLibrary
 		menuScreen->drawItem(appData, graphics, actor);
 	}
 	
-	void MenuScreen::MainElement::onActorHover(unsigned int index)
+	void MenuScreen::MainElement::onActorHover(size_t index)
 	{
 		menuScreen->onItemHover(index);
 	}
 	
-	void MenuScreen::MainElement::onActorHoverFinish(unsigned int index)
+	void MenuScreen::MainElement::onActorHoverFinish(size_t index)
 	{
 		menuScreen->onItemHoverFinish(index);
 	}
 	
-	void MenuScreen::MainElement::onActorPress(unsigned int index)
+	void MenuScreen::MainElement::onActorPress(size_t index)
 	{
 		menuScreen->onItemPress(index);
 	}
 	
-	void MenuScreen::MainElement::onActorPressCancel(unsigned int index)
+	void MenuScreen::MainElement::onActorPressCancel(size_t index)
 	{
 		menuScreen->onItemPressCancel(index);
 	}
 	
-	void MenuScreen::MainElement::onActorRelease(unsigned int index)
+	void MenuScreen::MainElement::onActorRelease(size_t index)
 	{
 		menuScreen->onItemRelease(index);
 	}
 	
-	void MenuScreen::MainElement::onActorSelect(unsigned int index)
+	void MenuScreen::MainElement::onActorSelect(size_t index)
 	{
 		menuScreen->onItemSelect(index);
 	}
@@ -72,7 +72,7 @@ namespace GameLibrary
 		mainElement->removeFromParentElement();
 		delete mainElement;
 		mainElement = nullptr;
-		for(unsigned int i=0; i<items.size(); i++)
+		for(size_t i=0; i<items.size(); i++)
 		{
 			delete items.get(i);
 		}
@@ -83,17 +83,17 @@ namespace GameLibrary
 		item->draw(appData, graphics);
 	}
 	
-	unsigned int MenuScreen::addItem(SpriteActor*actor)
+	size_t MenuScreen::addItem(SpriteActor*actor)
 	{
 		return mainElement->addActor(actor);
 	}
 	
-	unsigned int MenuScreen::addItem(const RectD&bounds, SpriteActor*actor)
+	size_t MenuScreen::addItem(const RectD&bounds, SpriteActor*actor)
 	{
 		return mainElement->addActor(bounds, actor);
 	}
 	
-	unsigned int MenuScreen::addItem(const Vector2d&position, Animation*animation, const Animation::Direction&direction, bool destructAnimation)
+	size_t MenuScreen::addItem(const Vector2d&position, Animation*animation, const Animation::Direction&direction, bool destructAnimation)
 	{
 		if(animation == nullptr)
 		{
@@ -109,7 +109,7 @@ namespace GameLibrary
 		return mainElement->addActor(actor);
 	}
 	
-	unsigned int MenuScreen::addItem(const RectD&bounds, Animation*animation, const Animation::Direction&direction, bool destructAnimation)
+	size_t MenuScreen::addItem(const RectD&bounds, Animation*animation, const Animation::Direction&direction, bool destructAnimation)
 	{
 		if(animation == nullptr)
 		{
@@ -125,68 +125,68 @@ namespace GameLibrary
 		return mainElement->addActor(bounds, actor);
 	}
 	
-	unsigned int MenuScreen::addItem(TextActor*actor)
+	size_t MenuScreen::addItem(TextActor*actor)
 	{
 		return mainElement->addActor(actor);
 	}
 	
-	unsigned int MenuScreen::addItem(const RectD&bounds, TextActor*actor)
+	size_t MenuScreen::addItem(const RectD&bounds, TextActor*actor)
 	{
 		return mainElement->addActor(bounds, actor);
 	}
 	
-	unsigned int MenuScreen::addItem(const Vector2d&position, const String&text, Font*font, const Color&color, unsigned int fontsize, int fontstyle, const TextActor::TextAlignment&alignment)
+	size_t MenuScreen::addItem(const Vector2d&position, const String&text, Font*font, const Color&color, unsigned int fontsize, int fontstyle, const TextActor::TextAlignment&alignment)
 	{
 		return mainElement->addActor(new TextActor(position.x, position.y, text, font, color, fontsize, fontstyle, alignment));
 	}
 	
-	unsigned int MenuScreen::addItem(const RectD&bounds, const String&text, Font*font, const Color&color, unsigned int fontsize, int fontstyle, const TextActor::TextAlignment&alignment)
+	size_t MenuScreen::addItem(const RectD&bounds, const String&text, Font*font, const Color&color, unsigned int fontsize, int fontstyle, const TextActor::TextAlignment&alignment)
 	{
 		return mainElement->addActor(bounds, new TextActor(text, font, color, fontsize, fontstyle, alignment));
 	}
 	
-	void MenuScreen::removeItem(unsigned int index)
+	void MenuScreen::removeItem(size_t index)
 	{
 		delete mainElement->getActor(index);
 		mainElement->removeActor(index);
 	}
 	
-	unsigned int MenuScreen::getTotalItems()
+	size_t MenuScreen::getTotalItems()
 	{
 		return mainElement->getTotalActors();
 	}
 	
-	Actor* MenuScreen::getItem(unsigned int index) const
+	Actor* MenuScreen::getItem(size_t index) const
 	{
 		return mainElement->getActor(index);
 	}
 	
-	void MenuScreen::onItemHover(unsigned int index)
+	void MenuScreen::onItemHover(size_t index)
 	{
 		//Open for implementation
 	}
 	
-	void MenuScreen::onItemHoverFinish(unsigned int index)
+	void MenuScreen::onItemHoverFinish(size_t index)
 	{
 		//Open for implementation
 	}
 	
-	void MenuScreen::onItemPress(unsigned int index)
+	void MenuScreen::onItemPress(size_t index)
 	{
 		//Open for implementation
 	}
 	
-	void MenuScreen::onItemPressCancel(unsigned int index)
+	void MenuScreen::onItemPressCancel(size_t index)
 	{
 		//Open for implementation
 	}
 	
-	void MenuScreen::onItemRelease(unsigned int index)
+	void MenuScreen::onItemRelease(size_t index)
 	{
 		//Open for implementation
 	}
 	
-	void MenuScreen::onItemSelect(unsigned int index)
+	void MenuScreen::onItemSelect(size_t index)
 	{
 		//Open for implementation
 	}
@@ -256,7 +256,7 @@ namespace GameLibrary
 		mainElement->clearMouseStates();
 	}
 	
-	void MenuScreen::setSelectedIndex(unsigned int index)
+	void MenuScreen::setSelectedIndex(size_t index)
 	{
 		mainElement->setSelectedIndex(index);
 	}
@@ -266,7 +266,7 @@ namespace GameLibrary
 		return mainElement->isKeyboardEnabled();
 	}
 	
-	unsigned int MenuScreen::getSelectedIndex() const
+	size_t MenuScreen::getSelectedIndex() const
 	{
 		return mainElement->getSelectedIndex();
 	}

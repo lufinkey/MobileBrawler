@@ -106,7 +106,7 @@ namespace GameLibrary
 					if(animation_direction == Animation::FORWARD)
 					{
 						animation_frame++;
-						unsigned int totalFrames = animation_current->getTotalFrames();
+						size_t totalFrames = animation_current->getTotalFrames();
 						if(animation_frame >= totalFrames)
 						{
 							animation_frame = 0;
@@ -122,7 +122,7 @@ namespace GameLibrary
 					{
 						if(animation_frame == 0)
 						{
-							unsigned int totalFrames = animation_current->getTotalFrames();
+							size_t totalFrames = animation_current->getTotalFrames();
 							if(totalFrames > 0)
 							{
 								animation_frame = totalFrames-1;
@@ -295,7 +295,7 @@ namespace GameLibrary
 		animInfo.animation = animation;
 		animInfo.destruct = destruct;
 		
-		unsigned int prevSize = animations.size();
+		size_t prevSize = animations.size();
 		
 		animations.add(animInfo);
 		
@@ -307,8 +307,8 @@ namespace GameLibrary
 	
 	void SpriteActor::removeAnimation(const String&name)
 	{
-		unsigned int totalAnimations = animations.size();
-		for(unsigned int i=0; i<totalAnimations; i++)
+		size_t totalAnimations = animations.size();
+		for(size_t i=0; i<totalAnimations; i++)
 		{
 			AnimationInfo animInfo = animations.get(i);
 			if(animInfo.name.equals(name))
@@ -330,8 +330,8 @@ namespace GameLibrary
 	
 	bool SpriteActor::hasAnimation(const String&name) const
 	{
-		unsigned int totalAnimations = animations.size();
-		for(unsigned int i=0; i<totalAnimations; i++)
+		size_t totalAnimations = animations.size();
+		for(size_t i=0; i<totalAnimations; i++)
 		{
 			if(animations.get(i).name.equals(name))
 			{
@@ -343,8 +343,8 @@ namespace GameLibrary
 	
 	Animation* SpriteActor::getAnimation(const String&name) const
 	{
-		unsigned int totalAnimations = animations.size();
-		for(unsigned int i=0; i<totalAnimations; i++)
+		size_t totalAnimations = animations.size();
+		for(size_t i=0; i<totalAnimations; i++)
 		{
 			const AnimationInfo&animInfo = animations.get(i);
 			if(animInfo.name.equals(name))
@@ -384,7 +384,7 @@ namespace GameLibrary
 			
 			case Animation::BACKWARD:
 			{
-				unsigned int totalFrames = animation->getTotalFrames();
+				size_t totalFrames = animation->getTotalFrames();
 				if(totalFrames>0)
 				{
 					animation_frame = (totalFrames-1);
@@ -418,7 +418,7 @@ namespace GameLibrary
 					
 					case Animation::BACKWARD:
 					{
-						unsigned int totalFrames = animation->getTotalFrames();
+						size_t totalFrames = animation->getTotalFrames();
 						if(animation_frame >= totalFrames)
 						{
 							if(totalFrames>0)
@@ -463,7 +463,7 @@ namespace GameLibrary
 			
 			case Animation::BACKWARD:
 			{
-				unsigned int totalFrames = 0;
+				size_t totalFrames = 0;
 				if(animation!=nullptr)
 				{
 					totalFrames = animation->getTotalFrames();
@@ -492,7 +492,7 @@ namespace GameLibrary
 					case Animation::FORWARD:
 					case Animation::STOPPED:
 					{
-						unsigned int totalFrames = 0;
+						size_t totalFrames = 0;
 						if(animation!=nullptr)
 						{
 							totalFrames = animation->getTotalFrames();
@@ -506,7 +506,7 @@ namespace GameLibrary
 					
 					case Animation::BACKWARD:
 					{
-						unsigned int totalFrames = 0;
+						size_t totalFrames = 0;
 						if(animation!=nullptr)
 						{
 							totalFrames = animation->getTotalFrames();

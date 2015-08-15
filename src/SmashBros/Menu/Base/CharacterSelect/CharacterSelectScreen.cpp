@@ -114,7 +114,7 @@ namespace SmashBros
 			icons.clear();
 			
 			ArrayList<CharacterInfo>& characters = smashData.getModuleData()->getCharacterLoader()->getCharacters();
-			unsigned int total = characters.size();
+			size_t total = characters.size();
 			double approx_cols = Math::sqrt((3.0*((double)total))/2.0);
 			double approx_rows = approx_cols*(2.0/3.0);
 			unsigned int cols = (unsigned int)Math::round(approx_cols);

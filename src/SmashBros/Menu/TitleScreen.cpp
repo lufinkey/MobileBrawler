@@ -63,7 +63,7 @@ namespace SmashBros
 			tapRegion->setSize(frame.width, frame.height);
 		}
 		
-		void TitleScreen::onItemSelect(unsigned int index)
+		void TitleScreen::onItemSelect(size_t index)
 		{
 			//no behavior
 		}

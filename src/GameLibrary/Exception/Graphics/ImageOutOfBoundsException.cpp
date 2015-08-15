@@ -23,7 +23,7 @@ namespace GameLibrary
 		height = h;
 	}
 
-	ImageOutOfBoundsException::ImageOutOfBoundsException(unsigned int i, unsigned int w, unsigned int h) : OutOfBoundsException((String)"(" + (index%w) + ", " + ((int)(index / w)) + ") is out of bounds in Image with a size of (" + w + ", " + h + ")")
+	ImageOutOfBoundsException::ImageOutOfBoundsException(unsigned int i, unsigned int w, unsigned int h) : OutOfBoundsException((String)"(" + (i%w) + ", " + ((int)(i / w)) + ") is out of bounds in Image with a size of (" + w + ", " + h + ")")
 	{
 		index = i;
 		x = index%w;

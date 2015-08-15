@@ -15,7 +15,7 @@ namespace SmashBros
 			//
 		}
 			
-		void SoloMenu::onItemSelect(unsigned int index)
+		void SoloMenu::onItemSelect(size_t index)
 		{
 			BaseMenuScreen::onItemSelect(index);
 			ScreenManager* screenMgr = getScreenManager();

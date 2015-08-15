@@ -25,7 +25,7 @@ namespace SmashBros
 			delete soloMenu;
 		}
 		
-		void MainMenu::onItemSelect(unsigned int index)
+		void MainMenu::onItemSelect(size_t index)
 		{
 			Actor* item = getItem(index);
 			ScreenManager* screenMgr = getScreenManager();

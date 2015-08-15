@@ -430,7 +430,7 @@ namespace GameLibrary
 		{
 			MouseTouchData& touchData = currentTouches.get(i);
 			bool found = false;
-			for(unsigned j=0; j<touchIDs.size(); j++)
+			for(size_t j=0; j<touchIDs.size(); j++)
 			{
 				if(touchIDs.get(i) == touchData.touchID)
 				{

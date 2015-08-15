@@ -24,7 +24,7 @@ namespace SmashBros
 			explicit MainMenu(const SmashData&smashData);
 			virtual ~MainMenu();
 			
-			virtual void onItemSelect(unsigned int index) override;
+			virtual void onItemSelect(size_t index) override;
 		};
 	}
 }

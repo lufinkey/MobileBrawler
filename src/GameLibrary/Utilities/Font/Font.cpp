@@ -38,7 +38,7 @@ namespace GameLibrary
 	void* Font::loadFontSize(unsigned int size)
 	{
 		DataPacket& fontDataPacket = *fontdata.get();
-		SDL_RWops* ops = SDL_RWFromConstMem(fontDataPacket.getData(), fontDataPacket.size());
+		SDL_RWops* ops = SDL_RWFromConstMem(fontDataPacket.getData(), (int)fontDataPacket.size());
 		if(ops == nullptr)
 		{
 			return nullptr;
@@ -54,8 +54,8 @@ namespace GameLibrary
 	void* Font::getFontPtr(unsigned int size)
 	{
 		FontSizeList& sizeList = *fontsizes.get();
-		unsigned int total = sizeList.size();
-		for(unsigned int i=0; i<total; i++)
+		size_t total = sizeList.size();
+		for(size_t i=0; i<total; i++)
 		{
 			const Pair<unsigned int, void*>& fontSize = sizeList.get(i);
 			if(fontSize.first == size)
@@ -159,7 +159,7 @@ namespace GameLibrary
 			return false;
 		}
 
-		SDL_RWops* ops = SDL_RWFromConstMem(fontDataPacket->getData(), fontDataPacket->size());
+		SDL_RWops* ops = SDL_RWFromConstMem(fontDataPacket->getData(), (int)fontDataPacket->size());
 		if(ops == nullptr)
 		{
 			if(error!=nullptr)

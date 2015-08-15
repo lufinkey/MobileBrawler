@@ -81,12 +81,12 @@ namespace GameLibrary
 		ArrayList<ScreenElement*> children = childElements;
 		updatingElements = true;
 
-		for(unsigned int i=0; i<children.size(); i++)
+		for(size_t i=0; i<children.size(); i++)
 		{
 			ScreenElement* element = children.get(i);
 
 			bool element_notremoved = true;
-			for(unsigned int j=0; j<removedChildElements.size(); j++)
+			for(size_t j=0; j<removedChildElements.size(); j++)
 			{
 				if(removedChildElements.get(j)==element)
 				{
@@ -124,12 +124,12 @@ namespace GameLibrary
 		ArrayList<ScreenElement*> children = childElements;
 		updatingElements = true;
 
-		for(unsigned int i=0; i<children.size(); i++)
+		for(size_t i=0; i<children.size(); i++)
 		{
 			ScreenElement* element = children.get(i);
 
 			bool element_notremoved = true;
-			for(unsigned int j=0; j<removedChildElements.size(); j++)
+			for(size_t j=0; j<removedChildElements.size(); j++)
 			{
 				if(removedChildElements.get(j)==element)
 				{
@@ -210,7 +210,7 @@ namespace GameLibrary
 			{
 				parentElement->removedChildElements.add(this);
 			}
-			unsigned int index = parentElement->childElements.indexOf(this);
+			size_t index = parentElement->childElements.indexOf(this);
 			if(index == ARRAYLIST_NOTFOUND)
 			{
 				throw IllegalStateException("Child ScreenElement not found in parent ScreenElement");
@@ -233,7 +233,7 @@ namespace GameLibrary
 			throw IllegalArgumentException("element", "not a child of the calling element");
 		}
 		
-		unsigned int index = childElements.indexOf(element);
+		size_t index = childElements.indexOf(element);
 		if(index == ARRAYLIST_NOTFOUND)
 		{
 			throw IllegalStateException("Child ScreenElement not found in parent ScreenElement");
@@ -257,7 +257,7 @@ namespace GameLibrary
 			throw IllegalArgumentException("element", "not a child of the calling element");
 		}
 		
-		unsigned int index = childElements.indexOf(element);
+		size_t index = childElements.indexOf(element);
 		if(index == ARRAYLIST_NOTFOUND)
 		{
 			throw IllegalStateException("Child ScreenElement not found in parent ScreenElement");

@@ -42,9 +42,9 @@ namespace SmashBros
 	
 	void Game::initialize()
 	{
-		getWindow()->setSize(Vector2u(SMASHBROS_WINDOWWIDTH, SMASHBROS_WINDOWHEIGHT));
-		getWindow()->getView()->setSize(SMASHBROS_WINDOWWIDTH, SMASHBROS_WINDOWHEIGHT);
-		getWindow()->getView()->setLetterboxed(true);
+		//getWindow()->setSize(Vector2u(SMASHBROS_WINDOWWIDTH, SMASHBROS_WINDOWHEIGHT));
+		//getWindow()->getView()->setSize(SMASHBROS_WINDOWWIDTH, SMASHBROS_WINDOWHEIGHT);
+		//getWindow()->getView()->setLetterboxed(true);
 		setFPS(60);
 		menuLoad = new MenuLoad(*getWindow(), "assets/menu");
 		moduleLoad = new ModuleLoad(*getWindow(), "assets/characters", "assets/stages");

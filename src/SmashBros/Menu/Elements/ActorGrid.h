@@ -18,7 +18,7 @@ namespace SmashBros
 			Vector2d spacing;
 			
 		protected:
-			void setActorPosition(unsigned int index, Actor*actor);
+			void setActorPosition(size_t index, Actor*actor);
 			
 		public:
 			ActorGrid(const Vector2d&position, unsigned int columns, const Vector2d&spacing);

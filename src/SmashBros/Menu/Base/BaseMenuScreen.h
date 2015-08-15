@@ -21,12 +21,12 @@ namespace SmashBros
 			
 			virtual void onWillDisappear(const Transition*transition) override;
 			
-			virtual void onItemHover(unsigned int index) override;
-			virtual void onItemHoverFinish(unsigned int index) override;
-			virtual void onItemPress(unsigned int index) override;
-			virtual void onItemPressCancel(unsigned int index) override;
-			virtual void onItemRelease(unsigned int index) override;
-			virtual void onItemSelect(unsigned int index) override;
+			virtual void onItemHover(size_t index) override;
+			virtual void onItemHoverFinish(size_t index) override;
+			virtual void onItemPress(size_t index) override;
+			virtual void onItemPressCancel(size_t index) override;
+			virtual void onItemRelease(size_t index) override;
+			virtual void onItemSelect(size_t index) override;
 			
 			ImageElement* getBackgroundElement() const;
 			SpriteActor* getBackButton() const;

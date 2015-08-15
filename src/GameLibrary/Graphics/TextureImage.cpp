@@ -402,7 +402,7 @@ namespace GameLibrary
 
 	unsigned int TextureImage::getSize() const
 	{
-		return pixels.size();
+		return (unsigned int)pixels.size();
 	}
 
 	unsigned int TextureImage::getWidth() const

@@ -100,19 +100,19 @@ namespace GameLibrary
 		
 		
 		/*! Gets the width of the current frame. No relation to Animation::getFrame().
-			\returns an unsigned integer representing the width of the current frame*/
+			\returns the width of the current frame*/
 		unsigned int getFrameWidth() const;
 		/*! Gets the width of the specified frame. No relation to Animation::getFrame().
 			\param frameNum the index of the frame
-			\returns an unsigned integer representing the width of the specified frame*/
-		unsigned int getFrameWidth(unsigned int frameNum) const;
+			\returns the width of the specified frame*/
+		unsigned int getFrameWidth(size_t frameNum) const;
 		/*! Gets the height of the current frame. No relation to Animation::getFrame().
-			\returns an unsigned integer representing the height of the current frame*/
+			\returns the height of the current frame*/
 		unsigned int getFrameHeight() const;
 		/*! Gets the height of the specified frame. No relation to Animation::getFrame().
 			\param frameNum the index of the frame
-			\returns an unsigned integer representing the height of the specified frame*/
-		unsigned int getFrameHeight(unsigned int frameNum) const;
+			\returns the height of the specified frame*/
+		unsigned int getFrameHeight(size_t frameNum) const;
 		
 		
 		/*! Adds a single frame.
@@ -137,13 +137,13 @@ namespace GameLibrary
 		
 		/*! Sets the current frame. No relation to Animation::getFrame().
 			\param frameNum the index of the frame*/
-		void setCurrentFrame(unsigned int frameNum);
+		void setCurrentFrame(size_t frameNum);
 		/*! Gets the current frame. No relation to Animation::getFrame().
-			\returns an unsigned int representing the frame index of the current frame*/
-		unsigned int getCurrentFrame() const;
+			\returns the frame index of the current frame*/
+		size_t getCurrentFrame() const;
 		/*! Gets the total amount of frames stored in the Animation.
-			\returns an unsigned int representing the total amount of frames*/
-		unsigned int getTotalFrames() const;
+			\returns the total amount of frames*/
+		size_t getTotalFrames() const;
 		
 		
 		/*! Sets the frame rate.
@@ -158,14 +158,14 @@ namespace GameLibrary
 		/*! Gets the image being used in the specified frame.
 			\param frameNum the frame index
 			\returns the TextureImage for the specified frame*/
-		TextureImage* getImage(unsigned int frameNum) const;
+		TextureImage* getImage(size_t frameNum) const;
 		/*! Gets the image being used in the current frame.
 			\returns the TextureImage for the current frame*/
 		TextureImage* getImage() const;
 		/*! Gets the source Rectangle for the TextureImage at the specified frame.
 			\param frameNum the frame index
 			\returns the source Rectangle for the specified frame*/
-		RectangleU getImageSourceRect(unsigned int frameNum) const;
+		RectangleU getImageSourceRect(size_t frameNum) const;
 		/*! Gets the source Rectangle for the TextureImage at the current frame.
 			\returns the source Rectangle for the current frame*/
 		RectangleU getImageSourceRect() const;
@@ -177,7 +177,7 @@ namespace GameLibrary
 		/*! Gets the frame (bounding box) of the Animation at the specified frame (animation frame).
 			\param frameNum the frame index
 			\returns the bounding box of the Animation*/
-		virtual RectangleD getFrame(unsigned int frameNum) const;
+		virtual RectangleD getFrame(size_t frameNum) const;
 		
 	private:
 		class AnimationFrame
@@ -198,7 +198,7 @@ namespace GameLibrary
 			RectangleU getSourceRect() const;
 		};
 
-		unsigned int currentFrame;
+		size_t currentFrame;
 		ArrayList<AnimationFrame> frames;
 
 		float fps;

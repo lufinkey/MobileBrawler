@@ -161,7 +161,7 @@ namespace GameLibrary
 		{
 			throw IllegalArgumentException("image", "null");
 		}
-		for(unsigned int i=0; i<textures.size(); i++)
+		for(size_t i=0; i<textures.size(); i++)
 		{
 			Pair<String,TextureImage*>& pair = textures.get(i);
 			if(pair.first.equals(path))

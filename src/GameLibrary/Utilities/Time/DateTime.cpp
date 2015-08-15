@@ -683,7 +683,7 @@ namespace GameLibrary
 
 					case DATEFORMAT_UTCOFFSET:
 					{
-						int utc_minoffset = Math::abs(utc_offset/60);
+						int utc_minoffset = (int)Math::abs(utc_offset/60);
 						int utc_min = utc_minoffset%60;
 						int utc_hr = utc_minoffset/60;
 						String utc_hr_str = DateTime_createNumberString(utc_hr, 2, '0');

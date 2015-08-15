@@ -45,7 +45,7 @@ namespace BrawlerLibrary
 				if(success)
 				{
 					bool alreadyAdded = false;
-					for(unsigned int j=0; j<stages.size(); j++)
+					for(size_t j=0; j<stages.size(); j++)
 					{
 						StageInfo&cmp = stages.get(j);
 						if(info.getName().equals(cmp.getName()) && info.getCreator().equals(cmp.getCreator()))

@@ -165,7 +165,7 @@ namespace GameLibrary
 
 	bool Image::saveToFile(const String&path, String*error) const
 	{
-		unsigned int dotIndex = path.lastIndexOf('.');
+		size_t dotIndex = path.lastIndexOf('.');
 		if(dotIndex == STRING_NOTFOUND)
 		{
 			throw UnsupportedImageFormatException("");
@@ -294,12 +294,12 @@ namespace GameLibrary
 
 	void Image::recolor(const ArrayList<Pair<Color, Color> >& colorSwaps)
 	{
-		unsigned int total = pixels.size();
-		unsigned int totalSwaps = colorSwaps.size();
-		for(unsigned int i=0; i<total; i++)
+		size_t total = pixels.size();
+		size_t totalSwaps = colorSwaps.size();
+		for(size_t i=0; i<total; i++)
 		{
 			const Color& color = pixels.get(i);
-			for(unsigned int j=0; j<totalSwaps; j++)
+			for(size_t j=0; j<totalSwaps; j++)
 			{
 				const Pair<Color,Color>& colorSwap = colorSwaps.get(j);
 				if(color.equals(colorSwap.first))
@@ -323,8 +323,8 @@ namespace GameLibrary
 		PixelIterator mask_pxlIter(Vector2u(mask.width,mask.height), RectangleU(0,0,mask.width,mask.height), dstRect, dstRect, 1, 1, false, false);
 		
 		std::vector<bool> masked(pixels.size());
-		unsigned int total = pixels.size();
-		for(unsigned int i=0; i<total; i++)
+		size_t total = pixels.size();
+		for(size_t i=0; i<total; i++)
 		{
 			masked[i] = false;
 		}
@@ -360,7 +360,7 @@ namespace GameLibrary
 
 	unsigned int Image::getSize() const
 	{
-		return pixels.size();
+		return (unsigned int)pixels.size();
 	}
 	
 	unsigned int Image::getWidth() const

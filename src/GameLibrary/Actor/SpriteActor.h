@@ -135,7 +135,7 @@ namespace GameLibrary
 		
 		String animation_name;
 		Animation* animation_current;
-		unsigned int animation_frame;
+		size_t animation_frame;
 		long long animation_prevFrameTime;
 		Animation::Direction animation_direction;
 

@@ -93,11 +93,9 @@ namespace GameLibrary
 			POSITION_UNDEFINED = 0x0fffffff,
 			POSITION_CENTERED = 0x0ffffffe
 		};
-
-		static const WindowSettings defaultDesktopSettings;
-		static const WindowSettings defaultMobileSettings;
-		static const WindowSettings& getDefaultSettings();
-
+		
+		static WindowSettings getDefaultSettings();
+		
 		Window();
 		Window(const Window&) = delete;
 		virtual ~Window();

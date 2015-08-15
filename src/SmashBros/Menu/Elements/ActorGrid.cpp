@@ -17,12 +17,12 @@ namespace SmashBros
 			//
 		}
 		
-		void ActorGrid::setActorPosition(unsigned int index, Actor*actor)
+		void ActorGrid::setActorPosition(size_t index, Actor*actor)
 		{
 			if(actor != nullptr)
 			{
-				unsigned int col = index%columns;
-				unsigned int row = index/columns;
+				unsigned long col = (unsigned long)(index%columns);
+				unsigned long row = (unsigned long)(index/columns);
 				actor->x = position.x + (((double)col) * spacing.x);
 				actor->y = position.y + (((double)row) * spacing.y);
 			}
@@ -30,7 +30,7 @@ namespace SmashBros
 		
 		void ActorGrid::add(Actor*actor)
 		{
-			unsigned int index = actors.size();
+			size_t index = actors.size();
 			setActorPosition(index, actor);
 			actors.add(actor);
 		}

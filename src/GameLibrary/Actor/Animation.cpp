@@ -53,7 +53,7 @@ namespace GameLibrary
 		{
 			unsigned int width = (img->getWidth()/cols);
 			unsigned int height = (img->getHeight()/rows);
-			return RectangleU((int)(x*width), (int)(y*height), (int)width, (int)height);
+			return RectangleU((x*width), (y*height), width, height);
 		}
 	}
 
@@ -111,7 +111,7 @@ namespace GameLibrary
 	
 	void Animation::reloadFrames(AssetManager*assetManager)
 	{
-		for(unsigned int i=0; i<frames.size(); i++)
+		for(size_t i=0; i<frames.size(); i++)
 		{
 			AnimationFrame& frame = frames.get(i);
 			if(assetManager == nullptr)
@@ -156,7 +156,7 @@ namespace GameLibrary
 		return getFrameWidth(currentFrame);
 	}
 
-	unsigned int Animation::getFrameWidth(unsigned int frameNum) const
+	unsigned int Animation::getFrameWidth(size_t frameNum) const
 	{
 		const AnimationFrame& animFrame = frames.get(frameNum);
 		TextureImage* img = animFrame.img;
@@ -176,7 +176,7 @@ namespace GameLibrary
 		return getFrameHeight(currentFrame);
 	}
 
-	unsigned int Animation::getFrameHeight(unsigned int frameNum) const
+	unsigned int Animation::getFrameHeight(size_t frameNum) const
 	{
 		const AnimationFrame& animFrame = frames.get(frameNum);
 		TextureImage* img = animFrame.img;
@@ -208,7 +208,7 @@ namespace GameLibrary
 	void Animation::addFrames(AssetManager*assetManager, const String&file, unsigned int rows, unsigned int cols)
 	{
 		unsigned int total = rows*cols;
-		if(total > 0 && file.length()>0)
+		if(total>0 && file.length()>0)
 		{
 			TextureImage* img = nullptr;
 			if(assetManager != nullptr)
@@ -243,7 +243,7 @@ namespace GameLibrary
 				}
 			}
 
-			for(unsigned int i=0; i<sequence.size(); i++)
+			for(size_t i=0; i<sequence.size(); i++)
 			{
 				const Vector2u& point = sequence.get(i);
 				if(point.x >= cols || point.y >= rows)
@@ -258,22 +258,22 @@ namespace GameLibrary
 			}
 		}
 	}
-
-	void Animation::setCurrentFrame(unsigned int frameNum)
+	
+	void Animation::setCurrentFrame(size_t frameNum)
 	{
 		currentFrame = frameNum;
 	}
-
-	unsigned int Animation::getCurrentFrame() const
+	
+	size_t Animation::getCurrentFrame() const
 	{
 		return currentFrame;
 	}
-
-	unsigned int Animation::getTotalFrames() const
+	
+	size_t Animation::getTotalFrames() const
 	{
 		return frames.size();
 	}
-
+	
 	void Animation::setFPS(float framerate)
 	{
 		if(framerate < 0.0f)
@@ -282,16 +282,16 @@ namespace GameLibrary
 		}
 		fps = framerate;
 	}
-
+	
 	float Animation::getFPS() const
 	{
 		return fps;
 	}
 	
-	TextureImage* Animation::getImage(unsigned int fNum) const
+	TextureImage* Animation::getImage(size_t fNum) const
 	{
-		unsigned int frameNum = fNum;
-		unsigned int totalFrames = frames.size();
+		size_t frameNum = fNum;
+		size_t totalFrames = frames.size();
 		if(frameNum > totalFrames)
 		{
 			if(totalFrames>0)
@@ -311,10 +311,10 @@ namespace GameLibrary
 		return getImage(currentFrame);
 	}
 
-	RectangleU Animation::getImageSourceRect(unsigned int fNum) const
+	RectangleU Animation::getImageSourceRect(size_t fNum) const
 	{
-		unsigned int frameNum = fNum;
-		unsigned int totalFrames = frames.size();
+		size_t frameNum = fNum;
+		size_t totalFrames = frames.size();
 		if(frameNum > totalFrames)
 		{
 			if(totalFrames>0)
@@ -339,7 +339,7 @@ namespace GameLibrary
 		return getFrame(currentFrame);
 	}
 	
-	RectangleD Animation::getFrame(unsigned int frameNum) const
+	RectangleD Animation::getFrame(size_t frameNum) const
 	{
 		const AnimationFrame& animFrame = frames.get(frameNum);
 		TextureImage* img = animFrame.img;
@@ -381,8 +381,8 @@ namespace GameLibrary
 
 	void Animation::draw(ApplicationData appData, Graphics graphics) const
 	{
-		unsigned int drawFrame = currentFrame;
-		unsigned int totalFrames = frames.size();
+		size_t drawFrame = currentFrame;
+		size_t totalFrames = frames.size();
 		if(totalFrames == 0)
 		{
 			return;

@@ -46,7 +46,7 @@ namespace GameLibrary
 	
 	void BatchLoader::removeEventListener(BatchLoaderEventListener*eventListener)
 	{
-		unsigned int index = eventListeners.indexOf(eventListener);
+		size_t index = eventListeners.indexOf(eventListener);
 		if(index != ARRAYLIST_NOTFOUND)
 		{
 			eventListeners.remove(index);

@@ -93,9 +93,9 @@ namespace GameLibrary
 			{
 				return false;
 			}
-			unsigned int length = points.size();
-			unsigned int i = 0;
-			unsigned int j = 0;
+			size_t length = points.size();
+			size_t i = 0;
+			size_t j = 0;
 			bool c = false;
 			for(i=0, j =(length-1); i<length; j=i,i++)
 			{
