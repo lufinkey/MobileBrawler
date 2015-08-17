@@ -3,10 +3,12 @@
 
 #include "../Utilities/String.h"
 #include "../Exception/IllegalArgumentException.h"
+#include "../Exception/IllegalStateException.h"
 
 namespace GameLibrary
 {
 	class KeyboardEventListener;
+	
 
 	/*! Represents the Keyboard and all key states on the Keyboard*/
 	class Keyboard
@@ -247,6 +249,7 @@ namespace GameLibrary
 		/*! Checks if a key on the keyboard was just released.
 			\returns true if Key was just released (pressed state in the previous frame, released state in the current frame), or false if otherwise*/
 		static bool didKeyRelease(Key key);
+		
 
 		/*! Adds a KeyboardEventListener to handle Keyboard events.
 			\param eventListener the listener pointer*/
@@ -254,7 +257,16 @@ namespace GameLibrary
 		/*! Removes a previously added KeyboardEventListener.
 			\param eventListener the listener pointer*/
 		static void removeEventListener(KeyboardEventListener*eventListener);
-
+		
+		
+		/*! Begins sending text input events to all added KeyboardEventListeners. On some platforms, this function will activate the on-screen keyboard.
+		You must end text input with endTextInput() when you are finished.
+			\throws GameLibrary::IllegalStateException if this function is called while text input has already been started*/
+		static void startTextInput();
+		/*! Stops recieving text input events.
+			\throws GameLibrary::IllegalStateException if text input has not been started*/
+		static void endTextInput();
+		
 	private:
 		/*! Handles key press events sent from EventManager.
 			\param key the key that was pressed*/
@@ -262,6 +274,9 @@ namespace GameLibrary
 		/*! Handles key release events sent from EventManager.
 			\param key the key that was released*/
 		static void handleKeyRelease(Keyboard::Key key);
+		/*! Handles text input events sent from EventManager.
+			\param text the text that was input*/
+		static void handleTextInput(const String& text);
 		
 		/*! Updates all key states. Called once per frame by EventManager from the Application in main thread.*/
 		static void update();
@@ -280,5 +295,8 @@ namespace GameLibrary
 		/*! Called when a Key state changes to released.
 			\param key a constant that represents the released key*/
 		virtual void onKeyRelease(Keyboard::Key key){}
+		/*! Called when a text composition is committed, and also for normal text input events.
+			\param text the input text*/
+		virtual void onTextInput(const String& text){}
 	};
 }

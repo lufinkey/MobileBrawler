@@ -477,43 +477,43 @@ namespace GameLibrary
 		return released;
 	}
 	
-	void Mouse::addEventListener(MouseEventListener*listener)
+	void Mouse::addEventListener(MouseEventListener*eventListener)
 	{
-		if(listener == nullptr)
+		if(eventListener == nullptr)
 		{
-			throw IllegalArgumentException("listener", "null");
+			throw IllegalArgumentException("eventListener", "null");
 		}
 		
 		if(Mouse_callingListeners)
 		{
 			Mouse_changedListeners_mutex.lock();
-			Mouse_changedListeners.add(Pair<MouseEventListener*,bool>(listener,true));
+			Mouse_changedListeners.add(Pair<MouseEventListener*,bool>(eventListener,true));
 			Mouse_changedListeners_mutex.unlock();
 		}
 		Mouse_eventListeners_mutex.lock();
-		Mouse_eventListeners.add(listener);
+		Mouse_eventListeners.add(eventListener);
 		Mouse_eventListeners_mutex.unlock();
 	}
 	
-	void Mouse::removeEventListener(MouseEventListener*listener)
+	void Mouse::removeEventListener(MouseEventListener*eventListener)
 	{
-		if(listener == nullptr)
+		if(eventListener == nullptr)
 		{
-			throw IllegalArgumentException("listener", "null");
+			throw IllegalArgumentException("eventListener", "null");
 		}
 		
 		if(Mouse_callingListeners)
 		{
 			Mouse_changedListeners_mutex.lock();
-			Mouse_changedListeners.add(Pair<MouseEventListener*,bool>(listener,false));
+			Mouse_changedListeners.add(Pair<MouseEventListener*,bool>(eventListener,false));
 			Mouse_changedListeners_mutex.unlock();
 		}
 		Mouse_eventListeners_mutex.lock();
-		unsigned int index = Mouse_eventListeners.indexOf(listener);
+		unsigned int index = Mouse_eventListeners.indexOf(eventListener);
 		while(index != ARRAYLIST_NOTFOUND)
 		{
 			Mouse_eventListeners.remove(index);
-			index = Mouse_eventListeners.indexOf(listener);
+			index = Mouse_eventListeners.indexOf(eventListener);
 		}
 		Mouse_eventListeners_mutex.unlock();
 	}

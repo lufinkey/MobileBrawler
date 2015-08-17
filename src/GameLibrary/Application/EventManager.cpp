@@ -184,6 +184,18 @@ namespace GameLibrary
 					}
 					break;
 					
+					case SDL_TEXTINPUT:
+					{
+						Keyboard::handleTextInput(event.text.text);
+					}
+					break;
+					
+					case SDL_TEXTEDITING:
+					{
+						//
+					}
+					break;
+					
 					case SDL_WINDOWEVENT:
 					{
 						Window* window = EventManager::getWindowFromID(event.window.windowID);

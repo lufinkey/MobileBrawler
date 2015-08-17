@@ -2,6 +2,7 @@
 #include "Keyboard.h"
 #include "../Utilities/ArrayList.h"
 #include "../Utilities/Pair.h"
+#include <SDL.h>
 #include <mutex>
 #include <vector>
 
@@ -17,7 +18,7 @@ namespace GameLibrary
 	//stores listeners that were added or removed from inside a KeyboardEventListener event
 	static ArrayList<Pair<KeyboardEventListener*, bool> > Keyboard_changedListeners;
 	static std::mutex Keyboard_changedListeners_mutex;
-
+	
 	static std::mutex Keyboard_key_mutex;
 	//stores the current state of all keys
 	static std::vector<bool> Keyboard_activeKeys = std::vector<bool>(255, false);
@@ -25,26 +26,30 @@ namespace GameLibrary
 	static std::vector<bool> Keyboard_currentActiveKeys = std::vector<bool>(255, false);
 	//stores the state of all keys in the previous frame
 	static std::vector<bool> Keyboard_prevActiveKeys = std::vector<bool>(255, false);
-
+	
+	//tells whether text input has been started
+	static bool Keyboard_textInputStarted = false;
+	
+	
 	//Called when a key state is changed. Forwards the event to all the KeyboardEventListeners
 	void Keyboard_callListeners(Keyboard::Key key, bool pressed)
 	{
 		Keyboard_changedListeners_mutex.lock();
 		Keyboard_changedListeners.clear();
 		Keyboard_changedListeners_mutex.unlock();
-
+		
 		Keyboard_callingListeners = true;
 		Keyboard_eventListeners_mutex.lock();
 		ArrayList<KeyboardEventListener*> listeners = Keyboard_eventListeners;
 		Keyboard_eventListeners_mutex.unlock();
-
-		for(unsigned int i = 0; i<listeners.size(); i++)
+		
+		for(size_t i = 0; i<listeners.size(); i++)
 		{
 			KeyboardEventListener* listener = listeners.get(i);
 			//check to make sure that the listener hasn't been removed during a KeyboardEventListener event
 			bool listener_notremoved = true;
 			Keyboard_changedListeners_mutex.lock();
-			for(unsigned int j=0; j<Keyboard_changedListeners.size(); j++)
+			for(size_t j=0; j<Keyboard_changedListeners.size(); j++)
 			{
 				Pair<KeyboardEventListener*,bool>& cmp = Keyboard_changedListeners.get(j);
 				if(cmp.first == listener)
@@ -57,7 +62,7 @@ namespace GameLibrary
 				}
 			}
 			Keyboard_changedListeners_mutex.unlock();
-
+			
 			//call KeyboardEventListener event
 			if(listener_notremoved)
 			{
@@ -76,7 +81,50 @@ namespace GameLibrary
 		Keyboard_changedListeners.clear();
 		Keyboard_changedListeners_mutex.unlock();
 	}
-
+	
+	void Keyboard_callListeners_textInput(const String& text)
+	{
+		Keyboard_changedListeners_mutex.lock();
+		Keyboard_changedListeners.clear();
+		Keyboard_changedListeners_mutex.unlock();
+		
+		Keyboard_callingListeners = true;
+		Keyboard_eventListeners_mutex.lock();
+		ArrayList<KeyboardEventListener*> listeners = Keyboard_eventListeners;
+		Keyboard_eventListeners_mutex.unlock();
+		
+		for(size_t i = 0; i<listeners.size(); i++)
+		{
+			KeyboardEventListener* listener = listeners.get(i);
+			//check to make sure that the listener hasn't been removed during a KeyboardEventListener event
+			bool listener_notremoved = true;
+			Keyboard_changedListeners_mutex.lock();
+			for(size_t j=0; j<Keyboard_changedListeners.size(); j++)
+			{
+				Pair<KeyboardEventListener*,bool>& cmp = Keyboard_changedListeners.get(j);
+				if(cmp.first == listener)
+				{
+					if(!cmp.second)
+					{
+						listener_notremoved = false;
+						j = Keyboard_changedListeners.size();
+					}
+				}
+			}
+			Keyboard_changedListeners_mutex.unlock();
+			
+			//call KeyboardEventListener event
+			if(listener_notremoved)
+			{
+				listener->onTextInput(text);
+			}
+		}
+		Keyboard_callingListeners = false;
+		Keyboard_changedListeners_mutex.lock();
+		Keyboard_changedListeners.clear();
+		Keyboard_changedListeners_mutex.unlock();
+	}
+	
 	void Keyboard::handleKeyPress(Key key)
 	{
 		if(key!=Keyboard::UNKNOWN_KEY)
@@ -115,6 +163,11 @@ namespace GameLibrary
 				Keyboard_callListeners(key, false);
 			}
 		}
+	}
+	
+	void Keyboard::handleTextInput(const String& text)
+	{
+		Keyboard_callListeners_textInput(text);
 	}
 
 	bool Keyboard::isKeyPressed(Key key)
@@ -177,52 +230,52 @@ namespace GameLibrary
 		return released;
 	}
 
-	void Keyboard::addEventListener(KeyboardEventListener*listener)
+	void Keyboard::addEventListener(KeyboardEventListener*eventListener)
 	{
-		if(listener == nullptr)
+		if(eventListener == nullptr)
 		{
-			throw IllegalArgumentException("listener", "null");
+			throw IllegalArgumentException("eventListener", "null");
 		}
-
+		
 		if(Keyboard_callingListeners)
 		{
 			Keyboard_changedListeners_mutex.lock();
-			Keyboard_changedListeners.add(Pair<KeyboardEventListener*,bool>(listener,true));
+			Keyboard_changedListeners.add(Pair<KeyboardEventListener*,bool>(eventListener,true));
 			Keyboard_changedListeners_mutex.unlock();
 		}
 		Keyboard_eventListeners_mutex.lock();
-		Keyboard_eventListeners.add(listener);
+		Keyboard_eventListeners.add(eventListener);
 		Keyboard_eventListeners_mutex.unlock();
 	}
 
-	void Keyboard::removeEventListener(KeyboardEventListener*listener)
+	void Keyboard::removeEventListener(KeyboardEventListener*eventListener)
 	{
-		if(listener == nullptr)
+		if(eventListener == nullptr)
 		{
-			throw IllegalArgumentException("listener", "null");
+			throw IllegalArgumentException("eventListener", "null");
 		}
-
+		
 		if(Keyboard_callingListeners)
 		{
 			Keyboard_changedListeners_mutex.lock();
-			Keyboard_changedListeners.add(Pair<KeyboardEventListener*,bool>(listener,false));
+			Keyboard_changedListeners.add(Pair<KeyboardEventListener*,bool>(eventListener,false));
 			Keyboard_changedListeners_mutex.unlock();
 		}
 		Keyboard_eventListeners_mutex.lock();
-		unsigned int index = Keyboard_eventListeners.indexOf(listener);
+		size_t index = Keyboard_eventListeners.indexOf(eventListener);
 		while(index != ARRAYLIST_NOTFOUND)
 		{
 			Keyboard_eventListeners.remove(index);
-			index = Keyboard_eventListeners.indexOf(listener);
+			index = Keyboard_eventListeners.indexOf(eventListener);
 		}
 		Keyboard_eventListeners_mutex.unlock();
 	}
-
+	
 	void Keyboard::update()
 	{
 		//fill prevActiveKeys with values of currentActiveKeys and currentActiveKeys with values of activeKeys
 		Keyboard_key_mutex.lock();
-		for(unsigned int i=0; i<Keyboard_activeKeys.size(); i++)
+		for(size_t i=0; i<Keyboard_activeKeys.size(); i++)
 		{
 			Keyboard_prevActiveKeys[i] = Keyboard_currentActiveKeys[i];
 			Keyboard_currentActiveKeys[i] = Keyboard_activeKeys[i];
@@ -337,5 +390,25 @@ namespace GameLibrary
 			case F15: return "f15";
 		}
 		return "";
+	}
+	
+	void Keyboard::startTextInput()
+	{
+		if(Keyboard_textInputStarted)
+		{
+			throw IllegalStateException("text input has already been started");
+		}
+		Keyboard_textInputStarted = true;
+		SDL_StartTextInput();
+	}
+	
+	void Keyboard::endTextInput()
+	{
+		if(!Keyboard_textInputStarted)
+		{
+			throw IllegalStateException("text input has not been started");
+		}
+		SDL_StopTextInput();
+		Keyboard_textInputStarted = false;
 	}
 }

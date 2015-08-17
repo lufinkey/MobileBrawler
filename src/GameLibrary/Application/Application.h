@@ -79,7 +79,8 @@ namespace GameLibrary
 		virtual void draw(ApplicationData appData, Graphics g) const;
 		
 
-		/*! Runs the Application. This should only be called once, and not called again until the Application loop ends. This function MUST be run within the main thread.
+		/*! Runs the Application. This should only be called once by a single Application object, and not called again until the Application loop ends.
+		This function MUST be run within the main thread.
 			\param windowSettings the Window configuration for the Application \see GameLibrary::WindowSettings
 			\param orientations the supported interface orientations of the Application. This setting is only used on mobile.
 			\returns an integer representing an exit code*/
