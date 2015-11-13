@@ -63,9 +63,13 @@ namespace GameLibrary
 	{
 		GameLibrary::ScreenElement* element = getElement();
 		mainElement = new MainElement(this, element->getFrame());
-		element->addChildElement(RectD(0,0,1,1), mainElement);
+		mainElement->setLayoutRule(LAYOUTRULE_LEFT,   0, LAYOUTVALUE_RATIO);
+		mainElement->setLayoutRule(LAYOUTRULE_TOP,    0, LAYOUTVALUE_RATIO);
+		mainElement->setLayoutRule(LAYOUTRULE_RIGHT,  1, LAYOUTVALUE_RATIO);
+		mainElement->setLayoutRule(LAYOUTRULE_BOTTOM, 1, LAYOUTVALUE_RATIO);
+		element->addChildElement(mainElement);
 	}
-
+	
 	MenuScreen::~MenuScreen()
 	{
 		ArrayList<Actor*> items = mainElement->getActors();
@@ -271,8 +275,8 @@ namespace GameLibrary
 		return mainElement->getSelectedIndex();
 	}
 	
-	const AutoLayoutManager& MenuScreen::getAutoActorLayoutManager() const
+	AutoLayoutManager* MenuScreen::getActorAutoLayoutManager(size_t index) const
 	{
-		return mainElement->getAutoActorLayoutManager();
+		return mainElement->getActorAutoLayoutManager(index);
 	}
 }

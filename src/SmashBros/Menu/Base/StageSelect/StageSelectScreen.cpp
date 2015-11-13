@@ -16,9 +16,6 @@ namespace SmashBros
 			
 			rules = ruleData;
 			preview = nullptr;
-			
-			RectangleD frame = getFrame();
-			autoIconLayoutMgr.setFrame(RectangleD(0,0,frame.width,frame.height));
 		}
 		
 		StageSelectScreen::~StageSelectScreen()
@@ -30,7 +27,11 @@ namespace SmashBros
 		{
 			BaseMenuScreen::onFrameChange();
 			RectangleD frame = getFrame();
-			autoIconLayoutMgr.setFrame(RectangleD(0,0,frame.width,frame.height));
+			for(size_t icons_size=icons.size(), i=0; i<icons.size(); i++)
+			{
+				StageIcon* icon = icons.get(i);
+				icon->scaleToFit(icon->autoLayoutMgr.calculateFrame(icon->getFrame(), frame));
+			}
 		}
 		
 		Rules* StageSelectScreen::getRules() const
@@ -55,8 +56,6 @@ namespace SmashBros
 		
 		void StageSelectScreen::reloadIcons(const SmashData&smashData)
 		{
-			autoIconLayoutMgr.clear();
-			
 			for(size_t i=0; i<icons.size(); i++)
 			{
 				delete icons.get(i);
@@ -83,7 +82,10 @@ namespace SmashBros
 				unsigned int row = (unsigned int)(i/cols);
 				double icon_left = bounds.left+(((double)col)*icon_width);
 				double icon_top = bounds.top+(((double)row)*icon_height);
-				autoIconLayoutMgr.add(RectD(icon_left, icon_top, icon_left+icon_width, icon_top+icon_height), icon);
+				icon->autoLayoutMgr.setRule(LAYOUTRULE_LEFT, icon_left, LAYOUTVALUE_RATIO);
+				icon->autoLayoutMgr.setRule(LAYOUTRULE_TOP, icon_top, LAYOUTVALUE_RATIO);
+				icon->autoLayoutMgr.setRule(LAYOUTRULE_RIGHT, icon_left+icon_width, LAYOUTVALUE_RATIO);
+				icon->autoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, icon_top+icon_height, LAYOUTVALUE_RATIO);
 				icons.add(icon);
 				addItem(icon);
 			}
@@ -99,7 +101,11 @@ namespace SmashBros
 			}
 			
 			preview = new StagePreview(smashData.getModuleData()->getStageLoader()->getAssetManager());
-			getElement()->addChildElement(RectD(0.05, 0.2, 0.25, 0.9), preview);
+			preview->setLayoutRule(LAYOUTRULE_LEFT, 0.05, LAYOUTVALUE_RATIO);
+			preview->setLayoutRule(LAYOUTRULE_TOP, 0.20, LAYOUTVALUE_RATIO);
+			preview->setLayoutRule(LAYOUTRULE_RIGHT, 0.25, LAYOUTVALUE_RATIO);
+			preview->setLayoutRule(LAYOUTRULE_BOTTOM, 0.90, LAYOUTVALUE_RATIO);
+			getElement()->addChildElement(preview);
 		}
 		
 		void StageSelectScreen::onUpdate(ApplicationData appData)

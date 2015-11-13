@@ -5,10 +5,10 @@
 #include "../../Load/MenuLoad.h"
 #include "../../Load/ModuleLoad.h"
 
+using namespace BrawlerLibrary;
+
 namespace SmashBros
 {
-	using namespace BrawlerLibrary;
-	
 	class SmashData
 	{
 	private:

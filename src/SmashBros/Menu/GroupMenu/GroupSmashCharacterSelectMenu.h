@@ -15,6 +15,8 @@ namespace SmashBros
 		{
 		private:
 			RulesBar* rulesBar;
+			AutoLayoutManager rulesBarAutoLayoutMgr;
+			
 			StockWinCondition* stockWinCondition;
 			TimeLimitWinCondition* timeLimitWinCondition;
 			
@@ -24,6 +26,7 @@ namespace SmashBros
 			GroupSmashCharacterSelectMenu(const SmashData&smashData, const GroupSmashData&groupSmashData);
 			virtual ~GroupSmashCharacterSelectMenu();
 			
+			virtual void onFrameChange() override;
 			virtual void onWillAppear(const Transition*transition) override;
 			
 			virtual void proceedToFight() override;

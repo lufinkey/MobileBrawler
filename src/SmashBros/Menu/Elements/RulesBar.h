@@ -5,10 +5,10 @@
 #include <BrawlerLibrary/BrawlerLibrary.h>
 #include "../MenuData/GroupSmashData.h"
 
+using namespace BrawlerLibrary;
+
 namespace SmashBros
 {
-	using namespace BrawlerLibrary;
-	
 	namespace Menu
 	{
 		class RulesBar : public MenuBarValueAdjust

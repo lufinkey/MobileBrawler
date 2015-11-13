@@ -3,10 +3,10 @@
 
 #include <GameLibrary/GameLibrary.h>
 
+using namespace GameLibrary;
+
 namespace SmashBros
 {
-	using namespace GameLibrary;
-	
 	namespace Menu
 	{
 		class ActorGrid

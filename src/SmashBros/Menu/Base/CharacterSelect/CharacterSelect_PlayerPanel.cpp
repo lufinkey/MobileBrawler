@@ -67,9 +67,14 @@ namespace SmashBros
 				: SpriteActor(x, y)
 			{
 				tapRegion_mode = nullptr;
+				portrait = nullptr;
+				overlay = nullptr;
+				namebox = nullptr;
 				
 				playerNum = pNum;
 				charSelectScreen = screen;
+				
+				RectangleD frame = getFrame();
 				
 				addAnimation("human", new Animation(1, assetManager, (String)"characterselect/panel_background_p" + playerNum + ".png"));
 				addAnimation("cpu", new Animation(1, assetManager, (String)"characterselect/panel_background_cpu.png"));
@@ -77,13 +82,16 @@ namespace SmashBros
 				//addAnimation("blank", new Animation(1, assetManager, (String)"characterselect/panel_background_blank.png"));
 				changeAnimation("na", Animation::FORWARD);
 				
-				autoLayoutMgr.setFrame(getFrame());
-				
 				portrait = new SpriteActor(x,y);
 				portrait_anim = new Animation(1);
 				portrait->addAnimation("default", portrait_anim);
 				portrait->changeAnimation("default", Animation::FORWARD);
-				autoLayoutMgr.add(RectD(0,0,1,1), portrait);
+				portraitLayoutMgr.setOffsetByContainer(true);
+				portraitLayoutMgr.setRule(LAYOUTRULE_LEFT,   0, LAYOUTVALUE_RATIO);
+				portraitLayoutMgr.setRule(LAYOUTRULE_TOP,    0, LAYOUTVALUE_RATIO);
+				portraitLayoutMgr.setRule(LAYOUTRULE_RIGHT,  1, LAYOUTVALUE_RATIO);
+				portraitLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 1, LAYOUTVALUE_RATIO);
+				portrait->scaleToFit(portraitLayoutMgr.calculateFrame(portrait->getFrame(), frame));
 				
 				overlay = new SpriteActor(x,y);
 				overlay->addAnimation("human", new Animation(1, assetManager, (String)"characterselect/panel_overlay_p" + playerNum + ".png"));
@@ -91,10 +99,20 @@ namespace SmashBros
 				overlay->addAnimation("na", new Animation(1, assetManager, "characterselect/panel_overlay_na.png"));
 				//overlay->addAnimation("blank", new Animation(1, assetManager, "characterselect/panel_overlay_blank.png"));
 				overlay->changeAnimation("na", Animation::FORWARD);
-				autoLayoutMgr.add(RectD(0,0,1,1), overlay);
+				overlayLayoutMgr.setOffsetByContainer(true);
+				overlayLayoutMgr.setRule(LAYOUTRULE_LEFT,   0, LAYOUTVALUE_RATIO);
+				overlayLayoutMgr.setRule(LAYOUTRULE_TOP,    0, LAYOUTVALUE_RATIO);
+				overlayLayoutMgr.setRule(LAYOUTRULE_RIGHT,  1, LAYOUTVALUE_RATIO);
+				overlayLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 1, LAYOUTVALUE_RATIO);
+				overlay->scaleToFit(overlayLayoutMgr.calculateFrame(overlay->getFrame(), frame));
 				
 				namebox = new TextActor(x, y, "", assetManager->getFont("fonts/default.ttf"), Color::BLACK, 36, Font::STYLE_PLAIN, TextActor::ALIGN_CENTER);
-				autoLayoutMgr.add(RectD(0.32, 0.87, 0.91, 0.981), namebox);
+				nameboxLayoutMgr.setOffsetByContainer(true);
+				nameboxLayoutMgr.setRule(LAYOUTRULE_LEFT,   0.320, LAYOUTVALUE_RATIO);
+				nameboxLayoutMgr.setRule(LAYOUTRULE_TOP,    0.870, LAYOUTVALUE_RATIO);
+				nameboxLayoutMgr.setRule(LAYOUTRULE_RIGHT,  0.910, LAYOUTVALUE_RATIO);
+				nameboxLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.981, LAYOUTVALUE_RATIO);
+				namebox->scaleToFit(nameboxLayoutMgr.calculateFrame(namebox->getFrame(), frame));
 				
 				tapRegion_mode = new PlayerPanel_ModeTapRegion(this, charSelectScreen);
 				tapRegion_mode->setVisible(false);
@@ -115,7 +133,18 @@ namespace SmashBros
 				SpriteActor::updateSize();
 				
 				RectangleD frame = getFrame();
-				autoLayoutMgr.setFrame(frame);
+				if(portrait!=nullptr)
+				{
+					portrait->scaleToFit(portraitLayoutMgr.calculateFrame(portrait->getFrame(), frame));
+				}
+				if(overlay!=nullptr)
+				{
+					overlay->scaleToFit(overlayLayoutMgr.calculateFrame(overlay->getFrame(), frame));
+				}
+				if(namebox!=nullptr)
+				{
+					namebox->scaleToFit(nameboxLayoutMgr.calculateFrame(namebox->getFrame(), frame));
+				}
 				if(tapRegion_mode!=nullptr)
 				{
 					tapRegion_mode->x = frame.x;
@@ -129,24 +158,39 @@ namespace SmashBros
 				const Any& portraitDict = properties.get("portrait");
 				if(!portraitDict.empty() && portraitDict.is<Dictionary>())
 				{
-					RectD portrait_bounds = autoLayoutMgr.get(portrait);
-					applyPlacementDict(&portrait_bounds, portraitDict.as<Dictionary>(false));
-					autoLayoutMgr.set(portrait, portrait_bounds);
+					applyPlacementDict(portraitDict.as<Dictionary>(false), &portraitLayoutMgr);
+					if(!portraitLayoutMgr.hasRules())
+					{
+						portraitLayoutMgr.setRule(LAYOUTRULE_LEFT,   0, LAYOUTVALUE_RATIO);
+						portraitLayoutMgr.setRule(LAYOUTRULE_TOP,    0, LAYOUTVALUE_RATIO);
+						portraitLayoutMgr.setRule(LAYOUTRULE_RIGHT,  1, LAYOUTVALUE_RATIO);
+						portraitLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 1, LAYOUTVALUE_RATIO);
+					}
 				}
 				const Any& overlayDict = properties.get("overlay");
 				if(!overlayDict.empty() && overlayDict.is<Dictionary>())
 				{
-					RectD overlay_bounds = autoLayoutMgr.get(overlay);
-					applyPlacementDict(&overlay_bounds, overlayDict.as<Dictionary>(false));
-					autoLayoutMgr.set(overlay, overlay_bounds);
+					applyPlacementDict(overlayDict.as<Dictionary>(false), &overlayLayoutMgr);
+					if(!overlayLayoutMgr.hasRules())
+					{
+						overlayLayoutMgr.setRule(LAYOUTRULE_LEFT,   0, LAYOUTVALUE_RATIO);
+						overlayLayoutMgr.setRule(LAYOUTRULE_TOP,    0, LAYOUTVALUE_RATIO);
+						overlayLayoutMgr.setRule(LAYOUTRULE_RIGHT,  1, LAYOUTVALUE_RATIO);
+						overlayLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 1, LAYOUTVALUE_RATIO);
+					}
 				}
 				const Any& nameboxDict = properties.get("namebox");
 				if(!nameboxDict.empty() && nameboxDict.is<Dictionary>())
 				{
-					RectD namebox_bounds = autoLayoutMgr.get(namebox);
 					const Dictionary&namebox_dict = nameboxDict.as<Dictionary>(false);
-					applyPlacementDict(&namebox_bounds, nameboxDict);
-					autoLayoutMgr.set(namebox, namebox_bounds);
+					applyPlacementDict(nameboxDict, &nameboxLayoutMgr);
+					if(!nameboxLayoutMgr.hasRules())
+					{
+						nameboxLayoutMgr.setRule(LAYOUTRULE_LEFT,   0.320, LAYOUTVALUE_RATIO);
+						nameboxLayoutMgr.setRule(LAYOUTRULE_TOP,    0.870, LAYOUTVALUE_RATIO);
+						nameboxLayoutMgr.setRule(LAYOUTRULE_RIGHT,  0.910, LAYOUTVALUE_RATIO);
+						nameboxLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.981, LAYOUTVALUE_RATIO);
+					}
 					
 					/*const Any& alignment_val = namebox_dict.get("alignment");
 					if(!alignment_val.empty() && alignment_val.is<String>())
@@ -202,35 +246,18 @@ namespace SmashBros
 						namebox->setColor(color);
 					}
 				}
+				updateSize();
 			}
 			
-			void PlayerPanel::applyPlacementDict(RectD*bounds, const Dictionary&dict)
+			void PlayerPanel::applyPlacementDict(const Dictionary&dict, AutoLayoutManager*layoutMgr)
 			{
-				if(bounds == nullptr)
+				const Any& layoutRules_any = dict.get("layoutRules");
+				if(layoutRules_any.empty() || !layoutRules_any.is<Dictionary>())
 				{
 					return;
 				}
-				
-				const Any& left_val = dict.get("left");
-				const Any& top_val = dict.get("top");
-				const Any& right_val = dict.get("right");
-				const Any& bottom_val = dict.get("bottom");
-				if(!left_val.empty() && left_val.is<Number>())
-				{
-					bounds->left = left_val.as<Number>(false).asDouble();
-				}
-				if(!top_val.empty() && top_val.is<Number>())
-				{
-					bounds->top = top_val.as<Number>(false).asDouble();
-				}
-				if(!right_val.empty() && right_val.is<Number>())
-				{
-					bounds->right = right_val.as<Number>(false).asDouble();
-				}
-				if(!bottom_val.empty() && bottom_val.is<Number>())
-				{
-					bounds->bottom = bottom_val.as<Number>(false).asDouble();
-				}
+				const Dictionary& layoutRules = layoutRules_any.as<Dictionary>(false);
+				layoutMgr->setRules(layoutRules);
 			}
 			
 			void PlayerPanel::update(ApplicationData appData)

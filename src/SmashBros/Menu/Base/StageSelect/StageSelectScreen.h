@@ -40,8 +40,6 @@ namespace SmashBros
 			virtual void onStageIconHover(StageSelect::StageIcon*icon);
 			virtual void onStageIconHoverFinish(StageSelect::StageIcon*icon);
 			
-			AutoLayoutManager autoIconLayoutMgr;
-			
 		private:
 			Rules*rules;
 			StageLoader* stageLoader;

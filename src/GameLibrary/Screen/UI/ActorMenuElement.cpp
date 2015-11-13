@@ -3,7 +3,7 @@
 
 namespace GameLibrary
 {
-	ActorMenuElement::ActorMenuElement(const RectangleD&frame) : ScreenElement(frame), autoActorLayoutMgr(frame)
+	ActorMenuElement::ActorMenuElement(const RectangleD&frame) : ScreenElement(frame)
 	{
 		selectedIndex = ACTORMENU_NOSELECTION;
 		keyboardEnabled = false;
@@ -12,7 +12,10 @@ namespace GameLibrary
 	
 	ActorMenuElement::~ActorMenuElement()
 	{
-		//
+		for(size_t actorLayoutMgrs_size=actorLayoutMgrs.size(), i=0; i<actorLayoutMgrs_size; i++)
+		{
+			delete actorLayoutMgrs[i];
+		}
 	}
 	
 	void ActorMenuElement::update(ApplicationData appData)
@@ -237,7 +240,17 @@ namespace GameLibrary
 	void ActorMenuElement::setFrame(const RectangleD&frame)
 	{
 		ScreenElement::setFrame(frame);
-		autoActorLayoutMgr.setFrame(frame);
+		ScreenElement* parentElement = getParentElement();
+		if(parentElement!=nullptr)
+		{
+			RectangleD parentFrame = parentElement->getFrame();
+			for(size_t actors_size=actors.size(), i=0; i<actors_size; i++)
+			{
+				Actor* actor = actors[i];
+				AutoLayoutManager& layoutMgr = *actorLayoutMgrs[i];
+				actor->scaleToFit(layoutMgr.calculateFrame(actor->getFrame(), parentFrame));
+			}
+		}
 	}
 	
 	void ActorMenuElement::drawActor(ApplicationData appData, Graphics graphics, Actor*actor) const
@@ -269,6 +282,8 @@ namespace GameLibrary
 			throw IllegalArgumentException("actor", "null");
 		}
 		actors.add(actor);
+		AutoLayoutManager* layoutMgr = new AutoLayoutManager();
+		actorLayoutMgrs.add(layoutMgr);
 		return actors.size()-1;
 	}
 	
@@ -279,7 +294,12 @@ namespace GameLibrary
 			throw IllegalArgumentException("actor", "null");
 		}
 		actors.add(actor);
-		autoActorLayoutMgr.add(bounds, actor);
+		AutoLayoutManager* layoutMgr = new AutoLayoutManager();
+		layoutMgr->setRule(LAYOUTRULE_LEFT, bounds.left, LAYOUTVALUE_RATIO);
+		layoutMgr->setRule(LAYOUTRULE_TOP, bounds.top, LAYOUTVALUE_RATIO);
+		layoutMgr->setRule(LAYOUTRULE_RIGHT, bounds.right, LAYOUTVALUE_RATIO);
+		layoutMgr->setRule(LAYOUTRULE_BOTTOM, bounds.bottom, LAYOUTVALUE_RATIO);
+		actorLayoutMgrs.add(layoutMgr);
 		return actors.size()-1;
 	}
 	
@@ -306,7 +326,9 @@ namespace GameLibrary
 	{
 		Actor* actor = actors.get(index);
 		actors.remove(index);
-		autoActorLayoutMgr.remove(actor);
+		AutoLayoutManager* layoutMgr = actorLayoutMgrs.get(index);
+		actorLayoutMgrs.remove(index);
+		delete layoutMgr;
 		if(selectedIndex == index)
 		{
 			selectedIndex = ACTORMENU_NOSELECTION;
@@ -611,8 +633,8 @@ namespace GameLibrary
 		return selectedIndex;
 	}
 	
-	const AutoLayoutManager& ActorMenuElement::getAutoActorLayoutManager() const
+	AutoLayoutManager* ActorMenuElement::getActorAutoLayoutManager(size_t index) const
 	{
-		return autoActorLayoutMgr;
+		return actorLayoutMgrs.get(index);
 	}
 }

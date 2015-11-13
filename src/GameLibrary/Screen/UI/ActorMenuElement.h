@@ -10,7 +10,7 @@
 namespace GameLibrary
 {
 	/*! The selected index when an ActorMenuElement has not selected an actor*/
-#define ACTORMENU_NOSELECTION SIZE_MAX
+	#define ACTORMENU_NOSELECTION SIZE_MAX
 	
 	/*! Holds and updates a list of Actors, finds the currently hovered or selected actor in the list, and calls events ActorMenuElement events for it. This class is non-copyable.*/
 	class ActorMenuElement : public ScreenElement
@@ -130,9 +130,9 @@ namespace GameLibrary
 		size_t getSelectedIndex() const;
 		
 		
-		/*! Gets the automatic layout manager for the contained actors.
-			\returns a const AutoLayout reference*/
-		const AutoLayoutManager& getAutoActorLayoutManager() const;
+		/*! Gets the automatic layout manager for the actor at the specified index.
+			\returns an AutoLayoutManager pointer*/
+		AutoLayoutManager* getActorAutoLayoutManager(size_t index) const;
 		
 	protected:
 		/*! \copydoc GameLibrary::ScreenElement::drawMain(ApplicationData)const*/
@@ -145,7 +145,7 @@ namespace GameLibrary
 		
 	private:
 		ArrayList<Actor*> actors;
-		AutoLayoutManager autoActorLayoutMgr;
+		ArrayList<AutoLayoutManager*> actorLayoutMgrs;
 		
 		size_t selectedIndex;
 		bool keyboardEnabled;

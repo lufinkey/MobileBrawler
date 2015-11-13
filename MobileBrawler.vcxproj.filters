@@ -516,6 +516,9 @@
     <ClCompile Include="src\GameLibrary\Utilities\Stringifier.cpp">
       <Filter>src\GameLibrary\Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Screen\AutoLayoutCalculator.cpp">
+      <Filter>src\GameLibrary\Screen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -946,6 +949,9 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Utilities\Stringifier.h">
       <Filter>src\GameLibrary\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Screen\AutoLayoutCalculator.h">
+      <Filter>src\GameLibrary\Screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

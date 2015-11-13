@@ -178,9 +178,9 @@ namespace GameLibrary
 		size_t getSelectedIndex() const;
 		
 		
-		/*! Gets the automatic layout manager for the contained actors.
-			\returns a const AutoLayout reference*/
-		const AutoLayoutManager& getAutoActorLayoutManager() const;
+		/*! Gets the automatic layout manager for the actor at the specified index.
+			\returns an AutoLayoutManager pointer*/
+		AutoLayoutManager* getActorAutoLayoutManager(size_t index) const;
 		
 	protected:
 		/*! Called to draw an Actor in the menu. This function can be overridden to add custom drawing behavior.

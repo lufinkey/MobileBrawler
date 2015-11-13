@@ -282,8 +282,21 @@ namespace GameLibrary
 	
 	void TextActor::scaleToFit(const RectangleD&container)
 	{
-		if(width == 0 || height == 0)
+		if(width==0 || height==0)
 		{
+			double oldScale = scale;
+			setScale(1);
+			if(width==0 || height==0)
+			{
+				setScale(oldScale);
+				x = container.x + (container.width/2);
+				y = container.y + (container.height/2);
+				return;
+			}
+		}
+		if(container.width==0 || container.height==0)
+		{
+			setScale(0);
 			x = container.x + (container.width/2);
 			y = container.y + (container.height/2);
 			return;

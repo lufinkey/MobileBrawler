@@ -10,7 +10,7 @@ namespace GameLibrary
 	{
 	public:
 		/*! The position to align text, relative to the origin*/
-		typedef enum
+		typedef enum TextAlignment
 		{
 			/*! The text aligns to the bottom left of the TextActor.*/
 			ALIGN_BOTTOMLEFT,

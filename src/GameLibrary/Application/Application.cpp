@@ -6,6 +6,7 @@
 #include <SDL.h>
 #include <ctime>
 #include <cstdlib>
+#include "../Utilities/Time/DateTime.h"
 
 namespace GameLibrary
 {
@@ -65,7 +66,7 @@ namespace GameLibrary
 
 	int Application::run(const WindowSettings&windowSettings, int orientations)
 	{
-		std::srand((unsigned int)std::time(nullptr));
+		std::srand((unsigned int)DateTime().getMicrosecond());
 
 		if(!Thread::isMainThread())
 		{

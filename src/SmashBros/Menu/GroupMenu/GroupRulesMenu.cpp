@@ -12,7 +12,6 @@ namespace SmashBros
 		GroupRulesMenu::GroupRulesMenu(const SmashData&smashData, const GroupSmashData&groupSmashData) : BaseMenuScreen(smashData)
 		{
 			RectangleD frame = getFrame();
-			autoOptionsLayoutMgr.setFrame(RectangleD(0,0,frame.width,frame.height));
 			
 			listener = new MenuBarListener(this);
 			rules = groupSmashData.getRules();
@@ -27,14 +26,21 @@ namespace SmashBros
 													smashData.getMenuData()->getAssetManager(),
 													smashData.getMenuData()->getMenuBarProperties());
 			gameModeBar->setEventListener(listener);
-			autoOptionsLayoutMgr.add(RectD(0.14, 0.12, 0.86, 0.28), gameModeBar);
+			gameModeBarAutoLayoutMgr.setRule(LAYOUTRULE_LEFT, 0.14, LAYOUTVALUE_RATIO);
+			gameModeBarAutoLayoutMgr.setRule(LAYOUTRULE_TOP, 0.12, LAYOUTVALUE_RATIO);
+			gameModeBarAutoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.86, LAYOUTVALUE_RATIO);
+			gameModeBarAutoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.28, LAYOUTVALUE_RATIO);
+			gameModeBar->scaleToFit(gameModeBarAutoLayoutMgr.calculateFrame(gameModeBar->getFrame(), frame));
 			
 			gameModeValueBar = new RulesBar(rules, stockWinCondition, timeLimitWinCondition,
 											smashData.getMenuData()->getAssetManager(),
 											smashData.getMenuData()->getMenuBarProperties());
 			gameModeValueBar->changeAnimation("MenuBar", Animation::FORWARD);
 			gameModeValueBar->setLabel(getGameModeLabelString(rules));
-			autoOptionsLayoutMgr.add(RectD(0.14, 0.32, 0.86, 0.48), gameModeValueBar);
+			gameModeValueBarAutoLayoutMgr.setRule(LAYOUTRULE_LEFT, 0.14, LAYOUTVALUE_RATIO);
+			gameModeValueBarAutoLayoutMgr.setRule(LAYOUTRULE_TOP, 0.32, LAYOUTVALUE_RATIO);
+			gameModeValueBarAutoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.86, LAYOUTVALUE_RATIO);
+			gameModeValueBarAutoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.48, LAYOUTVALUE_RATIO);
 		}
 		
 		GroupRulesMenu::~GroupRulesMenu()
@@ -47,7 +53,8 @@ namespace SmashBros
 		{
 			BaseMenuScreen::onFrameChange();
 			RectangleD frame = getFrame();
-			autoOptionsLayoutMgr.setFrame(RectangleD(0,0,frame.width,frame.height));
+			gameModeBar->scaleToFit(gameModeBarAutoLayoutMgr.calculateFrame(gameModeBar->getFrame(), frame));
+			gameModeValueBar->scaleToFit(gameModeValueBarAutoLayoutMgr.calculateFrame(gameModeValueBar->getFrame(), frame));
 		}
 		
 		void GroupRulesMenu::onWillAppear(const Transition*transition)

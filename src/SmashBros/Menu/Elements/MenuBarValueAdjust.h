@@ -17,6 +17,10 @@ namespace SmashBros
 			ArrowButton* arrow_less;
 			ArrowButton* arrow_more;
 			
+			AutoLayoutManager value_label_autoLayoutMgr;
+			AutoLayoutManager arrow_less_autoLayoutMgr;
+			AutoLayoutManager arrow_more_autoLayoutMgr;
+			
 			Color value_label_color;
 			String arrow_less_dir;
 			String arrow_more_dir;
@@ -46,6 +50,8 @@ namespace SmashBros
 			const WideString& getValueLabel() const;
 			
 			void setValueProperties(Number*value, const Number&min, const Number&max, const Number&incr);
+			
+			virtual void updateSize() override;
 		};
 		
 		class MenuBarValueAdjustEventListener

@@ -4,11 +4,11 @@
 #include <GameLibrary/GameLibrary.h>
 #include <BrawlerLibrary/BrawlerLibrary.h>
 
+using namespace GameLibrary;
+using namespace BrawlerLibrary;
+
 namespace SmashBros
 {
-	using namespace GameLibrary;
-	using namespace BrawlerLibrary;
-	
 	namespace Menu
 	{
 		class CharacterSelectScreen;
@@ -17,8 +17,10 @@ namespace SmashBros
 		{
 			class ReadyToFightBanner : public SpriteActor
 			{
+				friend class ::SmashBros::Menu::CharacterSelectScreen;
 			private:
 				CharacterSelectScreen* charSelectScreen;
+				AutoLayoutManager autoLayoutMgr;
 				bool selected;
 				
 			public:

@@ -3,16 +3,17 @@
 
 #include <GameLibrary/GameLibrary.h>
 
+using namespace GameLibrary;
+
 namespace SmashBros
 {
-	using namespace GameLibrary;
-	
 	namespace Menu
 	{
 		class MenuBar : public SpriteActor
 		{
 		private:
 			TextActor* label_actor;
+			AutoLayoutManager label_autoLayoutMgr;
 			Color label_color;
 			
 			void applyProperties(const Dictionary&properties);
@@ -20,9 +21,8 @@ namespace SmashBros
 		protected:
 			AutoLayoutManager autoLayoutMgr;
 			
-			RectangleD getLabelFrame(const RectD&bounds) const;
-			void applyPropertiesDict(RectD*bounds, const Dictionary&properties);
-			void applyPropertiesDict(Color*color, const Dictionary&properties);
+			void applyPlacementDict(const Dictionary& dict, AutoLayoutManager* layoutMgr);
+			void applyColorDict(const Dictionary& dict, Color* color);
 			
 		public:
 			MenuBar(const WideString&label, AssetManager*assetManager, const Dictionary&properties);
@@ -33,11 +33,11 @@ namespace SmashBros
 			virtual void draw(ApplicationData appData, Graphics graphics) const override;
 			
 			void setLabel(const WideString&);
-			void setLabelBounds(const RectD&bounds);
 			void setLabelAlignment(const TextActor::TextAlignment&);
 			
 			const WideString& getLabel() const;
-			const RectD& getLabelBounds() const;
+			AutoLayoutManager& getLabelAutoLayoutManager();
+			const AutoLayoutManager& getLabelAutoLayoutManager() const;
 			const TextActor::TextAlignment& getLabelAlignment() const;
 			
 			virtual void updateSize() override;

@@ -14,14 +14,25 @@ namespace SmashBros
 			reloadIcons(smashData);
 			reloadPlayerPanels(smashData);
 			
-			double headerbarBottom = getElement()->getAutoLayoutManager().get(getHeaderbarElement()).bottom;
+			RectangleD frame = getFrame();
+			
+			double headerbarBottom = 0.134*1.1;
+			LayoutRule* headerBarBottomRule = getHeaderbarElement()->getAutoLayoutManager().getRule(LAYOUTRULE_BOTTOM);
+			if(headerBarBottomRule!=nullptr && headerBarBottomRule->valueType==LAYOUTVALUE_RATIO)
+			{
+				headerbarBottom = headerBarBottomRule->value*1.1;
+			}
 			
 			rulesBar = new RulesBar(groupSmashData.getRules(),
 									groupSmashData.getStockWinCondition(),
 									groupSmashData.getTimeLimitWinCondition(),
 									smashData.getMenuData()->getAssetManager(),
 									smashData.getMenuData()->getRulesBarProperties());
-			getElement()->getAutoLayoutManager().add(RectD(0.36,0,1.0,headerbarBottom), rulesBar);
+			rulesBarAutoLayoutMgr.setRule(LAYOUTRULE_LEFT, 0.36, LAYOUTVALUE_RATIO);
+			rulesBarAutoLayoutMgr.setRule(LAYOUTRULE_TOP, 0, LAYOUTVALUE_RATIO);
+			rulesBarAutoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 1.0, LAYOUTVALUE_RATIO);
+			rulesBarAutoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, headerbarBottom, LAYOUTVALUE_RATIO);
+			rulesBar->scaleToFit(rulesBarAutoLayoutMgr.calculateFrame(rulesBar->getFrame(), frame));
 			
 			groupSmashStageSelectMenu = new GroupSmashStageSelectMenu(smashData, groupSmashData);
 		}
@@ -30,6 +41,13 @@ namespace SmashBros
 		{
 			delete rulesBar;
 			delete groupSmashStageSelectMenu;
+		}
+		
+		void GroupSmashCharacterSelectMenu::onFrameChange()
+		{
+			CharacterSelectScreen::onFrameChange();
+			RectangleD frame = getFrame();
+			rulesBar->scaleToFit(rulesBarAutoLayoutMgr.calculateFrame(rulesBar->getFrame(), frame));
 		}
 		
 		void GroupSmashCharacterSelectMenu::onWillAppear(const Transition*transition)

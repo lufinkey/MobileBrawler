@@ -4,19 +4,23 @@
 #include <GameLibrary/GameLibrary.h>
 #include <BrawlerLibrary/BrawlerLibrary.h>
 
+using namespace GameLibrary;
+using namespace BrawlerLibrary;
+
 namespace SmashBros
 {
-	using namespace GameLibrary;
-	using namespace BrawlerLibrary;
-
 	namespace Menu
 	{
+		class CharacterSelectScreen;
+		
 		namespace CharacterSelect
 		{
 			class CharacterIcon : public SpriteActor
 			{
+				friend class ::SmashBros::Menu::CharacterSelectScreen;
 			private:
 				CharacterInfo* info;
+				AutoLayoutManager autoLayoutMgr;
 
 			public:
 				CharacterIcon(CharacterInfo&info, double x, double y, AssetManager*assetManager);

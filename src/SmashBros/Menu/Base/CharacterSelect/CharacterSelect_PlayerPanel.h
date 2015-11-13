@@ -4,11 +4,11 @@
 #include <GameLibrary/GameLibrary.h>
 #include <BrawlerLibrary/BrawlerLibrary.h>
 
+using namespace GameLibrary;
+using namespace BrawlerLibrary;
+
 namespace SmashBros
 {
-	using namespace GameLibrary;
-	using namespace BrawlerLibrary;
-	
 	namespace Menu
 	{
 		class CharacterSelectScreen;
@@ -17,8 +17,11 @@ namespace SmashBros
 		{
 			class PlayerPanel : public SpriteActor
 			{
+				friend class ::SmashBros::Menu::CharacterSelectScreen;
 			private:
 				unsigned int playerNum;
+				
+				AutoLayoutManager autoLayoutMgr;
 				
 				SpriteActor* portrait;
 				Animation* portrait_anim;
@@ -31,9 +34,11 @@ namespace SmashBros
 				void applyProperties(const Dictionary&properties);
 				
 			protected:
-				AutoLayoutManager autoLayoutMgr;
+				AutoLayoutManager portraitLayoutMgr;
+				AutoLayoutManager overlayLayoutMgr;
+				AutoLayoutManager nameboxLayoutMgr;
 				
-				static void applyPlacementDict(RectD*bounds, const Dictionary&dict);
+				static void applyPlacementDict(const Dictionary&dict, AutoLayoutManager*layoutMgr);
 				
 			public:
 				PlayerPanel(unsigned int playerNum, CharacterSelectScreen*charSelectScreen, double x, double y, const Dictionary&properties, AssetManager*assetManager);

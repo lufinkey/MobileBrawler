@@ -26,10 +26,18 @@ namespace SmashBros
 			ScreenElement* element = getElement();
 			
 			backgroundElement = new ImageElement(assetManager->getTexture("backgrounds/main.png"), ImageElement::DISPLAY_ZOOM);
-			element->addChildElement(RectD(0,0,1,1), backgroundElement);
+			backgroundElement->setLayoutRule(LAYOUTRULE_LEFT,   0, LAYOUTVALUE_RATIO);
+			backgroundElement->setLayoutRule(LAYOUTRULE_TOP,    0, LAYOUTVALUE_RATIO);
+			backgroundElement->setLayoutRule(LAYOUTRULE_RIGHT,  1, LAYOUTVALUE_RATIO);
+			backgroundElement->setLayoutRule(LAYOUTRULE_BOTTOM, 1, LAYOUTVALUE_RATIO);
+			element->addChildElement(backgroundElement);
 			
 			headerbarElement = new ImageElement(img_headerbar_full, ImageElement::DISPLAY_ZOOM);
-			element->addChildElement(RectD(0, 0, 1.0, 0.134), headerbarElement);
+			headerbarElement->setLayoutRule(LAYOUTRULE_LEFT,   0.0,   LAYOUTVALUE_RATIO);
+			headerbarElement->setLayoutRule(LAYOUTRULE_TOP,    0.0,   LAYOUTVALUE_RATIO);
+			headerbarElement->setLayoutRule(LAYOUTRULE_RIGHT,  1.0,   LAYOUTVALUE_RATIO);
+			headerbarElement->setLayoutRule(LAYOUTRULE_BOTTOM, 0.134, LAYOUTVALUE_RATIO);
+			element->addChildElement(headerbarElement);
 			
 			element->sendChildElementToBack(headerbarElement);
 			element->sendChildElementToBack(backgroundElement);

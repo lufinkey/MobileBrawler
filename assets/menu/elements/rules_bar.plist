@@ -2,16 +2,36 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>label_bounds</key>
+	<key>label_layoutRules</key>
 	<dict>
-		<key>left</key>
-		<real>0.425</real>
-		<key>top</key>
-		<real>0.050</real>
-		<key>right</key>
-		<real>0.950</real>
-		<key>bottom</key>
-		<real>0.950</real>
+		<key>LAYOUTRULE_LEFT</key>
+		<dict>
+			<key>value</key>
+			<real>0.425</real>
+			<key>valueType</key>
+			<string>LAYOUTVALUE_RATIO</string>
+		</dict>
+		<key>LAYOUTRULE_TOP</key>
+		<dict>
+			<key>value</key>
+			<real>0.050</real>
+			<key>valueType</key>
+			<string>LAYOUTVALUE_RATIO</string>
+		</dict>
+		<key>LAYOUTRULE_RIGHT</key>
+		<dict>
+			<key>value</key>
+			<real>0.950</real>
+			<key>valueType</key>
+			<string>LAYOUTVALUE_RATIO</string>
+		</dict>
+		<key>LAYOUTRULE_BOTTOM</key>
+		<dict>
+			<key>value</key>
+			<real>0.950</real>
+			<key>valueType</key>
+			<string>LAYOUTVALUE_RATIO</string>
+		</dict>
 	</dict>
 	<key>label_color</key>
 	<dict>
@@ -22,16 +42,36 @@
 		<key>b</key>
 		<integer>0</integer>
 	</dict>
-	<key>value_label_bounds</key>
+	<key>value_label_layoutRules</key>
 	<dict>
-		<key>left</key>
-		<real>0.100</real>
-		<key>top</key>
-		<real>0.050</real>
-		<key>right</key>
-		<real>0.350</real>
-		<key>bottom</key>
-		<real>0.950</real>
+		<key>LAYOUTRULE_LEFT</key>
+		<dict>
+			<key>value</key>
+			<real>0.100</real>
+			<key>valueType</key>
+			<string>LAYOUTVALUE_RATIO</string>
+		</dict>
+		<key>LAYOUTRULE_TOP</key>
+		<dict>
+			<key>value</key>
+			<real>0.050</real>
+			<key>valueType</key>
+			<string>LAYOUTVALUE_RATIO</string>
+		</dict>
+		<key>LAYOUTRULE_RIGHT</key>
+		<dict>
+			<key>value</key>
+			<real>0.350</real>
+			<key>valueType</key>
+			<string>LAYOUTVALUE_RATIO</string>
+		</dict>
+		<key>LAYOUTRULE_BOTTOM</key>
+		<dict>
+			<key>value</key>
+			<real>0.950</real>
+			<key>valueType</key>
+			<string>LAYOUTVALUE_RATIO</string>
+		</dict>
 	</dict>
 	<key>value_label_color</key>
 	<dict>
@@ -42,29 +82,69 @@
 		<key>b</key>
 		<integer>0</integer>
 	</dict>
-	<key>arrow_less_bounds</key>
+	<key>arrow_less_layoutRules</key>
 	<dict>
-		<key>left</key>
-		<real>0.050</real>
-		<key>top</key>
-		<real>0.050</real>
-		<key>right</key>
-		<real>0.100</real>
-		<key>bottom</key>
-		<real>0.950</real>
+		<key>LAYOUTRULE_LEFT</key>
+		<dict>
+			<key>value</key>
+			<real>0.050</real>
+			<key>valueType</key>
+			<string>LAYOUTVALUE_RATIO</string>
+		</dict>
+		<key>LAYOUTRULE_TOP</key>
+		<dict>
+			<key>value</key>
+			<real>0.050</real>
+			<key>valueType</key>
+			<string>LAYOUTVALUE_RATIO</string>
+		</dict>
+		<key>LAYOUTRULE_RIGHT</key>
+		<dict>
+			<key>value</key>
+			<real>0.100</real>
+			<key>valueType</key>
+			<string>LAYOUTVALUE_RATIO</string>
+		</dict>
+		<key>LAYOUTRULE_BOTTOM</key>
+		<dict>
+			<key>value</key>
+			<real>0.950</real>
+			<key>valueType</key>
+			<string>LAYOUTVALUE_RATIO</string>
+		</dict>
 	</dict>
 	<key>arrow_less_dir</key>
 	<string>left</string>
-	<key>arrow_more_bounds</key>
+	<key>arrow_more_layoutRules</key>
 	<dict>
-		<key>left</key>
-		<real>0.350</real>
-		<key>top</key>
-		<real>0.050</real>
-		<key>right</key>
-		<real>0.40</real>
-		<key>bottom</key>
-		<real>0.950</real>
+		<key>LAYOUTRULE_LEFT</key>
+		<dict>
+			<key>value</key>
+			<real>0.350</real>
+			<key>valueType</key>
+			<string>LAYOUTVALUE_RATIO</string>
+		</dict>
+		<key>LAYOUTRULE_TOP</key>
+		<dict>
+			<key>value</key>
+			<real>0.050</real>
+			<key>valueType</key>
+			<string>LAYOUTVALUE_RATIO</string>
+		</dict>
+		<key>LAYOUTRULE_RIGHT</key>
+		<dict>
+			<key>value</key>
+			<real>0.40</real>
+			<key>valueType</key>
+			<string>LAYOUTVALUE_RATIO</string>
+		</dict>
+		<key>LAYOUTRULE_BOTTOM</key>
+		<dict>
+			<key>value</key>
+			<real>0.950</real>
+			<key>valueType</key>
+			<string>LAYOUTVALUE_RATIO</string>
+		</dict>
 	</dict>
 	<key>arrow_more_dir</key>
 	<string>right</string>

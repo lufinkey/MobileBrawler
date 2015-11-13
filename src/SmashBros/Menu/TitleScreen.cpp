@@ -20,7 +20,11 @@ namespace SmashBros
 				logoImageSize.y = (double)logoImage->getHeight();
 			}
 			logo = new ImageElement(logoImage, ImageElement::DISPLAY_FIT);
-			getElement()->addChildElement(RectD(0, 0, 1.0, 1.0), logo);
+			logo->setLayoutRule(LAYOUTRULE_LEFT,   0, LAYOUTVALUE_RATIO);
+			logo->setLayoutRule(LAYOUTRULE_TOP,    0, LAYOUTVALUE_RATIO);
+			logo->setLayoutRule(LAYOUTRULE_RIGHT,  1, LAYOUTVALUE_RATIO);
+			logo->setLayoutRule(LAYOUTRULE_BOTTOM, 1, LAYOUTVALUE_RATIO);
+			getElement()->addChildElement(logo);
 			
 			mainMenu = new MainMenu(smashData);
 			transition = new FadeColorTransition(Color::WHITE, 0.6);

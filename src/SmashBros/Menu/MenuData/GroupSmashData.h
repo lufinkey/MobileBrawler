@@ -3,10 +3,10 @@
 
 #include <BrawlerLibrary/BrawlerLibrary.h>
 
+using namespace BrawlerLibrary;
+
 namespace SmashBros
 {
-	using namespace BrawlerLibrary;
-	
 	class GroupSmashData
 	{
 	private:

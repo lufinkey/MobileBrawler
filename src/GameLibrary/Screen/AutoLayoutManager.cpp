@@ -1,252 +1,287 @@
 
 #include "AutoLayoutManager.h"
-#include "../Actor/Actor.h"
-#include "ScreenElement.h"
+#include "AutoLayoutCalculator.h"
 
 namespace GameLibrary
 {
-	AutoLayoutManager::AutoLayoutManager() : AutoLayoutManager(RectangleD(0,0,0,0))
+	String LayoutRuleType_toString(const LayoutRuleType& layoutRuleType)
+	{
+		switch(layoutRuleType)
+		{
+			case LAYOUTRULE_LEFT:
+			return "LAYOUTRULE_LEFT";
+
+			case LAYOUTRULE_TOP:
+			return "LAYOUTRULE_TOP";
+			
+			case LAYOUTRULE_RIGHT:
+			return "LAYOUTRULE_RIGHT";
+			
+			case LAYOUTRULE_BOTTOM:
+			return "LAYOUTRULE_BOTTOM";
+			
+			case LAYOUTRULE_CENTER_X:
+			return "LAYOUTRULE_CENTER_X";
+			
+			case LAYOUTRULE_CENTER_Y:
+			return "LAYOUTRULE_CENTER_Y";
+			
+			case LAYOUTRULE_WIDTH:
+			return "LAYOUTRULE_WIDTH";
+			
+			case LAYOUTRULE_HEIGHT:
+			return "LAYOUTRULE_HEIGHT";
+			
+			case LAYOUTRULE_ASPECTRATIO:
+			return "LAYOUTRULE_ASPECTRATIO";
+		}
+		return "";
+	}
+	
+	LayoutRuleType LayoutRuleType_fromString(const String& layoutRuleType, bool*valid)
+	{
+		if(valid!=nullptr)
+		{
+			*valid = true;
+		}
+		if(layoutRuleType.equals("LAYOUTRULE_LEFT"))
+		{
+			return LAYOUTRULE_LEFT;
+		}
+		else if(layoutRuleType.equals("LAYOUTRULE_TOP"))
+		{
+			return LAYOUTRULE_TOP;
+		}
+		else if(layoutRuleType.equals("LAYOUTRULE_RIGHT"))
+		{
+			return LAYOUTRULE_RIGHT;
+		}
+		else if(layoutRuleType.equals("LAYOUTRULE_BOTTOM"))
+		{
+			return LAYOUTRULE_BOTTOM;
+		}
+		else if(layoutRuleType.equals("LAYOUTRULE_CENTER_X"))
+		{
+			return LAYOUTRULE_CENTER_X;
+		}
+		else if(layoutRuleType.equals("LAYOUTRULE_CENTER_Y"))
+		{
+			return LAYOUTRULE_CENTER_Y;
+		}
+		else if(layoutRuleType.equals("LAYOUTRULE_WIDTH"))
+		{
+			return LAYOUTRULE_WIDTH;
+		}
+		else if(layoutRuleType.equals("LAYOUTRULE_HEIGHT"))
+		{
+			return LAYOUTRULE_HEIGHT;
+		}
+		else if(layoutRuleType.equals("LAYOUTRULE_ASPECTRATIO"))
+		{
+			return LAYOUTRULE_ASPECTRATIO;
+		}
+		if(valid!=nullptr)
+		{
+			*valid = false;
+		}
+		return LAYOUTRULE_LEFT;
+	}
+	
+	String LayoutValueType_toString(const LayoutValueType& layoutValueType)
+	{
+		switch(layoutValueType)
+		{
+			case LAYOUTVALUE_PIXEL:
+			return "LAYOUTVALUE_PIXEL";
+			
+			case LAYOUTVALUE_RATIO:
+			return "LAYOUTVALUE_RATIO";
+		}
+		return "";
+	}
+	
+	LayoutValueType LayoutValueType_fromString(const String& layoutValueType, bool*valid)
+	{
+		if(valid!=nullptr)
+		{
+			*valid = true;
+		}
+		if(layoutValueType.equals("LAYOUTVALUE_PIXEL"))
+		{
+			return LAYOUTVALUE_PIXEL;
+		}
+		else if(layoutValueType.equals("LAYOUTVALUE_RATIO"))
+		{
+			return LAYOUTVALUE_RATIO;
+		}
+		if(valid!=nullptr)
+		{
+			*valid = false;
+		}
+		return LAYOUTVALUE_PIXEL;
+	}
+	
+	AutoLayoutManager::AutoLayoutManager() : containerOffset(false)
 	{
 		//
 	}
 	
-	AutoLayoutManager::AutoLayoutManager(const AutoLayoutManager&autoLayoutMgr)
+	AutoLayoutManager::AutoLayoutManager(const AutoLayoutManager& autoLayoutMgr)
 	{
-		frame = autoLayoutMgr.frame;
-		actors = autoLayoutMgr.actors;
-		elements = autoLayoutMgr.elements;
+		rules = autoLayoutMgr.rules;
+		containerOffset = autoLayoutMgr.containerOffset;
 	}
 	
-	AutoLayoutManager::AutoLayoutManager(const RectangleD&frame_arg)
+	AutoLayoutManager& AutoLayoutManager::operator=(const AutoLayoutManager& autoLayoutMgr)
 	{
-		frame = frame_arg;
-	}
-	
-	AutoLayoutManager& AutoLayoutManager::operator=(const AutoLayoutManager&autoLayout)
-	{
-		frame = autoLayout.frame;
-		actors = autoLayout.actors;
-		elements = autoLayout.elements;
+		rules = autoLayoutMgr.rules;
+		containerOffset = autoLayoutMgr.containerOffset;
 		return *this;
 	}
 	
-	void AutoLayoutManager::add(const RectD&bounds, Actor*actor)
+	void AutoLayoutManager::setRule(const LayoutRuleType& ruleType, double value, const LayoutValueType& valueType)
 	{
-		if(actor == nullptr)
+		for(size_t rules_size=rules.size(), i=0; i<rules_size; i++)
 		{
-			throw IllegalArgumentException("actor", "null");
-		}
-		for(unsigned int i=0; i<actors.size(); i++)
-		{
-			ActorContainer& container = actors.get(i);
-			if(container.actor == actor)
+			if(rules[i].ruleType==ruleType)
 			{
-				container.bounds = bounds;
-				layout(container.bounds, container.actor);
-				return;
+				rules.remove(i);
+				i = rules_size;
 			}
 		}
-		ActorContainer container;
-		container.bounds = bounds;
-		container.actor = actor;
-		layout(bounds,actor);
-		actors.add(container);
+		LayoutRule rule;
+		rule.ruleType = ruleType;
+		rule.value = value;
+		rule.valueType = valueType;
+		rules.add(rule);
 	}
 	
-	void AutoLayoutManager::add(const RectD&bounds, ScreenElement*element)
+	void AutoLayoutManager::setRules(const Dictionary& rulesDict)
 	{
-		if(element == nullptr)
+		removeAllRules();
+		const ArrayList<Pair<String, Any> >& contents = rulesDict.getContents();
+		for(size_t contents_size=contents.size(), i=0; i<contents_size; i++)
 		{
-			throw IllegalArgumentException("element", "null");
-		}
-		for(unsigned int i=0; i<elements.size(); i++)
-		{
-			ElementContainer& container = elements.get(i);
-			if(container.element == element)
+			const Pair<String, Any> pair = contents.get(i);
+			bool valid = false;
+			LayoutRuleType ruleType = LayoutRuleType_fromString(pair.first, &valid);
+			if(valid)
 			{
-				container.bounds = bounds;
-				layout(container.bounds, container.element);
-				return;
+				if(pair.second.is<Dictionary>())
+				{
+					const Dictionary& ruleData = pair.second.as<const Dictionary&>(false);
+					Any value_any = ruleData.get("value");
+					Any valueType_any = ruleData.get("valueType");
+					if(!value_any.empty() && value_any.is<Number>())
+					{
+						double value = value_any.as<Number>(false).asDouble();
+						LayoutValueType valueType = LAYOUTVALUE_PIXEL;
+						if(!valueType_any.empty() && valueType_any.is<String>())
+						{
+							String valueType_str = valueType_any.as<String>(false);
+							bool validValue = false;
+							valueType = LayoutValueType_fromString(valueType_str, &validValue);
+							if(!validValue)
+							{
+								valueType = LAYOUTVALUE_PIXEL;
+							}
+						}
+						setRule(ruleType, value, valueType);
+					}
+				}
 			}
 		}
-		ElementContainer container;
-		container.bounds = bounds;
-		container.element = element;
-		layout(bounds, element);
-		elements.add(container);
 	}
 	
-	void AutoLayoutManager::set(Actor*actor, const RectD&bounds)
+	bool AutoLayoutManager::hasRules() const
 	{
-		if(actor == nullptr)
+		if(rules.size()>0)
 		{
-			throw IllegalArgumentException("actor", "null");
-		}
-		for(unsigned int i=0; i<actors.size(); i++)
-		{
-			ActorContainer& container = actors.get(i);
-			if(container.actor == actor)
-			{
-				container.bounds = bounds;
-				layout(container.bounds, container.actor);
-				return;
-			}
-		}
-		throw IllegalArgumentException("actor", "not stored in the calling AutoLayout");
-	}
-	
-	void AutoLayoutManager::set(ScreenElement*element, const RectD&bounds)
-	{
-		if(element == nullptr)
-		{
-			throw IllegalArgumentException("element", "null");
-		}
-		for(unsigned int i=0; i<elements.size(); i++)
-		{
-			ElementContainer& container = elements.get(i);
-			if(container.element == element)
-			{
-				container.bounds = bounds;
-				layout(container.bounds, container.element);
-				return;
-			}
-		}
-		throw IllegalArgumentException("element", "not stored in the calling AutoLayout");
-	}
-	
-	const RectD& AutoLayoutManager::get(Actor*actor) const
-	{
-		if(actor == nullptr)
-		{
-			throw IllegalArgumentException("actor", "null");
-		}
-		for(unsigned int i=0; i<actors.size(); i++)
-		{
-			const ActorContainer& container = actors.get(i);
-			if(container.actor == actor)
-			{
-				return container.bounds;
-			}
-		}
-		throw IllegalArgumentException("actor", "not stored in the calling AutoLayout");
-	}
-	
-	const RectD& AutoLayoutManager::get(ScreenElement*element) const
-	{
-		if(element == nullptr)
-		{
-			throw IllegalArgumentException("element", "null");
-		}
-		for(unsigned int i=0; i<elements.size(); i++)
-		{
-			const ElementContainer& container = elements.get(i);
-			if(container.element == element)
-			{
-				return container.bounds;
-			}
-		}
-		throw IllegalArgumentException("element", "not stored in the calling AutoLayout");
-	}
-	
-	bool AutoLayoutManager::contains(Actor*actor) const
-	{
-		for(unsigned int i=0; i<actors.size(); i++)
-		{
-			const ActorContainer& container = actors.get(i);
-			if(container.actor == actor)
-			{
-				return true;
-			}
+			return true;
 		}
 		return false;
 	}
 	
-	bool AutoLayoutManager::contains(ScreenElement*element) const
+	LayoutRule* AutoLayoutManager::getRule(const LayoutRuleType& ruleType) const
 	{
-		for(unsigned int i=0; i<elements.size(); i++)
+		for(size_t rules_size=rules.size(), i=0; i<rules_size; i++)
 		{
-			const ElementContainer& container = elements.get(i);
-			if(container.element == element)
+			LayoutRule* rule = (LayoutRule*)&rules[i];
+			if(rule->ruleType==ruleType)
 			{
-				return true;
+				return rule;
 			}
 		}
-		return false;
+		return nullptr;
 	}
 	
-	void AutoLayoutManager::remove(Actor*actor)
+	void AutoLayoutManager::setOffsetByContainer(bool toggle)
 	{
-		if(actor == nullptr)
+		containerOffset = toggle;
+	}
+	
+	bool AutoLayoutManager::isOffsetByContainer() const
+	{
+		return containerOffset;
+	}
+	
+	void AutoLayoutManager::removeAllRules()
+	{
+		rules.clear();
+	}
+	
+	RectangleD AutoLayoutManager::calculateFrame(const RectangleD& currentFrame, const RectangleD& containerFrame) const
+	{
+		AutoLayoutCalculator layoutCalc(currentFrame, containerFrame);
+		for(size_t rules_size=rules.size(), i=0; i<rules_size; i++)
 		{
-			return;
-		}
-		for(size_t i=(actors.size()-1); i!=SIZE_MAX; i--)
-		{
-			ActorContainer& container = actors.get(i);
-			if(container.actor == actor)
+			const LayoutRule& rule = rules[i];
+			switch(rule.ruleType)
 			{
-				actors.remove(i);
-				return;
+				case LAYOUTRULE_LEFT:
+				layoutCalc.setLeft(rule.value, rule.valueType);
+				break;
+				
+				case LAYOUTRULE_TOP:
+				layoutCalc.setTop(rule.value, rule.valueType);
+				break;
+				
+				case LAYOUTRULE_RIGHT:
+				layoutCalc.setRight(rule.value, rule.valueType);
+				break;
+				
+				case LAYOUTRULE_BOTTOM:
+				layoutCalc.setBottom(rule.value, rule.valueType);
+				break;
+				
+				case LAYOUTRULE_CENTER_X:
+				layoutCalc.setCenterX(rule.value, rule.valueType);
+				break;
+				
+				case LAYOUTRULE_CENTER_Y:
+				layoutCalc.setCenterY(rule.value, rule.valueType);
+				break;
+				
+				case LAYOUTRULE_WIDTH:
+				layoutCalc.setWidth(rule.value, rule.valueType);
+				break;
+				
+				case LAYOUTRULE_HEIGHT:
+				layoutCalc.setHeight(rule.value, rule.valueType);
+				break;
+				
+				case LAYOUTRULE_ASPECTRATIO:
+				layoutCalc.setAspectRatio(rule.value);
+				break;
 			}
 		}
-	}
-	
-	void AutoLayoutManager::remove(ScreenElement*element)
-	{
-		if(element == nullptr)
+		if(containerOffset)
 		{
-			return;
+			RectangleD calculatedFrame = layoutCalc.getCalculatedFrame();
+			calculatedFrame.x += containerFrame.x;
+			calculatedFrame.y += containerFrame.y;
+			return calculatedFrame;
 		}
-		for(size_t i=(elements.size()-1); i!=SIZE_MAX; i--)
-		{
-			ElementContainer& container = elements.get(i);
-			if(container.element == element)
-			{
-				elements.remove(i);
-				return;
-			}
-		}
-	}
-	
-	void AutoLayoutManager::clear()
-	{
-		actors.clear();
-		elements.clear();
-	}
-	
-	void AutoLayoutManager::setFrame(const RectangleD&frame_arg)
-	{
-		frame = frame_arg;
-		for(unsigned int i=0; i<actors.size(); i++)
-		{
-			ActorContainer& container = actors.get(i);
-			layout(container.bounds, container.actor);
-		}
-		for(unsigned int i=0; i<elements.size(); i++)
-		{
-			ElementContainer& container = elements.get(i);
-			layout(container.bounds, container.element);
-		}
-	}
-	
-	void AutoLayoutManager::layout(const RectD&bounds, Actor*actor) const
-	{
-		actor->setScale(1);
-		RectangleD rect = convertFrame(frame, bounds);
-		actor->scaleToFit(rect);
-	}
-	
-	void AutoLayoutManager::layout(const RectD&bounds, ScreenElement*element) const
-	{
-		element->setFrame(convertFrame(frame, bounds));
-	}
-	
-	RectangleD AutoLayoutManager::convertFrame(const RectangleD&frame, const RectD&bounds)
-	{
-		double left = bounds.left*frame.width;
-		double top = bounds.top*frame.height;
-		double right = bounds.right*frame.width;
-		double bottom = bounds.bottom*frame.height;
-		return RectangleD(frame.x+left, frame.y+top, right-left, bottom-top);
+		return layoutCalc.getCalculatedFrame();
 	}
 }

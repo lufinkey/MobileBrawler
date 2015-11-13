@@ -13,15 +13,22 @@ namespace SmashBros
 		
 		MenuBar::MenuBar(double x, double y, const WideString&label_text, AssetManager*assetManager, const Dictionary&properties) : SpriteActor(x, y)
 		{
+			label_actor = nullptr;
+			
 			addAnimation("MenuBar", new Animation(1, assetManager, "elements/menu_bar.png"));
 			changeAnimation("MenuBar", Animation::FORWARD);
 			
-			autoLayoutMgr.setFrame(getFrame());
+			RectangleD frame = getFrame();
 			
 			Font* font = assetManager->getFont("fonts/default.ttf");
 			label_color = Color::BLACK;
 			label_actor = new TextActor(label_text, font, label_color, 24, Font::STYLE_PLAIN, TextActor::ALIGN_BOTTOMLEFT);
-			autoLayoutMgr.add(RectD(0.05, 0.05, 0.575, 0.95), label_actor);
+			label_autoLayoutMgr.setOffsetByContainer(true);
+			label_autoLayoutMgr.setRule(LAYOUTRULE_LEFT, 0.05, LAYOUTVALUE_RATIO);
+			label_autoLayoutMgr.setRule(LAYOUTRULE_TOP, 0.05, LAYOUTVALUE_RATIO);
+			label_autoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.575, LAYOUTVALUE_RATIO);
+			label_autoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.95, LAYOUTVALUE_RATIO);
+			label_actor->scaleToFit(label_autoLayoutMgr.calculateFrame(label_actor->getFrame(), frame));
 			
 			applyProperties(properties);
 		}
@@ -34,66 +41,53 @@ namespace SmashBros
 		void MenuBar::updateSize()
 		{
 			SpriteActor::updateSize();
-			autoLayoutMgr.setFrame(getFrame());
+			RectangleD frame = getFrame();
+			if(label_actor!=nullptr)
+			{
+				label_actor->scaleToFit(label_autoLayoutMgr.calculateFrame(label_actor->getFrame(), frame));
+			}
 		}
 		
 		void MenuBar::applyProperties(const Dictionary&properties)
 		{
-			Any label_bounds_any = properties.get("label_bounds");
-			if(!label_bounds_any.empty() && label_bounds_any.is<Dictionary>())
+			Any label_layoutRules_any = properties.get("label_layoutRules");
+			if(!label_layoutRules_any.empty() && label_layoutRules_any.is<Dictionary>())
 			{
-				RectD label_bounds = autoLayoutMgr.get(label_actor);
-				const Dictionary& label_bounds_dict = label_bounds_any.as<Dictionary>(false);
-				applyPropertiesDict(&label_bounds, label_bounds_dict);
-				autoLayoutMgr.set(label_actor, label_bounds);
+				const Dictionary& label_layoutRules = label_layoutRules_any.as<Dictionary>(false);
+				applyPlacementDict(label_layoutRules, &label_autoLayoutMgr);
+				if(!label_autoLayoutMgr.hasRules())
+				{
+					label_autoLayoutMgr.setRule(LAYOUTRULE_LEFT, 0.05, LAYOUTVALUE_RATIO);
+					label_autoLayoutMgr.setRule(LAYOUTRULE_TOP, 0.05, LAYOUTVALUE_RATIO);
+					label_autoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.575, LAYOUTVALUE_RATIO);
+					label_autoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.95, LAYOUTVALUE_RATIO);
+				}
 			}
 			Any label_color_any = properties.get("label_color");
 			if(!label_color_any.empty() && label_color_any.is<Dictionary>())
 			{
 				const Dictionary& label_color_dict = label_color_any.as<Dictionary>(false);
-				applyPropertiesDict(&label_color, label_color_dict);
+				applyColorDict(label_color_dict, &label_color);
 				label_actor->setColor(label_color);
 			}
+			updateSize();
 		}
 		
-		void MenuBar::applyPropertiesDict(RectD*bounds, const Dictionary&properties)
+		void MenuBar::applyPlacementDict(const Dictionary& dict, AutoLayoutManager* layoutMgr)
 		{
-			if(bounds == nullptr)
-			{
-				return;
-			}
-			Any left = properties.get("left");
-			Any top = properties.get("top");
-			Any right = properties.get("right");
-			Any bottom = properties.get("bottom");
-			if(!left.empty() && left.is<Number>())
-			{
-				bounds->left = left.as<Number>(false).asDouble();
-			}
-			if(!top.empty() && top.is<Number>())
-			{
-				bounds->top = top.as<Number>(false).asDouble();
-			}
-			if(!right.empty() && right.is<Number>())
-			{
-				bounds->right = right.as<Number>(false).asDouble();
-			}
-			if(!bottom.empty() && bottom.is<Number>())
-			{
-				bounds->bottom = bottom.as<Number>(false).asDouble();
-			}
+			layoutMgr->setRules(dict);
 		}
 		
-		void MenuBar::applyPropertiesDict(Color*color, const Dictionary&properties)
+		void MenuBar::applyColorDict(const Dictionary& dict, Color* color)
 		{
 			if(color == nullptr)
 			{
 				return;
 			}
-			Any r = properties.get("r");
-			Any g = properties.get("g");
-			Any b = properties.get("b");
-			Any a = properties.get("a");
+			Any r = dict.get("r");
+			Any g = dict.get("g");
+			Any b = dict.get("b");
+			Any a = dict.get("a");
 			if(!r.empty() && r.is<Number>())
 			{
 				color->r = r.as<Number>(false).asUnsignedChar();
@@ -112,14 +106,6 @@ namespace SmashBros
 			}
 		}
 		
-		RectangleD MenuBar::getLabelFrame(const RectD&bounds) const
-		{
-			RectangleD frame = getFrame();
-			Vector2d topleft(bounds.left*frame.width, bounds.top*frame.height);
-			Vector2d bottomright(bounds.right*frame.width, bounds.bottom*frame.height);
-			return RectangleD(frame.x+topleft.x, frame.y+topleft.y, bottomright.x-topleft.x, bottomright.y-topleft.y);
-		}
-		
 		void MenuBar::update(ApplicationData appData)
 		{
 			SpriteActor::update(appData);
@@ -135,18 +121,13 @@ namespace SmashBros
 		void MenuBar::setLabel(const WideString&text)
 		{
 			label_actor->setText(text);
-			autoLayoutMgr.setFrame(getFrame());
-		}
-		
-		void MenuBar::setLabelBounds(const RectD&bounds)
-		{
-			autoLayoutMgr.set(label_actor, bounds);
+			label_actor->scaleToFit(label_autoLayoutMgr.calculateFrame(label_actor->getFrame(), getFrame()));
 		}
 		
 		void MenuBar::setLabelAlignment(const TextActor::TextAlignment&alignment)
 		{
 			label_actor->setAlignment(alignment);
-			autoLayoutMgr.setFrame(getFrame());
+			label_actor->scaleToFit(label_autoLayoutMgr.calculateFrame(label_actor->getFrame(), getFrame()));
 		}
 		
 		const WideString& MenuBar::getLabel() const
@@ -154,9 +135,14 @@ namespace SmashBros
 			return label_actor->getText();
 		}
 		
-		const RectD& MenuBar::getLabelBounds() const
+		AutoLayoutManager& MenuBar::getLabelAutoLayoutManager()
 		{
-			return autoLayoutMgr.get(label_actor);
+			return label_autoLayoutMgr;
+		}
+		
+		const AutoLayoutManager& MenuBar::getLabelAutoLayoutManager() const
+		{
+			return label_autoLayoutMgr;
 		}
 		
 		const TextActor::TextAlignment& MenuBar::getLabelAlignment() const

@@ -6,28 +6,28 @@ namespace GameLibrary
 	void ScreenElement::setWindow(Window*win)
 	{
 		Window*oldWindow = window;
-
+		
 		if(oldWindow!=win)
 		{
 			window = nullptr;
-
+			
 			if(oldWindow!=nullptr)
 			{
-				for(unsigned int i=0; i<childElements.size(); i++)
+				for(size_t i=0; i<childElements.size(); i++)
 				{
 					childElements.get(i)->setWindow(nullptr);
 				}
 
 				onRemoveFromWindow(oldWindow);
 			}
-
+			
 			window = win;
-
+			
 			if(win!=nullptr)
 			{
 				onAddToWindow(win);
-
-				for(unsigned int i=0; i<childElements.size(); i++)
+				
+				for(size_t i=0; i<childElements.size(); i++)
 				{
 					childElements.get(i)->setWindow(win);
 				}
@@ -44,13 +44,21 @@ namespace GameLibrary
 	{
 		//
 	}
+	
+	void ScreenElement::autoLayoutFrame()
+	{
+		if(parentElement!=nullptr)
+		{
+			setFrame(autoLayoutMgr.calculateFrame(frame, parentElement->getFrame()));
+		}
+	}
 
 	ScreenElement::ScreenElement() : ScreenElement(RectangleD(0,0,0,0))
 	{
 		//
 	}
 
-	ScreenElement::ScreenElement(const RectangleD&frame_arg) : autoLayoutMgr(frame_arg)
+	ScreenElement::ScreenElement(const RectangleD& frame_arg)
 	{
 		frame = frame_arg;
 		window = nullptr;
@@ -118,16 +126,16 @@ namespace GameLibrary
 	{
 		//Open for implementation
 	}
-
+	
 	void ScreenElement::drawElements(ApplicationData appData, Graphics graphics) const
 	{
 		ArrayList<ScreenElement*> children = childElements;
 		updatingElements = true;
-
+		
 		for(size_t i=0; i<children.size(); i++)
 		{
 			ScreenElement* element = children.get(i);
-
+			
 			bool element_notremoved = true;
 			for(size_t j=0; j<removedChildElements.size(); j++)
 			{
@@ -137,7 +145,7 @@ namespace GameLibrary
 					j = removedChildElements.size();
 				}
 			}
-
+			
 			if(element_notremoved)
 			{
 				element->draw(appData,graphics);
@@ -145,33 +153,44 @@ namespace GameLibrary
 		}
 		updatingElements = false;
 	}
-
+	
 	void ScreenElement::draw(ApplicationData appData, Graphics graphics) const
 	{
+		RectangleD frame = getFrame();
+		if(clipsToFrame)
+		{
+			graphics.clip(frame);
+		}
 		drawBackground(appData, graphics);
 		drawMain(appData, graphics);
-		RectangleD frame = getFrame();
 		graphics.translate(frame.x, frame.y);
 		drawElements(appData, graphics);
 	}
-
+	
 	void ScreenElement::setFrame(const RectangleD&frame_arg)
 	{
 		frame = frame_arg;
-		autoLayoutMgr.setFrame(frame);
+		for(size_t childElements_size=childElements.size(), i=0; i<childElements_size; i++)
+		{
+			ScreenElement* childElement = childElements.get(i);
+			if(childElement->hasLayoutRules())
+			{
+				childElement->autoLayoutFrame();
+			}
+		}
 	}
-
+	
 	RectangleD ScreenElement::getFrame() const
 	{
 		return frame;
 	}
-
+	
 	Vector2d ScreenElement::getCenter() const
 	{
 		RectangleD frame = getFrame();
 		return Vector2d(frame.x+(frame.width/2), frame.y+(frame.height/2));
 	}
-
+	
 	void ScreenElement::addChildElement(ScreenElement*element)
 	{
 		if(element == nullptr)
@@ -184,28 +203,16 @@ namespace GameLibrary
 		}
 		element->parentElement = this;
 		childElements.add(element);
+		if(element->hasLayoutRules())
+		{
+			element->autoLayoutFrame();
+		}
 	}
 	
-	void ScreenElement::addChildElement(const RectD&bounds, ScreenElement*element)
-	{
-		if(element == nullptr)
-		{
-			throw IllegalArgumentException("element", "null");
-		}
-		else if(element->parentElement != nullptr)
-		{
-			throw IllegalArgumentException("element", "already added to another ScreenElement");
-		}
-		element->parentElement = this;
-		childElements.add(element);
-		autoLayoutMgr.add(bounds, element);
-	}
-
 	void ScreenElement::removeFromParentElement()
 	{
 		if(parentElement != nullptr)
 		{
-			parentElement->autoLayoutMgr.remove(this);
 			if(parentElement->updatingElements)
 			{
 				parentElement->removedChildElements.add(this);
@@ -221,7 +228,7 @@ namespace GameLibrary
 			}
 		}
 	}
-
+	
 	void ScreenElement::bringChildElementToFront(ScreenElement*element)
 	{
 		if(element == nullptr)
@@ -269,30 +276,31 @@ namespace GameLibrary
 			childElements.add(0,element);
 		}
 	}
-
+	
 	const ArrayList<ScreenElement*>& ScreenElement::getChildElements() const
 	{
 		return childElements;
 	}
-
+	
 	ScreenElement* ScreenElement::getParentElement() const
 	{
 		return parentElement;
 	}
-
-	void ScreenElement::setBackgroundColor(const Color&color)
+	
+	void ScreenElement::setLayoutRule(const LayoutRuleType& ruleType, double value, const LayoutValueType& valueType)
 	{
-		backgroundColor = color;
-	}
-
-	const Color& ScreenElement::getBackgroundColor() const
-	{
-		return backgroundColor;
+		autoLayoutMgr.setRule(ruleType, value, valueType);
+		autoLayoutFrame();
 	}
 	
-	AutoLayoutManager& ScreenElement::getAutoLayoutManager()
+	bool ScreenElement::hasLayoutRules() const
 	{
-		return autoLayoutMgr;
+		return autoLayoutMgr.hasRules();
+	}
+	
+	void ScreenElement::removeAllLayoutRules()
+	{
+		autoLayoutMgr.removeAllRules();
 	}
 	
 	const AutoLayoutManager& ScreenElement::getAutoLayoutManager() const
@@ -300,12 +308,22 @@ namespace GameLibrary
 		return autoLayoutMgr;
 	}
 	
+	void ScreenElement::setBackgroundColor(const Color&color)
+	{
+		backgroundColor = color;
+	}
+	
+	const Color& ScreenElement::getBackgroundColor() const
+	{
+		return backgroundColor;
+	}
+	
 	void ScreenElement::setVisible(bool toggle, bool applyToChildren)
 	{
 		visible = toggle;
 		if(applyToChildren)
 		{
-			for(unsigned int i=0; i<childElements.size(); i++)
+			for(size_t i=0; i<childElements.size(); i++)
 			{
 				childElements.get(i)->setVisible(toggle, applyToChildren);
 			}
@@ -315,5 +333,46 @@ namespace GameLibrary
 	bool ScreenElement::isVisible() const
 	{
 		return visible;
+	}
+	
+	void ScreenElement::setClippedToFrame(bool toggle)
+	{
+		clipsToFrame = toggle;
+	}
+	
+	bool ScreenElement::isClippedToFrame() const
+	{
+		return clipsToFrame;
+	}
+
+	bool ScreenElement::isHandlingMouseEvents() const
+	{
+		return false;
+	}
+	
+	bool ScreenElement::doesHandleMouseInput() const
+	{
+		return false;
+	}
+	
+	bool ScreenElement::isTouchableAtPoint(const Vector2d& point) const
+	{
+		if(doesHandleMouseInput())
+		{
+			RectangleD frame = getFrame();
+			if(!frame.contains(point))
+			{
+				return false;
+			}
+			for(size_t i=0; i<childElements.size(); i++)
+			{
+				if(childElements[i]->isTouchableAtPoint(point))
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+		return false;
 	}
 }
