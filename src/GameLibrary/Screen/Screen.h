@@ -53,8 +53,10 @@ namespace GameLibrary
 		//TODO add events for navigation from ScreenManager
 		
 		
-		/*! Called when the Screen's frame has changed, possibly due to frame resizing, or window resizing, or a mobile device orientation change.*/
-		virtual void onFrameChange();
+		/*! Called when the Screen's frame has changed, possibly due to frame resizing, or window resizing, or a mobile device orientation change.
+			\param oldFrame the previous frame
+			\param newFrame the new frame*/
+		virtual void onFrameChange(const RectangleD&oldFrame, const RectangleD& newFrame);
 		
 		
 		/*! Called when the Screen is about to appear at the top level of the Screen stack.
@@ -113,9 +115,9 @@ namespace GameLibrary
 		/*! Gets the root level Screen of this entire Screen heirarchy, which includes ScreenManager containers.
 			\returns a Screen pointer*/
 		Screen* getRootScreen();
-		/*! Tells whether the Screen is visible in the Screen heirarchy, or if another Screen is covering it.
+		/*! Tells whether the Screen is visible in the Screen heirarchy, or if another Screen is covering it. If the bottom Screen is not the root Screen of a Window, this will always return false.
 			\returns true if the Screen is visible in the Screen heirarchy, or false if otherwise*/
-		bool isVisible();
+		bool isOnTop();
 		/*! Tells whether this Screen is in the process of presenting a Screen.
 			\returns true if a transition to present a Screen is occurring, or false if otherwise*/
 		bool isPresenting() const;

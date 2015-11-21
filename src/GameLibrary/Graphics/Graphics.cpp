@@ -501,7 +501,7 @@ namespace GameLibrary
 		Vector2d bottomleft = transform.transform(Vector2d(x, bottom));
 
 		beginDraw();
-
+		
 		SDL_RenderDrawLine((SDL_Renderer*)renderer, (int)topleft.x, (int)topleft.y, (int)topright.x, (int)topright.y);
 		SDL_RenderDrawLine((SDL_Renderer*)renderer, (int)topright.x, (int)topright.y, (int)bottomright.x, (int)bottomright.y);
 		SDL_RenderDrawLine((SDL_Renderer*)renderer, (int)bottomleft.x, (int)bottomleft.y, (int)bottomright.x, (int)bottomright.y);

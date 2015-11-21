@@ -95,7 +95,7 @@ namespace GameLibrary
 		const AutoLayoutManager& getAutoLayoutManager() const;
 		
 		
-		/*! Sets the background color of this element.
+		/*! Sets the background color of this element. If the color is equal to Color::TRANSPARENT, the background will not get drawn.
 			\param color a Color value*/
 		void setBackgroundColor(const Color&color);
 		/*! Gets the background of this element.
@@ -103,13 +103,15 @@ namespace GameLibrary
 		const Color& getBackgroundColor() const;
 		
 		
-		/*! Sets this element's visibility, and optionally sets all its children's visibility.
-			\param toggle true to make this element visible, or false to make this element invisible
-			\param applyToChildren applies the visibility property to all children of this element; Default value is false*/
-		void setVisible(bool toggle, bool applyToChildren=false);
-		/*! Tells whether this element's visibility is toggled.
+		/*! Sets this element's visibility. If an element is set to not be visible, it will not be drawn, and neither will its children.
+			\param toggle true to make this element visible, or false to make this element invisible*/
+		void setVisible(bool toggle);
+		/*! Tells whether this element's visibility is enabled. This does not tell if all parents are visible.
 			\returns true if this element is visible, or false if otherwise*/
 		bool isVisible() const;
+		/*! Tells whether this element, and all parent elements in the heirarchy, are visible
+			\returns true if this element and all parents are visible, or false if this element or a parent is not visible*/
+		bool isVisibleInHeirarchy() const;
 		
 		/*! Sets whether this element clips its child elements to its frame.
 			\param toggle true to make this element clip its child elements to its frame, or false to display its child elements normally*/

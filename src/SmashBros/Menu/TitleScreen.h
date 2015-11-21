@@ -16,13 +16,11 @@ namespace SmashBros
 			ImageElement* logo;
 			WireframeActor* tapRegion;
 			
-			TextInputElement* textInput;
-			
 		public:
 			explicit TitleScreen(const SmashData&smashData);
 			virtual ~TitleScreen();
 
-			virtual void onFrameChange() override;
+			virtual void onFrameChange(const RectangleD& oldFrame, const RectangleD& newFrame) override;
 			virtual void onItemSelect(size_t index) override;
 			
 		protected:

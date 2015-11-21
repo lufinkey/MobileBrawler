@@ -33,6 +33,12 @@ namespace GameLibrary
 			x = vect.x;
 			y = vect.y;
 		}
+		
+		template<typename U>
+		explicit operator Vector2<U>() const
+		{
+			return Vector2<U>((U)x, (U)y);
+		}
 
 		Vector2<T> operator+(const Vector2<T>&vect) const
 		{

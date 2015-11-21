@@ -23,6 +23,19 @@ namespace GameLibrary
 		//
 	}
 	
+	void TouchElement::update(ApplicationData appData)
+	{
+		ScreenElement::update(appData);
+		if(!isVisibleInHeirarchy())
+		{
+			for(size_t i=(touches.size()-1); i!=SIZE_MAX; i--)
+			{
+				TouchData& touchData = touches[i];
+				cancelTouch(appData, touchData.touchID, touchData.pos, touchData.mouse);
+			}
+		}
+	}
+	
 	void TouchElement::onMouseEnter(const TouchElementEvent& evt) {}
 	void TouchElement::onMouseLeave(const TouchElementEvent& evt) {}
 	void TouchElement::onTouchCancel(const TouchElementEvent& evt) {}
@@ -34,10 +47,13 @@ namespace GameLibrary
 	
 	bool TouchElement::checkPointCollision(const Vector2d& point)
 	{
-		RectangleD frame = getFrame();
-		if(frame.contains(point))
+		if(isVisibleInHeirarchy())
 		{
-			return true;
+			RectangleD frame = getFrame();
+			if(frame.contains(point))
+			{
+				return true;
+			}
 		}
 		return false;
 	}
@@ -66,7 +82,7 @@ namespace GameLibrary
 		return nullptr;
 	}
 	
-	TouchElement::TouchData* TouchElement::addTouch(unsigned int touchID, bool inside, bool pressedInside, const Vector2d& pos)
+	TouchElement::TouchData* TouchElement::addTouch(unsigned int touchID, const Vector2d& pos, bool inside, bool pressedInside, bool mouse)
 	{
 		for(size_t touches_size=touches.size(), i=0; i<touches_size; i++)
 		{
@@ -74,17 +90,19 @@ namespace GameLibrary
 			if(touchData.touchID==touchID)
 			{
 				touchData.touchID = touchID;
+				touchData.pos = pos;
 				touchData.inside = inside;
 				touchData.pressedInside = pressedInside;
-				touchData.pos = pos;
+				touchData.mouse = mouse;
 				return &touchData;
 			}
 		}
 		TouchData touchData;
 		touchData.touchID = touchID;
+		touchData.pos = pos;
 		touchData.inside = inside;
 		touchData.pressedInside = pressedInside;
-		touchData.pos = pos;
+		touchData.mouse = mouse;
 		touches.add(touchData);
 		return &touches[touches.size()-1];
 	}
@@ -145,7 +163,7 @@ namespace GameLibrary
 			}
 			else if(checkPointCollision(mousepos))
 			{
-				touchData = addTouch(mouseIndex, true, false, mousepos);
+				touchData = addTouch(mouseIndex, mousepos, true, false, true);
 				onMouseEnter(TouchElementEvent(this, appData, mouseIndex, mousepos, true));
 				return this;
 			}
@@ -209,7 +227,7 @@ namespace GameLibrary
 			}
 			else if(checkPointCollision(mousepos))
 			{
-				touchData = addTouch(mouseIndex, true, true, mousepos);
+				touchData = addTouch(mouseIndex, mousepos, true, true, true);
 				onMouseEnter(TouchElementEvent(this, appData, mouseIndex, mousepos, true));
 				onTouchDown(TouchElementEvent(this, appData, mouseIndex, mousepos, true));
 				return this;
@@ -339,7 +357,7 @@ namespace GameLibrary
 		}
 		else if(checkPointCollision(touchpos))
 		{
-			TouchData* touchData = addTouch(touchID, true, true, touchpos);
+			TouchData* touchData = addTouch(touchID, touchpos, true, true, false);
 			onTouchDown(TouchElementEvent(this, appData, touchID, touchpos, false));
 			return this;
 		}

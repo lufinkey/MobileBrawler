@@ -26,7 +26,7 @@ namespace SmashBros
 			GroupSmashCharacterSelectMenu(const SmashData&smashData, const GroupSmashData&groupSmashData);
 			virtual ~GroupSmashCharacterSelectMenu();
 			
-			virtual void onFrameChange() override;
+			virtual void onFrameChange(const RectangleD& oldFrame, const RectangleD& newFrame) override;
 			virtual void onWillAppear(const Transition*transition) override;
 			
 			virtual void proceedToFight() override;

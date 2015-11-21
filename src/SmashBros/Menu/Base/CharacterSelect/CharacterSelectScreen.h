@@ -23,7 +23,7 @@ namespace SmashBros
 			CharacterSelectScreen(const SmashData&smashData, Rules*rules);
 			virtual ~CharacterSelectScreen();
 			
-			virtual void onFrameChange() override;
+			virtual void onFrameChange(const RectangleD& oldFrame, const RectangleD& newFrame) override;
 			
 			virtual bool isReadyToFight() const;
 			virtual void proceedToFight();

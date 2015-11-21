@@ -5,7 +5,7 @@
 namespace GameLibrary
 {
 	const Transition* const ScreenManager::defaultPushTransition = new SlideTransition(SlideTransition::SLIDE_LEFT);
-
+	
 	void ScreenManager::setWindow(Window*win)
 	{
 		if(window!=win)
@@ -34,7 +34,7 @@ namespace GameLibrary
 			}
 		}
 	}
-
+	
 	ScreenManager::ScreenManager(Window*window, Screen*rootScreen) : Screen(window)
 	{
 		if(rootScreen == nullptr)
@@ -58,12 +58,12 @@ namespace GameLibrary
 		rootScreen->screenManager = this;
 		screens.add(rootScreen);
 	}
-
+	
 	ScreenManager::ScreenManager(Screen*rootScreen) : ScreenManager(nullptr, rootScreen)
 	{
 		//
 	}
-
+	
 	ScreenManager::~ScreenManager()
 	{
 		for(unsigned int i=0; i<screens.size(); i++)
@@ -74,7 +74,7 @@ namespace GameLibrary
 		}
 		screens.clear();
 	}
-
+	
 	void ScreenManager::onWillAppear(const Transition*transition)
 	{
 		Screen::onWillAppear(transition);
@@ -83,7 +83,7 @@ namespace GameLibrary
 			screens.get(screens.size()-1)->onWillAppear(transition);
 		}
 	}
-
+	
 	void ScreenManager::onDidAppear(const Transition*transition)
 	{
 		Screen::onDidAppear(transition);
@@ -92,19 +92,19 @@ namespace GameLibrary
 			screens.get(screens.size()-1)->onDidAppear(transition);
 		}
 	}
-
+	
 	void ScreenManager::onWillDisappear(const Transition*transition)
 	{
 		Screen::onWillDisappear(transition);
 		screens.get(screens.size()-1)->onWillDisappear(transition);
 	}
-
+	
 	void ScreenManager::onDidDisappear(const Transition*transition)
 	{
 		Screen::onDidDisappear(transition);
 		screens.get(screens.size()-1)->onDidDisappear(transition);
 	}
-
+	
 	void ScreenManager::update(ApplicationData appData)
 	{
 		if(!isshown)
@@ -141,7 +141,7 @@ namespace GameLibrary
 
 		TransitionData_checkInitialization(appData, pushpopData);
 	}
-
+	
 	void ScreenManager::drawScreens(ApplicationData appData, Graphics graphics) const
 	{
 		if(childScreen==nullptr || overlayData.action!=TRANSITION_NONE)
@@ -188,7 +188,7 @@ namespace GameLibrary
 			drawingOverlayTransition = false;
 		}
 	}
-
+	
 	void ScreenManager::set(const ArrayList<Screen*>& newScreens, const Transition*transition, unsigned long long duration, CompletionCallback completion)
 	{
 		if(!isshown)
@@ -276,7 +276,7 @@ namespace GameLibrary
 			{
 				Screen* topOldScreen = currentScreen->getTopScreen();
 				Screen* topNewScreen = lastNewScreen->getTopScreen();
-				bool visible = isVisible();
+				bool ontop = isOnTop();
 				if(screens.contains(lastNewScreen))
 				{
 					//pop animation
@@ -305,7 +305,7 @@ namespace GameLibrary
 
 				if(transition == nullptr || duration == 0)
 				{
-					if(visible)
+					if(ontop)
 					{
 						topOldScreen->onWillDisappear(transition);
 						topNewScreen->onWillAppear(transition);
@@ -332,7 +332,7 @@ namespace GameLibrary
 				}
 				else
 				{
-					if(visible)
+					if(ontop)
 					{
 						topOldScreen->onWillDisappear(transition);
 						topNewScreen->onWillAppear(transition);
@@ -341,7 +341,7 @@ namespace GameLibrary
 			}
 		}
 	}
-
+	
 	void ScreenManager::push(Screen*screen, const Transition*transition, unsigned long long duration, CompletionCallback completion)
 	{
 		if(!isshown)
@@ -358,7 +358,7 @@ namespace GameLibrary
 		screens.set(0, screen);
 		push(screens, transition, duration, completion);
 	}
-
+	
 	void ScreenManager::push(const ArrayList<Screen*>& newScreens, const Transition*transition, unsigned long long duration, CompletionCallback completion)
 	{
 		if(!isshown)
@@ -416,14 +416,14 @@ namespace GameLibrary
 					}
 				}
 			}
-
+			
 			Screen* lastNewScreen = newScreens.get(newScreens.size()-1);
 			Screen* currentScreen = screens.get(screens.size() - 1);
-
+			
 			Screen* topOldScreen = currentScreen->getTopScreen();
 			Screen* topNewScreen = lastNewScreen->getTopScreen();
-
-			bool visible = isVisible();
+			
+			bool ontop = isOnTop();
 			TransitionData_begin(pushpopData, currentScreen, lastNewScreen, TRANSITION_SHOW, transition, duration, completion, (void*)this);
 			for(unsigned int i=0; i<newScreens.size(); i++)
 			{
@@ -435,7 +435,7 @@ namespace GameLibrary
 			}
 			if(transition == nullptr || duration == 0)
 			{
-				if(visible)
+				if(ontop)
 				{
 					topOldScreen->onWillDisappear(transition);
 					topNewScreen->onWillAppear(transition);
@@ -462,7 +462,7 @@ namespace GameLibrary
 			}
 			else
 			{
-				if(visible)
+				if(ontop)
 				{
 					topOldScreen->onWillDisappear(transition);
 					topNewScreen->onWillAppear(transition);
@@ -470,7 +470,7 @@ namespace GameLibrary
 			}
 		}
 	}
-
+	
 	Screen* ScreenManager::pop(const Transition*transition, unsigned long long duration, CompletionCallback completion)
 	{
 		if(pushpopData.action != TRANSITION_NONE)
@@ -525,12 +525,12 @@ namespace GameLibrary
 			Screen* topOldScreen = currentScreen->getTopScreen();
 			Screen* topNewScreen = newScreen->getTopScreen();
 
-			bool visible = isVisible();
+			bool ontop = isOnTop();
 			TransitionData_begin(pushpopData, newScreen, currentScreen, TRANSITION_HIDE, transition, duration, completion, (void*)this);
 
 			if(transition == nullptr || duration == 0)
 			{
-				if(visible)
+				if(ontop)
 				{
 					topOldScreen->onWillDisappear(transition);
 					topNewScreen->onWillAppear(transition);
@@ -557,7 +557,7 @@ namespace GameLibrary
 			}
 			else
 			{
-				if(visible)
+				if(ontop)
 				{
 					topOldScreen->onWillDisappear(transition);
 					topNewScreen->onWillAppear(transition);
@@ -567,7 +567,7 @@ namespace GameLibrary
 			return popped;
 		}
 	}
-
+	
 	ArrayList<Screen*> ScreenManager::popToRoot(const Transition*transition, unsigned long long duration, CompletionCallback completion)
 	{
 		if(pushpopData.action != TRANSITION_NONE)

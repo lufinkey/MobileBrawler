@@ -43,9 +43,9 @@ namespace SmashBros
 			delete groupSmashStageSelectMenu;
 		}
 		
-		void GroupSmashCharacterSelectMenu::onFrameChange()
+		void GroupSmashCharacterSelectMenu::onFrameChange(const RectangleD& oldFrame, const RectangleD& newFrame)
 		{
-			CharacterSelectScreen::onFrameChange();
+			CharacterSelectScreen::onFrameChange(oldFrame, newFrame);
 			RectangleD frame = getFrame();
 			rulesBar->scaleToFit(rulesBarAutoLayoutMgr.calculateFrame(rulesBar->getFrame(), frame));
 		}

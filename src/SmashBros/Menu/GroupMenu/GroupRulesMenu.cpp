@@ -49,9 +49,9 @@ namespace SmashBros
 			delete listener;
 		}
 		
-		void GroupRulesMenu::onFrameChange()
+		void GroupRulesMenu::onFrameChange(const RectangleD& oldFrame, const RectangleD& newFrame)
 		{
-			BaseMenuScreen::onFrameChange();
+			BaseMenuScreen::onFrameChange(oldFrame, newFrame);
 			RectangleD frame = getFrame();
 			gameModeBar->scaleToFit(gameModeBarAutoLayoutMgr.calculateFrame(gameModeBar->getFrame(), frame));
 			gameModeValueBar->scaleToFit(gameModeValueBarAutoLayoutMgr.calculateFrame(gameModeValueBar->getFrame(), frame));

@@ -43,9 +43,9 @@ namespace SmashBros
 			delete readyToFightBanner;
 		}
 		
-		void CharacterSelectScreen::onFrameChange()
+		void CharacterSelectScreen::onFrameChange(const RectangleD& oldFrame, const RectangleD& newFrame)
 		{
-			BaseMenuScreen::onFrameChange();
+			BaseMenuScreen::onFrameChange(oldFrame, newFrame);
 			RectangleD frame = getFrame();
 			readyToFightBanner->scaleToFit(readyToFightBanner->autoLayoutMgr.calculateFrame(readyToFightBanner->getFrame(), frame));
 			for(size_t icons_size=icons.size(), i=0; i<icons_size; i++)
@@ -57,6 +57,40 @@ namespace SmashBros
 			{
 				CharacterSelect::PlayerPanel* panel = panels.get(i);
 				panel->scaleToFit(panel->autoLayoutMgr.calculateFrame(panel->getFrame(), frame));
+			}
+			if(oldFrame.width==0 || oldFrame.height==0)
+			{
+				RectD panelBounds(0.0, 0.6, 1.0, 1.0);
+				double panelBounds_w = panelBounds.right - panelBounds.left;
+				double panelBounds_h = panelBounds.bottom - panelBounds.top;
+				unsigned int playerCount = getRules()->getPlayerCount();
+				if(playerCount==0)
+				{
+					return;
+				}
+				double panel_width = panelBounds_w/(double)playerCount;
+				double panel_height = panelBounds_h;
+				Vector2d chipSize((panel_width*newFrame.width)/3, (panel_height*newFrame.height)/3);
+				for(size_t chips_size=chips.size(), i=0; i<chips_size; i++)
+				{
+					CharacterSelect::PlayerChip* chip = chips.get(i);
+					double panel_left = panelBounds.left + (panel_width*((double)i));
+					double panel_top = panelBounds.top;
+					chip->x = (panel_left*newFrame.width)+(chipSize.x/2);
+					chip->y = (panel_top+(panel_height/2))*newFrame.height;
+					chip->Actor::scaleToFit(chipSize);
+				}
+			}
+			else
+			{
+				double screen_rat_x = newFrame.width/oldFrame.width;
+				double screen_rat_y = newFrame.height/oldFrame.height;
+				for(size_t chips_size=chips.size(), i=0; i<chips_size; i++)
+				{
+					CharacterSelect::PlayerChip* chip = chips.get(i);
+					chip->x *= screen_rat_x;
+					chip->y *= screen_rat_y;
+				}
 			}
 		}
 		

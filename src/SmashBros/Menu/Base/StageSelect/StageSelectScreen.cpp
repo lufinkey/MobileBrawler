@@ -23,9 +23,9 @@ namespace SmashBros
 			//items are deleted through the MenuScreen already, since they were added to it
 		}
 		
-		void StageSelectScreen::onFrameChange()
+		void StageSelectScreen::onFrameChange(const RectangleD& oldFrame, const RectangleD& newFrame)
 		{
-			BaseMenuScreen::onFrameChange();
+			BaseMenuScreen::onFrameChange(oldFrame, newFrame);
 			RectangleD frame = getFrame();
 			for(size_t icons_size=icons.size(), i=0; i<icons.size(); i++)
 			{

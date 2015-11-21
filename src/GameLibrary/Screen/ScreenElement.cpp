@@ -95,7 +95,7 @@ namespace GameLibrary
 	
 	void ScreenElement::drawBackground(ApplicationData appData, Graphics graphics) const
 	{
-		if(visible && !backgroundColor.equals(Color::TRANSPARENT))
+		if(!backgroundColor.equals(Color::TRANSPARENT))
 		{
 			RectangleD rect = getFrame();
 			graphics.setColor(backgroundColor);
@@ -120,15 +120,18 @@ namespace GameLibrary
 	
 	void ScreenElement::draw(ApplicationData appData, Graphics graphics) const
 	{
-		RectangleD frame = getFrame();
-		if(clipsToFrame)
+		if(visible)
 		{
-			graphics.clip(frame);
+			RectangleD frame = getFrame();
+			if(clipsToFrame)
+			{
+				graphics.clip(frame);
+			}
+			drawBackground(appData, graphics);
+			drawMain(appData, graphics);
+			graphics.translate(frame.x, frame.y);
+			drawElements(appData, graphics);
 		}
-		drawBackground(appData, graphics);
-		drawMain(appData, graphics);
-		graphics.translate(frame.x, frame.y);
-		drawElements(appData, graphics);
 	}
 	
 	void ScreenElement::setFrame(const RectangleD&frame_arg)
@@ -279,21 +282,27 @@ namespace GameLibrary
 		return backgroundColor;
 	}
 	
-	void ScreenElement::setVisible(bool toggle, bool applyToChildren)
+	void ScreenElement::setVisible(bool toggle)
 	{
 		visible = toggle;
-		if(applyToChildren)
-		{
-			for(size_t i=0; i<childElements.size(); i++)
-			{
-				childElements.get(i)->setVisible(toggle, applyToChildren);
-			}
-		}
 	}
 	
 	bool ScreenElement::isVisible() const
 	{
 		return visible;
+	}
+	
+	bool ScreenElement::isVisibleInHeirarchy() const
+	{
+		if(visible)
+		{
+			if(parentElement!=nullptr)
+			{
+				return parentElement->isVisibleInHeirarchy();
+			}
+			return true;
+		}
+		return false;
 	}
 	
 	void ScreenElement::setClippedToFrame(bool toggle)

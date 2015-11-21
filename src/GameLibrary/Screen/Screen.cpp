@@ -12,16 +12,30 @@ namespace GameLibrary
 		if(window != nullptr)
 		{
 			View*view = window->getView();
+			Vector2d size;
 			if(view != nullptr)
 			{
-				const Vector2d& size = view->getSize();
-				if(framesize.x!=size.x || framesize.y!=size.y)
+				if(view->matchesWindow())
 				{
-					framesize = size; //setFrame(RectangleD(frame.x, frame.y, size.x, size.y));
-					ScreenElement* mainElement = getElement();
-					mainElement->setFrame(RectangleD(0,0,size.x,size.y));
-					onFrameChange();
+					size = (Vector2d)window->getSize();
 				}
+				else
+				{
+					size = view->getSize();
+				}
+			}
+			else
+			{
+				size = (Vector2d)window->getSize();
+			}
+			if(framesize.x!=size.x || framesize.y!=size.y)
+			{
+				RectangleD oldFrame(0, 0, framesize.x, framesize.y);
+				RectangleD newFrame(0, 0, size.x, size.y);
+				framesize = size; //setFrame(RectangleD(frame.x, frame.y, size.x, size.y));
+				ScreenElement* mainElement = getElement();
+				mainElement->setFrame(RectangleD(0,0,size.x,size.y));
+				onFrameChange(oldFrame, newFrame);
 			}
 		}
 	}
@@ -47,9 +61,6 @@ namespace GameLibrary
 					childScreen->setWindow(win);
 				}
 			}
-		}
-		else
-		{
 			updateFrame(win);
 		}
 	}
@@ -134,11 +145,11 @@ namespace GameLibrary
 			CompletionCallback completion = data.completion;
 			void* caller = data.caller;
 			TransitionData_clear(data);
-			if(onDidDisappearCaller!=nullptr && !onDidDisappearCaller->isVisible())
+			if(onDidDisappearCaller!=nullptr && !onDidDisappearCaller->isOnTop())
 			{
 				onDidDisappearCaller->getTopScreen()->onDidDisappear(transition);
 			}
-			if(onDidAppearCaller!=nullptr && onDidAppearCaller->isVisible())
+			if(onDidAppearCaller!=nullptr && onDidAppearCaller->isOnTop())
 			{
 				onDidAppearCaller->getTopScreen()->onDidAppear(transition);
 			}
@@ -198,7 +209,7 @@ namespace GameLibrary
 		}
 	}
 	
-	void Screen::onFrameChange()
+	void Screen::onFrameChange(const RectangleD& oldFrame, const RectangleD& newFrame)
 	{
 		//Open for implementation
 	}
@@ -414,7 +425,7 @@ namespace GameLibrary
 		else
 		{
 			Screen* topScreen = screen->getTopScreen();
-			bool visible = isVisible();
+			bool visible = isOnTop();
 			TransitionData_begin(overlayData, this, screen, TRANSITION_SHOW, transition, duration, completion, (void*)this);
 			childScreen = screen;
 			childScreen->setWindow(window);
@@ -470,7 +481,7 @@ namespace GameLibrary
 			{
 				Screen* topScreen = getTopScreen();
 				Screen* ownerScreen = parentScreen;
-				bool visible = topScreen->isVisible();
+				bool visible = topScreen->isOnTop();
 				TransitionData_begin(ownerScreen->overlayData, ownerScreen, this, TRANSITION_HIDE, transition, duration, completion, (void*)this);
 				ownerScreen->childScreen = nullptr;
 				setWindow(nullptr);
@@ -525,7 +536,7 @@ namespace GameLibrary
 		else
 		{
 			Screen* topScreen = childScreen->getTopScreen();
-			bool visible = topScreen->isVisible();
+			bool visible = topScreen->isOnTop();
 			TransitionData_begin(overlayData, this, childScreen, TRANSITION_HIDE, transition, duration, completion, (void*)this);
 			childScreen->setWindow(nullptr);
 			childScreen->parentScreen = nullptr;
@@ -623,7 +634,7 @@ namespace GameLibrary
 		return bottomScreen->screenManager->getRootScreen();
 	}
 	
-	bool Screen::isVisible()
+	bool Screen::isOnTop()
 	{
 		if(childScreen!=nullptr)
 		{
@@ -642,26 +653,14 @@ namespace GameLibrary
 				{
 					return false;
 				}
-				else if(screenManager->pushpopData.action==TRANSITION_NONE)
-				{
-					return screenManager->isVisible();
-				}
-				return false;
+				return screenManager->isOnTop();
 			}
 		}
-		else if(parentScreen!=nullptr)
+		else if(window != nullptr)
 		{
-			Screen* bottomScreen = getBottomScreen();
-			return bottomScreen->isVisible();
+			return true;
 		}
-		else
-		{
-			if(window != nullptr)
-			{
-				return true;
-			}
-			return false;
-		}
+		return false;
 	}
 	
 	bool Screen::isPresenting() const

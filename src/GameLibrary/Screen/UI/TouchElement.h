@@ -46,6 +46,8 @@ namespace GameLibrary
 		/*! \copydoc GameLibrary::ScreenElement::ScreenElement(const RectangleD&frame)*/
 		explicit TouchElement(const RectangleD&frame);
 		
+		virtual void update(ApplicationData appData) override;
+		
 		virtual void onMouseEnter(const TouchElementEvent& evt);
 		virtual void onMouseLeave(const TouchElementEvent& evt);
 		
@@ -63,7 +65,7 @@ namespace GameLibrary
 		void setTouchEnabled(bool toggle);
 		bool isTouchEnabled() const;
 		
-	private:
+	protected:
 		virtual ScreenElement* handleMouseMove(const ApplicationData& appData, unsigned int mouseIndex, const Vector2d& mousepos) override;
 		virtual void elementHandledMouseMove(const ApplicationData& appData, unsigned int mouseIndex, const Vector2d& mousepos, ScreenElement* element) override;
 		virtual ScreenElement* handleMousePress(const ApplicationData& appData, unsigned int mouseIndex, Mouse::Button button, const Vector2d& mousepos) override;
@@ -79,19 +81,21 @@ namespace GameLibrary
 		virtual ScreenElement* handleTouchEnd(const ApplicationData& appData, unsigned int touchID, const Vector2d& touchpos) override;
 		virtual void elementHandledTouchEnd(const ApplicationData& appData, unsigned int touchID, const Vector2d& touchpos, ScreenElement* element) override;
 		
+	private:
 		bool touchEnabled;
 		
 		typedef struct
 		{
 			unsigned int touchID;
+			Vector2d pos;
 			bool inside;
 			bool pressedInside;
-			Vector2d pos;
+			bool mouse;
 		} TouchData;
 		ArrayList<TouchData> touches;
 		
 		TouchData* getTouch(unsigned int touchID);
-		TouchData* addTouch(unsigned int touchID, bool inside, bool pressedInside, const Vector2d& pos);
+		TouchData* addTouch(unsigned int touchID, const Vector2d& pos, bool inside, bool pressedInside, bool mouse);
 		void removeTouch(unsigned int touchID);
 		void cancelTouch(const ApplicationData& appData, unsigned int touchID, const Vector2d& touchpos, bool mouse);
 	};

@@ -20,7 +20,7 @@ namespace SmashBros
 			StageSelectScreen(const SmashData&smashData, Rules*rules);
 			virtual ~StageSelectScreen();
 			
-			virtual void onFrameChange() override;
+			virtual void onFrameChange(const RectangleD& oldFrame, const RectangleD& newFrame) override;
 			
 			Rules* getRules() const;
 			StageLoader* getStageLoader() const;
