@@ -1,13 +1,13 @@
 
 #pragma once
 
-#include "Updateable.h"
+#include "../Application/ApplicationData.h"
 #include "../Graphics/Graphics.h"
 
 namespace GameLibrary
 {
-	/*! An interface class representing an entity that can be updated and drawn to a Window using a Graphics object*/
-	class Drawable : public Updateable
+	/*! An interface class representing an entity that can be drawn to a Window using a Graphics object*/
+	class Drawable
 	{
 	public:
 		/*! virtual destructor*/

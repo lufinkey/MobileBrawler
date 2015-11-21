@@ -1,18 +1,20 @@
 
 #pragma once
 
-#include "Drawable.h"
+#include "UpdateDrawable.h"
 #include "AutoLayoutManager.h"
 #include "../Exception/IllegalArgumentException.h"
 #include "../Exception/IllegalStateException.h"
 #include "../Utilities/ArrayList.h"
 #include "../Utilities/Pair.h"
+#include "../Input/Mouse.h"
+#include "../Input/Multitouch.h"
 #include <mutex>
 
 namespace GameLibrary
 {
 	/*! A stackable element that can be added to a Screen*/
-	class ScreenElement : public Drawable
+	class ScreenElement : public UpdateDrawable
 	{
 		friend class Screen;
 		friend class ScreenManager;
@@ -116,16 +118,6 @@ namespace GameLibrary
 			\returns true if clipping is enabled, or false if clipping is not enabled*/
 		bool isClippedToFrame() const;
 		
-		/*! Overrideable function to tell any child elements whether to prevent child elements from taking control of mouse or touch events. This function's priority is greater than ScreenElement::doesHandleMouseInput(). Returns false by default.
-			\returns true to prevent child elements from acting on mouse events, or false to allow mouse events from taking control*/
-		virtual bool isHandlingMouseEvents() const;
-		/*! Overrideable function to tell parent element that this element does require mouse input. Returns false by default.
-			\returns true to indicate that this element handles mouse input, or false if this element does not handle mouse input*/
-		virtual bool doesHandleMouseInput() const;
-		/*! Uses doesHandleMouseInput to check whether the element is touchable at the specified point or not.
-			\returns true if the element is touchable, or false if it is not*/
-		virtual bool isTouchableAtPoint(const Vector2d& point) const;
-		
 	protected:
 		/*! Updates all the child elements of this element. This function is automatically called from ScreenElement::update.
 			\param appData specifies information about the Application drawing the element, such as the Window object, the View transform, etc. \see GameLibrary::ApplicationData*/
@@ -151,25 +143,52 @@ namespace GameLibrary
 			\param window the Window pointer*/
 		virtual void onAddToWindow(Window*window);
 		
+		ScreenElement* tellChildrenHandleMouseMove(ApplicationData appData, unsigned int mouseIndex, Vector2d mousepos);
+		void tellChildrenElementHandledMouseMove(ApplicationData appData, unsigned int mouseIndex, Vector2d mousepos, ScreenElement* element);
+		ScreenElement* tellChildrenHandleMousePress(ApplicationData appData, unsigned int mouseIndex, Mouse::Button button, Vector2d mousepos);
+		void tellChildrenElementHandledMousePress(ApplicationData appData, unsigned int mouseIndex, Mouse::Button button, Vector2d mousepos, ScreenElement* element);
+		ScreenElement* tellChildrenHandleMouseRelease(ApplicationData appData, unsigned int mouseIndex, Mouse::Button button, Vector2d mousepos);
+		void tellChildrenElementHandledMouseRelease(ApplicationData appData, unsigned int mouseIndex, Mouse::Button button, Vector2d mousepos, ScreenElement* element);
+		void tellChildrenHandleMouseDisconnect(ApplicationData appData, unsigned int mouseIndex);
+		
+		ScreenElement* tellChildrenHandleTouchMove(ApplicationData appData, unsigned int touchID, Vector2d touchpos);
+		void tellChildrenElementHandledTouchMove(ApplicationData appData, unsigned int touchID, Vector2d touchpos, ScreenElement* element);
+		ScreenElement* tellChildrenHandleTouchBegin(ApplicationData appData, unsigned int touchID, Vector2d touchpos);
+		void tellChildrenElementHandledTouchBegin(ApplicationData appData, unsigned int touchID, Vector2d touchpos, ScreenElement* element);
+		ScreenElement* tellChildrenHandleTouchEnd(ApplicationData appData, unsigned int touchID, Vector2d touchpos);
+		void tellChildrenElementHandledTouchEnd(ApplicationData appData, unsigned int touchID, Vector2d touchpos, ScreenElement* element);
+		
 	private:
 		Window*window;
-
+		
 		RectangleD frame;
-
+		
 		Screen*screen;
 		ScreenElement* parentElement;
 		ArrayList<ScreenElement*> childElements;
-		ArrayList<ScreenElement*> removedChildElements;
 		
 		AutoLayoutManager autoLayoutMgr;
-
-		mutable bool updatingElements;
-
+		
 		bool visible;
 		bool clipsToFrame;
 		Color backgroundColor;
-
+		
 		virtual void setWindow(Window*window);
 		void autoLayoutFrame();
+		
+		virtual ScreenElement* handleMouseMove(const ApplicationData& appData, unsigned int mouseIndex, const Vector2d& mousepos);
+		virtual void elementHandledMouseMove(const ApplicationData& appData, unsigned int mouseIndex, const Vector2d& mousepos, ScreenElement* element);
+		virtual ScreenElement* handleMousePress(const ApplicationData& appData, unsigned int mouseIndex, Mouse::Button button, const Vector2d& mousepos);
+		virtual void elementHandledMousePress(const ApplicationData& appData, unsigned int mouseIndex, Mouse::Button button, const Vector2d& mousepos, ScreenElement* element);
+		virtual ScreenElement* handleMouseRelease(const ApplicationData& appData, unsigned int mouseIndex, Mouse::Button button, const Vector2d& mousepos);
+		virtual void elementHandledMouseRelease(const ApplicationData& appData, unsigned int mouseIndex, Mouse::Button button, const Vector2d& mousepos, ScreenElement* element);
+		virtual void handleMouseDisconnect(const ApplicationData& appData, unsigned int mouseIndex);
+		
+		virtual ScreenElement* handleTouchMove(const ApplicationData& appData, unsigned int touchID, const Vector2d& touchpos);
+		virtual void elementHandledTouchMove(const ApplicationData& appData, unsigned int touchID, const Vector2d& touchpos, ScreenElement* element);
+		virtual ScreenElement* handleTouchBegin(const ApplicationData& appData, unsigned int touchID, const Vector2d& touchpos);
+		virtual void elementHandledTouchBegin(const ApplicationData& appData, unsigned int touchID, const Vector2d& touchpos, ScreenElement* element);
+		virtual ScreenElement* handleTouchEnd(const ApplicationData& appData, unsigned int touchID, const Vector2d& touchpos);
+		virtual void elementHandledTouchEnd(const ApplicationData& appData, unsigned int touchID, const Vector2d& touchpos, ScreenElement* element);
 	};
 }

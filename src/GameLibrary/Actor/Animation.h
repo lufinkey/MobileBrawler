@@ -65,9 +65,6 @@ namespace GameLibrary
 		Animation& operator=(const Animation&);
 		
 		
-		/*! Called by GameLibrary::SpriteActor::update if Animation is the current Animation. Does nothing by default.
-			\param appData specifies information about the Application updating the Animation, such as the Window object, the View transform, etc. \see GameLibrary::ApplicationData*/
-		virtual void update(ApplicationData appData) override;
 		/*! Called by GameLibrary::SpriteActor::draw if Animation is the current Animation. Draws the animation to the screen using the specified Graphics object
 			\param appData specifies information about the Application updating the Animation, such as the Window object, the View transform, etc. \see GameLibrary::ApplicationData
 			\param graphics the graphics object used to draw the Animation*/

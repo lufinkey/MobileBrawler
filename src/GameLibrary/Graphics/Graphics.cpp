@@ -263,6 +263,17 @@ namespace GameLibrary
 
 	Font* Graphics::getDefaultFont()
 	{
+		if(defaultFont == nullptr)
+		{
+			defaultFont = new Font();
+			String error;
+			bool success = defaultFont->loadFromFile(defaultFontPath, 24, &error);
+			if(!success)
+			{
+				Console::writeLine(error);
+			}
+			defaultFont->setAntialiasing(true);
+		}
 		return defaultFont;
 	}
 	

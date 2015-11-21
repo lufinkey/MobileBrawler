@@ -117,17 +117,17 @@ namespace GameLibrary
 			\param window the window that contains the touch instance
 			\param touchID the touch instance ID
 			\param touchpos the touch instance coordinates, relative to the window*/
-		virtual void onMultitouchDown(Window*window, unsigned int touchID, const Vector2d&touchpos){}
+		virtual void onTouchBegin(Window*window, unsigned int touchID, const Vector2d&touchpos){}
 		/*! Called when a touch instance is destroyed on a Window.
 			\param window the window that contained the touch instance
 			\param touchID the touch instance ID
 			\param touchpos the last touch instance coordinates, relative to the window*/
-		virtual void onMultitouchUp(Window*window, unsigned int touchID, const Vector2d&touchpos){}
+		virtual void onTouchEnd(Window*window, unsigned int touchID, const Vector2d&touchpos){}
 		/*! Called when a touch instance changes position inside a Window.
 			\param window the window that contains the touch instance
 			\param touchID the touch instance ID
 			\param touchpos the current touch instance coordinates, relative to the window
 			\param touchdif the change in the position of the touch instance from the previous position*/
-		virtual void onMultitouchMove(Window*window, unsigned int touchID, const Vector2d&touchpos, const Vector2d&touchdif){}
+		virtual void onTouchMove(Window*window, unsigned int touchID, const Vector2d&touchpos, const Vector2d&touchdif){}
 	};
 }

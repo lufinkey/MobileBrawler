@@ -17,7 +17,7 @@ namespace GameLibrary
 		Window*window;
 		bool state[4];
 	} MouseData;
-
+	
 	MouseData Mouse_createMouseData(Window*window, unsigned int mouseIndex, const Vector2d&position);
 	unsigned int Mouse_indexOfData(const ArrayList<MouseData>&mouseDataList, Window*window, unsigned int mouseIndex);
 	unsigned int Mouse_indexOfData(const ArrayList<MouseData>&mouseDataList, Window*window);

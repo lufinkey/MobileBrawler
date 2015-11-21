@@ -166,6 +166,7 @@
     <ClCompile Include="src\GameLibrary\Screen\UI\ImageElement.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\UI\MenuScreen.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\UI\TextInputElement.cpp" />
+    <ClCompile Include="src\GameLibrary\Screen\UI\TouchElement.cpp" />
     <ClCompile Include="src\GameLibrary\Screen\UI\ZoomPanElement.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\BitList.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\BitSet.cpp" />
@@ -297,8 +298,10 @@
     <ClInclude Include="src\GameLibrary\Screen\UI\ImageElement.h" />
     <ClInclude Include="src\GameLibrary\Screen\UI\MenuScreen.h" />
     <ClInclude Include="src\GameLibrary\Screen\UI\TextInputElement.h" />
+    <ClInclude Include="src\GameLibrary\Screen\UI\TouchElement.h" />
     <ClInclude Include="src\GameLibrary\Screen\UI\ZoomPanElement.h" />
     <ClInclude Include="src\GameLibrary\Screen\Updateable.h" />
+    <ClInclude Include="src\GameLibrary\Screen\UpdateDrawable.h" />
     <ClInclude Include="src\GameLibrary\Types.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Any.h" />
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h" />

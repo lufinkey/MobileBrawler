@@ -5,6 +5,7 @@
 
 namespace GameLibrary
 {
+	/*! An interface class representing an entity that should be updated every frame*/
 	class Updateable
 	{
 	public:

@@ -74,7 +74,7 @@ namespace GameLibrary
 		//UI
 		class ActorMenuElement;
 		class ImageElement;
-		class ScrollElement;
+		class ZoomPanElement;
 		class TextInputElement;
 	class Screen;
 		class MenuScreen;

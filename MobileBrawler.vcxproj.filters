@@ -519,6 +519,9 @@
     <ClCompile Include="src\GameLibrary\Screen\AutoLayoutCalculator.cpp">
       <Filter>src\GameLibrary\Screen</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameLibrary\Screen\UI\TouchElement.cpp">
+      <Filter>src\GameLibrary\Screen\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLibrary\Utilities\ArrayList.h">
@@ -952,6 +955,9 @@
     </ClInclude>
     <ClInclude Include="src\GameLibrary\Screen\AutoLayoutCalculator.h">
       <Filter>src\GameLibrary\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLibrary\Screen\UI\TouchElement.h">
+      <Filter>src\GameLibrary\Screen\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

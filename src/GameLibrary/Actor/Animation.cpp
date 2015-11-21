@@ -358,26 +358,6 @@ namespace GameLibrary
 			return RectangleD(left, top, width, height);
 		}
 	}
-	
-	void Animation::update(ApplicationData appData)
-	{
-		/*unsigned int updateFrame = currentFrame;
-		unsigned int totalFrames = frames.size();
-		if(updateFrame > totalFrames)
-		{
-			if(totalFrames>0)
-			{
-				updateFrame = (totalFrames-1);
-			}
-			else
-			{
-				updateFrame = 0;
-			}
-		}
-		AnimationFrame& animFrame = frames.get(updateFrame);
-		TextureImage* img = appData.getAssetManager()->getTexture(animFrame.file);
-		animFrame.img = img;*/
-	}
 
 	void Animation::draw(ApplicationData appData, Graphics graphics) const
 	{

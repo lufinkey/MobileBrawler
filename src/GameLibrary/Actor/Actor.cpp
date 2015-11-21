@@ -10,16 +10,18 @@ namespace GameLibrary
 		: target(nullptr),
 		eventType(EVENTTYPE_NONE),
 		appData(ApplicationData(nullptr, nullptr, nullptr, TimeInterval(), TransformD(), 0)),
-		mouseIndex(-1)
+		mouseIndex(-1),
+		multitouch(false)
 	{
 		//
 	}
 	
-	ActorMouseEvent::ActorMouseEvent(Actor* target, const ActorMouseEvent::EventType& eventType, const ApplicationData& appData, unsigned int mouseIndex)
+	ActorMouseEvent::ActorMouseEvent(Actor* target, const ActorMouseEvent::EventType& eventType, const ApplicationData& appData, unsigned int mouseIndex, bool multitouch)
 		: target(target),
 		eventType(eventType),
 		appData(appData),
-		mouseIndex(mouseIndex)
+		mouseIndex(mouseIndex),
+		multitouch(multitouch)
 	{
 		//
 	}
@@ -28,7 +30,8 @@ namespace GameLibrary
 		: target(event.target),
 		eventType(event.eventType),
 		appData(event.appData),
-		mouseIndex(event.mouseIndex)
+		mouseIndex(event.mouseIndex),
+		multitouch(event.multitouch)
 	{
 		//
 	}
@@ -39,6 +42,7 @@ namespace GameLibrary
 		eventType = event.eventType;
 		appData = event.appData;
 		mouseIndex = event.mouseIndex;
+		multitouch = event.multitouch;
 		return *this;
 	}
 	
@@ -60,6 +64,11 @@ namespace GameLibrary
 	unsigned int ActorMouseEvent::getMouseIndex() const
 	{
 		return mouseIndex;
+	}
+	
+	bool ActorMouseEvent::isMultitouchEvent() const
+	{
+		return multitouch;
 	}
 	
 	Actor::Actor()
@@ -486,7 +495,7 @@ namespace GameLibrary
 		{
 			touchIDs.add(i);
 		}
-
+		
 		ArrayList<unsigned int> unlistedIDs = getDifTouchData(touchIDs);
 		for(unsigned int i = 0; i < unlistedIDs.size(); i++)
 		{
@@ -495,7 +504,7 @@ namespace GameLibrary
 			if(touchData != nullptr)
 			{
 				removeTouchData(touchID);
-				mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSERELEASE, appData, touchID));
+				mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSERELEASE, appData, touchID, false));
 			}
 		}
 
@@ -517,7 +526,7 @@ namespace GameLibrary
 					else
 					{
 						applyTouchData(touchID, false);
-						mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSERELEASE, appData, touchID));
+						mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSERELEASE, appData, touchID, false));
 					}
 				}
 				else if(isTouchDataActive(touchID))
@@ -528,7 +537,7 @@ namespace GameLibrary
 						clicked = true;
 						if(!Mouse::wasButtonPressed(window, touchID, Mouse::BUTTON_LEFT))
 						{
-							mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSEPRESS, appData, touchID));
+							mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSEPRESS, appData, touchID, false));
 						}
 					}
 					else
@@ -536,18 +545,18 @@ namespace GameLibrary
 						applyTouchData(touchID, false);
 						if(Mouse::wasButtonPressed(window, touchID, Mouse::BUTTON_LEFT))
 						{
-							mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSERELEASE, appData, touchID));
+							mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSERELEASE, appData, touchID, false));
 						}
 					}
 				}
 				else
 				{
-					mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSEENTER, appData, touchID));
+					mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSEENTER, appData, touchID, false));
 					if(Mouse::isButtonPressed(window, touchID, Mouse::BUTTON_LEFT) && !Mouse::wasButtonPressed(window, touchID, Mouse::BUTTON_LEFT))
 					{
 						applyTouchData(touchID, true);
 						clicked = true;
-						mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSEPRESS, appData, touchID));
+						mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSEPRESS, appData, touchID, false));
 					}
 					else
 					{
@@ -559,15 +568,15 @@ namespace GameLibrary
 			{
 				if(isTouchDataPressed(touchID))
 				{
-					mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSELEAVE, appData, touchID));
+					mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSELEAVE, appData, touchID, false));
 					if(!Mouse::isButtonPressed(window, touchID, Mouse::BUTTON_LEFT))
 					{
-						mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSERELEASE, appData, touchID));
+						mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSERELEASE, appData, touchID, false));
 					}
 				}
 				else if(isTouchDataActive(touchID))
 				{
-					mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSELEAVE, appData, touchID));
+					mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSELEAVE, appData, touchID, false));
 				}
 				removeTouchData(touchID);
 			}
@@ -595,7 +604,7 @@ namespace GameLibrary
 			if(touchData != nullptr)
 			{
 				removeTouchData(touchID);
-				mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSERELEASE, appData, touchID));
+				mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSERELEASE, appData, touchID, true));
 			}
 		}
 		
@@ -618,13 +627,13 @@ namespace GameLibrary
 					{
 						applyTouchData(touchID, true);
 						clicked = true;
-						mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSEPRESS, appData, touchID));
+						mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSEPRESS, appData, touchID, true));
 					}
 					else
 					{
 						applyTouchData(touchID, true);
 						clicked = true;
-						mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSEENTER, appData, touchID));
+						mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSEENTER, appData, touchID, true));
 					}
 				}
 			}
@@ -633,7 +642,7 @@ namespace GameLibrary
 				if(isTouchDataActive(touchID))
 				{
 					applyTouchData(touchID, false);
-					mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSELEAVE, appData, touchID));
+					mouseEventCalls.add(ActorMouseEvent(this, ActorMouseEvent::EVENTTYPE_MOUSELEAVE, appData, touchID, true));
 				}
 				else
 				{

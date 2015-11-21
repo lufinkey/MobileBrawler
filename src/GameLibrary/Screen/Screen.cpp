@@ -262,8 +262,16 @@ namespace GameLibrary
 			{
 				getElement();
 			}
-			element->update(appData);
 			onUpdate(appData);
+			if(Multitouch::isAvailable())
+			{
+				updateElementTouch(appData);
+			}
+			else
+			{
+				updateElementMouse(appData);
+			}
+			element->update(appData);
 		}
 		
 		TransitionData_checkInitialization(appData, overlayData);
@@ -327,7 +335,7 @@ namespace GameLibrary
 					progress = 1 - progress;
 				}
 				
-				overlayData.transition->draw(appData, graphics, progress, overlayData.screen, overlayData.transitionScreen);
+				overlayData.transition->draw(appData, graphics, progress, static_cast<Drawable*>(overlayData.screen), static_cast<Drawable*>(overlayData.transitionScreen));
 			}
 		}
 	}
@@ -682,5 +690,189 @@ namespace GameLibrary
 	const Color& Screen::getBackgroundColor() const
 	{
 		return backgroundColor; //return ScreenElement::getBackgroundColor();
+	}
+	
+#define MOUSEBUTTONS_COUNT 4
+	
+	size_t Screen::getTouchDataIndex(ArrayList<Screen::MouseTouchData>& touches, unsigned int touchID)
+	{
+		for(size_t touches_size=touches.size(), i=0; i<touches_size; i++)
+		{
+			if(touches[i].touchID==touchID)
+			{
+				return i;
+			}
+		}
+		return SIZE_MAX;
+	}
+	
+	ArrayList<unsigned int> Screen::getUnlistedTouchIDs(ArrayList<Screen::MouseTouchData>& touches, ArrayList<unsigned int>& touchIDs)
+	{
+		ArrayList<unsigned int> unlisted;
+		for(size_t touches_size=touches.size(), i=0; i<touches_size; i++)
+		{
+			MouseTouchData& touchData = touches.get(i);
+			bool found = false;
+			for(size_t j=0; j<touchIDs.size(); j++)
+			{
+				if(touchIDs.get(i) == touchData.touchID)
+				{
+					found = true;
+					j = touchIDs.size();
+				}
+			}
+
+			if(!found)
+			{
+				unlisted.add(touchData.touchID);
+			}
+		}
+		return unlisted;
+	}
+	
+	void Screen::updateElementMouse(ApplicationData& appData)
+	{
+		Window* window = appData.getWindow();
+		ScreenElement* element = getElement();
+		RectangleD frame = getFrame();
+		appData.getTransform().translate(frame.x, frame.y);
+		TransformD mouseTransform = appData.getTransform().getInverse();
+		
+		ArrayList<unsigned int> mouseIndexes;
+		unsigned int mouseCount = Mouse::getTotalMouseInstances(window);
+		mouseIndexes.resize((size_t)mouseCount);
+		for(unsigned int i=0; i<mouseCount; i++)
+		{
+			mouseIndexes[i] = i;
+		}
+		
+		ArrayList<unsigned int> unlistedIDs = getUnlistedTouchIDs(currentTouches, mouseIndexes);
+		for(size_t unlistedIDs_size=unlistedIDs.size(), i=0; i<unlistedIDs_size; i++)
+		{
+			unsigned int touchID = unlistedIDs.get(i);
+			size_t touch_index = getTouchDataIndex(currentTouches, touchID);
+			if(touch_index!=SIZE_MAX)
+			{
+				MouseTouchData& touchData = currentTouches[touch_index];
+				for(size_t j=1; j<MOUSEBUTTONS_COUNT; j++)
+				{
+					if(touchData.state[j])
+					{
+						element->handleMouseRelease(appData, touchData.touchID, (Mouse::Button)j, touchData.pos);
+					}
+				}
+				element->handleMouseDisconnect(appData, touchData.touchID);
+				currentTouches.remove(touch_index);
+			}
+		}
+		
+		for(size_t mouseIndexes_size=mouseIndexes.size(), i=0; i<mouseIndexes_size; i++)
+		{
+			unsigned int mouseIndex = mouseIndexes.get(i);
+			size_t touch_index = getTouchDataIndex(currentTouches, mouseIndex);
+			MouseTouchData* touchData_ptr = nullptr;
+			if(touch_index==SIZE_MAX)
+			{
+				MouseTouchData touchData;
+				touchData.touchID = mouseIndex;
+				touchData.pos = mouseTransform.transform(Mouse::getPosition(window, mouseIndex));
+				//TODO add mouse connect handler
+				element->handleMouseMove(appData, touchData.touchID, touchData.pos);
+				for(size_t j=0; j<MOUSEBUTTONS_COUNT; j++)
+				{
+					touchData.state[j] = Mouse::isButtonPressed(window, mouseIndex, (Mouse::Button)j);
+					if(touchData.state[j] && j!=0)
+					{
+						element->handleMousePress(appData, touchData.touchID, (Mouse::Button)j, touchData.pos);
+					}
+				}
+				currentTouches.add(touchData);
+				touchData_ptr = &currentTouches[currentTouches.size()-1];
+			}
+			else
+			{
+				touchData_ptr = &currentTouches[touch_index];
+				Vector2d mousepos = mouseTransform.transform(Mouse::getPosition(window, touchData_ptr->touchID));
+				if(mousepos!=touchData_ptr->pos)
+				{
+					//mouse moved
+					element->handleMouseMove(appData, touchData_ptr->touchID, mousepos);
+				}
+				touchData_ptr->pos = mousepos;
+			}
+			
+			MouseTouchData& touchData = *touchData_ptr;
+			
+			for(size_t j=1; j<MOUSEBUTTONS_COUNT; j++)
+			{
+				bool state = Mouse::isButtonPressed(window, touchData.touchID, (Mouse::Button)j);
+				if(touchData.state[j]!=state)
+				{
+					if(state)
+					{
+						element->handleMousePress(appData, touchData.touchID, (Mouse::Button)j, touchData.pos);
+					}
+					else
+					{
+						element->handleMouseRelease(appData, touchData.touchID, (Mouse::Button)j, touchData.pos);
+					}
+					touchData.state[j] = state;
+				}
+			}
+		}
+	}
+	
+	void Screen::updateElementTouch(ApplicationData& appData)
+	{
+		Window* window = appData.getWindow();
+		ScreenElement* element = getElement();
+		RectangleD frame = getFrame();
+		appData.getTransform().translate(frame.x, frame.y);
+		TransformD touchTransform = appData.getTransform().getInverse();
+
+		ArrayList<unsigned int> touchIDs = Multitouch::getTouchIDs(window);
+
+		ArrayList<unsigned int> unlistedIDs = getUnlistedTouchIDs(currentTouches, touchIDs);
+		for(size_t unlistedIDs_size=unlistedIDs.size(), i=0; i<unlistedIDs_size; i++)
+		{
+			unsigned int touchID = unlistedIDs.get(i);
+			size_t touch_index = getTouchDataIndex(currentTouches, touchID);
+			if(touch_index!=SIZE_MAX)
+			{
+				MouseTouchData& touchData = currentTouches[touch_index];
+				element->handleTouchEnd(appData, touchData.touchID, touchData.pos);
+				currentTouches.remove(touch_index);
+			}
+		}
+		
+		for(size_t touchIDs_size=touchIDs.size(), i=0; i<touchIDs_size; i++)
+		{
+			unsigned int touchID = touchIDs.get(i);
+			size_t touch_index = getTouchDataIndex(currentTouches, touchID);
+			if(touch_index==SIZE_MAX)
+			{
+				MouseTouchData touchData;
+				touchData.touchID = touchID;
+				touchData.pos = touchTransform.transform(Multitouch::getPosition(window, touchID));
+				for(size_t j=0; j<MOUSEBUTTONS_COUNT; j++)
+				{
+					touchData.state[j] = false;
+				}
+				touchData.state[Mouse::BUTTON_LEFT] = true; //for backwards compatibility
+				element->handleTouchBegin(appData, touchData.touchID, touchData.pos);
+				currentTouches.add(touchData);
+			}
+			else
+			{
+				MouseTouchData& touchData = currentTouches[touch_index];
+				Vector2d touchpos = touchTransform.transform(Multitouch::getPosition(window, touchData.touchID));
+				if(touchpos!=touchData.pos)
+				{
+					//touch moved
+					element->handleTouchMove(appData, touchData.touchID, touchpos);
+				}
+				touchData.pos = touchpos;
+			}
+		}
 	}
 }

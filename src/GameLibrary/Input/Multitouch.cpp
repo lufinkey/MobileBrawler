@@ -194,11 +194,11 @@ namespace GameLibrary
 			{
 				if(pressed)
 				{
-					listener->onMultitouchDown(touchData.window, touchData.touchID, touchData.position);
+					listener->onTouchBegin(touchData.window, touchData.touchID, touchData.position);
 				}
 				else
 				{
-					listener->onMultitouchUp(touchData.window, touchData.touchID, touchData.position);
+					listener->onTouchEnd(touchData.window, touchData.touchID, touchData.position);
 				}
 			}
 		}
@@ -243,7 +243,7 @@ namespace GameLibrary
 			//call MultitouchEventListener event
 			if(listener_notremoved)
 			{
-				listener->onMultitouchMove(touchData.window, touchData.touchID, touchData.position, touchdif);
+				listener->onTouchMove(touchData.window, touchData.touchID, touchData.position, touchdif);
 			}
 		}
 		Multitouch_callingListeners = false;

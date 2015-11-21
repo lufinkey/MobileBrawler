@@ -14,7 +14,7 @@ namespace GameLibrary
 	typedef void(*CompletionCallback)(void*);
 
 	/*! An drawable entity that can be used to separate different menus or screens of an Application. This class is non-copyable.*/
-	class Screen : public Drawable
+	class Screen : public UpdateDrawable
 	{
 		friend class ScreenManager;
 	public:
@@ -232,5 +232,19 @@ namespace GameLibrary
 		
 		void updateFrame(Window*window);
 		virtual void setWindow(Window*window);
+		
+		typedef struct
+		{
+			unsigned int touchID;
+			bool state[4];
+			Vector2d pos;
+		} MouseTouchData;
+		ArrayList<MouseTouchData> currentTouches;
+		
+		static size_t getTouchDataIndex(ArrayList<MouseTouchData>& touches, unsigned int touchID);
+		static ArrayList<unsigned int> getUnlistedTouchIDs(ArrayList<MouseTouchData>& touches, ArrayList<unsigned int>& touchIDs);
+		
+		void updateElementMouse(ApplicationData& appData);
+		void updateElementTouch(ApplicationData& appData);
 	};
 }

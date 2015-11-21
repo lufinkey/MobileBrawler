@@ -138,11 +138,6 @@ namespace GameLibrary
 					}
 				}
 			}
-
-			if(animation_current != nullptr)
-			{
-				animation_current->update(appData);
-			}
 		}
 	}
 

@@ -29,10 +29,14 @@ namespace SmashBros
 			mainMenu = new MainMenu(smashData);
 			transition = new FadeColorTransition(Color::WHITE, 0.6);
 			
-			tapRegion = new WireframeActor();
+			RectangleD frame = getFrame();
+			tapRegion = new WireframeActor(0, 200, frame.width, frame.height);
 			
 			getBackButton()->setVisible(false);
 			getHeaderbarElement()->setVisible(false);
+			
+			textInput = new TextInputElement(RectangleD(100, 100, 200, 60));
+			getElement()->addChildElement(textInput);
 		}
 		
 		TitleScreen::~TitleScreen()
@@ -63,7 +67,7 @@ namespace SmashBros
 			BaseMenuScreen::onFrameChange();
 			RectangleD frame = getFrame();
 			tapRegion->x = 0;
-			tapRegion->y = 0;
+			tapRegion->y = 200;
 			tapRegion->setSize(frame.width, frame.height);
 		}
 		

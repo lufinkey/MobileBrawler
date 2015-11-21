@@ -17,13 +17,13 @@ namespace GameLibrary
 		typedef enum
 		{
 			/*! Unknown or unsupported mouse button*/
-			UNKNOWN_BUTTON,
+			UNKNOWN_BUTTON=0,
 			/*! Left mouse button*/
-			BUTTON_LEFT,
+			BUTTON_LEFT=1,
 			/*! Right mouse button*/
-			BUTTON_RIGHT,
+			BUTTON_RIGHT=2,
 			/*! Middle mouse button*/
-			BUTTON_MIDDLE
+			BUTTON_MIDDLE=3
 		} Button;
 		
 		

@@ -1,7 +1,8 @@
 
 #pragma once
 
-#include "../Screen/Drawable.h"
+#include "../Screen/UpdateDrawable.h"
+#include "../Input/Mouse.h"
 
 namespace GameLibrary
 {
@@ -26,7 +27,7 @@ namespace GameLibrary
 		/*! default constructor*/
 		ActorMouseEvent();
 		/*! Constructs an ActorMouseEvent object*/
-		explicit ActorMouseEvent(Actor* target, const EventType& eventType, const ApplicationData& appData, unsigned int mouseIndex);
+		ActorMouseEvent(Actor* target, const EventType& eventType, const ApplicationData& appData, unsigned int mouseIndex, bool multitouch);
 		
 		
 		/*! Gives the target of the mouse event. The target is the Actor which the event was performed on.
@@ -41,16 +42,21 @@ namespace GameLibrary
 		/*! Gives the touchID or mouseIndex of the input. If Multitouch::isAvailable() returns true, touchID represents a multitouch id. Otherwise, touchID represents a mouse index. \see GameLibrary::Mouse \see GameLibrary::Multitouch
 			\returns an unsigned int representing an index or id*/
 		unsigned int getMouseIndex() const;
-
+		/*! Tells whether this event is a Mouse event or a Multitouch event
+			\returns true if Multitouch event, false if Mouse event*/
+		bool isMultitouchEvent() const;
+		
 	private:
 		Actor* target;
 		EventType eventType;
 		ApplicationData appData;
 		unsigned int mouseIndex;
+		//TODO add support for button attribute, representing the button changed during this event
+		bool multitouch;
 	};
 	
-	/*! An overrideable implementation of GameLibrary::Drawable that provides the necessities to create a dynamic, movable, scalable, rotatable object that can be updated and drawn.*/
-	class Actor : public Drawable
+	/*! An overrideable implementation of GameLibrary::UpdateDrawable that provides the necessities to create a dynamic, movable, scalable, rotatable object that can be updated and drawn.*/
+	class Actor : public UpdateDrawable
 	{
 		friend class SpriteActor;
 		friend class TextActor;
@@ -244,7 +250,7 @@ namespace GameLibrary
 			\param point an (x,y) coordinate to check.
 			\returns true if the point collides with the Actor, false if otherwise.
 			\note this function is inefficient in loops. It should be used for checking single pixels, and not for pixel level collisions.*/
-		virtual bool checkPointCollision(const Vector2d&point);
+		virtual bool checkPointCollision(const Vector2d& point);
 		
 	private:
 		double width;
@@ -277,16 +283,16 @@ namespace GameLibrary
 			bool pressed;
 		} MouseTouchData;
 		ArrayList<MouseTouchData> currentTouches;
-
+		
 		bool isTouchDataActive(unsigned int touchID);
 		bool isTouchDataPressed(unsigned int touchID);
 		void applyTouchData(unsigned int touchID, bool pressed);
 		void removeTouchData(unsigned int touchID);
 		MouseTouchData* getTouchData(unsigned int touchID);
 		ArrayList<unsigned int> getDifTouchData(const ArrayList<unsigned int>&touchIDs);
-
-		void updateMouse(ApplicationData&appData);
-		void updateTouch(ApplicationData&appData);
-		void callMouseEvents(ApplicationData&appData, const ArrayList<ActorMouseEvent>& eventCallData);
+		
+		void updateMouse(ApplicationData& appData);
+		void updateTouch(ApplicationData& appData);
+		void callMouseEvents(ApplicationData& appData, const ArrayList<ActorMouseEvent>& eventCallData);
 	};
 }

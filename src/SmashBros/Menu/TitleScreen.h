@@ -16,6 +16,8 @@ namespace SmashBros
 			ImageElement* logo;
 			WireframeActor* tapRegion;
 			
+			TextInputElement* textInput;
+			
 		public:
 			explicit TitleScreen(const SmashData&smashData);
 			virtual ~TitleScreen();

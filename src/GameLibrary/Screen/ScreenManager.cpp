@@ -162,11 +162,11 @@ namespace GameLibrary
 					progress = 1 - progress;
 				}
 
-				pushpopData.transition->draw(appData, graphics, progress, pushpopData.screen, pushpopData.transitionScreen);
+				pushpopData.transition->draw(appData, graphics, progress, static_cast<Drawable*>(pushpopData.screen), static_cast<Drawable*>(pushpopData.transitionScreen));
 			}
 		}
 	}
-
+	
 	void ScreenManager::draw(ApplicationData appData, Graphics graphics) const
 	{
 		if(overlayData.action==TRANSITION_NONE)

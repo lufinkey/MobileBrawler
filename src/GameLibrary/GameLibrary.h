@@ -52,6 +52,7 @@
 #include "Screen/AutoLayoutManager.h"
 #include "Screen/Updateable.h"
 #include "Screen/Drawable.h"
+#include "Screen/UpdateDrawable.h"
 #include "Screen/ScreenElement.h"
 #include "Screen/Screen.h"
 #include "Screen/ScreenManager.h"
@@ -63,6 +64,7 @@
 #include "Screen/UI/ActorMenuElement.h"
 #include "Screen/UI/ImageElement.h"
 #include "Screen/UI/MenuScreen.h"
+#include "Screen/UI/TextInputElement.h"
 #include "Screen/UI/ZoomPanElement.h"
 
 #include "Utilities/Any.h"
