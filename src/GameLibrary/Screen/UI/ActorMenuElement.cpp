@@ -283,7 +283,9 @@ namespace GameLibrary
 		}
 		actors.add(actor);
 		AutoLayoutManager* layoutMgr = new AutoLayoutManager();
+		layoutMgr->setOffsetByContainer(true);
 		actorLayoutMgrs.add(layoutMgr);
+		actor->scaleToFit(layoutMgr->calculateFrame(actor->getFrame(), getFrame()));
 		return actors.size()-1;
 	}
 	
@@ -299,7 +301,9 @@ namespace GameLibrary
 		layoutMgr->setRule(LAYOUTRULE_TOP, bounds.top, LAYOUTVALUE_RATIO);
 		layoutMgr->setRule(LAYOUTRULE_RIGHT, bounds.right, LAYOUTVALUE_RATIO);
 		layoutMgr->setRule(LAYOUTRULE_BOTTOM, bounds.bottom, LAYOUTVALUE_RATIO);
+		layoutMgr->setOffsetByContainer(true);
 		actorLayoutMgrs.add(layoutMgr);
+		actor->scaleToFit(layoutMgr->calculateFrame(actor->getFrame(), getFrame()));
 		return actors.size()-1;
 	}
 	
