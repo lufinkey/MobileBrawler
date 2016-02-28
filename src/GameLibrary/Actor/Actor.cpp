@@ -71,30 +71,31 @@ namespace GameLibrary
 		return multitouch;
 	}
 	
-	Actor::Actor()
+	Actor::Actor() :
+		x(0),
+		y(0),
+		prevx(0),
+		prevy(0),
+		width(0),
+		height(0),
+		clicked(false),
+		prevclicked(false),
+		mouseover(false),
+		prevmouseover(false),
+		didpress(false),
+		didrelease(false),
+		visible(true),
+		mirroredHorizontal(false),
+		mirroredVertical(false),
+		frame_visible(false),
+		mouseEventsEnabled(true),
+		color(Color::WHITE),
+		frame_color(Color::GREEN),
+		rotation(0),
+		alpha(1),
+		scale(1)
 	{
-		x = 0;
-		y = 0;
-		prevx = 0;
-		prevy = 0;
-		width = 0;
-		height = 0;
-		
-		clicked = false;
-		prevclicked = false;
-		mouseover = false;
-		prevmouseover = false;
-		didpress = false;
-		didrelease = false;
-		visible = true;
-		mirroredHorizontal = false;
-		mirroredVertical = false;
-		frame_visible = false;
-		color = Color::WHITE;
-		frame_color = Color::GREEN;
-		rotation = 0;
-		alpha = 1;
-		scale = 1;
+		//
 	}
 	
 	Actor::~Actor()
@@ -107,18 +108,21 @@ namespace GameLibrary
 		prevx = x;
 		prevy = y;
 		
-		didpress = false;
-		didrelease = false;
-		prevclicked = clicked;
-		prevmouseover = mouseover;
+		if(mouseEventsEnabled)
+		{
+			didpress = false;
+			didrelease = false;
+			prevclicked = clicked;
+			prevmouseover = mouseover;
 
-		if(Multitouch::isAvailable())
-		{
-			updateTouch(appData);
-		}
-		else
-		{
-			updateMouse(appData);
+			if(Multitouch::isAvailable())
+			{
+				updateTouch(appData);
+			}
+			else
+			{
+				updateMouse(appData);
+			}
 		}
 	}
 	
@@ -277,6 +281,11 @@ namespace GameLibrary
 		updateSize();
 	}
 	
+	void Actor::setMouseEventsEnabled(bool enabled)
+	{
+		mouseEventsEnabled = enabled;
+	}
+	
 	bool Actor::isVisible() const
 	{
 		return visible;
@@ -320,6 +329,11 @@ namespace GameLibrary
 	bool Actor::isMirroredVertical() const
 	{
 		return mirroredVertical;
+	}
+	
+	bool Actor::areMouseEventsEnabled() const
+	{
+		return mouseEventsEnabled;
 	}
 	
 	bool Actor::isMouseOver() const

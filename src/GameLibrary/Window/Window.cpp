@@ -142,7 +142,7 @@ namespace GameLibrary
 			RectangleI displayBounds = getDisplayBounds(0);
 			return WindowSettings(Vector2i(0,0), Vector2u((unsigned int)displayBounds.width, (unsigned int)displayBounds.height), "", nullptr, Color::WHITE, Window::STYLE_BORDERLESS);
 		#else
-			return WindowSettings(Vector2i(Window::POSITION_UNDEFINED, Window::POSITION_UNDEFINED), Vector2u(640, 480), "", nullptr, Color::WHITE, Window::STYLE_DEFAULT);
+			return WindowSettings(Vector2i(Window::POSITION_UNDEFINED, Window::POSITION_UNDEFINED), Vector2u(640, 480), "", nullptr, Color::WHITE, Window::STYLE_RESIZABLE);
 		#endif
 	}
 	
@@ -318,6 +318,69 @@ namespace GameLibrary
 	{
 		if(windowdata!=nullptr)
 		{
+			if(graphics->renderTarget!=nullptr)
+			{
+				SDL_SetRenderTarget((SDL_Renderer*)graphics->renderer, nullptr);
+				if(view==nullptr || view->matchesWindow())
+				{
+					SDL_SetRenderDrawColor((SDL_Renderer*)graphics->renderer, 0, 0, 0, 0);
+					SDL_RenderClear((SDL_Renderer*)graphics->renderer);
+					Vector2u windowSize = getSize();
+					SDL_Rect dstRect;
+					dstRect.x = 0;
+					dstRect.y = 0;
+					dstRect.w = (int)windowSize.x;
+					dstRect.h = (int)windowSize.y;
+					SDL_RenderCopy((SDL_Renderer*)graphics->renderer, (SDL_Texture*)graphics->renderTarget, nullptr, &dstRect);
+				}
+				else if(view->isLetterboxed())
+				{
+					SDL_SetRenderDrawColor((SDL_Renderer*)graphics->renderer, 0, 0, 0, 0);
+					SDL_RenderClear((SDL_Renderer*)graphics->renderer);
+					
+					double multScale = 1;
+					Vector2d winSize = (Vector2d)getSize();
+					Vector2d viewSize((double)graphics->renderTarget_width, (double)graphics->renderTarget_height);
+					double ratX = winSize.x /viewSize.x;
+					double ratY = winSize.y /viewSize.y;
+					if(ratX<ratY)
+					{
+						multScale = ratX;
+					}
+					else
+					{
+						multScale = ratY;
+					}
+
+					double fixedWidth = viewSize.x*multScale;
+					double fixedHeight = viewSize.y*multScale;
+					
+					double letterBoxW = (winSize.x - fixedWidth)/2;
+					double letterBoxH = (winSize.y - fixedHeight)/2;
+					
+					SDL_Rect dstRect;
+					dstRect.x = (int)letterBoxW;
+					dstRect.y = (int)letterBoxH;
+					dstRect.w = (int)(winSize.x-(2*letterBoxW));
+					dstRect.h = (int)(winSize.y-(2*letterBoxH));
+					
+					SDL_RenderSetClipRect((SDL_Renderer*)graphics->renderer, nullptr);
+					SDL_RenderCopy((SDL_Renderer*)graphics->renderer, (SDL_Texture*)graphics->renderTarget, nullptr, &dstRect);
+				}
+				else
+				{
+					SDL_SetRenderDrawColor((SDL_Renderer*)graphics->renderer, 0, 0, 0, 0);
+					SDL_RenderClear((SDL_Renderer*)graphics->renderer);
+					
+					SDL_Rect dstRect;
+					dstRect.x = 0;
+					dstRect.y = 0;
+					dstRect.w = (int)graphics->renderTarget_width;
+					dstRect.h = (int)graphics->renderTarget_height;
+					
+					SDL_RenderCopy((SDL_Renderer*)graphics->renderer, (SDL_Texture*)graphics->renderTarget, nullptr, &dstRect);
+				}
+			}
 			//SDL_GL_SwapWindow((SDL_Window*)windowdata);
 			SDL_RenderPresent((SDL_Renderer*)graphics->renderer);
 			graphics->reset(settings.getBackgroundColor());
@@ -356,7 +419,7 @@ namespace GameLibrary
 		}
 	}
 	
-	Image*Window::capture()
+	Image* Window::capture()
 	{
 		if(windowdata == nullptr)
 		{
@@ -664,15 +727,18 @@ namespace GameLibrary
 		listenermutex.unlock();
 	}
 	
-	void Window::callListenerEvent(byte eventType, int x, int y, bool external)
+	void Window::callListenerEvent(byte eventType, int x, int y, bool external, bool* returnVal)
 	{
 		listenermutex.lock();
 		ArrayList<WindowEventListener*> listeners = eventListeners;
 		listenermutex.unlock();
 		
+		bool closeWindowCatch = true;
+		
 		for(unsigned int i = 0; i<listeners.size(); i++)
 		{
 			WindowEventListener* listener = listeners.get(i);
+			bool returnCatch = false;
 			switch(eventType)
 			{
 				case SDL_WINDOWEVENT_SHOWN:
@@ -725,7 +791,15 @@ namespace GameLibrary
 				break;
 				
 				case SDL_WINDOWEVENT_CLOSE:
-				listener->onWindowClose(this);
+				returnCatch = listener->onWindowClose(this);
+				if(!returnCatch)
+				{
+					closeWindowCatch = false;
+				}
+				if(returnVal!=nullptr)
+				{
+					*returnVal = closeWindowCatch;
+				}
 				break;
 			}
 		}
@@ -893,8 +967,8 @@ namespace GameLibrary
 		//
 	}
 
-	void WindowEventListener::onWindowClose(Window*window)
+	bool WindowEventListener::onWindowClose(Window*window)
 	{
-		//
+		return true;
 	}
 }

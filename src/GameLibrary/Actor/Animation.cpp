@@ -361,29 +361,35 @@ namespace GameLibrary
 
 	void Animation::draw(ApplicationData appData, Graphics graphics) const
 	{
-		size_t drawFrame = currentFrame;
+		size_t frameNum = currentFrame;
 		size_t totalFrames = frames.size();
 		if(totalFrames == 0)
 		{
 			return;
 		}
-		if(drawFrame > totalFrames)
+		if(frameNum > totalFrames)
 		{
 			if(totalFrames>0)
 			{
-				drawFrame = (totalFrames-1);
+				frameNum = (totalFrames-1);
 			}
 			else
 			{
-				drawFrame = 0;
+				frameNum = 0;
 			}
 		}
+
+		RectangleD dstRect = getFrame(frameNum);
 		
-		const AnimationFrame& animFrame = frames.get(drawFrame);
-
-		RectangleD dstRect = getFrame(drawFrame);
+		drawFrame(appData, graphics, frameNum, dstRect);
+	}
+	
+	void Animation::drawFrame(ApplicationData& appData, Graphics& graphics, size_t frameNum, const RectangleD& dstRect) const
+	{
+		const AnimationFrame& animFrame = frames.get(frameNum);
+		
 		RectangleU srcRect = animFrame.getSourceRect();
-
+		
 		double dst_left = dstRect.x;
 		double dst_top = dstRect.y;
 		double dst_right = dst_left + dstRect.width;

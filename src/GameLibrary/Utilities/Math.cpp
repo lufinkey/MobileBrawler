@@ -66,6 +66,18 @@ namespace GameLibrary
 	long double Math::abs(long double arg){ return std::abs(arg); }
 	int Math::abs(int arg){ return std::abs(arg); }
 	long Math::abs(long arg){ return std::abs(arg); }
+	
+	//Min and Max
+	double Math::min(double a, double b) { return (a<b) ? a : b; }
+	float Math::min(float a, float b) { return (a<b) ? a : b; }
+	long double Math::min(long double a, long double b) { return (a<b) ? a : b; }
+	int Math::min(int a, int b) { return (a<b) ? a : b; }
+	long Math::min(long a, long b) { return (a<b) ? a : b; }
+	double Math::max(double a, double b) { return (a>b) ? a : b; }
+	float Math::max(float a, float b) { return (a>b) ? a : b; }
+	long double Math::max(long double a, long double b) { return (a>b) ? a : b; }
+	int Math::max(int a, int b) { return (a>b) ? a : b; }
+	long Math::max(long a, long b) { return (a>b) ? a : b; }
 
 	//Angle Conversions
 	double Math::degtorad(double deg){ return deg * PI / 180; }

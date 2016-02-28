@@ -34,7 +34,7 @@ namespace GameLibrary
 		void stop();
 		void reset();
 		
-		long long getMilliseconds() const;
+		const long long& getMilliseconds() const;
 		
 		String toString() const;
 		

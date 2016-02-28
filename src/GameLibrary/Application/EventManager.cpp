@@ -74,6 +74,7 @@ namespace GameLibrary
 		}
 		EventManager_windows_mutex.unlock();
 		Mouse::removeWindow(window);
+		Multitouch::removeWindow(window);
 	}
 	
 	bool EventManager::recievedQuitRequest()
@@ -203,10 +204,14 @@ namespace GameLibrary
 						{
 							if(event.window.event == SDL_WINDOWEVENT_CLOSE)
 							{
-								window->destroy();
+								bool closeWin = true;
+								window->callListenerEvent(event.window.event, event.window.data1, event.window.data2, false, &closeWin);
+								if(closeWin)
+								{
+									window->destroy();
+								}
 							}
-							
-							if(event.window.event!=SDL_WINDOWEVENT_SIZE_CHANGED)
+							else if(event.window.event!=SDL_WINDOWEVENT_SIZE_CHANGED)
 							{
 								window->callListenerEvent(event.window.event, event.window.data1, event.window.data2, false);
 							}

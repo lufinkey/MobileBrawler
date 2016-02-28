@@ -124,7 +124,7 @@ namespace GameLibrary
 	}
 	
 	Pair<size_t, size_t> Dictionary_getParsePosition(const void*ptr, size_t offset);
-	bool Dictionary_parse(const void*ptr, pugi::xml_node, const String&type, String*error);
+	bool Dictionary_parse(const void*ptr, pugi::xml_node&node, Any&any, String*error);
 	bool Dictionary_parseDictionary(const void*ptr, pugi::xml_node&node, Dictionary&dictionary, String*error);
 	bool Dictionary_parseArray(const void*ptr, pugi::xml_node&node, ArrayList<Any>&arraylist, String*error);
 	bool Dictionary_parseDate(const void*ptr, pugi::xml_node&node, Any&any, String*error);
@@ -565,7 +565,7 @@ namespace GameLibrary
 		{
 			size_t index = arraylist.size();
 			arraylist.add(Any());
-			bool result = Dictionary_parse(ptr, node, arraylist.get(index), error);
+			bool result = Dictionary_parse(ptr, *it, arraylist.get(index), error);
 			if(!result)
 			{
 				return false;

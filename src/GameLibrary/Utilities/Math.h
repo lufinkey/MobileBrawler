@@ -67,6 +67,18 @@ namespace GameLibrary
 		static long double abs(long double arg);
 		static int abs(int arg);
 		static long abs(long arg);
+		
+		//Min and Max
+		static double min(double a, double b);
+		static float min(float a, float b);
+		static long double min(long double a, long double b);
+		static int min(int a, int b);
+		static long min(long a, long b);
+		static double max(double a, double b);
+		static float max(float a, float b);
+		static long double max(long double a, long double b);
+		static int max(int a, int b);
+		static long max(long a, long b);
 
 		//Angle Conversions
 		static double degtorad(double deg);

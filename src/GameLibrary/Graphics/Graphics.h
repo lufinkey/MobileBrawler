@@ -21,7 +21,7 @@ namespace GameLibrary
 		/*! virtual destructor*/
 		virtual ~Graphics();
 		/*! assignment operator*/
-		Graphics& operator=(const Graphics&);
+		Graphics& operator=(const Graphics&) = delete;
 		
 		
 		/*! Gets the default Graphics font.
@@ -245,6 +245,9 @@ namespace GameLibrary
 	private:
 		Window*window;
 		void*renderer;
+		void*renderTarget;
+		unsigned int renderTarget_width;
+		unsigned int renderTarget_height;
 
 		Color color;
 		Color tintColor;

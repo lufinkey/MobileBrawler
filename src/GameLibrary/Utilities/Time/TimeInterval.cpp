@@ -163,7 +163,7 @@ namespace GameLibrary
 		lastmillis = TimeInterval_getCurrentMilliseconds();
 	}
 
-	long long TimeInterval::getMilliseconds() const
+	const long long& TimeInterval::getMilliseconds() const
 	{
 		if(running)
 		{

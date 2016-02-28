@@ -108,6 +108,13 @@ namespace GameLibrary
 			return width*height;
 		}
 		
+		/*! Calculates the center of the rectangle (x+width/2, y+height/2)
+			\returns a Vector2 point with the coordinates of the center of the rectangle*/
+		Vector2<T> getCenter() const
+		{
+			return Vector2<T>(x+(width/2), y+(height/2));
+		}
+		
 		/*! Gets a rectangle of the overlap between this rectangle and a given rectangle.
 			\param rect the rectangle to check the overlap with
 			\returns a rectangle representing the overlap, or a Rectangle containing a width and height of 0 if the rectangle is not overlapping*/

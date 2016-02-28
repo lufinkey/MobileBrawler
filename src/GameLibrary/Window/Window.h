@@ -61,21 +61,6 @@ namespace GameLibrary
 	{
 		friend class EventManager;
 		friend class Graphics;
-	private:
-		void*windowdata;
-		unsigned int windowID;
-		void*icondata;
-		View*view;
-		Graphics*graphics;
-		AssetManager*assetManager;
-		WindowSettings settings;
-		Vector2u windowed_size;
-
-		ArrayList<WindowEventListener*> eventListeners;
-		std::mutex listenermutex;
-
-		void callListenerEvent(byte eventType, int x, int y, bool external);
-
 	public:
 		enum WindowStyle
 		{
@@ -146,6 +131,21 @@ namespace GameLibrary
 
 		void getHandlePtr(void*ptr) const;
 		void*getWindowData() const;
+		
+	private:
+		void*windowdata;
+		unsigned int windowID;
+		void*icondata;
+		View*view;
+		Graphics*graphics;
+		AssetManager*assetManager;
+		WindowSettings settings;
+		Vector2u windowed_size;
+		
+		ArrayList<WindowEventListener*> eventListeners;
+		std::mutex listenermutex;
+		
+		void callListenerEvent(byte eventType, int x, int y, bool external, bool* returnVal = nullptr);
 	};
 
 //WindowEventListener
@@ -156,46 +156,47 @@ namespace GameLibrary
 		/*Destructor*/
 		virtual ~WindowEventListener();
 		/*Event called when the window has been shown
-		window: the window that was shown*/
+			\param window the window that was shown*/
 		virtual void onWindowShown(Window*window);
 		/*Event called when the window has been hidden
-		window: the window that was hidden*/
+			\param window the window that was hidden*/
 		virtual void onWindowHidden(Window*window);
 		/*Event called when the window is exposed and should be redrawn
-		window: the window that was exposed*/
+			\param window the window that was exposed*/
 		virtual void onWindowExposed(Window*window);
 		/*Event called when the window has been moved
-		window: the window that was moved
-		position: the new position of the window, relative to the entire screen*/
+			\param window the window that was moved
+			\param position the new position of the window, relative to the entire screen*/
 		virtual void onWindowMoved(Window*window, const Vector2d&position);
 		/*Event called when the window has been resized
-		window: the window that was resized
-		size: the new size of the window
-		external: stores true if the event was externally driven (resized by the user), and false if the window was resized programmatically*/
+			\param window the window that was resized
+			\param size the new size of the window
+			\param external stores true if the event was externally driven (resized by the user), and false if the window was resized programmatically*/
 		virtual void onWindowResized(Window*window, const Vector2u&size, bool external);
 		/*Event called when the window has been minimized
-		window: the window that was minimized*/
+			\param window the window that was minimized*/
 		virtual void onWindowMinimize(Window*window);
 		/*Event called when the window has been maximized
-		window: the window that was maximized*/
+			\param window the window that was maximized*/
 		virtual void onWindowMaximize(Window*window);
 		/*Event called when the window has been restored down to normal size and position
-		window: the window that was restored*/
+			\param window the window that was restored*/
 		virtual void onWindowRestore(Window*window);
 		/*Event called when the mouse pointer enters the window
-		window: the window that has mouse focus*/
+			\param window the window that has mouse focus*/
 		virtual void onWindowMouseEnter(Window*window);
 		/*Event called when the mouse pointer leaves the window
-		window: the window that lost mouse focus*/
+			\param window the window that lost mouse focus*/
 		virtual void onWindowMouseLeave(Window*window);
 		/*Event called when the window gains input focus
-		window: the window that gained input focus*/
+			\param window the window that gained input focus*/
 		virtual void onWindowFocusGained(Window*window);
 		/*Event called when the window loses input focus
-		window: the window that lost input focus*/
+			\param window the window that lost input focus*/
 		virtual void onWindowFocusLost(Window*window);
 		/*Event called when the window requests to close
-		window: the window that is closing*/
-		virtual void onWindowClose(Window*window);
+			\param window the window that is closing
+			\returns true to allow the window to close, false to prevent it from closing. In the case of multiple listeners, the one returning false takes priority. Returns true by default*/
+		virtual bool onWindowClose(Window*window);
 	};
 }

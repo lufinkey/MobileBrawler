@@ -14,6 +14,7 @@ namespace GameLibrary
 		zoom = view.zoom;
 		matchWindow = view.matchWindow;
 		letterboxed = view.letterboxed;
+		maintainResolution = view.maintainResolution;
 	}
 
 	View::View(const Vector2d& size) : View(size.x,size.y)
@@ -28,6 +29,7 @@ namespace GameLibrary
 		zoom = 1;
 		matchWindow = false;
 		letterboxed = true;
+		maintainResolution = false;
 	}
 
 	View::~View()
@@ -79,5 +81,15 @@ namespace GameLibrary
 	bool View::isLetterboxed() const
 	{
 		return letterboxed;
+	}
+	
+	void View::setMaintainResolution(bool toggle)
+	{
+		maintainResolution = toggle;
+	}
+	
+	bool View::maintainsResolution() const
+	{
+		return maintainResolution;
 	}
 }

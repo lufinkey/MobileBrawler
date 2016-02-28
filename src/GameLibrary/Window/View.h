@@ -8,12 +8,6 @@ namespace GameLibrary
 	class View
 	{
 		friend class Graphics;
-	private:
-		Vector2d size;
-		double zoom;
-		bool matchWindow;
-		bool letterboxed;
-		
 	public:
 		View();
 		View(const View&);
@@ -33,5 +27,14 @@ namespace GameLibrary
 
 		void setLetterboxed(bool toggle);
 		bool isLetterboxed() const;
+		
+		void setMaintainResolution(bool toggle);
+		bool maintainsResolution() const;
+	private:
+		Vector2d size;
+		double zoom;
+		bool matchWindow;
+		bool letterboxed;
+		bool maintainResolution;
 	};
 }

@@ -19,8 +19,8 @@ namespace GameLibrary
 	} MouseData;
 	
 	MouseData Mouse_createMouseData(Window*window, unsigned int mouseIndex, const Vector2d&position);
-	unsigned int Mouse_indexOfData(const ArrayList<MouseData>&mouseDataList, Window*window, unsigned int mouseIndex);
-	unsigned int Mouse_indexOfData(const ArrayList<MouseData>&mouseDataList, Window*window);
+	size_t Mouse_indexOfData(const ArrayList<MouseData>&mouseDataList, Window*window, unsigned int mouseIndex);
+	size_t Mouse_indexOfData(const ArrayList<MouseData>&mouseDataList, Window*window);
 
 	//stores all the MouseEventListener objects for the Mouse class
 	static ArrayList<MouseEventListener*> Mouse_eventListeners;
@@ -47,16 +47,16 @@ namespace GameLibrary
 		mouseData.window = window;
 		mouseData.mouseIndex = mouseIndex;
 		mouseData.position = position;
-		for(unsigned int i=0; i<4; i++)
+		for(size_t i=0; i<4; i++)
 		{
 			mouseData.state[i] = false;
 		}
 		return mouseData;
 	}
 
-	unsigned int Mouse_indexOfData(const ArrayList<MouseData>&mouseDataList, Window*window, unsigned int mouseIndex)
+	size_t Mouse_indexOfData(const ArrayList<MouseData>&mouseDataList, Window*window, unsigned int mouseIndex)
 	{
-		for(unsigned int i=0; i<mouseDataList.size(); i++)
+		for(size_t i=0; i<mouseDataList.size(); i++)
 		{
 			const MouseData&mouseData = mouseDataList.get(i);
 			if(mouseData.window == window && mouseData.mouseIndex == mouseIndex)
@@ -67,9 +67,9 @@ namespace GameLibrary
 		return ARRAYLIST_NOTFOUND;
 	}
 
-	unsigned int Mouse_indexOfData(const ArrayList<MouseData>&mouseDataList, Window*window)
+	size_t Mouse_indexOfData(const ArrayList<MouseData>&mouseDataList, Window*window)
 	{
-		for(unsigned int i=0; i<mouseDataList.size(); i++)
+		for(size_t i=0; i<mouseDataList.size(); i++)
 		{
 			const MouseData&mouseData = mouseDataList.get(i);
 			if(mouseData.window == window)
@@ -92,13 +92,13 @@ namespace GameLibrary
 		ArrayList<MouseEventListener*> listeners = Mouse_eventListeners;
 		Mouse_eventListeners_mutex.unlock();
 
-		for(unsigned int i = 0; i<listeners.size(); i++)
+		for(size_t i = 0; i<listeners.size(); i++)
 		{
 			MouseEventListener* listener = listeners.get(i);
 			//check to make sure that the listener hasn't been removed during a MouseEventListener event
 			bool listener_notremoved = true;
 			Mouse_changedListeners_mutex.lock();
-			for(unsigned int j=0; j<Mouse_changedListeners.size(); j++)
+			for(size_t j=0; j<Mouse_changedListeners.size(); j++)
 			{
 				Pair<MouseEventListener*,bool>& cmp = Mouse_changedListeners.get(j);
 				if(cmp.first == listener)
@@ -143,13 +143,13 @@ namespace GameLibrary
 		ArrayList<MouseEventListener*> listeners = Mouse_eventListeners;
 		Mouse_eventListeners_mutex.unlock();
 
-		for(unsigned int i = 0; i<listeners.size(); i++)
+		for(size_t i = 0; i<listeners.size(); i++)
 		{
 			MouseEventListener* listener = listeners.get(i);
 			//check to make sure that the listener hasn't been removed during a MouseEventListener event
 			bool listener_notremoved = true;
 			Mouse_changedListeners_mutex.lock();
-			for(unsigned int j=0; j<Mouse_changedListeners.size(); j++)
+			for(size_t j=0; j<Mouse_changedListeners.size(); j++)
 			{
 				Pair<MouseEventListener*,bool>& cmp = Mouse_changedListeners.get(j);
 				if(cmp.first == listener)
@@ -177,9 +177,9 @@ namespace GameLibrary
 
 	unsigned int Mouse::getTotalMouseInstances(Window*window)
 	{
-		unsigned int counter = 0;
+		size_t counter = 0;
 		Mouse_state_mutex.lock();
-		for(unsigned int i=0; i<Mouse_currentStates.size(); i++)
+		for(size_t i=0; i<Mouse_currentStates.size(); i++)
 		{
 			MouseData& mouseData = Mouse_currentStates.get(i);
 			if(mouseData.window == window)
@@ -196,7 +196,7 @@ namespace GameLibrary
 		if(window!=nullptr)
 		{
 			Mouse_state_mutex.lock();
-			unsigned int index = Mouse_indexOfData(Mouse_states, window, mouseIndex);
+			size_t index = Mouse_indexOfData(Mouse_states, window, mouseIndex);
 			if(index == ARRAYLIST_NOTFOUND)
 			{
 				MouseData mouseData = Mouse_createMouseData(window, mouseIndex, pos);
@@ -217,7 +217,7 @@ namespace GameLibrary
 		{
 			bool statechanged = false;
 			Mouse_state_mutex.lock();
-			unsigned int index = Mouse_indexOfData(Mouse_states, window, mouseIndex);
+			size_t index = Mouse_indexOfData(Mouse_states, window, mouseIndex);
 			if(index == ARRAYLIST_NOTFOUND)
 			{
 				MouseData mouseData = Mouse_createMouseData(window, mouseIndex, pos);
@@ -247,7 +247,7 @@ namespace GameLibrary
 		{
 			bool statechanged = false;
 			Mouse_state_mutex.lock();
-			unsigned int index = Mouse_indexOfData(Mouse_states, window, mouseIndex);
+			size_t index = Mouse_indexOfData(Mouse_states, window, mouseIndex);
 			if(index == ARRAYLIST_NOTFOUND)
 			{
 				MouseData mouseData = Mouse_createMouseData(window, mouseIndex, pos);
@@ -275,7 +275,7 @@ namespace GameLibrary
 	{
 		Mouse_state_mutex.lock();
 		
-		unsigned int index = Mouse_indexOfData(Mouse_states, window);
+		size_t index = Mouse_indexOfData(Mouse_states, window);
 		while(index != ARRAYLIST_NOTFOUND)
 		{
 			Mouse_states.remove(index);
@@ -302,7 +302,7 @@ namespace GameLibrary
 		
 		bool pressed = false;
 		Mouse_state_mutex.lock();
-		unsigned int index = Mouse_indexOfData(Mouse_currentStates, window, mouseIndex);
+		size_t index = Mouse_indexOfData(Mouse_currentStates, window, mouseIndex);
 		if(index != ARRAYLIST_NOTFOUND)
 		{
 			if(Mouse_currentStates[index].state[button])
@@ -331,7 +331,7 @@ namespace GameLibrary
 		}
 		
 		Mouse_state_mutex.lock();
-		unsigned int index = Mouse_indexOfData(Mouse_currentStates, window, mouseIndex);
+		size_t index = Mouse_indexOfData(Mouse_currentStates, window, mouseIndex);
 		if(index == ARRAYLIST_NOTFOUND)
 		{
 			Mouse_state_mutex.unlock();
@@ -385,7 +385,7 @@ namespace GameLibrary
 		
 		bool pressed = false;
 		Mouse_state_mutex.lock();
-		unsigned int index = Mouse_indexOfData(Mouse_prevStates, window, mouseIndex);
+		size_t index = Mouse_indexOfData(Mouse_prevStates, window, mouseIndex);
 		if(index != ARRAYLIST_NOTFOUND)
 		{
 			if(Mouse_prevStates[index].state[button])
@@ -414,7 +414,7 @@ namespace GameLibrary
 		}
 		
 		Mouse_state_mutex.lock();
-		unsigned int index = Mouse_indexOfData(Mouse_prevStates, window, mouseIndex);
+		size_t index = Mouse_indexOfData(Mouse_prevStates, window, mouseIndex);
 		if(index == ARRAYLIST_NOTFOUND)
 		{
 			Mouse_state_mutex.unlock();
@@ -509,7 +509,7 @@ namespace GameLibrary
 			Mouse_changedListeners_mutex.unlock();
 		}
 		Mouse_eventListeners_mutex.lock();
-		unsigned int index = Mouse_eventListeners.indexOf(eventListener);
+		size_t index = Mouse_eventListeners.indexOf(eventListener);
 		while(index != ARRAYLIST_NOTFOUND)
 		{
 			Mouse_eventListeners.remove(index);

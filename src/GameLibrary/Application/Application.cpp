@@ -12,6 +12,23 @@ namespace GameLibrary
 {
 	void ApplicationEventHandler(void*userdata, unsigned int eventtype);
 	int ApplicationEventFilter(void*userdata, SDL_Event*event);
+	
+	class Application_WindowEventListener : public WindowEventListener
+	{
+	private:
+		Application* application;
+		
+	public:
+		Application_WindowEventListener(Application* app) : application(app)
+		{
+			//
+		}
+		virtual bool onWindowClose(Window*window) override
+		{
+			application->close(0);
+			return false;
+		}
+	};
 
 	Application::Application()
 	{
@@ -32,11 +49,14 @@ namespace GameLibrary
 		}
 
 		window = new Window();
+		privateWindowListener = (void*)(new Application_WindowEventListener(this));
+		window->addEventListener((WindowEventListener*)privateWindowListener);
 	}
 
 	Application::~Application()
 	{
 		delete window;
+		delete ((WindowEventListener*)privateWindowListener);
 	}
 
 	void Application::initialize()
@@ -204,7 +224,7 @@ namespace GameLibrary
 			long long startFrameTime = apptime.getMilliseconds();
 
 			EventManager::update();
-			if(EventManager::recievedQuitRequest())
+			if(EventManager::recievedQuitRequest() || !window->isOpen())
 			{
 				this->close(0);
 			}
@@ -266,17 +286,17 @@ namespace GameLibrary
 		}
 	}
 
-	unsigned int Application::getFPS()
+	unsigned int Application::getFPS() const
 	{
 		return fps;
 	}
 
-	Window* Application::getWindow()
+	Window* Application::getWindow() const
 	{
 		return window;
 	}
 
-	TimeInterval& Application::getTime()
+	const TimeInterval& Application::getTime() const
 	{
 		return apptime;
 	}

@@ -97,18 +97,20 @@ namespace GameLibrary
 		void setFPS(unsigned int fps);
 		/*! Gets the refresh rate of the Application in frames per second. This specifies how often update and draw are called.
 			\returns the frame rate of the Application in frames per second*/
-		unsigned int getFPS();
+		unsigned int getFPS() const;
 		/*! Gets the current Window being used by the Application.
 			\returns a pointer to the Window object being used by the Application.*/
-		Window* getWindow();
+		Window* getWindow() const;
 		/*! Gets the current elapsed time since the Application's refresh loop began running.
 			\returns a reference to a TimeInterval object*/
-		TimeInterval& getTime();
+		const TimeInterval& getTime() const;
 		
 	private:
 		Window* window;
 		ArrayList<ApplicationEventListener*> eventListeners;
 		std::mutex listenermutex;
+		
+		void* privateWindowListener;
 
 		TimeInterval apptime;
 

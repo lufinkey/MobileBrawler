@@ -959,6 +959,9 @@
     <ClInclude Include="src\GameLibrary\Screen\UI\TouchElement.h">
       <Filter>src\GameLibrary\Screen\UI</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameLibrary\Screen\UpdateDrawable.h">
+      <Filter>src\GameLibrary\Screen</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MobileBrawler.rc" />

@@ -34,6 +34,54 @@ namespace GameLibrary
 		clipoffset.x = 0;
 		clipoffset.y = 0;
 		
+		SDL_RenderSetViewport((SDL_Renderer*)renderer, nullptr);
+		
+		if(window->view != nullptr && window->view->matchWindow)
+		{
+			const Vector2u& winSz = window->getSize();
+			Vector2d winSize = Vector2d((double)winSz.x, (double)winSz.y);
+			window->view->setSize((double)winSz.x, (double)winSz.y);
+		}
+		
+		if(window->view != nullptr && window->view->maintainResolution)
+		{
+			if((renderTarget_width!=(unsigned int)window->view->size.x) || (renderTarget_height!=(unsigned int)window->view->size.y))
+			{
+				if(renderTarget!=nullptr)
+				{
+					SDL_DestroyTexture((SDL_Texture*)renderTarget);
+					renderTarget = nullptr;
+				}
+				renderTarget_width = (unsigned int)window->view->size.x;
+				renderTarget_height = (unsigned int)window->view->size.y;
+				renderTarget = SDL_CreateTexture((SDL_Renderer*)renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, (int)renderTarget_width, (int)renderTarget_height);
+				if(renderTarget==nullptr)
+				{
+					renderTarget_width = 0;
+					renderTarget_height = 0;
+					Console::writeErrorLine("Unable to create texture for render target");
+				}
+				else
+				{
+					SDL_SetRenderTarget((SDL_Renderer*)renderer, (SDL_Texture*)renderTarget);
+				}
+			}
+			else
+			{
+				SDL_SetRenderTarget((SDL_Renderer*)renderer, (SDL_Texture*)renderTarget);
+			}
+		}
+		else
+		{
+			if(renderTarget!=nullptr)
+			{
+				renderTarget_width = 0;
+				renderTarget_height = 0;
+				SDL_SetRenderTarget((SDL_Renderer*)renderer, nullptr);
+				SDL_DestroyTexture((SDL_Texture*)renderTarget);
+			}
+		}
+		
 		SDL_SetRenderDrawColor((SDL_Renderer*)renderer, clearColor.r,clearColor.g,clearColor.b,clearColor.a);
 		SDL_RenderClear((SDL_Renderer*)renderer);
 		SDL_SetRenderDrawColor((SDL_Renderer*)renderer, 0,0,0,255);
@@ -44,7 +92,16 @@ namespace GameLibrary
 			zoom = window->view->zoom;
 		}
 		
-		if(window->view == nullptr || window->view->matchWindow)
+		if(window->view!=nullptr && window->view->maintainResolution && renderTarget!=nullptr)
+		{
+			setClipRect(0, 0, renderTarget_width, renderTarget_height);
+			Vector2d winSize((double)renderTarget_width, (double)renderTarget_height);
+			double difX = (winSize.x - (winSize.x*zoom))/(2*zoom);
+			double difY = (winSize.y - (winSize.y*zoom))/(2*zoom);
+			scale(zoom, zoom);
+			translate(difY, difX);
+		}
+		else if(window->view == nullptr || window->view->matchWindow)
 		{
 			const Vector2u& winSz = window->getSize();
 			Vector2d winSize = Vector2d((double)winSz.x, (double)winSz.y);
@@ -115,7 +172,7 @@ namespace GameLibrary
 			Vector2d winSize = Vector2d((double)winSz.x, (double)winSz.y);
 			Vector2d viewSize = window->view->getSize();
 			setClipRect(0, 0, (double)winSz.x, (double)winSz.y);
-
+			
 			double ratX = winSize.x /viewSize.x;
 			double ratY = winSize.y /viewSize.y;
 
@@ -135,6 +192,9 @@ namespace GameLibrary
 			throw Exception("Cannot create Graphics object for window that is not created");
 		}
 		window = &win;
+		renderTarget = nullptr;
+		renderTarget_width = 0;
+		renderTarget_height = 0;
 		renderer = (void*)SDL_CreateRenderer((SDL_Window*)win.windowdata,-1,SDL_RENDERER_ACCELERATED);
 		if(renderer==nullptr)
 		{
@@ -153,7 +213,7 @@ namespace GameLibrary
 			bool success = defaultFont->loadFromFile(defaultFontPath, 24, &error);
 			if(!success)
 			{
-				Console::writeLine(error);
+				Console::writeLine("\""+defaultFontPath+"\": "+error);
 			}
 			defaultFont->setAntialiasing(true);
 		}
@@ -186,6 +246,10 @@ namespace GameLibrary
 		derived = true;
 		window = g.window;
 		renderer = g.renderer;
+		renderTarget = g.renderTarget;
+		renderTarget_width = g.renderTarget_width;
+		renderTarget_height = g.renderTarget_height;
+		renderTarget_height = 0;
 		color = g.color;
 		tintColor = g.tintColor;
 		alpha = g.alpha;
@@ -204,14 +268,20 @@ namespace GameLibrary
 		{
 			delete font;
 			delete pixel;
+			if(renderTarget!=nullptr)
+			{
+				SDL_SetRenderTarget((SDL_Renderer*)renderer, nullptr);
+				SDL_DestroyTexture((SDL_Texture*)renderTarget);
+			}
 			SDL_DestroyRenderer((SDL_Renderer*)renderer);
 		}
 	}
 
-	Graphics& Graphics::operator=(const Graphics&g)
+	/*Graphics& Graphics::operator=(const Graphics&g)
 	{
 		window = g.window;
 		renderer = g.renderer;
+		renderTarget = g.renderTarget;
 		color = g.color;
 		tintColor = g.tintColor;
 		alpha = g.alpha;
@@ -222,9 +292,9 @@ namespace GameLibrary
 		transform = g.transform;
 		rotation = g.rotation;
 		scaling = g.scaling;
-
+		
 		return *this;
-	}
+	}*/
 
 	void Graphics::beginDraw()
 	{
@@ -381,7 +451,7 @@ namespace GameLibrary
 
 	const Color& Graphics::getTintColor() const
 	{
-		return color;
+		return tintColor;
 	}
 
 	void Graphics::setFont(Font*f)
@@ -525,8 +595,8 @@ namespace GameLibrary
 		SDL_Rect rect;
 		rect.x = (int)rectLeft;
 		rect.y = (int)rectTop;
-		rect.w = (int)(((x+width) - (double)((int)x))*scaling.x);
-		rect.h = (int)(((y+height) - (double)((int)y))*scaling.y);
+		rect.w = (int)(rectLeft + (width*scaling.x) - (int)rectLeft);
+		rect.h = (int)(rectTop + (height*scaling.y) - (int)rectTop);
 		
 		SDL_Point center;
 		center.x = 0;
@@ -616,6 +686,10 @@ namespace GameLibrary
 	
 	void Graphics::drawImage(TextureImage*img, double x, double y)
 	{
+		if(img==nullptr)
+		{
+			throw IllegalArgumentException("img", "cannot be null");
+		}
 		//SDL_Texture*texture = (SDL_Texture*)img->texture;
 		unsigned int texWidth = img->getWidth();
 		unsigned int texHeight = img->getHeight();
@@ -634,6 +708,10 @@ namespace GameLibrary
 
 	void Graphics::drawImage(TextureImage*img, double x, double y, double width, double height)
 	{
+		if(img==nullptr)
+		{
+			throw IllegalArgumentException("img", "cannot be null");
+		}
 		//SDL_Texture*texture = (SDL_Texture*)img->texture;
 		unsigned int texWidth = img->width;
 		unsigned int texHeight = img->height;
@@ -652,6 +730,10 @@ namespace GameLibrary
 	
 	void Graphics::drawImage(TextureImage*img, double dx1, double dy1, double dx2, double dy2, unsigned int sx1, unsigned int sy1, unsigned int sx2, unsigned int sy2)
 	{
+		if(img==nullptr)
+		{
+			throw IllegalArgumentException("img", "cannot be null");
+		}
 		SDL_Texture*texture = (SDL_Texture*)img->texture;
 		unsigned int texWidth = img->width;
 		unsigned int texHeight = img->height;
@@ -662,14 +744,14 @@ namespace GameLibrary
 			srcrect.y = (int)sy1;
 			srcrect.w = (int)(sx2 - sx1);
 			srcrect.h = (int)(sy2 - sy1);
-
+			
 			Vector2d pnt1 = transform.transform(Vector2d(dx1, dy1));
-
+			
 			SDL_Rect dstrect;
 			dstrect.x = (int)pnt1.x;
 			dstrect.y = (int)pnt1.y;
-			dstrect.w = (int)((dx2 - (double)((int)dx1))*scaling.x);
-			dstrect.h = (int)((dy2 - (double)((int)dy1))*scaling.y);
+			dstrect.w = (int)(pnt1.x+((dx2 - (double)((int)dx1))*scaling.x)-((int)dstrect.x));
+			dstrect.h = (int)(pnt1.y+((dy2 - (double)((int)dy1))*scaling.y)-((int)dstrect.y));
 			
 			RectangleD dstrectBox((double)dstrect.x, (double)dstrect.y, (double)dstrect.w, (double)dstrect.h);
 			RectangleD cliprectBox(clipoffset.x+cliprect.x, clipoffset.y+cliprect.y, cliprect.width, cliprect.height);

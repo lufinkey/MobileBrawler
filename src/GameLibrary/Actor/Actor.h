@@ -158,6 +158,10 @@ namespace GameLibrary
 		/*! Sets whether the Actor is mirrored vertically or not. If the Actor is mirrored, it will be drawn inverted vertically. This does affect mouse states. Vertical mirroring is false by default.
 			\param mirror true makes the Actor drawn inverted horizontally, and false makes the Actor drawn correctly horizontally*/
 		void setMirroredVertical(bool mirror);
+		/*! Sets whether mouse events are enabled or disabled. Mouse events are enabled by default, but can slow down a game if a large amount of actors are being updated.
+			Mouses states remain unchanged while events are disabled.
+			\param enabled true enables mouse events and false disables them*/
+		void setMouseEventsEnabled(bool enabled);
 		
 		
 		/*! Tells whether the Actor has been set visible. Visibility is true by default.
@@ -196,6 +200,9 @@ namespace GameLibrary
 			\see GameLibrary::Actor::setMirroredVertical(bool)
 			\returns true if the Actor is mirrored vertically, false if otherwise.*/
 		bool isMirroredVertical() const;
+		/*! Tells whether mouse events are enabled.
+			\return true if mouse events are enabled, or false if they are disabled*/
+		bool areMouseEventsEnabled() const;
 		
 		
 		/*! Tells whether the Mouse or a Multitouch input was hovering over the Actor in the most recent update call. This function does not recheck the mouse. The Actor's mouse state gets updated every time GameLibrary::Actor::update is called.
@@ -268,6 +275,7 @@ namespace GameLibrary
 		bool mirroredHorizontal;
 		bool mirroredVertical;
 		bool frame_visible;
+		bool mouseEventsEnabled;
 		Color color;
 		Color frame_color;
 		double rotation;
