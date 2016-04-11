@@ -35,8 +35,8 @@ namespace SmashBros
 			void applyProperties(const Dictionary&properties);
 			
 		public:
-			MenuBarValueAdjust(const WideString&label, const WideString&valueLabel, Number*value, const Number&min, const Number&max, const Number&increment, AssetManager*assetManager, const Dictionary&properties);
-			MenuBarValueAdjust(double x, double y, const WideString&label, const WideString&valueLabel, Number*value, const Number&min, const Number&max, const Number&increment, AssetManager*assetManager, const Dictionary&properties);
+			MenuBarValueAdjust(const String&label, const String&valueLabel, Number*value, const Number&min, const Number&max, const Number&increment, AssetManager*assetManager, const Dictionary&properties);
+			MenuBarValueAdjust(double x, double y, const String&label, const String&valueLabel, Number*value, const Number&min, const Number&max, const Number&increment, AssetManager*assetManager, const Dictionary&properties);
 			virtual ~MenuBarValueAdjust();
 			
 			virtual void update(ApplicationData appData) override;
@@ -45,9 +45,9 @@ namespace SmashBros
 			virtual void onValueChange();
 			
 			void setEventListener(MenuBarValueAdjustEventListener* listener);
-			void setValueLabel(const WideString&);
+			void setValueLabel(const String&);
 			MenuBarValueAdjustEventListener* getEventListener() const;
-			const WideString& getValueLabel() const;
+			const String& getValueLabel() const;
 			
 			void setValueProperties(Number*value, const Number&min, const Number&max, const Number&incr);
 			

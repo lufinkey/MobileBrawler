@@ -24,5 +24,5 @@ namespace GameLibrary
 		return *this;
 	}
 	
-	MEMBERFUNC_GETCLASSNAME(ScreenNavigationException)
+	GAMELIB_MEMBERFUNC_GETCLASSNAME(ScreenNavigationException)
 }

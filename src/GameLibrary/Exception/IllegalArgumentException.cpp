@@ -8,7 +8,7 @@ namespace GameLibrary
 		//
 	}
 
-	IllegalArgumentException::IllegalArgumentException(const String&arg, const String&reason) : Exception("argument " + arg + " for is not a valid argument: " + message)
+	IllegalArgumentException::IllegalArgumentException(const String&arg, const String&reason) : Exception("argument " + arg + " is not a valid argument: " + reason)
 	{
 		argument = arg;
 	}
@@ -25,5 +25,5 @@ namespace GameLibrary
 		return *this;
 	}
 	
-	MEMBERFUNC_GETCLASSNAME(IllegalArgumentException)
+	GAMELIB_MEMBERFUNC_GETCLASSNAME(IllegalArgumentException)
 }

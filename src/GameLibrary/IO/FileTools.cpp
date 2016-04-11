@@ -183,8 +183,8 @@ namespace GameLibrary
 			//else
 			//XP or lower
 			{
-				std::basic_string<TCHAR, std::char_traits<TCHAR>, std::allocator<TCHAR> > default_dir = startingDir;
-				std::basic_string<TCHAR, std::char_traits<TCHAR>, std::allocator<TCHAR> > dialog_title = title;
+				std::basic_string<TCHAR> default_dir = (std::basic_string<TCHAR>)startingDir;
+				std::basic_string<TCHAR> dialog_title = (std::basic_string<TCHAR>)title;
 				TCHAR filenameBuffer[MAX_PATH];
 				filenameBuffer[0] = '\0';
 				OPENFILENAME ofn;
@@ -198,7 +198,7 @@ namespace GameLibrary
 				BOOL result = GetOpenFileName(&ofn);
 				if(result)
 				{
-					return ofn.lpstrFile;
+					return (String)ofn.lpstrFile;
 				}
 				return "";
 			}
@@ -232,8 +232,8 @@ namespace GameLibrary
 	String FileTools::openFolderPicker(const String&title, const String&startingDir)
 	{
 		#if defined(TARGETPLATFORM_WINDOWS)
-			std::basic_string<TCHAR, std::char_traits<TCHAR>, std::allocator<TCHAR> > dialog_title = title;
-			std::basic_string<TCHAR, std::char_traits<TCHAR>, std::allocator<TCHAR> > default_dir = startingDir;
+			std::basic_string<TCHAR> dialog_title = (std::basic_string<TCHAR>)title;
+			std::basic_string<TCHAR> default_dir = (std::basic_string<TCHAR>)startingDir;
 			BROWSEINFO bi;
 			ZeroMemory(&bi, sizeof(bi));
 			TCHAR folderdisplaynameBuffer[MAX_PATH];
@@ -253,7 +253,7 @@ namespace GameLibrary
 				{
 					return "";
 				}
-				return path;
+				return (String)path;
 			}
 			return "";
 		#elif defined(TARGETPLATFORM_LINUX)

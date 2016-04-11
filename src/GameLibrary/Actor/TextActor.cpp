@@ -4,18 +4,18 @@
 namespace GameLibrary
 {
 	TextActor::TextActor()
-		: TextActor(0,0, L"", Graphics::getDefaultFont(), Color::BLACK)
+		: TextActor(0,0, "", Graphics::getDefaultFont(), Color::BLACK)
 	{
 		//
 	}
 	
-	TextActor::TextActor(const WideString&text, Font*font, const Color&color, unsigned int fontSize, int fontStyle, const TextActor::TextAlignment&align)
+	TextActor::TextActor(const String&text, Font*font, const Color&color, unsigned int fontSize, int fontStyle, const TextActor::TextAlignment&align)
 		: TextActor(0,0, text, font, color, fontSize, fontStyle, align)
 	{
 		//
 	}
 	
-	TextActor::TextActor(double x1, double y1, const WideString&txt, Font*fnt, const Color&colr, unsigned int fontSize, int fontStyle, const TextActor::TextAlignment&align)
+	TextActor::TextActor(double x1, double y1, const String&txt, Font*fnt, const Color&colr, unsigned int fontSize, int fontStyle, const TextActor::TextAlignment&align)
 	{
 		x = x1;
 		y = y1;
@@ -27,7 +27,7 @@ namespace GameLibrary
 		
 		fontstyle = fontStyle;
 		fontsize = fontSize;
-
+		
 		updateSize();
 	}
 	
@@ -96,7 +96,7 @@ namespace GameLibrary
 			actorGraphics.setFont(font);
 			
 			ArrayList<WideString> lines;
-			TextActor::getLinesList(text, lines);
+			TextActor::getLinesList((WideString)text, lines);
 			
 			double lineoffset = boundsrect.y;
 			
@@ -181,7 +181,7 @@ namespace GameLibrary
 			font->setStyle(fontstyle);
 
 			ArrayList<WideString> lines;
-			TextActor::getLinesList(text, lines);
+			TextActor::getLinesList((WideString)text, lines);
 
 			RectangleD rect = RectangleD(0,0,0,0);
 			linerects.clear();
@@ -339,7 +339,7 @@ namespace GameLibrary
 		updateSize();
 	}
 	
-	void TextActor::setText(const WideString&str)
+	void TextActor::setText(const String&str)
 	{
 		text = str;
 		updateSize();
@@ -375,7 +375,7 @@ namespace GameLibrary
 		updateSize();
 	}
 	
-	const WideString& TextActor::getText() const
+	const String& TextActor::getText() const
 	{
 		return text;
 	}

@@ -50,5 +50,5 @@ namespace GameLibrary
 		return *this;
 	}
 	
-	MEMBERFUNC_GETCLASSNAME(ImageOutOfBoundsException)
+	GAMELIB_MEMBERFUNC_GETCLASSNAME(ImageOutOfBoundsException)
 }

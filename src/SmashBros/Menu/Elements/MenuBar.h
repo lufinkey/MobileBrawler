@@ -25,17 +25,17 @@ namespace SmashBros
 			void applyColorDict(const Dictionary& dict, Color* color);
 			
 		public:
-			MenuBar(const WideString&label, AssetManager*assetManager, const Dictionary&properties);
-			MenuBar(double x, double y, const WideString&label, AssetManager*assetManager, const Dictionary&properties);
+			MenuBar(const String&label, AssetManager*assetManager, const Dictionary&properties);
+			MenuBar(double x, double y, const String&label, AssetManager*assetManager, const Dictionary&properties);
 			virtual ~MenuBar();
 			
 			virtual void update(ApplicationData appData) override;
 			virtual void draw(ApplicationData appData, Graphics graphics) const override;
 			
-			void setLabel(const WideString&);
+			void setLabel(const String&);
 			void setLabelAlignment(const TextActor::TextAlignment&);
 			
-			const WideString& getLabel() const;
+			const String& getLabel() const;
 			AutoLayoutManager& getLabelAutoLayoutManager();
 			const AutoLayoutManager& getLabelAutoLayoutManager() const;
 			const TextActor::TextAlignment& getLabelAlignment() const;

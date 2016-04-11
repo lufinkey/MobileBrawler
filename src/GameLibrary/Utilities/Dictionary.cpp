@@ -2,7 +2,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "Dictionary.h"
-#include "WideString.h"
+#include "String.h"
 #include <ctime>
 #include <cstdlib>
 #include <iomanip>
@@ -422,7 +422,7 @@ namespace GameLibrary
 				}
 				else
 				{
-					any = Number(String::asLongLong(str));
+					any = Number(String(str).toArithmeticValue<long long>());
 				}
 			}
 			catch(const NumberFormatException&e)
@@ -448,7 +448,7 @@ namespace GameLibrary
 				}
 				else
 				{
-					any = Number(String::asLongDouble(String(str)));
+					any = Number(String(str).toArithmeticValue<long double>());
 				}
 			}
 			catch(const NumberFormatException&e)
@@ -1286,7 +1286,7 @@ namespace GameLibrary
 			}
 			else
 			{
-				output->append(c);
+				*output += c;
 			}
 		}
 		output->append("\"", 1);

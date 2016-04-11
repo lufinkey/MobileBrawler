@@ -243,9 +243,6 @@
     <ClCompile Include="src\GameLibrary\Utilities\Math.cpp">
       <Filter>src\GameLibrary\Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameLibrary\Utilities\String.cpp">
-      <Filter>src\GameLibrary\Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameLibrary\Utilities\Font\Font.cpp">
       <Filter>src\GameLibrary\Utilities\Font</Filter>
     </ClCompile>
@@ -492,9 +489,6 @@
     <ClCompile Include="src\BrawlerLibrary\Game\Elements\PhysicalGameObject.cpp">
       <Filter>src\BrawlerLibrary\Game\Elements</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameLibrary\Utilities\WideString.cpp">
-      <Filter>src\GameLibrary\Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="src\BrawlerLibrary\Game\Elements\ActionPerformer\Action.cpp">
       <Filter>src\BrawlerLibrary\Game\Elements\ActionPerformer</Filter>
     </ClCompile>
@@ -521,6 +515,9 @@
     </ClCompile>
     <ClCompile Include="src\GameLibrary\Screen\UI\TouchElement.cpp">
       <Filter>src\GameLibrary\Screen\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLibrary\Utilities\String.cpp">
+      <Filter>src\GameLibrary\Utilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -920,12 +917,6 @@
     <ClInclude Include="src\GameLibrary\Utilities\Geometry\ValueEase.h">
       <Filter>src\GameLibrary\Utilities\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameLibrary\Utilities\WideString.h">
-      <Filter>src\GameLibrary\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameLibrary\Utilities\StringConvert.h">
-      <Filter>src\GameLibrary\Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="src\BrawlerLibrary\Game\Elements\ActionPerformer\Action.h">
       <Filter>src\BrawlerLibrary\Game\Elements\ActionPerformer</Filter>
     </ClInclude>
@@ -965,13 +956,5 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MobileBrawler.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\GameLibrary\Utilities\StringClass.h.impl">
-      <Filter>src\GameLibrary\Utilities</Filter>
-    </None>
-    <None Include="src\GameLibrary\Utilities\StringClass.cpp.impl">
-      <Filter>src\GameLibrary\Utilities</Filter>
-    </None>
   </ItemGroup>
 </Project>

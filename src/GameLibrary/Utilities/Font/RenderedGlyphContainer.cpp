@@ -109,11 +109,11 @@ namespace GameLibrary
 		SDL_Surface* surface = nullptr;
 		if(antialiasing)
 		{
-			surface = TTF_RenderGlyph_Blended(font, CharForceConvert<glyph_char, GameLibrary::Uint16>(glyph), color);
+			surface = TTF_RenderGlyph_Blended(font, glyph, color);
 		}
 		else
 		{
-			surface = TTF_RenderGlyph_Solid(font, CharForceConvert<glyph_char, GameLibrary::Uint16>(glyph), color);
+			surface = TTF_RenderGlyph_Solid(font, glyph, color);
 		}
 		if(surface == nullptr)
 		{

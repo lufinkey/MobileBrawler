@@ -28,5 +28,5 @@ namespace GameLibrary
 		return *this;
 	}
 	
-	MEMBERFUNC_GETCLASSNAME(ArrayListOutOfBoundsException)
+	GAMELIB_MEMBERFUNC_GETCLASSNAME(ArrayListOutOfBoundsException)
 }

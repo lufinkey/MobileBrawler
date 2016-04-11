@@ -24,5 +24,5 @@ namespace GameLibrary
 		return *this;
 	}
 	
-	MEMBERFUNC_GETCLASSNAME(TextureImageUpdateException)
+	GAMELIB_MEMBERFUNC_GETCLASSNAME(TextureImageUpdateException)
 }

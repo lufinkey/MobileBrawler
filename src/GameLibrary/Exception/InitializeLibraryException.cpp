@@ -24,5 +24,5 @@ namespace GameLibrary
 		return *this;
 	}
 	
-	MEMBERFUNC_GETCLASSNAME(InitializeLibraryException)
+	GAMELIB_MEMBERFUNC_GETCLASSNAME(InitializeLibraryException)
 }

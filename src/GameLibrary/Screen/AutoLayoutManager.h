@@ -7,7 +7,7 @@
 
 namespace GameLibrary
 {
-	typedef enum LayoutRuleType
+	enum LayoutRuleType
 	{
 		LAYOUTRULE_LEFT,
 		LAYOUTRULE_TOP,
@@ -18,24 +18,24 @@ namespace GameLibrary
 		LAYOUTRULE_WIDTH,
 		LAYOUTRULE_HEIGHT,
 		LAYOUTRULE_ASPECTRATIO // width/height
-	} LayoutRuleType;
+	};
 	String LayoutRuleType_toString(const LayoutRuleType& layoutRuleType);
 	LayoutRuleType LayoutRuleType_fromString(const String& layoutRuleType, bool*valid);
 	
-	typedef enum LayoutValueType
+	enum LayoutValueType
 	{
 		LAYOUTVALUE_PIXEL,
 		LAYOUTVALUE_RATIO
-	} LayoutValueType;
+	};
 	String LayoutValueType_toString(const LayoutValueType& layoutValueType);
 	LayoutValueType LayoutValueType_fromString(const String& layoutValueType, bool*valid);
 	
-	typedef struct LayoutRule
+	struct LayoutRule
 	{
 		LayoutRuleType ruleType;
 		double value;
 		LayoutValueType valueType;
-	} LayoutRule;
+	};
 	
 	/*! Automatically lays out Actor and ScreenElement objects based on a given frame*/
 	class AutoLayoutManager

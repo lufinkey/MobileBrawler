@@ -5,8 +5,6 @@
 #include "../ArrayList.h"
 #include "../Pair.h"
 #include "../String.h"
-#include "../WideString.h"
-#include "../StringConvert.h"
 #include "../Geometry/Vector2.h"
 #include "../../Exception/InitializeLibraryException.h"
 #include "../../Exception/Utilities/Font/RenderGlyphException.h"
@@ -53,6 +51,14 @@ namespace GameLibrary
 		bool loadFromFile(const String&path, unsigned int size=24, String*error=nullptr);
 		
 		
+		/*! Estimates the display size of a given string of text.
+			\param text a string of text to estimate
+			\returns a Vector2u representing the display width (x) and height (y) of the string*/
+		Vector2u measureString(const String&text);
+		/*! Estimates the display size of a given string of text.
+			\param text a string of text to estimate
+			\returns a Vector2u representing the display width (x) and height (y) of the string*/
+		Vector2u measureString(const WideString&text);
 		/*! Estimates the display size of a given string of text.
 			\param text a string of text to estimate
 			\returns a Vector2u representing the display width (x) and height (y) of the string*/

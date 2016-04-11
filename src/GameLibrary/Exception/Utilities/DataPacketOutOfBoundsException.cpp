@@ -28,5 +28,5 @@ namespace GameLibrary
 		return *this;
 	}
 	
-	MEMBERFUNC_GETCLASSNAME(DataPacketOutOfBoundsException)
+	GAMELIB_MEMBERFUNC_GETCLASSNAME(DataPacketOutOfBoundsException)
 }

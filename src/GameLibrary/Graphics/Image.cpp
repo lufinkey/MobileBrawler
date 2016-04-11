@@ -163,17 +163,17 @@ namespace GameLibrary
 		return false;
 	}
 
-	bool Image::saveToFile(const String&path, String*error) const
+	bool Image::saveToFile(const String& path, String*error) const
 	{
 		size_t dotIndex = path.lastIndexOf('.');
-		if(dotIndex == STRING_NOTFOUND)
+		if(dotIndex == String::NOTFOUND)
 		{
 			throw UnsupportedImageFormatException("");
 		}
 		else
 		{
 			String format = path.substring(dotIndex + 1, path.length());
-			if(format.indexOf('/')!=STRING_NOTFOUND || format.indexOf('\\')!=STRING_NOTFOUND)
+			if(format.indexOf('/')!=String::NOTFOUND || format.indexOf('\\')!=String::NOTFOUND)
 			{
 				throw UnsupportedImageFormatException("");
 			}
@@ -238,7 +238,7 @@ namespace GameLibrary
 		
 		return false;
 	}
-
+	
 	void Image::setPixel(unsigned int index, const Color&color)
 	{
 		try

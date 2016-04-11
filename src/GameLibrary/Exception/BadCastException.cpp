@@ -28,5 +28,5 @@ namespace GameLibrary
 		return *this;
 	}
 	
-	MEMBERFUNC_GETCLASSNAME(BadCastException)
+	GAMELIB_MEMBERFUNC_GETCLASSNAME(BadCastException)
 }

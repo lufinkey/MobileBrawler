@@ -8,7 +8,7 @@ namespace SmashBros
 #define GAMEMODE_ERROR 0U
 #define GAMEMODE_STOCK 1U
 #define GAMEMODE_TIME 2U
-
+		
 		GroupRulesMenu::GroupRulesMenu(const SmashData&smashData, const GroupSmashData&groupSmashData) : BaseMenuScreen(smashData)
 		{
 			RectangleD frame = getFrame();

@@ -252,8 +252,18 @@ namespace GameLibrary
 		}
 		return ArrayList<RenderedGlyphContainer::RenderedGlyph>();
 	}
+	
+	Vector2u Font::measureString(const String& text)
+	{
+		return measureString((GlyphString)text);
+	}
+	
+	Vector2u Font::measureString(const WideString& text)
+	{
+		return measureString((GlyphString)text);
+	}
 
-	Vector2u Font::measureString(const GlyphString&text)
+	Vector2u Font::measureString(const GlyphString& text)
 	{
 		mlock.lock();
 		if(fontdata == nullptr || fontsizes == nullptr)
@@ -273,7 +283,7 @@ namespace GameLibrary
 			glyph_char str[2];
 			str[0] = text.charAt(i);
 			str[1] = NULL;
-			if(TTF_SizeUNICODE(font, StringForceConvert<glyph_char, GameLibrary::Uint16>(str).c_str(), &w, &h) < 0)
+			if(TTF_SizeUNICODE(font, str, &w, &h) < 0)
 			{
 				mlock.unlock();
 				//TODO replace with more specific exception type

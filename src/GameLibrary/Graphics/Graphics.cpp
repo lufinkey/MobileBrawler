@@ -486,10 +486,20 @@ namespace GameLibrary
 	{
 		return cliprect;
 	}
-
-	void Graphics::drawString(const WideString&text, double x1, double y1)
+	
+	void Graphics::drawString(const String& text, double x1, double y1)
 	{
-		ArrayList<RenderedGlyphContainer::RenderedGlyph> glyphs = font->getRenderedGlyphs(text,renderer);
+		drawString((WideString)text, x1, y1);
+	}
+	
+	void Graphics::drawString(const String&text, const Vector2d& point)
+	{
+		drawString((WideString)text, point.x, point.y);
+	}
+	
+	void Graphics::drawString(const WideString& text, double x1, double y1)
+	{
+		ArrayList<RenderedGlyphContainer::RenderedGlyph> glyphs = font->getRenderedGlyphs((Font::GlyphString)text,renderer);
 		Vector2u dimensions = font->measureString(text);
 		unsigned int fontSize = font->getSize();
 		Color compColor = color.composite(tintColor);
@@ -502,7 +512,7 @@ namespace GameLibrary
 			RenderedGlyphContainer::RenderedGlyph& glyph = glyphs.get(i);
 			double mult = (double)fontSize/(double)glyph.size;
 			SDL_Texture*texture = (SDL_Texture*)glyph.texture;
-			Vector2u glyphDimensions = font->measureString(text.charAt(i));
+			Vector2u glyphDimensions = font->measureString((Font::GlyphString)text.charAt(i));
 			unsigned int format = 0;
 			int access = 0;
 			int w = 0;

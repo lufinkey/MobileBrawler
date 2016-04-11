@@ -3,7 +3,7 @@
 
 #include "../../Types.h"
 #include "../ArrayList.h"
-#include "../WideString.h"
+#include "../String.h"
 #include "../Dictionary.h"
 #include <mutex>
 
@@ -15,7 +15,7 @@ namespace GameLibrary
 		friend class Font;
 		friend class Graphics;
 	public:
-		typedef WideString GlyphString;
+		typedef BasicString<GameLibrary::Uint16> GlyphString;
 		typedef GlyphString::char_type glyph_char;
 
 		/*! information for a rendered font glyph*/

@@ -6,8 +6,7 @@
 
 namespace GameLibrary
 {
-	
-#define MEMBERFUNC_GETCLASSNAME(classname) String classname::getClassName() const {return #classname ; }
+#define GAMELIB_MEMBERFUNC_GETCLASSNAME(classname) String classname::getClassName() const {return #classname ; }
 	
 	/*! An exception class to throw when a generic error arises*/
 	class Exception : std::exception

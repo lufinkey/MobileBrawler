@@ -25,5 +25,5 @@ namespace GameLibrary
 		return *this;
 	}
 	
-	MEMBERFUNC_GETCLASSNAME(BitSetOutOfBoundsException)
+	GAMELIB_MEMBERFUNC_GETCLASSNAME(BitSetOutOfBoundsException)
 }

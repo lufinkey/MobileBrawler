@@ -24,5 +24,5 @@ namespace GameLibrary
 		return *this;
 	}
 	
-	MEMBERFUNC_GETCLASSNAME(IllegalStateException)
+	GAMELIB_MEMBERFUNC_GETCLASSNAME(IllegalStateException)
 }

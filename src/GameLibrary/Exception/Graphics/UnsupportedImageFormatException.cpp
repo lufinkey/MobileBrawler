@@ -25,5 +25,5 @@ namespace GameLibrary
 		return *this;
 	}
 	
-	MEMBERFUNC_GETCLASSNAME(UnsupportedImageFormatException)
+	GAMELIB_MEMBERFUNC_GETCLASSNAME(UnsupportedImageFormatException)
 }

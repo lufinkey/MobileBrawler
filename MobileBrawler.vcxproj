@@ -183,7 +183,6 @@
     <ClCompile Include="src\GameLibrary\Utilities\Time\posixtime.cpp" />
     <ClCompile Include="src\GameLibrary\Utilities\Time\time64\time64.c" />
     <ClCompile Include="src\GameLibrary\Utilities\Time\TimeInterval.cpp" />
-    <ClCompile Include="src\GameLibrary\Utilities\WideString.cpp" />
     <ClCompile Include="src\GameLibrary\Window\MessageBox.cpp" />
     <ClCompile Include="src\GameLibrary\Window\View.cpp" />
     <ClCompile Include="src\GameLibrary\Window\Window.cpp" />
@@ -322,7 +321,6 @@
     <ClInclude Include="src\GameLibrary\Utilities\Pair.h" />
     <ClInclude Include="src\GameLibrary\Utilities\PlatformChecks.h" />
     <ClInclude Include="src\GameLibrary\Utilities\String.h" />
-    <ClInclude Include="src\GameLibrary\Utilities\StringConvert.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Stringifier.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Thread.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Time\DateTime.h" />
@@ -331,7 +329,6 @@
     <ClInclude Include="src\GameLibrary\Utilities\Time\time64\time64_config.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Time\time64\time64_limits.h" />
     <ClInclude Include="src\GameLibrary\Utilities\Time\TimeInterval.h" />
-    <ClInclude Include="src\GameLibrary\Utilities\WideString.h" />
     <ClInclude Include="src\GameLibrary\Window\MessageBox.h" />
     <ClInclude Include="src\GameLibrary\Window\View.h" />
     <ClInclude Include="src\GameLibrary\Window\Window.h" />
@@ -366,10 +363,6 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MobileBrawler.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\GameLibrary\Utilities\StringClass.cpp.impl" />
-    <None Include="src\GameLibrary\Utilities\StringClass.h.impl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

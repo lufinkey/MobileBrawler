@@ -42,5 +42,5 @@ namespace GameLibrary
 		return what();
 	}
 	
-	MEMBERFUNC_GETCLASSNAME(Exception)
+	GAMELIB_MEMBERFUNC_GETCLASSNAME(Exception)
 }

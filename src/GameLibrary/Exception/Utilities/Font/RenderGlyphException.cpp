@@ -24,5 +24,5 @@ namespace GameLibrary
 		return *this;
 	}
 	
-	MEMBERFUNC_GETCLASSNAME(RenderGlyphException)
+	GAMELIB_MEMBERFUNC_GETCLASSNAME(RenderGlyphException)
 }

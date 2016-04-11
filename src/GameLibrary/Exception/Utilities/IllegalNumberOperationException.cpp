@@ -31,5 +31,5 @@ namespace GameLibrary
 		return *this;
 	}
 	
-	MEMBERFUNC_GETCLASSNAME(IllegalNumberOperationException)
+	GAMELIB_MEMBERFUNC_GETCLASSNAME(IllegalNumberOperationException)
 }

@@ -5,13 +5,13 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-		MenuBar::MenuBar(const WideString&label_text, AssetManager*assetManager, const Dictionary&properties)
+		MenuBar::MenuBar(const String&label_text, AssetManager*assetManager, const Dictionary&properties)
 			: MenuBar(0,0,label_text,assetManager,properties)
 		{
 			//
 		}
 		
-		MenuBar::MenuBar(double x, double y, const WideString&label_text, AssetManager*assetManager, const Dictionary&properties) : SpriteActor(x, y)
+		MenuBar::MenuBar(double x, double y, const String&label_text, AssetManager*assetManager, const Dictionary&properties) : SpriteActor(x, y)
 		{
 			label_actor = nullptr;
 			
@@ -118,7 +118,7 @@ namespace SmashBros
 			label_actor->draw(appData, graphics);
 		}
 		
-		void MenuBar::setLabel(const WideString&text)
+		void MenuBar::setLabel(const String&text)
 		{
 			label_actor->setText(text);
 			label_actor->scaleToFit(label_autoLayoutMgr.calculateFrame(label_actor->getFrame(), getFrame()));
@@ -130,7 +130,7 @@ namespace SmashBros
 			label_actor->scaleToFit(label_autoLayoutMgr.calculateFrame(label_actor->getFrame(), getFrame()));
 		}
 		
-		const WideString& MenuBar::getLabel() const
+		const String& MenuBar::getLabel() const
 		{
 			return label_actor->getText();
 		}

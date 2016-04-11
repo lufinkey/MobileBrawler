@@ -28,5 +28,5 @@ namespace GameLibrary
 		return *this;
 	}
 	
-	MEMBERFUNC_GETCLASSNAME(NumberFormatException)
+	GAMELIB_MEMBERFUNC_GETCLASSNAME(NumberFormatException)
 }

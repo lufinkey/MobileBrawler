@@ -42,7 +42,7 @@ namespace GameLibrary
 		}
 	};
 #endif
-
+	
 #define ARRAYLIST_NOTFOUND SIZE_MAX
 	
 	template <typename T>
@@ -258,7 +258,6 @@ namespace GameLibrary
 		void clear()
 		{
 			objects.resize(0);
-			objects.shrink_to_fit();
 		}
 		
 		size_t size() const
@@ -269,6 +268,15 @@ namespace GameLibrary
 		void resize(size_t size)
 		{
 			objects.resize(size);
+		}
+		
+		void reserve(size_t size)
+		{
+			objects.reserve(size);
+		}
+		
+		void shrinkToFit()
+		{
 			objects.shrink_to_fit();
 		}
 		
@@ -316,3 +324,4 @@ namespace GameLibrary
 #ifndef _ARRAYLIST_STANDALONE
 }
 #endif
+

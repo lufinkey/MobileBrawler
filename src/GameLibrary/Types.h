@@ -93,9 +93,7 @@ namespace GameLibrary
 	class Dictionary;
 	class Math;
 	class Number;
-	class String;
 	class Thread;
-	class WideString;
 	
 	//View
 	class View;

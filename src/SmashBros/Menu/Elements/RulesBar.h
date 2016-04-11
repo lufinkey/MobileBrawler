@@ -21,14 +21,14 @@ namespace SmashBros
 			virtual void update(ApplicationData appData) override;
 			virtual void onValueChange();
 			
-			void setValueLabelSuffix(const WideString&);
+			void setValueLabelSuffix(const String&);
 			
 		private:
 			Rules*rules;
 			Number value;
 			StockWinCondition* stock;
 			TimeLimitWinCondition* timeLimit;
-			WideString valueLabelSuffix;
+			String valueLabelSuffix;
 		};
 	}
 }
