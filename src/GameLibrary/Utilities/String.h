@@ -184,7 +184,8 @@ namespace GameLibrary
 		
 		//same size chars
 		template<typename _OUTPUT_STRING_TYPE, typename _INPUT_STRING_TYPE,
-			typename std::enable_if<((sizeof(_OUTPUT_STRING_TYPE)==sizeof(_INPUT_STRING_TYPE))
+			typename std::enable_if<(
+				(sizeof(_OUTPUT_STRING_TYPE)==sizeof(_INPUT_STRING_TYPE))
 				&& std::is_integral<_OUTPUT_STRING_TYPE>::value
 				&& std::is_integral<_INPUT_STRING_TYPE>::value), size_t>::type = 0>
 		static void convert_fromString(const _INPUT_STRING_TYPE* str, size_t length, std::basic_string<_OUTPUT_STRING_TYPE>* output)
@@ -240,7 +241,8 @@ namespace GameLibrary
 		
 		//byte to multibyte
 		template<typename _OUTPUT_STRING_TYPE, typename _INPUT_STRING_TYPE,
-			typename std::enable_if<((sizeof(_INPUT_STRING_TYPE)==1 && sizeof(_OUTPUT_STRING_TYPE)>1 && sizeof(_OUTPUT_STRING_TYPE)<=4)
+			typename std::enable_if<(
+				(sizeof(_INPUT_STRING_TYPE)==1 && sizeof(_OUTPUT_STRING_TYPE)>1 && sizeof(_OUTPUT_STRING_TYPE)<=4)
 				&& std::is_integral<_OUTPUT_STRING_TYPE>::value
 				&& std::is_integral<_INPUT_STRING_TYPE>::value), size_t>::type = 0>
 		static void convert_fromString(const _INPUT_STRING_TYPE* str, size_t length, std::basic_string<_OUTPUT_STRING_TYPE>* output)
