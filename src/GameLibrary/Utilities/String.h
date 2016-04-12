@@ -1280,8 +1280,8 @@ namespace GameLibrary
 			{
 				const _STRING_TYPE& c1 = characters[i];
 				const _STRING_TYPE& c2 = cmp.characters[i];
-				unsigned char type1 = getCharType(c1);
-				unsigned char type2 = getCharType(c2);
+				unsigned char type1 = BasicStringUtils::getCharType<_STRING_TYPE>(c1);
+				unsigned char type2 = BasicStringUtils::getCharType<_STRING_TYPE>(c2);
 				if(type1==type2)
 				{
 					if(c1<c2)
