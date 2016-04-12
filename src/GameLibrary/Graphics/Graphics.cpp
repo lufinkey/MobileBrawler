@@ -39,7 +39,6 @@ namespace GameLibrary
 		if(window->view != nullptr && window->view->matchWindow)
 		{
 			const Vector2u& winSz = window->getSize();
-			Vector2d winSize = Vector2d((double)winSz.x, (double)winSz.y);
 			window->view->setSize((double)winSz.x, (double)winSz.y);
 		}
 		

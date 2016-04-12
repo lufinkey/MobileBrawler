@@ -94,16 +94,12 @@
 		A03847351B7EBE76002CFEDD /* Math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03846791B7EBE76002CFEDD /* Math.cpp */; };
 		A03847361B7EBE76002CFEDD /* Number.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A038467B1B7EBE76002CFEDD /* Number.cpp */; };
 		A03847371B7EBE76002CFEDD /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A038467F1B7EBE76002CFEDD /* String.cpp */; };
-		A03847381B7EBE76002CFEDD /* String.mm in Sources */ = {isa = PBXBuildFile; fileRef = A03846811B7EBE76002CFEDD /* String.mm */; };
-		A03847391B7EBE76002CFEDD /* StringClass.cpp.impl in Resources */ = {isa = PBXBuildFile; fileRef = A03846821B7EBE76002CFEDD /* StringClass.cpp.impl */; };
-		A038473A1B7EBE76002CFEDD /* StringClass.h.impl in Resources */ = {isa = PBXBuildFile; fileRef = A03846831B7EBE76002CFEDD /* StringClass.h.impl */; };
 		A038473B1B7EBE76002CFEDD /* Stringifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03846851B7EBE76002CFEDD /* Stringifier.cpp */; };
 		A038473C1B7EBE76002CFEDD /* Thread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03846871B7EBE76002CFEDD /* Thread.cpp */; };
 		A038473D1B7EBE76002CFEDD /* DateTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A038468A1B7EBE76002CFEDD /* DateTime.cpp */; };
 		A038473E1B7EBE76002CFEDD /* posixtime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A038468C1B7EBE76002CFEDD /* posixtime.cpp */; };
 		A038473F1B7EBE76002CFEDD /* time64.c in Sources */ = {isa = PBXBuildFile; fileRef = A038468F1B7EBE76002CFEDD /* time64.c */; };
 		A03847401B7EBE76002CFEDD /* TimeInterval.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03846931B7EBE76002CFEDD /* TimeInterval.cpp */; };
-		A03847411B7EBE76002CFEDD /* WideString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03846951B7EBE76002CFEDD /* WideString.cpp */; };
 		A03847421B7EBE76002CFEDD /* MessageBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03846981B7EBE76002CFEDD /* MessageBox.cpp */; };
 		A03847431B7EBE76002CFEDD /* MessageBox.mm in Sources */ = {isa = PBXBuildFile; fileRef = A038469A1B7EBE76002CFEDD /* MessageBox.mm */; };
 		A03847441B7EBE76002CFEDD /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A038469B1B7EBE76002CFEDD /* View.cpp */; };
@@ -153,6 +149,8 @@
 		A03847FA1B7ED2FA002CFEDD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A03847F91B7ED2FA002CFEDD /* MobileCoreServices.framework */; };
 		A03847FC1B7ED30A002CFEDD /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A03847FB1B7ED30A002CFEDD /* ImageIO.framework */; };
 		A052EDC41B7F9D8F0048FA55 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = A052EDC31B7F9D8F0048FA55 /* assets */; };
+		A08692CA1CBC8E6C00CD5626 /* TouchElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A08692C81CBC8E6C00CD5626 /* TouchElement.cpp */; };
+		A08692CD1CBC8EAB00CD5626 /* AutoLayoutCalculator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A08692CB1CBC8EAB00CD5626 /* AutoLayoutCalculator.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -347,10 +345,6 @@
 		A038467E1B7EBE76002CFEDD /* PlatformChecks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlatformChecks.h; sourceTree = "<group>"; };
 		A038467F1B7EBE76002CFEDD /* String.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = String.cpp; sourceTree = "<group>"; };
 		A03846801B7EBE76002CFEDD /* String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = String.h; sourceTree = "<group>"; };
-		A03846811B7EBE76002CFEDD /* String.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = String.mm; sourceTree = "<group>"; };
-		A03846821B7EBE76002CFEDD /* StringClass.cpp.impl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = StringClass.cpp.impl; sourceTree = "<group>"; };
-		A03846831B7EBE76002CFEDD /* StringClass.h.impl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = StringClass.h.impl; sourceTree = "<group>"; };
-		A03846841B7EBE76002CFEDD /* StringConvert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringConvert.h; sourceTree = "<group>"; };
 		A03846851B7EBE76002CFEDD /* Stringifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Stringifier.cpp; sourceTree = "<group>"; };
 		A03846861B7EBE76002CFEDD /* Stringifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stringifier.h; sourceTree = "<group>"; };
 		A03846871B7EBE76002CFEDD /* Thread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Thread.cpp; sourceTree = "<group>"; };
@@ -365,8 +359,6 @@
 		A03846921B7EBE76002CFEDD /* time64_limits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = time64_limits.h; sourceTree = "<group>"; };
 		A03846931B7EBE76002CFEDD /* TimeInterval.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimeInterval.cpp; sourceTree = "<group>"; };
 		A03846941B7EBE76002CFEDD /* TimeInterval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeInterval.h; sourceTree = "<group>"; };
-		A03846951B7EBE76002CFEDD /* WideString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WideString.cpp; sourceTree = "<group>"; };
-		A03846961B7EBE76002CFEDD /* WideString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WideString.h; sourceTree = "<group>"; };
 		A03846981B7EBE76002CFEDD /* MessageBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MessageBox.cpp; sourceTree = "<group>"; };
 		A03846991B7EBE76002CFEDD /* MessageBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageBox.h; sourceTree = "<group>"; };
 		A038469A1B7EBE76002CFEDD /* MessageBox.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MessageBox.mm; sourceTree = "<group>"; };
@@ -447,6 +439,10 @@
 		A03847F91B7ED2FA002CFEDD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		A03847FB1B7ED30A002CFEDD /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		A052EDC31B7F9D8F0048FA55 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
+		A08692C81CBC8E6C00CD5626 /* TouchElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TouchElement.cpp; sourceTree = "<group>"; };
+		A08692C91CBC8E6C00CD5626 /* TouchElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchElement.h; sourceTree = "<group>"; };
+		A08692CB1CBC8EAB00CD5626 /* AutoLayoutCalculator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AutoLayoutCalculator.cpp; sourceTree = "<group>"; };
+		A08692CC1CBC8EAB00CD5626 /* AutoLayoutCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoLayoutCalculator.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -827,6 +823,8 @@
 			children = (
 				A038464B1B7EBE76002CFEDD /* Transition */,
 				A03846551B7EBE76002CFEDD /* UI */,
+				A08692CC1CBC8EAB00CD5626 /* AutoLayoutCalculator.h */,
+				A08692CB1CBC8EAB00CD5626 /* AutoLayoutCalculator.cpp */,
 				A03846431B7EBE76002CFEDD /* AutoLayoutManager.h */,
 				A03846421B7EBE76002CFEDD /* AutoLayoutManager.cpp */,
 				A03846441B7EBE76002CFEDD /* Drawable.h */,
@@ -868,6 +866,8 @@
 				A038465A1B7EBE76002CFEDD /* MenuScreen.cpp */,
 				A038465D1B7EBE76002CFEDD /* TextInputElement.h */,
 				A038465C1B7EBE76002CFEDD /* TextInputElement.cpp */,
+				A08692C91CBC8E6C00CD5626 /* TouchElement.h */,
+				A08692C81CBC8E6C00CD5626 /* TouchElement.cpp */,
 				A038465F1B7EBE76002CFEDD /* ZoomPanElement.h */,
 				A038465E1B7EBE76002CFEDD /* ZoomPanElement.cpp */,
 			);
@@ -896,18 +896,12 @@
 				A038467B1B7EBE76002CFEDD /* Number.cpp */,
 				A038467D1B7EBE76002CFEDD /* Pair.h */,
 				A038467E1B7EBE76002CFEDD /* PlatformChecks.h */,
-				A03846831B7EBE76002CFEDD /* StringClass.h.impl */,
-				A03846821B7EBE76002CFEDD /* StringClass.cpp.impl */,
 				A03846801B7EBE76002CFEDD /* String.h */,
 				A038467F1B7EBE76002CFEDD /* String.cpp */,
-				A03846811B7EBE76002CFEDD /* String.mm */,
-				A03846841B7EBE76002CFEDD /* StringConvert.h */,
 				A03846861B7EBE76002CFEDD /* Stringifier.h */,
 				A03846851B7EBE76002CFEDD /* Stringifier.cpp */,
 				A03846881B7EBE76002CFEDD /* Thread.h */,
 				A03846871B7EBE76002CFEDD /* Thread.cpp */,
-				A03846961B7EBE76002CFEDD /* WideString.h */,
-				A03846951B7EBE76002CFEDD /* WideString.cpp */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1230,8 +1224,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A052EDC41B7F9D8F0048FA55 /* assets in Resources */,
-				A03847391B7EBE76002CFEDD /* StringClass.cpp.impl in Resources */,
-				A038473A1B7EBE76002CFEDD /* StringClass.h.impl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1284,6 +1276,7 @@
 				A038473D1B7EBE76002CFEDD /* DateTime.cpp in Sources */,
 				A03847501B7EBE76002CFEDD /* CharacterSelectScreen.cpp in Sources */,
 				A03847401B7EBE76002CFEDD /* TimeInterval.cpp in Sources */,
+				A08692CD1CBC8EAB00CD5626 /* AutoLayoutCalculator.cpp in Sources */,
 				A038475C1B7EBE76002CFEDD /* GroupSmashStageSelectMenu.cpp in Sources */,
 				A03847191B7EBE76002CFEDD /* PixelIterator.cpp in Sources */,
 				A03847131B7EBE76002CFEDD /* IllegalNumberOperationException.cpp in Sources */,
@@ -1345,7 +1338,6 @@
 				A038475B1B7EBE76002CFEDD /* GroupSmashCharacterSelectMenu.cpp in Sources */,
 				A03847041B7EBE76002CFEDD /* TextureImageUpdateException.cpp in Sources */,
 				A03847611B7EBE76002CFEDD /* TitleScreen.cpp in Sources */,
-				A03847381B7EBE76002CFEDD /* String.mm in Sources */,
 				A03847491B7EBE76002CFEDD /* ModuleLoad.cpp in Sources */,
 				A03847271B7EBE76002CFEDD /* FadeZoomTransition.cpp in Sources */,
 				A038475E1B7EBE76002CFEDD /* GroupSmashData.cpp in Sources */,
@@ -1354,7 +1346,7 @@
 				A038472C1B7EBE76002CFEDD /* MenuScreen.cpp in Sources */,
 				A03847551B7EBE76002CFEDD /* ArrowButton.cpp in Sources */,
 				A038471B1B7EBE76002CFEDD /* Keyboard.cpp in Sources */,
-				A03847411B7EBE76002CFEDD /* WideString.cpp in Sources */,
+				A08692CA1CBC8E6C00CD5626 /* TouchElement.cpp in Sources */,
 				A03847531B7EBE76002CFEDD /* StageSelectScreen.cpp in Sources */,
 				A038471C1B7EBE76002CFEDD /* Mouse.cpp in Sources */,
 				A03847141B7EBE76002CFEDD /* StringOutOfBoundsException.cpp in Sources */,

@@ -328,7 +328,6 @@ namespace GameLibrary
 	
 	void ActorMenuElement::removeActor(size_t index)
 	{
-		Actor* actor = actors.get(index);
 		actors.remove(index);
 		AutoLayoutManager* layoutMgr = actorLayoutMgrs.get(index);
 		actorLayoutMgrs.remove(index);

@@ -1,6 +1,9 @@
 
 #pragma once
 
+#ifndef _GAMELIBRARY_STRING_H
+#define _GAMELIBRARY_STRING_H
+
 #include <string>
 #include <type_traits>
 #include <ostream>
@@ -21,6 +24,7 @@ namespace GameLibrary
 	template<typename _STRING_TYPE>
 	class BasicString;
 	
+	#define NULLCHAR 0
 	#define _STRING_SAME_CHAR_SIZE(_STRING_TYPE,_OTHER_STRING_TYPE) typename std::enable_if<(sizeof(_STRING_TYPE)==sizeof(_OTHER_STRING_TYPE)), _OTHER_STRING_TYPE>::type
 	#define _STRING_DIFF_CHAR_SIZE(_STRING_TYPE,_OTHER_STRING_TYPE) typename std::enable_if<(sizeof(_STRING_TYPE)!=sizeof(_OTHER_STRING_TYPE)), _OTHER_STRING_TYPE>::type
 	#define _STRING_ISBOOL(_STRING_TYPE, _OTHER_TYPE) typename std::enable_if<(\
@@ -104,7 +108,7 @@ namespace GameLibrary
 				chars[1] = (_STRING_TYPE)'r';
 				chars[2] = (_STRING_TYPE)'u';
 				chars[3] = (_STRING_TYPE)'e';
-				chars[4] = NULL;
+				chars[4] = NULLCHAR;
 				*length = 4;
 			}
 			else
@@ -114,7 +118,7 @@ namespace GameLibrary
 				chars[2] = (_STRING_TYPE)'l';
 				chars[3] = (_STRING_TYPE)'s';
 				chars[4] = (_STRING_TYPE)'e';
-				chars[5] = NULL;
+				chars[5] = NULLCHAR;
 				*length = 5;
 			}
 		}
@@ -143,6 +147,20 @@ namespace GameLibrary
 			return 1;
 		}
 		
+		template<typename T, size_t T_SIZE=sizeof(T)>
+		struct utf_eqv {};
+		template<typename T>
+		struct utf_eqv<T,1> { typedef char type; };
+		#ifdef _WIN32
+			template<typename T>
+			struct utf_eqv<T,2> { typedef int16_t type; };
+		#else
+			template<typename T>
+			struct utf_eqv<T,2> { typedef char16_t type; };
+		#endif
+		template<typename T>
+		struct utf_eqv<T,4> { typedef char32_t type; };
+		
 		template<typename _OUTPUT_STRING_TYPE, typename _NUM_TYPE>
 		static void convert_fromNumber(const _NUM_TYPE& num, std::basic_stringstream<_OUTPUT_STRING_TYPE>* ss)
 		{
@@ -155,6 +173,13 @@ namespace GameLibrary
 			{
 				*ss << num;
 			}
+		}
+		
+		template<typename _OUT, typename _IN, typename std::enable_if<(sizeof(_OUT)==sizeof(_IN)), size_t>::type = 0>
+		static std::basic_string<_OUT>& string_cast(std::basic_string<_IN>&& str)
+		{
+			std::basic_string<_IN>& str_l = str;
+			return *((std::basic_string<_OUT>*)&str_l);
 		}
 		
 		//same size chars
@@ -171,40 +196,66 @@ namespace GameLibrary
 			*output = (const _OUTPUT_STRING_TYPE*)str;
 		}
 		
-		//multibyte to byte, byte is a char
+		//multibyte to byte, multibyte=2
 		template<typename _OUTPUT_STRING_TYPE, typename _INPUT_STRING_TYPE,
-			typename std::enable_if<((sizeof(_OUTPUT_STRING_TYPE)==1 && sizeof(_INPUT_STRING_TYPE)>1)
-				&& std::is_integral<_OUTPUT_STRING_TYPE>::value
-				&& std::is_integral<_INPUT_STRING_TYPE>::value
-				&& std::is_same<std::string::value_type, _OUTPUT_STRING_TYPE>::value), size_t>::type = 0>
-		static void convert_fromString(const _INPUT_STRING_TYPE* str, size_t length, std::basic_string<_OUTPUT_STRING_TYPE>* output)
-		{
-			std::wstring_convert<std::codecvt_utf8<_INPUT_STRING_TYPE>, _INPUT_STRING_TYPE> convert;
-			*output = convert.to_bytes(str, str+length);
-		}
-		
-		//multibyte to byte, byte is no a char
-		template<typename _OUTPUT_STRING_TYPE, typename _INPUT_STRING_TYPE,
-			typename std::enable_if<((sizeof(_OUTPUT_STRING_TYPE)==1 && sizeof(_INPUT_STRING_TYPE)>1)
-				&& std::is_integral<_OUTPUT_STRING_TYPE>::value
-				&& std::is_integral<_INPUT_STRING_TYPE>::value
-				&& !std::is_same<std::string::value_type, _OUTPUT_STRING_TYPE>::value), size_t>::type = 0>
-		static void convert_fromString(const _INPUT_STRING_TYPE* str, size_t length, std::basic_string<_OUTPUT_STRING_TYPE>* output)
-		{
-			std::wstring_convert<std::codecvt_utf8<_INPUT_STRING_TYPE>, _INPUT_STRING_TYPE> convert;
-			std::string&& newStr = convert.to_bytes(str, str+length);
-			output->append((_OUTPUT_STRING_TYPE*)newStr.c_str(), newStr.length());
-		}
-		
-		//byte to multibyte
-		template<typename _OUTPUT_STRING_TYPE, typename _INPUT_STRING_TYPE,
-			typename std::enable_if<((sizeof(_INPUT_STRING_TYPE)==1 && sizeof(_OUTPUT_STRING_TYPE)>1)
+			typename std::enable_if<(
+				(sizeof(_OUTPUT_STRING_TYPE)==1 && sizeof(_INPUT_STRING_TYPE)>1 && sizeof(_INPUT_STRING_TYPE)<=4)
 				&& std::is_integral<_OUTPUT_STRING_TYPE>::value
 				&& std::is_integral<_INPUT_STRING_TYPE>::value), size_t>::type = 0>
 		static void convert_fromString(const _INPUT_STRING_TYPE* str, size_t length, std::basic_string<_OUTPUT_STRING_TYPE>* output)
 		{
-			std::wstring_convert<std::codecvt_utf8<_OUTPUT_STRING_TYPE>, _OUTPUT_STRING_TYPE> convert;
-			*output = convert.from_bytes(str, str+length);
+			typedef typename utf_eqv<_INPUT_STRING_TYPE>::type INPUT_TYPE;
+			if(sizeof(_INPUT_STRING_TYPE)==2)
+			{
+				std::wstring_convert<std::codecvt_utf8_utf16<INPUT_TYPE>, INPUT_TYPE> convert;
+				*output = std::move(string_cast<_OUTPUT_STRING_TYPE,char>(convert.to_bytes((const INPUT_TYPE*)str, (const INPUT_TYPE*)str+length)));
+			}
+			else if(sizeof(_INPUT_STRING_TYPE)==4)
+			{
+				std::wstring_convert<std::codecvt_utf8<INPUT_TYPE>, INPUT_TYPE> convert;
+				*output = std::move(string_cast<_OUTPUT_STRING_TYPE,char>(convert.to_bytes((const INPUT_TYPE*)str, (const INPUT_TYPE*)str+length)));
+			}
+		}
+		
+		//multibyte to multibyte
+		template<typename _OUTPUT_STRING_TYPE, typename _INPUT_STRING_TYPE,
+			typename std::enable_if<(
+				(sizeof(_OUTPUT_STRING_TYPE)>1 && sizeof(_INPUT_STRING_TYPE)>1)
+				&& std::is_integral<_OUTPUT_STRING_TYPE>::value
+				&& std::is_integral<_INPUT_STRING_TYPE>::value), size_t>::type = 0>
+		static void convert_fromString(const _INPUT_STRING_TYPE* str, size_t length, std::basic_string<_OUTPUT_STRING_TYPE>* output)
+		{
+			typedef typename utf_eqv<_OUTPUT_STRING_TYPE>::type OUTPUT_TYPE;
+			std::wstring_convert<std::codecvt_utf16<OUTPUT_TYPE>, OUTPUT_TYPE> convert;
+			if(sizeof(_OUTPUT_STRING_TYPE)>sizeof(_INPUT_STRING_TYPE))
+			{
+				*output = std::move(string_cast<_OUTPUT_STRING_TYPE,OUTPUT_TYPE>(convert.from_bytes((const char*)str, (const char*)str+length)));
+			}
+			else
+			{
+				std::string&& buffer = convert.to_bytes((const OUTPUT_TYPE*)str, (const OUTPUT_TYPE*)str+length);
+				*output = std::basic_string<_OUTPUT_STRING_TYPE>((const _OUTPUT_STRING_TYPE*)buffer.c_str(), buffer.length()/sizeof(_OUTPUT_STRING_TYPE));
+			}
+		}
+		
+		//byte to multibyte
+		template<typename _OUTPUT_STRING_TYPE, typename _INPUT_STRING_TYPE,
+			typename std::enable_if<((sizeof(_INPUT_STRING_TYPE)==1 && sizeof(_OUTPUT_STRING_TYPE)>1 && sizeof(_OUTPUT_STRING_TYPE)<=4)
+				&& std::is_integral<_OUTPUT_STRING_TYPE>::value
+				&& std::is_integral<_INPUT_STRING_TYPE>::value), size_t>::type = 0>
+		static void convert_fromString(const _INPUT_STRING_TYPE* str, size_t length, std::basic_string<_OUTPUT_STRING_TYPE>* output)
+		{
+			typedef typename utf_eqv<_OUTPUT_STRING_TYPE>::type OUTPUT_TYPE;
+			if(sizeof(_OUTPUT_STRING_TYPE)==2)
+			{
+				std::wstring_convert<std::codecvt_utf8_utf16<OUTPUT_TYPE>, OUTPUT_TYPE> convert;
+				*output = std::move(string_cast<_OUTPUT_STRING_TYPE,OUTPUT_TYPE>(convert.from_bytes((const char*)str, (const char*)str+length)));
+			}
+			else if(sizeof(_OUTPUT_STRING_TYPE)==4)
+			{
+				std::wstring_convert<std::codecvt_utf8<OUTPUT_TYPE>, OUTPUT_TYPE> convert;
+				*output = std::move(string_cast<_OUTPUT_STRING_TYPE,OUTPUT_TYPE>(convert.from_bytes((const char*)str, (const char*)str+length)));
+			}
 		}
 		
 		template<typename _STRING_TYPE, typename _OTHER_STRING_TYPE>
@@ -309,7 +360,7 @@ namespace GameLibrary
 		static size_t strlen(const _STRING_TYPE* str)
 		{
 			size_t size = 0;
-			while(str[size] != NULL)
+			while(str[size] != NULLCHAR)
 			{
 				size++;
 			}
@@ -324,7 +375,7 @@ namespace GameLibrary
 			{
 				throw std::bad_alloc();
 			}
-			characters[0] = NULL;
+			characters[0] = NULLCHAR;
 		}
 		
 		BasicString(const _STRING_TYPE* str, size_t length)
@@ -339,7 +390,7 @@ namespace GameLibrary
 			{
 				characters[i] = str[i];
 			}
-			characters[size] = NULL;
+			characters[size] = NULLCHAR;
 		}
 		
 		BasicString(const _STRING_TYPE* str)
@@ -387,7 +438,7 @@ namespace GameLibrary
 			characters = characters_new;
 			size = size_new;
 			[nsString getCharacters:(unichar*)characters range:range];
-			characters[size_new] = NULL;
+			characters[size_new] = NULLCHAR;
 		}
 		
 		template<typename _CHAR_TYPE=_STRING_TYPE,
@@ -412,7 +463,7 @@ namespace GameLibrary
 			unichar* str = new unichar[length+1];
 			NSRange range = NSMakeRange(0, (NSUInteger)length);
 			[nsString getCharacters:str range:range];
-			str[length] = NULL;
+			str[length] = NULLCHAR;
 			BasicStringUtils::convert_fromString<_STRING_TYPE,unichar>(str, length, &output);
 			delete[] str;
 			set(output.c_str(), output.length());
@@ -445,7 +496,7 @@ namespace GameLibrary
 				throw std::bad_alloc();
 			}
 			characters[0] = (_STRING_TYPE)c;
-			characters[size] = NULL;
+			characters[size] = NULLCHAR;
 		}
 		
 		template<typename _OTHER_STRING_TYPE,
@@ -469,7 +520,7 @@ namespace GameLibrary
 			characters(nullptr)
 		{
 			//different char size
-			_OTHER_STRING_TYPE str[2] = {c, NULL};
+			_OTHER_STRING_TYPE str[2] = {c, NULLCHAR};
 			std::basic_string<_STRING_TYPE> output;
 			BasicStringUtils::convert_fromString<_STRING_TYPE,_OTHER_STRING_TYPE>(str,1,&output);
 			set(output.c_str(), output.length());
@@ -487,7 +538,7 @@ namespace GameLibrary
 				throw std::bad_alloc();
 			}
 			characters[0] = c;
-			characters[size] = NULL;
+			characters[size] = NULLCHAR;
 		}
 		
 		template<typename _OTHER_STRING_TYPE,
@@ -596,7 +647,7 @@ namespace GameLibrary
 			}
 			characters = characters_new;
 			size = 0;
-			characters[0] = NULL;
+			characters[0] = NULLCHAR;
 		}
 		
 		_STRING_TYPE& charAt(size_t index)
@@ -698,7 +749,7 @@ namespace GameLibrary
 				characters[i] = str[i];
 			}
 			size = size_new;
-			characters[size] = NULL;
+			characters[size] = NULLCHAR;
 		}
 		
 		void set(const _STRING_TYPE* str)
@@ -755,7 +806,7 @@ namespace GameLibrary
 			characters = characters_new;
 			size = size_new;
 			[nsString getCharacters:(unichar*)characters range:range];
-			characters[size_new] = NULL;
+			characters[size_new] = NULLCHAR;
 			return *this;
 		}
 		
@@ -779,7 +830,7 @@ namespace GameLibrary
 			unichar* str = new unichar[length+1];
 			NSRange range = NSMakeRange(0, (NSUInteger)length);
 			[nsString getCharacters:str range:range];
-			str[length] = NULL;
+			str[length] = NULLCHAR;
 			BasicStringUtils::convert_fromString<_STRING_TYPE,unichar>(str, length, &output);
 			delete[] str;
 			set(output.c_str(), output.length());
@@ -814,7 +865,7 @@ namespace GameLibrary
 			characters = characters_new;
 			characters[0] = (_STRING_TYPE)c;
 			size = size_new;
-			characters[size] = NULL;
+			characters[size] = NULLCHAR;
 			return *this;
 		}
 		
@@ -837,7 +888,7 @@ namespace GameLibrary
 		BasicString<_STRING_TYPE>& operator=(const _OTHER_STRING_TYPE& c)
 		{
 			//different char size
-			_OTHER_STRING_TYPE str[2] = {c, NULL};
+			_OTHER_STRING_TYPE str[2] = {c, NULLCHAR};
 			std::basic_string<_STRING_TYPE> output;
 			BasicStringUtils::convert_fromString<_STRING_TYPE,_OTHER_STRING_TYPE>(str, 1, &output);
 			set(output.c_str(), output.length());
@@ -858,7 +909,7 @@ namespace GameLibrary
 			characters = characters_new;
 			characters[0] = c;
 			size = size_new;
-			characters[size] = NULL;
+			characters[size] = NULLCHAR;
 			return *this;
 		}
 		
@@ -950,7 +1001,7 @@ namespace GameLibrary
 				counter++;
 			}
 			size = size_new;
-			characters[size] = NULL;
+			characters[size] = NULLCHAR;
 		}
 		
 		void append(const _STRING_TYPE* str)
@@ -969,7 +1020,7 @@ namespace GameLibrary
 			characters = characters_new;
 			characters[size] = c;
 			size = size_new;
-			characters[size] = NULL;
+			characters[size] = NULLCHAR;
 		}
 		
 		BasicString<_STRING_TYPE>& operator+=(const _STRING_TYPE& c)
@@ -1015,7 +1066,7 @@ namespace GameLibrary
 			size = size_new;
 			NSRange range = NSMakeRange(0, (NSUInteger)nsLength);
 			[nsString getCharacters:(unichar*)(characters+size_old) range:range];
-			characters[size_new] = NULL;
+			characters[size_new] = NULLCHAR;
 			return *this;
 		}
 		
@@ -1039,7 +1090,7 @@ namespace GameLibrary
 			unichar* str = new unichar[nsLength+1];
 			NSRange range = NSMakeRange(0, (NSUInteger)nsLength);
 			[nsString getCharacters:str range:range];
-			str[nsLength] = NULL;
+			str[nsLength] = NULLCHAR;
 			BasicStringUtils::convert_fromString<_STRING_TYPE,unichar>(str, nsLength, &output);
 			delete[] str;
 			append(output.c_str(), output.length());
@@ -1089,7 +1140,7 @@ namespace GameLibrary
 		BasicString<_STRING_TYPE>& operator+=(const _OTHER_STRING_TYPE& c)
 		{
 			//different char size
-			_OTHER_STRING_TYPE str[2] = {c, NULL};
+			_OTHER_STRING_TYPE str[2] = {c, NULLCHAR};
 			std::basic_string<_STRING_TYPE> output;
 			BasicStringUtils::convert_fromString(str, 1, &output);
 			append(output.c_str(), output.length());
@@ -1630,7 +1681,7 @@ namespace GameLibrary
 					newStr.characters[i] = characters[i];
 				}
 			}
-			newStr.characters[size] = NULL;
+			newStr.characters[size] = NULLCHAR;
 			return newStr;
 		}
 		
@@ -1699,7 +1750,7 @@ namespace GameLibrary
 						oldStr_counter++;
 					}
 				}
-				newStr.characters[size_new] = NULL;
+				newStr.characters[size_new] = NULLCHAR;
 				return newStr;
 			}
 			return *this;
@@ -1721,7 +1772,7 @@ namespace GameLibrary
 			{
 				newStr.characters[i] = (_STRING_TYPE)std::tolower(BasicStringUtils::int_cast<_STRING_TYPE>(characters[i]));
 			}
-			newStr.characters[size] = NULL;
+			newStr.characters[size] = NULLCHAR;
 			return newStr;
 		}
 		
@@ -1741,7 +1792,7 @@ namespace GameLibrary
 			{
 				newStr.characters[i] = (_STRING_TYPE)std::toupper(BasicStringUtils::int_cast<_STRING_TYPE>(characters[i]));
 			}
-			newStr.characters[size] = NULL;
+			newStr.characters[size] = NULLCHAR;
 			return newStr;
 		}
 		
@@ -1975,7 +2026,7 @@ namespace GameLibrary
 			newStr.characters[i] = right.characters[counter];
 			counter++;
 		}
-		newStr.characters[size_new] = NULL;
+		newStr.characters[size_new] = NULLCHAR;
 		return newStr;
 	}
 	
@@ -2002,7 +2053,7 @@ namespace GameLibrary
 			newStr.characters[i] = right[counter];
 			counter++;
 		}
-		newStr.characters[size_new] = NULL;
+		newStr.characters[size_new] = NULLCHAR;
 		return newStr;
 	}
 	
@@ -2029,7 +2080,7 @@ namespace GameLibrary
 			newStr.characters[i] = right.characters[counter];
 			counter++;
 		}
-		newStr.characters[size_new] = NULL;
+		newStr.characters[size_new] = NULLCHAR;
 		return newStr;
 	}
 	
@@ -2050,7 +2101,7 @@ namespace GameLibrary
 			newStr.characters[i] = left.characters[i];
 		}
 		newStr.characters[left.size] = right;
-		newStr.characters[size_new] = NULL;
+		newStr.characters[size_new] = NULLCHAR;
 		return newStr;
 	}
 	
@@ -2073,7 +2124,7 @@ namespace GameLibrary
 			newStr.characters[i] = right.characters[counter];
 			counter++;
 		}
-		newStr.characters[size_new] = NULL;
+		newStr.characters[size_new] = NULLCHAR;
 		return newStr;
 	}
 	
@@ -2100,7 +2151,7 @@ namespace GameLibrary
 			newStr.characters[i] = right[counter];
 			counter++;
 		}
-		newStr.characters[size_new] = NULL;
+		newStr.characters[size_new] = NULLCHAR;
 		return newStr;
 	}
 	
@@ -2127,7 +2178,7 @@ namespace GameLibrary
 			newStr.characters[i] = right.characters[counter];
 			counter++;
 		}
-		newStr.characters[size_new] = NULL;
+		newStr.characters[size_new] = NULLCHAR;
 		return newStr;
 	}
 	
@@ -2168,14 +2219,14 @@ namespace GameLibrary
 			newStr.characters[i] = left.characters[i];
 		}
 		newStr.characters[left.size] = (_STRING_TYPE)right;
-		newStr.characters[size_new] = NULL;
+		newStr.characters[size_new] = NULLCHAR;
 	}
 	
 	template<typename _STRING_TYPE, typename _OTHER_STRING_TYPE>
 	void BasicStringUtils::string_plus(const BasicString<_STRING_TYPE>& left, const _STRING_CHAR_TYPE_DIFFSIZE(_STRING_TYPE,_OTHER_STRING_TYPE)& right, BasicString<_STRING_TYPE>* outputStr)
 	{
 		BasicString<_STRING_TYPE>& newStr = *outputStr;
-		_OTHER_STRING_TYPE right_arr[2] ={right, NULL};
+		_OTHER_STRING_TYPE right_arr[2] ={right, NULLCHAR};
 		std::basic_string<_STRING_TYPE> right_str;
 		BasicStringUtils::convert_fromString<_STRING_TYPE,_OTHER_STRING_TYPE>(right_arr,1,&right_str);
 		size_t right_size = right_str.length();
@@ -2197,7 +2248,7 @@ namespace GameLibrary
 			newStr.characters[i] = right_str[counter];
 			counter++;
 		}
-		newStr.characters[size_new] = NULL;
+		newStr.characters[size_new] = NULLCHAR;
 	}
 	
 	template<typename _STRING_TYPE, typename _OTHER_STRING_TYPE>
@@ -2219,14 +2270,14 @@ namespace GameLibrary
 			newStr.characters[i] = right.characters[counter];
 			counter++;
 		}
-		newStr.characters[size_new] = NULL;
+		newStr.characters[size_new] = NULLCHAR;
 	}
 	
 	template<typename _STRING_TYPE, typename _OTHER_STRING_TYPE>
 	void BasicStringUtils::string_plus(const _STRING_CHAR_TYPE_DIFFSIZE(_STRING_TYPE,_OTHER_STRING_TYPE)& left, const BasicString<_STRING_TYPE>& right, BasicString<_STRING_TYPE>* outputStr)
 	{
 		BasicString<_STRING_TYPE>& newStr = *outputStr;
-		_OTHER_STRING_TYPE left_arr[2] ={left, NULL};
+		_OTHER_STRING_TYPE left_arr[2] ={left, NULLCHAR};
 		std::basic_string<_STRING_TYPE> left_str;
 		BasicStringUtils::convert_fromString<_STRING_TYPE,_OTHER_STRING_TYPE>(left_arr,1,&left_str);
 		size_t left_size = left_str.length();
@@ -2248,7 +2299,7 @@ namespace GameLibrary
 			newStr.characters[i] = right.characters[counter];
 			counter++;
 		}
-		newStr.characters[size_new] = NULL;
+		newStr.characters[size_new] = NULLCHAR;
 	}
 	
 	template<typename _STRING_TYPE, typename _OTHER_TYPE>
@@ -2276,7 +2327,7 @@ namespace GameLibrary
 			newStr.characters[i] = right_chars[counter];
 			counter++;
 		}
-		newStr.characters[size_new] = NULL;
+		newStr.characters[size_new] = NULLCHAR;
 	}
 	
 	template<typename _STRING_TYPE, typename _OTHER_TYPE>
@@ -2304,7 +2355,7 @@ namespace GameLibrary
 			newStr.characters[i] = right.characters[counter];
 			counter++;
 		}
-		newStr.characters[size_new] = NULL;
+		newStr.characters[size_new] = NULLCHAR;
 	}
 	
 	template<typename _STRING_TYPE, typename _NUM_TYPE>
@@ -2333,7 +2384,7 @@ namespace GameLibrary
 			newStr.characters[i] = right_str[counter];
 			counter++;
 		}
-		newStr.characters[size_new] = NULL;
+		newStr.characters[size_new] = NULLCHAR;
 	}
 	
 	template<typename _STRING_TYPE, typename _NUM_TYPE>
@@ -2362,7 +2413,7 @@ namespace GameLibrary
 			newStr.characters[i] = right.characters[counter];
 			counter++;
 		}
-		newStr.characters[size_new] = NULL;
+		newStr.characters[size_new] = NULLCHAR;
 	}
 	
 	template<typename _STRING_TYPE, typename _OTHER_TYPE,
@@ -2409,7 +2460,7 @@ namespace GameLibrary
 			newStr.characters[i] = (_STRING_TYPE)right.characters[counter];
 			counter++;
 		}
-		newStr.characters[size_new] = NULL;
+		newStr.characters[size_new] = NULLCHAR;
 	}
 	
 	template<typename _STRING_TYPE, typename _OTHER_STRING_TYPE>
@@ -2437,7 +2488,7 @@ namespace GameLibrary
 			newStr.characters[i] = right_str[counter];
 			counter++;
 		}
-		newStr.characters[size_new] = NULL;
+		newStr.characters[size_new] = NULLCHAR;
 	}
 	
 	template<typename _STRING_TYPE, typename _OTHER_STRING_TYPE, typename std::enable_if<!std::is_same<_STRING_TYPE,_OTHER_STRING_TYPE>::value>::type* = nullptr>
@@ -2471,7 +2522,7 @@ namespace GameLibrary
 			newStr.characters[i] = (_STRING_TYPE)right[counter];
 			counter++;
 		}
-		newStr.characters[size_new] = NULL;
+		newStr.characters[size_new] = NULLCHAR;
 	}
 	
 	template<typename _STRING_TYPE, typename _OTHER_STRING_TYPE>
@@ -2499,7 +2550,7 @@ namespace GameLibrary
 			newStr.characters[i] = right_str[counter];
 			counter++;
 		}
-		newStr.characters[size_new] = NULL;
+		newStr.characters[size_new] = NULLCHAR;
 	}
 	
 	template<typename _STRING_TYPE, typename _OTHER_STRING_TYPE, typename std::enable_if<!std::is_same<_STRING_TYPE, _OTHER_STRING_TYPE>::value>::type* = nullptr>
@@ -2520,6 +2571,10 @@ namespace GameLibrary
 	#undef _STRING_CHAR_TYPE_SAMESIZE
 	#undef _STRING_CHAR_TYPE_DIFFSIZE
 	
+	#undef NULLCHAR
+	
 #ifndef _STRING_STANDALONE
 }
 #endif
+
+#endif //_GAMELIBRARY_STRING_H

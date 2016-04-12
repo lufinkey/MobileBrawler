@@ -27,7 +27,7 @@ namespace SmashBros
 		{
 			BaseMenuScreen::onFrameChange(oldFrame, newFrame);
 			RectangleD frame = getFrame();
-			for(size_t icons_size=icons.size(), i=0; i<icons.size(); i++)
+			for(size_t icons_size=icons.size(), i=0; i<icons_size; i++)
 			{
 				StageIcon* icon = icons.get(i);
 				icon->scaleToFit(icon->autoLayoutMgr.calculateFrame(icon->getFrame(), frame));
