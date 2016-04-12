@@ -154,12 +154,14 @@ namespace GameLibrary
 		#ifdef _WIN32
 			template<typename T>
 			struct utf_eqv<T,2> { typedef int16_t type; };
+			template<typename T>
+			struct utf_eqv<T, 4> { typedef int32_t type; };
 		#else
 			template<typename T>
 			struct utf_eqv<T,2> { typedef char16_t type; };
+			template<typename T>
+			struct utf_eqv<T, 4> { typedef char32_t type; };
 		#endif
-		template<typename T>
-		struct utf_eqv<T,4> { typedef char32_t type; };
 		
 		template<typename _OUTPUT_STRING_TYPE, typename _NUM_TYPE>
 		static void convert_fromNumber(const _NUM_TYPE& num, std::basic_stringstream<_OUTPUT_STRING_TYPE>* ss)
@@ -187,7 +189,7 @@ namespace GameLibrary
 			typename std::enable_if<(
 				(sizeof(_OUTPUT_STRING_TYPE)==sizeof(_INPUT_STRING_TYPE))
 				&& std::is_integral<_OUTPUT_STRING_TYPE>::value
-				&& std::is_integral<_INPUT_STRING_TYPE>::value), size_t>::type = 0>
+				&& std::is_integral<_INPUT_STRING_TYPE>::value), _OUTPUT_STRING_TYPE>::type = 0>
 		static void convert_fromString(const _INPUT_STRING_TYPE* str, size_t length, std::basic_string<_OUTPUT_STRING_TYPE>* output)
 		{
 			if(length==0)
@@ -197,12 +199,13 @@ namespace GameLibrary
 			*output = (const _OUTPUT_STRING_TYPE*)str;
 		}
 		
-		//multibyte to byte, multibyte=2
+		//multibyte to byte
 		template<typename _OUTPUT_STRING_TYPE, typename _INPUT_STRING_TYPE,
 			typename std::enable_if<(
 				(sizeof(_OUTPUT_STRING_TYPE)==1 && sizeof(_INPUT_STRING_TYPE)>1 && sizeof(_INPUT_STRING_TYPE)<=4)
 				&& std::is_integral<_OUTPUT_STRING_TYPE>::value
-				&& std::is_integral<_INPUT_STRING_TYPE>::value), size_t>::type = 0>
+				//for some reason I have to specify _INPUT_STRING_TYPE as the enable_if type or it won't compile in visual studio...
+				&& std::is_integral<_INPUT_STRING_TYPE>::value), _INPUT_STRING_TYPE>::type = 0>
 		static void convert_fromString(const _INPUT_STRING_TYPE* str, size_t length, std::basic_string<_OUTPUT_STRING_TYPE>* output)
 		{
 			typedef typename utf_eqv<_INPUT_STRING_TYPE>::type INPUT_TYPE;
@@ -223,7 +226,7 @@ namespace GameLibrary
 			typename std::enable_if<(
 				(sizeof(_OUTPUT_STRING_TYPE)>1 && sizeof(_INPUT_STRING_TYPE)>1)
 				&& std::is_integral<_OUTPUT_STRING_TYPE>::value
-				&& std::is_integral<_INPUT_STRING_TYPE>::value), size_t>::type = 0>
+				&& std::is_integral<_INPUT_STRING_TYPE>::value), _OUTPUT_STRING_TYPE>::type = 0>
 		static void convert_fromString(const _INPUT_STRING_TYPE* str, size_t length, std::basic_string<_OUTPUT_STRING_TYPE>* output)
 		{
 			typedef typename utf_eqv<_OUTPUT_STRING_TYPE>::type OUTPUT_TYPE;
@@ -244,7 +247,7 @@ namespace GameLibrary
 			typename std::enable_if<(
 				(sizeof(_INPUT_STRING_TYPE)==1 && sizeof(_OUTPUT_STRING_TYPE)>1 && sizeof(_OUTPUT_STRING_TYPE)<=4)
 				&& std::is_integral<_OUTPUT_STRING_TYPE>::value
-				&& std::is_integral<_INPUT_STRING_TYPE>::value), size_t>::type = 0>
+				&& std::is_integral<_INPUT_STRING_TYPE>::value), _OUTPUT_STRING_TYPE>::type = 0>
 		static void convert_fromString(const _INPUT_STRING_TYPE* str, size_t length, std::basic_string<_OUTPUT_STRING_TYPE>* output)
 		{
 			typedef typename utf_eqv<_OUTPUT_STRING_TYPE>::type OUTPUT_TYPE;
