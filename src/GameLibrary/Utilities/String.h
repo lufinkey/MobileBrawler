@@ -1822,7 +1822,7 @@ namespace GameLibrary
 					throw std::bad_alloc();
 				}
 				newStr.characters = newStr_characters_new;
-				newStr.size = size;
+				newStr.size = size_new;
 				size_t counter = 0;
 				for(size_t i=startIndex; i>endIndex; i--)
 				{
@@ -1839,7 +1839,7 @@ namespace GameLibrary
 					throw std::bad_alloc();
 				}
 				newStr.characters = newStr_characters_new;
-				newStr.size = size;
+				newStr.size = size_new;
 				size_t counter = 0;
 				for(size_t i=startIndex; i<endIndex; i++)
 				{
