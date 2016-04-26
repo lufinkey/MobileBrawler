@@ -1,61 +1,16 @@
 
-# User files
-MobileBrawler.xcodeproj/xcuserdata/
-MobileBrawler.xcodeproj/project.xcworkspace/xcuserdata/
-MobileBrawler.xcodeproj/luis.mode1v3
-MobileBrawler.xcodeproj/luis.pbxuser
-MobileBrawler.aps
+#Visual Studio
+/projects/visualstudio/*.VC.db
+/projects/visualstudio/*.opendb
+/projects/visualstudio/*.sdf
+/projects/visualstudio/*.user
+/projects/visualstudio/.vs
+/projects/visualstudio/build
+/projects/visualstudio/bin
 
-# iSSB generated files
-com.brokenphysics.iSSB.prefs
-
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
-
-# Folder config file
-Desktop.ini
-
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
-
-# =========================
-# Operating System Files
-# =========================
-
-# OSX
-# =========================
-
+#Xcode
 .DS_Store
-.AppleDouble
-.LSOverride
-
-# Icon must end with two \r
-Icon
-
-
-# Thumbnails
-._*
-
-# Files that might appear on external disk
-.Spotlight-V100
-.Trashes
-
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
-
-# Output directories
-Debug/
-Release/
-build/
-MobileBrawler.opensdf
+/projects/xcode/*.xcodeproj/*.xcworkspace
+/projects/xcode/*.xcodeproj/xcuserdata
+/projects/xcode/Build
+/projects/xcode/DerivedData

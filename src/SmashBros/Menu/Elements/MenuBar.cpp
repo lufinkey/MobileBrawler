@@ -90,19 +90,19 @@ namespace SmashBros
 			Any a = dict.get("a");
 			if(!r.empty() && r.is<Number>())
 			{
-				color->r = r.as<Number>(false).asUnsignedChar();
+				color->r = r.as<Number>(false).toArithmeticValue<byte>();
 			}
 			if(!g.empty() && g.is<Number>())
 			{
-				color->g = g.as<Number>(false).asUnsignedChar();
+				color->g = g.as<Number>(false).toArithmeticValue<byte>();
 			}
 			if(!b.empty() && b.is<Number>())
 			{
-				color->b = b.as<Number>(false).asUnsignedChar();
+				color->b = b.as<Number>(false).toArithmeticValue<byte>();
 			}
 			if(!a.empty() && a.is<Number>())
 			{
-				color->a = a.as<Number>(false).asUnsignedChar();
+				color->a = a.as<Number>(false).toArithmeticValue<byte>();
 			}
 		}
 		

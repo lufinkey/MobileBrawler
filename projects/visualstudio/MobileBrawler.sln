@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MobileBrawler", "MobileBrawler.vcxproj", "{26419182-DBEB-4FD0-B90D-D40B8430109D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{68890E50-B78E-43FB-BFF3-C96E86766C57} = {68890E50-B78E-43FB-BFF3-C96E86766C57}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameLibrary", "..\..\external\GameLibrary\projects\visualstudio\GameLibrary.vcxproj", "{68890E50-B78E-43FB-BFF3-C96E86766C57}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{26419182-DBEB-4FD0-B90D-D40B8430109D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{26419182-DBEB-4FD0-B90D-D40B8430109D}.Debug|Win32.Build.0 = Debug|Win32
+		{26419182-DBEB-4FD0-B90D-D40B8430109D}.Debug|x64.ActiveCfg = Debug|Win32
+		{26419182-DBEB-4FD0-B90D-D40B8430109D}.Release|Win32.ActiveCfg = Release|Win32
+		{26419182-DBEB-4FD0-B90D-D40B8430109D}.Release|Win32.Build.0 = Release|Win32
+		{26419182-DBEB-4FD0-B90D-D40B8430109D}.Release|x64.ActiveCfg = Release|Win32
+		{68890E50-B78E-43FB-BFF3-C96E86766C57}.Debug|Win32.ActiveCfg = Debug|Win32
+		{68890E50-B78E-43FB-BFF3-C96E86766C57}.Debug|Win32.Build.0 = Debug|Win32
+		{68890E50-B78E-43FB-BFF3-C96E86766C57}.Debug|x64.ActiveCfg = Debug|x64
+		{68890E50-B78E-43FB-BFF3-C96E86766C57}.Debug|x64.Build.0 = Debug|x64
+		{68890E50-B78E-43FB-BFF3-C96E86766C57}.Release|Win32.ActiveCfg = Release|Win32
+		{68890E50-B78E-43FB-BFF3-C96E86766C57}.Release|Win32.Build.0 = Release|Win32
+		{68890E50-B78E-43FB-BFF3-C96E86766C57}.Release|x64.ActiveCfg = Release|x64
+		{68890E50-B78E-43FB-BFF3-C96E86766C57}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

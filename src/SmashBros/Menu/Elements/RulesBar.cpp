@@ -50,11 +50,11 @@ namespace SmashBros
 			setValueLabel(value.toString());
 			if(rules->getWinCondition() == stock)
 			{
-				stock->setStock(value.asUnsignedInt());
+				stock->setStock(value.toArithmeticValue<unsigned int>());
 			}
 			else if(rules->getWinCondition() == timeLimit)
 			{
-				timeLimit->setTimeLimit(value.asUnsignedInt());
+				timeLimit->setTimeLimit(value.toArithmeticValue<unsigned int>());
 			}
 		}
 		

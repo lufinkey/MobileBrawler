@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{26419182-DBEB-4FD0-B90D-D40B8430109D}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>MobileBrawler</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140_clang_3_7</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140_clang_3_7</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>build\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>build\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../../src;../../external/GameLibrary/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <MSCompatibility>true</MSCompatibility>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)bin\GameLibrary\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GameLibrary.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ForceFileOutput>
+      </ForceFileOutput>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../../src;../../external/GameLibrary/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <MSCompatibility>true</MSCompatibility>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)bin\GameLibrary\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GameLibrary.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>$(IntDir)$(TargetName).res %(AdditionalOptions)</AdditionalOptions>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ForceFileOutput>
+      </ForceFileOutput>
+    </Link>
+    <PreLinkEvent>
+      <Command>rc /nologo /fo"$(IntDir)%(Filename).res" $(InitDir)%(Filename).rs </Command>
+    </PreLinkEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\BrawlerLibrary\Game\BrawlGame.cpp" />
+    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\ActionPerformer\Action.cpp" />
+    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\ActionPerformer\ActionPerformer.cpp" />
+    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\ActionPerformer\Attack.cpp" />
+    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\Character.cpp" />
+    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\GameObject.cpp" />
+    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\PhysicalGameObject.cpp" />
+    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\Platform.cpp" />
+    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\Stage.cpp" />
+    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Rules\PlayerInfo.cpp" />
+    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Rules\Rules.cpp" />
+    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Rules\WinCondition\StockWinCondition.cpp" />
+    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Rules\WinCondition\TimeLimitWinCondition.cpp" />
+    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Rules\WinCondition\WinCondition.cpp" />
+    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Utilities\Camera.cpp" />
+    <ClCompile Include="..\..\src\BrawlerLibrary\Loader\CharacterInfo.cpp" />
+    <ClCompile Include="..\..\src\BrawlerLibrary\Loader\CharacterLoader.cpp" />
+    <ClCompile Include="..\..\src\BrawlerLibrary\Loader\StageInfo.cpp" />
+    <ClCompile Include="..\..\src\BrawlerLibrary\Loader\StageLoader.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Game.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Load\InitialLoadListener.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Load\MenuLoad.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Load\ModuleLoad.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\main.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\Base\BaseMenuScreen.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelectScreen.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_CharacterIcon.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_PlayerChip.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_PlayerPanel.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_ReadyToFightBanner.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\Base\StageSelect\StageSelectScreen.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\Base\StageSelect\StageSelect_StageIcon.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\Base\StageSelect\StageSelect_StagePreview.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\Elements\ActorGrid.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\Elements\ArrowButton.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\Elements\MenuBar.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\Elements\MenuBarValueAdjust.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\Elements\RulesBar.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\GroupMenu\GroupMenu.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\GroupMenu\GroupRulesMenu.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\GroupMenu\GroupSmashCharacterSelectMenu.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\GroupMenu\GroupSmashStageSelectMenu.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\MainMenu.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\MenuData\GroupSmashData.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\MenuData\SmashData.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\SoloMenu\SoloMenu.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\TitleScreen.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\BrawlerLibrary\BrawlerLibrary.h" />
+    <ClInclude Include="..\..\src\BrawlerLibrary\Game\BrawlGame.h" />
+    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\ActionPerformer\Action.h" />
+    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\ActionPerformer\ActionPerformer.h" />
+    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\ActionPerformer\Attack.h" />
+    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\Character.h" />
+    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\GameObject.h" />
+    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\PhysicalGameObject.h" />
+    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\Platform.h" />
+    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\Stage.h" />
+    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Rules\PlayerInfo.h" />
+    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Rules\Rules.h" />
+    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Rules\WinCondition\StockWinCondition.h" />
+    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Rules\WinCondition\TimeLimitWinCondition.h" />
+    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Rules\WinCondition\WinCondition.h" />
+    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Utilities\Camera.h" />
+    <ClInclude Include="..\..\src\BrawlerLibrary\Loader\CharacterInfo.h" />
+    <ClInclude Include="..\..\src\BrawlerLibrary\Loader\CharacterLoader.h" />
+    <ClInclude Include="..\..\src\BrawlerLibrary\Loader\StageInfo.h" />
+    <ClInclude Include="..\..\src\BrawlerLibrary\Loader\StageLoader.h" />
+    <ClInclude Include="..\..\src\BrawlerLibrary\Utilities\FaceDirection.h" />
+    <ClInclude Include="..\..\src\SmashBros\Game.h" />
+    <ClInclude Include="..\..\src\SmashBros\Global.h" />
+    <ClInclude Include="..\..\src\SmashBros\Load\InitialLoadListener.h" />
+    <ClInclude Include="..\..\src\SmashBros\Load\MenuLoad.h" />
+    <ClInclude Include="..\..\src\SmashBros\Load\ModuleLoad.h" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\BaseMenuScreen.h" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelectScreen.h" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_CharacterIcon.h" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_PlayerChip.h" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_PlayerPanel.h" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_ReadyToFightBanner.h" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\StageSelect\StageSelectScreen.h" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\StageSelect\StageSelect_StageIcon.h" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\StageSelect\StageSelect_StagePreview.h" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\ActorGrid.h" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\ArrowButton.h" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\MenuBar.h" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\MenuBarValueAdjust.h" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\RulesBar.h" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\GroupMenu\GroupMenu.h" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\GroupMenu\GroupRulesMenu.h" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\GroupMenu\GroupSmashCharacterSelectMenu.h" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\GroupMenu\GroupSmashStageSelectMenu.h" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\MainMenu.h" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\MenuData\GroupSmashData.h" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\MenuData\SmashData.h" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\SoloMenu\SoloMenu.h" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\TitleScreen.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MobileBrawler.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

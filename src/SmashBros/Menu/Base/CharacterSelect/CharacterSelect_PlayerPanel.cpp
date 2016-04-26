@@ -229,19 +229,19 @@ namespace SmashBros
 						Color color = namebox->getColor();
 						if(!r_val.empty() && r_val.is<Number>())
 						{
-							color.r = r_val.as<Number>(false).asUnsignedChar();
+							color.r = r_val.as<Number>(false).toArithmeticValue<byte>();
 						}
 						if(!g_val.empty() && g_val.is<Number>())
 						{
-							color.g = g_val.as<Number>(false).asUnsignedChar();
+							color.g = g_val.as<Number>(false).toArithmeticValue<byte>();
 						}
 						if(!b_val.empty() && b_val.is<Number>())
 						{
-							color.b = b_val.as<Number>(false).asUnsignedChar();
+							color.b = b_val.as<Number>(false).toArithmeticValue<byte>();
 						}
 						if(!a_val.empty() && a_val.is<Number>())
 						{
-							color.a = a_val.as<Number>(false).asUnsignedChar();
+							color.a = a_val.as<Number>(false).toArithmeticValue<byte>();
 						}
 						namebox->setColor(color);
 					}

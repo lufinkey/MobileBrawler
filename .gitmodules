@@ -1,0 +1,3 @@
+[submodule "external/GameLibrary"]
+	path = external/GameLibrary
+	url = https://github.com/lufinkey/GameLibrary

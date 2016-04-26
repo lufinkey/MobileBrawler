@@ -148,7 +148,7 @@ namespace SmashBros
 		{
 			if(menuBar==menu->gameModeBar)
 			{
-				unsigned int gameModeVal = menu->gameMode.asUnsignedInt();
+				unsigned int gameModeVal = menu->gameMode.toArithmeticValue<unsigned int>();
 				menu->rules->setWinCondition(menu->getGameModeWinCondition(gameModeVal));
 				menu->gameModeBar->setValueLabel(menu->getGameModeString(menu->rules));
 				menu->gameModeValueBar->setLabel(menu->getGameModeLabelString(menu->rules));

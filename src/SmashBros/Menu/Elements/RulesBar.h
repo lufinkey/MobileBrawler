@@ -19,7 +19,7 @@ namespace SmashBros
 			virtual ~RulesBar();
 			
 			virtual void update(ApplicationData appData) override;
-			virtual void onValueChange();
+			virtual void onValueChange() override;
 			
 			void setValueLabelSuffix(const String&);
 			

@@ -76,7 +76,7 @@ namespace BrawlerLibrary
 		else
 		{
 			size_t index = focusedObjects.indexOf(object);
-			if(index != ARRAYLIST_NOTFOUND)
+			if(index != ArrayList<GameObject*>::NOT_FOUND)
 			{
 				focusedObjects.remove(index);
 			}

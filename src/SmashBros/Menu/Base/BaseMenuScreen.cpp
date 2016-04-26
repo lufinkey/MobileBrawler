@@ -61,7 +61,7 @@ namespace SmashBros
 		
 		void BaseMenuScreen::onUpdate(ApplicationData appData)
 		{
-			if(getSelectedIndex() != MENUSCREEN_NOSELECTION)
+			if(getSelectedIndex() != MenuScreen::NO_SELECTION)
 			{
 				if(hoverPulseEnabled)
 				{
@@ -92,7 +92,7 @@ namespace SmashBros
 		void BaseMenuScreen::drawItem(ApplicationData appData, Graphics graphics, Actor*item) const
 		{
 			size_t selectedIndex = getSelectedIndex();
-			if(selectedIndex!=MENUSCREEN_NOSELECTION && item == getItem(selectedIndex))
+			if(selectedIndex!=MenuScreen::NO_SELECTION && item == getItem(selectedIndex))
 			{
 				//RectangleD frame = actor->getFrame();
 				if(hoverPulseEnabled)
