@@ -37,10 +37,10 @@ namespace BrawlerLibrary
 	bool StageInfo::loadFromPath(const String&folderpath, String*error)
 	{
 		Dictionary dict;
-		bool success = dict.loadFromFile(folderpath + "/Info.plist", error);
+		bool success = Plist::loadFromFile(&dict, folderpath + "/Info.plist", error);
 		if(success)
 		{
-			Any val_name = dict.get("name");
+			Any val_name = dict.get("name", Any());
 			if(val_name.empty())
 			{
 				if(error!=nullptr)
@@ -58,7 +58,7 @@ namespace BrawlerLibrary
 				return false;
 			}
 			
-			Any val_creator = dict.get("creator");
+			Any val_creator = dict.get("creator", Any());
 			if(val_creator.empty())
 			{
 				if(error!=nullptr)
@@ -76,7 +76,7 @@ namespace BrawlerLibrary
 				return false;
 			}
 			
-			Any val_version = dict.get("version");
+			Any val_version = dict.get("version", Any());
 			if(val_version.empty())
 			{
 				if(error!=nullptr)
@@ -94,7 +94,7 @@ namespace BrawlerLibrary
 				return false;
 			}
 			
-			Any val_minsmashversion = dict.get("minsmashversion");
+			Any val_minsmashversion = dict.get("minsmashversion", Any());
 			if(val_minsmashversion.empty())
 			{
 				if(error!=nullptr)

@@ -94,7 +94,7 @@ namespace SmashBros
 		
 		void MenuBarValueAdjust::applyProperties(const Dictionary&properties)
 		{
-			Any value_label_layoutRules_any = properties.get("value_label_layoutRules");
+			Any value_label_layoutRules_any = properties.get("value_label_layoutRules", Any());
 			if(!value_label_layoutRules_any.empty() && value_label_layoutRules_any.is<Dictionary>())
 			{
 				const Dictionary& value_label_layoutRules = value_label_layoutRules_any.as<Dictionary>(false);
@@ -107,14 +107,14 @@ namespace SmashBros
 					value_label_autoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.95, LAYOUTVALUE_RATIO);
 				}
 			}
-			Any value_label_color_any = properties.get("value_label_color");
+			Any value_label_color_any = properties.get("value_label_color", Any());
 			if(!value_label_color_any.empty() && value_label_color_any.is<Dictionary>())
 			{
 				const Dictionary& value_label_color_dict = value_label_color_any.as<Dictionary>(false);
 				applyColorDict(value_label_color_dict, &value_label_color);
 				value_label_actor->setColor(value_label_color);
 			}
-			Any arrow_less_layoutRules_any = properties.get("arrow_less_layoutRules");
+			Any arrow_less_layoutRules_any = properties.get("arrow_less_layoutRules", Any());
 			if(!arrow_less_layoutRules_any.empty() && arrow_less_layoutRules_any.is<Dictionary>())
 			{
 				const Dictionary& arrow_less_layoutRules = arrow_less_layoutRules_any.as<Dictionary>(false);
@@ -127,7 +127,7 @@ namespace SmashBros
 					arrow_less_autoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.95, LAYOUTVALUE_RATIO);
 				}
 			}
-			Any arrow_less_dir_any = properties.get("arrow_less_dir");
+			Any arrow_less_dir_any = properties.get("arrow_less_dir", Any());
 			if(!arrow_less_dir_any.empty() && arrow_less_dir_any.is<String>())
 			{
 				String arrow_less_dir = arrow_less_dir_any.as<String>(false);
@@ -148,7 +148,7 @@ namespace SmashBros
 					arrow_less->setDirection(ArrowButton::DIRECTION_DOWN);
 				}
 			}
-			Any arrow_more_layoutRules_any = properties.get("arrow_more_layoutRules");
+			Any arrow_more_layoutRules_any = properties.get("arrow_more_layoutRules", Any());
 			if(!arrow_more_layoutRules_any.empty() && arrow_more_layoutRules_any.is<Dictionary>())
 			{
 				const Dictionary& arrow_more_layoutRules = arrow_more_layoutRules_any.as<Dictionary>(false);
@@ -161,7 +161,7 @@ namespace SmashBros
 					arrow_more_autoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.95, LAYOUTVALUE_RATIO);
 				}
 			}
-			Any arrow_more_dir_any = properties.get("arrow_more_dir");
+			Any arrow_more_dir_any = properties.get("arrow_more_dir", Any());
 			if(!arrow_more_dir_any.empty() && arrow_more_dir_any.is<String>())
 			{
 				String arrow_more_dir = arrow_more_dir_any.as<String>(false);

@@ -115,24 +115,24 @@ namespace SmashBros
 	void MenuLoad::loadProperties()
 	{
 		//load menu bar properties
-		bool success = properties_menuBar.loadFromFile(FileTools::combinePathStrings(primaryDirectory,"elements/menu_bar.plist"));
+		bool success = Plist::loadFromFile(&properties_menuBar, FileTools::combinePathStrings(primaryDirectory,"elements/menu_bar.plist"));
 		if(!success)
 		{
-			properties_menuBar.loadFromFile(FileTools::combinePathStrings(secondaryDirectory, "elements/menu_bar.plist"));
+			Plist::loadFromFile(&properties_menuBar, FileTools::combinePathStrings(secondaryDirectory, "elements/menu_bar.plist"));
 		}
 		
 		//load rules bar properties
-		success = properties_rulesBar.loadFromFile(FileTools::combinePathStrings(primaryDirectory,"elements/rules_bar.plist"));
+		success = Plist::loadFromFile(&properties_rulesBar, FileTools::combinePathStrings(primaryDirectory,"elements/rules_bar.plist"));
 		if(!success)
 		{
-			properties_rulesBar.loadFromFile(FileTools::combinePathStrings(secondaryDirectory, "elements/rules_bar.plist"));
+			Plist::loadFromFile(&properties_rulesBar, FileTools::combinePathStrings(secondaryDirectory, "elements/rules_bar.plist"));
 		}
 		
 		//load character select panel properties
-		success = properties_charselectPanel.loadFromFile(FileTools::combinePathStrings(primaryDirectory,"characterselect/panel.plist"));
+		success = Plist::loadFromFile(&properties_charselectPanel, FileTools::combinePathStrings(primaryDirectory,"characterselect/panel.plist"));
 		if(!success)
 		{
-			properties_charselectPanel.loadFromFile(FileTools::combinePathStrings(secondaryDirectory, "characterselect/panel.plist"));
+			Plist::loadFromFile(&properties_charselectPanel, FileTools::combinePathStrings(secondaryDirectory, "characterselect/panel.plist"));
 		}
 	}
 	

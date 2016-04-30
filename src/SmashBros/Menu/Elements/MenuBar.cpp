@@ -50,7 +50,7 @@ namespace SmashBros
 		
 		void MenuBar::applyProperties(const Dictionary&properties)
 		{
-			Any label_layoutRules_any = properties.get("label_layoutRules");
+			Any label_layoutRules_any = properties.get("label_layoutRules", Any());
 			if(!label_layoutRules_any.empty() && label_layoutRules_any.is<Dictionary>())
 			{
 				const Dictionary& label_layoutRules = label_layoutRules_any.as<Dictionary>(false);
@@ -63,7 +63,7 @@ namespace SmashBros
 					label_autoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.95, LAYOUTVALUE_RATIO);
 				}
 			}
-			Any label_color_any = properties.get("label_color");
+			Any label_color_any = properties.get("label_color", Any());
 			if(!label_color_any.empty() && label_color_any.is<Dictionary>())
 			{
 				const Dictionary& label_color_dict = label_color_any.as<Dictionary>(false);
@@ -84,10 +84,10 @@ namespace SmashBros
 			{
 				return;
 			}
-			Any r = dict.get("r");
-			Any g = dict.get("g");
-			Any b = dict.get("b");
-			Any a = dict.get("a");
+			Any r = dict.get("r", Any());
+			Any g = dict.get("g", Any());
+			Any b = dict.get("b", Any());
+			Any a = dict.get("a", Any());
 			if(!r.empty() && r.is<Number>())
 			{
 				color->r = r.as<Number>(false).toArithmeticValue<byte>();

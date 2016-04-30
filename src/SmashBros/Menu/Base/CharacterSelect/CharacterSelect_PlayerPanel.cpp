@@ -155,7 +155,7 @@ namespace SmashBros
 			
 			void PlayerPanel::applyProperties(const Dictionary&properties)
 			{
-				const Any& portraitDict = properties.get("portrait");
+				const Any& portraitDict = properties.get("portrait", Any());
 				if(!portraitDict.empty() && portraitDict.is<Dictionary>())
 				{
 					applyPlacementDict(portraitDict.as<Dictionary>(false), &portraitLayoutMgr);
@@ -167,7 +167,7 @@ namespace SmashBros
 						portraitLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 1, LAYOUTVALUE_RATIO);
 					}
 				}
-				const Any& overlayDict = properties.get("overlay");
+				const Any& overlayDict = properties.get("overlay", Any());
 				if(!overlayDict.empty() && overlayDict.is<Dictionary>())
 				{
 					applyPlacementDict(overlayDict.as<Dictionary>(false), &overlayLayoutMgr);
@@ -179,7 +179,7 @@ namespace SmashBros
 						overlayLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 1, LAYOUTVALUE_RATIO);
 					}
 				}
-				const Any& nameboxDict = properties.get("namebox");
+				const Any& nameboxDict = properties.get("namebox", Any());
 				if(!nameboxDict.empty() && nameboxDict.is<Dictionary>())
 				{
 					const Dictionary&namebox_dict = nameboxDict.as<Dictionary>(false);
@@ -192,7 +192,7 @@ namespace SmashBros
 						nameboxLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.981, LAYOUTVALUE_RATIO);
 					}
 					
-					/*const Any& alignment_val = namebox_dict.get("alignment");
+					/*const Any& alignment_val = namebox_dict.get("alignment", Any());
 					if(!alignment_val.empty() && alignment_val.is<String>())
 					{
 						String alignment = alignment_val.as<String>(false);
@@ -218,14 +218,14 @@ namespace SmashBros
 						}
 					}*/
 					
-					const Any& color_val = namebox_dict.get("color");
+					const Any& color_val = namebox_dict.get("color", Any());
 					if(!color_val.empty() && color_val.is<Dictionary>())
 					{
 						const Dictionary& color_dict = color_val.as<Dictionary>(false);
-						const Any& r_val = color_dict.get("r");
-						const Any& g_val = color_dict.get("g");
-						const Any& b_val = color_dict.get("b");
-						const Any& a_val = color_dict.get("a");
+						const Any& r_val = color_dict.get("r", Any());
+						const Any& g_val = color_dict.get("g", Any());
+						const Any& b_val = color_dict.get("b", Any());
+						const Any& a_val = color_dict.get("a", Any());
 						Color color = namebox->getColor();
 						if(!r_val.empty() && r_val.is<Number>())
 						{
@@ -251,7 +251,7 @@ namespace SmashBros
 			
 			void PlayerPanel::applyPlacementDict(const Dictionary&dict, AutoLayoutManager*layoutMgr)
 			{
-				const Any& layoutRules_any = dict.get("layoutRules");
+				const Any& layoutRules_any = dict.get("layoutRules", Any());
 				if(layoutRules_any.empty() || !layoutRules_any.is<Dictionary>())
 				{
 					return;

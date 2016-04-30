@@ -10,7 +10,7 @@ namespace BrawlerLibrary
 		//
 	}
 	
-	CharacterInfo::CharacterInfo(const CharacterInfo&info)
+	CharacterInfo::CharacterInfo(const CharacterInfo& info)
 	{
 		path = info.path;
 		name = info.name;
@@ -24,7 +24,7 @@ namespace BrawlerLibrary
 		//
 	}
 	
-	CharacterInfo& CharacterInfo::operator=(const CharacterInfo&info)
+	CharacterInfo& CharacterInfo::operator=(const CharacterInfo& info)
 	{
 		path = info.path;
 		name = info.name;
@@ -34,13 +34,13 @@ namespace BrawlerLibrary
 		return *this;
 	}
 	
-	bool CharacterInfo::loadFromPath(const String&folderpath, String*error)
+	bool CharacterInfo::loadFromPath(const String& folderpath, String* error)
 	{
 		Dictionary dict;
-		bool success = dict.loadFromFile(FileTools::combinePathStrings(folderpath, "Info.plist"), error);
+		bool success = Plist::loadFromFile(&dict, FileTools::combinePathStrings(folderpath, "Info.plist"), error);
 		if(success)
 		{
-			Any val_name = dict.get("name");
+			Any val_name = dict.get("name", Any());
 			if(val_name.empty())
 			{
 				if(error!=nullptr)
@@ -58,7 +58,7 @@ namespace BrawlerLibrary
 				return false;
 			}
 			
-			Any val_creator = dict.get("creator");
+			Any val_creator = dict.get("creator", Any());
 			if(val_creator.empty())
 			{
 				if(error!=nullptr)
@@ -76,7 +76,7 @@ namespace BrawlerLibrary
 				return false;
 			}
 			
-			Any val_version = dict.get("version");
+			Any val_version = dict.get("version", Any());
 			if(val_version.empty())
 			{
 				if(error!=nullptr)
@@ -94,7 +94,7 @@ namespace BrawlerLibrary
 				return false;
 			}
 			
-			Any val_minsmashversion = dict.get("minsmashversion");
+			Any val_minsmashversion = dict.get("minsmashversion", Any());
 			if(val_minsmashversion.empty())
 			{
 				if(error!=nullptr)
@@ -140,7 +140,7 @@ namespace BrawlerLibrary
 		dict.set("creator", creator);
 		dict.set("version", version);
 		dict.set("minsmashversion", minsmashversion);
-		return dict.saveToFile(FileTools::combinePathStrings(path, "Info.plist"), error);
+		return Plist::saveToFile(dict, FileTools::combinePathStrings(path, "Info.plist"), error);
 	}
 	
 	const String& CharacterInfo::getPath() const
