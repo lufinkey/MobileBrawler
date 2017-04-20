@@ -3,7 +3,7 @@
 
 namespace BrawlerLibrary
 {
-	using namespace GameLibrary;
+	using namespace fgl;
 	
 	PlayerInfo::PlayerInfo()
 	{

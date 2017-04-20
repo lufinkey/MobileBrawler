@@ -7,7 +7,7 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-		class BaseMenuScreen : public GameLibrary::MenuScreen
+		class BaseMenuScreen : public fgl::MenuScreen
 		{
 		public:
 			typedef enum
@@ -37,7 +37,7 @@ namespace SmashBros
 			void enableHoverPulse(bool);
 			
 		protected:
-			virtual void onUpdate(ApplicationData appData) override;
+			virtual void onUpdate(const ApplicationData& appData) override;
 			
 			virtual void drawItem(ApplicationData appData, Graphics graphics, Actor*item) const override;
 			

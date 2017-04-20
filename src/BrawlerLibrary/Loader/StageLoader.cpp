@@ -3,7 +3,7 @@
 
 namespace BrawlerLibrary
 {
-	using namespace GameLibrary;
+	using namespace fgl;
 	
 	StageLoader::StageLoader(Window&window)
 	{
@@ -68,7 +68,9 @@ namespace BrawlerLibrary
 		for(unsigned int i=0; i<stages.size(); i++)
 		{
 			String iconPath = stages.get(i).getPath() + "/icon.png";
-			assetManager->loadTexture(iconPath, compositeMask);
+			//assetManager->loadTexture(iconPath, compositeMask);
+			//TODO add some way to save composite masks when reloading
+			assetManager->loadTexture(iconPath);
 		}
 	}
 	
@@ -77,7 +79,9 @@ namespace BrawlerLibrary
 		for(unsigned int i=0; i<stages.size(); i++)
 		{
 			String iconPath = stages.get(i).getPath() + "/preview.png";
-			assetManager->loadTexture(iconPath, compositeMask);
+			//assetManager->loadTexture(iconPath, compositeMask);
+			//TODO add some way to save composite masks when reloading
+			assetManager->loadTexture(iconPath);
 		}
 	}
 	

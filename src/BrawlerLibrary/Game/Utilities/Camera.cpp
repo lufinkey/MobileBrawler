@@ -2,7 +2,7 @@
 #include "Camera.h"
 #include "../BrawlGame.h"
 
-using namespace GameLibrary;
+using namespace fgl;
 
 namespace BrawlerLibrary
 {
@@ -83,7 +83,7 @@ namespace BrawlerLibrary
 		}
 	}
 	
-	RectangleD Camera::calculateFocusRect(BrawlGame*gameInstance, const GameLibrary::ArrayList<GameObject*>& objects)
+	RectangleD Camera::calculateFocusRect(BrawlGame*gameInstance, const fgl::ArrayList<GameObject*>& objects)
 	{
 		if(gameInstance == nullptr)
 		{

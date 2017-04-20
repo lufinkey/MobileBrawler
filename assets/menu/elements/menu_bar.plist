@@ -21,14 +21,14 @@
 		<key>LAYOUTRULE_RIGHT</key>
 		<dict>
 			<key>value</key>
-			<real>0.575</real>
+			<real>0.425</real>
 			<key>valueType</key>
 			<string>LAYOUTVALUE_RATIO</string>
 		</dict>
 		<key>LAYOUTRULE_BOTTOM</key>
 		<dict>
 			<key>value</key>
-			<real>0.950</real>
+			<real>0.050</real>
 			<key>valueType</key>
 			<string>LAYOUTVALUE_RATIO</string>
 		</dict>
@@ -61,14 +61,14 @@
 		<key>LAYOUTRULE_RIGHT</key>
 		<dict>
 			<key>value</key>
-			<real>0.900</real>
+			<real>0.100</real>
 			<key>valueType</key>
 			<string>LAYOUTVALUE_RATIO</string>
 		</dict>
 		<key>LAYOUTRULE_BOTTOM</key>
 		<dict>
 			<key>value</key>
-			<real>0.950</real>
+			<real>0.050</real>
 			<key>valueType</key>
 			<string>LAYOUTVALUE_RATIO</string>
 		</dict>
@@ -101,14 +101,14 @@
 		<key>LAYOUTRULE_RIGHT</key>
 		<dict>
 			<key>value</key>
-			<real>0.650</real>
+			<real>0.350</real>
 			<key>valueType</key>
 			<string>LAYOUTVALUE_RATIO</string>
 		</dict>
 		<key>LAYOUTRULE_BOTTOM</key>
 		<dict>
 			<key>value</key>
-			<real>0.950</real>
+			<real>0.050</real>
 			<key>valueType</key>
 			<string>LAYOUTVALUE_RATIO</string>
 		</dict>
@@ -134,14 +134,14 @@
 		<key>LAYOUTRULE_RIGHT</key>
 		<dict>
 			<key>value</key>
-			<real>0.950</real>
+			<real>0.050</real>
 			<key>valueType</key>
 			<string>LAYOUTVALUE_RATIO</string>
 		</dict>
 		<key>LAYOUTRULE_BOTTOM</key>
 		<dict>
 			<key>value</key>
-			<real>0.950</real>
+			<real>0.050</real>
 			<key>valueType</key>
 			<string>LAYOUTVALUE_RATIO</string>
 		</dict>

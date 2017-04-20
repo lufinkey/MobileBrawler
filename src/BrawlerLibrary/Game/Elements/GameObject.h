@@ -10,7 +10,7 @@ namespace BrawlerLibrary
 	class GameObject : public ActionPerformer
 	{
 	public:
-		GameObject(BrawlGame*gameInstance, const GameLibrary::Vector2d&position);
+		GameObject(BrawlGame*gameInstance, const fgl::Vector2d&position);
 		virtual ~GameObject();
 		
 		void setZDepth(double zdepth);

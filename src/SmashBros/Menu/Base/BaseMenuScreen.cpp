@@ -25,18 +25,18 @@ namespace SmashBros
 			
 			ScreenElement* element = getElement();
 			
-			backgroundElement = new ImageElement(assetManager->getTexture("backgrounds/main.png"), ImageElement::DISPLAY_ZOOM);
+			backgroundElement = new ImageElement(assetManager->getTexture("backgrounds/main.png"), ImageElement::DISPLAY_FILL);
 			backgroundElement->setLayoutRule(LAYOUTRULE_LEFT,   0, LAYOUTVALUE_RATIO);
 			backgroundElement->setLayoutRule(LAYOUTRULE_TOP,    0, LAYOUTVALUE_RATIO);
-			backgroundElement->setLayoutRule(LAYOUTRULE_RIGHT,  1, LAYOUTVALUE_RATIO);
-			backgroundElement->setLayoutRule(LAYOUTRULE_BOTTOM, 1, LAYOUTVALUE_RATIO);
+			backgroundElement->setLayoutRule(LAYOUTRULE_RIGHT,  0, LAYOUTVALUE_RATIO);
+			backgroundElement->setLayoutRule(LAYOUTRULE_BOTTOM, 0, LAYOUTVALUE_RATIO);
 			element->addChildElement(backgroundElement);
 			
-			headerbarElement = new ImageElement(img_headerbar_full, ImageElement::DISPLAY_ZOOM);
+			headerbarElement = new ImageElement(img_headerbar_full, ImageElement::DISPLAY_FILL);
 			headerbarElement->setLayoutRule(LAYOUTRULE_LEFT,   0.0,   LAYOUTVALUE_RATIO);
 			headerbarElement->setLayoutRule(LAYOUTRULE_TOP,    0.0,   LAYOUTVALUE_RATIO);
-			headerbarElement->setLayoutRule(LAYOUTRULE_RIGHT,  1.0,   LAYOUTVALUE_RATIO);
-			headerbarElement->setLayoutRule(LAYOUTRULE_BOTTOM, 0.134, LAYOUTVALUE_RATIO);
+			headerbarElement->setLayoutRule(LAYOUTRULE_RIGHT,  0.0,   LAYOUTVALUE_RATIO);
+			headerbarElement->setLayoutRule(LAYOUTRULE_HEIGHT, 0.134, LAYOUTVALUE_RATIO);
 			element->addChildElement(headerbarElement);
 			
 			element->sendChildElementToBack(headerbarElement);
@@ -59,7 +59,7 @@ namespace SmashBros
 			clearMouseStates();
 		}
 		
-		void BaseMenuScreen::onUpdate(ApplicationData appData)
+		void BaseMenuScreen::onUpdate(const ApplicationData& appData)
 		{
 			if(getSelectedIndex() != MenuScreen::NO_SELECTION)
 			{

@@ -8,26 +8,26 @@ namespace BrawlerLibrary
 	class StageLoader
 	{
 	private:
-		GameLibrary::ArrayList<GameLibrary::String> paths;
-		GameLibrary::ArrayList<StageInfo> stages;
+		fgl::ArrayList<fgl::String> paths;
+		fgl::ArrayList<StageInfo> stages;
 		
-		GameLibrary::AssetManager* assetManager;
+		fgl::AssetManager* assetManager;
 
 	public:
-		explicit StageLoader(GameLibrary::Window& window);
+		explicit StageLoader(fgl::Window& window);
 		StageLoader();
 		
-		GameLibrary::AssetManager* getAssetManager() const;
+		fgl::AssetManager* getAssetManager() const;
 		
-		void addPath(const GameLibrary::String&path);
+		void addPath(const fgl::String&path);
 		
-		void loadIcons(const GameLibrary::Image&compositeMask=GameLibrary::Image());
-		void loadPreviews(const GameLibrary::Image&compositeMask=GameLibrary::Image());
+		void loadIcons(const fgl::Image&compositeMask=fgl::Image());
+		void loadPreviews(const fgl::Image&compositeMask=fgl::Image());
 		
-		void reloadAssets(const GameLibrary::Image&iconMask=GameLibrary::Image(), const GameLibrary::Image&previewMask=GameLibrary::Image());
+		void reloadAssets(const fgl::Image&iconMask=fgl::Image(), const fgl::Image&previewMask=fgl::Image());
 		
-		const GameLibrary::ArrayList<GameLibrary::String>& getPaths() const;
-		const GameLibrary::ArrayList<StageInfo>& getStages() const;
-		GameLibrary::ArrayList<StageInfo>& getStages();
+		const fgl::ArrayList<fgl::String>& getPaths() const;
+		const fgl::ArrayList<StageInfo>& getStages() const;
+		fgl::ArrayList<StageInfo>& getStages();
 	};
 }

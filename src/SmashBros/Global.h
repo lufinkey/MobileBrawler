@@ -1,5 +1,0 @@
-
-#pragma once
-
-#define SMASHBROS_WINDOWWIDTH 900
-#define SMASHBROS_WINDOWHEIGHT 600

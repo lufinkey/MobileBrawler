@@ -1,7 +1,7 @@
 
 #include "CharacterInfo.h"
 
-using namespace GameLibrary;
+using namespace fgl;
 
 namespace BrawlerLibrary
 {
@@ -37,11 +37,11 @@ namespace BrawlerLibrary
 	bool CharacterInfo::loadFromPath(const String& folderpath, String* error)
 	{
 		Dictionary dict;
-		bool success = Plist::loadFromFile(&dict, FileTools::combinePathStrings(folderpath, "Info.plist"), error);
+		bool success = Plist::loadFromPath(&dict, FileTools::combinePathStrings(folderpath, "Info.plist"), error);
 		if(success)
 		{
 			Any val_name = dict.get("name", Any());
-			if(val_name.empty())
+			if(val_name.isEmpty())
 			{
 				if(error!=nullptr)
 				{
@@ -59,7 +59,7 @@ namespace BrawlerLibrary
 			}
 			
 			Any val_creator = dict.get("creator", Any());
-			if(val_creator.empty())
+			if(val_creator.isEmpty())
 			{
 				if(error!=nullptr)
 				{
@@ -77,7 +77,7 @@ namespace BrawlerLibrary
 			}
 			
 			Any val_version = dict.get("version", Any());
-			if(val_version.empty())
+			if(val_version.isEmpty())
 			{
 				if(error!=nullptr)
 				{
@@ -95,7 +95,7 @@ namespace BrawlerLibrary
 			}
 			
 			Any val_minsmashversion = dict.get("minsmashversion", Any());
-			if(val_minsmashversion.empty())
+			if(val_minsmashversion.isEmpty())
 			{
 				if(error!=nullptr)
 				{
@@ -119,10 +119,10 @@ namespace BrawlerLibrary
 				//TODO do something with the costumes
 			}
 			
-			name = val_name.as<String>(false);
-			creator = val_creator.as<String>(false);
-			version = val_version.as<String>(false);
-			minsmashversion = val_minsmashversion.as<String>(false);
+			name = val_name.as<String>();
+			creator = val_creator.as<String>();
+			version = val_version.as<String>();
+			minsmashversion = val_minsmashversion.as<String>();
 			path = folderpath;
 			return true;
 		}

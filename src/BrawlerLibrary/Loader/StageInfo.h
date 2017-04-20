@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include <GameLibrary/GameLibrary.h>
+#include <GameLibrary/GameLibrary.hpp>
 
 namespace BrawlerLibrary
 {
@@ -14,23 +14,23 @@ namespace BrawlerLibrary
 		
 		StageInfo& operator=(const StageInfo&);
 		
-		bool loadFromPath(const GameLibrary::String&path, GameLibrary::String*error=nullptr);
+		bool loadFromPath(const fgl::String&path, fgl::String*error=nullptr);
 		
-		const GameLibrary::String& getPath() const;
-		const GameLibrary::String& getName() const;
-		const GameLibrary::String& getCreator() const;
-		const GameLibrary::String& getMinimumSmashVersion() const;
+		const fgl::String& getPath() const;
+		const fgl::String& getName() const;
+		const fgl::String& getCreator() const;
+		const fgl::String& getMinimumSmashVersion() const;
 		
-		void setPath(const GameLibrary::String&path);
-		void setName(const GameLibrary::String&name);
-		void setCreator(const GameLibrary::String&creator);
-		void setMinimumSmashVersion(const GameLibrary::String&minsmashversion);
+		void setPath(const fgl::String&path);
+		void setName(const fgl::String&name);
+		void setCreator(const fgl::String&creator);
+		void setMinimumSmashVersion(const fgl::String&minsmashversion);
 		
 	private:
-		GameLibrary::String path;
-		GameLibrary::String name;
-		GameLibrary::String creator;
-		GameLibrary::String version;
-		GameLibrary::String minsmashversion;
+		fgl::String path;
+		fgl::String name;
+		fgl::String creator;
+		fgl::String version;
+		fgl::String minsmashversion;
 	};
 }

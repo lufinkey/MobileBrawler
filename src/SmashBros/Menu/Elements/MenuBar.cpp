@@ -26,8 +26,8 @@ namespace SmashBros
 			label_autoLayoutMgr.setOffsetByContainer(true);
 			label_autoLayoutMgr.setRule(LAYOUTRULE_LEFT, 0.05, LAYOUTVALUE_RATIO);
 			label_autoLayoutMgr.setRule(LAYOUTRULE_TOP, 0.05, LAYOUTVALUE_RATIO);
-			label_autoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.575, LAYOUTVALUE_RATIO);
-			label_autoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.95, LAYOUTVALUE_RATIO);
+			label_autoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.425, LAYOUTVALUE_RATIO);
+			label_autoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.05, LAYOUTVALUE_RATIO);
 			label_actor->scaleToFit(label_autoLayoutMgr.calculateFrame(label_actor->getFrame(), frame));
 			
 			applyProperties(properties);
@@ -51,22 +51,22 @@ namespace SmashBros
 		void MenuBar::applyProperties(const Dictionary&properties)
 		{
 			Any label_layoutRules_any = properties.get("label_layoutRules", Any());
-			if(!label_layoutRules_any.empty() && label_layoutRules_any.is<Dictionary>())
+			if(!label_layoutRules_any.isEmpty() && label_layoutRules_any.is<Dictionary>())
 			{
-				const Dictionary& label_layoutRules = label_layoutRules_any.as<Dictionary>(false);
+				const Dictionary& label_layoutRules = label_layoutRules_any.as<Dictionary>();
 				applyPlacementDict(label_layoutRules, &label_autoLayoutMgr);
 				if(!label_autoLayoutMgr.hasRules())
 				{
 					label_autoLayoutMgr.setRule(LAYOUTRULE_LEFT, 0.05, LAYOUTVALUE_RATIO);
 					label_autoLayoutMgr.setRule(LAYOUTRULE_TOP, 0.05, LAYOUTVALUE_RATIO);
-					label_autoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.575, LAYOUTVALUE_RATIO);
-					label_autoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.95, LAYOUTVALUE_RATIO);
+					label_autoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.425, LAYOUTVALUE_RATIO);
+					label_autoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.05, LAYOUTVALUE_RATIO);
 				}
 			}
 			Any label_color_any = properties.get("label_color", Any());
-			if(!label_color_any.empty() && label_color_any.is<Dictionary>())
+			if(!label_color_any.isEmpty() && label_color_any.is<Dictionary>())
 			{
-				const Dictionary& label_color_dict = label_color_any.as<Dictionary>(false);
+				const Dictionary& label_color_dict = label_color_any.as<Dictionary>();
 				applyColorDict(label_color_dict, &label_color);
 				label_actor->setColor(label_color);
 			}
@@ -88,21 +88,21 @@ namespace SmashBros
 			Any g = dict.get("g", Any());
 			Any b = dict.get("b", Any());
 			Any a = dict.get("a", Any());
-			if(!r.empty() && r.is<Number>())
+			if(!r.isEmpty() && r.is<Number>())
 			{
-				color->r = r.as<Number>(false).toArithmeticValue<byte>();
+				color->r = r.as<Number>().toArithmeticValue<byte>();
 			}
-			if(!g.empty() && g.is<Number>())
+			if(!g.isEmpty() && g.is<Number>())
 			{
-				color->g = g.as<Number>(false).toArithmeticValue<byte>();
+				color->g = g.as<Number>().toArithmeticValue<byte>();
 			}
-			if(!b.empty() && b.is<Number>())
+			if(!b.isEmpty() && b.is<Number>())
 			{
-				color->b = b.as<Number>(false).toArithmeticValue<byte>();
+				color->b = b.as<Number>().toArithmeticValue<byte>();
 			}
-			if(!a.empty() && a.is<Number>())
+			if(!a.isEmpty() && a.is<Number>())
 			{
-				color->a = a.as<Number>(false).toArithmeticValue<byte>();
+				color->a = a.as<Number>().toArithmeticValue<byte>();
 			}
 		}
 		

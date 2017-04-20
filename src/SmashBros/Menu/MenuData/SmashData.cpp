@@ -36,7 +36,7 @@ namespace SmashBros
 		{
 			return Vector2d(0,0);
 		}
-		Vector2d viewSize = window->getView()->getSize();
+		Vector2d viewSize = window->getViewport()->getSize();
 		return Vector2d(ratX*viewSize.x, ratY*viewSize.y);
 	}
 	
@@ -46,7 +46,7 @@ namespace SmashBros
 		{
 			return Vector2d(0,0);
 		}
-		Vector2d viewSize = window->getView()->getSize();
+		Vector2d viewSize = window->getViewport()->getSize();
 		return Vector2d(rat.x*viewSize.x, rat.y*viewSize.y);
 	}
 	

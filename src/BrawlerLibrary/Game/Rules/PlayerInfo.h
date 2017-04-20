@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include <GameLibrary/GameLibrary.h>
+#include <GameLibrary/GameLibrary.hpp>
 #include "../../Loader/CharacterInfo.h"
 
 namespace BrawlerLibrary
@@ -18,30 +18,30 @@ namespace BrawlerLibrary
 		
 		PlayerInfo();
 		PlayerInfo(const PlayerInfo&);
-		PlayerInfo(CharacterInfo*character, const GameLibrary::String&costume, const GameLibrary::ArrayList<PlayerInfo::Mode>& modeCycle);
+		PlayerInfo(CharacterInfo*character, const fgl::String&costume, const fgl::ArrayList<PlayerInfo::Mode>& modeCycle);
 		~PlayerInfo();
 		
 		PlayerInfo& operator=(const PlayerInfo&);
 		
 		CharacterInfo* getCharacterInfo() const;
-		const GameLibrary::String& getCostume() const;
+		const fgl::String& getCostume() const;
 		const PlayerInfo::Mode& getPlayerMode() const;
-		const GameLibrary::ArrayList<PlayerInfo::Mode>& getPlayerModeCycle() const;
+		const fgl::ArrayList<PlayerInfo::Mode>& getPlayerModeCycle() const;
 		
 		void setCharacterInfo(CharacterInfo*);
-		void setCostume(const GameLibrary::String&);
+		void setCostume(const fgl::String&);
 		void setPlayerMode(const PlayerInfo::Mode&);
-		void setPlayerModeCycle(const GameLibrary::ArrayList<PlayerInfo::Mode>&modeCycle);
+		void setPlayerModeCycle(const fgl::ArrayList<PlayerInfo::Mode>&modeCycle);
 		void cyclePlayerMode();
 		void turnPlayerModeOn();
 		void turnPlayerModeOff();
 		
 	private:
 		CharacterInfo* character_info;
-		GameLibrary::String character_costume;
+		fgl::String character_costume;
 		
 		PlayerInfo::Mode mode;
-		GameLibrary::ArrayList<PlayerInfo::Mode> modeCycle;
+		fgl::ArrayList<PlayerInfo::Mode> modeCycle;
 		unsigned int modeCycleIndex;
 	};
 }

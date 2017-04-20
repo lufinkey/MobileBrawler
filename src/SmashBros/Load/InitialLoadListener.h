@@ -1,11 +1,11 @@
 
 #pragma once
 
-#include <GameLibrary/GameLibrary.h>
+#include <GameLibrary/GameLibrary.hpp>
 
 namespace SmashBros
 {
-	using namespace GameLibrary;
+	using namespace fgl;
 	
 	class InitialLoadListener : public BatchLoaderEventListener
 	{

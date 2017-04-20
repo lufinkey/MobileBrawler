@@ -21,7 +21,7 @@ namespace BrawlerLibrary
 		void setWinCondition(WinCondition*);
 		
 	private:
-		GameLibrary::ArrayList<PlayerInfo> players;
+		fgl::ArrayList<PlayerInfo> players;
 		WinCondition* winCondition;
 	};
 }

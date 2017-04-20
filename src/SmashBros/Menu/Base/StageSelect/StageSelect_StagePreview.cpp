@@ -16,7 +16,7 @@ namespace SmashBros
 			{
 				assetManager = assetMgr;
 				info = nullptr;
-				setDisplayMode(DISPLAY_FIT);
+				setDisplayMode(DISPLAY_FIT_CENTER);
 			}
 			
 			StagePreview::~StagePreview()

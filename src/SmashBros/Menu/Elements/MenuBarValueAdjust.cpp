@@ -51,8 +51,8 @@ namespace SmashBros
 			value_label_autoLayoutMgr.setOffsetByContainer(true);
 			value_label_autoLayoutMgr.setRule(LAYOUTRULE_LEFT, 0.65, LAYOUTVALUE_RATIO);
 			value_label_autoLayoutMgr.setRule(LAYOUTRULE_TOP, 0.05, LAYOUTVALUE_RATIO);
-			value_label_autoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.9, LAYOUTVALUE_RATIO);
-			value_label_autoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.95, LAYOUTVALUE_RATIO);
+			value_label_autoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.1, LAYOUTVALUE_RATIO);
+			value_label_autoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.05, LAYOUTVALUE_RATIO);
 			value_label_actor->scaleToFit(value_label_autoLayoutMgr.calculateFrame(value_label_actor->getFrame(), frame));
 			
 			arrow_less_dir = "left";
@@ -60,8 +60,8 @@ namespace SmashBros
 			arrow_less_autoLayoutMgr.setOffsetByContainer(true);
 			arrow_less_autoLayoutMgr.setRule(LAYOUTRULE_LEFT, 0.6, LAYOUTVALUE_RATIO);
 			arrow_less_autoLayoutMgr.setRule(LAYOUTRULE_TOP, 0.05, LAYOUTVALUE_RATIO);
-			arrow_less_autoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.65, LAYOUTVALUE_RATIO);
-			arrow_less_autoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.95, LAYOUTVALUE_RATIO);
+			arrow_less_autoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.35, LAYOUTVALUE_RATIO);
+			arrow_less_autoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.05, LAYOUTVALUE_RATIO);
 			arrow_less->scaleToFit(arrow_less_autoLayoutMgr.calculateFrame(arrow_less->getFrame(), frame));
 			
 			arrow_more_dir = "right";
@@ -69,8 +69,8 @@ namespace SmashBros
 			arrow_more_autoLayoutMgr.setOffsetByContainer(true);
 			arrow_more_autoLayoutMgr.setRule(LAYOUTRULE_LEFT, 0.9, LAYOUTVALUE_RATIO);
 			arrow_more_autoLayoutMgr.setRule(LAYOUTRULE_TOP, 0.05, LAYOUTVALUE_RATIO);
-			arrow_more_autoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.95, LAYOUTVALUE_RATIO);
-			arrow_more_autoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.95, LAYOUTVALUE_RATIO);
+			arrow_more_autoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.05, LAYOUTVALUE_RATIO);
+			arrow_more_autoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.05, LAYOUTVALUE_RATIO);
 			arrow_more->scaleToFit(arrow_more_autoLayoutMgr.calculateFrame(arrow_more->getFrame(), frame));
 			
 			applyProperties(properties);
@@ -95,42 +95,42 @@ namespace SmashBros
 		void MenuBarValueAdjust::applyProperties(const Dictionary&properties)
 		{
 			Any value_label_layoutRules_any = properties.get("value_label_layoutRules", Any());
-			if(!value_label_layoutRules_any.empty() && value_label_layoutRules_any.is<Dictionary>())
+			if(!value_label_layoutRules_any.isEmpty() && value_label_layoutRules_any.is<Dictionary>())
 			{
-				const Dictionary& value_label_layoutRules = value_label_layoutRules_any.as<Dictionary>(false);
+				const Dictionary& value_label_layoutRules = value_label_layoutRules_any.as<Dictionary>();
 				applyPlacementDict(value_label_layoutRules, &value_label_autoLayoutMgr);
 				if(!value_label_autoLayoutMgr.hasRules())
 				{
 					value_label_autoLayoutMgr.setRule(LAYOUTRULE_LEFT, 0.65, LAYOUTVALUE_RATIO);
 					value_label_autoLayoutMgr.setRule(LAYOUTRULE_TOP, 0.05, LAYOUTVALUE_RATIO);
-					value_label_autoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.9, LAYOUTVALUE_RATIO);
-					value_label_autoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.95, LAYOUTVALUE_RATIO);
+					value_label_autoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.1, LAYOUTVALUE_RATIO);
+					value_label_autoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.05, LAYOUTVALUE_RATIO);
 				}
 			}
 			Any value_label_color_any = properties.get("value_label_color", Any());
-			if(!value_label_color_any.empty() && value_label_color_any.is<Dictionary>())
+			if(!value_label_color_any.isEmpty() && value_label_color_any.is<Dictionary>())
 			{
-				const Dictionary& value_label_color_dict = value_label_color_any.as<Dictionary>(false);
+				const Dictionary& value_label_color_dict = value_label_color_any.as<Dictionary>();
 				applyColorDict(value_label_color_dict, &value_label_color);
 				value_label_actor->setColor(value_label_color);
 			}
 			Any arrow_less_layoutRules_any = properties.get("arrow_less_layoutRules", Any());
-			if(!arrow_less_layoutRules_any.empty() && arrow_less_layoutRules_any.is<Dictionary>())
+			if(!arrow_less_layoutRules_any.isEmpty() && arrow_less_layoutRules_any.is<Dictionary>())
 			{
-				const Dictionary& arrow_less_layoutRules = arrow_less_layoutRules_any.as<Dictionary>(false);
+				const Dictionary& arrow_less_layoutRules = arrow_less_layoutRules_any.as<Dictionary>();
 				applyPlacementDict(arrow_less_layoutRules, &arrow_less_autoLayoutMgr);
 				if(!arrow_less_autoLayoutMgr.hasRules())
 				{
 					arrow_less_autoLayoutMgr.setRule(LAYOUTRULE_LEFT, 0.6, LAYOUTVALUE_RATIO);
 					arrow_less_autoLayoutMgr.setRule(LAYOUTRULE_TOP, 0.05, LAYOUTVALUE_RATIO);
-					arrow_less_autoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.65, LAYOUTVALUE_RATIO);
-					arrow_less_autoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.95, LAYOUTVALUE_RATIO);
+					arrow_less_autoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.35, LAYOUTVALUE_RATIO);
+					arrow_less_autoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.05, LAYOUTVALUE_RATIO);
 				}
 			}
 			Any arrow_less_dir_any = properties.get("arrow_less_dir", Any());
-			if(!arrow_less_dir_any.empty() && arrow_less_dir_any.is<String>())
+			if(!arrow_less_dir_any.isEmpty() && arrow_less_dir_any.is<String>())
 			{
-				String arrow_less_dir = arrow_less_dir_any.as<String>(false);
+				String arrow_less_dir = arrow_less_dir_any.as<String>();
 				if(arrow_less_dir.equals("left"))
 				{
 					arrow_less->setDirection(ArrowButton::DIRECTION_LEFT);
@@ -149,22 +149,22 @@ namespace SmashBros
 				}
 			}
 			Any arrow_more_layoutRules_any = properties.get("arrow_more_layoutRules", Any());
-			if(!arrow_more_layoutRules_any.empty() && arrow_more_layoutRules_any.is<Dictionary>())
+			if(!arrow_more_layoutRules_any.isEmpty() && arrow_more_layoutRules_any.is<Dictionary>())
 			{
-				const Dictionary& arrow_more_layoutRules = arrow_more_layoutRules_any.as<Dictionary>(false);
+				const Dictionary& arrow_more_layoutRules = arrow_more_layoutRules_any.as<Dictionary>();
 				applyPlacementDict(arrow_more_layoutRules, &arrow_more_autoLayoutMgr);
 				if(!arrow_more_autoLayoutMgr.hasRules())
 				{
 					arrow_more_autoLayoutMgr.setRule(LAYOUTRULE_LEFT, 0.9, LAYOUTVALUE_RATIO);
 					arrow_more_autoLayoutMgr.setRule(LAYOUTRULE_TOP, 0.05, LAYOUTVALUE_RATIO);
-					arrow_more_autoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.95, LAYOUTVALUE_RATIO);
-					arrow_more_autoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.95, LAYOUTVALUE_RATIO);
+					arrow_more_autoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.05, LAYOUTVALUE_RATIO);
+					arrow_more_autoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.05, LAYOUTVALUE_RATIO);
 				}
 			}
 			Any arrow_more_dir_any = properties.get("arrow_more_dir", Any());
-			if(!arrow_more_dir_any.empty() && arrow_more_dir_any.is<String>())
+			if(!arrow_more_dir_any.isEmpty() && arrow_more_dir_any.is<String>())
 			{
-				String arrow_more_dir = arrow_more_dir_any.as<String>(false);
+				String arrow_more_dir = arrow_more_dir_any.as<String>();
 				if(arrow_more_dir.equals("left"))
 				{
 					arrow_more->setDirection(ArrowButton::DIRECTION_LEFT);

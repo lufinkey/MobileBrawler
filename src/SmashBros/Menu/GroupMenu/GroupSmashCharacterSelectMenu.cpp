@@ -14,7 +14,7 @@ namespace SmashBros
 			reloadIcons(smashData);
 			reloadPlayerPanels(smashData);
 			
-			RectangleD frame = getFrame();
+			Vector2d size = getSize();
 			
 			double headerbarBottom = 0.134*1.1;
 			LayoutRule* headerBarBottomRule = getHeaderbarElement()->getAutoLayoutManager().getRule(LAYOUTRULE_BOTTOM);
@@ -30,9 +30,9 @@ namespace SmashBros
 									smashData.getMenuData()->getRulesBarProperties());
 			rulesBarAutoLayoutMgr.setRule(LAYOUTRULE_LEFT, 0.36, LAYOUTVALUE_RATIO);
 			rulesBarAutoLayoutMgr.setRule(LAYOUTRULE_TOP, 0, LAYOUTVALUE_RATIO);
-			rulesBarAutoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 1.0, LAYOUTVALUE_RATIO);
+			rulesBarAutoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0, LAYOUTVALUE_RATIO);
 			rulesBarAutoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, headerbarBottom, LAYOUTVALUE_RATIO);
-			rulesBar->scaleToFit(rulesBarAutoLayoutMgr.calculateFrame(rulesBar->getFrame(), frame));
+			rulesBar->scaleToFit(rulesBarAutoLayoutMgr.calculateFrame(rulesBar->getFrame(), RectangleD(0,0,size.x,size.y)));
 			
 			groupSmashStageSelectMenu = new GroupSmashStageSelectMenu(smashData, groupSmashData);
 		}
@@ -43,11 +43,11 @@ namespace SmashBros
 			delete groupSmashStageSelectMenu;
 		}
 		
-		void GroupSmashCharacterSelectMenu::onFrameChange(const RectangleD& oldFrame, const RectangleD& newFrame)
+		void GroupSmashCharacterSelectMenu::onSizeChange(const Vector2d& oldSize, const Vector2d& newSize)
 		{
-			CharacterSelectScreen::onFrameChange(oldFrame, newFrame);
-			RectangleD frame = getFrame();
-			rulesBar->scaleToFit(rulesBarAutoLayoutMgr.calculateFrame(rulesBar->getFrame(), frame));
+			CharacterSelectScreen::onSizeChange(oldSize, newSize);
+			Vector2d size = getSize();
+			rulesBar->scaleToFit(rulesBarAutoLayoutMgr.calculateFrame(rulesBar->getFrame(), RectangleD(0,0,size.x,size.y)));
 		}
 		
 		void GroupSmashCharacterSelectMenu::onWillAppear(const Transition*transition)
@@ -70,13 +70,13 @@ namespace SmashBros
 			getScreenManager()->push(groupSmashStageSelectMenu);
 		}
 		
-		void GroupSmashCharacterSelectMenu::onUpdate(ApplicationData appData)
+		void GroupSmashCharacterSelectMenu::onUpdate(const ApplicationData& appData)
 		{
 			CharacterSelectScreen::onUpdate(appData);
 			rulesBar->update(appData);
 		}
 		
-		void GroupSmashCharacterSelectMenu::onDraw(ApplicationData appData, Graphics graphics) const
+		void GroupSmashCharacterSelectMenu::onDraw(const ApplicationData& appData, Graphics graphics) const
 		{
 			CharacterSelectScreen::onDraw(appData, graphics);
 			rulesBar->draw(appData, graphics);

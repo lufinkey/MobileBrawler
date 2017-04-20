@@ -1,9 +1,9 @@
 
 #pragma once
 
-#include <GameLibrary/GameLibrary.h>
+#include <GameLibrary/GameLibrary.hpp>
 
-using namespace GameLibrary;
+using namespace fgl;
 
 namespace SmashBros
 {

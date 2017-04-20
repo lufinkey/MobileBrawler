@@ -89,8 +89,8 @@ namespace SmashBros
 				portraitLayoutMgr.setOffsetByContainer(true);
 				portraitLayoutMgr.setRule(LAYOUTRULE_LEFT,   0, LAYOUTVALUE_RATIO);
 				portraitLayoutMgr.setRule(LAYOUTRULE_TOP,    0, LAYOUTVALUE_RATIO);
-				portraitLayoutMgr.setRule(LAYOUTRULE_RIGHT,  1, LAYOUTVALUE_RATIO);
-				portraitLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 1, LAYOUTVALUE_RATIO);
+				portraitLayoutMgr.setRule(LAYOUTRULE_RIGHT,  0, LAYOUTVALUE_RATIO);
+				portraitLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0, LAYOUTVALUE_RATIO);
 				portrait->scaleToFit(portraitLayoutMgr.calculateFrame(portrait->getFrame(), frame));
 				
 				overlay = new SpriteActor(x,y);
@@ -102,16 +102,16 @@ namespace SmashBros
 				overlayLayoutMgr.setOffsetByContainer(true);
 				overlayLayoutMgr.setRule(LAYOUTRULE_LEFT,   0, LAYOUTVALUE_RATIO);
 				overlayLayoutMgr.setRule(LAYOUTRULE_TOP,    0, LAYOUTVALUE_RATIO);
-				overlayLayoutMgr.setRule(LAYOUTRULE_RIGHT,  1, LAYOUTVALUE_RATIO);
-				overlayLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 1, LAYOUTVALUE_RATIO);
+				overlayLayoutMgr.setRule(LAYOUTRULE_RIGHT,  0, LAYOUTVALUE_RATIO);
+				overlayLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0, LAYOUTVALUE_RATIO);
 				overlay->scaleToFit(overlayLayoutMgr.calculateFrame(overlay->getFrame(), frame));
 				
 				namebox = new TextActor(x, y, "", assetManager->getFont("fonts/default.ttf"), Color::BLACK, 36, Font::STYLE_PLAIN, TextActor::ALIGN_CENTER);
 				nameboxLayoutMgr.setOffsetByContainer(true);
 				nameboxLayoutMgr.setRule(LAYOUTRULE_LEFT,   0.320, LAYOUTVALUE_RATIO);
 				nameboxLayoutMgr.setRule(LAYOUTRULE_TOP,    0.870, LAYOUTVALUE_RATIO);
-				nameboxLayoutMgr.setRule(LAYOUTRULE_RIGHT,  0.910, LAYOUTVALUE_RATIO);
-				nameboxLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.981, LAYOUTVALUE_RATIO);
+				nameboxLayoutMgr.setRule(LAYOUTRULE_RIGHT,  0.090, LAYOUTVALUE_RATIO);
+				nameboxLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.019, LAYOUTVALUE_RATIO);
 				namebox->scaleToFit(nameboxLayoutMgr.calculateFrame(namebox->getFrame(), frame));
 				
 				tapRegion_mode = new PlayerPanel_ModeTapRegion(this, charSelectScreen);
@@ -156,40 +156,40 @@ namespace SmashBros
 			void PlayerPanel::applyProperties(const Dictionary&properties)
 			{
 				const Any& portraitDict = properties.get("portrait", Any());
-				if(!portraitDict.empty() && portraitDict.is<Dictionary>())
+				if(!portraitDict.isEmpty() && portraitDict.is<Dictionary>())
 				{
-					applyPlacementDict(portraitDict.as<Dictionary>(false), &portraitLayoutMgr);
+					applyPlacementDict(portraitDict.as<Dictionary>(), &portraitLayoutMgr);
 					if(!portraitLayoutMgr.hasRules())
 					{
 						portraitLayoutMgr.setRule(LAYOUTRULE_LEFT,   0, LAYOUTVALUE_RATIO);
 						portraitLayoutMgr.setRule(LAYOUTRULE_TOP,    0, LAYOUTVALUE_RATIO);
-						portraitLayoutMgr.setRule(LAYOUTRULE_RIGHT,  1, LAYOUTVALUE_RATIO);
-						portraitLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 1, LAYOUTVALUE_RATIO);
+						portraitLayoutMgr.setRule(LAYOUTRULE_RIGHT,  0, LAYOUTVALUE_RATIO);
+						portraitLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0, LAYOUTVALUE_RATIO);
 					}
 				}
 				const Any& overlayDict = properties.get("overlay", Any());
-				if(!overlayDict.empty() && overlayDict.is<Dictionary>())
+				if(!overlayDict.isEmpty() && overlayDict.is<Dictionary>())
 				{
-					applyPlacementDict(overlayDict.as<Dictionary>(false), &overlayLayoutMgr);
+					applyPlacementDict(overlayDict.as<Dictionary>(), &overlayLayoutMgr);
 					if(!overlayLayoutMgr.hasRules())
 					{
 						overlayLayoutMgr.setRule(LAYOUTRULE_LEFT,   0, LAYOUTVALUE_RATIO);
 						overlayLayoutMgr.setRule(LAYOUTRULE_TOP,    0, LAYOUTVALUE_RATIO);
-						overlayLayoutMgr.setRule(LAYOUTRULE_RIGHT,  1, LAYOUTVALUE_RATIO);
-						overlayLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 1, LAYOUTVALUE_RATIO);
+						overlayLayoutMgr.setRule(LAYOUTRULE_RIGHT,  0, LAYOUTVALUE_RATIO);
+						overlayLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0, LAYOUTVALUE_RATIO);
 					}
 				}
 				const Any& nameboxDict = properties.get("namebox", Any());
-				if(!nameboxDict.empty() && nameboxDict.is<Dictionary>())
+				if(!nameboxDict.isEmpty() && nameboxDict.is<Dictionary>())
 				{
-					const Dictionary&namebox_dict = nameboxDict.as<Dictionary>(false);
+					const Dictionary&namebox_dict = nameboxDict.as<Dictionary>();
 					applyPlacementDict(nameboxDict, &nameboxLayoutMgr);
 					if(!nameboxLayoutMgr.hasRules())
 					{
 						nameboxLayoutMgr.setRule(LAYOUTRULE_LEFT,   0.320, LAYOUTVALUE_RATIO);
 						nameboxLayoutMgr.setRule(LAYOUTRULE_TOP,    0.870, LAYOUTVALUE_RATIO);
-						nameboxLayoutMgr.setRule(LAYOUTRULE_RIGHT,  0.910, LAYOUTVALUE_RATIO);
-						nameboxLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.981, LAYOUTVALUE_RATIO);
+						nameboxLayoutMgr.setRule(LAYOUTRULE_RIGHT,  0.090, LAYOUTVALUE_RATIO);
+						nameboxLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.019, LAYOUTVALUE_RATIO);
 					}
 					
 					/*const Any& alignment_val = namebox_dict.get("alignment", Any());
@@ -219,29 +219,29 @@ namespace SmashBros
 					}*/
 					
 					const Any& color_val = namebox_dict.get("color", Any());
-					if(!color_val.empty() && color_val.is<Dictionary>())
+					if(!color_val.isEmpty() && color_val.is<Dictionary>())
 					{
-						const Dictionary& color_dict = color_val.as<Dictionary>(false);
+						const Dictionary& color_dict = color_val.as<Dictionary>();
 						const Any& r_val = color_dict.get("r", Any());
 						const Any& g_val = color_dict.get("g", Any());
 						const Any& b_val = color_dict.get("b", Any());
 						const Any& a_val = color_dict.get("a", Any());
 						Color color = namebox->getColor();
-						if(!r_val.empty() && r_val.is<Number>())
+						if(!r_val.isEmpty() && r_val.is<Number>())
 						{
-							color.r = r_val.as<Number>(false).toArithmeticValue<byte>();
+							color.r = r_val.as<Number>().toArithmeticValue<byte>();
 						}
-						if(!g_val.empty() && g_val.is<Number>())
+						if(!g_val.isEmpty() && g_val.is<Number>())
 						{
-							color.g = g_val.as<Number>(false).toArithmeticValue<byte>();
+							color.g = g_val.as<Number>().toArithmeticValue<byte>();
 						}
-						if(!b_val.empty() && b_val.is<Number>())
+						if(!b_val.isEmpty() && b_val.is<Number>())
 						{
-							color.b = b_val.as<Number>(false).toArithmeticValue<byte>();
+							color.b = b_val.as<Number>().toArithmeticValue<byte>();
 						}
-						if(!a_val.empty() && a_val.is<Number>())
+						if(!a_val.isEmpty() && a_val.is<Number>())
 						{
-							color.a = a_val.as<Number>(false).toArithmeticValue<byte>();
+							color.a = a_val.as<Number>().toArithmeticValue<byte>();
 						}
 						namebox->setColor(color);
 					}
@@ -252,11 +252,11 @@ namespace SmashBros
 			void PlayerPanel::applyPlacementDict(const Dictionary&dict, AutoLayoutManager*layoutMgr)
 			{
 				const Any& layoutRules_any = dict.get("layoutRules", Any());
-				if(layoutRules_any.empty() || !layoutRules_any.is<Dictionary>())
+				if(layoutRules_any.isEmpty() || !layoutRules_any.is<Dictionary>())
 				{
 					return;
 				}
-				const Dictionary& layoutRules = layoutRules_any.as<Dictionary>(false);
+				const Dictionary& layoutRules = layoutRules_any.as<Dictionary>();
 				layoutMgr->setRules(layoutRules);
 			}
 			

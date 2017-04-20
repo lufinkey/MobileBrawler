@@ -1,10 +1,10 @@
 
 #pragma once
 
-#include <GameLibrary/GameLibrary.h>
+#include <GameLibrary/GameLibrary.hpp>
 #include <BrawlerLibrary/BrawlerLibrary.h>
 
-using namespace GameLibrary;
+using namespace fgl;
 using namespace BrawlerLibrary;
 
 namespace SmashBros

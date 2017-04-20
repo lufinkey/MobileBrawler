@@ -23,7 +23,7 @@ namespace SmashBros
 			CharacterSelectScreen(const SmashData&smashData, Rules*rules);
 			virtual ~CharacterSelectScreen();
 			
-			virtual void onFrameChange(const RectangleD& oldFrame, const RectangleD& newFrame) override;
+			virtual void onSizeChange(const Vector2d& oldSize, const Vector2d& newSize) override;
 			
 			virtual bool isReadyToFight() const;
 			virtual void proceedToFight();
@@ -37,8 +37,8 @@ namespace SmashBros
 			void reloadIcons(const SmashData&smashData);
 			void reloadPlayerPanels(const SmashData&smashData);
 
-			virtual void onUpdate(ApplicationData appData) override;
-			virtual void onDraw(ApplicationData appData, Graphics graphics) const override;
+			virtual void onUpdate(const ApplicationData& appData) override;
+			virtual void onDraw(const ApplicationData& appData, Graphics graphics) const override;
 			
 		private:
 			void whenPlayerChipGrabbed(unsigned int playerNum);

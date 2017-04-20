@@ -1,11 +1,11 @@
 
 #include "BrawlGame.h"
 
-using namespace GameLibrary;
+using namespace fgl;
 
 namespace BrawlerLibrary
 {
-	BrawlGame::BrawlGame(const RectangleD&frame, const GameLibrary::Vector2d&natSize) : ScreenElement(frame)
+	BrawlGame::BrawlGame(const RectangleD&frame, const fgl::Vector2d&natSize) : ScreenElement(frame)
 	{
 		camera = nullptr; //TODO BrawlGame instantiate Camera
 		naturalSize = natSize;

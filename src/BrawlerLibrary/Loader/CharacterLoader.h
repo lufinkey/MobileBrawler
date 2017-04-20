@@ -8,27 +8,27 @@ namespace BrawlerLibrary
 	class CharacterLoader
 	{
 	private:
-		GameLibrary::ArrayList<CharacterInfo> characters;
-		GameLibrary::ArrayList<GameLibrary::String> paths;
+		fgl::ArrayList<CharacterInfo> characters;
+		fgl::ArrayList<fgl::String> paths;
 		
-		GameLibrary::AssetManager* assetManager;
+		fgl::AssetManager* assetManager;
 		
 	public:
-		explicit CharacterLoader(GameLibrary::Window& window);
+		explicit CharacterLoader(fgl::Window& window);
 		~CharacterLoader();
 		
-		GameLibrary::AssetManager* getAssetManager() const;
+		fgl::AssetManager* getAssetManager() const;
 		
-		void addPath(const GameLibrary::String&path);
+		void addPath(const fgl::String&path);
 		void reloadPaths();
 		
-		void loadIcons(const GameLibrary::Image&compositeMask=GameLibrary::Image());
+		void loadIcons(const fgl::Image&compositeMask=fgl::Image());
 		void loadPortraits();
 		
-		void reloadAssets(const GameLibrary::Image&iconMask=GameLibrary::Image());
+		void reloadAssets(const fgl::Image&iconMask=fgl::Image());
 		
-		const GameLibrary::ArrayList<GameLibrary::String>& getPaths() const;
-		const GameLibrary::ArrayList<CharacterInfo>& getCharacters() const;
-		GameLibrary::ArrayList<CharacterInfo>& getCharacters();
+		const fgl::ArrayList<fgl::String>& getPaths() const;
+		const fgl::ArrayList<CharacterInfo>& getCharacters() const;
+		fgl::ArrayList<CharacterInfo>& getCharacters();
 	};
 }

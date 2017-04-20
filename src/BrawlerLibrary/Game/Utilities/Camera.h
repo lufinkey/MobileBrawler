@@ -16,17 +16,17 @@ namespace BrawlerLibrary
 		} CameraMode;
 		
 		explicit Camera(BrawlGame*gameInstance);
-		Camera(BrawlGame*gameInstance, const GameLibrary::Vector2d&position, double zoom);
+		Camera(BrawlGame*gameInstance, const fgl::Vector2d&position, double zoom);
 		virtual ~Camera();
 		
-		virtual void update(GameLibrary::ApplicationData appData);
-		virtual void updateGraphics(GameLibrary::Graphics*graphics) const;
+		virtual void update(fgl::ApplicationData appData);
+		virtual void updateGraphics(fgl::Graphics*graphics) const;
 		
 		void addFocusedObject(GameObject*object);
 		void removeFocusedObject(GameObject*object);
 		
 	private:
-		static GameLibrary::RectangleD calculateFocusRect(BrawlGame*gameInstance, const GameLibrary::ArrayList<GameObject*>& objects);
+		static fgl::RectangleD calculateFocusRect(BrawlGame*gameInstance, const fgl::ArrayList<GameObject*>& objects);
 		
 		BrawlGame* gameInstance;
 		
@@ -35,7 +35,7 @@ namespace BrawlerLibrary
 		double zoom;
 		CameraMode mode;
 		
-		GameLibrary::RectangleD focusRect;
-		GameLibrary::ArrayList<GameObject*> focusedObjects;
+		fgl::RectangleD focusRect;
+		fgl::ArrayList<GameObject*> focusedObjects;
 	};
 }

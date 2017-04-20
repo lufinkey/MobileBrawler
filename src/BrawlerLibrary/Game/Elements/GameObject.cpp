@@ -4,9 +4,9 @@
 
 namespace BrawlerLibrary
 {
-	using namespace GameLibrary;
+	using namespace fgl;
 	
-	GameObject::GameObject(BrawlGame*gameInst, const GameLibrary::Vector2d&position) : ActionPerformer(position)
+	GameObject::GameObject(BrawlGame*gameInst, const fgl::Vector2d&position) : ActionPerformer(position)
 	{
 		gameInstance = gameInst;
 		zdepth = 0.5;

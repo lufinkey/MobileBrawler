@@ -1,7 +1,7 @@
 
 #include "Game.h"
 
-using namespace GameLibrary;
+using namespace fgl;
 
 int main(int argc, char *argv[])
 {

@@ -20,7 +20,7 @@ namespace SmashBros
 			StageSelectScreen(const SmashData&smashData, Rules*rules);
 			virtual ~StageSelectScreen();
 			
-			virtual void onFrameChange(const RectangleD& oldFrame, const RectangleD& newFrame) override;
+			virtual void onSizeChange(const Vector2d& oldSize, const Vector2d& newSize) override;
 			
 			Rules* getRules() const;
 			StageLoader* getStageLoader() const;
@@ -31,8 +31,8 @@ namespace SmashBros
 			void reloadIcons(const SmashData&smashData);
 			void reloadPreview(const SmashData&smashData);
 			
-			virtual void onUpdate(ApplicationData appData) override;
-			virtual void onDraw(ApplicationData appData, Graphics graphics) const override;
+			virtual void onUpdate(const ApplicationData& appData) override;
+			virtual void onDraw(const ApplicationData& appData, Graphics graphics) const override;
 			
 			virtual void onItemHover(size_t index) override;
 			virtual void onItemHoverFinish(size_t index) override;

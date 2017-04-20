@@ -1,6 +1,5 @@
 
 #include "Game.h"
-#include "Global.h"
 #include "Menu/TitleScreen.h"
 #include "Load/InitialLoadListener.h"
 
@@ -43,18 +42,19 @@ namespace SmashBros
 	void Game::initialize()
 	{
 		#ifdef TARGETPLATFORMTYPE_DESKTOP
-			getWindow()->setSize(Vector2u(SMASHBROS_WINDOWWIDTH, SMASHBROS_WINDOWHEIGHT));
+			getWindow()->setSize(Vector2u(900, 600));
 		#endif
 		Vector2u windowSize = getWindow()->getSize();
-		getWindow()->getView()->setSize(windowSize.x, windowSize.y);
+		getWindow()->getViewport()->setSize(windowSize.x, windowSize.y);
 		setFPS(60);
-		menuLoad = new MenuLoad(*getWindow(), "assets/menu");
-		moduleLoad = new ModuleLoad(*getWindow(), "assets/characters", "assets/stages");
-		smashData = new SmashData(getWindow(), menuLoad, moduleLoad);
 	}
 	
 	void Game::loadContent(AssetManager*assetManager)
 	{
+		menuLoad = new MenuLoad(*getWindow(), "assets/menu");
+		moduleLoad = new ModuleLoad(*getWindow(), "assets/characters", "assets/stages");
+		smashData = new SmashData(getWindow(), menuLoad, moduleLoad);
+		
 		InitialLoadListener* loadListener = new InitialLoadListener(getWindow());
 		menuLoad->setLoadListener(loadListener);
 		

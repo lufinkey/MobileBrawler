@@ -1,7 +1,7 @@
 
 #include "ActionPerformer.h"
 
-using namespace GameLibrary;
+using namespace fgl;
 
 namespace BrawlerLibrary
 {

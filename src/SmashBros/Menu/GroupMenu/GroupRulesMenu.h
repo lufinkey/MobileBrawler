@@ -16,13 +16,13 @@ namespace SmashBros
 			GroupRulesMenu(const SmashData&smashData, const GroupSmashData&groupSmashData);
 			virtual ~GroupRulesMenu();
 			
-			virtual void onFrameChange(const RectangleD& oldFrame, const RectangleD& newFrame) override;
+			virtual void onSizeChange(const Vector2d& oldSize, const Vector2d& newSize) override;
 			
 			virtual void onWillAppear(const Transition*transition) override;
 			
 		protected:
-			virtual void onUpdate(ApplicationData appData) override;
-			virtual void onDraw(ApplicationData appData, Graphics graphics) const override;
+			virtual void onUpdate(const ApplicationData& appData) override;
+			virtual void onDraw(const ApplicationData& appData, Graphics graphics) const override;
 			
 		private:
 			class MenuBarListener : public MenuBarValueAdjustEventListener

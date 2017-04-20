@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include <GameLibrary/GameLibrary.h>
+#include <GameLibrary/GameLibrary.hpp>
 
 namespace BrawlerLibrary
 {
@@ -30,7 +30,7 @@ namespace BrawlerLibrary
 		//called when the action on top of this action gets popped
 		virtual void onActionPop();
 		
-		virtual void onPerformerAnimationFinish(const GameLibrary::SpriteActorAnimationEvent& evt);
+		virtual void onPerformerAnimationFinish(const fgl::SpriteActorAnimationEvent& evt);
 		
 	private:
 		void perform(ActionPerformer*performer);

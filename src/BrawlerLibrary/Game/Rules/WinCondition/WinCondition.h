@@ -1,14 +1,14 @@
 
 #pragma once
 
-#include <GameLibrary/GameLibrary.h>
+#include <GameLibrary/GameLibrary.hpp>
 
 namespace BrawlerLibrary
 {
 	class WinCondition
 	{
 	protected:
-		GameLibrary::Dictionary properties;
+		fgl::Dictionary properties;
 	public:
 		WinCondition();
 		virtual ~WinCondition();

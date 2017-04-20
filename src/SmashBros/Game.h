@@ -1,16 +1,16 @@
 
 #pragma once
 
-#include <GameLibrary/GameLibrary.h>
+#include <GameLibrary/GameLibrary.hpp>
 #include "Menu/TitleScreen.h"
 #include "Load/MenuLoad.h"
 #include "Load/ModuleLoad.h"
 
 namespace SmashBros
 {
-	using namespace GameLibrary;
+	using namespace fgl;
 	
-	class Game : public GameLibrary::Application
+	class Game : public fgl::Application
 	{
 	private:
 		SmashData* smashData;

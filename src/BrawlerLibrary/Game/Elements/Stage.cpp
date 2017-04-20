@@ -1,7 +1,7 @@
 
 #include "Stage.h"
 
-using namespace GameLibrary;
+using namespace fgl;
 
 namespace BrawlerLibrary
 {

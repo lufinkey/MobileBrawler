@@ -1,6 +1,5 @@
 
 #include "TitleScreen.h"
-#include "../Global.h"
 
 namespace SmashBros
 {
@@ -19,18 +18,18 @@ namespace SmashBros
 				logoImageSize.x = (double)logoImage->getWidth();
 				logoImageSize.y = (double)logoImage->getHeight();
 			}
-			logo = new ImageElement(logoImage, ImageElement::DISPLAY_FIT);
+			logo = new ImageElement(logoImage, ImageElement::DISPLAY_FIT_CENTER);
 			logo->setLayoutRule(LAYOUTRULE_LEFT,   0, LAYOUTVALUE_RATIO);
 			logo->setLayoutRule(LAYOUTRULE_TOP,    0, LAYOUTVALUE_RATIO);
-			logo->setLayoutRule(LAYOUTRULE_RIGHT,  1, LAYOUTVALUE_RATIO);
-			logo->setLayoutRule(LAYOUTRULE_BOTTOM, 1, LAYOUTVALUE_RATIO);
+			logo->setLayoutRule(LAYOUTRULE_RIGHT,  0, LAYOUTVALUE_RATIO);
+			logo->setLayoutRule(LAYOUTRULE_BOTTOM, 0, LAYOUTVALUE_RATIO);
 			getElement()->addChildElement(logo);
 			
 			mainMenu = new MainMenu(smashData);
 			transition = new FadeColorTransition(Color::WHITE, 0.6);
 			
-			RectangleD frame = getFrame();
-			tapRegion = new WireframeActor(0, 0, frame.width, frame.height);
+			Vector2d size = getSize();
+			tapRegion = new WireframeActor(0, 0, size.x, size.y);
 			
 			getBackButton()->setVisible(false);
 			getHeaderbarElement()->setVisible(false);
@@ -45,7 +44,7 @@ namespace SmashBros
 			delete tapRegion;
 		}
 		
-		void TitleScreen::onUpdate(ApplicationData appData)
+		void TitleScreen::onUpdate(const ApplicationData& appData)
 		{
 			BaseMenuScreen::onUpdate(appData);
 			tapRegion->update(appData);
@@ -59,13 +58,13 @@ namespace SmashBros
 			}
 		}
 		
-		void TitleScreen::onFrameChange(const RectangleD& oldFrame, const RectangleD& newFrame)
+		void TitleScreen::onSizeChange(const Vector2d& oldSize, const Vector2d& newSize)
 		{
-			BaseMenuScreen::onFrameChange(oldFrame, newFrame);
-			RectangleD frame = getFrame();
+			BaseMenuScreen::onSizeChange(oldSize, newSize);
+			Vector2d size = getSize();
 			tapRegion->x = 0;
 			tapRegion->y = 0;
-			tapRegion->setSize(frame.width, frame.height);
+			tapRegion->setSize(size.x, size.y);
 		}
 		
 		void TitleScreen::onItemSelect(size_t index)

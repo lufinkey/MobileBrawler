@@ -6,18 +6,18 @@
 
 namespace BrawlerLibrary
 {
-	class ActionPerformer : public GameLibrary::SpriteActor
+	class ActionPerformer : public fgl::SpriteActor
 	{
 		friend class Action;
 	public:
 		ActionPerformer();
-		explicit ActionPerformer(const GameLibrary::Vector2d&position);
+		explicit ActionPerformer(const fgl::Vector2d&position);
 		virtual ~ActionPerformer();
 		
-		void addAction(const GameLibrary::String&name, Action*action, bool destruct=true);
-		void removeAction(const GameLibrary::String&name);
-		bool hasAction(const GameLibrary::String&name) const;
-		void performAction(const GameLibrary::String&name);
+		void addAction(const fgl::String&name, Action*action, bool destruct=true);
+		void removeAction(const fgl::String&name);
+		bool hasAction(const fgl::String&name) const;
+		void performAction(const fgl::String&name);
 		void performAction(Action*action);
 		void cancelAction();
 		bool isPerformingAction() const;
@@ -26,21 +26,21 @@ namespace BrawlerLibrary
 		const FaceDirection& getFaceDirection() const;
 		
 	protected:
-		virtual void onAnimationFinish(const GameLibrary::SpriteActorAnimationEvent& evt) override;
-		virtual void onActionFinish(const GameLibrary::String&name, Action*action);
+		virtual void onAnimationFinish(const fgl::SpriteActorAnimationEvent& evt) override;
+		virtual void onActionFinish(const fgl::String&name, Action*action);
 		
 	private:
 		typedef struct
 		{
-			GameLibrary::String name;
+			fgl::String name;
 			Action* action;
 			bool destruct;
 		} ActionInfo;
 		
 		FaceDirection side;
-		GameLibrary::ArrayList<ActionInfo> actions;
+		fgl::ArrayList<ActionInfo> actions;
 		
-		GameLibrary::String action_name;
+		fgl::String action_name;
 		Action* action_current;
 	};
 }

@@ -11,7 +11,7 @@ namespace SmashBros
 		
 		GroupRulesMenu::GroupRulesMenu(const SmashData&smashData, const GroupSmashData&groupSmashData) : BaseMenuScreen(smashData)
 		{
-			RectangleD frame = getFrame();
+			Vector2d size = getSize();
 			
 			listener = new MenuBarListener(this);
 			rules = groupSmashData.getRules();
@@ -28,9 +28,9 @@ namespace SmashBros
 			gameModeBar->setEventListener(listener);
 			gameModeBarAutoLayoutMgr.setRule(LAYOUTRULE_LEFT, 0.14, LAYOUTVALUE_RATIO);
 			gameModeBarAutoLayoutMgr.setRule(LAYOUTRULE_TOP, 0.12, LAYOUTVALUE_RATIO);
-			gameModeBarAutoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.86, LAYOUTVALUE_RATIO);
-			gameModeBarAutoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.28, LAYOUTVALUE_RATIO);
-			gameModeBar->scaleToFit(gameModeBarAutoLayoutMgr.calculateFrame(gameModeBar->getFrame(), frame));
+			gameModeBarAutoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.14, LAYOUTVALUE_RATIO);
+			gameModeBarAutoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.72, LAYOUTVALUE_RATIO);
+			gameModeBar->scaleToFit(gameModeBarAutoLayoutMgr.calculateFrame(gameModeBar->getFrame(), RectangleD(0,0,size.x,size.y)));
 			
 			gameModeValueBar = new RulesBar(rules, stockWinCondition, timeLimitWinCondition,
 											smashData.getMenuData()->getAssetManager(),
@@ -39,8 +39,8 @@ namespace SmashBros
 			gameModeValueBar->setLabel(getGameModeLabelString(rules));
 			gameModeValueBarAutoLayoutMgr.setRule(LAYOUTRULE_LEFT, 0.14, LAYOUTVALUE_RATIO);
 			gameModeValueBarAutoLayoutMgr.setRule(LAYOUTRULE_TOP, 0.32, LAYOUTVALUE_RATIO);
-			gameModeValueBarAutoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.86, LAYOUTVALUE_RATIO);
-			gameModeValueBarAutoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.48, LAYOUTVALUE_RATIO);
+			gameModeValueBarAutoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.14, LAYOUTVALUE_RATIO);
+			gameModeValueBarAutoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.52, LAYOUTVALUE_RATIO);
 		}
 		
 		GroupRulesMenu::~GroupRulesMenu()
@@ -49,10 +49,11 @@ namespace SmashBros
 			delete listener;
 		}
 		
-		void GroupRulesMenu::onFrameChange(const RectangleD& oldFrame, const RectangleD& newFrame)
+		void GroupRulesMenu::onSizeChange(const Vector2d& oldSize, const Vector2d& newSize)
 		{
-			BaseMenuScreen::onFrameChange(oldFrame, newFrame);
-			RectangleD frame = getFrame();
+			BaseMenuScreen::onSizeChange(oldSize, newSize);
+			Vector2d size = getSize();
+			RectangleD frame = RectangleD(0,0,size.x,size.y);
 			gameModeBar->scaleToFit(gameModeBarAutoLayoutMgr.calculateFrame(gameModeBar->getFrame(), frame));
 			gameModeValueBar->scaleToFit(gameModeValueBarAutoLayoutMgr.calculateFrame(gameModeValueBar->getFrame(), frame));
 		}
@@ -73,14 +74,14 @@ namespace SmashBros
 			}
 		}
 		
-		void GroupRulesMenu::onUpdate(ApplicationData appData)
+		void GroupRulesMenu::onUpdate(const ApplicationData& appData)
 		{
 			BaseMenuScreen::onUpdate(appData);
 			gameModeBar->update(appData);
 			gameModeValueBar->update(appData);
 		}
 		
-		void GroupRulesMenu::onDraw(ApplicationData appData, Graphics graphics) const
+		void GroupRulesMenu::onDraw(const ApplicationData& appData, Graphics graphics) const
 		{
 			BaseMenuScreen::onDraw(appData, graphics);
 			gameModeBar->draw(appData, graphics);
