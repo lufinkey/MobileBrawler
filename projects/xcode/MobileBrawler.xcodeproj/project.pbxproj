@@ -99,7 +99,7 @@
 		F16C345F1EA9089000EDA131 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		F16C34611EA9089700EDA131 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F16C34631EA908A400EDA131 /* libGameLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGameLibrary.a; path = ../../external/GameLibrary/projects/xcode/build/Debug/libGameLibrary.a; sourceTree = "<group>"; };
-		F16C34671EA908C800EDA131 /* BrawlerLibrary.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BrawlerLibrary.hpp; sourceTree = "<group>"; };
+		F16C34671EA908C800EDA131 /* SmashLib.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SmashLib.hpp; sourceTree = "<group>"; };
 		F16C348D1EA908C800EDA131 /* CharacterInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CharacterInfo.cpp; sourceTree = "<group>"; };
 		F16C348E1EA908C800EDA131 /* CharacterInfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CharacterInfo.hpp; sourceTree = "<group>"; };
 		F16C348F1EA908C800EDA131 /* CharacterLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CharacterLoader.cpp; sourceTree = "<group>"; };
@@ -254,21 +254,21 @@
 		F16C34651EA908C800EDA131 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				F16C34661EA908C800EDA131 /* BrawlerLibrary */,
+				F16C34661EA908C800EDA131 /* SmashLib */,
 				F16C34971EA908C800EDA131 /* SmashBros */,
 			);
 			name = src;
 			path = ../../src;
 			sourceTree = "<group>";
 		};
-		F16C34661EA908C800EDA131 /* BrawlerLibrary */ = {
+		F16C34661EA908C800EDA131 /* SmashLib */ = {
 			isa = PBXGroup;
 			children = (
-				F16C34671EA908C800EDA131 /* BrawlerLibrary.hpp */,
+				F16C34671EA908C800EDA131 /* SmashLib.hpp */,
 				F16C35171EA916BE00EDA131 /* Rules */,
 				F16C348C1EA908C800EDA131 /* Loader */,
 			);
-			path = BrawlerLibrary;
+			path = SmashLib;
 			sourceTree = "<group>";
 		};
 		F16C348C1EA908C800EDA131 /* Loader */ = {

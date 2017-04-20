@@ -3,7 +3,7 @@
 
 #include "WinCondition.hpp"
 
-namespace BrawlerLibrary
+namespace SmashLib
 {
 	class TimeLimitWinCondition : public WinCondition
 	{

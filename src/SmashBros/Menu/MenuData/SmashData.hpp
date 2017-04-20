@@ -1,11 +1,11 @@
 
 #pragma once
 
-#include <BrawlerLibrary/BrawlerLibrary.hpp>
+#include <SmashLib/SmashLib.hpp>
 #include "../../Load/MenuLoad.hpp"
 #include "../../Load/ModuleLoad.hpp"
 
-using namespace BrawlerLibrary;
+using namespace SmashLib;
 
 namespace SmashBros
 {

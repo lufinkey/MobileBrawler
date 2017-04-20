@@ -3,7 +3,7 @@
 
 #include <GameLibrary/GameLibrary.hpp>
 
-namespace BrawlerLibrary
+namespace SmashLib
 {
 	class CharacterInfo
 	{

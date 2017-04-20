@@ -4,7 +4,7 @@
 #include "PlayerInfo.hpp"
 #include "WinCondition/WinCondition.hpp"
 
-namespace BrawlerLibrary
+namespace SmashLib
 {
 	class Rules
 	{

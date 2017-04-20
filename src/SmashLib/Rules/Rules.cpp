@@ -1,7 +1,7 @@
 
 #include "Rules.hpp"
 
-namespace BrawlerLibrary
+namespace SmashLib
 {
 	using namespace fgl;
 	

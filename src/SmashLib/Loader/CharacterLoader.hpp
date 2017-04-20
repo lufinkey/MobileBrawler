@@ -3,7 +3,7 @@
 
 #pragma once
 
-namespace BrawlerLibrary
+namespace SmashLib
 {
 	class CharacterLoader
 	{

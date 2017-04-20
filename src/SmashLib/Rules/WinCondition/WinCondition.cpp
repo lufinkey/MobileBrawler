@@ -1,7 +1,7 @@
 
 #include "WinCondition.hpp"
 
-namespace BrawlerLibrary
+namespace SmashLib
 {
 	WinCondition::WinCondition()
 	{

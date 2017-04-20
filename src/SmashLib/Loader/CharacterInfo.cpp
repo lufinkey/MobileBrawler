@@ -1,24 +1,24 @@
 
-#include "StageInfo.hpp"
+#include "CharacterInfo.hpp"
 
-namespace BrawlerLibrary
+using namespace fgl;
+
+namespace SmashLib
 {
-	using namespace fgl;
-	
-	StageInfo::StageInfo()
+	CharacterInfo::CharacterInfo()
 	{
 		//
 	}
 	
-	StageInfo::~StageInfo()
+	CharacterInfo::~CharacterInfo()
 	{
 		//
 	}
 	
-	bool StageInfo::loadFromPath(const String&folderpath, String*error)
+	bool CharacterInfo::loadFromPath(const String& folderpath, String* error)
 	{
 		Dictionary dict;
-		bool success = Plist::loadFromPath(&dict, folderpath + "/Info.plist", error);
+		bool success = Plist::loadFromPath(&dict, FileTools::combinePathStrings(folderpath, "Info.plist"), error);
 		if(success)
 		{
 			Any val_name = dict.get("name", Any());
@@ -93,6 +93,13 @@ namespace BrawlerLibrary
 				return false;
 			}
 			
+			ArrayList<FileTools::DirectoryEntry> entries;
+			FileTools::readEntriesFromDirectory(FileTools::combinePathStrings(folderpath, "costumes"), &entries);
+			for(unsigned int i = 0; i < entries.size(); i++)
+			{
+				//TODO do something with the costumes
+			}
+			
 			name = val_name.as<String>();
 			creator = val_creator.as<String>();
 			version = val_version.as<String>();
@@ -107,42 +114,52 @@ namespace BrawlerLibrary
 		return false;
 	}
 	
-	const String& StageInfo::getPath() const
+	bool CharacterInfo::saveToPath(const String&path, String*error) const
+	{
+		Dictionary dict;
+		dict.set("name", name);
+		dict.set("creator", creator);
+		dict.set("version", version);
+		dict.set("minsmashversion", minsmashversion);
+		return Plist::saveToFile(dict, FileTools::combinePathStrings(path, "Info.plist"), error);
+	}
+	
+	const String& CharacterInfo::getPath() const
 	{
 		return path;
 	}
 	
-	const String& StageInfo::getName() const
+	const String& CharacterInfo::getName() const
 	{
 		return name;
 	}
 	
-	const String& StageInfo::getCreator() const
+	const String& CharacterInfo::getCreator() const
 	{
 		return creator;
 	}
 	
-	const String& StageInfo::getMinimumSmashVersion() const
+	const String& CharacterInfo::getMinimumSmashVersion() const
 	{
 		return minsmashversion;
 	}
 	
-	void StageInfo::setPath(const String&folderpath)
+	void CharacterInfo::setPath(const String&folderpath)
 	{
 		path = folderpath;
 	}
 	
-	void StageInfo::setName(const String&nm)
+	void CharacterInfo::setName(const String&nm)
 	{
 		name = nm;
 	}
 	
-	void StageInfo::setCreator(const String&creatr)
+	void CharacterInfo::setCreator(const String&creatr)
 	{
 		creator = creatr;
 	}
 	
-	void StageInfo::setMinimumSmashVersion(const String&minver)
+	void CharacterInfo::setMinimumSmashVersion(const String&minver)
 	{
 		minsmashversion = minver;
 	}

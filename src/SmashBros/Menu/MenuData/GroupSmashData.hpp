@@ -1,9 +1,9 @@
 
 #pragma once
 
-#include <BrawlerLibrary/BrawlerLibrary.hpp>
+#include <SmashLib/SmashLib.hpp>
 
-using namespace BrawlerLibrary;
+using namespace SmashLib;
 
 namespace SmashBros
 {

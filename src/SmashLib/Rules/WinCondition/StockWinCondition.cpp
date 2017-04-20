@@ -1,7 +1,7 @@
 
 #include "StockWinCondition.hpp"
 
-namespace BrawlerLibrary
+namespace SmashLib
 {
 	StockWinCondition::StockWinCondition()
 	{

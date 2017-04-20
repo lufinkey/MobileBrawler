@@ -2,10 +2,10 @@
 #pragma once
 
 #include "MenuBarValueAdjust.hpp"
-#include <BrawlerLibrary/BrawlerLibrary.hpp>
+#include <SmashLib/SmashLib.hpp>
 #include "../MenuData/GroupSmashData.hpp"
 
-using namespace BrawlerLibrary;
+using namespace SmashLib;
 
 namespace SmashBros
 {

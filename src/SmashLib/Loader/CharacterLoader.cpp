@@ -1,7 +1,7 @@
 
 #include "CharacterLoader.hpp"
 
-namespace BrawlerLibrary
+namespace SmashLib
 {
 	using namespace fgl;
 	

@@ -2,12 +2,12 @@
 #pragma once
 
 #include <GameLibrary/GameLibrary.hpp>
-#include <BrawlerLibrary/BrawlerLibrary.hpp>
+#include <SmashLib/SmashLib.hpp>
 
 namespace SmashBros
 {
 	using namespace fgl;
-	using namespace BrawlerLibrary;
+	using namespace SmashLib;
 	
 	class ModuleLoad
 	{

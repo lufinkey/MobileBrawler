@@ -4,7 +4,7 @@
 #include <GameLibrary/GameLibrary.hpp>
 #include "../Loader/CharacterInfo.hpp"
 
-namespace BrawlerLibrary
+namespace SmashLib
 {
 	class PlayerInfo
 	{
