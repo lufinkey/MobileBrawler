@@ -1,5 +1,5 @@
 
-#include "ActorGrid.h"
+#include "ActorGrid.hpp"
 
 namespace SmashBros
 {

@@ -1,7 +1,7 @@
 
-#include "Game.h"
-#include "Menu/TitleScreen.h"
-#include "Load/InitialLoadListener.h"
+#include "Game.hpp"
+#include "Menu/TitleScreen.hpp"
+#include "Load/InitialLoadListener.hpp"
 
 namespace SmashBros
 {

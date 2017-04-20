@@ -1,5 +1,5 @@
 
-#include "CharacterSelect_CharacterIcon.h"
+#include "CharacterSelect_CharacterIcon.hpp"
 
 namespace SmashBros
 {

@@ -1,5 +1,5 @@
 
-#include "CharacterLoader.h"
+#include "CharacterLoader.hpp"
 
 namespace BrawlerLibrary
 {

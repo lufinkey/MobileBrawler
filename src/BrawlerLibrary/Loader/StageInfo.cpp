@@ -1,5 +1,5 @@
 
-#include "StageInfo.h"
+#include "StageInfo.hpp"
 
 namespace BrawlerLibrary
 {
@@ -10,28 +10,9 @@ namespace BrawlerLibrary
 		//
 	}
 	
-	StageInfo::StageInfo(const StageInfo&info)
-	{
-		path = info.path;
-		name = info.name;
-		creator = info.creator;
-		version = info.version;
-		minsmashversion = info.minsmashversion;
-	}
-	
 	StageInfo::~StageInfo()
 	{
 		//
-	}
-	
-	StageInfo& StageInfo::operator=(const StageInfo&info)
-	{
-		path = info.path;
-		name = info.name;
-		creator = info.creator;
-		version = info.version;
-		minsmashversion = info.minsmashversion;
-		return *this;
 	}
 	
 	bool StageInfo::loadFromPath(const String&folderpath, String*error)

@@ -1,5 +1,5 @@
 
-#include "StageSelect_StageIcon.h"
+#include "StageSelect_StageIcon.hpp"
 
 namespace SmashBros
 {

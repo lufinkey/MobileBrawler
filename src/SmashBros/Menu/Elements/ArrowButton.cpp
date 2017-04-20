@@ -1,5 +1,5 @@
 
-#include "ArrowButton.h"
+#include "ArrowButton.hpp"
 
 namespace SmashBros
 {

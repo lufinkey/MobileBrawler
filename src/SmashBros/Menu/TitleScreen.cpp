@@ -1,5 +1,5 @@
 
-#include "TitleScreen.h"
+#include "TitleScreen.hpp"
 
 namespace SmashBros
 {

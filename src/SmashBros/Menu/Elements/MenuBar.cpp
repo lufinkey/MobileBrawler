@@ -1,5 +1,5 @@
 
-#include "MenuBar.h"
+#include "MenuBar.hpp"
 
 namespace SmashBros
 {

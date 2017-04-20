@@ -1,10 +1,10 @@
 
-#include "CharacterSelectScreen.h"
+#include "CharacterSelectScreen.hpp"
 
-#include "CharacterSelect_CharacterIcon.h"
-#include "CharacterSelect_PlayerChip.h"
-#include "CharacterSelect_PlayerPanel.h"
-#include "CharacterSelect_ReadyToFightBanner.h"
+#include "CharacterSelect_CharacterIcon.hpp"
+#include "CharacterSelect_PlayerChip.hpp"
+#include "CharacterSelect_PlayerPanel.hpp"
+#include "CharacterSelect_ReadyToFightBanner.hpp"
 
 namespace SmashBros
 {

@@ -1,5 +1,5 @@
 
-#include "BaseMenuScreen.h"
+#include "BaseMenuScreen.hpp"
 
 namespace SmashBros
 {

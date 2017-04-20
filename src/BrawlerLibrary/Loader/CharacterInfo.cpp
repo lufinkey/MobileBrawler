@@ -1,5 +1,5 @@
 
-#include "CharacterInfo.h"
+#include "CharacterInfo.hpp"
 
 using namespace fgl;
 
@@ -10,28 +10,9 @@ namespace BrawlerLibrary
 		//
 	}
 	
-	CharacterInfo::CharacterInfo(const CharacterInfo& info)
-	{
-		path = info.path;
-		name = info.name;
-		creator = info.creator;
-		version = info.version;
-		minsmashversion = info.minsmashversion;
-	}
-	
 	CharacterInfo::~CharacterInfo()
 	{
 		//
-	}
-	
-	CharacterInfo& CharacterInfo::operator=(const CharacterInfo& info)
-	{
-		path = info.path;
-		name = info.name;
-		creator = info.creator;
-		version = info.version;
-		minsmashversion = info.minsmashversion;
-		return *this;
 	}
 	
 	bool CharacterInfo::loadFromPath(const String& folderpath, String* error)

@@ -1,5 +1,5 @@
 
-#include "RulesBar.h"
+#include "RulesBar.hpp"
 
 namespace SmashBros
 {

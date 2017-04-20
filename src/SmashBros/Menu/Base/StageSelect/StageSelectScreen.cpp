@@ -1,7 +1,7 @@
 
-#include "StageSelectScreen.h"
-#include "StageSelect_StageIcon.h"
-#include "StageSelect_StagePreview.h"
+#include "StageSelectScreen.hpp"
+#include "StageSelect_StageIcon.hpp"
+#include "StageSelect_StagePreview.hpp"
 
 namespace SmashBros
 {

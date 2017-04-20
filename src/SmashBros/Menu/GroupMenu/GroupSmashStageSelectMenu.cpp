@@ -1,5 +1,5 @@
 
-#include "GroupSmashStageSelectMenu.h"
+#include "GroupSmashStageSelectMenu.hpp"
 
 namespace SmashBros
 {

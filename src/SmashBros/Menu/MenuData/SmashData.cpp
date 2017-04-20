@@ -1,5 +1,5 @@
 
-#include "SmashData.h"
+#include "SmashData.hpp"
 
 namespace SmashBros
 {

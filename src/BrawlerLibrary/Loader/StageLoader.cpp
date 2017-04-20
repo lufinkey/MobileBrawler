@@ -1,5 +1,5 @@
 
-#include "StageLoader.h"
+#include "StageLoader.hpp"
 
 namespace BrawlerLibrary
 {

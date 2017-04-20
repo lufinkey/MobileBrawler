@@ -1,5 +1,5 @@
 
-#include "GroupMenu.h"
+#include "GroupMenu.hpp"
 
 namespace SmashBros
 {

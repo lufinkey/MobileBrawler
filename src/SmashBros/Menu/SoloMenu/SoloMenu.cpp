@@ -1,5 +1,5 @@
 
-#include "SoloMenu.h"
+#include "SoloMenu.hpp"
 
 namespace SmashBros
 {

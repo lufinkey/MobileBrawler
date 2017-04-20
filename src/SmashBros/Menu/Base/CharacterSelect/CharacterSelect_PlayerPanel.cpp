@@ -1,7 +1,7 @@
 
-#include "CharacterSelect_PlayerPanel.h"
-#include "CharacterSelectScreen.h"
-#include "CharacterSelect_PlayerChip.h"
+#include "CharacterSelect_PlayerPanel.hpp"
+#include "CharacterSelectScreen.hpp"
+#include "CharacterSelect_PlayerChip.hpp"
 
 namespace SmashBros
 {

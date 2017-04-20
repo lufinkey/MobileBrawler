@@ -1,5 +1,5 @@
 
-#include "GroupSmashData.h"
+#include "GroupSmashData.hpp"
 
 namespace SmashBros
 {
