@@ -16,11 +16,11 @@ namespace SmashBros
 			
 			Vector2d size = getSize();
 			
-			double headerbarBottom = 0.134*1.1;
+			double headerbarBottom = 0.866;
 			LayoutRule* headerBarBottomRule = getHeaderbarElement()->getAutoLayoutManager().getRule(LAYOUTRULE_BOTTOM);
 			if(headerBarBottomRule!=nullptr && headerBarBottomRule->valueType==LAYOUTVALUE_RATIO)
 			{
-				headerbarBottom = headerBarBottomRule->value*1.1;
+				headerbarBottom = headerBarBottomRule->value;
 			}
 			
 			rulesBar = new RulesBar(groupSmashData.getRules(),
