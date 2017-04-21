@@ -378,18 +378,18 @@
 		F16C34B81EA908C800EDA131 /* Elements */ = {
 			isa = PBXGroup;
 			children = (
-				F17717521EAA573E005D9CD1 /* MenuButton.cpp */,
-				F17717531EAA573E005D9CD1 /* MenuButton.hpp */,
-				F16C34B91EA908C800EDA131 /* ActorGrid.cpp */,
-				F16C34BA1EA908C800EDA131 /* ActorGrid.hpp */,
 				F16C34BB1EA908C800EDA131 /* ArrowButton.cpp */,
 				F16C34BC1EA908C800EDA131 /* ArrowButton.hpp */,
 				F16C34BD1EA908C800EDA131 /* MenuBar.cpp */,
 				F16C34BE1EA908C800EDA131 /* MenuBar.hpp */,
 				F16C34BF1EA908C800EDA131 /* MenuBarValueAdjust.cpp */,
 				F16C34C01EA908C800EDA131 /* MenuBarValueAdjust.hpp */,
+				F17717521EAA573E005D9CD1 /* MenuButton.cpp */,
+				F17717531EAA573E005D9CD1 /* MenuButton.hpp */,
 				F16C34C11EA908C800EDA131 /* RulesBar.cpp */,
 				F16C34C21EA908C800EDA131 /* RulesBar.hpp */,
+				F16C34B91EA908C800EDA131 /* ActorGrid.cpp */,
+				F16C34BA1EA908C800EDA131 /* ActorGrid.hpp */,
 			);
 			path = Elements;
 			sourceTree = "<group>";

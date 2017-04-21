@@ -8,59 +8,48 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-		class MenuBarValueAdjustEventListener;
-		
 		class MenuBarValueAdjust : public MenuBar
 		{
-		private:
-			TextActor* value_label_actor;
-			ArrowButton* arrow_less;
-			ArrowButton* arrow_more;
-			
-			AutoLayoutManager value_label_autoLayoutMgr;
-			AutoLayoutManager arrow_less_autoLayoutMgr;
-			AutoLayoutManager arrow_more_autoLayoutMgr;
-			
-			Color value_label_color;
-			String arrow_less_dir;
-			String arrow_more_dir;
-
-			Number*value;
-			Number min;
-			Number max;
-			Number incr;
-			
-			MenuBarValueAdjustEventListener* listener;
-			
-			void applyProperties(const Dictionary&properties);
-			
 		public:
-			MenuBarValueAdjust(const String&label, const String&valueLabel, Number*value, const Number&min, const Number&max, const Number&increment, AssetManager*assetManager, const Dictionary&properties);
-			MenuBarValueAdjust(double x, double y, const String&label, const String&valueLabel, Number*value, const Number&min, const Number&max, const Number&increment, AssetManager*assetManager, const Dictionary&properties);
+			MenuBarValueAdjust(fgl::AssetManager* assetManager, const fgl::String& label, const fgl::Dictionary& properties);
 			virtual ~MenuBarValueAdjust();
 			
-			virtual void update(ApplicationData appData) override;
-			virtual void draw(ApplicationData appData, Graphics graphics) const override;
+			void setValue(const fgl::Number& value);
+			void setMinValue(const fgl::Number& minValue);
+			void setMaxValue(const fgl::Number& maxValue);
+			void setValueIncrement(const fgl::Number& increment);
 			
-			virtual void onValueChange();
+			const fgl::Number& getValue() const;
+			const fgl::Number& getMinValue() const;
+			const fgl::Number& getMaxValue() const;
+			const fgl::Number& getValueIncrement() const;
 			
-			void setEventListener(MenuBarValueAdjustEventListener* listener);
-			void setValueLabel(const String&);
-			MenuBarValueAdjustEventListener* getEventListener() const;
-			const String& getValueLabel() const;
+			void setValueStringResolver(const std::function<fgl::String(fgl::Number)>& valueResolver);
+			const std::function<fgl::String(fgl::Number)>& getValueStringResolver() const;
 			
-			void setValueProperties(Number*value, const Number&min, const Number&max, const Number&incr);
+			void setValueChangeHandler(const std::function<void()>& valueChangeHandler);
+			const std::function<void()>& getValueChangeHandler() const;
 			
-			virtual void updateSize() override;
-		};
-		
-		class MenuBarValueAdjustEventListener
-		{
-		public:
-			MenuBarValueAdjustEventListener(){}
-			virtual ~MenuBarValueAdjustEventListener(){}
+			fgl::TextElement* getValueLabelElement() const;
+			ArrowButton* getPreviousValueButton() const;
+			ArrowButton* getNextValueButton() const;
 			
-			virtual void onMenuBarValueAdjustValueChanged(MenuBarValueAdjust*menuBarValueAdjust) = 0;
+		private:
+			void applyProperties(const fgl::Dictionary& properties);
+			
+			void updateValueLabelString();
+			
+			fgl::TextElement* valueLabelElement;
+			ArrowButton* prevValueButton;
+			ArrowButton* nextValueButton;
+			
+			fgl::Number value;
+			fgl::Number minValue;
+			fgl::Number maxValue;
+			fgl::Number increment;
+			
+			std::function<fgl::String(fgl::Number)> valueStringResolver;
+			std::function<void()> valueChangeHandler;
 		};
 	}
 }

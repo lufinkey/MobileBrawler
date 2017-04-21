@@ -113,8 +113,6 @@
 			<string>LAYOUTVALUE_RATIO</string>
 		</dict>
 	</dict>
-	<key>arrow_less_dir</key>
-	<string>left</string>
 	<key>arrow_more_bounds</key>
 	<dict>
 		<key>LAYOUTRULE_LEFT</key>
@@ -146,7 +144,5 @@
 			<string>LAYOUTVALUE_RATIO</string>
 		</dict>
 	</dict>
-	<key>arrow_more_dir</key>
-	<string>right</string>
 </dict>
 </plist>

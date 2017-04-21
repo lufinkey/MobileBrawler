@@ -14,21 +14,18 @@ namespace SmashBros
 		class RulesBar : public MenuBarValueAdjust
 		{
 		public:
-			RulesBar(Rules*rules, StockWinCondition*stockWinCondition, TimeLimitWinCondition*timeLimitWinCondition, AssetManager*assetManager, const Dictionary&properties);
-			RulesBar(double x, double y, Rules*rules, StockWinCondition*stockWinCondition, TimeLimitWinCondition*timeLimitWinCondition, AssetManager*assetManager, const Dictionary&properties);
+			RulesBar(fgl::AssetManager* assetManager, Rules* rules, StockWinCondition* stockWinCondition, TimeLimitWinCondition* timeLimitWinCondition, const fgl::Dictionary& properties);
 			virtual ~RulesBar();
 			
-			virtual void update(ApplicationData appData) override;
-			virtual void onValueChange() override;
+			virtual void update(fgl::ApplicationData appData) override;
 			
-			void setValueLabelSuffix(const String&);
+			void setValueLabelSuffix(const fgl::String& suffix);
 			
 		private:
 			Rules*rules;
-			Number value;
 			StockWinCondition* stock;
 			TimeLimitWinCondition* timeLimit;
-			String valueLabelSuffix;
+			fgl::String valueLabelSuffix;
 		};
 	}
 }

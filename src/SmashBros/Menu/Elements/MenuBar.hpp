@@ -3,44 +3,24 @@
 
 #include <GameLibrary/GameLibrary.hpp>
 
-using namespace fgl;
-
 namespace SmashBros
 {
 	namespace Menu
 	{
-		class MenuBar : public SpriteActor
+		class MenuBar : public fgl::ScreenElement
 		{
-		private:
-			TextActor* label_actor;
-			AutoLayoutManager label_autoLayoutMgr;
-			Color label_color;
-			
-			void applyProperties(const Dictionary&properties);
-			
-		protected:
-			AutoLayoutManager autoLayoutMgr;
-			
-			void applyPlacementDict(const Dictionary& dict, AutoLayoutManager* layoutMgr);
-			void applyColorDict(const Dictionary& dict, Color* color);
-			
 		public:
-			MenuBar(const String&label, AssetManager*assetManager, const Dictionary&properties);
-			MenuBar(double x, double y, const String&label, AssetManager*assetManager, const Dictionary&properties);
+			MenuBar(fgl::AssetManager* assetManager, const fgl::String& label, const fgl::Dictionary&properties);
 			virtual ~MenuBar();
 			
-			virtual void update(ApplicationData appData) override;
-			virtual void draw(ApplicationData appData, Graphics graphics) const override;
+			fgl::ImageElement* getBackgroundElement() const;
+			fgl::TextElement* getLabelElement() const;
 			
-			void setLabel(const String&);
-			void setLabelAlignment(const TextActor::TextAlignment&);
+		private:
+			void applyProperties(const fgl::Dictionary& properties);
 			
-			const String& getLabel() const;
-			AutoLayoutManager& getLabelAutoLayoutManager();
-			const AutoLayoutManager& getLabelAutoLayoutManager() const;
-			const TextActor::TextAlignment& getLabelAlignment() const;
-			
-			virtual void updateSize() override;
+			fgl::ImageElement* backgroundElement;
+			fgl::TextElement* labelElement;
 		};
 	}
 }

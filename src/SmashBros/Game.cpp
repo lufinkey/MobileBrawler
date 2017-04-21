@@ -42,7 +42,7 @@ namespace SmashBros
 	void Game::initialize()
 	{
 		#ifdef TARGETPLATFORMTYPE_DESKTOP
-			getWindow()->setSize(Vector2u(900, 600));
+			getWindow()->setSize(Vector2u(300, 200));
 		#endif
 		getWindow()->getViewport()->setMatchesWindow(true);
 		setFPS(60);
