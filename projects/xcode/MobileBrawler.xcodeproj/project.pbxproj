@@ -9,10 +9,6 @@
 /* Begin PBXBuildFile section */
 		F16C34331EA9076B00EDA131 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F16C34321EA9076B00EDA131 /* Assets.xcassets */; };
 		F16C34361EA9076B00EDA131 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F16C34341EA9076B00EDA131 /* Main.storyboard */; };
-		F16C34431EA907F700EDA131 /* FreeType.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F16C34411EA907F700EDA131 /* FreeType.framework */; };
-		F16C34441EA907F700EDA131 /* FreeType.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F16C34411EA907F700EDA131 /* FreeType.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F16C34451EA907F700EDA131 /* webp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F16C34421EA907F700EDA131 /* webp.framework */; };
-		F16C34461EA907F700EDA131 /* webp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F16C34421EA907F700EDA131 /* webp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F16C344F1EA9082900EDA131 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F16C34491EA9082900EDA131 /* AudioToolbox.framework */; };
 		F16C34501EA9082900EDA131 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F16C344A1EA9082900EDA131 /* Carbon.framework */; };
 		F16C34511EA9082900EDA131 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F16C344B1EA9082900EDA131 /* CoreAudio.framework */; };
@@ -24,7 +20,6 @@
 		F16C345E1EA9088B00EDA131 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F16C345D1EA9088B00EDA131 /* CoreFoundation.framework */; };
 		F16C34601EA9089000EDA131 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F16C345F1EA9089000EDA131 /* AppKit.framework */; };
 		F16C34621EA9089800EDA131 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F16C34611EA9089700EDA131 /* Foundation.framework */; };
-		F16C34641EA908A400EDA131 /* libGameLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F16C34631EA908A400EDA131 /* libGameLibrary.a */; };
 		F16C34E71EA908C800EDA131 /* CharacterInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F16C348D1EA908C800EDA131 /* CharacterInfo.cpp */; };
 		F16C34E81EA908C800EDA131 /* CharacterLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F16C348F1EA908C800EDA131 /* CharacterLoader.cpp */; };
 		F16C34E91EA908C800EDA131 /* StageInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F16C34911EA908C800EDA131 /* StageInfo.cpp */; };
@@ -63,17 +58,23 @@
 		F16C35251EA916BE00EDA131 /* StockWinCondition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F16C351D1EA916BE00EDA131 /* StockWinCondition.cpp */; };
 		F16C35261EA916BE00EDA131 /* TimeLimitWinCondition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F16C351F1EA916BE00EDA131 /* TimeLimitWinCondition.cpp */; };
 		F16C35271EA916BE00EDA131 /* WinCondition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F16C35211EA916BE00EDA131 /* WinCondition.cpp */; };
+		F17717451EAA3963005D9CD1 /* FreeType.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F17717431EAA3963005D9CD1 /* FreeType.framework */; };
+		F17717461EAA3963005D9CD1 /* FreeType.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F17717431EAA3963005D9CD1 /* FreeType.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F17717471EAA3963005D9CD1 /* webp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F17717441EAA3963005D9CD1 /* webp.framework */; };
+		F17717481EAA3963005D9CD1 /* webp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F17717441EAA3963005D9CD1 /* webp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F177174C1EAA398A005D9CD1 /* libFightLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F177174A1EAA398A005D9CD1 /* libFightLib.a */; };
+		F177174D1EAA398A005D9CD1 /* libGameLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F177174B1EAA398A005D9CD1 /* libGameLibrary.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		F16C34471EA907F700EDA131 /* Embed Frameworks */ = {
+		F17717491EAA3963005D9CD1 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				F16C34461EA907F700EDA131 /* webp.framework in Embed Frameworks */,
-				F16C34441EA907F700EDA131 /* FreeType.framework in Embed Frameworks */,
+				F17717481EAA3963005D9CD1 /* webp.framework in Embed Frameworks */,
+				F17717461EAA3963005D9CD1 /* FreeType.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -85,8 +86,6 @@
 		F16C34321EA9076B00EDA131 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F16C34351EA9076B00EDA131 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F16C34371EA9076B00EDA131 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F16C34411EA907F700EDA131 /* FreeType.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FreeType.framework; path = ../../external/GameLibrary/external/SDL/SDL_ttf/Xcode/Frameworks/FreeType.framework; sourceTree = "<group>"; };
-		F16C34421EA907F700EDA131 /* webp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = webp.framework; path = ../../external/GameLibrary/external/SDL/SDL_image/Xcode/Frameworks/webp.framework; sourceTree = "<group>"; };
 		F16C34491EA9082900EDA131 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		F16C344A1EA9082900EDA131 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		F16C344B1EA9082900EDA131 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
@@ -98,7 +97,6 @@
 		F16C345D1EA9088B00EDA131 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		F16C345F1EA9089000EDA131 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		F16C34611EA9089700EDA131 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		F16C34631EA908A400EDA131 /* libGameLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGameLibrary.a; path = ../../external/GameLibrary/projects/xcode/build/Debug/libGameLibrary.a; sourceTree = "<group>"; };
 		F16C34671EA908C800EDA131 /* SmashLib.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SmashLib.hpp; sourceTree = "<group>"; };
 		F16C348D1EA908C800EDA131 /* CharacterInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CharacterInfo.cpp; sourceTree = "<group>"; };
 		F16C348E1EA908C800EDA131 /* CharacterInfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CharacterInfo.hpp; sourceTree = "<group>"; };
@@ -174,6 +172,10 @@
 		F16C35201EA916BE00EDA131 /* TimeLimitWinCondition.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TimeLimitWinCondition.hpp; sourceTree = "<group>"; };
 		F16C35211EA916BE00EDA131 /* WinCondition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WinCondition.cpp; sourceTree = "<group>"; };
 		F16C35221EA916BE00EDA131 /* WinCondition.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = WinCondition.hpp; sourceTree = "<group>"; };
+		F17717431EAA3963005D9CD1 /* FreeType.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FreeType.framework; path = ../../external/FightLib/external/GameLibrary/external/SDL/SDL_ttf/Xcode/Frameworks/FreeType.framework; sourceTree = "<group>"; };
+		F17717441EAA3963005D9CD1 /* webp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = webp.framework; path = ../../external/FightLib/external/GameLibrary/external/SDL/SDL_image/Xcode/Frameworks/webp.framework; sourceTree = "<group>"; };
+		F177174A1EAA398A005D9CD1 /* libFightLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFightLib.a; path = "../../../../../Library/Developer/Xcode/DerivedData/MobileBrawler-dzjxftvgiiuofgbpoxbbmwtndodd/Build/Products/Debug/libFightLib.a"; sourceTree = "<group>"; };
+		F177174B1EAA398A005D9CD1 /* libGameLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGameLibrary.a; path = "../../../../../Library/Developer/Xcode/DerivedData/MobileBrawler-dzjxftvgiiuofgbpoxbbmwtndodd/Build/Products/Debug/libGameLibrary.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,7 +183,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F16C34641EA908A400EDA131 /* libGameLibrary.a in Frameworks */,
+				F177174C1EAA398A005D9CD1 /* libFightLib.a in Frameworks */,
+				F177174D1EAA398A005D9CD1 /* libGameLibrary.a in Frameworks */,
 				F16C34621EA9089800EDA131 /* Foundation.framework in Frameworks */,
 				F16C34601EA9089000EDA131 /* AppKit.framework in Frameworks */,
 				F16C345E1EA9088B00EDA131 /* CoreFoundation.framework in Frameworks */,
@@ -193,8 +196,8 @@
 				F16C34521EA9082900EDA131 /* ForceFeedback.framework in Frameworks */,
 				F16C34531EA9082900EDA131 /* ImageIO.framework in Frameworks */,
 				F16C34541EA9082900EDA131 /* IOKit.framework in Frameworks */,
-				F16C34451EA907F700EDA131 /* webp.framework in Frameworks */,
-				F16C34431EA907F700EDA131 /* FreeType.framework in Frameworks */,
+				F17717451EAA3963005D9CD1 /* FreeType.framework in Frameworks */,
+				F17717471EAA3963005D9CD1 /* webp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,7 +236,8 @@
 		F16C34481EA9082900EDA131 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F16C34631EA908A400EDA131 /* libGameLibrary.a */,
+				F177174A1EAA398A005D9CD1 /* libFightLib.a */,
+				F177174B1EAA398A005D9CD1 /* libGameLibrary.a */,
 				F16C34611EA9089700EDA131 /* Foundation.framework */,
 				F16C345F1EA9089000EDA131 /* AppKit.framework */,
 				F16C345D1EA9088B00EDA131 /* CoreFoundation.framework */,
@@ -245,8 +249,8 @@
 				F16C344C1EA9082900EDA131 /* ForceFeedback.framework */,
 				F16C344D1EA9082900EDA131 /* ImageIO.framework */,
 				F16C344E1EA9082900EDA131 /* IOKit.framework */,
-				F16C34411EA907F700EDA131 /* FreeType.framework */,
-				F16C34421EA907F700EDA131 /* webp.framework */,
+				F17717431EAA3963005D9CD1 /* FreeType.framework */,
+				F17717441EAA3963005D9CD1 /* webp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -455,7 +459,7 @@
 				F16C34221EA9076B00EDA131 /* Sources */,
 				F16C34231EA9076B00EDA131 /* Frameworks */,
 				F16C34241EA9076B00EDA131 /* Resources */,
-				F16C34471EA907F700EDA131 /* Embed Frameworks */,
+				F17717491EAA3963005D9CD1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -665,9 +669,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = ../../external/GameLibrary/projects/xcode/EmbeddedFrameworks;
+				FRAMEWORK_SEARCH_PATHS = ../../external/FightLib/external/GameLibrary/projects/xcode/EmbeddedFrameworks;
 				HEADER_SEARCH_PATHS = (
-					../../external/GameLibrary/include,
+					../../external/FightLib/include,
+					../../external/FightLib/external/GameLibrary/include,
 					../../src,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/project_assets/Info.plist";
@@ -682,9 +687,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = ../../external/GameLibrary/projects/xcode/EmbeddedFrameworks;
+				FRAMEWORK_SEARCH_PATHS = ../../external/FightLib/external/GameLibrary/projects/xcode/EmbeddedFrameworks;
 				HEADER_SEARCH_PATHS = (
-					../../external/GameLibrary/include,
+					../../external/FightLib/include,
+					../../external/FightLib/external/GameLibrary/include,
 					../../src,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/project_assets/Info.plist";

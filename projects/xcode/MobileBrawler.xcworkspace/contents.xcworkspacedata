@@ -2,9 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../../external/GameLibrary/projects/xcode/GameLibrary.xcodeproj">
+      location = "container:MobileBrawler.xcodeproj">
    </FileRef>
    <FileRef
-      location = "container:MobileBrawler.xcodeproj">
+      location = "group:../../external/FightLib/projects/xcode/FightLib.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:../../external/FightLib/external/GameLibrary/projects/xcode/GameLibrary.xcodeproj">
    </FileRef>
 </Workspace>
