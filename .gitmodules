@@ -1,3 +1,3 @@
-[submodule "external/GameLibrary"]
-	path = external/GameLibrary
-	url = https://github.com/lufinkey/GameLibrary
+[submodule "external/FightLib"]
+	path = external/FightLib
+	url = https://github.com/lufinkey/FightLib
