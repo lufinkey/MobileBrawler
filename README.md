@@ -7,4 +7,4 @@ Information
 -----------
 
 This project uses the SDL game library and is written in C++.
-The Windows project is for Visual Studio 2015, and the iOS project is for Xcode
+The Windows project is for Visual Studio 2015, and the macOS project is for Xcode
