@@ -44,8 +44,7 @@ namespace SmashBros
 		#ifdef TARGETPLATFORMTYPE_DESKTOP
 			getWindow()->setSize(Vector2u(900, 600));
 		#endif
-		Vector2u windowSize = getWindow()->getSize();
-		getWindow()->getViewport()->setSize(windowSize.x, windowSize.y);
+		getWindow()->getViewport()->setMatchesWindow(true);
 		setFPS(60);
 	}
 	
