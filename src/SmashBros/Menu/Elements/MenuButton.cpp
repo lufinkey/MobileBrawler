@@ -57,4 +57,14 @@ namespace SmashBros
 		}
 		ButtonElement::draw(appData, graphics);
 	}
+	
+	void MenuButton::setHoverPulsingEnabled(bool enabled)
+	{
+		hoverPulsingEnabled = enabled;
+	}
+	
+	bool MenuButton::isHoverPulsingEnabled() const
+	{
+		return hoverPulsingEnabled;
+	}
 }

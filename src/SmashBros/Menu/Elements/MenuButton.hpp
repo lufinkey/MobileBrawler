@@ -13,6 +13,9 @@ namespace SmashBros
 		virtual void update(fgl::ApplicationData appData) override;
 		virtual void draw(fgl::ApplicationData appData, fgl::Graphics graphics) const override;
 		
+		void setHoverPulsingEnabled(bool enabled);
+		bool isHoverPulsingEnabled() const;
+		
 	private:
 		bool hoverPulsingEnabled;
 		bool hoverPulseGrowing;
