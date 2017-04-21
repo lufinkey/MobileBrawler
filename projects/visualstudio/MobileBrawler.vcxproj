@@ -20,13 +20,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140_clang_3_7</PlatformToolset>
+    <PlatformToolset>v140_clang_c2</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140_clang_3_7</PlatformToolset>
+    <PlatformToolset>v140_clang_c2</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -42,12 +42,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)bin\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>build\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)bin\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>build\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -56,7 +56,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>../../src;../../external/GameLibrary/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -65,7 +65,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)bin\GameLibrary\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)bin\$(Platform)\$(Configuration)\GameLibrary;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>GameLibrary.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ForceFileOutput>
@@ -80,7 +80,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>../../src;../../external/GameLibrary/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -91,7 +91,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)bin\GameLibrary\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)bin\$(Platform)\$(Configuration)\GameLibrary;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>GameLibrary.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>$(IntDir)$(TargetName).res %(AdditionalOptions)</AdditionalOptions>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -103,25 +103,15 @@
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\BrawlGame.cpp" />
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\ActionPerformer\Action.cpp" />
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\ActionPerformer\ActionPerformer.cpp" />
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\ActionPerformer\Attack.cpp" />
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\Character.cpp" />
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\GameObject.cpp" />
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\PhysicalGameObject.cpp" />
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\Platform.cpp" />
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\Stage.cpp" />
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Rules\PlayerInfo.cpp" />
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Rules\Rules.cpp" />
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Rules\WinCondition\StockWinCondition.cpp" />
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Rules\WinCondition\TimeLimitWinCondition.cpp" />
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Rules\WinCondition\WinCondition.cpp" />
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Utilities\Camera.cpp" />
-    <ClCompile Include="..\..\src\BrawlerLibrary\Loader\CharacterInfo.cpp" />
-    <ClCompile Include="..\..\src\BrawlerLibrary\Loader\CharacterLoader.cpp" />
-    <ClCompile Include="..\..\src\BrawlerLibrary\Loader\StageInfo.cpp" />
-    <ClCompile Include="..\..\src\BrawlerLibrary\Loader\StageLoader.cpp" />
+    <ClCompile Include="..\..\src\SmashLib\Rules\PlayerInfo.cpp" />
+    <ClCompile Include="..\..\src\SmashLib\Rules\Rules.cpp" />
+    <ClCompile Include="..\..\src\SmashLib\Rules\WinCondition\StockWinCondition.cpp" />
+    <ClCompile Include="..\..\src\SmashLib\Rules\WinCondition\TimeLimitWinCondition.cpp" />
+    <ClCompile Include="..\..\src\SmashLib\Rules\WinCondition\WinCondition.cpp" />
+    <ClCompile Include="..\..\src\SmashLib\Loader\CharacterInfo.cpp" />
+    <ClCompile Include="..\..\src\SmashLib\Loader\CharacterLoader.cpp" />
+    <ClCompile Include="..\..\src\SmashLib\Loader\StageInfo.cpp" />
+    <ClCompile Include="..\..\src\SmashLib\Loader\StageLoader.cpp" />
     <ClCompile Include="..\..\src\SmashBros\Game.cpp" />
     <ClCompile Include="..\..\src\SmashBros\Load\InitialLoadListener.cpp" />
     <ClCompile Include="..\..\src\SmashBros\Load\MenuLoad.cpp" />
@@ -152,55 +142,43 @@
     <ClCompile Include="..\..\src\SmashBros\Menu\TitleScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\BrawlerLibrary\BrawlerLibrary.h" />
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\BrawlGame.h" />
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\ActionPerformer\Action.h" />
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\ActionPerformer\ActionPerformer.h" />
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\ActionPerformer\Attack.h" />
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\Character.h" />
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\GameObject.h" />
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\PhysicalGameObject.h" />
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\Platform.h" />
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\Stage.h" />
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Rules\PlayerInfo.h" />
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Rules\Rules.h" />
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Rules\WinCondition\StockWinCondition.h" />
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Rules\WinCondition\TimeLimitWinCondition.h" />
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Rules\WinCondition\WinCondition.h" />
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Utilities\Camera.h" />
-    <ClInclude Include="..\..\src\BrawlerLibrary\Loader\CharacterInfo.h" />
-    <ClInclude Include="..\..\src\BrawlerLibrary\Loader\CharacterLoader.h" />
-    <ClInclude Include="..\..\src\BrawlerLibrary\Loader\StageInfo.h" />
-    <ClInclude Include="..\..\src\BrawlerLibrary\Loader\StageLoader.h" />
-    <ClInclude Include="..\..\src\BrawlerLibrary\Utilities\FaceDirection.h" />
-    <ClInclude Include="..\..\src\SmashBros\Game.h" />
-    <ClInclude Include="..\..\src\SmashBros\Global.h" />
-    <ClInclude Include="..\..\src\SmashBros\Load\InitialLoadListener.h" />
-    <ClInclude Include="..\..\src\SmashBros\Load\MenuLoad.h" />
-    <ClInclude Include="..\..\src\SmashBros\Load\ModuleLoad.h" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\Base\BaseMenuScreen.h" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelectScreen.h" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_CharacterIcon.h" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_PlayerChip.h" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_PlayerPanel.h" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_ReadyToFightBanner.h" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\Base\StageSelect\StageSelectScreen.h" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\Base\StageSelect\StageSelect_StageIcon.h" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\Base\StageSelect\StageSelect_StagePreview.h" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\ActorGrid.h" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\ArrowButton.h" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\MenuBar.h" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\MenuBarValueAdjust.h" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\RulesBar.h" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\GroupMenu\GroupMenu.h" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\GroupMenu\GroupRulesMenu.h" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\GroupMenu\GroupSmashCharacterSelectMenu.h" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\GroupMenu\GroupSmashStageSelectMenu.h" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\MainMenu.h" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\MenuData\GroupSmashData.h" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\MenuData\SmashData.h" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\SoloMenu\SoloMenu.h" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\TitleScreen.h" />
+    <ClInclude Include="..\..\src\SmashLib\SmashLib.hpp" />
+    <ClInclude Include="..\..\src\SmashLib\Rules\PlayerInfo.hpp" />
+    <ClInclude Include="..\..\src\SmashLib\Rules\Rules.hpp" />
+    <ClInclude Include="..\..\src\SmashLib\Rules\WinCondition\StockWinCondition.hpp" />
+    <ClInclude Include="..\..\src\SmashLib\Rules\WinCondition\TimeLimitWinCondition.hpp" />
+    <ClInclude Include="..\..\src\SmashLib\Rules\WinCondition\WinCondition.hpp" />
+    <ClInclude Include="..\..\src\SmashLib\Loader\CharacterInfo.hpp" />
+    <ClInclude Include="..\..\src\SmashLib\Loader\CharacterLoader.hpp" />
+    <ClInclude Include="..\..\src\SmashLib\Loader\StageInfo.hpp" />
+    <ClInclude Include="..\..\src\SmashLib\Loader\StageLoader.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Game.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Load\InitialLoadListener.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Load\MenuLoad.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Load\ModuleLoad.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\BaseMenuScreen.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelectScreen.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_CharacterIcon.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_PlayerChip.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_PlayerPanel.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_ReadyToFightBanner.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\StageSelect\StageSelectScreen.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\StageSelect\StageSelect_StageIcon.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\StageSelect\StageSelect_StagePreview.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\ActorGrid.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\ArrowButton.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\MenuBar.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\MenuBarValueAdjust.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\RulesBar.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\GroupMenu\GroupMenu.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\GroupMenu\GroupRulesMenu.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\GroupMenu\GroupSmashCharacterSelectMenu.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\GroupMenu\GroupSmashStageSelectMenu.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\MainMenu.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\MenuData\GroupSmashData.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\MenuData\SmashData.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\SoloMenu\SoloMenu.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\TitleScreen.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MobileBrawler.rc" />

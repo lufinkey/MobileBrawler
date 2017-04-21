@@ -7,26 +7,20 @@
     <Filter Include="src\SmashBros">
       <UniqueIdentifier>{1ff2cefd-8e32-4d68-84e8-fee6bc0a677f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\SmashBros\Game">
-      <UniqueIdentifier>{196a71a0-deda-4032-b74a-9332669fcfaf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\SmashBros\Menu">
       <UniqueIdentifier>{c1bbaa57-ae03-4a23-bb97-647f07037720}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\SmashBros\Menu\Elements">
       <UniqueIdentifier>{d32cc984-c28c-47cc-a3f9-e2f367d45a0b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\BrawlerLibrary">
+    <Filter Include="src\SmashLib">
       <UniqueIdentifier>{2b87e8e0-f8a5-4790-abfb-8176fb7291e6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\BrawlerLibrary\Loader">
+    <Filter Include="src\SmashLib\Loader">
       <UniqueIdentifier>{3757c64a-7ddc-4f18-b42f-6ec44af9952f}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\SmashBros\Menu\Base">
       <UniqueIdentifier>{a49ea25f-1cc7-471b-981e-e3a101c00690}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\BrawlerLibrary\Game">
-      <UniqueIdentifier>{692a2ab6-8df7-4fb6-9acb-e62f48cff3fe}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\SmashBros\Menu\Base\CharacterSelect">
       <UniqueIdentifier>{ee55955b-2934-4c4c-b6e4-d890969f2287}</UniqueIdentifier>
@@ -34,10 +28,10 @@
     <Filter Include="src\SmashBros\Menu\MenuData">
       <UniqueIdentifier>{bc429a34-9daa-4a8a-ad54-d9ddf852c74b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\BrawlerLibrary\Game\Rules">
+    <Filter Include="src\SmashLib\Rules">
       <UniqueIdentifier>{62f72fdd-6011-4067-8f4a-ba0c3b749616}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\BrawlerLibrary\Game\Rules\WinCondition">
+    <Filter Include="src\SmashLib\Rules\WinCondition">
       <UniqueIdentifier>{efca6a30-ccee-4acf-a2e5-8133ffa3e0fa}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\SmashBros\Load">
@@ -51,18 +45,6 @@
     </Filter>
     <Filter Include="src\SmashBros\Menu\SoloMenu">
       <UniqueIdentifier>{73d50b91-b1c4-4d02-9a44-606cf014dca4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\BrawlerLibrary\Game\Elements">
-      <UniqueIdentifier>{0dfcf46e-9ea8-451a-b6f3-61ec8f3aceb1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\BrawlerLibrary\Game\Utilities">
-      <UniqueIdentifier>{7dd6d75b-99b6-440e-ad51-b03edebead1c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\BrawlerLibrary\Game\Elements\ActionPerformer">
-      <UniqueIdentifier>{fb6ce159-a083-4ba2-a101-00c94cec2825}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\BrawlerLibrary\Utilities">
-      <UniqueIdentifier>{a33ee25c-9b9b-4ae1-b376-db4d61568aed}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -81,11 +63,11 @@
     <ClCompile Include="..\..\src\SmashBros\Menu\Elements\ActorGrid.cpp">
       <Filter>src\SmashBros\Menu\Elements</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\BrawlerLibrary\Loader\CharacterLoader.cpp">
-      <Filter>src\BrawlerLibrary\Loader</Filter>
+    <ClCompile Include="..\..\src\SmashLib\Loader\CharacterLoader.cpp">
+      <Filter>src\SmashLib\Loader</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\BrawlerLibrary\Loader\CharacterInfo.cpp">
-      <Filter>src\BrawlerLibrary\Loader</Filter>
+    <ClCompile Include="..\..\src\SmashLib\Loader\CharacterInfo.cpp">
+      <Filter>src\SmashLib\Loader</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\SmashBros\Menu\Base\BaseMenuScreen.cpp">
       <Filter>src\SmashBros\Menu\Base</Filter>
@@ -123,20 +105,20 @@
     <ClCompile Include="..\..\src\SmashBros\Menu\MenuData\GroupSmashData.cpp">
       <Filter>src\SmashBros\Menu\MenuData</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Rules\PlayerInfo.cpp">
-      <Filter>src\BrawlerLibrary\Game\Rules</Filter>
+    <ClCompile Include="..\..\src\SmashLib\Rules\PlayerInfo.cpp">
+      <Filter>src\SmashLib\Rules</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Rules\Rules.cpp">
-      <Filter>src\BrawlerLibrary\Game\Rules</Filter>
+    <ClCompile Include="..\..\src\SmashLib\Rules\Rules.cpp">
+      <Filter>src\SmashLib\Rules</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Rules\WinCondition\WinCondition.cpp">
-      <Filter>src\BrawlerLibrary\Game\Rules\WinCondition</Filter>
+    <ClCompile Include="..\..\src\SmashLib\Rules\WinCondition\WinCondition.cpp">
+      <Filter>src\SmashLib\Rules\WinCondition</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Rules\WinCondition\StockWinCondition.cpp">
-      <Filter>src\BrawlerLibrary\Game\Rules\WinCondition</Filter>
+    <ClCompile Include="..\..\src\SmashLib\Rules\WinCondition\StockWinCondition.cpp">
+      <Filter>src\SmashLib\Rules\WinCondition</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Rules\WinCondition\TimeLimitWinCondition.cpp">
-      <Filter>src\BrawlerLibrary\Game\Rules\WinCondition</Filter>
+    <ClCompile Include="..\..\src\SmashLib\Rules\WinCondition\TimeLimitWinCondition.cpp">
+      <Filter>src\SmashLib\Rules\WinCondition</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\SmashBros\Load\MenuLoad.cpp">
       <Filter>src\SmashBros\Load</Filter>
@@ -144,11 +126,11 @@
     <ClCompile Include="..\..\src\SmashBros\Load\ModuleLoad.cpp">
       <Filter>src\SmashBros\Load</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\BrawlerLibrary\Loader\StageInfo.cpp">
-      <Filter>src\BrawlerLibrary\Loader</Filter>
+    <ClCompile Include="..\..\src\SmashLib\Loader\StageInfo.cpp">
+      <Filter>src\SmashLib\Loader</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\BrawlerLibrary\Loader\StageLoader.cpp">
-      <Filter>src\BrawlerLibrary\Loader</Filter>
+    <ClCompile Include="..\..\src\SmashLib\Loader\StageLoader.cpp">
+      <Filter>src\SmashLib\Loader</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\SmashBros\Load\InitialLoadListener.cpp">
       <Filter>src\SmashBros\Load</Filter>
@@ -177,184 +159,118 @@
     <ClCompile Include="..\..\src\SmashBros\Menu\SoloMenu\SoloMenu.cpp">
       <Filter>src\SmashBros\Menu\SoloMenu</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\BrawlGame.cpp">
-      <Filter>src\BrawlerLibrary\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\Character.cpp">
-      <Filter>src\BrawlerLibrary\Game\Elements</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\GameObject.cpp">
-      <Filter>src\BrawlerLibrary\Game\Elements</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\Platform.cpp">
-      <Filter>src\BrawlerLibrary\Game\Elements</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\Stage.cpp">
-      <Filter>src\BrawlerLibrary\Game\Elements</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Utilities\Camera.cpp">
-      <Filter>src\BrawlerLibrary\Game\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\PhysicalGameObject.cpp">
-      <Filter>src\BrawlerLibrary\Game\Elements</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\ActionPerformer\Action.cpp">
-      <Filter>src\BrawlerLibrary\Game\Elements\ActionPerformer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\ActionPerformer\ActionPerformer.cpp">
-      <Filter>src\BrawlerLibrary\Game\Elements\ActionPerformer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\BrawlerLibrary\Game\Elements\ActionPerformer\Attack.cpp">
-      <Filter>src\BrawlerLibrary\Game\Elements\ActionPerformer</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\SmashBros\Menu\MainMenu.h">
+    <ClInclude Include="..\..\src\SmashBros\Menu\MainMenu.hpp">
       <Filter>src\SmashBros\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Menu\TitleScreen.h">
+    <ClInclude Include="..\..\src\SmashBros\Menu\TitleScreen.hpp">
       <Filter>src\SmashBros\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Game.h">
+    <ClInclude Include="..\..\src\SmashBros\Game.hpp">
       <Filter>src\SmashBros</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\ActorGrid.h">
+    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\ActorGrid.hpp">
       <Filter>src\SmashBros\Menu\Elements</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\BrawlerLibrary\Loader\CharacterLoader.h">
-      <Filter>src\BrawlerLibrary\Loader</Filter>
+    <ClInclude Include="..\..\src\SmashLib\Loader\CharacterLoader.hpp">
+      <Filter>src\SmashLib\Loader</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\BrawlerLibrary\Loader\CharacterInfo.h">
-      <Filter>src\BrawlerLibrary\Loader</Filter>
+    <ClInclude Include="..\..\src\SmashLib\Loader\CharacterInfo.hpp">
+      <Filter>src\SmashLib\Loader</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Global.h">
-      <Filter>src\SmashBros</Filter>
+    <ClInclude Include="..\..\src\SmashLib\SmashLib.hpp">
+      <Filter>src\SmashLib</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\BrawlerLibrary\BrawlerLibrary.h">
-      <Filter>src\BrawlerLibrary</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Menu\Base\BaseMenuScreen.h">
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\BaseMenuScreen.hpp">
       <Filter>src\SmashBros\Menu\Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_CharacterIcon.h">
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_CharacterIcon.hpp">
       <Filter>src\SmashBros\Menu\Base\CharacterSelect</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_PlayerChip.h">
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_PlayerChip.hpp">
       <Filter>src\SmashBros\Menu\Base\CharacterSelect</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_PlayerPanel.h">
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_PlayerPanel.hpp">
       <Filter>src\SmashBros\Menu\Base\CharacterSelect</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelectScreen.h">
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelectScreen.hpp">
       <Filter>src\SmashBros\Menu\Base\CharacterSelect</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_ReadyToFightBanner.h">
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_ReadyToFightBanner.hpp">
       <Filter>src\SmashBros\Menu\Base\CharacterSelect</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\ArrowButton.h">
+    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\ArrowButton.hpp">
       <Filter>src\SmashBros\Menu\Elements</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\RulesBar.h">
+    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\RulesBar.hpp">
       <Filter>src\SmashBros\Menu\Elements</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\MenuBar.h">
+    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\MenuBar.hpp">
       <Filter>src\SmashBros\Menu\Elements</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\MenuBarValueAdjust.h">
+    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\MenuBarValueAdjust.hpp">
       <Filter>src\SmashBros\Menu\Elements</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Menu\MenuData\SmashData.h">
+    <ClInclude Include="..\..\src\SmashBros\Menu\MenuData\SmashData.hpp">
       <Filter>src\SmashBros\Menu\MenuData</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Menu\MenuData\GroupSmashData.h">
+    <ClInclude Include="..\..\src\SmashBros\Menu\MenuData\GroupSmashData.hpp">
       <Filter>src\SmashBros\Menu\MenuData</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Rules\PlayerInfo.h">
-      <Filter>src\BrawlerLibrary\Game\Rules</Filter>
+    <ClInclude Include="..\..\src\SmashLib\Rules\PlayerInfo.hpp">
+      <Filter>src\SmashLib\Rules</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Rules\Rules.h">
-      <Filter>src\BrawlerLibrary\Game\Rules</Filter>
+    <ClInclude Include="..\..\src\SmashLib\Rules\Rules.hpp">
+      <Filter>src\SmashLib\Rules</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Rules\WinCondition\WinCondition.h">
-      <Filter>src\BrawlerLibrary\Game\Rules\WinCondition</Filter>
+    <ClInclude Include="..\..\src\SmashLib\Rules\WinCondition\WinCondition.hpp">
+      <Filter>src\SmashLib\Rules\WinCondition</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Rules\WinCondition\TimeLimitWinCondition.h">
-      <Filter>src\BrawlerLibrary\Game\Rules\WinCondition</Filter>
+    <ClInclude Include="..\..\src\SmashLib\Rules\WinCondition\TimeLimitWinCondition.hpp">
+      <Filter>src\SmashLib\Rules\WinCondition</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Rules\WinCondition\StockWinCondition.h">
-      <Filter>src\BrawlerLibrary\Game\Rules\WinCondition</Filter>
+    <ClInclude Include="..\..\src\SmashLib\Rules\WinCondition\StockWinCondition.hpp">
+      <Filter>src\SmashLib\Rules\WinCondition</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Load\MenuLoad.h">
+    <ClInclude Include="..\..\src\SmashBros\Load\MenuLoad.hpp">
       <Filter>src\SmashBros\Load</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Load\ModuleLoad.h">
+    <ClInclude Include="..\..\src\SmashBros\Load\ModuleLoad.hpp">
       <Filter>src\SmashBros\Load</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\BrawlerLibrary\Loader\StageInfo.h">
-      <Filter>src\BrawlerLibrary\Loader</Filter>
+    <ClInclude Include="..\..\src\SmashLib\Loader\StageInfo.hpp">
+      <Filter>src\SmashLib\Loader</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\BrawlerLibrary\Loader\StageLoader.h">
-      <Filter>src\BrawlerLibrary\Loader</Filter>
+    <ClInclude Include="..\..\src\SmashLib\Loader\StageLoader.hpp">
+      <Filter>src\SmashLib\Loader</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Load\InitialLoadListener.h">
+    <ClInclude Include="..\..\src\SmashBros\Load\InitialLoadListener.hpp">
       <Filter>src\SmashBros\Load</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Menu\Base\StageSelect\StageSelect_StageIcon.h">
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\StageSelect\StageSelect_StageIcon.hpp">
       <Filter>src\SmashBros\Menu\Base\StageSelect</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Menu\Base\StageSelect\StageSelect_StagePreview.h">
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\StageSelect\StageSelect_StagePreview.hpp">
       <Filter>src\SmashBros\Menu\Base\StageSelect</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Menu\Base\StageSelect\StageSelectScreen.h">
+    <ClInclude Include="..\..\src\SmashBros\Menu\Base\StageSelect\StageSelectScreen.hpp">
       <Filter>src\SmashBros\Menu\Base\StageSelect</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Menu\GroupMenu\GroupMenu.h">
+    <ClInclude Include="..\..\src\SmashBros\Menu\GroupMenu\GroupMenu.hpp">
       <Filter>src\SmashBros\Menu\GroupMenu</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Menu\GroupMenu\GroupRulesMenu.h">
+    <ClInclude Include="..\..\src\SmashBros\Menu\GroupMenu\GroupRulesMenu.hpp">
       <Filter>src\SmashBros\Menu\GroupMenu</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Menu\GroupMenu\GroupSmashCharacterSelectMenu.h">
+    <ClInclude Include="..\..\src\SmashBros\Menu\GroupMenu\GroupSmashCharacterSelectMenu.hpp">
       <Filter>src\SmashBros\Menu\GroupMenu</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Menu\GroupMenu\GroupSmashStageSelectMenu.h">
+    <ClInclude Include="..\..\src\SmashBros\Menu\GroupMenu\GroupSmashStageSelectMenu.hpp">
       <Filter>src\SmashBros\Menu\GroupMenu</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\SmashBros\Menu\SoloMenu\SoloMenu.h">
+    <ClInclude Include="..\..\src\SmashBros\Menu\SoloMenu\SoloMenu.hpp">
       <Filter>src\SmashBros\Menu\SoloMenu</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\BrawlGame.h">
-      <Filter>src\BrawlerLibrary\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\Character.h">
-      <Filter>src\BrawlerLibrary\Game\Elements</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\GameObject.h">
-      <Filter>src\BrawlerLibrary\Game\Elements</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\Platform.h">
-      <Filter>src\BrawlerLibrary\Game\Elements</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\Stage.h">
-      <Filter>src\BrawlerLibrary\Game\Elements</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Utilities\Camera.h">
-      <Filter>src\BrawlerLibrary\Game\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\PhysicalGameObject.h">
-      <Filter>src\BrawlerLibrary\Game\Elements</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\ActionPerformer\Action.h">
-      <Filter>src\BrawlerLibrary\Game\Elements\ActionPerformer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\ActionPerformer\ActionPerformer.h">
-      <Filter>src\BrawlerLibrary\Game\Elements\ActionPerformer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\BrawlerLibrary\Game\Elements\ActionPerformer\Attack.h">
-      <Filter>src\BrawlerLibrary\Game\Elements\ActionPerformer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\BrawlerLibrary\Utilities\FaceDirection.h">
-      <Filter>src\BrawlerLibrary\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
