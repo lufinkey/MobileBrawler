@@ -64,6 +64,7 @@
 		F17717481EAA3963005D9CD1 /* webp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F17717441EAA3963005D9CD1 /* webp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F177174C1EAA398A005D9CD1 /* libFightLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F177174A1EAA398A005D9CD1 /* libFightLib.a */; };
 		F177174D1EAA398A005D9CD1 /* libGameLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F177174B1EAA398A005D9CD1 /* libGameLibrary.a */; };
+		F17717541EAA573E005D9CD1 /* MenuButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F17717521EAA573E005D9CD1 /* MenuButton.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -176,6 +177,8 @@
 		F17717441EAA3963005D9CD1 /* webp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = webp.framework; path = ../../external/FightLib/external/GameLibrary/external/SDL/SDL_image/Xcode/Frameworks/webp.framework; sourceTree = "<group>"; };
 		F177174A1EAA398A005D9CD1 /* libFightLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFightLib.a; path = "../../../../../Library/Developer/Xcode/DerivedData/MobileBrawler-dzjxftvgiiuofgbpoxbbmwtndodd/Build/Products/Debug/libFightLib.a"; sourceTree = "<group>"; };
 		F177174B1EAA398A005D9CD1 /* libGameLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGameLibrary.a; path = "../../../../../Library/Developer/Xcode/DerivedData/MobileBrawler-dzjxftvgiiuofgbpoxbbmwtndodd/Build/Products/Debug/libGameLibrary.a"; sourceTree = "<group>"; };
+		F17717521EAA573E005D9CD1 /* MenuButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuButton.cpp; sourceTree = "<group>"; };
+		F17717531EAA573E005D9CD1 /* MenuButton.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MenuButton.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -375,6 +378,8 @@
 		F16C34B81EA908C800EDA131 /* Elements */ = {
 			isa = PBXGroup;
 			children = (
+				F17717521EAA573E005D9CD1 /* MenuButton.cpp */,
+				F17717531EAA573E005D9CD1 /* MenuButton.hpp */,
 				F16C34B91EA908C800EDA131 /* ActorGrid.cpp */,
 				F16C34BA1EA908C800EDA131 /* ActorGrid.hpp */,
 				F16C34BB1EA908C800EDA131 /* ArrowButton.cpp */,
@@ -549,6 +554,7 @@
 				F16C34F71EA908C800EDA131 /* StageSelect_StagePreview.cpp in Sources */,
 				F16C34E71EA908C800EDA131 /* CharacterInfo.cpp in Sources */,
 				F16C35251EA916BE00EDA131 /* StockWinCondition.cpp in Sources */,
+				F17717541EAA573E005D9CD1 /* MenuButton.cpp in Sources */,
 				F16C34EE1EA908C800EDA131 /* ModuleLoad.cpp in Sources */,
 				F16C35051EA908C800EDA131 /* SoloMenu.cpp in Sources */,
 				F16C34FF1EA908C800EDA131 /* GroupRulesMenu.cpp in Sources */,

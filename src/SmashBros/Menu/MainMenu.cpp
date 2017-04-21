@@ -13,6 +13,9 @@ namespace SmashBros
 			soloButton = getItem(addItem(RectD(0.47, 0.266, 0.97, 0.766), new Animation(1, assetManager, "buttons/main/solo.png")));
 			
 			backTransition = new FadeColorTransition(Color::BLACK, 0.6);
+			getBackButton()->setTapHandler([=]{
+				getScreenManager()->pop(backTransition, 2000);
+			});
 			
 			groupMenu = new GroupMenu(smashData);
 			soloMenu = new SoloMenu(smashData);
@@ -31,11 +34,7 @@ namespace SmashBros
 			ScreenManager* screenMgr = getScreenManager();
 			if(screenMgr!=nullptr)
 			{
-				if(item == getBackButton())
-				{
-					screenMgr->pop(backTransition, 2000);
-				}
-				else if(item == groupButton)
+				if(item == groupButton)
 				{
 					screenMgr->push(groupMenu);
 				}

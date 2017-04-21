@@ -2,6 +2,7 @@
 #pragma once
 
 #include "../MenuData/SmashData.hpp"
+#include "../Elements/MenuButton.hpp"
 
 namespace SmashBros
 {
@@ -29,8 +30,8 @@ namespace SmashBros
 			virtual void onItemSelect(size_t index) override;
 			
 			ImageElement* getBackgroundElement() const;
-			SpriteActor* getBackButton() const;
 			ImageElement* getHeaderbarElement() const;
+			MenuButton* getBackButton() const;
 			
 			void setHeaderbarMode(const HeaderbarMode&mode);
 			
@@ -51,8 +52,8 @@ namespace SmashBros
 			
 			bool hoverPressed;
 			ImageElement* backgroundElement;
-			SpriteActor* backButton;
 			ImageElement* headerbarElement;
+			MenuButton* backButton;
 		};
 	}
 }

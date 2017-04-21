@@ -42,15 +42,24 @@ namespace SmashBros
 			element->sendChildElementToBack(headerbarElement);
 			element->sendChildElementToBack(backgroundElement);
 			
-			backButton = (SpriteActor*)getItem(addItem(RectD(0, 0, 0.145, 0.145), new Animation(1, assetManager, "buttons/back.png")));
+			backButton = new MenuButton();
+			assetManager->loadTexture("buttons/back.png");
+			backButton->setImage(assetManager->getTexture("buttons/back.png"), ButtonElement::BUTTONSTATE_NORMAL);
+			backButton->setTapHandler([=]{
+				getScreenManager()->pop();
+			});
+			backButton->setLayoutRule(LAYOUTRULE_LEFT,	0,		LAYOUTVALUE_RATIO);
+			backButton->setLayoutRule(LAYOUTRULE_TOP,	0,		LAYOUTVALUE_RATIO);
+			backButton->setLayoutRule(LAYOUTRULE_WIDTH,	0.145,	LAYOUTVALUE_RATIO);
+			backButton->setLayoutRule(LAYOUTRULE_HEIGHT, 0.145,	LAYOUTVALUE_RATIO);
+			element->addChildElement(backButton);
 		}
 		
 		BaseMenuScreen::~BaseMenuScreen()
 		{
-			backgroundElement->removeFromParentElement();
 			delete backgroundElement;
-			headerbarElement->removeFromParentElement();
 			delete headerbarElement;
+			delete backButton;
 		}
 		
 		void BaseMenuScreen::onWillDisappear(const Transition*transition)
@@ -144,14 +153,7 @@ namespace SmashBros
 		
 		void BaseMenuScreen::onItemSelect(size_t index)
 		{
-			ScreenManager* screenMgr = getScreenManager();
-			if(screenMgr != nullptr)
-			{
-				if(getItem(index) == backButton)
-				{
-					screenMgr->pop();
-				}
-			}
+			//
 		}
 		
 		ImageElement* BaseMenuScreen::getBackgroundElement() const
@@ -159,14 +161,14 @@ namespace SmashBros
 			return backgroundElement;
 		}
 		
-		SpriteActor* BaseMenuScreen::getBackButton() const
-		{
-			return backButton;
-		}
-		
 		ImageElement* BaseMenuScreen::getHeaderbarElement() const
 		{
 			return headerbarElement;
+		}
+		
+		MenuButton* BaseMenuScreen::getBackButton() const
+		{
+			return backButton;
 		}
 		
 		void BaseMenuScreen::setHeaderbarMode(const HeaderbarMode&mode)
