@@ -12,21 +12,19 @@ namespace SmashBros
 	{
 		class GroupMenu : public BaseMenuScreen
 		{
+		public:
+			explicit GroupMenu(const SmashData&smashData);
+			virtual ~GroupMenu();
+			
 		private:
-			Actor* smashButton;
-			Actor* specialSmashButton;
-			Actor* rulesButton;
+			MenuButton* smashButton;
+			MenuButton* specialSmashButton;
+			MenuButton* rulesButton;
 			
 			GroupSmashData* groupSmashData;
 			
 			GroupSmashCharacterSelectMenu* smashMenu;
 			GroupRulesMenu* rulesMenu;
-			
-		public:
-			explicit GroupMenu(const SmashData&smashData);
-			virtual ~GroupMenu();
-			
-			virtual void onItemSelect(size_t index) override;
 		};
 	}
 }

@@ -42,9 +42,7 @@ namespace SmashBros
 			element->sendChildElementToBack(headerbarElement);
 			element->sendChildElementToBack(backgroundElement);
 			
-			backButton = new MenuButton();
-			assetManager->loadTexture("buttons/back.png");
-			backButton->setImage(assetManager->getTexture("buttons/back.png"), ButtonElement::BUTTONSTATE_NORMAL);
+			backButton = new MenuButton(assetManager, "buttons/back.png");
 			backButton->setTapHandler([=]{
 				getScreenManager()->pop();
 			});

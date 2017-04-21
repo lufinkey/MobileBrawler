@@ -8,11 +8,30 @@ namespace SmashBros
 #define PULSE_SPEED 0.3
 	
 	MenuButton::MenuButton()
+		: MenuButton(nullptr, "")
+	{
+		//
+	}
+	
+	MenuButton::MenuButton(fgl::AssetManager* assetManager, const fgl::String& imagePath)
 		: hoverPulsingEnabled(true)
 	{
+		if(imagePath.length() > 0)
+		{
+			if(assetManager==nullptr)
+			{
+				throw fgl::IllegalArgumentException("assetManager", "cannot be null when specifying an image path");
+			}
+			if(assetManager->loadTexture(imagePath))
+			{
+				setImage(assetManager->getTexture(imagePath), BUTTONSTATE_NORMAL);
+			}
+		}
 		setTintColor(fgl::Color::LIGHTBLUE, BUTTONSTATE_HOVERED);
 		setTintColor(fgl::Color::BLUE, BUTTONSTATE_PRESSED);
 		setTintColor(fgl::Color::LIGHTGRAY, BUTTONSTATE_DISABLED);
+		
+		getImageElement()->setDisplayMode(fgl::ImageElement::DISPLAY_FIT_CENTER);
 	}
 	
 	void MenuButton::update(fgl::ApplicationData appData)
@@ -50,10 +69,8 @@ namespace SmashBros
 	{
 		if(getHoveredMouseIndexes().size() > 0 && hoverPulsingEnabled && isEnabled())
 		{
-			auto frame = getFrame();
-			double centerX = frame.width/2;
-			double centerY = frame.height/2;
-			graphics.scale((double)hoverPulseScale, (double)hoverPulseScale, centerX, centerY);
+			auto center = getFrame().getCenter();
+			graphics.scale((double)hoverPulseScale, (double)hoverPulseScale, center.x, center.y);
 		}
 		ButtonElement::draw(appData, graphics);
 	}
