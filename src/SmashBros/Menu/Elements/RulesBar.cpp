@@ -65,6 +65,7 @@ namespace SmashBros
 		void RulesBar::setValueLabelSuffix(const fgl::String& suffix)
 		{
 			valueLabelSuffix = suffix;
+			updateValueLabelString();
 		}
 	}
 }

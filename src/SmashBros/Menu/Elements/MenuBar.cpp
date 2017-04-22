@@ -62,5 +62,15 @@ namespace SmashBros
 				}
 			}
 		}
+
+		fgl::ImageElement* MenuBar::getBackgroundElement() const
+		{
+			return backgroundElement;
+		}
+
+		fgl::TextElement* MenuBar::getLabelElement() const
+		{
+			return labelElement;
+		}
 	}
 }

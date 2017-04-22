@@ -9,96 +9,78 @@ namespace SmashBros
 #define GAMEMODE_STOCK 1U
 #define GAMEMODE_TIME 2U
 		
-		GroupRulesMenu::GroupRulesMenu(const SmashData&smashData, const GroupSmashData&groupSmashData) : BaseMenuScreen(smashData)
+		GroupRulesMenu::GroupRulesMenu(const SmashData& smashData, const GroupSmashData& groupSmashData) : BaseMenuScreen(smashData)
 		{
-			Vector2d size = getSize();
-			
-			listener = new MenuBarListener(this);
+			auto assetManager = smashData.getMenuData()->getAssetManager();
+
 			rules = groupSmashData.getRules();
+
 			stockWinCondition = groupSmashData.getStockWinCondition();
 			timeLimitWinCondition = groupSmashData.getTimeLimitWinCondition();
 			
-			gameMode = getGameModeValue(rules);
-			gameModeBar = new MenuBarValueAdjust("Rules",
-													getGameModeString(rules),
-													&gameMode,
-													GAMEMODE_STOCK, GAMEMODE_TIME, 1,
-													smashData.getMenuData()->getAssetManager(),
-													smashData.getMenuData()->getMenuBarProperties());
-			gameModeBar->setEventListener(listener);
-			gameModeBarAutoLayoutMgr.setRule(LAYOUTRULE_LEFT, 0.14, LAYOUTVALUE_RATIO);
-			gameModeBarAutoLayoutMgr.setRule(LAYOUTRULE_TOP, 0.12, LAYOUTVALUE_RATIO);
-			gameModeBarAutoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.14, LAYOUTVALUE_RATIO);
-			gameModeBarAutoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.72, LAYOUTVALUE_RATIO);
-			gameModeBar->scaleToFit(gameModeBarAutoLayoutMgr.calculateFrame(gameModeBar->getFrame(), RectangleD(0,0,size.x,size.y)));
-			
-			gameModeValueBar = new RulesBar(rules, stockWinCondition, timeLimitWinCondition,
-											smashData.getMenuData()->getAssetManager(),
-											smashData.getMenuData()->getMenuBarProperties());
-			gameModeValueBar->changeAnimation("MenuBar", Animation::FORWARD);
-			gameModeValueBar->setLabel(getGameModeLabelString(rules));
-			gameModeValueBarAutoLayoutMgr.setRule(LAYOUTRULE_LEFT, 0.14, LAYOUTVALUE_RATIO);
-			gameModeValueBarAutoLayoutMgr.setRule(LAYOUTRULE_TOP, 0.32, LAYOUTVALUE_RATIO);
-			gameModeValueBarAutoLayoutMgr.setRule(LAYOUTRULE_RIGHT, 0.14, LAYOUTVALUE_RATIO);
-			gameModeValueBarAutoLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.52, LAYOUTVALUE_RATIO);
+			gameModeBar = new MenuBarValueAdjust(assetManager, "Rules", smashData.getMenuData()->getMenuBarProperties());
+			gameModeBar->setMinValue(GAMEMODE_STOCK);
+			gameModeBar->setMaxValue(GAMEMODE_TIME);
+			gameModeBar->setValue(getGameModeValue(rules));
+			gameModeBar->setValueIncrement(1);
+			gameModeBar->setValueStringResolver([=](fgl::Number value) -> fgl::String {
+				auto mode = value.toArithmeticValue<unsigned int>();
+				if(mode == GAMEMODE_STOCK)
+				{
+					return "Stock";
+				}
+				else if(mode == GAMEMODE_TIME)
+				{
+					return "Time";
+				}
+				return "Error";
+			});
+			gameModeBar->setValueChangeHandler([=]{
+				auto gameModeVal = gameModeBar->getValue().toArithmeticValue<unsigned int>();
+				rules->setWinCondition(getGameModeWinCondition(gameModeVal));
+				gameModeValueBar->getLabelElement()->setText(getGameModeLabelString(rules));
+				if(gameModeVal == GAMEMODE_TIME)
+				{
+					gameModeValueBar->setValueLabelSuffix(":00");
+				}
+				else
+				{
+					gameModeValueBar->setValueLabelSuffix("");
+				}
+			});
+			gameModeBar->setLayoutRule(LAYOUTRULE_LEFT, 0.14, LAYOUTVALUE_RATIO);
+			gameModeBar->setLayoutRule(LAYOUTRULE_TOP, 0.12, LAYOUTVALUE_RATIO);
+			gameModeBar->setLayoutRule(LAYOUTRULE_RIGHT, 0.14, LAYOUTVALUE_RATIO);
+			gameModeBar->setLayoutRule(LAYOUTRULE_BOTTOM, 0.72, LAYOUTVALUE_RATIO);
+			getElement()->addChildElement(gameModeBar);
+
+			gameModeValueBar = new RulesBar(assetManager, rules, stockWinCondition, timeLimitWinCondition, smashData.getMenuData()->getMenuBarProperties());
+			gameModeValueBar->getBackgroundElement()->setImage(assetManager->getTexture("elements/menu_bar.png"));
+			gameModeValueBar->getLabelElement()->setText(getGameModeLabelString(rules));
+			gameModeValueBar->setLayoutRule(LAYOUTRULE_LEFT, 0.14, LAYOUTVALUE_RATIO);
+			gameModeValueBar->setLayoutRule(LAYOUTRULE_TOP, 0.32, LAYOUTVALUE_RATIO);
+			gameModeValueBar->setLayoutRule(LAYOUTRULE_RIGHT, 0.14, LAYOUTVALUE_RATIO);
+			gameModeValueBar->setLayoutRule(LAYOUTRULE_BOTTOM, 0.52, LAYOUTVALUE_RATIO);
+			getElement()->addChildElement(gameModeValueBar);
 		}
 		
 		GroupRulesMenu::~GroupRulesMenu()
 		{
 			delete gameModeBar;
-			delete listener;
-		}
-		
-		void GroupRulesMenu::onSizeChange(const Vector2d& oldSize, const Vector2d& newSize)
-		{
-			BaseMenuScreen::onSizeChange(oldSize, newSize);
-			Vector2d size = getSize();
-			RectangleD frame = RectangleD(0,0,size.x,size.y);
-			gameModeBar->scaleToFit(gameModeBarAutoLayoutMgr.calculateFrame(gameModeBar->getFrame(), frame));
-			gameModeValueBar->scaleToFit(gameModeValueBarAutoLayoutMgr.calculateFrame(gameModeValueBar->getFrame(), frame));
+			delete gameModeValueBar;
 		}
 		
 		void GroupRulesMenu::onWillAppear(const Transition*transition)
 		{
-			gameModeBar->setValueLabel(getGameModeString(rules));
-			gameModeValueBar->setLabel(getGameModeLabelString(rules));
+			gameModeValueBar->getLabelElement()->setText(getGameModeLabelString(rules));
 			if(rules->getWinCondition() == stockWinCondition)
 			{
-				gameModeValueBar->setValueLabel((String)"" + stockWinCondition->getStock());
 				gameModeValueBar->setValueLabelSuffix("");
 			}
 			else if(rules->getWinCondition() == timeLimitWinCondition)
 			{
-				gameModeValueBar->setValueLabel((String)"" + timeLimitWinCondition->getTimeLimit());
 				gameModeValueBar->setValueLabelSuffix(":00");
 			}
-		}
-		
-		void GroupRulesMenu::onUpdate(const ApplicationData& appData)
-		{
-			BaseMenuScreen::onUpdate(appData);
-			gameModeBar->update(appData);
-			gameModeValueBar->update(appData);
-		}
-		
-		void GroupRulesMenu::onDraw(const ApplicationData& appData, Graphics graphics) const
-		{
-			BaseMenuScreen::onDraw(appData, graphics);
-			gameModeBar->draw(appData, graphics);
-			gameModeValueBar->draw(appData, graphics);
-		}
-		
-		String GroupRulesMenu::getGameModeString(Rules*rules) const
-		{
-			if(rules->getWinCondition() == stockWinCondition)
-			{
-				return "Stock";
-			}
-			else if(rules->getWinCondition() == timeLimitWinCondition)
-			{
-				return "Time";
-			}
-			return "Error";
 		}
 		
 		String GroupRulesMenu::getGameModeLabelString(Rules*rules) const
@@ -138,30 +120,6 @@ namespace SmashBros
 				return timeLimitWinCondition;
 			}
 			return nullptr;
-		}
-		
-		GroupRulesMenu::MenuBarListener::MenuBarListener(GroupRulesMenu*screen)
-		{
-			menu = screen;
-		}
-		
-		void GroupRulesMenu::MenuBarListener::onMenuBarValueAdjustValueChanged(MenuBarValueAdjust*menuBar)
-		{
-			if(menuBar==menu->gameModeBar)
-			{
-				unsigned int gameModeVal = menu->gameMode.toArithmeticValue<unsigned int>();
-				menu->rules->setWinCondition(menu->getGameModeWinCondition(gameModeVal));
-				menu->gameModeBar->setValueLabel(menu->getGameModeString(menu->rules));
-				menu->gameModeValueBar->setLabel(menu->getGameModeLabelString(menu->rules));
-				if(gameModeVal == GAMEMODE_TIME)
-				{
-					menu->gameModeValueBar->setValueLabelSuffix(":00");
-				}
-				else
-				{
-					menu->gameModeValueBar->setValueLabelSuffix("");
-				}
-			}
 		}
 	}
 }

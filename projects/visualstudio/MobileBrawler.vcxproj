@@ -9,7 +9,7 @@
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-	<ProjectConfiguration Include="Debug|x64">
+    <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
@@ -38,7 +38,7 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
-   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140_clang_c2</PlatformToolset>
@@ -176,6 +176,7 @@
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\SmashBros\Menu\Elements\MenuButton.cpp" />
     <ClCompile Include="..\..\src\SmashLib\Rules\PlayerInfo.cpp" />
     <ClCompile Include="..\..\src\SmashLib\Rules\Rules.cpp" />
     <ClCompile Include="..\..\src\SmashLib\Rules\WinCondition\StockWinCondition.cpp" />
@@ -215,6 +216,7 @@
     <ClCompile Include="..\..\src\SmashBros\Menu\TitleScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\MenuButton.hpp" />
     <ClInclude Include="..\..\src\SmashLib\SmashLib.hpp" />
     <ClInclude Include="..\..\src\SmashLib\Rules\PlayerInfo.hpp" />
     <ClInclude Include="..\..\src\SmashLib\Rules\Rules.hpp" />

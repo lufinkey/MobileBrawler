@@ -159,6 +159,9 @@
     <ClCompile Include="..\..\src\SmashBros\Menu\SoloMenu\SoloMenu.cpp">
       <Filter>src\SmashBros\Menu\SoloMenu</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\SmashBros\Menu\Elements\MenuButton.cpp">
+      <Filter>src\SmashBros\Menu\Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\SmashBros\Menu\MainMenu.hpp">
@@ -271,6 +274,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\SmashBros\Menu\SoloMenu\SoloMenu.hpp">
       <Filter>src\SmashBros\Menu\SoloMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\SmashBros\Menu\Elements\MenuButton.hpp">
+      <Filter>src\SmashBros\Menu\Elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

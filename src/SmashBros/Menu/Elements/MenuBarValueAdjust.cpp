@@ -29,8 +29,8 @@ namespace SmashBros
 			
 			prevValueButton = new ArrowButton(assetManager, ArrowButton::DIRECTION_LEFT);
 			prevValueButton->setTapHandler([=]{
-				auto newValue = value+increment;
-				if(newValue <= maxValue)
+				auto newValue = value-increment;
+				if(newValue >= minValue)
 				{
 					value = newValue;
 					updateValueLabelString();
@@ -48,8 +48,8 @@ namespace SmashBros
 			
 			nextValueButton = new ArrowButton(assetManager, ArrowButton::DIRECTION_RIGHT);
 			nextValueButton->setTapHandler([=]{
-				auto newValue = value-increment;
-				if(newValue >= minValue)
+				auto newValue = value+increment;
+				if(newValue <= maxValue)
 				{
 					value = newValue;
 					updateValueLabelString();
@@ -164,6 +164,7 @@ namespace SmashBros
 		void MenuBarValueAdjust::setValueStringResolver(const std::function<fgl::String(fgl::Number)>& valueResolver)
 		{
 			valueStringResolver = valueResolver;
+			updateValueLabelString();
 		}
 		
 		const std::function<fgl::String(fgl::Number)>& MenuBarValueAdjust::getValueStringResolver() const

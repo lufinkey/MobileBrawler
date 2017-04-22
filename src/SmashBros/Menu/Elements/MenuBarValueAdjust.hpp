@@ -34,10 +34,11 @@ namespace SmashBros
 			ArrowButton* getPreviousValueButton() const;
 			ArrowButton* getNextValueButton() const;
 			
+		protected:
+			void updateValueLabelString();
+
 		private:
 			void applyProperties(const fgl::Dictionary& properties);
-			
-			void updateValueLabelString();
 			
 			fgl::TextElement* valueLabelElement;
 			ArrowButton* prevValueButton;
