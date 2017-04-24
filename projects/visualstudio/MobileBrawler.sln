@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MobileBrawler", "MobileBrawler.vcxproj", "{26419182-DBEB-4FD0-B90D-D40B8430109D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{865CCF04-F0E6-42A1-8694-98E95821E8CE} = {865CCF04-F0E6-42A1-8694-98E95821E8CE}
+		{68890E50-B78E-43FB-BFF3-C96E86766C57} = {68890E50-B78E-43FB-BFF3-C96E86766C57}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FightLib", "..\..\external\FightLib\projects\visualstudio\FightLib.vcxproj", "{865CCF04-F0E6-42A1-8694-98E95821E8CE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{68890E50-B78E-43FB-BFF3-C96E86766C57} = {68890E50-B78E-43FB-BFF3-C96E86766C57}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameLibrary", "..\..\external\FightLib\external\GameLibrary\projects\visualstudio\GameLibrary.vcxproj", "{68890E50-B78E-43FB-BFF3-C96E86766C57}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{26419182-DBEB-4FD0-B90D-D40B8430109D}.Debug|x64.ActiveCfg = Debug|x64
+		{26419182-DBEB-4FD0-B90D-D40B8430109D}.Debug|x64.Build.0 = Debug|x64
+		{26419182-DBEB-4FD0-B90D-D40B8430109D}.Debug|x86.ActiveCfg = Debug|Win32
+		{26419182-DBEB-4FD0-B90D-D40B8430109D}.Debug|x86.Build.0 = Debug|Win32
+		{26419182-DBEB-4FD0-B90D-D40B8430109D}.Release|x64.ActiveCfg = Release|x64
+		{26419182-DBEB-4FD0-B90D-D40B8430109D}.Release|x64.Build.0 = Release|x64
+		{26419182-DBEB-4FD0-B90D-D40B8430109D}.Release|x86.ActiveCfg = Release|Win32
+		{26419182-DBEB-4FD0-B90D-D40B8430109D}.Release|x86.Build.0 = Release|Win32
+		{865CCF04-F0E6-42A1-8694-98E95821E8CE}.Debug|x64.ActiveCfg = Debug|x64
+		{865CCF04-F0E6-42A1-8694-98E95821E8CE}.Debug|x64.Build.0 = Debug|x64
+		{865CCF04-F0E6-42A1-8694-98E95821E8CE}.Debug|x86.ActiveCfg = Debug|Win32
+		{865CCF04-F0E6-42A1-8694-98E95821E8CE}.Debug|x86.Build.0 = Debug|Win32
+		{865CCF04-F0E6-42A1-8694-98E95821E8CE}.Release|x64.ActiveCfg = Release|x64
+		{865CCF04-F0E6-42A1-8694-98E95821E8CE}.Release|x64.Build.0 = Release|x64
+		{865CCF04-F0E6-42A1-8694-98E95821E8CE}.Release|x86.ActiveCfg = Release|Win32
+		{865CCF04-F0E6-42A1-8694-98E95821E8CE}.Release|x86.Build.0 = Release|Win32
+		{68890E50-B78E-43FB-BFF3-C96E86766C57}.Debug|x64.ActiveCfg = Debug|x64
+		{68890E50-B78E-43FB-BFF3-C96E86766C57}.Debug|x64.Build.0 = Debug|x64
+		{68890E50-B78E-43FB-BFF3-C96E86766C57}.Debug|x86.ActiveCfg = Debug|Win32
+		{68890E50-B78E-43FB-BFF3-C96E86766C57}.Debug|x86.Build.0 = Debug|Win32
+		{68890E50-B78E-43FB-BFF3-C96E86766C57}.Release|x64.ActiveCfg = Release|x64
+		{68890E50-B78E-43FB-BFF3-C96E86766C57}.Release|x64.Build.0 = Release|x64
+		{68890E50-B78E-43FB-BFF3-C96E86766C57}.Release|x86.ActiveCfg = Release|Win32
+		{68890E50-B78E-43FB-BFF3-C96E86766C57}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
