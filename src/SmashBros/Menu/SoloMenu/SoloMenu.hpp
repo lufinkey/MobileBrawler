@@ -7,14 +7,12 @@ namespace SmashBros
 	{
 		class SoloMenu : public BaseMenuScreen
 		{
-		private:
-			Actor* trainingButton;
-			
 		public:
 			explicit SoloMenu(const SmashData&smashData);
 			virtual ~SoloMenu();
-			
-			virtual void onItemSelect(size_t index) override;
+
+		private:
+			MenuButton* trainingButton;
 		};
 	}
 }

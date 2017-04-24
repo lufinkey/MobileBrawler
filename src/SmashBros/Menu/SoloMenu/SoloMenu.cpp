@@ -5,28 +5,22 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-		SoloMenu::SoloMenu(const SmashData&smashData) : SmashBros::Menu::BaseMenuScreen(smashData)
+		SoloMenu::SoloMenu(const SmashData& smashData) : SmashBros::Menu::BaseMenuScreen(smashData)
 		{
-			trainingButton = getItem(addItem(RectD(0.1, 0.2, 0.9, 0.8), new Animation(1, smashData.getMenuData()->getAssetManager(), "buttons/solo/training.png")));
+			trainingButton = new MenuButton(smashData.getMenuData()->getAssetManager(), "buttons/solo/training.png");
+			trainingButton->setTapHandler([] {
+				//TODO go to training screen
+			});
+			trainingButton->setLayoutRule(fgl::LAYOUTRULE_LEFT, 0.1, fgl::LAYOUTVALUE_RATIO);
+			trainingButton->setLayoutRule(fgl::LAYOUTRULE_TOP, 0.2, fgl::LAYOUTVALUE_RATIO);
+			trainingButton->setLayoutRule(fgl::LAYOUTRULE_RIGHT, 0.1, fgl::LAYOUTVALUE_RATIO);
+			trainingButton->setLayoutRule(fgl::LAYOUTRULE_BOTTOM, 0.2, fgl::LAYOUTVALUE_RATIO);
+			getElement()->addChildElement(trainingButton);
 		}
 		
 		SoloMenu::~SoloMenu()
 		{
-			//
-		}
-			
-		void SoloMenu::onItemSelect(size_t index)
-		{
-			BaseMenuScreen::onItemSelect(index);
-			ScreenManager* screenMgr = getScreenManager();
-			if(screenMgr != nullptr)
-			{
-				Actor* item = getItem(index);
-				if(item == trainingButton)
-				{
-					//TODO go to training menu
-				}
-			}
+			delete trainingButton;
 		}
 	}
 }
