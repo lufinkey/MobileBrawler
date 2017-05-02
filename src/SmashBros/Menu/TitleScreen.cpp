@@ -9,6 +9,9 @@ namespace SmashBros
 		{
 			AssetManager* assetManager = smashData.getMenuData()->getAssetManager();
 
+			assetManager->loadTexture("titlescreen/background.png");
+			assetManager->loadTexture("titlescreen/logo.png");
+
 			getBackgroundElement()->setImage(assetManager->getTexture("titlescreen/background.png"));
 			
 			TextureImage* logoImage = assetManager->getTexture("titlescreen/logo.png");

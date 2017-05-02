@@ -177,6 +177,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\SmashBros\Menu\Elements\MenuButton.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\MenuLoadScreen.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\MenuManager.cpp" />
     <ClCompile Include="..\..\src\SmashLib\Rules\PlayerInfo.cpp" />
     <ClCompile Include="..\..\src\SmashLib\Rules\Rules.cpp" />
     <ClCompile Include="..\..\src\SmashLib\Rules\WinCondition\StockWinCondition.cpp" />
@@ -217,6 +219,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\SmashBros\Menu\Elements\MenuButton.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\MenuLoadScreen.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\MenuManager.hpp" />
     <ClInclude Include="..\..\src\SmashLib\SmashLib.hpp" />
     <ClInclude Include="..\..\src\SmashLib\Rules\PlayerInfo.hpp" />
     <ClInclude Include="..\..\src\SmashLib\Rules\Rules.hpp" />
