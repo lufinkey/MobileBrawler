@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F16AA8411EBA0FBA0017DA6E /* MenuLoadScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F16AA83D1EBA0FBA0017DA6E /* MenuLoadScreen.cpp */; };
+		F16AA8421EBA0FBA0017DA6E /* MenuManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F16AA83F1EBA0FBA0017DA6E /* MenuManager.cpp */; };
+		F16AA8481EBA11FD0017DA6E /* MenuAssetManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F16AA8461EBA11FD0017DA6E /* MenuAssetManager.cpp */; };
 		F16C34331EA9076B00EDA131 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F16C34321EA9076B00EDA131 /* Assets.xcassets */; };
 		F16C34361EA9076B00EDA131 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F16C34341EA9076B00EDA131 /* Main.storyboard */; };
 		F16C344F1EA9082900EDA131 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F16C34491EA9082900EDA131 /* AudioToolbox.framework */; };
@@ -83,6 +86,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F16AA83D1EBA0FBA0017DA6E /* MenuLoadScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuLoadScreen.cpp; sourceTree = "<group>"; };
+		F16AA83E1EBA0FBA0017DA6E /* MenuLoadScreen.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MenuLoadScreen.hpp; sourceTree = "<group>"; };
+		F16AA83F1EBA0FBA0017DA6E /* MenuManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuManager.cpp; sourceTree = "<group>"; };
+		F16AA8401EBA0FBA0017DA6E /* MenuManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MenuManager.hpp; sourceTree = "<group>"; };
+		F16AA8461EBA11FD0017DA6E /* MenuAssetManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuAssetManager.cpp; sourceTree = "<group>"; };
+		F16AA8471EBA11FD0017DA6E /* MenuAssetManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MenuAssetManager.hpp; sourceTree = "<group>"; };
 		F16C34261EA9076B00EDA131 /* MobileBrawler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileBrawler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F16C34321EA9076B00EDA131 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F16C34351EA9076B00EDA131 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -314,6 +323,8 @@
 				F16C349E1EA908C800EDA131 /* MenuLoad.hpp */,
 				F16C349F1EA908C800EDA131 /* ModuleLoad.cpp */,
 				F16C34A01EA908C800EDA131 /* ModuleLoad.hpp */,
+				F16AA8461EBA11FD0017DA6E /* MenuAssetManager.cpp */,
+				F16AA8471EBA11FD0017DA6E /* MenuAssetManager.hpp */,
 			);
 			path = Load;
 			sourceTree = "<group>";
@@ -326,10 +337,14 @@
 				F16C34C31EA908C800EDA131 /* GroupMenu */,
 				F16C34CE1EA908C800EDA131 /* MenuData */,
 				F16C34D31EA908C800EDA131 /* SoloMenu */,
-				F16C34D61EA908C800EDA131 /* TitleScreen.cpp */,
-				F16C34D71EA908C800EDA131 /* TitleScreen.hpp */,
 				F16C34CC1EA908C800EDA131 /* MainMenu.cpp */,
 				F16C34CD1EA908C800EDA131 /* MainMenu.hpp */,
+				F16AA83D1EBA0FBA0017DA6E /* MenuLoadScreen.cpp */,
+				F16AA83E1EBA0FBA0017DA6E /* MenuLoadScreen.hpp */,
+				F16AA83F1EBA0FBA0017DA6E /* MenuManager.cpp */,
+				F16AA8401EBA0FBA0017DA6E /* MenuManager.hpp */,
+				F16C34D61EA908C800EDA131 /* TitleScreen.cpp */,
+				F16C34D71EA908C800EDA131 /* TitleScreen.hpp */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -534,6 +549,7 @@
 				F16C34F91EA908C800EDA131 /* ActorGrid.cpp in Sources */,
 				F16C34ED1EA908C800EDA131 /* MenuLoad.cpp in Sources */,
 				F16C35241EA916BE00EDA131 /* Rules.cpp in Sources */,
+				F16AA8421EBA0FBA0017DA6E /* MenuManager.cpp in Sources */,
 				F16C35061EA908C800EDA131 /* TitleScreen.cpp in Sources */,
 				F16C34EC1EA908C800EDA131 /* InitialLoadListener.cpp in Sources */,
 				F16C35001EA908C800EDA131 /* GroupSmashCharacterSelectMenu.cpp in Sources */,
@@ -544,6 +560,7 @@
 				F16C34FE1EA908C800EDA131 /* GroupMenu.cpp in Sources */,
 				F16C34EF1EA908C800EDA131 /* main.cpp in Sources */,
 				F16C35231EA916BE00EDA131 /* PlayerInfo.cpp in Sources */,
+				F16AA8411EBA0FBA0017DA6E /* MenuLoadScreen.cpp in Sources */,
 				F16C34FC1EA908C800EDA131 /* MenuBarValueAdjust.cpp in Sources */,
 				F16C34FD1EA908C800EDA131 /* RulesBar.cpp in Sources */,
 				F16C34EA1EA908C800EDA131 /* StageLoader.cpp in Sources */,
@@ -558,6 +575,7 @@
 				F16C34EE1EA908C800EDA131 /* ModuleLoad.cpp in Sources */,
 				F16C35051EA908C800EDA131 /* SoloMenu.cpp in Sources */,
 				F16C34FF1EA908C800EDA131 /* GroupRulesMenu.cpp in Sources */,
+				F16AA8481EBA11FD0017DA6E /* MenuAssetManager.cpp in Sources */,
 				F16C34F51EA908C800EDA131 /* CharacterSelectScreen.cpp in Sources */,
 				F16C35031EA908C800EDA131 /* GroupSmashData.cpp in Sources */,
 				F16C35011EA908C800EDA131 /* GroupSmashStageSelectMenu.cpp in Sources */,
