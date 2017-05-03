@@ -91,24 +91,24 @@ namespace SmashBros
 	void MenuLoad::loadIconMasks()
 	{
 		//load character select icon mask
-		bool success = characterselect_iconmask.loadFromFile(FileTools::combinePathStrings(primaryDirectory,"characterselect/icon_mask.png"));
+		bool success = characterselect_iconmask.loadFromPath(FileTools::combinePathStrings(primaryDirectory,"characterselect/icon_mask.png"));
 		if(!success)
 		{
-			characterselect_iconmask.loadFromFile(FileTools::combinePathStrings(secondaryDirectory, "characterselect/icon_mask.png"));
+			characterselect_iconmask.loadFromPath(FileTools::combinePathStrings(secondaryDirectory, "characterselect/icon_mask.png"));
 		}
 		
 		//load stage select icon mask
-		success = stageselect_iconmask.loadFromFile(FileTools::combinePathStrings(primaryDirectory,"stageselect/icon_mask.png"));
+		success = stageselect_iconmask.loadFromPath(FileTools::combinePathStrings(primaryDirectory,"stageselect/icon_mask.png"));
 		if(!success)
 		{
-			stageselect_iconmask.loadFromFile(FileTools::combinePathStrings(secondaryDirectory, "stageselect/icon_mask.png"));
+			stageselect_iconmask.loadFromPath(FileTools::combinePathStrings(secondaryDirectory, "stageselect/icon_mask.png"));
 		}
 		
 		//load stage select preview mask
-		success = stageselect_previewmask.loadFromFile(FileTools::combinePathStrings(primaryDirectory,"stageselect/preview_mask.png"));
+		success = stageselect_previewmask.loadFromPath(FileTools::combinePathStrings(primaryDirectory,"stageselect/preview_mask.png"));
 		if(!success)
 		{
-			stageselect_previewmask.loadFromFile(FileTools::combinePathStrings(secondaryDirectory, "stageselect/preview_mask.png"));
+			stageselect_previewmask.loadFromPath(FileTools::combinePathStrings(secondaryDirectory, "stageselect/preview_mask.png"));
 		}
 	}
 	
