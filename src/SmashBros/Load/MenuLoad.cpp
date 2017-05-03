@@ -139,7 +139,10 @@ namespace SmashBros
 	void MenuLoad::loadAssets()
 	{
 		BatchLoader* batchLoader = new BatchLoader(assetManager);
-		batchLoader->addEventListener(loadListener);
+		if(loadListener!=nullptr)
+		{
+			batchLoader->addEventListener(loadListener);
+		}
 		
 		//LOAD MENU ASSETS HERE:
 		//TODO: Assets need to be loaded in a non-linear fashion. Maybe an array of strings containing

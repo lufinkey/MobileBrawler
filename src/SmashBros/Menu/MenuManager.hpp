@@ -12,7 +12,7 @@ namespace SmashBros
 		virtual ~MenuManager();
 
 	private:
-		MenuLoadScreen* initialize();
+		MenuLoadScreen* initialize(fgl::AssetManager* assetManager_arg);
 
 		fgl::AssetManager* assetManager;
 		MenuLoadScreen* loadScreen;

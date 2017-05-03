@@ -4,18 +4,24 @@
 namespace SmashBros
 {
 	MenuManager::MenuManager(fgl::AssetManager* assetManager_arg)
-		: ScreenManager(initialize())
+		: ScreenManager(initialize(assetManager_arg))
 	{
 		//
 	}
 
-	MenuLoadScreen* MenuManager::initialize()
+	MenuLoadScreen* MenuManager::initialize(fgl::AssetManager* assetManager_arg)
 	{
-		//TODO initialize all the class members, right?
+		auto& window = assetManager_arg->getWindow();
+		auto rootDir = assetManager_arg->getRootDirectory();
+		rootDir = fgl::FileTools::combinePathStrings(rootDir, "assets/menu");
+		assetManager = new fgl::AssetManager(window, rootDir);
+		loadScreen = new MenuLoadScreen(assetManager);
+		return loadScreen;
 	}
 
 	MenuManager::~MenuManager()
 	{
-		//
+		delete loadScreen;
+		delete assetManager;
 	}
 }
