@@ -11,13 +11,8 @@ namespace SmashBros
 {
 	class SmashData
 	{
-	private:
-		Window* window;
-		MenuLoad* menuData;
-		ModuleLoad* moduleData;
-		
 	public:
-		SmashData(Window*window, MenuLoad*menuData, ModuleLoad*moduleData);
+		SmashData(Window* window, MenuLoad*menuData, ModuleLoad*moduleData);
 		SmashData(const SmashData&);
 		~SmashData();
 		
@@ -31,5 +26,10 @@ namespace SmashBros
 		ModuleLoad* getModuleData() const;
 		
 		void setRules(Rules*);
+		
+	private:
+		Window* window;
+		MenuLoad* menuData;
+		ModuleLoad* moduleData;
 	};
 }

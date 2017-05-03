@@ -14,7 +14,7 @@ namespace SmashLib
 		fgl::AssetManager* assetManager;
 
 	public:
-		explicit StageLoader(fgl::Window& window);
+		explicit StageLoader(fgl::Window* window);
 		StageLoader();
 		
 		fgl::AssetManager* getAssetManager() const;

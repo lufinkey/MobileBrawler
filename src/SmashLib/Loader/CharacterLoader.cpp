@@ -5,7 +5,7 @@ namespace SmashLib
 {
 	using namespace fgl;
 	
-	CharacterLoader::CharacterLoader(Window&window)
+	CharacterLoader::CharacterLoader(Window* window)
 	{
 		assetManager = new AssetManager(window);
 	}

@@ -29,8 +29,8 @@ namespace SmashBros
 		void loadAssets();
 		
 	public:
-		MenuLoad(Window&window, const String& primaryDirectory);
-		MenuLoad(Window&window, const String& primaryDirectory, const String&secondaryDirectory);
+		MenuLoad(Window* window, const String& primaryDirectory);
+		MenuLoad(Window* window, const String& primaryDirectory, const String&secondaryDirectory);
 		~MenuLoad();
 		
 		void setLoadListener(BatchLoaderEventListener*listener);

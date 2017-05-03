@@ -20,7 +20,7 @@ namespace SmashBros
 		const Image* stageselect_previewmask;
 		
 	public:
-		ModuleLoad(Window&window, const String&charactersRoot, const String&stagesRoot);
+		ModuleLoad(Window* window, const String&charactersRoot, const String&stagesRoot);
 		~ModuleLoad();
 		
 		void addCharactersPath(const String&);

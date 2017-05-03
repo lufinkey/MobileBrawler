@@ -5,7 +5,7 @@ namespace SmashLib
 {
 	using namespace fgl;
 	
-	StageLoader::StageLoader(Window&window)
+	StageLoader::StageLoader(Window* window)
 	{
 		assetManager = new AssetManager(window);
 	}

@@ -50,8 +50,8 @@ namespace SmashBros
 	
 	void Game::loadContent(AssetManager*assetManager)
 	{
-		menuLoad = new MenuLoad(*getWindow(), "assets/menu");
-		moduleLoad = new ModuleLoad(*getWindow(), "assets/characters", "assets/stages");
+		menuLoad = new MenuLoad(getWindow(), "assets/menu");
+		moduleLoad = new ModuleLoad(getWindow(), "assets/characters", "assets/stages");
 		smashData = new SmashData(getWindow(), menuLoad, moduleLoad);
 		
 		InitialLoadListener* loadListener = new InitialLoadListener(getWindow());

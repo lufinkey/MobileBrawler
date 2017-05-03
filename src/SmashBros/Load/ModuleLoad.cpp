@@ -3,7 +3,7 @@
 
 namespace SmashBros
 {
-	ModuleLoad::ModuleLoad(Window&window, const String&charactersRoot, const String&stagesRoot)
+	ModuleLoad::ModuleLoad(Window* window, const String&charactersRoot, const String&stagesRoot)
 	{
 		characterselect_iconmask = nullptr;
 		stageselect_iconmask = nullptr;

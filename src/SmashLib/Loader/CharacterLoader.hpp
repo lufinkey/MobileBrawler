@@ -8,7 +8,7 @@ namespace SmashLib
 	class CharacterLoader
 	{
 	public:
-		explicit CharacterLoader(fgl::Window& window);
+		explicit CharacterLoader(fgl::Window* window);
 		~CharacterLoader();
 		
 		fgl::AssetManager* getAssetManager() const;

@@ -3,7 +3,7 @@
 
 namespace SmashBros
 {
-	MenuLoad::MenuLoad(Window&window, const String&primaryDir)
+	MenuLoad::MenuLoad(Window* window, const String&primaryDir)
 	{
 		loadListener = nullptr;
 		assetManager = new AssetManager(window, primaryDir);
@@ -11,7 +11,7 @@ namespace SmashBros
 		secondaryDirectory = "";
 	}
 	
-	MenuLoad::MenuLoad(Window&window, const String&primaryDir, const String&secondaryDir)
+	MenuLoad::MenuLoad(Window* window, const String&primaryDir, const String&secondaryDir)
 	{
 		loadListener = nullptr;
 		ArrayList<String> secondaryDirs;
