@@ -11,7 +11,7 @@ namespace SmashBros
 #define PULSE_HOVERCOLOR Color::LIGHTBLUE
 #define PULSE_PRESSCOLOR Color::BLUE
 		
-		BaseMenuScreen::BaseMenuScreen(const SmashData& smashData, const fgl::Dictionary& stateInfo)
+		BaseMenuScreen::BaseMenuScreen(const SmashData& smashData)
 		{
 			AssetManager* assetManager = smashData.getMenuData()->getAssetManager();
 			
@@ -55,6 +55,11 @@ namespace SmashBros
 		
 		BaseMenuScreen::~BaseMenuScreen()
 		{
+			for(auto& screenPair : screens)
+			{
+				delete screenPair.second;
+			}
+
 			delete backgroundElement;
 			delete headerbarElement;
 			delete backButton;
@@ -96,9 +101,67 @@ namespace SmashBros
 			MenuScreen::onUpdate(appData);
 		}
 
-		fgl::Dictionary BaseMenuScreen::getStateInfo() const
+		void BaseMenuScreen::setState(const fgl::Dictionary& state)
+		{
+			//
+		}
+
+		fgl::Dictionary BaseMenuScreen::getState() const
 		{
 			return {};
+		}
+
+		void BaseMenuScreen::addScreen(const fgl::String& name, BaseMenuScreen* screen)
+		{
+			if(screens.has(name))
+			{
+				throw fgl::IllegalArgumentException("name", "another screen already exists with that name");
+			}
+			screens[name] = screen;
+		}
+
+		void BaseMenuScreen::removeScreen(const fgl::String& name)
+		{
+			if(auto screen = screens.get(name, nullptr))
+			{
+				screens.remove(name);
+				delete screen;
+			}
+		}
+
+		void BaseMenuScreen::goToScreen(const fgl::String& name)
+		{
+			if(auto screen = screens.get(name, nullptr))
+			{
+				getScreenManager()->push(screen);
+			}
+			else
+			{
+				throw fgl::IllegalArgumentException("name", "no screen exists with that name");
+			}
+		}
+
+		void BaseMenuScreen::goBack()
+		{
+			if(auto screenManager = getScreenManager())
+			{
+				auto& screens = screenManager->getScreens();
+				size_t screenIndex = screens.indexOf(this);
+				if(screenIndex==-1)
+				{
+					throw fgl::IllegalStateException("cannot call goBack on a Screen that is not on the navigation stack");
+				}
+				else if(screenIndex==0)
+				{
+					throw fgl::IllegalStateException("cannot call goBack on the first Screen in the navigation stack");
+				}
+				auto previousScreen = screens.get(screenIndex-1);
+				screenManager->popTo(previousScreen);
+			}
+			else
+			{
+				throw fgl::IllegalStateException("cannot call goBack on a Screen that is not on the navigation stack");
+			}
 		}
 		
 		void BaseMenuScreen::drawItem(ApplicationData appData, Graphics graphics, Actor*item) const

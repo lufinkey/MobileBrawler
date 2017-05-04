@@ -17,10 +17,10 @@ namespace SmashBros
 				HEADERBAR_FULL
 			} HeaderbarMode;
 			
-			explicit BaseMenuScreen(const SmashData& smashData, const fgl::Dictionary& stateInfo={});
+			explicit BaseMenuScreen(const SmashData& smashData);
 			virtual ~BaseMenuScreen();
 			
-			virtual void onWillDisappear(const Transition*transition) override;
+			virtual void onWillDisappear(const Transition* transition) override;
 			
 			virtual void onItemHover(size_t index) override;
 			virtual void onItemHoverFinish(size_t index) override;
@@ -29,7 +29,13 @@ namespace SmashBros
 			virtual void onItemRelease(size_t index) override;
 			virtual void onItemSelect(size_t index) override;
 
-			virtual fgl::Dictionary getStateInfo() const;
+			void addScreen(const fgl::String& name, BaseMenuScreen* screen);
+			void removeScreen(const fgl::String& name);
+			void goToScreen(const fgl::String& name);
+			void goBack();
+
+			virtual fgl::Dictionary getState() const;
+			virtual void setState(const fgl::Dictionary& state);
 			
 			ImageElement* getBackgroundElement() const;
 			ImageElement* getHeaderbarElement() const;
@@ -56,6 +62,8 @@ namespace SmashBros
 			ImageElement* backgroundElement;
 			ImageElement* headerbarElement;
 			MenuButton* backButton;
+
+			fgl::BasicDictionary<fgl::String, BaseMenuScreen*> screens;
 		};
 	}
 }
