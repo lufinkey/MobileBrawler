@@ -11,7 +11,7 @@ namespace SmashBros
 #define PULSE_HOVERCOLOR Color::LIGHTBLUE
 #define PULSE_PRESSCOLOR Color::BLUE
 		
-		BaseMenuScreen::BaseMenuScreen(const SmashData&smashData)
+		BaseMenuScreen::BaseMenuScreen(const SmashData& smashData, const fgl::Dictionary& stateInfo)
 		{
 			AssetManager* assetManager = smashData.getMenuData()->getAssetManager();
 			
@@ -94,6 +94,11 @@ namespace SmashBros
 				}
 			}
 			MenuScreen::onUpdate(appData);
+		}
+
+		fgl::Dictionary BaseMenuScreen::getStateInfo() const
+		{
+			return {};
 		}
 		
 		void BaseMenuScreen::drawItem(ApplicationData appData, Graphics graphics, Actor*item) const

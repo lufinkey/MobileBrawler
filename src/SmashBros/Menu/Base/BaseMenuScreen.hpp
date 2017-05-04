@@ -17,7 +17,7 @@ namespace SmashBros
 				HEADERBAR_FULL
 			} HeaderbarMode;
 			
-			explicit BaseMenuScreen(const SmashData&smashData);
+			explicit BaseMenuScreen(const SmashData& smashData, const fgl::Dictionary& stateInfo={});
 			virtual ~BaseMenuScreen();
 			
 			virtual void onWillDisappear(const Transition*transition) override;
@@ -28,6 +28,8 @@ namespace SmashBros
 			virtual void onItemPressCancel(size_t index) override;
 			virtual void onItemRelease(size_t index) override;
 			virtual void onItemSelect(size_t index) override;
+
+			virtual fgl::Dictionary getStateInfo() const;
 			
 			ImageElement* getBackgroundElement() const;
 			ImageElement* getHeaderbarElement() const;
