@@ -176,6 +176,7 @@
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\SmashBros\Load\MenuAssetManager.cpp" />
     <ClCompile Include="..\..\src\SmashBros\Menu\Elements\MenuButton.cpp" />
     <ClCompile Include="..\..\src\SmashBros\Menu\MenuLoadScreen.cpp" />
     <ClCompile Include="..\..\src\SmashBros\Menu\MenuManager.cpp" />
@@ -218,6 +219,7 @@
     <ClCompile Include="..\..\src\SmashBros\Menu\TitleScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\SmashBros\Load\MenuAssetManager.hpp" />
     <ClInclude Include="..\..\src\SmashBros\Menu\Elements\MenuButton.hpp" />
     <ClInclude Include="..\..\src\SmashBros\Menu\MenuLoadScreen.hpp" />
     <ClInclude Include="..\..\src\SmashBros\Menu\MenuManager.hpp" />
