@@ -31,6 +31,7 @@ namespace SmashBros
 
 			void addScreen(const fgl::String& name, BaseMenuScreen* screen);
 			void removeScreen(const fgl::String& name);
+			BaseMenuScreen* getScreen(const fgl::String& name) const;
 			void goToScreen(const fgl::String& name);
 			void goBack();
 
