@@ -5,16 +5,30 @@
 
 namespace SmashBros
 {
-	class MenuManager : public fgl::ScreenManager
+	namespace Menu
 	{
-	public:
-		MenuManager(fgl::AssetManager* assetManager);
-		virtual ~MenuManager();
+		struct MenuPathElement
+		{
+			fgl::String nextScreen;
+			fgl::Dictionary state;
+		};
 
-	private:
-		MenuLoadScreen* initialize(fgl::AssetManager* assetManager_arg);
+		typedef fgl::ArrayList<MenuPathElement> MenuPath;
 
-		fgl::AssetManager* assetManager;
-		MenuLoadScreen* loadScreen;
-	};
+		class MenuManager : public fgl::ScreenManager
+		{
+		public:
+			MenuManager(fgl::AssetManager* assetManager);
+			virtual ~MenuManager();
+
+			void setMenuPath(const MenuPath& menuPath);
+			MenuPath getMenuPath() const;
+
+		private:
+			MenuLoadScreen* initialize(fgl::AssetManager* assetManager_arg);
+
+			fgl::AssetManager* assetManager;
+			MenuLoadScreen* loadScreen;
+		};
+	}
 }
