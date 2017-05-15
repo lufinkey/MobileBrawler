@@ -3,65 +3,52 @@
 
 namespace SmashBros
 {
-	MenuLoad::MenuLoad(Window* window, const String&primaryDir)
+	MenuLoad::MenuLoad(MenuAssetManager* assetManager)
+		: assetManager(assetManager),
+		loadListener(nullptr),
+		characterselect_iconmask(nullptr),
+		stageselect_iconmask(nullptr),
+		stageselect_previewmask(nullptr)
 	{
-		loadListener = nullptr;
-		assetManager = new AssetManager(window, primaryDir);
-		primaryDirectory = primaryDir;
-		secondaryDirectory = "";
+		//
 	}
 	
-	MenuLoad::MenuLoad(Window* window, const String&primaryDir, const String&secondaryDir)
-	{
-		loadListener = nullptr;
-		ArrayList<String> secondaryDirs;
-		secondaryDirs.add(secondaryDir);
-		assetManager = new AssetManager(window, primaryDir, secondaryDirs);
-		primaryDirectory = primaryDir;
-		secondaryDirectory = secondaryDir;
-	}
-	
-	MenuLoad::~MenuLoad()
-	{
-		delete assetManager;
-	}
-	
-	void MenuLoad::setLoadListener(BatchLoaderEventListener*listener)
+	void MenuLoad::setLoadListener(fgl::BatchLoaderEventListener*listener)
 	{
 		loadListener = listener;
 	}
 	
-	AssetManager* MenuLoad::getAssetManager() const
+	MenuAssetManager* MenuLoad::getAssetManager() const
 	{
 		return assetManager;
 	}
 	
-	const Dictionary& MenuLoad::getMenuBarProperties() const
+	const fgl::Dictionary& MenuLoad::getMenuBarProperties() const
 	{
 		return properties_menuBar;
 	}
 	
-	const Dictionary& MenuLoad::getRulesBarProperties() const
+	const fgl::Dictionary& MenuLoad::getRulesBarProperties() const
 	{
 		return properties_rulesBar;
 	}
 	
-	const Dictionary& MenuLoad::getCharacterSelectPanelProperties() const
+	const fgl::Dictionary& MenuLoad::getCharacterSelectPanelProperties() const
 	{
 		return properties_charselectPanel;
 	}
 	
-	const Image& MenuLoad::getCharacterSelectIconMask() const
+	fgl::Image* MenuLoad::getCharacterSelectIconMask() const
 	{
 		return characterselect_iconmask;
 	}
 	
-	const Image& MenuLoad::getStageSelectIconMask() const
+	fgl::Image* MenuLoad::getStageSelectIconMask() const
 	{
 		return stageselect_iconmask;
 	}
 	
-	const Image& MenuLoad::getStageSelectPreviewMask() const
+	fgl::Image* MenuLoad::getStageSelectPreviewMask() const
 	{
 		return stageselect_previewmask;
 	}
@@ -73,72 +60,51 @@ namespace SmashBros
 		loadAssets();
 	}
 	
-	void MenuLoad::reload()
-	{
-		characterselect_iconmask.clear();
-		stageselect_iconmask.clear();
-		
-		properties_menuBar.clear();
-		properties_rulesBar.clear();
-		properties_charselectPanel.clear();
-		
-		loadIconMasks();
-		loadProperties();
-		
-		assetManager->reload();
-	}
-	
 	void MenuLoad::loadIconMasks()
 	{
 		//load character select icon mask
-		bool success = characterselect_iconmask.loadFromPath(FileTools::combinePathStrings(primaryDirectory,"characterselect/icon_mask.png"));
-		if(!success)
-		{
-			characterselect_iconmask.loadFromPath(FileTools::combinePathStrings(secondaryDirectory, "characterselect/icon_mask.png"));
-		}
+		assetManager->loadImage("characterselect/icon_mask.png");
+		characterselect_iconmask = assetManager->getImage("characterselect/icon_mask.png");
 		
 		//load stage select icon mask
-		success = stageselect_iconmask.loadFromPath(FileTools::combinePathStrings(primaryDirectory,"stageselect/icon_mask.png"));
-		if(!success)
-		{
-			stageselect_iconmask.loadFromPath(FileTools::combinePathStrings(secondaryDirectory, "stageselect/icon_mask.png"));
-		}
+		assetManager->loadImage("stageselect/icon_mask.png");
+		stageselect_iconmask = assetManager->getImage("stageselect/icon_mask.png");
 		
 		//load stage select preview mask
-		success = stageselect_previewmask.loadFromPath(FileTools::combinePathStrings(primaryDirectory,"stageselect/preview_mask.png"));
-		if(!success)
-		{
-			stageselect_previewmask.loadFromPath(FileTools::combinePathStrings(secondaryDirectory, "stageselect/preview_mask.png"));
-		}
+		assetManager->loadImage("stageselect/preview_mask.png");
+		stageselect_previewmask = assetManager->getImage("stageselect/preview_mask.png");
 	}
 	
 	void MenuLoad::loadProperties()
 	{
 		//load menu bar properties
-		bool success = Plist::loadFromPath(&properties_menuBar, FileTools::combinePathStrings(primaryDirectory,"elements/menu_bar.plist"));
-		if(!success)
+		FILE* menuBarFile = assetManager->openFile("elements/menu_bar.plist", "rb");
+		if(menuBarFile!=nullptr)
 		{
-			Plist::loadFromPath(&properties_menuBar, FileTools::combinePathStrings(secondaryDirectory, "elements/menu_bar.plist"));
+			fgl::Plist::loadFromFile(&properties_menuBar, menuBarFile);
+			fgl::FileTools::closeFile(menuBarFile);
 		}
 		
 		//load rules bar properties
-		success = Plist::loadFromPath(&properties_rulesBar, FileTools::combinePathStrings(primaryDirectory,"elements/rules_bar.plist"));
-		if(!success)
+		FILE* rulesBarFile = assetManager->openFile("elements/rules_bar.plist", "rb");
+		if(rulesBarFile!=nullptr)
 		{
-			Plist::loadFromPath(&properties_rulesBar, FileTools::combinePathStrings(secondaryDirectory, "elements/rules_bar.plist"));
+			fgl::Plist::loadFromFile(&properties_rulesBar, rulesBarFile);
+			fgl::FileTools::closeFile(rulesBarFile);
 		}
 		
 		//load character select panel properties
-		success = Plist::loadFromPath(&properties_charselectPanel, FileTools::combinePathStrings(primaryDirectory,"characterselect/panel.plist"));
-		if(!success)
+		FILE* charSelectPanelFile = assetManager->openFile("characterselect/panel.plist", "rb");
+		if(charSelectPanelFile!=nullptr)
 		{
-			Plist::loadFromPath(&properties_charselectPanel, FileTools::combinePathStrings(secondaryDirectory, "characterselect/panel.plist"));
+			fgl::Plist::loadFromFile(&properties_charselectPanel, charSelectPanelFile);
+			fgl::FileTools::closeFile(charSelectPanelFile);
 		}
 	}
 	
 	void MenuLoad::loadAssets()
 	{
-		BatchLoader* batchLoader = new BatchLoader(assetManager);
+		fgl::BatchLoader* batchLoader = new fgl::BatchLoader(assetManager);
 		if(loadListener!=nullptr)
 		{
 			batchLoader->addEventListener(loadListener);
@@ -212,7 +178,8 @@ namespace SmashBros
 		properties_rulesBar.clear();
 		properties_charselectPanel.clear();
 		
-		characterselect_iconmask.clear();
-		stageselect_iconmask.clear();
+		characterselect_iconmask = nullptr;
+		stageselect_iconmask = nullptr;
+		stageselect_previewmask = nullptr;
 	}
 }

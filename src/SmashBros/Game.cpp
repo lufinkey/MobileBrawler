@@ -7,6 +7,7 @@ namespace SmashBros
 {
 	Game::Game()
 	{
+		assetManager = nullptr;
 		smashData = nullptr;
 		menuLoad = nullptr;
 		moduleLoad = nullptr;
@@ -48,9 +49,14 @@ namespace SmashBros
 		setFPS(60);
 	}
 	
-	void Game::loadContent(AssetManager*assetManager)
+	void Game::loadContent(AssetManager* assetMgr)
 	{
-		menuLoad = new MenuLoad(getWindow(), "assets/menu");
+		fgl::String assetsRoot = fgl::FileTools::combinePathStrings(assetMgr->getRootDirectory(), "assets");
+		fgl::String menuAssetsRoot = fgl::FileTools::combinePathStrings(assetsRoot, "menu");
+
+		assetManager = new MenuAssetManager(getWindow(), menuAssetsRoot);
+
+		menuLoad = new MenuLoad(assetManager);
 		moduleLoad = new ModuleLoad(getWindow(), "assets/characters", "assets/stages");
 		smashData = new SmashData(getWindow(), menuLoad, moduleLoad);
 		
@@ -59,21 +65,23 @@ namespace SmashBros
 		
 		menuLoad->load();
 		
-		moduleLoad->setCharacterSelectIconMask(&menuLoad->getCharacterSelectIconMask());
-		moduleLoad->setStageSelectIconMask(&menuLoad->getStageSelectIconMask());
-		moduleLoad->setStageSelectPreviewMask(&menuLoad->getStageSelectPreviewMask());
+		moduleLoad->setCharacterSelectIconMask(menuLoad->getCharacterSelectIconMask());
+		moduleLoad->setStageSelectIconMask(menuLoad->getStageSelectIconMask());
+		moduleLoad->setStageSelectPreviewMask(menuLoad->getStageSelectPreviewMask());
 		moduleLoad->load();
-		
+
+		menuLoad->setLoadListener(nullptr);
 		delete loadListener;
 
 		titleScreen = new Menu::TitleScreen(*smashData);
 		menuScreenMgr = new ScreenManager(getWindow(), titleScreen);
 	}
 	
-	void Game::unloadContent(AssetManager*assetManager)
+	void Game::unloadContent(AssetManager* assetMgr)
 	{
 		moduleLoad->unload();
 		menuLoad->unload();
+		delete assetManager;
 	}
 	
 	void Game::update(ApplicationData appData)
