@@ -43,7 +43,7 @@ namespace SmashBros
 						size_t screenIndex = (getScreens().size()-1);
 						throw fgl::IllegalArgumentException("menuPath", (fgl::String)"screen at index "+screenIndex+" does not have a screen with the name \""+pathElement.nextScreen+"\"");
 					}
-					screen->goToScreen(pathElement.nextScreen, false);
+					screen->goToScreen(pathElement.nextScreen, nullptr);
 					screen = nextScreen;
 				}
 			}
