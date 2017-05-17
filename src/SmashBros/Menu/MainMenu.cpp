@@ -11,7 +11,7 @@ namespace SmashBros
 
 			groupButton = new MenuButton(assetManager, "buttons/main/group.png");
 			groupButton->setTapHandler([=]{
-				getScreenManager()->push(groupMenu);
+				goToScreen("Group");
 			});
 			groupButton->setLayoutRule(fgl::LAYOUTRULE_LEFT, 0.03, fgl::LAYOUTVALUE_RATIO);
 			groupButton->setLayoutRule(fgl::LAYOUTRULE_TOP, 0.187, fgl::LAYOUTVALUE_RATIO);
@@ -21,7 +21,7 @@ namespace SmashBros
 
 			soloButton = new MenuButton(assetManager, "buttons/main/solo.png");
 			soloButton->setTapHandler([=]{
-				getScreenManager()->push(soloMenu);
+				goToScreen("Solo");
 			});
 			soloButton->setLayoutRule(fgl::LAYOUTRULE_LEFT, 0.47, fgl::LAYOUTVALUE_RATIO);
 			soloButton->setLayoutRule(fgl::LAYOUTRULE_TOP, 0.266, fgl::LAYOUTVALUE_RATIO);
@@ -34,8 +34,8 @@ namespace SmashBros
 				getScreenManager()->pop(backTransition, 2000);
 			});
 			
-			groupMenu = new GroupMenu(smashData);
-			soloMenu = new SoloMenu(smashData);
+			addScreen("Group", new GroupMenu(smashData));
+			addScreen("Solo", new SoloMenu(smashData));
 		}
 		
 		MainMenu::~MainMenu()
@@ -43,8 +43,6 @@ namespace SmashBros
 			delete groupButton;
 			delete soloButton;
 			delete backTransition;
-			delete groupMenu;
-			delete soloMenu;
 		}
 	}
 }

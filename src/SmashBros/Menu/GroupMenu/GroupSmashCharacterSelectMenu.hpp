@@ -27,8 +27,6 @@ namespace SmashBros
 
 			StockWinCondition* stockWinCondition;
 			TimeLimitWinCondition* timeLimitWinCondition;
-
-			GroupSmashStageSelectMenu* groupSmashStageSelectMenu;
 		};
 	}
 }

@@ -32,13 +32,12 @@ namespace SmashBros
 			rulesBar->setLayoutRule(LAYOUTRULE_BOTTOM, headerbarBottom, LAYOUTVALUE_RATIO);
 			getElement()->addChildElement(rulesBar);
 			
-			groupSmashStageSelectMenu = new GroupSmashStageSelectMenu(smashData, groupSmashData);
+			addScreen("StageSelect", new GroupSmashStageSelectMenu(smashData, groupSmashData));
 		}
 		
 		GroupSmashCharacterSelectMenu::~GroupSmashCharacterSelectMenu()
 		{
 			delete rulesBar;
-			delete groupSmashStageSelectMenu;
 		}
 		
 		void GroupSmashCharacterSelectMenu::onWillAppear(const Transition*transition)
@@ -56,7 +55,7 @@ namespace SmashBros
 		
 		void GroupSmashCharacterSelectMenu::proceedToFight()
 		{
-			getScreenManager()->push(groupSmashStageSelectMenu);
+			goToScreen("StageSelect");
 		}
 	}
 }

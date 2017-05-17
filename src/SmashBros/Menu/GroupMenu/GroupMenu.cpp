@@ -11,7 +11,7 @@ namespace SmashBros
 			
 			smashButton = new MenuButton(assetManager, "buttons/group/smash.png");
 			smashButton->setTapHandler([=]{
-				getScreenManager()->push(smashMenu);
+				goToScreen("Smash");
 			});
 			smashButton->setLayoutRule(fgl::LAYOUTRULE_LEFT, 0.05, fgl::LAYOUTVALUE_RATIO);
 			smashButton->setLayoutRule(fgl::LAYOUTRULE_TOP, 0.2, fgl::LAYOUTVALUE_RATIO);
@@ -28,7 +28,7 @@ namespace SmashBros
 			
 			rulesButton = new MenuButton(assetManager, "buttons/group/rules.png");
 			rulesButton->setTapHandler([=]{
-				getScreenManager()->push(rulesMenu);
+				goToScreen("Rules");
 			});
 			rulesButton->setLayoutRule(fgl::LAYOUTRULE_LEFT, 0.275, fgl::LAYOUTVALUE_RATIO);
 			rulesButton->setLayoutRule(fgl::LAYOUTRULE_TOP, 0.6, fgl::LAYOUTVALUE_RATIO);
@@ -39,8 +39,8 @@ namespace SmashBros
 			groupSmashData = new GroupSmashData();
 			//TODO make the character select screen be loaded when the screen fades to black
 			//(create an intermediate screen for while it's loading)
-			smashMenu = new GroupSmashCharacterSelectMenu(smashData, *groupSmashData);
-			rulesMenu = new GroupRulesMenu(smashData, *groupSmashData);
+			addScreen("Smash", new GroupSmashCharacterSelectMenu(smashData, *groupSmashData));
+			addScreen("Rules", new GroupRulesMenu(smashData, *groupSmashData));
 		}
 		
 		GroupMenu::~GroupMenu()
@@ -48,8 +48,7 @@ namespace SmashBros
 			delete smashButton;
 			delete specialSmashButton;
 			delete rulesButton;
-			
-			delete smashMenu;
+
 			delete groupSmashData;
 		}
 	}

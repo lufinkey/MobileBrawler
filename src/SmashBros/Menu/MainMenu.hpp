@@ -20,9 +20,6 @@ namespace SmashBros
 			MenuButton* soloButton;
 
 			FadeColorTransition* backTransition;
-
-			GroupMenu* groupMenu;
-			SoloMenu* soloMenu;
 		};
 	}
 }

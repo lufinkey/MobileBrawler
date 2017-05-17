@@ -22,9 +22,6 @@ namespace SmashBros
 			MenuButton* rulesButton;
 			
 			GroupSmashData* groupSmashData;
-			
-			GroupSmashCharacterSelectMenu* smashMenu;
-			GroupRulesMenu* rulesMenu;
 		};
 	}
 }
