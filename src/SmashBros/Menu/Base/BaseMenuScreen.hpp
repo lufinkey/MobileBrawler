@@ -33,7 +33,7 @@ namespace SmashBros
 			void removeScreen(const fgl::String& name);
 			BaseMenuScreen* getScreen(const fgl::String& name) const;
 			const fgl::BasicDictionary<fgl::String, BaseMenuScreen*>& getScreens() const;
-			void goToScreen(const fgl::String& name, const fgl::Transition* transition=fgl::ScreenManager::defaultPushTransition);
+			void goToScreen(const fgl::String& name, const fgl::Transition* transition=fgl::ScreenManager::defaultPushTransition, unsigned long long duration=fgl::Transition::defaultDuration);
 			void goBack();
 
 			virtual fgl::Dictionary getState() const;

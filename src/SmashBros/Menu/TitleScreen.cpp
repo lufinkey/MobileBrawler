@@ -28,7 +28,8 @@ namespace SmashBros
 			logo->setLayoutRule(LAYOUTRULE_BOTTOM, 0, LAYOUTVALUE_RATIO);
 			getElement()->addChildElement(logo);
 			
-			mainMenu = new MainMenu(smashData);
+			auto mainMenu = new MainMenu(smashData);
+			addScreen("MainMenu", mainMenu);
 			transition = new FadeColorTransition(Color::WHITE, 0.6);
 			
 			Vector2d size = getSize();
@@ -40,7 +41,6 @@ namespace SmashBros
 		
 		TitleScreen::~TitleScreen()
 		{
-			delete mainMenu;
 			delete transition;
 			logo->removeFromParentElement();
 			delete logo;
@@ -56,7 +56,7 @@ namespace SmashBros
 				ScreenManager* screenMgr = getScreenManager();
 				if(screenMgr!=nullptr)
 				{
-					screenMgr->push(mainMenu, transition, 2000);
+					goToScreen("MainMenu", transition, 2000);
 				}
 			}
 		}

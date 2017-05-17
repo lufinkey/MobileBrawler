@@ -139,11 +139,11 @@ namespace SmashBros
 			return screens;
 		}
 
-		void BaseMenuScreen::goToScreen(const fgl::String& name, const fgl::Transition* transition)
+		void BaseMenuScreen::goToScreen(const fgl::String& name, const fgl::Transition* transition, unsigned long long duration)
 		{
 			if(auto screen = screens.get(name, nullptr))
 			{
-				getScreenManager()->push(screen, transition);
+				getScreenManager()->push(screen, transition, duration);
 			}
 			else
 			{
