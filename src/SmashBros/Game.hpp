@@ -19,7 +19,7 @@ namespace SmashBros
 
 		Menu::TitleScreen* titleScreen;
 		ScreenManager* menuScreenMgr;
-		MenuAssetManager* assetManager;
+		fgl::AssetManager* menuAssetManager;
 		
 	public:
 		Game();

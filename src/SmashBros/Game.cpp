@@ -7,7 +7,7 @@ namespace SmashBros
 {
 	Game::Game()
 	{
-		assetManager = nullptr;
+		menuAssetManager = nullptr;
 		smashData = nullptr;
 		menuLoad = nullptr;
 		moduleLoad = nullptr;
@@ -54,9 +54,9 @@ namespace SmashBros
 		fgl::String assetsRoot = fgl::FileTools::combinePathStrings(assetMgr->getRootDirectory(), "assets");
 		fgl::String menuAssetsRoot = fgl::FileTools::combinePathStrings(assetsRoot, "menu");
 
-		assetManager = new MenuAssetManager(getWindow(), menuAssetsRoot);
+		menuAssetManager = new fgl::AssetManager(getWindow(), menuAssetsRoot);
 
-		menuLoad = new MenuLoad(assetManager);
+		menuLoad = new MenuLoad(menuAssetManager);
 		moduleLoad = new ModuleLoad(getWindow(), "assets/characters", "assets/stages");
 		smashData = new SmashData(getWindow(), menuLoad, moduleLoad);
 		
@@ -81,7 +81,7 @@ namespace SmashBros
 	{
 		moduleLoad->unload();
 		menuLoad->unload();
-		delete assetManager;
+		delete menuAssetManager;
 	}
 	
 	void Game::update(ApplicationData appData)

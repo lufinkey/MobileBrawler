@@ -89,14 +89,12 @@ namespace SmashLib
 		}
 	}
 	
-	void CharacterLoader::loadIcons(const Image& compositeMask)
+	void CharacterLoader::loadIcons(const Image* compositeMask)
 	{
 		for(unsigned int i=0; i<characters.size(); i++)
 		{
 			String iconPath = characters.get(i).getPath() + "/icon.png";
-			//assetManager->loadTexture(iconPath, compositeMask);
-			//TODO make some way to save composite masks on reload
-			assetManager->loadTexture(iconPath);
+			assetManager->loadMaskedTexture(iconPath, compositeMask);
 		}
 	}
 	
@@ -109,7 +107,7 @@ namespace SmashLib
 		}
 	}
 	
-	void CharacterLoader::reloadAssets(const Image&iconMask)
+	void CharacterLoader::reloadAssets(const Image* iconMask)
 	{
 		assetManager->unload();
 		loadIcons(iconMask);

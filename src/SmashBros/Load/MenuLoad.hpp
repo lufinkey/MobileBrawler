@@ -1,18 +1,18 @@
 
 #pragma once
 
-#include "MenuAssetManager.hpp"
+#include <GameLibrary/GameLibrary.hpp>
 
 namespace SmashBros
 {
 	class MenuLoad
 	{
 	public:
-		MenuLoad(MenuAssetManager* assetManager);
+		MenuLoad(fgl::AssetManager* assetManager);
 		
 		void setLoadListener(fgl::BatchLoaderEventListener*listener);
 		
-		MenuAssetManager* getAssetManager() const;
+		fgl::AssetManager* getAssetManager() const;
 		const fgl::Dictionary& getMenuBarProperties() const;
 		const fgl::Dictionary& getRulesBarProperties() const;
 		const fgl::Dictionary& getCharacterSelectPanelProperties() const;
@@ -25,7 +25,7 @@ namespace SmashBros
 		void unload();
 
 	private:
-		MenuAssetManager* assetManager;
+		fgl::AssetManager* assetManager;
 		fgl::BatchLoaderEventListener* loadListener;
 
 		fgl::Dictionary properties_menuBar;

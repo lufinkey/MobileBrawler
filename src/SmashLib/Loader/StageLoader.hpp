@@ -21,10 +21,10 @@ namespace SmashLib
 		
 		void addPath(const fgl::String&path);
 		
-		void loadIcons(const fgl::Image&compositeMask=fgl::Image());
-		void loadPreviews(const fgl::Image&compositeMask=fgl::Image());
+		void loadIcons(const fgl::Image* compositeMask=nullptr);
+		void loadPreviews(const fgl::Image* compositeMask=nullptr);
 		
-		void reloadAssets(const fgl::Image&iconMask=fgl::Image(), const fgl::Image&previewMask=fgl::Image());
+		void reloadAssets(const fgl::Image* iconMask=nullptr, const fgl::Image* previewMask=nullptr);
 		
 		const fgl::ArrayList<fgl::String>& getPaths() const;
 		const fgl::ArrayList<StageInfo>& getStages() const;

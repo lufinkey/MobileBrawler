@@ -63,29 +63,25 @@ namespace SmashLib
 		}
 	}
 	
-	void StageLoader::loadIcons(const Image&compositeMask)
+	void StageLoader::loadIcons(const Image* compositeMask)
 	{
 		for(unsigned int i=0; i<stages.size(); i++)
 		{
 			String iconPath = stages.get(i).getPath() + "/icon.png";
-			//assetManager->loadTexture(iconPath, compositeMask);
-			//TODO add some way to save composite masks when reloading
-			assetManager->loadTexture(iconPath);
+			assetManager->loadMaskedTexture(iconPath, compositeMask);
 		}
 	}
 	
-	void StageLoader::loadPreviews(const Image&compositeMask)
+	void StageLoader::loadPreviews(const Image* compositeMask)
 	{
 		for(unsigned int i=0; i<stages.size(); i++)
 		{
 			String iconPath = stages.get(i).getPath() + "/preview.png";
-			//assetManager->loadTexture(iconPath, compositeMask);
-			//TODO add some way to save composite masks when reloading
-			assetManager->loadTexture(iconPath);
+			assetManager->loadMaskedTexture(iconPath, compositeMask);
 		}
 	}
 	
-    void StageLoader::reloadAssets(const Image&iconMask, const Image&previewMask)
+    void StageLoader::reloadAssets(const Image* iconMask, const Image* previewMask)
     {
         assetManager->unload();
 		loadIcons(iconMask);

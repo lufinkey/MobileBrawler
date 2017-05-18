@@ -16,10 +16,10 @@ namespace SmashLib
 		void addPath(const fgl::String&path);
 		void reloadPaths();
 		
-		void loadIcons(const fgl::Image&compositeMask=fgl::Image());
+		void loadIcons(const fgl::Image* compositeMask=nullptr);
 		void loadPortraits();
 		
-		void reloadAssets(const fgl::Image&iconMask=fgl::Image());
+		void reloadAssets(const fgl::Image* iconMask=nullptr);
 		
 		const fgl::ArrayList<fgl::String>& getPaths() const;
 		const fgl::ArrayList<CharacterInfo>& getCharacters() const;

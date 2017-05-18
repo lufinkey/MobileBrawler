@@ -59,68 +59,18 @@ namespace SmashBros
 	void ModuleLoad::load()
 	{
 		//load character data
-		if(characterselect_iconmask!=nullptr)
-		{
-			characterLoader->loadIcons(*characterselect_iconmask);
-		}
-		else
-		{
-			characterLoader->loadIcons();
-		}
+		characterLoader->loadIcons(characterselect_iconmask);
 		characterLoader->loadPortraits();
 		
 		//load stage data
-		if(stageselect_iconmask!=nullptr)
-		{
-			stageLoader->loadIcons(*stageselect_iconmask);
-		}
-		else
-		{
-			stageLoader->loadIcons();
-		}
-		if(stageselect_previewmask!=nullptr)
-		{
-			stageLoader->loadPreviews(*stageselect_previewmask);
-		}
-		else
-		{
-			stageLoader->loadPreviews();
-		}
+		stageLoader->loadIcons(stageselect_iconmask);
+		stageLoader->loadPreviews(stageselect_previewmask);
 	}
 	
 	void ModuleLoad::reload()
 	{
-		if(characterselect_iconmask!=nullptr)
-		{
-			characterLoader->reloadAssets(*characterselect_iconmask);
-		}
-		else
-		{
-			characterLoader->reloadAssets();
-		}
-		
-		if(stageselect_iconmask!=nullptr)
-		{
-			if(stageselect_previewmask != nullptr)
-			{
-				stageLoader->reloadAssets(*stageselect_iconmask, *stageselect_previewmask);
-			}
-			else
-			{
-				stageLoader->reloadAssets(*stageselect_iconmask);
-			}
-		}
-		else
-		{
-			if(stageselect_previewmask != nullptr)
-			{
-				stageLoader->reloadAssets(Image(), *stageselect_previewmask);
-			}
-			else
-			{
-				stageLoader->reloadAssets();
-			}
-		}
+		characterLoader->reloadAssets(characterselect_iconmask);
+		stageLoader->reloadAssets(stageselect_iconmask, stageselect_previewmask);
 	}
 	
 	void ModuleLoad::unload()

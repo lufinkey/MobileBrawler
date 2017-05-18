@@ -3,7 +3,7 @@
 
 namespace SmashBros
 {
-	MenuLoad::MenuLoad(MenuAssetManager* assetManager)
+	MenuLoad::MenuLoad(fgl::AssetManager* assetManager)
 		: assetManager(assetManager),
 		loadListener(nullptr),
 		characterselect_iconmask(nullptr),
@@ -18,7 +18,7 @@ namespace SmashBros
 		loadListener = listener;
 	}
 	
-	MenuAssetManager* MenuLoad::getAssetManager() const
+	fgl::AssetManager* MenuLoad::getAssetManager() const
 	{
 		return assetManager;
 	}
