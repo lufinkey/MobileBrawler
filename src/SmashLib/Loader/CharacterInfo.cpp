@@ -21,6 +21,24 @@ namespace SmashLib
 		bool success = Plist::loadFromPath(&dict, FileTools::combinePathStrings(folderpath, "Info.plist"), error);
 		if(success)
 		{
+			Any val_identifier = dict.get("identifier", Any());
+			if(val_identifier.isEmpty())
+			{
+				if(error!=nullptr)
+				{
+					*error = "Plist does not contain value for \"identifier\"";
+				}
+				return false;
+			}
+			else if(!val_identifier.is<String>())
+			{
+				if(error!=nullptr)
+				{
+					*error = "Incorrect value type for key \"identifier\". Value should be a string";
+				}
+				return false;
+			}
+
 			Any val_name = dict.get("name", Any());
 			if(val_name.isEmpty())
 			{
@@ -100,6 +118,7 @@ namespace SmashLib
 				//TODO do something with the costumes
 			}
 			
+			identifier = val_identifier.as<String>();
 			name = val_name.as<String>();
 			creator = val_creator.as<String>();
 			version = val_version.as<String>();
@@ -114,9 +133,10 @@ namespace SmashLib
 		return false;
 	}
 	
-	bool CharacterInfo::saveToPath(const String&path, String*error) const
+	bool CharacterInfo::saveToPath(const String& path, String* error) const
 	{
 		Dictionary dict;
+		dict.set("identifier", identifier);
 		dict.set("name", name);
 		dict.set("creator", creator);
 		dict.set("version", version);
@@ -127,6 +147,11 @@ namespace SmashLib
 	const String& CharacterInfo::getPath() const
 	{
 		return path;
+	}
+
+	const String& CharacterInfo::getIdentifier() const
+	{
+		return identifier;
 	}
 	
 	const String& CharacterInfo::getName() const
@@ -144,23 +169,28 @@ namespace SmashLib
 		return minsmashversion;
 	}
 	
-	void CharacterInfo::setPath(const String&folderpath)
+	void CharacterInfo::setPath(const String& path_arg)
 	{
-		path = folderpath;
+		path = path_arg;
+	}
+
+	void CharacterInfo::setIdentifier(const String& identifier_arg)
+	{
+		identifier = identifier_arg;
 	}
 	
-	void CharacterInfo::setName(const String&nm)
+	void CharacterInfo::setName(const String& name_arg)
 	{
-		name = nm;
+		name = name_arg;
 	}
 	
-	void CharacterInfo::setCreator(const String&creatr)
+	void CharacterInfo::setCreator(const String& creator_arg)
 	{
-		creator = creatr;
+		creator = creator_arg;
 	}
 	
-	void CharacterInfo::setMinimumSmashVersion(const String&minver)
+	void CharacterInfo::setMinimumSmashVersion(const String& minsmashversion_arg)
 	{
-		minsmashversion = minver;
+		minsmashversion = minsmashversion_arg;
 	}
 }
