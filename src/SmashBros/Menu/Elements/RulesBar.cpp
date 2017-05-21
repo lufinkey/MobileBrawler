@@ -12,9 +12,7 @@ namespace SmashBros
 			stock = stockWinCondition;
 			timeLimit = timeLimitWinCondition;
 			
-			fgl::String bgImagePath = "elements/rules_bar.png";
-			assetManager->loadTexture(bgImagePath);
-			getBackgroundElement()->setImage(assetManager->getTexture(bgImagePath));
+			getBackgroundElement()->setImage(assetManager->loadTexture("elements/rules_bar.png"));
 			
 			setValue(3);
 			setMinValue(1);

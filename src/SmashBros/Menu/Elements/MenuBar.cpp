@@ -7,10 +7,8 @@ namespace SmashBros
 	{
 		MenuBar::MenuBar(fgl::AssetManager* assetManager, const fgl::String& label, const fgl::Dictionary& properties)
 		{
-			assetManager->loadTexture("elements/menu_bar.png");
-			
 			backgroundElement = new fgl::ImageElement();
-			backgroundElement->setImage(assetManager->getTexture("elements/menu_bar.png"));
+			backgroundElement->setImage(assetManager->loadTexture("elements/menu_bar.png"));
 			backgroundElement->setLayoutRule(fgl::LAYOUTRULE_LEFT, 0);
 			backgroundElement->setLayoutRule(fgl::LAYOUTRULE_TOP, 0);
 			backgroundElement->setLayoutRule(fgl::LAYOUTRULE_RIGHT, 0);
