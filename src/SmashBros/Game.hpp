@@ -2,33 +2,26 @@
 #pragma once
 
 #include <GameLibrary/GameLibrary.hpp>
-#include "Menu/TitleScreen.hpp"
-#include "Load/MenuLoad.hpp"
-#include "Load/ModuleLoad.hpp"
+#include "Menu/MenuManager.hpp"
 
 namespace SmashBros
 {
-	using namespace fgl;
-	
 	class Game : public fgl::Application
 	{
-	private:
-		SmashData* smashData;
-		MenuLoad* menuLoad;
-		ModuleLoad* moduleLoad;
-
-		Menu::TitleScreen* titleScreen;
-		ScreenManager* menuScreenMgr;
-		fgl::AssetManager* menuAssetManager;
-		
 	public:
 		Game();
 		virtual ~Game();
 
 		virtual void initialize() override;
-		virtual void loadContent(AssetManager*assetManager) override;
-		virtual void unloadContent(AssetManager*assetManager) override;
-		virtual void update(ApplicationData appData) override;
-		virtual void draw(ApplicationData appData, Graphics graphics) const override;
+		virtual void loadContent(fgl::AssetManager*assetManager) override;
+		virtual void unloadContent(fgl::AssetManager*assetManager) override;
+		virtual void update(fgl::ApplicationData appData) override;
+		virtual void draw(fgl::ApplicationData appData, fgl::Graphics graphics) const override;
+
+	private:
+		ModuleManager* moduleManager;
+
+		fgl::ScreenManager* screenManager;
+		Menu::MenuManager* menuManager;
 	};
 }

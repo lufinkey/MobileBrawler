@@ -7,29 +7,30 @@ namespace SmashBros
 	{
 		namespace StageSelect
 		{
-			StageIcon::StageIcon(StageInfo&stageInfo, double x, double y, AssetManager*assetManager)
+			StageIcon::StageIcon(MenuData* menuData, StageInfo stageInfo)
+				: stageInfo(stageInfo)
 			{
-				info = &stageInfo;
-				String icon_path = stageInfo.getPath() + "/icon.png";
-				addAnimation("default", new Animation(1, assetManager, icon_path));
-				changeAnimation("default", Animation::FORWARD);
+				auto assetManager = menuData->getAssetManager();
+
+				auto texture = menuData->getModuleManager()->getStageIcon(stageInfo.getIdentifier());
+				setBackgroundImage(texture, fgl::ButtonElement::BUTTONSTATE_NORMAL);
+
+				overlayElement = new fgl::ImageElement(assetManager->loadTexture("stageselect/icon_frame.png"), fgl::ImageElement::DISPLAY_FIT_CENTER);
+				overlayElement->setLayoutRule(fgl::LAYOUTRULE_LEFT, 0);
+				overlayElement->setLayoutRule(fgl::LAYOUTRULE_TOP, 0);
+				overlayElement->setLayoutRule(fgl::LAYOUTRULE_RIGHT, 0);
+				overlayElement->setLayoutRule(fgl::LAYOUTRULE_BOTTOM, 0);
+				addChildElement(overlayElement);
 			}
 			
 			StageIcon::~StageIcon()
 			{
-				//
+				delete overlayElement;
 			}
 			
-			void StageIcon::draw(ApplicationData appData, Graphics graphics) const
+			const StageInfo& StageIcon::getStageInfo() const
 			{
-				SpriteActor::draw(appData, graphics);
-				TextureImage* icon_frame = appData.getAssetManager()->getTexture("stageselect/icon_frame.png");
-				graphics.drawImage(icon_frame, getFrame());
-			}
-			
-			StageInfo* StageIcon::getStageInfo() const
-			{
-				return info;
+				return stageInfo;
 			}
 		}
 	}

@@ -5,9 +5,9 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-		SoloMenu::SoloMenu(const SmashData& smashData) : SmashBros::Menu::BaseMenuScreen(smashData)
+		SoloMenu::SoloMenu(MenuData* menuData) : SmashBros::Menu::BaseMenuScreen(menuData)
 		{
-			trainingButton = new MenuButton(smashData.getMenuData()->getAssetManager(), "buttons/solo/training.png");
+			trainingButton = new MenuButton(menuData->getAssetManager(), "buttons/solo/training.png");
 			trainingButton->setTapHandler([] {
 				//TODO go to training screen
 			});

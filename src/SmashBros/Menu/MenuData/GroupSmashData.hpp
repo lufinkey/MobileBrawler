@@ -1,9 +1,9 @@
 
 #pragma once
 
-#include <SmashLib/SmashLib.hpp>
-
-using namespace SmashLib;
+#include <SmashBros/Game/Rules/Rules.hpp>
+#include <SmashBros/Game/Rules/WinCondition/StockWinCondition.hpp>
+#include <SmashBros/Game/Rules/WinCondition/TimeLimitWinCondition.hpp>
 
 namespace SmashBros
 {

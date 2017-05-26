@@ -2,10 +2,7 @@
 #pragma once
 
 #include <GameLibrary/GameLibrary.hpp>
-#include <SmashLib/SmashLib.hpp>
-
-using namespace fgl;
-using namespace SmashLib;
+#include "../../MenuData/MenuData.hpp"
 
 namespace SmashBros
 {
@@ -15,29 +12,39 @@ namespace SmashBros
 		
 		namespace CharacterSelect
 		{
-			class PlayerChip : public SpriteActor
+			class PlayerChip : public fgl::TouchElement
 			{
-			private:
-				unsigned int playerNum;
-				CharacterSelectScreen*charSelectScreen;
-				
-				bool dragging;
-				unsigned int dragTouchID;
-				Vector2d dragOffset;
-				
 			public:
-				PlayerChip(unsigned int playerNum, CharacterSelectScreen*charSelectScreen, double x, double y, AssetManager*assetManager);
+				PlayerChip(CharacterSelectScreen*charSelectScreen, MenuData* menuData, size_t playerIndex);
 				virtual ~PlayerChip();
-				
-				virtual void onMousePress(const ActorMouseEvent& evt) override;
-				virtual void update(ApplicationData appData) override;
-				
-				void updateDragging(ApplicationData appData, Graphics graphics);
-				void grabChip(const ApplicationData&appData, unsigned int touchID);
-				void releaseChip();
+
+				virtual void update(fgl::ApplicationData appData) override;
 				
 				bool isDragging() const;
-				unsigned int getPlayerNum() const;
+				size_t getPlayerIndex() const;
+
+			protected:
+				virtual void onTouchDown(const TouchEvent& touchEvent) override;
+				virtual bool onTouchMove(const TouchEvent& touchEvent) override;
+				virtual void onTouchUpInside(const TouchEvent& touchEvent) override;
+				virtual void onTouchUpOutside(const TouchEvent& touchEvent) override;
+				virtual void onTouchCancel(const TouchEvent& touchEvent) override;
+
+				void grabChip(const TouchEvent& touchEvent);
+				void releaseChip();
+
+			private:
+				CharacterSelectScreen* charSelectScreen;
+				size_t playerIndex;
+
+				bool dragging;
+				unsigned int dragTouchID;
+				fgl::Vector2d dragOffset;
+
+				fgl::TextureImage* playerChipTexture;
+				fgl::TextureImage* cpuChipTexture;
+
+				fgl::ImageElement* chipImageElement;
 			};
 		}
 	}

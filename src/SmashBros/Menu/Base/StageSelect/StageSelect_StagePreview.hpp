@@ -2,10 +2,7 @@
 #pragma once
 
 #include <GameLibrary/GameLibrary.hpp>
-#include <SmashLib/SmashLib.hpp>
-
-using namespace fgl;
-using namespace SmashLib;
+#include "../../MenuData/MenuData.hpp"
 
 namespace SmashBros
 {
@@ -13,19 +10,18 @@ namespace SmashBros
 	{
 		namespace StageSelect
 		{
-			class StagePreview : public ImageElement
+			class StagePreview : public fgl::ImageElement
 			{
-			private:
-				StageInfo* info;
-				AssetManager* assetManager;
-				
 			public:
-				explicit StagePreview(AssetManager*assetManager);
-				StagePreview(const RectangleD&frame, AssetManager*assetManager);
+				explicit StagePreview(MenuData* menuData);
 				virtual ~StagePreview();
 				
-				void setStageInfo(StageInfo*);
+				void setStageInfo(StageInfo* stageInfo);
 				StageInfo* getStageInfo() const;
+
+			private:
+				MenuData* menuData;
+				StageInfo* stageInfo;
 			};
 		}
 	}

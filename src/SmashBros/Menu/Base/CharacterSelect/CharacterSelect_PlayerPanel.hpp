@@ -2,10 +2,7 @@
 #pragma once
 
 #include <GameLibrary/GameLibrary.hpp>
-#include <SmashLib/SmashLib.hpp>
-
-using namespace fgl;
-using namespace SmashLib;
+#include "../../MenuData/MenuData.hpp"
 
 namespace SmashBros
 {
@@ -15,43 +12,44 @@ namespace SmashBros
 		
 		namespace CharacterSelect
 		{
-			class PlayerPanel : public SpriteActor
+			class PlayerPanel : public fgl::TouchElement
 			{
 				friend class ::SmashBros::Menu::CharacterSelectScreen;
-			private:
-				unsigned int playerNum;
-				
-				AutoLayoutManager autoLayoutMgr;
-				
-				SpriteActor* portrait;
-				Animation* portrait_anim;
-				SpriteActor* overlay;
-				TextActor* namebox;
-				WireframeActor* tapRegion_mode;
-				
-				CharacterSelectScreen*charSelectScreen;
-				
-				void applyProperties(const Dictionary&properties);
-				
-			protected:
-				AutoLayoutManager portraitLayoutMgr;
-				AutoLayoutManager overlayLayoutMgr;
-				AutoLayoutManager nameboxLayoutMgr;
-				
-				static void applyPlacementDict(const Dictionary&dict, AutoLayoutManager*layoutMgr);
-				
 			public:
-				PlayerPanel(unsigned int playerNum, CharacterSelectScreen*charSelectScreen, double x, double y, const Dictionary&properties, AssetManager*assetManager);
+				PlayerPanel(CharacterSelectScreen* charSelectScreen, MenuData* menuData, size_t playerIndex);
+				PlayerPanel(CharacterSelectScreen* charSelectScreen, MenuData* menuData, size_t playerIndex, const fgl::Dictionary& properties);
 				virtual ~PlayerPanel();
 				
-				virtual void updateSize() override;
+				virtual void update(fgl::ApplicationData appData) override;
 				
-				virtual void update(ApplicationData appData) override;
-				virtual void draw(ApplicationData appData, Graphics graphics) const override;
+				size_t getPlayerIndex() const;
 				
-				unsigned int getPlayerNum() const;
-				
-				void applyCharacterInfo(CharacterInfo*characterInfo);
+				void applyCharacterInfo(const CharacterInfo* characterInfo);
+
+				static fgl::Dictionary getDefaultProperties(fgl::AssetManager* assetManager);
+
+			protected:
+				virtual void onTouchUpInside(const TouchEvent& event) override;
+
+			private:
+				void applyProperties(const fgl::Dictionary& dict);
+
+				CharacterSelectScreen* charSelectScreen;
+				MenuData* menuData;
+				size_t playerIndex;
+
+				fgl::TextureImage* humanBackground;
+				fgl::TextureImage* cpuBackground;
+				fgl::TextureImage* offBackground;
+
+				fgl::TextureImage* humanOverlay;
+				fgl::TextureImage* cpuOverlay;
+				fgl::TextureImage* offOverlay;
+
+				fgl::ImageElement* backgroundElement;
+				fgl::ImageElement* portraitElement;
+				fgl::ImageElement* overlayElement;
+				fgl::TextElement* nameLabel;
 			};
 		}
 	}

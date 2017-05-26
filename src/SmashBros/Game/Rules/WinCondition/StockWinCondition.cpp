@@ -1,7 +1,7 @@
 
 #include "StockWinCondition.hpp"
 
-namespace SmashLib
+namespace SmashBros
 {
 	StockWinCondition::StockWinCondition()
 	{

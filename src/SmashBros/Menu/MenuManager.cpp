@@ -6,30 +6,48 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-		MenuManager::MenuManager(fgl::AssetManager* assetManager_arg)
-			: ScreenManager(initialize(assetManager_arg))
+		MenuManager::MenuManager(fgl::AssetManager* parentAssetManager, ModuleManager* moduleManager)
+			: ScreenManager(initialize(parentAssetManager, moduleManager)),
+			titleScreen(nullptr),
+			menuData(nullptr)
 		{
 			//
 		}
 
-		MenuLoadScreen* MenuManager::initialize(fgl::AssetManager* assetManager_arg)
+		fgl::Screen* MenuManager::initialize(fgl::AssetManager* parentAssetManager, ModuleManager* moduleManager_arg)
 		{
-			auto window = assetManager_arg->getWindow();
-			auto rootDir = assetManager_arg->getRootDirectory();
+			auto window = parentAssetManager->getWindow();
+			auto rootDir = parentAssetManager->getRootDirectory();
 			rootDir = fgl::FileTools::combinePathStrings(rootDir, "assets/menu");
+
 			assetManager = new fgl::AssetManager(window, rootDir);
-			loadScreen = new MenuLoadScreen(assetManager);
-			return loadScreen;
+			moduleManager = moduleManager_arg;
+			emptyScreen = new fgl::Screen();
+
+			return emptyScreen;
 		}
 
 		MenuManager::~MenuManager()
 		{
-			delete loadScreen;
+			delete emptyScreen;
+			if(titleScreen!=nullptr)
+			{
+				delete titleScreen;
+			}
+			if(menuData!=nullptr)
+			{
+				delete menuData;
+			}
+
 			delete assetManager;
 		}
 
 		void MenuManager::setMenuPath(const MenuPath& menuPath)
 		{
+			if(getScreens()[0]==emptyScreen)
+			{
+				throw fgl::IllegalStateException("cannot set the menuPath before the MenuManager has loaded");
+			}
 			popToRoot(nullptr);
 			BaseMenuScreen* screen = static_cast<BaseMenuScreen*>(getScreens()[0]);
 			for(auto& pathElement : menuPath)
@@ -51,6 +69,11 @@ namespace SmashBros
 
 		MenuPath MenuManager::getMenuPath() const
 		{
+			if(getScreens()[0]==emptyScreen)
+			{
+				return MenuPath();
+			}
+
 			MenuPath menuPath;
 			auto& screens = getScreens();
 			menuPath.reserve(screens.size());
@@ -76,6 +99,37 @@ namespace SmashBros
 				screenIndex++;
 			}
 			return menuPath;
+		}
+
+		void MenuManager::load()
+		{
+			if(menuData!=nullptr)
+			{
+				return;
+			}
+
+			//TODO add some sort of loading animation or some shit idk
+			moduleManager->loadAssets();
+			menuData = new MenuData(assetManager, moduleManager);
+			titleScreen = new TitleScreen(menuData);
+
+			set({titleScreen}, nullptr);
+		}
+
+		void MenuManager::unload()
+		{
+			if(menuData==nullptr)
+			{
+				return;
+			}
+
+			delete titleScreen;
+			titleScreen = nullptr;
+			delete menuData;
+			menuData = nullptr;
+			moduleManager->unloadAssets();
+
+			set({emptyScreen}, nullptr);
 		}
 	}
 }

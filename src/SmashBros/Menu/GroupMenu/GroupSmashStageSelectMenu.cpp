@@ -5,10 +5,9 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-		GroupSmashStageSelectMenu::GroupSmashStageSelectMenu(const SmashData&smashData, const GroupSmashData&groupSmashData) : StageSelectScreen(smashData, groupSmashData.getRules())
+		GroupSmashStageSelectMenu::GroupSmashStageSelectMenu(MenuData* menuData, GroupSmashData* groupSmashData) : StageSelectScreen(menuData, groupSmashData->getRules())
 		{
-			reloadIcons(smashData);
-			reloadPreview(smashData);
+			reloadIcons();
 		}
 	}
 }

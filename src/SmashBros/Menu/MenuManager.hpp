@@ -1,7 +1,9 @@
 
 #pragma once
 
-#include "MenuLoadScreen.hpp"
+#include <GameLibrary/GameLibrary.hpp>
+#include "TitleScreen.hpp"
+#include "MenuData/MenuData.hpp"
 
 namespace SmashBros
 {
@@ -18,17 +20,25 @@ namespace SmashBros
 		class MenuManager : public fgl::ScreenManager
 		{
 		public:
-			MenuManager(fgl::AssetManager* assetManager);
+			MenuManager(fgl::AssetManager* parentAssetManager, ModuleManager* moduleManager);
 			virtual ~MenuManager();
+
+			void load();
+			void unload();
 
 			void setMenuPath(const MenuPath& menuPath);
 			MenuPath getMenuPath() const;
 
 		private:
-			MenuLoadScreen* initialize(fgl::AssetManager* assetManager_arg);
+			fgl::Screen* initialize(fgl::AssetManager* parentAssetManager, ModuleManager* moduleManager);
 
 			fgl::AssetManager* assetManager;
-			MenuLoadScreen* loadScreen;
+			ModuleManager* moduleManager;
+
+			fgl::Screen* emptyScreen;
+			TitleScreen* titleScreen;
+
+			MenuData* menuData;
 		};
 	}
 }

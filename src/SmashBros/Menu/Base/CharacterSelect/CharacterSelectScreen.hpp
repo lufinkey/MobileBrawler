@@ -2,7 +2,7 @@
 #pragma once
 
 #include "../BaseMenuScreen.hpp"
-#include "../../Elements/ActorGrid.hpp"
+#include <SmashBros/Game/Rules/Rules.hpp>
 
 namespace SmashBros
 {
@@ -20,36 +20,37 @@ namespace SmashBros
 		{
 			friend class CharacterSelect::PlayerChip;
 		public:
-			CharacterSelectScreen(const SmashData&smashData, Rules*rules);
+			CharacterSelectScreen(MenuData* menuData, Rules* rules);
 			virtual ~CharacterSelectScreen();
-			
-			virtual void onSizeChange(const Vector2d& oldSize, const Vector2d& newSize) override;
 			
 			virtual bool isReadyToFight() const;
 			virtual void proceedToFight();
 			
 			Rules* getRules() const;
-			CharacterLoader* getCharacterLoader() const;
-			const ArrayList<CharacterSelect::PlayerChip*>& getPlayerChips() const;
-			const ArrayList<CharacterSelect::CharacterIcon*>& getCharacterIcons() const;
+			const fgl::ArrayList<CharacterSelect::PlayerChip*>& getPlayerChips() const;
+			const fgl::ArrayList<CharacterSelect::CharacterIcon*>& getCharacterIcons() const;
 			
 		protected:
-			void reloadIcons(const SmashData&smashData);
-			void reloadPlayerPanels(const SmashData&smashData);
+			void reloadCharacters();
+			void reloadPlayers();
 
-			virtual void onUpdate(const ApplicationData& appData) override;
-			virtual void onDraw(const ApplicationData& appData, Graphics graphics) const override;
+			virtual void onUpdate(const fgl::ApplicationData& appData) override;
 			
 		private:
-			void whenPlayerChipGrabbed(unsigned int playerNum);
-			void whenPlayerChipReleased(unsigned int playerNum);
-			void whenPlayerCharacterChanges(unsigned int playerNum, CharacterInfo*characterInfo);
+			void handlePlayerChipGrabbed(size_t playerIndex);
+			void handlePlayerChipReleased(size_t playerIndex);
+			void handlePlayerCharacterChanged(size_t playerIndex, const fgl::String& characterIdentifier);
 
-			Rules*rules;
-			CharacterLoader* characterLoader;
-			ArrayList<CharacterSelect::CharacterIcon*> icons;
-			ArrayList<CharacterSelect::PlayerPanel*> panels;
-			ArrayList<CharacterSelect::PlayerChip*> chips;
+			Rules* rules;
+
+			fgl::ArrayList<CharacterSelect::CharacterIcon*> icons;
+			fgl::ArrayList<CharacterSelect::PlayerPanel*> panels;
+			fgl::ArrayList<CharacterSelect::PlayerChip*> chips;
+
+			fgl::ScreenElement* iconsElement;
+			fgl::ScreenElement* panelsElement;
+			fgl::ScreenElement* chipsElement;
+
 			CharacterSelect::ReadyToFightBanner* readyToFightBanner;
 		};
 	}

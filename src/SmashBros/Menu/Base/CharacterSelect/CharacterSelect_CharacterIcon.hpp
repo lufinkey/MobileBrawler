@@ -1,11 +1,7 @@
 
 #pragma once
 
-#include <GameLibrary/GameLibrary.hpp>
-#include <SmashLib/SmashLib.hpp>
-
-using namespace fgl;
-using namespace SmashLib;
+#include "../../MenuData/MenuData.hpp"
 
 namespace SmashBros
 {
@@ -15,24 +11,24 @@ namespace SmashBros
 		
 		namespace CharacterSelect
 		{
-			class CharacterIcon : public SpriteActor
+			class CharacterIcon : public fgl::ScreenElement
 			{
 				friend class ::SmashBros::Menu::CharacterSelectScreen;
-			private:
-				CharacterInfo* info;
-				AutoLayoutManager autoLayoutMgr;
-
 			public:
-				CharacterIcon(CharacterInfo&info, double x, double y, AssetManager*assetManager);
+				CharacterIcon(MenuData* menuData, CharacterInfo info);
 				virtual ~CharacterIcon();
+
+				virtual void layoutChildElements() override;
+
+				fgl::RectangleD getChipFrame() const;
 				
-				virtual void draw(ApplicationData appData, Graphics graphics) const override;
-				
-				bool equals(const CharacterIcon&) const;
-				
-				const String& getName() const;
-				const String& getCreator() const;
-				CharacterInfo* getCharacterInfo() const;
+				const CharacterInfo& getCharacterInfo() const;
+
+			private:
+				CharacterInfo characterInfo;
+
+				fgl::ImageElement* iconFrameElement;
+				fgl::ImageElement* iconElement;
 			};
 		}
 	}

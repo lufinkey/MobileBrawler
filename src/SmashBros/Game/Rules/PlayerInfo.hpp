@@ -2,9 +2,9 @@
 #pragma once
 
 #include <GameLibrary/GameLibrary.hpp>
-#include "../Loader/CharacterInfo.hpp"
+#include <SmashBros/Module/CharacterLoader.hpp>
 
-namespace SmashLib
+namespace SmashBros
 {
 	class PlayerInfo
 	{
@@ -15,20 +15,17 @@ namespace SmashLib
 			MODE_HUMAN,
 			MODE_CPU
 		} Mode;
-		
+
 		PlayerInfo();
-		PlayerInfo(const PlayerInfo&);
-		PlayerInfo(CharacterInfo*character, const fgl::String&costume, const fgl::ArrayList<PlayerInfo::Mode>& modeCycle);
+		PlayerInfo(const fgl::String& characterIdentifier, const fgl::String& costume, const fgl::ArrayList<PlayerInfo::Mode>& modeCycle);
 		~PlayerInfo();
 		
-		PlayerInfo& operator=(const PlayerInfo&);
-		
-		CharacterInfo* getCharacterInfo() const;
+		const fgl::String& getCharacterIdentifier() const;
 		const fgl::String& getCostume() const;
 		const PlayerInfo::Mode& getPlayerMode() const;
 		const fgl::ArrayList<PlayerInfo::Mode>& getPlayerModeCycle() const;
 		
-		void setCharacterInfo(CharacterInfo*);
+		void setCharacterIdentifier(const fgl::String& identifier);
 		void setCostume(const fgl::String&);
 		void setPlayerMode(const PlayerInfo::Mode&);
 		void setPlayerModeCycle(const fgl::ArrayList<PlayerInfo::Mode>&modeCycle);
@@ -37,11 +34,11 @@ namespace SmashLib
 		void turnPlayerModeOff();
 		
 	private:
-		CharacterInfo* character_info;
-		fgl::String character_costume;
+		fgl::String characterIdentifier;
+		fgl::String characterCostume;
 		
 		PlayerInfo::Mode mode;
 		fgl::ArrayList<PlayerInfo::Mode> modeCycle;
-		unsigned int modeCycleIndex;
+		size_t modeCycleIndex;
 	};
 }

@@ -3,17 +3,18 @@
 
 #include "WinCondition.hpp"
 
-namespace SmashLib
+namespace SmashBros
 {
 	class StockWinCondition : public WinCondition
 	{
-	private:
-		unsigned int stock;
 	public:
 		StockWinCondition();
 		virtual ~StockWinCondition();
 		
 		void setStock(unsigned int stock);
 		unsigned int getStock() const;
+
+	private:
+		unsigned int stock;
 	};
 }

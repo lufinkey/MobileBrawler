@@ -9,338 +9,190 @@ namespace SmashBros
 	{
 		namespace CharacterSelect
 		{
-			class PlayerPanel_ModeTapRegion : public WireframeActor
+			PlayerPanel::PlayerPanel(CharacterSelectScreen* charSelectScreen, MenuData* menuData, size_t playerIndex)
+				: PlayerPanel(charSelectScreen, menuData, playerIndex, getDefaultProperties(menuData->getAssetManager()))
 			{
-			private:
-				PlayerPanel* panel;
-				CharacterSelectScreen* charSelectScreen;
-				
-			public:
-				PlayerPanel_ModeTapRegion(PlayerPanel*playerPanel, CharacterSelectScreen*screen) : WireframeActor()
-				{
-					panel = playerPanel;
-					charSelectScreen = screen;
-				}
+				//
+			}
 
-				PlayerPanel_ModeTapRegion(PlayerPanel*playerPanel, CharacterSelectScreen*screen, double x, double y, double width, double height) : WireframeActor(x, y, width, height)
-				{
-					panel = playerPanel;
-					charSelectScreen = screen;
-				}
-				
-				virtual void onMouseRelease(const ActorMouseEvent& evt) override
-				{
-					Vector2d touchpos;
-					const ApplicationData& appData = evt.getApplicationData();
-					TransformD mouseTransform = appData.getTransform().getInverse();
-					if(Multitouch::isAvailable())
-					{
-						touchpos = mouseTransform.transform(Multitouch::getPreviousPosition(appData.getWindow(), evt.getMouseIndex()));
-					}
-					else
-					{
-						touchpos = mouseTransform.transform(Mouse::getPreviousPosition(appData.getWindow(), evt.getMouseIndex()));
-					}
-					
-					bool doCycle = true;
-					
-					const ArrayList<PlayerChip*>& chips = charSelectScreen->getPlayerChips();
-					for(size_t i=0; i<chips.size(); i++)
-					{
-						PlayerChip* chip = chips.get(i);
-						if(chip->checkPointCollision(touchpos))
-						{
-							doCycle = false;
-							i = chips.size();
-						}
-					}
-					
-					if(doCycle)
-					{
-						PlayerInfo& info = charSelectScreen->getRules()->getPlayerInfo(panel->getPlayerNum());
-						info.cyclePlayerMode();
-					}
-				}
-			};
-			
-			PlayerPanel::PlayerPanel(unsigned int pNum, CharacterSelectScreen*screen, double x, double y, const Dictionary&properties, AssetManager*assetManager)
-				: SpriteActor(x, y)
+			PlayerPanel::PlayerPanel(CharacterSelectScreen* charSelectScreen, MenuData* menuData, size_t playerIndex, const fgl::Dictionary& properties)
+				: charSelectScreen(charSelectScreen),
+				menuData(menuData),
+				playerIndex(playerIndex)
 			{
-				tapRegion_mode = nullptr;
-				portrait = nullptr;
-				overlay = nullptr;
-				namebox = nullptr;
+				auto assetManager = menuData->getAssetManager();
+				auto playerNum = playerIndex+1;
+
+				humanBackground = assetManager->loadTexture((fgl::String)"characterselect/panel_background_p" + playerNum + ".png");
+				cpuBackground = assetManager->loadTexture("characterselect/panel_background_cpu.png");
+				offBackground = assetManager->loadTexture("characterselect/panel_background_na.png");
+
+				humanOverlay = assetManager->loadTexture((fgl::String)"characterselect/panel_overlay_p" + playerNum + ".png");
+				cpuOverlay = assetManager->loadTexture("characterselect/panel_overlay_cpu.png");
+				offOverlay = assetManager->loadTexture("characterselect/panel_overlay_na.png");
+
+				backgroundElement = new fgl::ImageElement(offBackground);
+				backgroundElement->setLayoutRule(fgl::LAYOUTRULE_LEFT, 0);
+				backgroundElement->setLayoutRule(fgl::LAYOUTRULE_TOP, 0);
+				backgroundElement->setLayoutRule(fgl::LAYOUTRULE_RIGHT, 0);
+				backgroundElement->setLayoutRule(fgl::LAYOUTRULE_BOTTOM, 0);
+
+				portraitElement = new fgl::ImageElement();
+				portraitElement->setDisplayMode(fgl::ImageElement::DISPLAY_FIT_CENTER);
+				portraitElement->setLayoutRule(fgl::LAYOUTRULE_LEFT, 0);
+				portraitElement->setLayoutRule(fgl::LAYOUTRULE_TOP, 0);
+				portraitElement->setLayoutRule(fgl::LAYOUTRULE_RIGHT, 0);
+				portraitElement->setLayoutRule(fgl::LAYOUTRULE_BOTTOM, 0);
+
+				overlayElement = new fgl::ImageElement(offOverlay);
+				overlayElement->setLayoutRule(fgl::LAYOUTRULE_LEFT, 0);
+				overlayElement->setLayoutRule(fgl::LAYOUTRULE_TOP, 0);
+				overlayElement->setLayoutRule(fgl::LAYOUTRULE_RIGHT, 0);
+				overlayElement->setLayoutRule(fgl::LAYOUTRULE_BOTTOM, 0);
+
+				nameLabel = new fgl::TextElement();
+				nameLabel->setFont(assetManager->loadFont("fonts/default.ttf"));
+				nameLabel->setTextColor(fgl::Color::BLACK);
+				nameLabel->setFontSize(36);
+				nameLabel->setTextAlignment(fgl::TEXTALIGN_CENTER);
+				nameLabel->setVerticalTextAlignment(fgl::VERTICALALIGN_CENTER);
+				nameLabel->setLayoutRule(fgl::LAYOUTRULE_LEFT, 0.320, fgl::LAYOUTVALUE_RATIO);
+				nameLabel->setLayoutRule(fgl::LAYOUTRULE_TOP, 0.870, fgl::LAYOUTVALUE_RATIO);
+				nameLabel->setLayoutRule(fgl::LAYOUTRULE_RIGHT, 0.090, fgl::LAYOUTVALUE_RATIO);
+				nameLabel->setLayoutRule(fgl::LAYOUTRULE_BOTTOM, 0.019, fgl::LAYOUTVALUE_RATIO);
+
+				if(offBackground!=nullptr)
+				{
+					setLayoutRule(fgl::LAYOUTRULE_ASPECTRATIO, (double)offBackground->getWidth()/(double)offBackground->getHeight(), fgl::LAYOUTVALUE_RATIO);
+				}
+				else
+				{
+					setLayoutRule(fgl::LAYOUTRULE_ASPECTRATIO, 0.7, fgl::LAYOUTVALUE_RATIO);
+				}
 				
-				playerNum = pNum;
-				charSelectScreen = screen;
-				
-				RectangleD frame = getFrame();
-				
-				addAnimation("human", new Animation(1, assetManager, (String)"characterselect/panel_background_p" + playerNum + ".png"));
-				addAnimation("cpu", new Animation(1, assetManager, (String)"characterselect/panel_background_cpu.png"));
-				addAnimation("na", new Animation(1, assetManager, (String)"characterselect/panel_background_na.png"));
-				//addAnimation("blank", new Animation(1, assetManager, (String)"characterselect/panel_background_blank.png"));
-				changeAnimation("na", Animation::FORWARD);
-				
-				portrait = new SpriteActor(x,y);
-				portrait_anim = new Animation(1);
-				portrait->addAnimation("default", portrait_anim);
-				portrait->changeAnimation("default", Animation::FORWARD);
-				portraitLayoutMgr.setOffsetByContainer(true);
-				portraitLayoutMgr.setRule(LAYOUTRULE_LEFT,   0, LAYOUTVALUE_RATIO);
-				portraitLayoutMgr.setRule(LAYOUTRULE_TOP,    0, LAYOUTVALUE_RATIO);
-				portraitLayoutMgr.setRule(LAYOUTRULE_RIGHT,  0, LAYOUTVALUE_RATIO);
-				portraitLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0, LAYOUTVALUE_RATIO);
-				portrait->scaleToFit(portraitLayoutMgr.calculateFrame(portrait->getFrame(), frame));
-				
-				overlay = new SpriteActor(x,y);
-				overlay->addAnimation("human", new Animation(1, assetManager, (String)"characterselect/panel_overlay_p" + playerNum + ".png"));
-				overlay->addAnimation("cpu", new Animation(1, assetManager, "characterselect/panel_overlay_cpu.png"));
-				overlay->addAnimation("na", new Animation(1, assetManager, "characterselect/panel_overlay_na.png"));
-				//overlay->addAnimation("blank", new Animation(1, assetManager, "characterselect/panel_overlay_blank.png"));
-				overlay->changeAnimation("na", Animation::FORWARD);
-				overlayLayoutMgr.setOffsetByContainer(true);
-				overlayLayoutMgr.setRule(LAYOUTRULE_LEFT,   0, LAYOUTVALUE_RATIO);
-				overlayLayoutMgr.setRule(LAYOUTRULE_TOP,    0, LAYOUTVALUE_RATIO);
-				overlayLayoutMgr.setRule(LAYOUTRULE_RIGHT,  0, LAYOUTVALUE_RATIO);
-				overlayLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0, LAYOUTVALUE_RATIO);
-				overlay->scaleToFit(overlayLayoutMgr.calculateFrame(overlay->getFrame(), frame));
-				
-				namebox = new TextActor(x, y, "", assetManager->getFont("fonts/default.ttf"), Color::BLACK, 36, Font::STYLE_PLAIN, TextActor::ALIGN_CENTER);
-				nameboxLayoutMgr.setOffsetByContainer(true);
-				nameboxLayoutMgr.setRule(LAYOUTRULE_LEFT,   0.320, LAYOUTVALUE_RATIO);
-				nameboxLayoutMgr.setRule(LAYOUTRULE_TOP,    0.870, LAYOUTVALUE_RATIO);
-				nameboxLayoutMgr.setRule(LAYOUTRULE_RIGHT,  0.090, LAYOUTVALUE_RATIO);
-				nameboxLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.019, LAYOUTVALUE_RATIO);
-				namebox->scaleToFit(nameboxLayoutMgr.calculateFrame(namebox->getFrame(), frame));
-				
-				tapRegion_mode = new PlayerPanel_ModeTapRegion(this, charSelectScreen);
-				tapRegion_mode->setVisible(false);
+				addChildElement(backgroundElement);
+				addChildElement(portraitElement);
+				addChildElement(overlayElement);
+				addChildElement(nameLabel);
 				
 				applyProperties(properties);
+
+				setBorderWidth(1);
 			}
 			
 			PlayerPanel::~PlayerPanel()
 			{
-				delete namebox;
-				delete overlay;
-				delete portrait;
-				delete tapRegion_mode;
+				delete backgroundElement;
+				delete portraitElement;
+				delete overlayElement;
+				delete nameLabel;
 			}
 			
-			void PlayerPanel::updateSize()
+			void PlayerPanel::applyProperties(const fgl::Dictionary& properties)
 			{
-				SpriteActor::updateSize();
-				
-				RectangleD frame = getFrame();
-				if(portrait!=nullptr)
+				auto portrait = fgl::extract<fgl::Dictionary>(properties, "portrait", {});
+				auto portrait_layoutRules = fgl::extract<fgl::Dictionary>(portrait, "layoutRules", {});
+				if(portrait_layoutRules.size() > 0)
 				{
-					portrait->scaleToFit(portraitLayoutMgr.calculateFrame(portrait->getFrame(), frame));
+					portraitElement->setLayoutRules(portrait_layoutRules);
 				}
-				if(overlay!=nullptr)
+				auto overlay = fgl::extract<fgl::Dictionary>(properties, "overlay", {});
+				auto overlay_layoutRules = fgl::extract<fgl::Dictionary>(overlay, "layoutRules", {});
+				if(overlay_layoutRules.size() > 0)
 				{
-					overlay->scaleToFit(overlayLayoutMgr.calculateFrame(overlay->getFrame(), frame));
+					overlayElement->setLayoutRules(overlay_layoutRules);
 				}
-				if(namebox!=nullptr)
+				auto namebox = fgl::extract<fgl::Dictionary>(properties, "namebox", {});
+				auto namebox_layoutRules = fgl::extract<fgl::Dictionary>(namebox, "layoutRules", {});
+				if(namebox_layoutRules.size() > 0)
 				{
-					namebox->scaleToFit(nameboxLayoutMgr.calculateFrame(namebox->getFrame(), frame));
+					nameLabel->setLayoutRules(namebox_layoutRules);
 				}
-				if(tapRegion_mode!=nullptr)
+				auto namebox_color = fgl::extract<fgl::Dictionary>(namebox, "color", {});
+				if(namebox_color.size() > 0)
 				{
-					tapRegion_mode->x = frame.x;
-					tapRegion_mode->y = frame.y;
-					tapRegion_mode->setSize(frame.width, frame.height);
+					nameLabel->setTextColor(fgl::Color(namebox_color));
 				}
 			}
-			
-			void PlayerPanel::applyProperties(const Dictionary&properties)
+
+			fgl::Dictionary PlayerPanel::getDefaultProperties(fgl::AssetManager* assetManager)
 			{
-				const Any& portraitDict = properties.get("portrait", Any());
-				if(!portraitDict.isEmpty() && portraitDict.is<Dictionary>())
+				FILE* file = assetManager->openFile("characterselect/panel.plist", "rb");
+				if(file!=nullptr)
 				{
-					applyPlacementDict(portraitDict.as<Dictionary>(), &portraitLayoutMgr);
-					if(!portraitLayoutMgr.hasRules())
-					{
-						portraitLayoutMgr.setRule(LAYOUTRULE_LEFT,   0, LAYOUTVALUE_RATIO);
-						portraitLayoutMgr.setRule(LAYOUTRULE_TOP,    0, LAYOUTVALUE_RATIO);
-						portraitLayoutMgr.setRule(LAYOUTRULE_RIGHT,  0, LAYOUTVALUE_RATIO);
-						portraitLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0, LAYOUTVALUE_RATIO);
-					}
+					fgl::Dictionary properties;
+					fgl::Plist::loadFromFile(&properties, file);
+					fgl::FileTools::closeFile(file);
+					return properties;
 				}
-				const Any& overlayDict = properties.get("overlay", Any());
-				if(!overlayDict.isEmpty() && overlayDict.is<Dictionary>())
-				{
-					applyPlacementDict(overlayDict.as<Dictionary>(), &overlayLayoutMgr);
-					if(!overlayLayoutMgr.hasRules())
-					{
-						overlayLayoutMgr.setRule(LAYOUTRULE_LEFT,   0, LAYOUTVALUE_RATIO);
-						overlayLayoutMgr.setRule(LAYOUTRULE_TOP,    0, LAYOUTVALUE_RATIO);
-						overlayLayoutMgr.setRule(LAYOUTRULE_RIGHT,  0, LAYOUTVALUE_RATIO);
-						overlayLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0, LAYOUTVALUE_RATIO);
-					}
-				}
-				const Any& nameboxDict = properties.get("namebox", Any());
-				if(!nameboxDict.isEmpty() && nameboxDict.is<Dictionary>())
-				{
-					const Dictionary&namebox_dict = nameboxDict.as<Dictionary>();
-					applyPlacementDict(nameboxDict, &nameboxLayoutMgr);
-					if(!nameboxLayoutMgr.hasRules())
-					{
-						nameboxLayoutMgr.setRule(LAYOUTRULE_LEFT,   0.320, LAYOUTVALUE_RATIO);
-						nameboxLayoutMgr.setRule(LAYOUTRULE_TOP,    0.870, LAYOUTVALUE_RATIO);
-						nameboxLayoutMgr.setRule(LAYOUTRULE_RIGHT,  0.090, LAYOUTVALUE_RATIO);
-						nameboxLayoutMgr.setRule(LAYOUTRULE_BOTTOM, 0.019, LAYOUTVALUE_RATIO);
-					}
-					
-					/*const Any& alignment_val = namebox_dict.get("alignment", Any());
-					if(!alignment_val.empty() && alignment_val.is<String>())
-					{
-						String alignment = alignment_val.as<String>(false);
-						if(alignment.equals("center"))
-						{
-							namebox->setAlignment(TextActor::ALIGN_CENTER);
-						}
-						else if(alignment.equals("bottomleft"))
-						{
-							namebox->setAlignment(TextActor::ALIGN_BOTTOMLEFT);
-						}
-						else if(alignment.equals("bottomright"))
-						{
-							namebox->setAlignment(TextActor::ALIGN_BOTTOMRIGHT);
-						}
-						else if(alignment.equals("topleft"))
-						{
-							namebox->setAlignment(TextActor::ALIGN_TOPLEFT);
-						}
-						else if(alignment.equals("topright"))
-						{
-							namebox->setAlignment(TextActor::ALIGN_TOPRIGHT);
-						}
-					}*/
-					
-					const Any& color_val = namebox_dict.get("color", Any());
-					if(!color_val.isEmpty() && color_val.is<Dictionary>())
-					{
-						const Dictionary& color_dict = color_val.as<Dictionary>();
-						const Any& r_val = color_dict.get("r", Any());
-						const Any& g_val = color_dict.get("g", Any());
-						const Any& b_val = color_dict.get("b", Any());
-						const Any& a_val = color_dict.get("a", Any());
-						Color color = namebox->getColor();
-						if(!r_val.isEmpty() && r_val.is<Number>())
-						{
-							color.r = r_val.as<Number>().toArithmeticValue<byte>();
-						}
-						if(!g_val.isEmpty() && g_val.is<Number>())
-						{
-							color.g = g_val.as<Number>().toArithmeticValue<byte>();
-						}
-						if(!b_val.isEmpty() && b_val.is<Number>())
-						{
-							color.b = b_val.as<Number>().toArithmeticValue<byte>();
-						}
-						if(!a_val.isEmpty() && a_val.is<Number>())
-						{
-							color.a = a_val.as<Number>().toArithmeticValue<byte>();
-						}
-						namebox->setColor(color);
-					}
-				}
-				updateSize();
+				return {};
 			}
 			
-			void PlayerPanel::applyPlacementDict(const Dictionary&dict, AutoLayoutManager*layoutMgr)
+			void PlayerPanel::update(fgl::ApplicationData appData)
 			{
-				const Any& layoutRules_any = dict.get("layoutRules", Any());
-				if(layoutRules_any.isEmpty() || !layoutRules_any.is<Dictionary>())
-				{
-					return;
-				}
-				const Dictionary& layoutRules = layoutRules_any.as<Dictionary>();
-				layoutMgr->setRules(layoutRules);
-			}
-			
-			void PlayerPanel::update(ApplicationData appData)
-			{
-				SpriteActor::update(appData);
-				
-				tapRegion_mode->update(appData);
-				
-				PlayerInfo& playerInfo = charSelectScreen->getRules()->getPlayerInfo(playerNum);
+				auto& playerInfo = charSelectScreen->getRules()->getPlayerInfo(playerIndex);
 				switch(playerInfo.getPlayerMode())
 				{
 					case PlayerInfo::MODE_OFF:
-					changeAnimation("na", Animation::NO_CHANGE);
-					overlay->changeAnimation("na", Animation::NO_CHANGE);
+					backgroundElement->setImage(offBackground);
+					overlayElement->setImage(offOverlay);
 					break;
 					
 					case PlayerInfo::MODE_HUMAN:
-					changeAnimation("human", Animation::NO_CHANGE);
-					overlay->changeAnimation("human", Animation::NO_CHANGE);
+					backgroundElement->setImage(humanBackground);
+					overlayElement->setImage(humanOverlay);
 					break;
 					
 					case PlayerInfo::MODE_CPU:
-					changeAnimation("cpu", Animation::NO_CHANGE);
-					overlay->changeAnimation("cpu", Animation::NO_CHANGE);
+					backgroundElement->setImage(cpuBackground);
+					overlayElement->setImage(cpuOverlay);
 					break;
 				}
 				
-				portrait->update(appData);
-				overlay->update(appData);
-				namebox->update(appData);
-				
-				const ArrayList<PlayerChip*>& chips = charSelectScreen->getPlayerChips();
-				for(size_t i=0; i<chips.size(); i++)
+				auto& chips = charSelectScreen->getPlayerChips();
+				for(auto& chip : chips)
 				{
-					PlayerChip* chip = chips.get(i);
-					if(chip->getPlayerNum() == playerNum)
+					if(chip->getPlayerIndex() == playerIndex)
 					{
 						if(chip->isDragging())
 						{
-							portrait->setAlpha(0.5);
+							portraitElement->setAlpha(0.5);
 						}
 						else
 						{
-							portrait->setAlpha(1.0);
+							portraitElement->setAlpha(1.0);
 						}
-						i = chips.size();
+						break;
 					}
 				}
+
+				TouchElement::update(appData);
 			}
-			
-			void PlayerPanel::draw(ApplicationData appData, Graphics graphics) const
+
+			void PlayerPanel::onTouchUpInside(const TouchEvent& event)
 			{
-				SpriteActor::draw(appData, graphics);
-				portrait->draw(appData, graphics);
-				overlay->draw(appData, graphics);
-				namebox->draw(appData, graphics);
-				tapRegion_mode->draw(appData, graphics);
+				auto& playerInfo = charSelectScreen->getRules()->getPlayerInfo(playerIndex);
+				playerInfo.cyclePlayerMode();
 			}
 			
-			unsigned int PlayerPanel::getPlayerNum() const
+			size_t PlayerPanel::getPlayerIndex() const
 			{
-				return playerNum;
+				return playerIndex;
 			}
 			
-			void PlayerPanel::applyCharacterInfo(CharacterInfo*characterInfo)
+			void PlayerPanel::applyCharacterInfo(const CharacterInfo* characterInfo)
 			{
 				if(characterInfo == nullptr)
 				{
-					namebox->setText("");
-					portrait_anim->clear();
-					portrait->updateSize();
+					nameLabel->setText("");
+					portraitElement->setImage(nullptr);
 				}
 				else
 				{
-					namebox->setText(characterInfo->getName());
-					portrait_anim->clear();
-					AssetManager* characterAssetMgr = charSelectScreen->getCharacterLoader()->getAssetManager();
-					//TODO change portrait path when implementing costumes
-					String portraitPath = characterInfo->getPath() + "/portrait.png";
-					portrait_anim->addFrame(characterAssetMgr, portraitPath);
-					portrait->updateSize();
+					nameLabel->setText(characterInfo->getName());
+					auto portrait = menuData->getModuleManager()->getCharacterPortrait(characterInfo->getIdentifier());
+					portraitElement->setImage(portrait);
 				}
-				updateSize();
 			}
 		}
 	}

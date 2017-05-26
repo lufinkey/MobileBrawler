@@ -1,7 +1,7 @@
 
 #include "TimeLimitWinCondition.hpp"
 
-namespace SmashLib
+namespace SmashBros
 {
 	TimeLimitWinCondition::TimeLimitWinCondition()
 	{

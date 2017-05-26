@@ -8,35 +8,31 @@ namespace SmashBros
 #define PULSE_UPPERBOUND 1.1
 #define PULSE_LOWERBOUND 0.98
 #define PULSE_SPEED 0.3
-#define PULSE_HOVERCOLOR Color::LIGHTBLUE
-#define PULSE_PRESSCOLOR Color::BLUE
+#define PULSE_HOVERCOLOR fgl::Color::LIGHTBLUE
+#define PULSE_PRESSCOLOR fgl::Color::BLUE
 		
-		BaseMenuScreen::BaseMenuScreen(const SmashData& smashData)
+		BaseMenuScreen::BaseMenuScreen(MenuData* menuData)
+			: menuData(menuData)
 		{
-			AssetManager* assetManager = smashData.getMenuData()->getAssetManager();
+			auto assetManager = menuData->getAssetManager();
 			
-			img_headerbar_small = assetManager->getTexture("elements/headerbar_small.png");
-			img_headerbar_full = assetManager->getTexture("elements/headerbar_full.png");
+			img_headerbar_small = assetManager->loadTexture("elements/headerbar_small.png");
+			img_headerbar_full = assetManager->loadTexture("elements/headerbar_full.png");
 			
-			hoverPulseScale = 1;
-			hoverPulseGrowing = true;
-			hoverPulseEnabled = false;
-			hoverPressed = false;
+			auto element = getElement();
 			
-			ScreenElement* element = getElement();
-			
-			backgroundElement = new ImageElement(assetManager->getTexture("backgrounds/main.png"), ImageElement::DISPLAY_FILL);
-			backgroundElement->setLayoutRule(LAYOUTRULE_LEFT,   0, LAYOUTVALUE_RATIO);
-			backgroundElement->setLayoutRule(LAYOUTRULE_TOP,    0, LAYOUTVALUE_RATIO);
-			backgroundElement->setLayoutRule(LAYOUTRULE_RIGHT,  0, LAYOUTVALUE_RATIO);
-			backgroundElement->setLayoutRule(LAYOUTRULE_BOTTOM, 0, LAYOUTVALUE_RATIO);
+			backgroundElement = new fgl::ImageElement(assetManager->loadTexture("backgrounds/main.png"), fgl::ImageElement::DISPLAY_FILL);
+			backgroundElement->setLayoutRule(fgl::LAYOUTRULE_LEFT,   0, fgl::LAYOUTVALUE_RATIO);
+			backgroundElement->setLayoutRule(fgl::LAYOUTRULE_TOP,    0, fgl::LAYOUTVALUE_RATIO);
+			backgroundElement->setLayoutRule(fgl::LAYOUTRULE_RIGHT,  0, fgl::LAYOUTVALUE_RATIO);
+			backgroundElement->setLayoutRule(fgl::LAYOUTRULE_BOTTOM, 0, fgl::LAYOUTVALUE_RATIO);
 			element->addChildElement(backgroundElement);
 			
-			headerbarElement = new ImageElement(img_headerbar_full, ImageElement::DISPLAY_FILL);
-			headerbarElement->setLayoutRule(LAYOUTRULE_LEFT,   0.0,   LAYOUTVALUE_RATIO);
-			headerbarElement->setLayoutRule(LAYOUTRULE_TOP,    0.0,   LAYOUTVALUE_RATIO);
-			headerbarElement->setLayoutRule(LAYOUTRULE_RIGHT,  0.0,   LAYOUTVALUE_RATIO);
-			headerbarElement->setLayoutRule(LAYOUTRULE_HEIGHT, 0.134, LAYOUTVALUE_RATIO);
+			headerbarElement = new fgl::ImageElement(img_headerbar_full, fgl::ImageElement::DISPLAY_FILL);
+			headerbarElement->setLayoutRule(fgl::LAYOUTRULE_LEFT,   0.0,	fgl::LAYOUTVALUE_RATIO);
+			headerbarElement->setLayoutRule(fgl::LAYOUTRULE_TOP,    0.0,	fgl::LAYOUTVALUE_RATIO);
+			headerbarElement->setLayoutRule(fgl::LAYOUTRULE_RIGHT,  0.0,	fgl::LAYOUTVALUE_RATIO);
+			headerbarElement->setLayoutRule(fgl::LAYOUTRULE_HEIGHT, 0.134,	fgl::LAYOUTVALUE_RATIO);
 			element->addChildElement(headerbarElement);
 			
 			element->sendChildElementToBack(headerbarElement);
@@ -46,10 +42,10 @@ namespace SmashBros
 			backButton->setTapHandler([=]{
 				getScreenManager()->pop();
 			});
-			backButton->setLayoutRule(LAYOUTRULE_LEFT,	0,		LAYOUTVALUE_RATIO);
-			backButton->setLayoutRule(LAYOUTRULE_TOP,	0,		LAYOUTVALUE_RATIO);
-			backButton->setLayoutRule(LAYOUTRULE_WIDTH,	0.145,	LAYOUTVALUE_RATIO);
-			backButton->setLayoutRule(LAYOUTRULE_HEIGHT, 0.145,	LAYOUTVALUE_RATIO);
+			backButton->setLayoutRule(fgl::LAYOUTRULE_LEFT,	 0,		fgl::LAYOUTVALUE_RATIO);
+			backButton->setLayoutRule(fgl::LAYOUTRULE_TOP,	 0,		fgl::LAYOUTVALUE_RATIO);
+			backButton->setLayoutRule(fgl::LAYOUTRULE_WIDTH, 0.145,	fgl::LAYOUTVALUE_RATIO);
+			backButton->setLayoutRule(fgl::LAYOUTRULE_HEIGHT,0.145,	fgl::LAYOUTVALUE_RATIO);
 			element->addChildElement(backButton);
 		}
 		
@@ -64,50 +60,15 @@ namespace SmashBros
 			delete headerbarElement;
 			delete backButton;
 		}
-		
-		void BaseMenuScreen::onWillDisappear(const Transition*transition)
-		{
-			MenuScreen::onWillDisappear(transition);
-			clearMouseStates();
-		}
-		
-		void BaseMenuScreen::onUpdate(const ApplicationData& appData)
-		{
-			if(getSelectedIndex() != MenuScreen::NO_SELECTION)
-			{
-				if(hoverPulseEnabled)
-				{
-					double scaleIncrement = PULSE_SPEED * appData.getFrameSpeedMultiplier();
-					if(hoverPulseGrowing)
-					{
-						hoverPulseScale += scaleIncrement;
-						if(hoverPulseScale >= PULSE_UPPERBOUND)
-						{
-							hoverPulseScale = PULSE_UPPERBOUND;
-							hoverPulseGrowing = false;
-						}
-					}
-					else
-					{
-						hoverPulseScale -= scaleIncrement;
-						if(hoverPulseScale <= PULSE_LOWERBOUND)
-						{
-							hoverPulseScale = PULSE_LOWERBOUND;
-							hoverPulseGrowing = true;
-						}
-					}
-				}
-			}
-			MenuScreen::onUpdate(appData);
-		}
 
 		void BaseMenuScreen::setState(const fgl::Dictionary& state)
 		{
-			//
+			//Open for implementation
 		}
 
 		fgl::Dictionary BaseMenuScreen::getState() const
 		{
+			//Open for implementation
 			return {};
 		}
 
@@ -174,70 +135,12 @@ namespace SmashBros
 			}
 		}
 		
-		void BaseMenuScreen::drawItem(ApplicationData appData, Graphics graphics, Actor*item) const
-		{
-			size_t selectedIndex = getSelectedIndex();
-			if(selectedIndex!=MenuScreen::NO_SELECTION && item == getItem(selectedIndex))
-			{
-				//RectangleD frame = actor->getFrame();
-				if(hoverPulseEnabled)
-				{
-					graphics.scale(hoverPulseScale, hoverPulseScale, item->x, item->y);
-				}
-				if(hoverPressed)
-				{
-					graphics.compositeTintColor(PULSE_PRESSCOLOR);
-				}
-				else
-				{
-					graphics.compositeTintColor(PULSE_HOVERCOLOR);
-				}
-			}
-			MenuScreen::drawItem(appData, graphics, item);
-		}
-		
-		void BaseMenuScreen::onItemHover(size_t index)
-		{
-			if(!Multitouch::isAvailable())
-			{
-				enableHoverPulse(true);
-			}
-		}
-		
-		void BaseMenuScreen::onItemHoverFinish(size_t index)
-		{
-			if(!Multitouch::isAvailable())
-			{
-				enableHoverPulse(false);
-			}
-		}
-		
-		void BaseMenuScreen::onItemPress(size_t index)
-		{
-			hoverPressed = true;
-		}
-		
-		void BaseMenuScreen::onItemPressCancel(size_t index)
-		{
-			hoverPressed = false;
-		}
-		
-		void BaseMenuScreen::onItemRelease(size_t index)
-		{
-			hoverPressed = false;
-		}
-		
-		void BaseMenuScreen::onItemSelect(size_t index)
-		{
-			//
-		}
-		
-		ImageElement* BaseMenuScreen::getBackgroundElement() const
+		fgl::ImageElement* BaseMenuScreen::getBackgroundElement() const
 		{
 			return backgroundElement;
 		}
 		
-		ImageElement* BaseMenuScreen::getHeaderbarElement() const
+		fgl::ImageElement* BaseMenuScreen::getHeaderbarElement() const
 		{
 			return headerbarElement;
 		}
@@ -258,21 +161,10 @@ namespace SmashBros
 				headerbarElement->setImage(img_headerbar_small);
 			}
 		}
-		
-		void BaseMenuScreen::enableHoverPulse(bool toggle)
+
+		MenuData* BaseMenuScreen::getMenuData() const
 		{
-			if(toggle && !hoverPulseEnabled)
-			{
-				hoverPulseEnabled = true;
-				hoverPulseScale = 1;
-				hoverPulseGrowing = true;
-			}
-			else if(!toggle && hoverPulseEnabled)
-			{
-				hoverPulseEnabled = false;
-				hoverPulseScale = 1;
-				hoverPulseGrowing = true;
-			}
+			return menuData;
 		}
 	}
 }

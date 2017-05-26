@@ -12,14 +12,14 @@ namespace SmashBros
 		class MainMenu : public SmashBros::Menu::BaseMenuScreen
 		{
 		public:
-			explicit MainMenu(const SmashData&smashData);
+			explicit MainMenu(MenuData* menuData);
 			virtual ~MainMenu();
 			
 		private:
 			MenuButton* groupButton;
 			MenuButton* soloButton;
 
-			FadeColorTransition* backTransition;
+			fgl::FadeColorTransition* backTransition;
 		};
 	}
 }

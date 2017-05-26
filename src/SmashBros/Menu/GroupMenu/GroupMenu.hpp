@@ -13,14 +13,14 @@ namespace SmashBros
 		class GroupMenu : public BaseMenuScreen
 		{
 		public:
-			explicit GroupMenu(const SmashData&smashData);
+			explicit GroupMenu(MenuData* menuData);
 			virtual ~GroupMenu();
 			
 		private:
 			MenuButton* smashButton;
 			MenuButton* specialSmashButton;
 			MenuButton* rulesButton;
-			
+
 			GroupSmashData* groupSmashData;
 		};
 	}

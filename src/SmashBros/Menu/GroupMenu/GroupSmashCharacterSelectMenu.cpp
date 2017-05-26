@@ -5,34 +5,34 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-		GroupSmashCharacterSelectMenu::GroupSmashCharacterSelectMenu(const SmashData& smashData, const GroupSmashData& groupSmashData) : CharacterSelectScreen(smashData, groupSmashData.getRules())
+		GroupSmashCharacterSelectMenu::GroupSmashCharacterSelectMenu(MenuData* menuData, GroupSmashData* groupSmashData)
+			: CharacterSelectScreen(menuData, groupSmashData->getRules()),
+			groupSmashData(groupSmashData)
 		{
-			stockWinCondition = groupSmashData.getStockWinCondition();
-			timeLimitWinCondition = groupSmashData.getTimeLimitWinCondition();
-			
 			setHeaderbarMode(HEADERBAR_SMALL);
-			reloadIcons(smashData);
-			reloadPlayerPanels(smashData);
-			
+			reloadCharacters();
+			reloadPlayers();
+
+			auto assetManager = menuData->getAssetManager();
+
 			double headerbarBottom = 0.866;
-			LayoutRule* headerBarBottomRule = getHeaderbarElement()->getAutoLayoutManager().getRule(LAYOUTRULE_BOTTOM);
-			if(headerBarBottomRule!=nullptr && headerBarBottomRule->valueType==LAYOUTVALUE_RATIO)
+			fgl::LayoutRule* headerBarBottomRule = getHeaderbarElement()->getAutoLayoutManager().getRule(fgl::LAYOUTRULE_BOTTOM);
+			if(headerBarBottomRule!=nullptr && headerBarBottomRule->valueType==fgl::LAYOUTVALUE_RATIO)
 			{
 				headerbarBottom = headerBarBottomRule->value;
 			}
 			
-			rulesBar = new RulesBar(smashData.getMenuData()->getAssetManager(),
-											groupSmashData.getRules(),
-											groupSmashData.getStockWinCondition(),
-											groupSmashData.getTimeLimitWinCondition(),
-											smashData.getMenuData()->getRulesBarProperties());
-			rulesBar->setLayoutRule(LAYOUTRULE_LEFT, 0.36, LAYOUTVALUE_RATIO);
-			rulesBar->setLayoutRule(LAYOUTRULE_TOP, 0, LAYOUTVALUE_RATIO);
-			rulesBar->setLayoutRule(LAYOUTRULE_RIGHT, 0, LAYOUTVALUE_RATIO);
-			rulesBar->setLayoutRule(LAYOUTRULE_BOTTOM, headerbarBottom, LAYOUTVALUE_RATIO);
+			rulesBar = new RulesBar(assetManager,
+											groupSmashData->getRules(),
+											groupSmashData->getStockWinCondition(),
+											groupSmashData->getTimeLimitWinCondition());
+			rulesBar->setLayoutRule(fgl::LAYOUTRULE_LEFT, 0.36, fgl::LAYOUTVALUE_RATIO);
+			rulesBar->setLayoutRule(fgl::LAYOUTRULE_TOP, 0, fgl::LAYOUTVALUE_RATIO);
+			rulesBar->setLayoutRule(fgl::LAYOUTRULE_RIGHT, 0, fgl::LAYOUTVALUE_RATIO);
+			rulesBar->setLayoutRule(fgl::LAYOUTRULE_BOTTOM, headerbarBottom, fgl::LAYOUTVALUE_RATIO);
 			getElement()->addChildElement(rulesBar);
 			
-			addScreen("StageSelect", new GroupSmashStageSelectMenu(smashData, groupSmashData));
+			addScreen("StageSelect", new GroupSmashStageSelectMenu(menuData, groupSmashData));
 		}
 		
 		GroupSmashCharacterSelectMenu::~GroupSmashCharacterSelectMenu()
@@ -40,7 +40,7 @@ namespace SmashBros
 			delete rulesBar;
 		}
 		
-		void GroupSmashCharacterSelectMenu::onWillAppear(const Transition*transition)
+		void GroupSmashCharacterSelectMenu::onWillAppear(const fgl::Transition* transition)
 		{
 			Rules* rules = getRules();
 			if(rules->getWinCondition() == stockWinCondition)

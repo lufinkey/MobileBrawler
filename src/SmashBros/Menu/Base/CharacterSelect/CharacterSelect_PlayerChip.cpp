@@ -9,135 +9,144 @@ namespace SmashBros
 	{
 		namespace CharacterSelect
 		{
-			PlayerChip::PlayerChip(unsigned int pNum, CharacterSelectScreen*screen, double x, double y, AssetManager*assetManager) : SpriteActor(x,y)
+			PlayerChip::PlayerChip(CharacterSelectScreen* charSelectScreen, MenuData* menuData, size_t playerIndex)
+				: charSelectScreen(charSelectScreen),
+				playerIndex(playerIndex),
+				dragging(false),
+				dragTouchID(0)
 			{
-				playerNum = pNum;
-				charSelectScreen = screen;
-				addAnimation("default", new Animation(1, assetManager, (String)"characterselect/chip_p" + playerNum + ".png"));
-				addAnimation("cpu", new Animation(1, assetManager, "characterselect/chip_cpu.png"));
-				changeAnimation("default", Animation::FORWARD);
-				dragging = false;
-				dragTouchID = 0;
-				dragOffset.x = 0;
-				dragOffset.y = 0;
+				auto assetManager = menuData->getAssetManager();
+				auto playerNum = playerIndex+1;
+
+				playerChipTexture = assetManager->loadTexture((fgl::String)"characterselect/chip_p" + playerNum + ".png");
+				cpuChipTexture = assetManager->loadTexture("characterselect/chip_cpu.png");
+
+				chipImageElement = new fgl::ImageElement(playerChipTexture);
+				chipImageElement->setLayoutRule(fgl::LAYOUTRULE_LEFT, 0);
+				chipImageElement->setLayoutRule(fgl::LAYOUTRULE_TOP, 0);
+				chipImageElement->setLayoutRule(fgl::LAYOUTRULE_RIGHT, 0);
+				chipImageElement->setLayoutRule(fgl::LAYOUTRULE_BOTTOM, 0);
+				addChildElement(chipImageElement);
 			}
 			
 			PlayerChip::~PlayerChip()
 			{
-				//
+				delete chipImageElement;
 			}
 			
-			void PlayerChip::onMousePress(const ActorMouseEvent& evt)
+			void PlayerChip::onTouchDown(const TouchEvent& event)
 			{
 				if(!dragging)
 				{
+					//make sure this touch ID isn't already grabbing another chip
 					bool touch_alreadyBeingUsed = false;
-					const ArrayList<PlayerChip*>& chips = charSelectScreen->getPlayerChips();
-					for(unsigned int i=0; i<chips.size(); i++)
+					auto& chips = charSelectScreen->getPlayerChips();
+					for(auto& chip : chips)
 					{
-						PlayerChip*chip = chips.get(i);
 						if(chip != this)
 						{
-							if(chip->dragging && chip->dragTouchID == evt.getMouseIndex())
+							if(chip->dragging && chip->dragTouchID == event.getTouchID())
 							{
 								touch_alreadyBeingUsed = true;
+								break;
 							}
 						}
 					}
 					if(!touch_alreadyBeingUsed)
 					{
-						grabChip(evt.getApplicationData(), evt.getMouseIndex());
+						grabChip(event);
 					}
 				}
 			}
-			
-			void PlayerChip::update(ApplicationData appData)
+
+			bool PlayerChip::onTouchMove(const TouchEvent& event)
 			{
-				//updating dragging
-				bool stopDragging = false;
-				if(dragging)
+				if(dragging && dragTouchID==event.getTouchID())
 				{
-					if(Multitouch::isAvailable())
-					{
-						if(Multitouch::isTouchActive(appData.getWindow(), dragTouchID))
-						{
-							Vector2d touchpos = appData.getTransform().getInverse().transform(Multitouch::getPosition(appData.getWindow(), dragTouchID));
-							x = touchpos.x + dragOffset.x;
-							y = touchpos.y + dragOffset.y;
-						}
-						else
-						{
-							stopDragging = true;
-						}
-					}
-					else
-					{
-						if(Mouse::isButtonPressed(appData.getWindow(), dragTouchID, Mouse::BUTTON_LEFT))
-						{
-							Vector2d mousepos = appData.getTransform().getInverse().transform(Mouse::getPosition(appData.getWindow(), dragTouchID));
-							x = mousepos.x + dragOffset.x;
-							y = mousepos.y + dragOffset.y;
-						}
-						else
-						{
-							stopDragging = true;
-						}
-					}
+					auto frame = getFrame();
+					auto realPosition = event.getPosition();
+					realPosition.x += frame.x;
+					realPosition.y += frame.y;
+					setCenter(realPosition + dragOffset);
+					return true;
 				}
-				SpriteActor::update(appData);
-				
-				//check if overlapping with any character icons;
-				CharacterInfo* overlap_charInfo = nullptr;
-				double overlap_area = 0;
-				const ArrayList<CharacterIcon*>& icons = charSelectScreen->getCharacterIcons();
-				RectangleD frame = getFrame();
-				for(unsigned int i=0; i<icons.size(); i++)
+				return false;
+			}
+
+			void PlayerChip::onTouchUpInside(const TouchEvent& event)
+			{
+				if(dragging && dragTouchID==event.getTouchID())
 				{
-					CharacterIcon* icon = icons.get(i);
-					RectangleD iconFrame = icon->getFrame();
-					if(frame.intersects(iconFrame))
-					{
-						RectangleD overlap = frame.getIntersect(iconFrame);
-						double area = overlap.getArea();
-						if(area > overlap_area)
-						{
-							overlap_charInfo = icon->getCharacterInfo();
-							overlap_area = area;
-						}
-					}
+					releaseChip();
 				}
-				CharacterInfo* oldInfo = charSelectScreen->getRules()->getPlayerInfo(playerNum).getCharacterInfo();
-				charSelectScreen->getRules()->getPlayerInfo(playerNum).setCharacterInfo(overlap_charInfo);
-				if(oldInfo != overlap_charInfo)
+			}
+
+			void PlayerChip::onTouchUpOutside(const TouchEvent& event)
+			{
+				if(dragging && dragTouchID==event.getTouchID())
 				{
-					//event: whenPlayerCharacterChanges
-					charSelectScreen->whenPlayerCharacterChanges(playerNum, overlap_charInfo);
+					releaseChip();
 				}
-				
-				if(stopDragging)
+			}
+
+			void PlayerChip::onTouchCancel(const TouchEvent& event)
+			{
+				if(dragging && dragTouchID==event.getTouchID())
 				{
 					releaseChip();
 				}
 			}
 			
-			void PlayerChip::grabChip(const ApplicationData&appData, unsigned int touchID)
+			void PlayerChip::update(fgl::ApplicationData appData)
+			{
+				TouchElement::update(appData);
+
+				//check if overlapping with any character icons;
+				fgl::String characterID;
+				double overlap_area = 0;
+				auto& icons = charSelectScreen->getCharacterIcons();
+				auto frame = getFrame();
+				for(auto& icon : icons)
+				{
+					auto iconFrame = icon->getChipFrame();
+					if(frame.intersects(iconFrame))
+					{
+						fgl::RectangleD overlap = frame.getIntersect(iconFrame);
+						double area = overlap.getArea();
+						if(area > overlap_area)
+						{
+							characterID = icon->getCharacterInfo().getIdentifier();
+							overlap_area = area;
+						}
+					}
+				}
+				auto oldCharacterID = charSelectScreen->getRules()->getPlayerInfo(playerIndex).getCharacterIdentifier();
+				charSelectScreen->getRules()->getPlayerInfo(playerIndex).setCharacterIdentifier(characterID);
+				if(oldCharacterID != characterID)
+				{
+					//event: handlePlayerCharacterChanged
+					charSelectScreen->handlePlayerCharacterChanged(playerIndex, characterID);
+				}
+			}
+			
+			void PlayerChip::grabChip(const TouchEvent& touchEvent)
 			{
 				dragging = true;
-				dragTouchID = touchID;
-				TransformD mouseTransform = appData.getTransform().getInverse();
-				if(Multitouch::isAvailable())
-				{
-					dragOffset = Vector2d(x,y) - mouseTransform.transform(Multitouch::getPosition(appData.getWindow(), touchID));
-				}
-				else
-				{
-					dragOffset = Vector2d(x,y) - mouseTransform.transform(Mouse::getPosition(appData.getWindow(), touchID));
-				}
+				dragTouchID = touchEvent.getTouchID();
+				auto center = getCenter();
+				auto frame = getFrame();
+				auto realPosition = touchEvent.getPosition();
+				realPosition.x += frame.x;
+				realPosition.y += frame.y;
+				dragOffset = center - realPosition;
 				size_t index = charSelectScreen->chips.indexOf(this);
-				charSelectScreen->chips.remove(index);
-				charSelectScreen->chips.add(0,this);
-				//event: whenPlayerChipGrabbed
-				charSelectScreen->whenPlayerChipGrabbed(playerNum);
+				if(index!=-1)
+				{
+					charSelectScreen->chips.remove(index);
+					charSelectScreen->chips.add(0, this);
+					//event: handlePlayerChipGrabbed
+					charSelectScreen->handlePlayerChipGrabbed(playerIndex);
+				}
 			}
 			
 			void PlayerChip::releaseChip()
@@ -148,8 +157,8 @@ namespace SmashBros
 					dragTouchID = 0;
 					dragOffset.x = 0;
 					dragOffset.y = 0;
-					//event: whenPlayerChipReleased
-					charSelectScreen->whenPlayerChipReleased(playerNum);
+					//event: handlePlayerChipReleased
+					charSelectScreen->handlePlayerChipReleased(playerIndex);
 				}
 			}
 			
@@ -158,9 +167,9 @@ namespace SmashBros
 				return dragging;
 			}
 			
-			unsigned int PlayerChip::getPlayerNum() const
+			size_t PlayerChip::getPlayerIndex() const
 			{
-				return playerNum;
+				return playerIndex;
 			}
 		}
 	}

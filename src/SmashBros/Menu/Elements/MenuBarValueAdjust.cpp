@@ -5,6 +5,12 @@ namespace SmashBros
 {
 	namespace Menu
 	{
+		MenuBarValueAdjust::MenuBarValueAdjust(fgl::AssetManager* assetManager, const fgl::String& label)
+			: MenuBarValueAdjust(assetManager, label, getDefaultProperties(assetManager))
+		{
+			//
+		}
+
 		MenuBarValueAdjust::MenuBarValueAdjust(fgl::AssetManager* assetManager, const fgl::String& label, const fgl::Dictionary& properties)
 			: MenuBar(assetManager, label, properties)
 		{

@@ -2,10 +2,6 @@
 #pragma once
 
 #include <GameLibrary/GameLibrary.hpp>
-#include <SmashLib/SmashLib.hpp>
-
-using namespace fgl;
-using namespace SmashLib;
 
 namespace SmashBros
 {
@@ -15,21 +11,14 @@ namespace SmashBros
 		
 		namespace CharacterSelect
 		{
-			class ReadyToFightBanner : public SpriteActor
+			class ReadyToFightBanner : public fgl::ButtonElement
 			{
 				friend class ::SmashBros::Menu::CharacterSelectScreen;
+			public:
+				ReadyToFightBanner(CharacterSelectScreen* charSelectScreen, fgl::AssetManager* assetManager);
+
 			private:
 				CharacterSelectScreen* charSelectScreen;
-				AutoLayoutManager autoLayoutMgr;
-				bool selected;
-				
-			public:
-				ReadyToFightBanner(CharacterSelectScreen*charSelectScreen, double x, double y, AssetManager*assetManager);
-				
-				virtual void update(ApplicationData appData) override;
-				
-				virtual void onMousePress(const ActorMouseEvent& evt) override;
-				virtual void onMouseRelease(const ActorMouseEvent& evt) override;
 			};
 		}
 	}

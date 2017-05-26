@@ -2,10 +2,7 @@
 #pragma once
 
 #include <GameLibrary/GameLibrary.hpp>
-#include <SmashLib/SmashLib.hpp>
-
-using namespace fgl;
-using namespace SmashLib;
+#include "../../MenuData/MenuData.hpp"
 
 namespace SmashBros
 {
@@ -15,20 +12,19 @@ namespace SmashBros
 		
 		namespace StageSelect
 		{
-			class StageIcon : public SpriteActor
+			class StageIcon : public fgl::ButtonElement
 			{
 				friend class ::SmashBros::Menu::StageSelectScreen;
-			private:
-				StageInfo* info;
-				AutoLayoutManager autoLayoutMgr;
-				
 			public:
-				StageIcon(StageInfo&info, double x, double y, AssetManager*assetManager);
+				StageIcon(MenuData* menuData, StageInfo info);
 				virtual ~StageIcon();
 				
-				virtual void draw(ApplicationData appData, Graphics graphics) const override;
-				
-				StageInfo* getStageInfo() const;
+				const StageInfo& getStageInfo() const;
+
+			private:
+				StageInfo stageInfo;
+
+				fgl::ImageElement* overlayElement;
 			};
 		}
 	}

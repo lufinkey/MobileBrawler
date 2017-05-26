@@ -176,22 +176,15 @@
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\SmashBros\Game\Rules\PlayerInfo.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Game\Rules\Rules.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Game\Rules\WinCondition\StockWinCondition.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Game\Rules\WinCondition\TimeLimitWinCondition.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Game\Rules\WinCondition\WinCondition.cpp" />
     <ClCompile Include="..\..\src\SmashBros\Menu\Elements\MenuButton.cpp" />
-    <ClCompile Include="..\..\src\SmashBros\Menu\MenuLoadScreen.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Menu\MenuData\MenuData.cpp" />
     <ClCompile Include="..\..\src\SmashBros\Menu\MenuManager.cpp" />
-    <ClCompile Include="..\..\src\SmashLib\Rules\PlayerInfo.cpp" />
-    <ClCompile Include="..\..\src\SmashLib\Rules\Rules.cpp" />
-    <ClCompile Include="..\..\src\SmashLib\Rules\WinCondition\StockWinCondition.cpp" />
-    <ClCompile Include="..\..\src\SmashLib\Rules\WinCondition\TimeLimitWinCondition.cpp" />
-    <ClCompile Include="..\..\src\SmashLib\Rules\WinCondition\WinCondition.cpp" />
-    <ClCompile Include="..\..\src\SmashLib\Loader\CharacterInfo.cpp" />
-    <ClCompile Include="..\..\src\SmashLib\Loader\CharacterLoader.cpp" />
-    <ClCompile Include="..\..\src\SmashLib\Loader\StageInfo.cpp" />
-    <ClCompile Include="..\..\src\SmashLib\Loader\StageLoader.cpp" />
     <ClCompile Include="..\..\src\SmashBros\Game.cpp" />
-    <ClCompile Include="..\..\src\SmashBros\Load\InitialLoadListener.cpp" />
-    <ClCompile Include="..\..\src\SmashBros\Load\MenuLoad.cpp" />
-    <ClCompile Include="..\..\src\SmashBros\Load\ModuleLoad.cpp" />
     <ClCompile Include="..\..\src\SmashBros\main.cpp" />
     <ClCompile Include="..\..\src\SmashBros\Menu\Base\BaseMenuScreen.cpp" />
     <ClCompile Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelectScreen.cpp" />
@@ -213,28 +206,24 @@
     <ClCompile Include="..\..\src\SmashBros\Menu\GroupMenu\GroupSmashStageSelectMenu.cpp" />
     <ClCompile Include="..\..\src\SmashBros\Menu\MainMenu.cpp" />
     <ClCompile Include="..\..\src\SmashBros\Menu\MenuData\GroupSmashData.cpp" />
-    <ClCompile Include="..\..\src\SmashBros\Menu\MenuData\SmashData.cpp" />
     <ClCompile Include="..\..\src\SmashBros\Menu\SoloMenu\SoloMenu.cpp" />
     <ClCompile Include="..\..\src\SmashBros\Menu\TitleScreen.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Module\CharacterInfo.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Module\CharacterLoader.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Module\ModuleManager.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Module\StageInfo.cpp" />
+    <ClCompile Include="..\..\src\SmashBros\Module\StageLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\SmashBros\Game\Rules\PlayerInfo.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Game\Rules\Rules.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Game\Rules\WinCondition\StockWinCondition.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Game\Rules\WinCondition\TimeLimitWinCondition.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Game\Rules\WinCondition\WinCondition.hpp" />
     <ClInclude Include="..\..\src\SmashBros\Menu\Elements\MenuButton.hpp" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\MenuLoadScreen.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Menu\MenuData\MenuData.hpp" />
     <ClInclude Include="..\..\src\SmashBros\Menu\MenuManager.hpp" />
-    <ClInclude Include="..\..\src\SmashLib\SmashLib.hpp" />
-    <ClInclude Include="..\..\src\SmashLib\Rules\PlayerInfo.hpp" />
-    <ClInclude Include="..\..\src\SmashLib\Rules\Rules.hpp" />
-    <ClInclude Include="..\..\src\SmashLib\Rules\WinCondition\StockWinCondition.hpp" />
-    <ClInclude Include="..\..\src\SmashLib\Rules\WinCondition\TimeLimitWinCondition.hpp" />
-    <ClInclude Include="..\..\src\SmashLib\Rules\WinCondition\WinCondition.hpp" />
-    <ClInclude Include="..\..\src\SmashLib\Loader\CharacterInfo.hpp" />
-    <ClInclude Include="..\..\src\SmashLib\Loader\CharacterLoader.hpp" />
-    <ClInclude Include="..\..\src\SmashLib\Loader\StageInfo.hpp" />
-    <ClInclude Include="..\..\src\SmashLib\Loader\StageLoader.hpp" />
     <ClInclude Include="..\..\src\SmashBros\Game.hpp" />
-    <ClInclude Include="..\..\src\SmashBros\Load\InitialLoadListener.hpp" />
-    <ClInclude Include="..\..\src\SmashBros\Load\MenuLoad.hpp" />
-    <ClInclude Include="..\..\src\SmashBros\Load\ModuleLoad.hpp" />
     <ClInclude Include="..\..\src\SmashBros\Menu\Base\BaseMenuScreen.hpp" />
     <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelectScreen.hpp" />
     <ClInclude Include="..\..\src\SmashBros\Menu\Base\CharacterSelect\CharacterSelect_CharacterIcon.hpp" />
@@ -255,9 +244,13 @@
     <ClInclude Include="..\..\src\SmashBros\Menu\GroupMenu\GroupSmashStageSelectMenu.hpp" />
     <ClInclude Include="..\..\src\SmashBros\Menu\MainMenu.hpp" />
     <ClInclude Include="..\..\src\SmashBros\Menu\MenuData\GroupSmashData.hpp" />
-    <ClInclude Include="..\..\src\SmashBros\Menu\MenuData\SmashData.hpp" />
     <ClInclude Include="..\..\src\SmashBros\Menu\SoloMenu\SoloMenu.hpp" />
     <ClInclude Include="..\..\src\SmashBros\Menu\TitleScreen.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Module\CharacterInfo.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Module\CharacterLoader.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Module\ModuleManager.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Module\StageInfo.hpp" />
+    <ClInclude Include="..\..\src\SmashBros\Module\StageLoader.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MobileBrawler.rc" />

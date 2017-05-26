@@ -1,14 +1,14 @@
 
 #pragma once
 
-#include "../MenuData/SmashData.hpp"
+#include "../MenuData/MenuData.hpp"
 #include "../Elements/MenuButton.hpp"
 
 namespace SmashBros
 {
 	namespace Menu
 	{
-		class BaseMenuScreen : public fgl::MenuScreen
+		class BaseMenuScreen : public fgl::Screen
 		{
 		public:
 			typedef enum
@@ -17,17 +17,8 @@ namespace SmashBros
 				HEADERBAR_FULL
 			} HeaderbarMode;
 			
-			explicit BaseMenuScreen(const SmashData& smashData);
+			explicit BaseMenuScreen(MenuData* menuData);
 			virtual ~BaseMenuScreen();
-			
-			virtual void onWillDisappear(const Transition* transition) override;
-			
-			virtual void onItemHover(size_t index) override;
-			virtual void onItemHoverFinish(size_t index) override;
-			virtual void onItemPress(size_t index) override;
-			virtual void onItemPressCancel(size_t index) override;
-			virtual void onItemRelease(size_t index) override;
-			virtual void onItemSelect(size_t index) override;
 
 			void addScreen(const fgl::String& name, BaseMenuScreen* screen);
 			void removeScreen(const fgl::String& name);
@@ -39,30 +30,23 @@ namespace SmashBros
 			virtual fgl::Dictionary getState() const;
 			virtual void setState(const fgl::Dictionary& state);
 			
-			ImageElement* getBackgroundElement() const;
-			ImageElement* getHeaderbarElement() const;
+			fgl::ImageElement* getBackgroundElement() const;
+			fgl::ImageElement* getHeaderbarElement() const;
 			MenuButton* getBackButton() const;
 			
-			void setHeaderbarMode(const HeaderbarMode&mode);
-			
-			void enableHoverPulse(bool);
+			void setHeaderbarMode(const HeaderbarMode& mode);
 			
 		protected:
-			virtual void onUpdate(const ApplicationData& appData) override;
-			
-			virtual void drawItem(ApplicationData appData, Graphics graphics, Actor*item) const override;
+			MenuData* getMenuData() const;
 			
 		private:
-			double hoverPulseScale;
-			bool hoverPulseGrowing;
-			bool hoverPulseEnabled;
+			MenuData* menuData;
 			
-			TextureImage* img_headerbar_small;
-			TextureImage* img_headerbar_full;
+			fgl::TextureImage* img_headerbar_small;
+			fgl::TextureImage* img_headerbar_full;
 			
-			bool hoverPressed;
-			ImageElement* backgroundElement;
-			ImageElement* headerbarElement;
+			fgl::ImageElement* backgroundElement;
+			fgl::ImageElement* headerbarElement;
 			MenuButton* backButton;
 
 			fgl::BasicDictionary<fgl::String, BaseMenuScreen*> screens;

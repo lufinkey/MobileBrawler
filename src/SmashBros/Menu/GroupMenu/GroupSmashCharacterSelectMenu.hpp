@@ -14,16 +14,17 @@ namespace SmashBros
 		class GroupSmashCharacterSelectMenu : public CharacterSelectScreen
 		{
 		public:
-			GroupSmashCharacterSelectMenu(const SmashData&smashData, const GroupSmashData&groupSmashData);
+			GroupSmashCharacterSelectMenu(MenuData* menuData, GroupSmashData* groupSmashData);
 			virtual ~GroupSmashCharacterSelectMenu();
 			
-			virtual void onWillAppear(const Transition*transition) override;
+			virtual void onWillAppear(const fgl::Transition* transition) override;
 			
 			virtual void proceedToFight() override;
 
 		private:
+			GroupSmashData* groupSmashData;
+
 			RulesBar* rulesBar;
-			AutoLayoutManager rulesBarAutoLayoutMgr;
 
 			StockWinCondition* stockWinCondition;
 			TimeLimitWinCondition* timeLimitWinCondition;

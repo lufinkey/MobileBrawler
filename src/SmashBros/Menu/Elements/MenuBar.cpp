@@ -5,6 +5,12 @@ namespace SmashBros
 {
 	namespace Menu
 	{
+		MenuBar::MenuBar(fgl::AssetManager* assetManager, const fgl::String& label)
+			: MenuBar(assetManager, label, getDefaultProperties(assetManager))
+		{
+			//
+		}
+
 		MenuBar::MenuBar(fgl::AssetManager* assetManager, const fgl::String& label, const fgl::Dictionary& properties)
 		{
 			backgroundElement = new fgl::ImageElement();
@@ -15,11 +21,8 @@ namespace SmashBros
 			backgroundElement->setLayoutRule(fgl::LAYOUTRULE_BOTTOM, 0);
 			addChildElement(backgroundElement);
 			
-			fgl::Font* font = assetManager->getFont("fonts/default.ttf");
-			
 			labelElement = new fgl::TextElement();
 			labelElement->setText(label);
-			labelElement->setFont(font);
 			labelElement->setFontSize(24);
 			labelElement->setTextColor(fgl::Color::BLACK);
 			labelElement->setTextAlignment(fgl::TEXTALIGN_LEFT);
@@ -38,26 +41,31 @@ namespace SmashBros
 			delete labelElement;
 			delete backgroundElement;
 		}
+
+		fgl::Dictionary MenuBar::getDefaultProperties(fgl::AssetManager* assetManager)
+		{
+			FILE* file = assetManager->openFile("elements/menu_bar.plist", "rb");
+			if(file!=nullptr)
+			{
+				fgl::Dictionary properties;
+				fgl::Plist::loadFromFile(&properties, file);
+				fgl::FileTools::closeFile(file);
+				return properties;
+			}
+			return {};
+		}
 		
 		void MenuBar::applyProperties(const fgl::Dictionary& properties)
 		{
-			fgl::Any label_layoutRules_any = properties.get("label_layoutRules", fgl::Any());
-			if(!label_layoutRules_any.isEmpty() && label_layoutRules_any.is<fgl::Dictionary>())
+			auto label_layoutRules = fgl::extract<fgl::Dictionary>(properties, "label_layoutRules", {});
+			if(label_layoutRules.size() > 0)
 			{
-				auto& label_layoutRules = label_layoutRules_any.as<fgl::Dictionary>();
-				if(label_layoutRules.size() > 0)
-				{
-					labelElement->setLayoutRules(label_layoutRules);
-				}
+				labelElement->setLayoutRules(label_layoutRules);
 			}
-			fgl::Any label_color_any = properties.get("label_color", fgl::Any());
-			if(!label_color_any.isEmpty() && label_color_any.is<fgl::Dictionary>())
+			auto label_color = fgl::extract<fgl::Dictionary>(properties, "label_color", {});
+			if(label_color.size() > 0)
 			{
-				auto& label_color_dict = label_color_any.as<fgl::Dictionary>();
-				if(label_color_dict.size() > 0)
-				{
-					labelElement->setTextColor(fgl::Color(label_color_dict));
-				}
+				labelElement->setTextColor(fgl::Color(label_color));
 			}
 		}
 

@@ -1,9 +1,7 @@
 
 #include "CharacterInfo.hpp"
 
-using namespace fgl;
-
-namespace SmashLib
+namespace SmashBros
 {
 	CharacterInfo::CharacterInfo()
 	{
@@ -15,13 +13,13 @@ namespace SmashLib
 		//
 	}
 	
-	bool CharacterInfo::loadFromPath(const String& folderpath, String* error)
+	bool CharacterInfo::loadFromPath(const fgl::String& folderpath, fgl::String* error)
 	{
-		Dictionary dict;
-		bool success = Plist::loadFromPath(&dict, FileTools::combinePathStrings(folderpath, "Info.plist"), error);
+		fgl::Dictionary dict;
+		bool success = fgl::Plist::loadFromPath(&dict, fgl::FileTools::combinePathStrings(folderpath, "Info.plist"), error);
 		if(success)
 		{
-			Any val_identifier = dict.get("identifier", Any());
+			fgl::Any val_identifier = dict.get("identifier", fgl::Any());
 			if(val_identifier.isEmpty())
 			{
 				if(error!=nullptr)
@@ -30,7 +28,7 @@ namespace SmashLib
 				}
 				return false;
 			}
-			else if(!val_identifier.is<String>())
+			else if(!val_identifier.is<fgl::String>())
 			{
 				if(error!=nullptr)
 				{
@@ -39,7 +37,7 @@ namespace SmashLib
 				return false;
 			}
 
-			Any val_name = dict.get("name", Any());
+			fgl::Any val_name = dict.get("name", fgl::Any());
 			if(val_name.isEmpty())
 			{
 				if(error!=nullptr)
@@ -48,7 +46,7 @@ namespace SmashLib
 				}
 				return false;
 			}
-			else if(!val_name.is<String>())
+			else if(!val_name.is<fgl::String>())
 			{
 				if(error!=nullptr)
 				{
@@ -57,7 +55,7 @@ namespace SmashLib
 				return false;
 			}
 			
-			Any val_creator = dict.get("creator", Any());
+			fgl::Any val_creator = dict.get("creator", fgl::Any());
 			if(val_creator.isEmpty())
 			{
 				if(error!=nullptr)
@@ -66,7 +64,7 @@ namespace SmashLib
 				}
 				return false;
 			}
-			else if(!val_creator.is<String>())
+			else if(!val_creator.is<fgl::String>())
 			{
 				if(error!=nullptr)
 				{
@@ -75,7 +73,7 @@ namespace SmashLib
 				return false;
 			}
 			
-			Any val_version = dict.get("version", Any());
+			fgl::Any val_version = dict.get("version", fgl::Any());
 			if(val_version.isEmpty())
 			{
 				if(error!=nullptr)
@@ -84,7 +82,7 @@ namespace SmashLib
 				}
 				return false;
 			}
-			else if(!val_version.is<String>())
+			else if(!val_version.is<fgl::String>())
 			{
 				if(error!=nullptr)
 				{
@@ -93,7 +91,7 @@ namespace SmashLib
 				return false;
 			}
 			
-			Any val_minsmashversion = dict.get("minsmashversion", Any());
+			fgl::Any val_minsmashversion = dict.get("minsmashversion", fgl::Any());
 			if(val_minsmashversion.isEmpty())
 			{
 				if(error!=nullptr)
@@ -102,7 +100,7 @@ namespace SmashLib
 				}
 				return false;
 			}
-			else if(!val_minsmashversion.is<String>())
+			else if(!val_minsmashversion.is<fgl::String>())
 			{
 				if(error!=nullptr)
 				{
@@ -111,86 +109,96 @@ namespace SmashLib
 				return false;
 			}
 			
-			ArrayList<FileTools::DirectoryEntry> entries;
-			FileTools::readEntriesFromDirectory(FileTools::combinePathStrings(folderpath, "costumes"), &entries);
+			fgl::ArrayList<fgl::FileTools::DirectoryEntry> entries;
+			fgl::FileTools::readEntriesFromDirectory(fgl::FileTools::combinePathStrings(folderpath, "costumes"), &entries);
 			for(unsigned int i = 0; i < entries.size(); i++)
 			{
 				//TODO do something with the costumes
 			}
 			
-			identifier = val_identifier.as<String>();
-			name = val_name.as<String>();
-			creator = val_creator.as<String>();
-			version = val_version.as<String>();
-			minsmashversion = val_minsmashversion.as<String>();
+			identifier = val_identifier.as<fgl::String>();
+			name = val_name.as<fgl::String>();
+			creator = val_creator.as<fgl::String>();
+			version = val_version.as<fgl::String>();
+			minsmashversion = val_minsmashversion.as<fgl::String>();
 			path = folderpath;
 			return true;
 		}
 		if(error != nullptr)
 		{
-			*error = (String)"Unable to load Info.plist: " + *error;
+			*error = (fgl::String)"Unable to load Info.plist: " + *error;
 		}
 		return false;
 	}
 	
-	bool CharacterInfo::saveToPath(const String& path, String* error) const
+	bool CharacterInfo::saveToPath(const fgl::String& path, fgl::String* error) const
 	{
-		Dictionary dict;
+		fgl::Dictionary dict;
 		dict.set("identifier", identifier);
 		dict.set("name", name);
 		dict.set("creator", creator);
 		dict.set("version", version);
 		dict.set("minsmashversion", minsmashversion);
-		return Plist::saveToFile(dict, FileTools::combinePathStrings(path, "Info.plist"), error);
+		return fgl::Plist::saveToFile(dict, fgl::FileTools::combinePathStrings(path, "Info.plist"), error);
 	}
 	
-	const String& CharacterInfo::getPath() const
+	const fgl::String& CharacterInfo::getPath() const
 	{
 		return path;
 	}
 
-	const String& CharacterInfo::getIdentifier() const
+	const fgl::String& CharacterInfo::getIdentifier() const
 	{
 		return identifier;
 	}
 	
-	const String& CharacterInfo::getName() const
+	const fgl::String& CharacterInfo::getName() const
 	{
 		return name;
 	}
 	
-	const String& CharacterInfo::getCreator() const
+	const fgl::String& CharacterInfo::getCreator() const
 	{
 		return creator;
 	}
 	
-	const String& CharacterInfo::getMinimumSmashVersion() const
+	const fgl::String& CharacterInfo::getMinimumSmashVersion() const
 	{
 		return minsmashversion;
 	}
 	
-	void CharacterInfo::setPath(const String& path_arg)
+	void CharacterInfo::setPath(const fgl::String& path_arg)
 	{
 		path = path_arg;
 	}
 
-	void CharacterInfo::setIdentifier(const String& identifier_arg)
+	void CharacterInfo::setIdentifier(const fgl::String& identifier_arg)
 	{
 		identifier = identifier_arg;
 	}
 	
-	void CharacterInfo::setName(const String& name_arg)
+	void CharacterInfo::setName(const fgl::String& name_arg)
 	{
 		name = name_arg;
 	}
 	
-	void CharacterInfo::setCreator(const String& creator_arg)
+	void CharacterInfo::setCreator(const fgl::String& creator_arg)
 	{
 		creator = creator_arg;
 	}
 	
-	void CharacterInfo::setMinimumSmashVersion(const String& minsmashversion_arg)
+	void CharacterInfo::setMinimumSmashVersion(const fgl::String& minsmashversion_arg)
 	{
 		minsmashversion = minsmashversion_arg;
+	}
+
+	fgl::String CharacterInfo::getIconPath() const
+	{
+		return fgl::FileTools::combinePathStrings(path, "icon.png");
+	}
+
+	fgl::String CharacterInfo::getPortraitPath() const
+	{
+		return fgl::FileTools::combinePathStrings(path, "portrait.png");
 	}
 }

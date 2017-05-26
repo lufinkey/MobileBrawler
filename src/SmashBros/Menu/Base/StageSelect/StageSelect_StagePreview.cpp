@@ -7,15 +7,10 @@ namespace SmashBros
 	{
 		namespace StageSelect
 		{
-			StagePreview::StagePreview(AssetManager*assetMgr) : StagePreview(RectangleD(0, 0, 0, 0), assetMgr)
+			StagePreview::StagePreview(MenuData* menuData)
+				: menuData(menuData),
+				stageInfo(nullptr)
 			{
-				//
-			}
-			
-			StagePreview::StagePreview(const RectangleD& frame, AssetManager*assetMgr) : ImageElement(frame)
-			{
-				assetManager = assetMgr;
-				info = nullptr;
 				setDisplayMode(DISPLAY_FIT_CENTER);
 			}
 			
@@ -24,23 +19,23 @@ namespace SmashBros
 				//
 			}
 			
-			void StagePreview::setStageInfo(StageInfo*stageInfo)
+			void StagePreview::setStageInfo(StageInfo* stageInfo_arg)
 			{
-				info = stageInfo;
-				if(info == nullptr)
+				stageInfo = stageInfo_arg;
+				if(stageInfo == nullptr)
 				{
 					setImage(nullptr);
 				}
 				else
 				{
-					TextureImage* previewImage = assetManager->getTexture(info->getPath() + "/preview.png");
-					setImage(previewImage);
+					auto texture = menuData->getModuleManager()->getStagePreview(stageInfo->getIdentifier());
+					setImage(texture);
 				}
 			}
 			
 			StageInfo* StagePreview::getStageInfo() const
 			{
-				return info;
+				return stageInfo;
 			}
 		}
 	}

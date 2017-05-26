@@ -1,27 +1,20 @@
 
 #include "StageInfo.hpp"
 
-namespace SmashLib
+namespace SmashBros
 {
-	using namespace fgl;
-	
 	StageInfo::StageInfo()
 	{
 		//
 	}
 	
-	StageInfo::~StageInfo()
+	bool StageInfo::loadFromPath(const fgl::String& folderpath, fgl::String* error)
 	{
-		//
-	}
-	
-	bool StageInfo::loadFromPath(const String&folderpath, String*error)
-	{
-		Dictionary dict;
-		bool success = Plist::loadFromPath(&dict, folderpath + "/Info.plist", error);
+		fgl::Dictionary dict;
+		bool success = fgl::Plist::loadFromPath(&dict, folderpath + "/Info.plist", error);
 		if(success)
 		{
-			Any val_identifier = dict.get("identifier", Any());
+			fgl::Any val_identifier = dict.get("identifier", fgl::Any());
 			if(val_identifier.isEmpty())
 			{
 				if(error!=nullptr)
@@ -30,7 +23,7 @@ namespace SmashLib
 				}
 				return false;
 			}
-			else if(!val_identifier.is<String>())
+			else if(!val_identifier.is<fgl::String>())
 			{
 				if(error!=nullptr)
 				{
@@ -39,7 +32,7 @@ namespace SmashLib
 				return false;
 			}
 
-			Any val_name = dict.get("name", Any());
+			fgl::Any val_name = dict.get("name", fgl::Any());
 			if(val_name.isEmpty())
 			{
 				if(error!=nullptr)
@@ -48,7 +41,7 @@ namespace SmashLib
 				}
 				return false;
 			}
-			else if(!val_name.is<String>())
+			else if(!val_name.is<fgl::String>())
 			{
 				if(error!=nullptr)
 				{
@@ -57,7 +50,7 @@ namespace SmashLib
 				return false;
 			}
 			
-			Any val_creator = dict.get("creator", Any());
+			fgl::Any val_creator = dict.get("creator", fgl::Any());
 			if(val_creator.isEmpty())
 			{
 				if(error!=nullptr)
@@ -66,7 +59,7 @@ namespace SmashLib
 				}
 				return false;
 			}
-			else if(!val_creator.is<String>())
+			else if(!val_creator.is<fgl::String>())
 			{
 				if(error!=nullptr)
 				{
@@ -75,7 +68,7 @@ namespace SmashLib
 				return false;
 			}
 			
-			Any val_version = dict.get("version", Any());
+			fgl::Any val_version = dict.get("version", fgl::Any());
 			if(val_version.isEmpty())
 			{
 				if(error!=nullptr)
@@ -84,7 +77,7 @@ namespace SmashLib
 				}
 				return false;
 			}
-			else if(!val_version.is<String>())
+			else if(!val_version.is<fgl::String>())
 			{
 				if(error!=nullptr)
 				{
@@ -93,7 +86,7 @@ namespace SmashLib
 				return false;
 			}
 			
-			Any val_minsmashversion = dict.get("minsmashversion", Any());
+			fgl::Any val_minsmashversion = dict.get("minsmashversion", fgl::Any());
 			if(val_minsmashversion.isEmpty())
 			{
 				if(error!=nullptr)
@@ -102,7 +95,7 @@ namespace SmashLib
 				}
 				return false;
 			}
-			else if(!val_minsmashversion.is<String>())
+			else if(!val_minsmashversion.is<fgl::String>())
 			{
 				if(error!=nullptr)
 				{
@@ -111,68 +104,78 @@ namespace SmashLib
 				return false;
 			}
 			
-			identifier = val_identifier.as<String>();
-			name = val_name.as<String>();
-			creator = val_creator.as<String>();
-			version = val_version.as<String>();
-			minsmashversion = val_minsmashversion.as<String>();
+			identifier = val_identifier.as<fgl::String>();
+			name = val_name.as<fgl::String>();
+			creator = val_creator.as<fgl::String>();
+			version = val_version.as<fgl::String>();
+			minsmashversion = val_minsmashversion.as<fgl::String>();
 			path = folderpath;
 			return true;
 		}
 		if(error != nullptr)
 		{
-			*error = (String)"Unable to load Info.plist: " + *error;
+			*error = (fgl::String)"Unable to load Info.plist: " + *error;
 		}
 		return false;
 	}
 	
-	const String& StageInfo::getPath() const
+	const fgl::String& StageInfo::getPath() const
 	{
 		return path;
 	}
 
-	const String& StageInfo::getIdentifier() const
+	const fgl::String& StageInfo::getIdentifier() const
 	{
 		return identifier;
 	}
 	
-	const String& StageInfo::getName() const
+	const fgl::String& StageInfo::getName() const
 	{
 		return name;
 	}
 	
-	const String& StageInfo::getCreator() const
+	const fgl::String& StageInfo::getCreator() const
 	{
 		return creator;
 	}
 	
-	const String& StageInfo::getMinimumSmashVersion() const
+	const fgl::String& StageInfo::getMinimumSmashVersion() const
 	{
 		return minsmashversion;
 	}
 	
-	void StageInfo::setPath(const String& path_arg)
+	void StageInfo::setPath(const fgl::String& path_arg)
 	{
 		path = path_arg;
 	}
 
-	void StageInfo::setIdentifier(const String& identifier_arg)
+	void StageInfo::setIdentifier(const fgl::String& identifier_arg)
 	{
 		identifier = identifier_arg;
 	}
 	
-	void StageInfo::setName(const String& name_arg)
+	void StageInfo::setName(const fgl::String& name_arg)
 	{
 		name = name_arg;
 	}
 	
-	void StageInfo::setCreator(const String& creator_arg)
+	void StageInfo::setCreator(const fgl::String& creator_arg)
 	{
 		creator = creator_arg;
 	}
 	
-	void StageInfo::setMinimumSmashVersion(const String& minsmashversion_arg)
+	void StageInfo::setMinimumSmashVersion(const fgl::String& minsmashversion_arg)
 	{
 		minsmashversion = minsmashversion_arg;
+	}
+
+	fgl::String StageInfo::getIconPath() const
+	{
+		return fgl::FileTools::combinePathStrings(path, "icon.png");
+	}
+
+	fgl::String StageInfo::getPreviewPath() const
+	{
+		return fgl::FileTools::combinePathStrings(path, "preview.png");
 	}
 }

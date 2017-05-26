@@ -5,9 +5,9 @@ namespace SmashBros
 {
 	namespace Menu
 	{
-		MainMenu::MainMenu(const SmashData& smashData) : SmashBros::Menu::BaseMenuScreen(smashData)
+		MainMenu::MainMenu(MenuData* menuData) : SmashBros::Menu::BaseMenuScreen(menuData)
 		{
-			auto assetManager = smashData.getMenuData()->getAssetManager();
+			auto assetManager = menuData->getAssetManager();
 
 			groupButton = new MenuButton(assetManager, "buttons/main/group.png");
 			groupButton->setTapHandler([=]{
@@ -29,13 +29,13 @@ namespace SmashBros
 			soloButton->setLayoutRule(fgl::LAYOUTRULE_BOTTOM, 0.234, fgl::LAYOUTVALUE_RATIO);
 			getElement()->addChildElement(soloButton);
 			
-			backTransition = new FadeColorTransition(Color::BLACK, 0.6);
+			backTransition = new fgl::FadeColorTransition(fgl::Color::BLACK, 0.6);
 			getBackButton()->setTapHandler([=]{
 				getScreenManager()->pop(backTransition, 2000);
 			});
 			
-			addScreen("Group", new GroupMenu(smashData));
-			addScreen("Solo", new SoloMenu(smashData));
+			addScreen("Group", new GroupMenu(menuData));
+			addScreen("Solo", new SoloMenu(menuData));
 		}
 		
 		MainMenu::~MainMenu()

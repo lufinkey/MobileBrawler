@@ -13,13 +13,13 @@ namespace SmashBros
 		class GroupRulesMenu : public BaseMenuScreen
 		{
 		public:
-			GroupRulesMenu(const SmashData& smashData, const GroupSmashData& groupSmashData);
+			GroupRulesMenu(MenuData* menuData, GroupSmashData* groupSmashData);
 			virtual ~GroupRulesMenu();
 			
-			virtual void onWillAppear(const Transition* transition) override;
+			virtual void onWillAppear(const fgl::Transition* transition) override;
 			
 		private:
-			String getGameModeLabelString(Rules* rules) const;
+			fgl::String getGameModeLabelString(Rules* rules) const;
 			unsigned int getGameModeValue(Rules* rules) const;
 			WinCondition* getGameModeWinCondition(unsigned int value) const;
 			

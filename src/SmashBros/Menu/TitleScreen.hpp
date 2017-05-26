@@ -11,13 +11,13 @@ namespace SmashBros
 		class TitleScreen : public SmashBros::Menu::BaseMenuScreen
 		{
 		public:
-			explicit TitleScreen(const SmashData&smashData);
+			explicit TitleScreen(MenuData* menuData);
 			virtual ~TitleScreen();
 
 		private:
-			FadeColorTransition* transition;
-			ImageElement* logo;
-			ButtonElement* tapRegion;
+			fgl::FadeColorTransition* transition;
+			fgl::ImageElement* logo;
+			fgl::ButtonElement* tapRegion;
 		};
 	}
 }

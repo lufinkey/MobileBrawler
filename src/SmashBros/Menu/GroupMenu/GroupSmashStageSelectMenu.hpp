@@ -11,7 +11,7 @@ namespace SmashBros
 		class GroupSmashStageSelectMenu : public StageSelectScreen
 		{
 		public:
-			GroupSmashStageSelectMenu(const SmashData&smashData, const GroupSmashData&groupSmashData);
+			GroupSmashStageSelectMenu(MenuData* menuData, GroupSmashData* groupSmashData);
 		};
 	}
 }

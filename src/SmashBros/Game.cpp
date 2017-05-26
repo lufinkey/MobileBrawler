@@ -1,98 +1,63 @@
 
 #include "Game.hpp"
-#include "Menu/TitleScreen.hpp"
-#include "Load/InitialLoadListener.hpp"
 
 namespace SmashBros
 {
 	Game::Game()
 	{
-		menuAssetManager = nullptr;
-		smashData = nullptr;
-		menuLoad = nullptr;
-		moduleLoad = nullptr;
-		menuScreenMgr = nullptr;
-		titleScreen = nullptr;
-		Graphics::setDefaultFontPath("assets/fonts/arial.ttf");
+		moduleManager = nullptr;
+		menuManager = nullptr;
+		screenManager = nullptr;
+		fgl::Graphics::setDefaultFontPath("assets/fonts/default.ttf");
 	}
 	
 	Game::~Game()
 	{
-		if(menuScreenMgr != nullptr)
+		if(screenManager!=nullptr)
 		{
-			delete menuScreenMgr;
+			delete screenManager;
 		}
-		if(titleScreen != nullptr)
+		if(menuManager!=nullptr)
 		{
-			delete titleScreen;
+			delete menuManager;
 		}
-		if(smashData != nullptr)
+		if(moduleManager!=nullptr)
 		{
-			delete smashData;
-		}
-		if(menuLoad != nullptr)
-		{
-			delete menuLoad;
-		}
-		if(moduleLoad != nullptr)
-		{
-			delete moduleLoad;
+			delete moduleManager;
 		}
 	}
 	
 	void Game::initialize()
 	{
-		#ifdef TARGETPLATFORMTYPE_DESKTOP
-			getWindow()->setSize(Vector2u(300, 200));
-		#endif
 		getWindow()->getViewport()->setMatchesWindow(true);
 		setFPS(60);
 	}
 	
-	void Game::loadContent(AssetManager* assetMgr)
+	void Game::loadContent(fgl::AssetManager* assetMgr)
 	{
-		fgl::String assetsRoot = fgl::FileTools::combinePathStrings(assetMgr->getRootDirectory(), "assets");
-		fgl::String menuAssetsRoot = fgl::FileTools::combinePathStrings(assetsRoot, "menu");
+		auto rootDir = assetMgr->getRootDirectory();
+		auto assetsRoot = fgl::FileTools::combinePathStrings(rootDir, "assets");
+		auto window = getWindow();
 
-		menuAssetManager = new fgl::AssetManager(getWindow(), menuAssetsRoot);
+		moduleManager = new ModuleManager(window, assetsRoot);
+		menuManager = new Menu::MenuManager(assetMgr, moduleManager);
+		screenManager = new fgl::ScreenManager(window, menuManager);
 
-		menuLoad = new MenuLoad(menuAssetManager);
-		moduleLoad = new ModuleLoad(getWindow(), "assets/characters", "assets/stages");
-		smashData = new SmashData(getWindow(), menuLoad, moduleLoad);
-		
-		InitialLoadListener* loadListener = new InitialLoadListener(getWindow());
-		menuLoad->setLoadListener(loadListener);
-		
-		menuLoad->load();
-		
-		moduleLoad->setCharacterSelectIconMask(menuLoad->getCharacterSelectIconMask());
-		moduleLoad->setStageSelectIconMask(menuLoad->getStageSelectIconMask());
-		moduleLoad->setStageSelectPreviewMask(menuLoad->getStageSelectPreviewMask());
-		moduleLoad->load();
-
-		menuLoad->setLoadListener(nullptr);
-		delete loadListener;
-
-		titleScreen = new Menu::TitleScreen(*smashData);
-		menuScreenMgr = new ScreenManager(getWindow(), titleScreen);
+		menuManager->load();
 	}
 	
-	void Game::unloadContent(AssetManager* assetMgr)
+	void Game::unloadContent(fgl::AssetManager* assetMgr)
 	{
-		moduleLoad->unload();
-		menuLoad->unload();
-		delete menuAssetManager;
+		//
 	}
 	
-	void Game::update(ApplicationData appData)
+	void Game::update(fgl::ApplicationData appData)
 	{
-		appData.setAssetManager(menuLoad->getAssetManager());
-		menuScreenMgr->update(appData);
+		screenManager->update(appData);
 	}
 	
-	void Game::draw(ApplicationData appData, Graphics graphics) const
+	void Game::draw(fgl::ApplicationData appData, fgl::Graphics graphics) const
 	{
-		appData.setAssetManager(menuLoad->getAssetManager());
-		menuScreenMgr->draw(appData, graphics);
+		screenManager->draw(appData, graphics);
 	}
 }

@@ -3,16 +3,14 @@
 
 #include <GameLibrary/GameLibrary.hpp>
 
-namespace SmashLib
+namespace SmashBros
 {
-	class CharacterInfo
+	class StageInfo
 	{
 	public:
-		CharacterInfo();
-		~CharacterInfo();
+		StageInfo();
 		
-		bool loadFromPath(const fgl::String&path, fgl::String*error=nullptr);
-		bool saveToPath(const fgl::String&path, fgl::String*error=nullptr) const;
+		bool loadFromPath(const fgl::String& path, fgl::String*error=nullptr);
 		
 		const fgl::String& getPath() const;
 		const fgl::String& getIdentifier() const;
@@ -25,6 +23,9 @@ namespace SmashLib
 		void setName(const fgl::String& name);
 		void setCreator(const fgl::String& creator);
 		void setMinimumSmashVersion(const fgl::String& minsmashversion);
+
+		fgl::String getIconPath() const;
+		fgl::String getPreviewPath() const;
 		
 	private:
 		fgl::String path;

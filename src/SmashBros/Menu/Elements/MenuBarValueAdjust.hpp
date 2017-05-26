@@ -11,6 +11,7 @@ namespace SmashBros
 		class MenuBarValueAdjust : public MenuBar
 		{
 		public:
+			MenuBarValueAdjust(fgl::AssetManager* assetManager, const fgl::String& label);
 			MenuBarValueAdjust(fgl::AssetManager* assetManager, const fgl::String& label, const fgl::Dictionary& properties);
 			virtual ~MenuBarValueAdjust();
 			

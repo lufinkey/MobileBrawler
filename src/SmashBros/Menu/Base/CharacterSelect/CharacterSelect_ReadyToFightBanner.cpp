@@ -9,67 +9,29 @@ namespace SmashBros
 	{
 		namespace CharacterSelect
 		{
-			ReadyToFightBanner::ReadyToFightBanner(CharacterSelectScreen*screen, double x, double y, AssetManager*assetManager) : SpriteActor(x, y)
+			ReadyToFightBanner::ReadyToFightBanner(CharacterSelectScreen* charSelectScreen, fgl::AssetManager* assetManager)
+				: charSelectScreen(charSelectScreen)
 			{
-				charSelectScreen = screen;
-				selected = false;
-				
-				addAnimation("default", new Animation(1, assetManager, "characterselect/readytofight_banner.png"));
-				changeAnimation("default", Animation::FORWARD);
-				setVisible(false);
-			}
-			
-			void ReadyToFightBanner::update(ApplicationData appData)
-			{
-				SpriteActor::update(appData);
-				
-				const ArrayList<PlayerChip*>& chips = charSelectScreen->getPlayerChips();
-				for(unsigned int i=0; i<chips.size(); i++)
+				auto backgroundImage = assetManager->loadTexture("characterselect/readytofight_banner.png");
+				setBackgroundImage(backgroundImage, fgl::ButtonElement::BUTTONSTATE_NORMAL);
+
+				setTintColor(fgl::Color::BLUE, fgl::ButtonElement::BUTTONSTATE_PRESSED);
+				setTintColor(fgl::Color::LIGHTBLUE, fgl::ButtonElement::BUTTONSTATE_HOVERED);
+
+				setTapHandler([=]{
+					charSelectScreen->proceedToFight();
+				});
+
+				if(backgroundImage!=nullptr)
 				{
-					PlayerChip* chip = chips.get(i);
-					if(chip->isDragging())
-					{
-						setVisible(false);
-					}
-				}
-				
-				if(!isVisible())
-				{
-					selected = false;
-				}
-				
-				if(isMouseOver())
-				{
-					if(selected)
-					{
-						setColor(Color::BLUE);
-					}
-					else
-					{
-						setColor(Color::LIGHTBLUE);
-					}
+					setLayoutRule(fgl::LAYOUTRULE_ASPECTRATIO, (double)backgroundImage->getWidth()/(double)backgroundImage->getHeight(), fgl::LAYOUTVALUE_RATIO);
 				}
 				else
 				{
-					setColor(Color::WHITE);
+					setLayoutRule(fgl::LAYOUTRULE_HEIGHT, 0);
 				}
-			}
-			
-			void ReadyToFightBanner::onMousePress(const ActorMouseEvent& evt)
-			{
-				if(isVisible())
-				{
-					selected = true;
-				}
-			}
-			
-			void ReadyToFightBanner::onMouseRelease(const ActorMouseEvent& evt)
-			{
-				if(selected)
-				{
-					selected = false;
-					charSelectScreen->proceedToFight();
-				}
+				setLayoutRule(fgl::LAYOUTRULE_LEFT, 0);
+				setLayoutRule(fgl::LAYOUTRULE_RIGHT, 0);
 			}
 		}
 	}

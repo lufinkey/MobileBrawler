@@ -5,6 +5,12 @@ namespace SmashBros
 {
 	namespace Menu
 	{
+		RulesBar::RulesBar(fgl::AssetManager* assetManager, Rules* ruleData, StockWinCondition* stockWinCondition, TimeLimitWinCondition* timeLimitWinCondition)
+			: RulesBar(assetManager, ruleData, stockWinCondition, timeLimitWinCondition, getDefaultProperties(assetManager))
+		{
+			//
+		}
+
 		RulesBar::RulesBar(fgl::AssetManager* assetManager, Rules* ruleData, StockWinCondition* stockWinCondition, TimeLimitWinCondition* timeLimitWinCondition, const fgl::Dictionary& properties)
 			: MenuBarValueAdjust(assetManager, "Stock", properties)
 		{
@@ -37,6 +43,19 @@ namespace SmashBros
 		RulesBar::~RulesBar()
 		{
 			//
+		}
+
+		fgl::Dictionary RulesBar::getDefaultProperties(fgl::AssetManager* assetManager)
+		{
+			FILE* file = assetManager->openFile("elements/rules_bar.plist", "rb");
+			if(file!=nullptr)
+			{
+				fgl::Dictionary properties;
+				fgl::Plist::loadFromFile(&properties, file);
+				fgl::FileTools::closeFile(file);
+				return properties;
+			}
+			return {};
 		}
 		
 		void RulesBar::update(fgl::ApplicationData appData)

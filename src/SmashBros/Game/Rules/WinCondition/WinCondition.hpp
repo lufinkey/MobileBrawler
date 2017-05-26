@@ -3,7 +3,7 @@
 
 #include <GameLibrary/GameLibrary.hpp>
 
-namespace SmashLib
+namespace SmashBros
 {
 	class WinCondition
 	{

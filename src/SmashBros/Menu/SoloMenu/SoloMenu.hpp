@@ -8,7 +8,7 @@ namespace SmashBros
 		class SoloMenu : public BaseMenuScreen
 		{
 		public:
-			explicit SoloMenu(const SmashData&smashData);
+			explicit SoloMenu(MenuData* menuData);
 			virtual ~SoloMenu();
 
 		private:
