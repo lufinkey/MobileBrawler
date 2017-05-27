@@ -219,7 +219,8 @@ namespace SmashBros
 				double panel_center_x = panel_left + (panel_width/2);
 				double panel_top = panelBounds.top;
 				panel->setLayoutRule(fgl::LAYOUTRULE_CENTER_X, panel_center_x, fgl::LAYOUTVALUE_RATIO);
-				panel->setLayoutRule(fgl::LAYOUTRULE_TOP, panel_top);
+				panel->setLayoutRule(fgl::LAYOUTRULE_TOP, panel_top, fgl::LAYOUTVALUE_RATIO);
+				panel->setLayoutRule(fgl::LAYOUTRULE_HEIGHT, panel_height, fgl::LAYOUTVALUE_RATIO);
 				panelsElement->addChildElement(panel);
 				panels.add(panel);
 				

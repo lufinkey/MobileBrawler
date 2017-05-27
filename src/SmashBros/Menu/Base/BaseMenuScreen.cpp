@@ -40,7 +40,7 @@ namespace SmashBros
 			
 			backButton = new MenuButton(assetManager, "buttons/back.png");
 			backButton->setTapHandler([=]{
-				getScreenManager()->pop();
+				getScreenManager()->popScreen();
 			});
 			backButton->setLayoutRule(fgl::LAYOUTRULE_LEFT,	 0,		fgl::LAYOUTVALUE_RATIO);
 			backButton->setLayoutRule(fgl::LAYOUTRULE_TOP,	 0,		fgl::LAYOUTVALUE_RATIO);
@@ -104,7 +104,7 @@ namespace SmashBros
 		{
 			if(auto screen = screens.get(name, nullptr))
 			{
-				getScreenManager()->push(screen, transition, duration);
+				getScreenManager()->pushScreen(screen, transition, duration);
 			}
 			else
 			{
@@ -127,7 +127,7 @@ namespace SmashBros
 					throw fgl::IllegalStateException("cannot call goBack on the first Screen in the navigation stack");
 				}
 				auto previousScreen = screens.get(screenIndex-1);
-				screenManager->popTo(previousScreen);
+				screenManager->popToScreen(previousScreen);
 			}
 			else
 			{

@@ -48,7 +48,7 @@ namespace SmashBros
 			{
 				throw fgl::IllegalStateException("cannot set the menuPath before the MenuManager has loaded");
 			}
-			popToRoot(nullptr);
+			popToFirstScreen(nullptr);
 			BaseMenuScreen* screen = static_cast<BaseMenuScreen*>(getScreens()[0]);
 			for(auto& pathElement : menuPath)
 			{
@@ -113,7 +113,7 @@ namespace SmashBros
 			menuData = new MenuData(assetManager, moduleManager);
 			titleScreen = new TitleScreen(menuData);
 
-			set({titleScreen}, nullptr);
+			setScreens({titleScreen}, nullptr);
 		}
 
 		void MenuManager::unload()
@@ -129,7 +129,7 @@ namespace SmashBros
 			menuData = nullptr;
 			moduleManager->unloadAssets();
 
-			set({emptyScreen}, nullptr);
+			setScreens({emptyScreen}, nullptr);
 		}
 	}
 }

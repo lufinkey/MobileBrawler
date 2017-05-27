@@ -31,7 +31,7 @@ namespace SmashBros
 			
 			backTransition = new fgl::FadeColorTransition(fgl::Color::BLACK, 0.6);
 			getBackButton()->setTapHandler([=]{
-				getScreenManager()->pop(backTransition, 2000);
+				getScreenManager()->popScreen(backTransition, 2000);
 			});
 			
 			addScreen("Group", new GroupMenu(menuData));
