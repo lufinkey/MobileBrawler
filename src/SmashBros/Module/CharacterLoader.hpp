@@ -2,6 +2,7 @@
 #pragma once
 
 #include "CharacterInfo.hpp"
+#include <fightlib/fightlib.hpp>
 
 namespace SmashBros
 {
@@ -20,9 +21,15 @@ namespace SmashBros
 
 		fgl::ArrayList<fgl::String> getIconPaths() const;
 		fgl::ArrayList<fgl::String> getPortraitPaths() const;
+
+		void registerCharacter(const fgl::String& identifier, const std::function<fl::Character*()>& initializer);
+		void unregisterCharacter(const fgl::String& identifier);
+		fl::Character* createCharacter(const fgl::String& identifier) const;
 		
 	private:
 		fgl::ArrayList<CharacterInfo> characters;
 		fgl::ArrayList<fgl::String> paths;
+
+		fgl::BasicDictionary<fgl::String, std::function<fl::Character*()>> characterInitializers;
 	};
 }

@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include <fightlib/fightlib.hpp>
 #include "StageInfo.hpp"
 
 namespace SmashBros
@@ -21,8 +22,14 @@ namespace SmashBros
 		fgl::ArrayList<fgl::String> getIconPaths() const;
 		fgl::ArrayList<fgl::String> getPreviewPaths() const;
 
+		void registerStage(const fgl::String& identifier, const std::function<fl::Stage*()>& initializer);
+		void unregisterStage(const fgl::String& identifier);
+		fl::Stage* createStage(const fgl::String& identifier) const;
+
 	private:
 		fgl::ArrayList<StageInfo> stages;
 		fgl::ArrayList<fgl::String> paths;
+
+		fgl::BasicDictionary<fgl::String, std::function<fl::Stage*()>> stageInitializers;
 	};
 }

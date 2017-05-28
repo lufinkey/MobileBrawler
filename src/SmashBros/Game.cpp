@@ -8,7 +8,7 @@ namespace SmashBros
 		moduleManager = nullptr;
 		menuManager = nullptr;
 		screenManager = nullptr;
-		fgl::Graphics::setDefaultFontPath("assets/fonts/default.ttf");
+		fgl::Graphics::setDefaultFontPath("assets/fonts/arial.ttf");
 	}
 	
 	Game::~Game()

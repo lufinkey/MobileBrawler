@@ -128,4 +128,25 @@ namespace SmashBros
 		}
 		return previewPaths;
 	}
+
+	void StageLoader::registerStage(const fgl::String& identifier, const std::function<fl::Stage*()>& initializer)
+	{
+		if(stageInitializers.has(identifier))
+		{
+			throw fgl::IllegalArgumentException("identifier", "stage has already been registered");
+		}
+		stageInitializers[identifier] = initializer;
+	}
+
+	void StageLoader::unregisterStage(const fgl::String& identifier)
+	{
+		stageInitializers.remove(identifier);
+	}
+
+	fl::Stage* StageLoader::createStage(const fgl::String& identifier) const
+	{
+		return stageInitializers.get(identifier, []() -> fl::Stage* {
+			return nullptr;
+		})();
+	}
 }

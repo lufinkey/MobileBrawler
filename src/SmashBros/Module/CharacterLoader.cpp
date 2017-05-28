@@ -128,4 +128,25 @@ namespace SmashBros
 		}
 		return portraitPaths;
 	}
+
+	void CharacterLoader::registerCharacter(const fgl::String& identifier, const std::function<fl::Character*()>& initializer)
+	{
+		if(characterInitializers.has(identifier))
+		{
+			throw fgl::IllegalArgumentException("identifier", "character has already been registered");
+		}
+		characterInitializers[identifier] = initializer;
+	}
+
+	void CharacterLoader::unregisterCharacter(const fgl::String& identifier)
+	{
+		characterInitializers.remove(identifier);
+	}
+
+	fl::Character* CharacterLoader::createCharacter(const fgl::String& identifier) const
+	{
+		return characterInitializers.get(identifier, []() -> fl::Character* {
+			return nullptr;
+		})();
+	}
 }
