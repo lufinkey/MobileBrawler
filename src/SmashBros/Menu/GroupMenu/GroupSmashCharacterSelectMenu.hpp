@@ -25,9 +25,6 @@ namespace SmashBros
 			GroupSmashData* groupSmashData;
 
 			RulesBar* rulesBar;
-
-			StockWinCondition* stockWinCondition;
-			TimeLimitWinCondition* timeLimitWinCondition;
 		};
 	}
 }

@@ -14,7 +14,7 @@ namespace SmashBros
 		MenuBarValueAdjust::MenuBarValueAdjust(fgl::AssetManager* assetManager, const fgl::String& label, const fgl::Dictionary& properties)
 			: MenuBar(assetManager, label, properties)
 		{
-			fgl::Font* font = assetManager->getFont("fonts/default.ttf");
+			fgl::Font* font = assetManager->loadFont("fonts/default.ttf");
 			
 			value = 0;
 			minValue = 0;

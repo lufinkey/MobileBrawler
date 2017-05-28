@@ -42,12 +42,13 @@ namespace SmashBros
 		
 		void GroupSmashCharacterSelectMenu::onWillAppear(const fgl::Transition* transition)
 		{
+			CharacterSelectScreen::onWillAppear(transition);
 			Rules* rules = getRules();
-			if(rules->getWinCondition() == stockWinCondition)
+			if(rules->getWinCondition() == groupSmashData->getStockWinCondition())
 			{
 				rulesBar->getLabelElement()->setText("Man Survival Test!");
 			}
-			else if(rules->getWinCondition() == timeLimitWinCondition)
+			else if(rules->getWinCondition() == groupSmashData->getTimeLimitWinCondition())
 			{
 				rulesBar->getLabelElement()->setText("Minute Survival Test!");
 			}

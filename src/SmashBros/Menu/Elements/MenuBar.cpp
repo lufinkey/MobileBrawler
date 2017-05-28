@@ -13,6 +13,8 @@ namespace SmashBros
 
 		MenuBar::MenuBar(fgl::AssetManager* assetManager, const fgl::String& label, const fgl::Dictionary& properties)
 		{
+			fgl::Font* font = assetManager->loadFont("fonts/default.ttf");
+
 			backgroundElement = new fgl::ImageElement();
 			backgroundElement->setImage(assetManager->loadTexture("elements/menu_bar.png"));
 			backgroundElement->setLayoutRule(fgl::LAYOUTRULE_LEFT, 0);
@@ -23,6 +25,7 @@ namespace SmashBros
 			
 			labelElement = new fgl::TextElement();
 			labelElement->setText(label);
+			labelElement->setFont(font);
 			labelElement->setFontSize(24);
 			labelElement->setTextColor(fgl::Color::BLACK);
 			labelElement->setTextAlignment(fgl::TEXTALIGN_LEFT);
