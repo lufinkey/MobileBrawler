@@ -1,3 +1,6 @@
 [submodule "external/FightLib"]
 	path = external/FightLib
 	url = https://github.com/lufinkey/FightLib
+[submodule "external/GameLibrary"]
+	path = external/GameLibrary
+	url = https://github.com/lufinkey/GameLibrary

@@ -240,7 +240,7 @@ namespace SmashBros
 			auto menuData = getMenuData();
 			auto assetManager = menuData->getAssetManager();
 			auto window = assetManager->getWindow();
-			auto screenSize = window->getSize();
+			auto screenSize = window->getDrawSize();
 			
 			fgl::RectD panelBounds(0.0, 0.6, 1.0, 1.0);
 			
@@ -250,12 +250,10 @@ namespace SmashBros
 			double panel_width = panelBounds_w/(double)playerCount;
 			double panel_height = panelBounds_h;
 			
-			for(size_t i=0; i<playerCount; i++)
+			for(size_t playerIndex=0; playerIndex<playerCount; playerIndex++)
 			{
-				size_t playerIndex = i;
-				
 				PlayerPanel* panel = new PlayerPanel(this, menuData, playerIndex);
-				double panel_left = panelBounds.left + (panel_width*((double)i));
+				double panel_left = panelBounds.left + (panel_width*(double)playerIndex);
 				double panel_center_x = panel_left + (panel_width/2);
 				double panel_top = panelBounds.top;
 				panel->setLayoutRule(fgl::LAYOUTRULE_CENTER_X, panel_center_x, fgl::LAYOUTVALUE_RATIO);

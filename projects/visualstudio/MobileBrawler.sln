@@ -14,7 +14,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FightLib", "..\..\external\
 		{68890E50-B78E-43FB-BFF3-C96E86766C57} = {68890E50-B78E-43FB-BFF3-C96E86766C57}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameLibrary", "..\..\external\FightLib\external\GameLibrary\projects\visualstudio\GameLibrary.vcxproj", "{68890E50-B78E-43FB-BFF3-C96E86766C57}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameLibrary", "..\..\external\GameLibrary\projects\visualstudio\GameLibrary.vcxproj", "{68890E50-B78E-43FB-BFF3-C96E86766C57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
