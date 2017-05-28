@@ -27,6 +27,7 @@ namespace SmashBros
 			labelElement->setText(label);
 			labelElement->setFont(font);
 			labelElement->setFontSize(24);
+			labelElement->setFontSizeWidthAdjustmentEnabled(true);
 			labelElement->setTextColor(fgl::Color::BLACK);
 			labelElement->setTextAlignment(fgl::TEXTALIGN_LEFT);
 			labelElement->setVerticalTextAlignment(fgl::VERTICALALIGN_CENTER);

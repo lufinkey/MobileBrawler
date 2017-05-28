@@ -52,6 +52,8 @@ namespace SmashBros
 
 				nameLabel = new fgl::TextElement();
 				nameLabel->setFont(assetManager->loadFont("fonts/default.ttf"));
+				nameLabel->setFontSizeWidthAdjustmentEnabled(true);
+				nameLabel->setFontSizeHeightAdjustmentEnabled(true);
 				nameLabel->setTextColor(fgl::Color::BLACK);
 				nameLabel->setFontSize(36);
 				nameLabel->setTextAlignment(fgl::TEXTALIGN_CENTER);
