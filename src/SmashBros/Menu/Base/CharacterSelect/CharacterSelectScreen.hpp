@@ -22,19 +22,25 @@ namespace SmashBros
 		public:
 			CharacterSelectScreen(MenuData* menuData, Rules* rules);
 			virtual ~CharacterSelectScreen();
+
+			virtual void onSizeChange(const fgl::Vector2d& oldSize, const fgl::Vector2d& newSize) override;
 			
 			virtual bool isReadyToFight() const;
 			virtual void proceedToFight();
 			
 			Rules* getRules() const;
 			const fgl::ArrayList<CharacterSelect::PlayerChip*>& getPlayerChips() const;
+			CharacterSelect::PlayerChip* getPlayerChip(size_t playerIndex) const;
 			const fgl::ArrayList<CharacterSelect::CharacterIcon*>& getCharacterIcons() const;
+			CharacterSelect::CharacterIcon* getCharacterIcon(const fgl::String& identifier) const;
 			
 		protected:
 			void reloadCharacters();
 			void reloadPlayers();
 
 			virtual void onUpdate(const fgl::ApplicationData& appData) override;
+
+			void resetPlayerChip(size_t playerIndex);
 			
 		private:
 			void handlePlayerChipGrabbed(size_t playerIndex);

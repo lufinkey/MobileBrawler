@@ -76,8 +76,6 @@ namespace SmashBros
 				addChildElement(nameLabel);
 				
 				applyProperties(properties);
-
-				setBorderWidth(1);
 			}
 			
 			PlayerPanel::~PlayerPanel()

@@ -15,8 +15,8 @@ namespace SmashBros
 		size_t getPlayerCount() const;
 		void setPlayerCount(size_t count);
 
-		PlayerInfo& getPlayerInfo(size_t playerNum);
-		const PlayerInfo& getPlayerInfo(size_t playerNum) const;
+		PlayerInfo& getPlayerInfo(size_t playerIndex);
+		const PlayerInfo& getPlayerInfo(size_t playerIndex) const;
 
 		WinCondition* getWinCondition() const;
 		void setWinCondition(WinCondition* condition);

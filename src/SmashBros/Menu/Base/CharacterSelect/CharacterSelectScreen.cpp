@@ -39,7 +39,7 @@ namespace SmashBros
 			
 			readyToFightBanner = new ReadyToFightBanner(this, assetManager);
 			readyToFightBanner->setVisible(false);
-			readyToFightBanner->setLayoutRule(fgl::LAYOUTRULE_TOP, 0.5, fgl::LAYOUTVALUE_RATIO);
+			readyToFightBanner->setLayoutRule(fgl::LAYOUTRULE_TOP, 0.56, fgl::LAYOUTVALUE_RATIO);
 
 			element->addChildElement(iconsElement);
 			element->addChildElement(panelsElement);
@@ -65,6 +65,25 @@ namespace SmashBros
 			delete panelsElement;
 			delete chipsElement;
 			delete readyToFightBanner;
+		}
+
+		void CharacterSelectScreen::onSizeChange(const fgl::Vector2d& oldSize, const fgl::Vector2d& newSize)
+		{
+			BaseMenuScreen::onSizeChange(oldSize, newSize);
+			for(size_t playerIndex=0; playerIndex < rules->getPlayerCount(); playerIndex++)
+			{
+				auto& identifier = rules->getPlayerInfo(playerIndex).getCharacterIdentifier();
+				if(identifier.length()==0)
+				{
+					resetPlayerChip(playerIndex);
+				}
+				else
+				{
+					auto icon = getCharacterIcon(identifier);
+					auto chip = getPlayerChip(playerIndex);
+					chip->setCenter(icon->getCenter());
+				}
+			}
 		}
 		
 		bool CharacterSelectScreen::isReadyToFight() const
@@ -111,10 +130,31 @@ namespace SmashBros
 		{
 			return chips;
 		}
+
+		CharacterSelect::PlayerChip* CharacterSelectScreen::getPlayerChip(size_t playerIndex) const
+		{
+			if(playerIndex < chips.size())
+			{
+				return chips[playerIndex];
+			}
+			return nullptr;
+		}
 		
 		const fgl::ArrayList<CharacterSelect::CharacterIcon*>& CharacterSelectScreen::getCharacterIcons() const
 		{
 			return icons;
+		}
+
+		CharacterSelect::CharacterIcon* CharacterSelectScreen::getCharacterIcon(const fgl::String& identifier) const
+		{
+			for(auto& icon : icons)
+			{
+				if(icon->getCharacterInfo().getIdentifier()==identifier)
+				{
+					return icon;
+				}
+			}
+			return nullptr;
 		}
 		
 		void CharacterSelectScreen::reloadCharacters()
@@ -225,7 +265,7 @@ namespace SmashBros
 				panels.add(panel);
 				
 				fgl::Vector2d chipCenter;
-				chipCenter.x = (panel_left*(double)screenSize.x)+5;
+				chipCenter.x = (panel_left*(double)screenSize.x)+20;
 				chipCenter.y = (panel_top+(panel_height/2))*screenSize.y;
 				
 				PlayerChip* chip = new PlayerChip(this, menuData, playerIndex);
@@ -235,6 +275,23 @@ namespace SmashBros
 				chipsElement->addChildElement(chip);
 				chips.add(chip);
 			}
+		}
+
+		void CharacterSelectScreen::resetPlayerChip(size_t playerIndex)
+		{
+			auto chip = getPlayerChip(playerIndex);
+			auto screenSize = getSize();
+
+			double panel_width = 1.0/(double)rules->getPlayerCount();
+			double panel_height = 0.4;
+			double panel_top = 0.6;
+			double panel_left = panel_width*(double)playerIndex;
+
+			fgl::Vector2d chipCenter;
+			chipCenter.x = (panel_left*(double)screenSize.x)+20;
+			chipCenter.y = (panel_top+(panel_height/2))*screenSize.y;
+
+			chip->setCenter(chipCenter);
 		}
 		
 		void CharacterSelectScreen::onUpdate(const fgl::ApplicationData& appData)
