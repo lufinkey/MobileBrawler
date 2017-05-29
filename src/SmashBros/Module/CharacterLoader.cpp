@@ -129,7 +129,7 @@ namespace SmashBros
 		return portraitPaths;
 	}
 
-	void CharacterLoader::registerCharacter(const fgl::String& identifier, const std::function<fl::Character*()>& initializer)
+	void CharacterLoader::registerCharacter(const fgl::String& identifier, const std::function<fl::Character*(fgl::AssetManager*)>& initializer)
 	{
 		if(characterInitializers.has(identifier))
 		{
@@ -143,10 +143,10 @@ namespace SmashBros
 		characterInitializers.remove(identifier);
 	}
 
-	fl::Character* CharacterLoader::createCharacter(const fgl::String& identifier) const
+	fl::Character* CharacterLoader::createCharacter(const fgl::String& identifier, fgl::AssetManager* assetManager) const
 	{
-		return characterInitializers.get(identifier, []() -> fl::Character* {
+		return characterInitializers.get(identifier, [](fgl::AssetManager* assetManager) -> fl::Character* {
 			return nullptr;
-		})();
+		})(assetManager);
 	}
 }

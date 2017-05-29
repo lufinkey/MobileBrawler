@@ -129,7 +129,7 @@ namespace SmashBros
 		return previewPaths;
 	}
 
-	void StageLoader::registerStage(const fgl::String& identifier, const std::function<fl::Stage*()>& initializer)
+	void StageLoader::registerStage(const fgl::String& identifier, const std::function<fl::Stage*(fgl::AssetManager*)>& initializer)
 	{
 		if(stageInitializers.has(identifier))
 		{
@@ -143,10 +143,10 @@ namespace SmashBros
 		stageInitializers.remove(identifier);
 	}
 
-	fl::Stage* StageLoader::createStage(const fgl::String& identifier) const
+	fl::Stage* StageLoader::createStage(const fgl::String& identifier, fgl::AssetManager* assetManager) const
 	{
-		return stageInitializers.get(identifier, []() -> fl::Stage* {
+		return stageInitializers.get(identifier, [](fgl::AssetManager* assetManager) -> fl::Stage* {
 			return nullptr;
-		})();
+		})(assetManager);
 	}
 }
