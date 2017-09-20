@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Project Name="MobileBrawler" InternalType="Console">
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
+    </Plugin>
+    <Plugin Name="CMakePlugin">
+      <![CDATA[[{
+  "name": "Debug",
+  "enabled": false,
+  "buildDirectory": "build",
+  "sourceDirectory": "$(ProjectPath)",
+  "generator": "",
+  "buildType": "",
+  "arguments": [],
+  "parentProject": ""
+ }, {
+  "name": "Release",
+  "enabled": false,
+  "buildDirectory": "build",
+  "sourceDirectory": "$(ProjectPath)",
+  "generator": "",
+  "buildType": "",
+  "arguments": [],
+  "parentProject": ""
+ }]]]>
+    </Plugin>
+  </Plugins>
+  <VirtualDirectory Name="src">
+    <VirtualDirectory Name="SmashBros">
+      <VirtualDirectory Name="Game">
+        <VirtualDirectory Name="Rules">
+          <VirtualDirectory Name="WinCondition">
+            <File Name="../../src/SmashBros/Game/Rules/WinCondition/TimeLimitWinCondition.hpp"/>
+            <File Name="../../src/SmashBros/Game/Rules/WinCondition/StockWinCondition.hpp"/>
+            <File Name="../../src/SmashBros/Game/Rules/WinCondition/WinCondition.cpp"/>
+            <File Name="../../src/SmashBros/Game/Rules/WinCondition/WinCondition.hpp"/>
+            <File Name="../../src/SmashBros/Game/Rules/WinCondition/StockWinCondition.cpp"/>
+            <File Name="../../src/SmashBros/Game/Rules/WinCondition/TimeLimitWinCondition.cpp"/>
+          </VirtualDirectory>
+          <File Name="../../src/SmashBros/Game/Rules/Rules.cpp"/>
+          <File Name="../../src/SmashBros/Game/Rules/Rules.hpp"/>
+          <File Name="../../src/SmashBros/Game/Rules/PlayerInfo.cpp"/>
+          <File Name="../../src/SmashBros/Game/Rules/PlayerInfo.hpp"/>
+        </VirtualDirectory>
+      </VirtualDirectory>
+      <VirtualDirectory Name="Menu">
+        <VirtualDirectory Name="Base">
+          <VirtualDirectory Name="StageSelect">
+            <File Name="../../src/SmashBros/Menu/Base/StageSelect/StageSelectScreen.hpp"/>
+            <File Name="../../src/SmashBros/Menu/Base/StageSelect/StageSelect_StageIcon.cpp"/>
+            <File Name="../../src/SmashBros/Menu/Base/StageSelect/StageSelect_StagePreview.hpp"/>
+            <File Name="../../src/SmashBros/Menu/Base/StageSelect/StageSelectScreen.cpp"/>
+            <File Name="../../src/SmashBros/Menu/Base/StageSelect/StageSelect_StageIcon.hpp"/>
+            <File Name="../../src/SmashBros/Menu/Base/StageSelect/StageSelect_StagePreview.cpp"/>
+          </VirtualDirectory>
+          <VirtualDirectory Name="CharacterSelect">
+            <File Name="../../src/SmashBros/Menu/Base/CharacterSelect/CharacterSelectScreen.hpp"/>
+            <File Name="../../src/SmashBros/Menu/Base/CharacterSelect/CharacterSelectScreen.cpp"/>
+            <File Name="../../src/SmashBros/Menu/Base/CharacterSelect/CharacterSelect_ReadyToFightBanner.cpp"/>
+            <File Name="../../src/SmashBros/Menu/Base/CharacterSelect/CharacterSelect_CharacterIcon.cpp"/>
+            <File Name="../../src/SmashBros/Menu/Base/CharacterSelect/CharacterSelect_PlayerPanel.hpp"/>
+            <File Name="../../src/SmashBros/Menu/Base/CharacterSelect/CharacterSelect_PlayerChip.hpp"/>
+            <File Name="../../src/SmashBros/Menu/Base/CharacterSelect/CharacterSelect_PlayerChip.cpp"/>
+            <File Name="../../src/SmashBros/Menu/Base/CharacterSelect/CharacterSelect_CharacterIcon.hpp"/>
+            <File Name="../../src/SmashBros/Menu/Base/CharacterSelect/CharacterSelect_PlayerPanel.cpp"/>
+            <File Name="../../src/SmashBros/Menu/Base/CharacterSelect/CharacterSelect_ReadyToFightBanner.hpp"/>
+          </VirtualDirectory>
+          <File Name="../../src/SmashBros/Menu/Base/BaseMenuScreen.hpp"/>
+          <File Name="../../src/SmashBros/Menu/Base/BaseMenuScreen.cpp"/>
+        </VirtualDirectory>
+        <VirtualDirectory Name="SoloMenu">
+          <File Name="../../src/SmashBros/Menu/SoloMenu/SoloMenu.hpp"/>
+          <File Name="../../src/SmashBros/Menu/SoloMenu/SoloMenu.cpp"/>
+        </VirtualDirectory>
+        <VirtualDirectory Name="Elements">
+          <File Name="../../src/SmashBros/Menu/Elements/ActorGrid.cpp"/>
+          <File Name="../../src/SmashBros/Menu/Elements/MenuBarValueAdjust.cpp"/>
+          <File Name="../../src/SmashBros/Menu/Elements/MenuBarValueAdjust.hpp"/>
+          <File Name="../../src/SmashBros/Menu/Elements/ActorGrid.hpp"/>
+          <File Name="../../src/SmashBros/Menu/Elements/MenuButton.cpp"/>
+          <File Name="../../src/SmashBros/Menu/Elements/RulesBar.cpp"/>
+          <File Name="../../src/SmashBros/Menu/Elements/RulesBar.hpp"/>
+          <File Name="../../src/SmashBros/Menu/Elements/ArrowButton.hpp"/>
+          <File Name="../../src/SmashBros/Menu/Elements/MenuBar.cpp"/>
+          <File Name="../../src/SmashBros/Menu/Elements/MenuBar.hpp"/>
+          <File Name="../../src/SmashBros/Menu/Elements/ArrowButton.cpp"/>
+          <File Name="../../src/SmashBros/Menu/Elements/MenuButton.hpp"/>
+        </VirtualDirectory>
+        <VirtualDirectory Name="GroupMenu">
+          <File Name="../../src/SmashBros/Menu/GroupMenu/GroupRulesMenu.cpp"/>
+          <File Name="../../src/SmashBros/Menu/GroupMenu/GroupMenu.cpp"/>
+          <File Name="../../src/SmashBros/Menu/GroupMenu/GroupSmashCharacterSelectMenu.cpp"/>
+          <File Name="../../src/SmashBros/Menu/GroupMenu/GroupSmashStageSelectMenu.hpp"/>
+          <File Name="../../src/SmashBros/Menu/GroupMenu/GroupSmashCharacterSelectMenu.hpp"/>
+          <File Name="../../src/SmashBros/Menu/GroupMenu/GroupSmashStageSelectMenu.cpp"/>
+          <File Name="../../src/SmashBros/Menu/GroupMenu/GroupRulesMenu.hpp"/>
+          <File Name="../../src/SmashBros/Menu/GroupMenu/GroupMenu.hpp"/>
+        </VirtualDirectory>
+        <VirtualDirectory Name="MenuData">
+          <File Name="../../src/SmashBros/Menu/MenuData/MenuData.hpp"/>
+          <File Name="../../src/SmashBros/Menu/MenuData/MenuData.cpp"/>
+          <File Name="../../src/SmashBros/Menu/MenuData/GroupSmashData.cpp"/>
+          <File Name="../../src/SmashBros/Menu/MenuData/GroupSmashData.hpp"/>
+        </VirtualDirectory>
+        <File Name="../../src/SmashBros/Menu/TitleScreen.hpp"/>
+        <File Name="../../src/SmashBros/Menu/MenuManager.hpp"/>
+        <File Name="../../src/SmashBros/Menu/MenuManager.cpp"/>
+        <File Name="../../src/SmashBros/Menu/TitleScreen.cpp"/>
+        <File Name="../../src/SmashBros/Menu/MainMenu.hpp"/>
+        <File Name="../../src/SmashBros/Menu/MainMenu.cpp"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="Module">
+        <File Name="../../src/SmashBros/Module/CharacterLoader.hpp"/>
+        <File Name="../../src/SmashBros/Module/StageInfo.hpp"/>
+        <File Name="../../src/SmashBros/Module/ModuleManager.cpp"/>
+        <File Name="../../src/SmashBros/Module/CharacterLoader.cpp"/>
+        <File Name="../../src/SmashBros/Module/StageInfo.cpp"/>
+        <File Name="../../src/SmashBros/Module/CharacterInfo.cpp"/>
+        <File Name="../../src/SmashBros/Module/ModuleManager.hpp"/>
+        <File Name="../../src/SmashBros/Module/CharacterInfo.hpp"/>
+        <File Name="../../src/SmashBros/Module/StageLoader.hpp"/>
+        <File Name="../../src/SmashBros/Module/StageLoader.cpp"/>
+      </VirtualDirectory>
+      <File Name="../../src/SmashBros/main.cpp"/>
+      <File Name="../../src/SmashBros/Game.cpp"/>
+      <File Name="../../src/SmashBros/Game.hpp"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <Description/>
+  <Dependencies/>
+  <Dependencies Name="Debug">
+    <Project Name="GameLibrary"/>
+    <Project Name="FightLib"/>
+  </Dependencies>
+  <Dependencies Name="Release">
+    <Project Name="GameLibrary"/>
+    <Project Name="FightLib"/>
+  </Dependencies>
+  <Settings Type="Executable">
+    <GlobalSettings>
+      <Compiler Options="" C_Options="" Assembler="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="">
+        <LibraryPath Value="."/>
+      </Linker>
+      <ResourceCompiler Options=""/>
+    </GlobalSettings>
+    <Configuration Name="Debug" CompilerType="clang( tags/RELEASE_380/final )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-Wno-c++1z-extensions;-std=c++14" C_Options="-g;-O0" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="../../src"/>
+        <IncludePath Value="../../external/FightLib/include"/>
+        <IncludePath Value="../../external/FightLib/external/GameLibrary/include"/>
+      </Compiler>
+      <Linker Options="" Required="yes">
+        <LibraryPath Value="../../external/FightLib/projects/codelite/Debug"/>
+        <LibraryPath Value="../../external/FightLib/external/GameLibrary/projects/codelite/Debug"/>
+        <Library Value="SDL2"/>
+        <Library Value="SDL2_image"/>
+        <Library Value="SDL2_mixer"/>
+        <Library Value="SDL2_ttf"/>
+        <Library Value="SDL2_gfx"/>
+        <Library Value="pthread"/>
+        <Library Value="FightLib"/>
+        <Library Value="GameLibrary"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Debug" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild>
+        <Command Enabled="yes">rm -rf Debug/assets</Command>
+        <Command Enabled="yes">cp -r ../../assets Debug/assets</Command>
+      </PostBuild>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="Release" CompilerType="clang( tags/RELEASE_380/final )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-O2;-Wno-c++1z-extensions;-std=c++14" C_Options="-O2" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="../../src"/>
+        <IncludePath Value="../../external/FightLib/include"/>
+        <IncludePath Value="../../external/FightLib/external/GameLibrary/include"/>
+        <Preprocessor Value="NDEBUG"/>
+      </Compiler>
+      <Linker Options="" Required="yes">
+        <LibraryPath Value="../../external/FightLib/projects/codelite/Release"/>
+        <LibraryPath Value="../../external/FightLib/external/GameLibrary/projects/codelite/Release"/>
+        <Library Value="SDL2"/>
+        <Library Value="SDL2_image"/>
+        <Library Value="SDL2_mixer"/>
+        <Library Value="SDL2_ttf"/>
+        <Library Value="SDL2_gfx"/>
+        <Library Value="pthread"/>
+        <Library Value="FightLib"/>
+        <Library Value="GameLibrary"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Release" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild>
+        <Command Enabled="yes">rm -rf Release/assets</Command>
+        <Command Enabled="yes">cp -r ../../assets Release/assets</Command>
+      </PostBuild>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+  </Settings>
+</CodeLite_Project>

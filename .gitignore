@@ -15,3 +15,12 @@
 /projects/xcode/*.xcworkspace/xcuserdata
 /projects/xcode/Build
 /projects/xcode/DerivedData
+
+#CodeLite
+/projects/codelite/.*
+/projects/codelite/Debug
+/projects/codelite/Release
+/projects/codelite/Makefile
+/projects/codelite/*.txt
+/projects/codelite/*.mk
+
