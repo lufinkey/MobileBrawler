@@ -63,10 +63,7 @@ namespace SmashBros
 			{
 				if(dragging && dragTouchID==event.getTouchID())
 				{
-					auto frame = getFrame();
 					auto realPosition = event.getPosition();
-					realPosition.x += frame.x;
-					realPosition.y += frame.y;
 					setCenter(realPosition + dragOffset);
 					return true;
 				}
@@ -134,10 +131,7 @@ namespace SmashBros
 				dragging = true;
 				dragTouchID = touchEvent.getTouchID();
 				auto center = getCenter();
-				auto frame = getFrame();
 				auto realPosition = touchEvent.getPosition();
-				realPosition.x += frame.x;
-				realPosition.y += frame.y;
 				dragOffset = center - realPosition;
 				size_t index = charSelectScreen->chips.indexOf(this);
 				if(index!=-1)
